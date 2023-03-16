@@ -1,1 +1,1 @@
-export type {} from "../types/data-explorer-ui";
+export type {} from "../types/findable-ui";
