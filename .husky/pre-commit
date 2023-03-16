@@ -1,0 +1,38 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo '🏗️👷 Checking your project before committing'
+
+
+echo 'Checking data-explorer-ui'
+
+cd ./packages/data-explorer-ui
+
+# Check Prettier
+npm run check-format ||
+(
+    echo '🤔 Prettier Check Failed. Run npx prettier --write . try commit again.';
+    false;
+)
+
+# Check ESLint
+npm run lint ||
+(
+    echo '🤔  ESLint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+    false; 
+)
+
+# Run tests
+npm test ||
+(
+	echo 'Tests failed';
+	false;
+)
+
+# Check TypeScript
+npm run test-compile ||
+(
+	echo 'TypeScript compile failed';
+	false;
+)
+echo 'TypeScript compile succeeded!'
