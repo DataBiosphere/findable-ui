@@ -11,7 +11,7 @@ jobs:
           node-version: "16.15.0"
       
       - run: |
-          cd packages/data-explorer-ui
+          cd packages/findable-ui
           npm ci
           npm run check-format
           npm run lint
