@@ -4,9 +4,7 @@
 echo '🏗️👷 Checking your project before committing'
 
 
-echo 'Checking data-explorer-ui'
-
-cd ./packages/data-explorer-ui
+echo 'Checking findable-ui'
 
 # Check Prettier
 npm run check-format ||
