@@ -44,7 +44,13 @@ export const useEntityList = (
   } = useEntityService();
   const { exploreDispatch, exploreState } = useExploreState();
   const { data, isIdle, isLoading, run } = useAsync<AzulEntitiesResponse>();
-  const { catalogState, entityPageState, filterState, tabValue } = exploreState;
+  const {
+    catalogState,
+    entityPageState,
+    featureFlagState,
+    filterState,
+    tabValue,
+  } = exploreState;
   const { pagination, termFacets } = data || {};
   const { updateFilterQueryString } = useURLFilterParams();
   const { sorting } = entityPageState[tabValue];
@@ -58,8 +64,8 @@ export const useEntityList = (
 
   // Update the filter query string when the filter state changes.
   useEffect(() => {
-    updateFilterQueryString(catalogState, filterState);
-  }, [catalogState, filterState, updateFilterQueryString]);
+    updateFilterQueryString(catalogState, featureFlagState, filterState);
+  }, [catalogState, featureFlagState, filterState, updateFilterQueryString]);
 
   // Fetch entities - on change of filter state - server-side fetching and server-side filtering.
   useEffect(() => {

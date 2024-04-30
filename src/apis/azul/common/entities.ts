@@ -181,4 +181,5 @@ export enum MANIFEST_DOWNLOAD_FORMAT {
   "FULL" = "full",
   "TERRA_BDBAG" = "terra.bdbag",
   "TERRA_PFB" = "terra.pfb",
+  "VERBATIM_PFB" = "verbatim.pfb",
 }

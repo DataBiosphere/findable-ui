@@ -80,6 +80,7 @@ export type ExploreState = {
   catalogState: CatalogState;
   categoryViews: SelectCategory[];
   entityPageState: EntityPageStateMapper;
+  featureFlagState: FeatureFlagState;
   filterCount: number;
   filterState: SelectedFilter[];
   isRelatedView: boolean;
@@ -98,6 +99,8 @@ export interface ExploreStateContextProps {
   exploreDispatch: Dispatch<ExploreAction>;
   exploreState: ExploreState;
 }
+
+export type FeatureFlagState = string | undefined;
 
 /**
  * List items.
@@ -175,7 +178,8 @@ export function ExploreStateProvider({
 }): JSX.Element {
   const { config, defaultEntityListType } = useConfig();
   const categoryConfigs = useCategoryConfigs();
-  const { decodedCatalogParam, decodedFilterParam } = useURLFilterParams();
+  const { decodedCatalogParam, decodedFeatureFlagParam, decodedFilterParam } =
+    useURLFilterParams();
   const { isEnabled: isAuthEnabled, token } = useAuthentication();
   const entityList = entityListType || defaultEntityListType;
   const [initReducerState] = useState(() =>
@@ -183,7 +187,8 @@ export function ExploreStateProvider({
       config,
       entityList,
       decodedFilterParam,
-      decodedCatalogParam
+      decodedCatalogParam,
+      decodedFeatureFlagParam
     )
   );
 

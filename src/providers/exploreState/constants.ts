@@ -16,6 +16,7 @@ export const INITIAL_STATE: ExploreState = {
   catalogState: undefined,
   categoryViews: [],
   entityPageState: {},
+  featureFlagState: undefined,
   filterCount: 0,
   filterState: [],
   isRelatedView: false,
