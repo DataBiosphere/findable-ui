@@ -100,6 +100,7 @@ export const NavigationGrid = styled.div<GridProps>`
 export const ContentGrid = styled.div<GridProps>`
   ${content};
   grid-area: content;
+  min-width: 0;
 `;
 
 export const OutlineGrid = styled("div")<GridProps>`
