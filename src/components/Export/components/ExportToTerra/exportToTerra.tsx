@@ -18,7 +18,7 @@ export interface ExportToTerraProps {
   fileSummaryFacetName: string;
   filters: Filters; // Initializes export to terra filters.
   formFacet: FormFacet;
-  manifestDownloadFormat: ManifestDownloadFormat;
+  manifestDownloadFormat?: ManifestDownloadFormat;
   manifestDownloadFormats: ManifestDownloadFormat[];
 }
 

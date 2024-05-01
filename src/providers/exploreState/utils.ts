@@ -25,13 +25,15 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
  * @param entityListType - Entity list type.
  * @param decodedFilterParam - Decoded filter parameter.
  * @param decodedCatalogParam - Decoded catalog parameter.
+ * @param decodedFeatureFlagParam - Decoded feature flag parameter.
  * @returns explore state.
  */
 export function initExploreState(
   config: SiteConfig,
   entityListType: string,
   decodedFilterParam: string,
-  decodedCatalogParam?: string
+  decodedCatalogParam?: string,
+  decodedFeatureFlagParam?: string
 ): ExploreState {
   const filterState = initFilterState(decodedFilterParam);
   const filterCount = getFilterCount(filterState);
@@ -39,6 +41,7 @@ export function initExploreState(
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
     entityPageState: initEntityPageState(config),
+    featureFlagState: decodedFeatureFlagParam,
     filterCount,
     filterState,
     listView: ENTITY_VIEW.EXACT,
