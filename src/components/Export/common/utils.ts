@@ -15,18 +15,16 @@ export function buildExportToTerraUrl(
   location?: string
 ): string {
   if (!location) {
-    console.error(
+    throw new Error(
       "Error attempting to build export to Terra link. No location given."
     );
-    return "";
   }
 
   const format = requestParams.get("format"); // TODO(cc) constant
   if (!format) {
-    console.error(
+    throw new Error(
       "Error attempting to build export to Terra link. No format found."
     );
-    return "";
   }
 
   // Build up request params for export link: format if PFB and the encoded location.
@@ -38,10 +36,9 @@ export function buildExportToTerraUrl(
     // Translate Azul PFB format param value to Terra PFB format value. That is, terra.pfb to PFB.
     paramTokens.push(`format=${EXPORT_TO_TERRA_URL_PFB_FORMAT}`);
   } else {
-    console.error(
+    throw new Error(
       "Error attempting to build export to Terra link. Unsupported format."
     );
-    return "";
   }
 
   const encodedUrl = encodeURIComponent(location);
