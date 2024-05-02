@@ -15,25 +15,30 @@ export function buildExportToTerraUrl(
   location?: string
 ): string {
   if (!location) {
-    console.error(
+    throw new Error(
       "Error attempting to build export to Terra link. No location given."
     );
-    return "";
   }
 
   const format = requestParams.get("format"); // TODO(cc) constant
   if (!format) {
-    console.error(
+    throw new Error(
       "Error attempting to build export to Terra link. No format found."
     );
-    return "";
   }
 
   // Build up request params for export link: format if PFB and the encoded location.
   const paramTokens = [];
-  if (format === MANIFEST_DOWNLOAD_FORMAT.TERRA_PFB) {
+  if (
+    format === MANIFEST_DOWNLOAD_FORMAT.TERRA_PFB ||
+    format === MANIFEST_DOWNLOAD_FORMAT.VERBATIM_PFB
+  ) {
     // Translate Azul PFB format param value to Terra PFB format value. That is, terra.pfb to PFB.
     paramTokens.push(`format=${EXPORT_TO_TERRA_URL_PFB_FORMAT}`);
+  } else {
+    throw new Error(
+      `Error attempting to build export to Terra link. Unsupported format: ${format}`
+    );
   }
 
   const encodedUrl = encodeURIComponent(location);
