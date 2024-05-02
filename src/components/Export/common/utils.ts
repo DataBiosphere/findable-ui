@@ -31,9 +31,17 @@ export function buildExportToTerraUrl(
 
   // Build up request params for export link: format if PFB and the encoded location.
   const paramTokens = [];
-  if (format === MANIFEST_DOWNLOAD_FORMAT.TERRA_PFB) {
+  if (
+    format === MANIFEST_DOWNLOAD_FORMAT.TERRA_PFB ||
+    format === MANIFEST_DOWNLOAD_FORMAT.VERBATIM_PFB
+  ) {
     // Translate Azul PFB format param value to Terra PFB format value. That is, terra.pfb to PFB.
     paramTokens.push(`format=${EXPORT_TO_TERRA_URL_PFB_FORMAT}`);
+  } else {
+    console.error(
+      "Error attempting to build export to Terra link. Unsupported format."
+    );
+    return "";
   }
 
   const encodedUrl = encodeURIComponent(location);
