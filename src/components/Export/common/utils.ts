@@ -37,7 +37,7 @@ export function buildExportToTerraUrl(
     paramTokens.push(`format=${EXPORT_TO_TERRA_URL_PFB_FORMAT}`);
   } else {
     throw new Error(
-      "Error attempting to build export to Terra link. Unsupported format."
+      `Error attempting to build export to Terra link. Unsupported format: ${format}`
     );
   }
 
