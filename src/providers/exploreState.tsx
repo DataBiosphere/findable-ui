@@ -421,13 +421,9 @@ function exploreReducer(
         ...state,
         categoryGroupConfigs: entityPageState[tabValue].categoryGroupConfigs,
         categoryViews: nextCategoryViews ?? categoryViews,
-        entityPageState: {
-          ...entityPageState,
-          [tabValue]: {
-            ...entityPageState[tabValue],
-            categoryViews: nextCategoryViews ?? categoryViews,
-          },
-        },
+        entityPageState: updateEntityPageState(tabValue, entityPageState, {
+          categoryViews: nextCategoryViews ?? categoryViews,
+        }),
         listItems: payload.loading ? [] : payload.listItems,
         loading: payload.loading,
         paginationState: {
