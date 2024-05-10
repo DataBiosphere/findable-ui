@@ -41,6 +41,7 @@ import {
   getFilterCount,
   initExploreState,
   resetPage,
+  updateEntityPageState,
 } from "./exploreState/utils";
 
 export type CatalogState = string | undefined;
@@ -371,10 +372,17 @@ function exploreReducer(
      * Clear all filters
      **/
     case ExploreActionKind.ClearFilters: {
+      const filterCount = 0;
+      const filterState: SelectedFilter[] = [];
       return {
         ...state,
-        filterCount: 0,
-        filterState: [],
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { filterCount, filterState }
+        ),
+        filterCount,
+        filterState,
         paginationState: resetPage(state.paginationState),
       };
     }
