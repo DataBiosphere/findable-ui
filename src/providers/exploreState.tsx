@@ -498,14 +498,11 @@ function exploreReducer(
       const filterCount = getFilterCount(filterState);
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [state.tabValue]: {
-            ...state.entityPageState[state.tabValue],
-            filterCount,
-            filterState,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { filterCount, filterState }
+        ),
         filterCount,
         filterState,
         paginationState: resetPage(state.paginationState),
@@ -515,17 +512,13 @@ function exploreReducer(
      * Update sorting
      **/
     case ExploreActionKind.UpdateSorting: {
-      const currentEntity = state.tabValue;
-      const currentPageState = state.entityPageState[currentEntity];
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [currentEntity]: {
-            ...currentPageState,
-            sorting: payload,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { sorting: payload }
+        ),
         paginationState: resetPage(state.paginationState),
       };
     }
@@ -533,17 +526,13 @@ function exploreReducer(
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
-      const currentEntity = state.tabValue;
-      const currentPageState = state.entityPageState[currentEntity];
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [currentEntity]: {
-            ...currentPageState,
-            columnsVisibility: payload,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { columnsVisibility: payload }
+        ),
       };
     }
 
