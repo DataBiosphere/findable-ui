@@ -465,10 +465,14 @@ function exploreReducer(
       if (payload === state.tabValue) {
         return state;
       }
+      const { entityPageState } = state;
+      const entityState = entityPageState[payload];
       return {
         ...state,
-        filterCount: state.entityPageState[payload].filterCount,
-        filterState: state.entityPageState[payload].filterState,
+        categoryGroupConfigs: entityState.categoryGroupConfigs,
+        categoryViews: entityState.categoryViews,
+        filterCount: entityState.filterCount,
+        filterState: entityState.filterState,
         listItems: [],
         loading: true,
         paginationState: resetPage(state.paginationState),
