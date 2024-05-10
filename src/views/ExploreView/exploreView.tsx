@@ -66,16 +66,16 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
-  const {
-    categoryGroupConfigs,
-    entities,
-    explorerTitle,
-    summaryConfig,
-    trackingConfig,
-  } = config;
+  const { entities, explorerTitle, summaryConfig, trackingConfig } = config;
   const { listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
-  const { categoryViews, filterCount, isRelatedView, tabValue } = exploreState;
+  const {
+    categoryGroupConfigs,
+    categoryViews,
+    filterCount,
+    isRelatedView,
+    tabValue,
+  } = exploreState;
   const { push } = useRouter();
   const tabs = getTabs(entities);
   const { response: summaryResponse } = useSummary(); // Fetch summary.
@@ -291,7 +291,7 @@ function renderList(
   if (entityListType !== tabValue) {
     // required currently for client-side fetching as the pre-rendered page
     // loads with the previous tabs data on the first render after switching tabs. (or similar)
-    return <></>; // TODO(Fran) review loading and return.
+    return <></>;
   }
 
   return (

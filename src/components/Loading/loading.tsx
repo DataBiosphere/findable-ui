@@ -21,6 +21,7 @@ export enum LOADING_PANEL_STYLE {
 }
 
 export interface LoadingProps {
+  appear?: boolean; // Note, if false, the component will not transition on the initial render and onEnter callbacks will not be called. In this instance, ensure the parent container is styled correctly with position relative.
   iconSize?: SvgIconProps["fontSize"];
   loading: boolean;
   panelStyle?: LoadingPanelStyle; // Enables loading to mirror parent container styles.
@@ -28,6 +29,7 @@ export interface LoadingProps {
 }
 
 export const Loading = ({
+  appear = true,
   iconSize = "large",
   loading,
   panelStyle = PAPER_PANEL_STYLE.ROUNDED,
@@ -35,6 +37,7 @@ export const Loading = ({
 }: LoadingProps): JSX.Element | null => {
   return (
     <Fade
+      appear={appear}
       in={loading}
       mountOnEnter
       onEnter={(node: HTMLElement): void => onFadeEnter(node)}
@@ -59,7 +62,7 @@ export const Loading = ({
  */
 function onFadeEnter(node: HTMLElement): void {
   const parentEl = node.parentElement;
-  if (parentEl) parentEl.style.position = "relative";
+  if (parentEl) parentEl.style.setProperty("position", "relative");
 }
 
 /**
@@ -69,5 +72,5 @@ function onFadeEnter(node: HTMLElement): void {
  */
 function onFadeExited(node: HTMLElement): void {
   const parentEl = node.parentElement;
-  if (parentEl) parentEl.style.position = "";
+  if (parentEl) parentEl.style.removeProperty("position");
 }

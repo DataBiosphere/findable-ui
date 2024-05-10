@@ -11,6 +11,7 @@ import {
   sortingFn,
 } from "../Table/common/utils";
 import { Table } from "../Table/table";
+import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 
 export interface TableCreatorProps<T> {
   columns: ColumnConfig<T>[];
@@ -69,8 +70,9 @@ export const TableCreator = <T extends object>({
   );
   const initialState = getInitialState(columns, defaultSort);
   return (
-    <div>
+    <TableCreatorContainer>
       <Loading
+        appear={false}
         loading={loading || false}
         panelStyle={PAPER_PANEL_STYLE.FLUID}
       />
@@ -86,6 +88,6 @@ export const TableCreator = <T extends object>({
         pagination={pagination}
         total={total}
       />
-    </div>
+    </TableCreatorContainer>
   );
 };
