@@ -143,6 +143,7 @@ export type EntityPath = string;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
 export interface EntityConfig<T = any, I = any> extends TabConfig {
   apiPath?: EntityPath;
+  categoryGroupConfigs?: CategoryGroupConfig[];
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;

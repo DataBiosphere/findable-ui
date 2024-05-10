@@ -10,9 +10,13 @@ import React, {
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategory, SelectedFilter } from "../common/entities";
-import { CategoryConfig, EntityPath, SiteConfig } from "../config/entities";
+import {
+  CategoryConfig,
+  CategoryGroupConfig,
+  EntityPath,
+  SiteConfig,
+} from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
-import { useCategoryConfigs } from "../hooks/useCategoryConfigs";
 import {
   buildCategoryViews,
   buildNextFilterState,
@@ -53,7 +57,6 @@ export enum ENTITY_VIEW {
  * Explore context.
  */
 export interface ExploreContext {
-  categoryConfigs?: CategoryConfig[];
   config: SiteConfig;
   entityList: string;
 }
@@ -62,7 +65,12 @@ export interface ExploreContext {
  * State for each entity.
  */
 export interface EntityPageState {
+  categoryConfigs?: CategoryConfig[];
+  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoryViews: SelectCategory[];
   columnsVisibility: Record<string, boolean>;
+  filterCount: number;
+  filterState: SelectedFilter[];
   sorting: ColumnSort[];
 }
 
@@ -78,6 +86,7 @@ export interface EntityPageStateMapper {
  */
 export type ExploreState = {
   catalogState: CatalogState;
+  categoryGroupConfigs?: CategoryGroupConfig[];
   categoryViews: SelectCategory[];
   entityPageState: EntityPageStateMapper;
   featureFlagState: FeatureFlagState;
@@ -177,7 +186,6 @@ export function ExploreStateProvider({
   entityListType: string;
 }): JSX.Element {
   const { config, defaultEntityListType } = useConfig();
-  const categoryConfigs = useCategoryConfigs();
   const { decodedCatalogParam, decodedFeatureFlagParam, decodedFilterParam } =
     useURLFilterParams();
   const { isEnabled: isAuthEnabled, token } = useAuthentication();
@@ -195,7 +203,6 @@ export function ExploreStateProvider({
   const [exploreState, exploreDispatch] = useReducer(
     (s: ExploreState, a: ExploreAction) =>
       exploreReducer(s, a, {
-        categoryConfigs,
         config,
         entityList,
       }),
@@ -357,7 +364,7 @@ function exploreReducer(
   exploreContext: ExploreContext
 ): ExploreState {
   const { payload, type } = action;
-  const { categoryConfigs, config, entityList } = exploreContext;
+  const { config, entityList } = exploreContext;
 
   switch (type) {
     /**
@@ -392,15 +399,27 @@ function exploreReducer(
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
+      const { entityPageState, tabValue } = state;
+      const { categoryConfigs, categoryViews, filterState } =
+        entityPageState[tabValue];
+      const nextCategoryViews = payload.selectCategories
+        ? buildCategoryViews(
+            payload.selectCategories,
+            categoryConfigs,
+            filterState
+          )
+        : undefined;
       return {
         ...state,
-        categoryViews: payload.selectCategories
-          ? buildCategoryViews(
-              payload.selectCategories,
-              categoryConfigs,
-              state.filterState
-            )
-          : state.categoryViews,
+        categoryGroupConfigs: entityPageState[tabValue].categoryGroupConfigs,
+        categoryViews: nextCategoryViews ?? categoryViews,
+        entityPageState: {
+          ...entityPageState,
+          [tabValue]: {
+            ...entityPageState[tabValue],
+            categoryViews: nextCategoryViews ?? categoryViews,
+          },
+        },
         listItems: payload.loading ? [] : payload.listItems,
         loading: payload.loading,
         paginationState: {
@@ -444,6 +463,8 @@ function exploreReducer(
       }
       return {
         ...state,
+        filterCount: state.entityPageState[payload].filterCount,
+        filterState: state.entityPageState[payload].filterState,
         listItems: [],
         loading: true,
         paginationState: resetPage(state.paginationState),
@@ -470,9 +491,18 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
+      const filterCount = getFilterCount(filterState);
       return {
         ...state,
-        filterCount: getFilterCount(filterState),
+        entityPageState: {
+          ...state.entityPageState,
+          [state.tabValue]: {
+            ...state.entityPageState[state.tabValue],
+            filterCount,
+            filterState,
+          },
+        },
+        filterCount,
         filterState,
         paginationState: resetPage(state.paginationState),
       };

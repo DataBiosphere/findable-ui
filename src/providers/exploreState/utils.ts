@@ -1,6 +1,10 @@
 import { SelectedFilter } from "../../common/entities";
 import { getInitialTableColumnVisibility } from "../../components/Table/common/utils";
-import { SiteConfig } from "../../config/entities";
+import {
+  CategoryConfig,
+  CategoryGroupConfig,
+  SiteConfig,
+} from "../../config/entities";
 import { getDefaultSorting } from "../../config/utils";
 import {
   EntityPageStateMapper,
@@ -35,11 +39,13 @@ export function initExploreState(
   decodedCatalogParam?: string,
   decodedFeatureFlagParam?: string
 ): ExploreState {
+  const entityPageState = initEntityPageState(config);
   const filterState = initFilterState(decodedFilterParam);
   const filterCount = getFilterCount(filterState);
   return {
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
+    categoryGroupConfigs: entityPageState[entityListType].categoryGroupConfigs,
     entityPageState: initEntityPageState(config),
     featureFlagState: decodedFeatureFlagParam,
     filterCount,
@@ -47,6 +53,19 @@ export function initExploreState(
     listView: ENTITY_VIEW.EXACT,
     tabValue: entityListType,
   };
+}
+
+/**
+ * Returns configured grouped configured categories as a list of configured categories.
+ * @param categoryGroupConfigs - Configured category groups.
+ * @returns a list of configured categories.
+ */
+function flattenCategoryGroupConfigs(
+  categoryGroupConfigs?: CategoryGroupConfig[]
+): CategoryConfig[] | undefined {
+  return categoryGroupConfigs?.flatMap(
+    ({ categoryConfigs }) => categoryConfigs
+  );
 }
 
 /**
@@ -71,11 +90,20 @@ export function initFilterState(decodedFilterParam: string): SelectedFilter[] {
  * @returns entity page state.
  */
 export function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
+  const { categoryGroupConfigs } = config;
   return config.entities.reduce(
     (acc, entity) => ({
       ...acc,
       [entity.route]: {
+        categoryConfigs: flattenCategoryGroupConfigs(
+          entity.categoryGroupConfigs ?? categoryGroupConfigs
+        ),
+        categoryGroupConfigs:
+          entity.categoryGroupConfigs ?? categoryGroupConfigs,
+        categoryViews: [],
         columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
+        filterCount: 0,
+        filterState: [],
         sorting: getDefaultSorting(entity),
       },
     }),
