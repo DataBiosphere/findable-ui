@@ -41,6 +41,7 @@ import {
   getFilterCount,
   initExploreState,
   resetPage,
+  updateEntityPageState,
 } from "./exploreState/utils";
 
 export type CatalogState = string | undefined;
@@ -371,10 +372,17 @@ function exploreReducer(
      * Clear all filters
      **/
     case ExploreActionKind.ClearFilters: {
+      const filterCount = 0;
+      const filterState: SelectedFilter[] = [];
       return {
         ...state,
-        filterCount: 0,
-        filterState: [],
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { filterCount, filterState }
+        ),
+        filterCount,
+        filterState,
         paginationState: resetPage(state.paginationState),
       };
     }
@@ -413,13 +421,9 @@ function exploreReducer(
         ...state,
         categoryGroupConfigs: entityPageState[tabValue].categoryGroupConfigs,
         categoryViews: nextCategoryViews ?? categoryViews,
-        entityPageState: {
-          ...entityPageState,
-          [tabValue]: {
-            ...entityPageState[tabValue],
-            categoryViews: nextCategoryViews ?? categoryViews,
-          },
-        },
+        entityPageState: updateEntityPageState(tabValue, entityPageState, {
+          categoryViews: nextCategoryViews ?? categoryViews,
+        }),
         listItems: payload.loading ? [] : payload.listItems,
         loading: payload.loading,
         paginationState: {
@@ -461,10 +465,14 @@ function exploreReducer(
       if (payload === state.tabValue) {
         return state;
       }
+      const { entityPageState } = state;
+      const entityState = entityPageState[payload];
       return {
         ...state,
-        filterCount: state.entityPageState[payload].filterCount,
-        filterState: state.entityPageState[payload].filterState,
+        categoryGroupConfigs: entityState.categoryGroupConfigs,
+        categoryViews: entityState.categoryViews,
+        filterCount: entityState.filterCount,
+        filterState: entityState.filterState,
         listItems: [],
         loading: true,
         paginationState: resetPage(state.paginationState),
@@ -494,14 +502,11 @@ function exploreReducer(
       const filterCount = getFilterCount(filterState);
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [state.tabValue]: {
-            ...state.entityPageState[state.tabValue],
-            filterCount,
-            filterState,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { filterCount, filterState }
+        ),
         filterCount,
         filterState,
         paginationState: resetPage(state.paginationState),
@@ -511,17 +516,13 @@ function exploreReducer(
      * Update sorting
      **/
     case ExploreActionKind.UpdateSorting: {
-      const currentEntity = state.tabValue;
-      const currentPageState = state.entityPageState[currentEntity];
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [currentEntity]: {
-            ...currentPageState,
-            sorting: payload,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { sorting: payload }
+        ),
         paginationState: resetPage(state.paginationState),
       };
     }
@@ -529,17 +530,13 @@ function exploreReducer(
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
-      const currentEntity = state.tabValue;
-      const currentPageState = state.entityPageState[currentEntity];
       return {
         ...state,
-        entityPageState: {
-          ...state.entityPageState,
-          [currentEntity]: {
-            ...currentPageState,
-            columnsVisibility: payload,
-          },
-        },
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { columnsVisibility: payload }
+        ),
       };
     }
 

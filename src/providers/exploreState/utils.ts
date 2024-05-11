@@ -7,6 +7,7 @@ import {
 } from "../../config/entities";
 import { getDefaultSorting } from "../../config/utils";
 import {
+  EntityPageState,
   EntityPageStateMapper,
   ENTITY_VIEW,
   ExploreState,
@@ -46,7 +47,10 @@ export function initExploreState(
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
     categoryGroupConfigs: entityPageState[entityListType].categoryGroupConfigs,
-    entityPageState: initEntityPageState(config),
+    entityPageState: updateEntityPageState(entityListType, entityPageState, {
+      filterCount,
+      filterState,
+    }),
     featureFlagState: decodedFeatureFlagParam,
     filterCount,
     filterState,
@@ -121,4 +125,25 @@ export function resetPage(paginationState: PaginationState): PaginationState {
   nextPaginationState.index = null;
   nextPaginationState.currentPage = 1;
   return nextPaginationState;
+}
+
+/**
+ * Updates entity page state for the given entity type.
+ * @param entityListType - Entity list type.
+ * @param entityPageState - Entity page state.
+ * @param nextEntityPageState - Partial next entity page state.
+ * @returns updated entity page state.
+ */
+export function updateEntityPageState(
+  entityListType: string,
+  entityPageState: EntityPageStateMapper,
+  nextEntityPageState: Partial<EntityPageState>
+): EntityPageStateMapper {
+  return {
+    ...entityPageState,
+    [entityListType]: {
+      ...entityPageState[entityListType],
+      ...nextEntityPageState,
+    },
+  };
 }
