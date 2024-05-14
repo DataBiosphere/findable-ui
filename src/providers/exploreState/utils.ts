@@ -94,16 +94,17 @@ export function initFilterState(decodedFilterParam: string): SelectedFilter[] {
  * @returns entity page state.
  */
 export function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
-  const { categoryGroupConfigs } = config;
+  const { categoriesConfig } = config;
+  const { categoryGroupConfigs } = categoriesConfig || {};
   return config.entities.reduce(
-    (acc, entity) => ({
+    (acc, entity): EntityPageStateMapper => ({
       ...acc,
       [entity.route]: {
         categoryConfigs: flattenCategoryGroupConfigs(
-          entity.categoryGroupConfigs ?? categoryGroupConfigs
+          entity.categoriesConfig?.categoryGroupConfigs ?? categoryGroupConfigs
         ),
         categoryGroupConfigs:
-          entity.categoryGroupConfigs ?? categoryGroupConfigs,
+          entity.categoriesConfig?.categoryGroupConfigs ?? categoryGroupConfigs,
         categoryViews: [],
         columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
         filterCount: 0,
@@ -111,7 +112,7 @@ export function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
         sorting: getDefaultSorting(entity),
       },
     }),
-    {}
+    {} as EntityPageStateMapper
   );
 }
 

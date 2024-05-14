@@ -84,7 +84,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroupConfigs),
-    [categoryViews, categoryGroupConfigs]
+    [categoryGroupConfigs, categoryViews]
   );
 
   /**

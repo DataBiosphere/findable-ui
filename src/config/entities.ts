@@ -51,6 +51,14 @@ export interface BackPageTabConfig extends TabConfig {
 }
 
 /**
+ * Model of configured categories in site config.
+ */
+export interface CategoriesConfig {
+  categoryGroupConfigs: CategoryGroupConfig[];
+  key: string;
+}
+
+/**
  * Model of grouped configured categories in site config.
  */
 export interface CategoryGroupConfig {
@@ -143,7 +151,7 @@ export type EntityPath = string;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
 export interface EntityConfig<T = any, I = any> extends TabConfig {
   apiPath?: EntityPath;
-  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoriesConfig?: CategoriesConfig;
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;
@@ -358,7 +366,7 @@ export interface SiteConfig {
   appTitle: string;
   authentication?: AuthenticationConfig;
   browserURL: string;
-  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoriesConfig?: CategoriesConfig;
   contentDir?: string;
   contentThemeOptionsFn?: ThemeOptionsFn;
   dataSource: DataSourceConfig;
