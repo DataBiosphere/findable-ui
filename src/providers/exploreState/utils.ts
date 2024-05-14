@@ -3,6 +3,7 @@ import { getInitialTableColumnVisibility } from "../../components/Table/common/u
 import {
   CategoryConfig,
   CategoryGroupConfig,
+  EntityConfig,
   SiteConfig,
 } from "../../config/entities";
 import { getDefaultSorting } from "../../config/utils";
@@ -60,6 +61,23 @@ export function initExploreState(
 }
 
 /**
+ * Returns entity related configured grouped categories where entity config takes precedence over site config.
+ * @param siteConfig - Site config.
+ * @param entityConfig - Entity config.
+ * @returns entity related configured grouped categories.
+ */
+function getEntityCategoryConfigs(
+  siteConfig: SiteConfig,
+  entityConfig: EntityConfig
+): CategoryGroupConfig[] | undefined {
+  const siteCategoryGroupConfigs =
+    siteConfig.categoriesConfig?.categoryGroupConfigs;
+  const entityCategoryGroupConfigs =
+    entityConfig.categoriesConfig?.categoryGroupConfigs;
+  return entityCategoryGroupConfigs ?? siteCategoryGroupConfigs;
+}
+
+/**
  * Returns configured grouped configured categories as a list of configured categories.
  * @param categoryGroupConfigs - Configured category groups.
  * @returns a list of configured categories.
@@ -94,26 +112,21 @@ export function initFilterState(decodedFilterParam: string): SelectedFilter[] {
  * @returns entity page state.
  */
 export function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
-  const { categoriesConfig } = config;
-  const { categoryGroupConfigs } = categoriesConfig || {};
-  return config.entities.reduce(
-    (acc, entity): EntityPageStateMapper => ({
+  return config.entities.reduce((acc, entity): EntityPageStateMapper => {
+    const categoryGroupConfigs = getEntityCategoryConfigs(config, entity);
+    return {
       ...acc,
       [entity.route]: {
-        categoryConfigs: flattenCategoryGroupConfigs(
-          entity.categoriesConfig?.categoryGroupConfigs ?? categoryGroupConfigs
-        ),
-        categoryGroupConfigs:
-          entity.categoriesConfig?.categoryGroupConfigs ?? categoryGroupConfigs,
+        categoryConfigs: flattenCategoryGroupConfigs(categoryGroupConfigs),
+        categoryGroupConfigs,
         categoryViews: [],
         columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
         filterCount: 0,
         filterState: [],
         sorting: getDefaultSorting(entity),
       },
-    }),
-    {} as EntityPageStateMapper
-  );
+    };
+  }, {} as EntityPageStateMapper);
 }
 
 /**
