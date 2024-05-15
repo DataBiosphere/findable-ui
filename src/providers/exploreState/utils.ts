@@ -1,20 +1,58 @@
 import { SelectedFilter } from "../../common/entities";
-import { getInitialTableColumnVisibility } from "../../components/Table/common/utils";
+import { CategoryConfig } from "../../config/entities";
+import { ExploreState, PaginationState } from "../exploreState";
 import {
-  CategoryConfig,
-  CategoryGroupConfig,
-  EntityConfig,
-  SiteConfig,
-} from "../../config/entities";
-import { getDefaultSorting } from "../../config/utils";
-import {
+  CategoriesConfigKey,
   EntityPageState,
   EntityPageStateMapper,
-  ENTITY_VIEW,
-  ExploreState,
-  PaginationState,
-} from "../exploreState";
-import { INITIAL_STATE } from "./constants";
+  EntityState,
+} from "./entities";
+import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
+
+/**
+ * Returns the categories config key for the current entity.
+ * @param entityPath - Entity path.
+ * @param entityPageState - Entity page state mapper.
+ * @returns categories config key.
+ */
+export function getEntityCategoriesConfigKey(
+  entityPath: string,
+  entityPageState: EntityPageStateMapper
+): CategoriesConfigKey {
+  return entityPageState[entityPath].categoriesConfigKey;
+}
+
+/**
+ * Returns the category configs for the current entity.
+ * @param state - Explore state.
+ * @returns category configs.
+ */
+export function getEntityCategoryConfigs(
+  state: ExploreState
+): CategoryConfig[] | undefined {
+  const categoriesConfigKey = getEntityCategoriesConfigKey(
+    state.tabValue,
+    state.entityPageState
+  );
+  return state.entityStateByCategoriesConfigKey.get(categoriesConfigKey)
+    ?.categoryConfigs;
+}
+
+/**
+ * Returns the entity state for the given categories config key.
+ * @param categoriesConfigKey - Categories config key.
+ * @param state - Explore state.
+ * @returns entity state.
+ */
+export function getEntityState(
+  categoriesConfigKey: CategoriesConfigKey,
+  state: ExploreState
+): EntityState {
+  return (
+    state.entityStateByCategoriesConfigKey.get(categoriesConfigKey) ||
+    DEFAULT_ENTITY_STATE
+  );
+}
 
 /**
  * Returns the filter count.
@@ -23,110 +61,6 @@ import { INITIAL_STATE } from "./constants";
  */
 export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
-}
-
-/**
- * Returns the initial explore state.
- * @param config - Site config.
- * @param entityListType - Entity list type.
- * @param decodedFilterParam - Decoded filter parameter.
- * @param decodedCatalogParam - Decoded catalog parameter.
- * @param decodedFeatureFlagParam - Decoded feature flag parameter.
- * @returns explore state.
- */
-export function initExploreState(
-  config: SiteConfig,
-  entityListType: string,
-  decodedFilterParam: string,
-  decodedCatalogParam?: string,
-  decodedFeatureFlagParam?: string
-): ExploreState {
-  const entityPageState = initEntityPageState(config);
-  const filterState = initFilterState(decodedFilterParam);
-  const filterCount = getFilterCount(filterState);
-  return {
-    ...INITIAL_STATE,
-    catalogState: decodedCatalogParam,
-    categoryGroupConfigs: entityPageState[entityListType].categoryGroupConfigs,
-    entityPageState: updateEntityPageState(entityListType, entityPageState, {
-      filterCount,
-      filterState,
-    }),
-    featureFlagState: decodedFeatureFlagParam,
-    filterCount,
-    filterState,
-    listView: ENTITY_VIEW.EXACT,
-    tabValue: entityListType,
-  };
-}
-
-/**
- * Returns entity related configured grouped categories where entity config takes precedence over site config.
- * @param siteConfig - Site config.
- * @param entityConfig - Entity config.
- * @returns entity related configured grouped categories.
- */
-function getEntityCategoryConfigs(
-  siteConfig: SiteConfig,
-  entityConfig: EntityConfig
-): CategoryGroupConfig[] | undefined {
-  const siteCategoryGroupConfigs =
-    siteConfig.categoriesConfig?.categoryGroupConfigs;
-  const entityCategoryGroupConfigs =
-    entityConfig.categoriesConfig?.categoryGroupConfigs;
-  return entityCategoryGroupConfigs ?? siteCategoryGroupConfigs;
-}
-
-/**
- * Returns configured grouped configured categories as a list of configured categories.
- * @param categoryGroupConfigs - Configured category groups.
- * @returns a list of configured categories.
- */
-function flattenCategoryGroupConfigs(
-  categoryGroupConfigs?: CategoryGroupConfig[]
-): CategoryConfig[] | undefined {
-  return categoryGroupConfigs?.flatMap(
-    ({ categoryConfigs }) => categoryConfigs
-  );
-}
-
-/**
- * Initializes filter state from URL "filter" parameter.
- * @param decodedFilterParam - Decoded filter parameter.
- * @returns filter state.
- */
-export function initFilterState(decodedFilterParam: string): SelectedFilter[] {
-  // Define filter state, from URL "filter" parameter, if present and valid.
-  let filterState: SelectedFilter[] = [];
-  try {
-    filterState = JSON.parse(decodedFilterParam);
-  } catch {
-    // do nothing
-  }
-  return filterState;
-}
-
-/**
- * Initializes entity page state.
- * @param config - Site config.
- * @returns entity page state.
- */
-export function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
-  return config.entities.reduce((acc, entity): EntityPageStateMapper => {
-    const categoryGroupConfigs = getEntityCategoryConfigs(config, entity);
-    return {
-      ...acc,
-      [entity.route]: {
-        categoryConfigs: flattenCategoryGroupConfigs(categoryGroupConfigs),
-        categoryGroupConfigs,
-        categoryViews: [],
-        columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
-        filterCount: 0,
-        filterState: [],
-        sorting: getDefaultSorting(entity),
-      },
-    };
-  }, {} as EntityPageStateMapper);
 }
 
 /**
@@ -142,22 +76,48 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 }
 
 /**
- * Updates entity page state for the given entity type.
- * @param entityListType - Entity list type.
+ * Updates entity page state for the given entity path.
+ * @param entityPath - Entity path.
  * @param entityPageState - Entity page state.
  * @param nextEntityPageState - Partial next entity page state.
  * @returns updated entity page state.
  */
 export function updateEntityPageState(
-  entityListType: string,
+  entityPath: string, // entityListType.
   entityPageState: EntityPageStateMapper,
   nextEntityPageState: Partial<EntityPageState>
 ): EntityPageStateMapper {
   return {
     ...entityPageState,
-    [entityListType]: {
-      ...entityPageState[entityListType],
+    [entityPath]: {
+      ...entityPageState[entityPath],
       ...nextEntityPageState,
     },
   };
+}
+
+/**
+ * Updates entity state by categories config key.
+ * @param state - Explore state.
+ * @param nextEntityState - Partial next entity state.
+ * @returns updated entity state by categories config key.
+ */
+export function updateEntityStateByCategoriesConfigKey(
+  state: ExploreState,
+  nextEntityState: Partial<EntityState>
+): void {
+  const entityStateByCategoriesConfigKey =
+    state.entityStateByCategoriesConfigKey;
+  const categoriesConfigKey = getEntityCategoriesConfigKey(
+    state.tabValue,
+    state.entityPageState
+  );
+  const entityState =
+    state.entityStateByCategoriesConfigKey.get(categoriesConfigKey);
+  if (entityState) {
+    entityStateByCategoriesConfigKey.set(categoriesConfigKey, {
+      ...entityState,
+      ...nextEntityState,
+    });
+  }
 }
