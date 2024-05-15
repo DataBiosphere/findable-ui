@@ -6,6 +6,7 @@ export const AnchorLink = styled(Link)`
   color: ${inkLight};
   margin-left: 4px;
   opacity: 0;
+  position: absolute;
   transition: opacity 0.2s ease-in-out;
 
   svg {
