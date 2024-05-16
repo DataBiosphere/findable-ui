@@ -30,9 +30,10 @@ export function getEntityCategoryGroupConfigKey(
 export function getEntityCategoryConfigs(
   state: ExploreState
 ): CategoryConfig[] | undefined {
-  return state.entityStateByCategoryGroupConfigKey.get(
-    getEntityCategoryGroupConfigKey(state.tabValue, state.entityPageState)
-  )?.categoryConfigs;
+  return getEntityState(
+    getEntityCategoryGroupConfigKey(state.tabValue, state.entityPageState),
+    state
+  ).categoryConfigs;
 }
 
 /**
@@ -73,6 +74,23 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 }
 
 /**
+ * Sets entity state for the given category group config key.
+ * @param categoryGroupConfigKey - Category group config key.
+ * @param state - Explore state.
+ * @param nextEntityState - Next entity state.
+ */
+function setEntityStateByCategoryGroupConfigKey(
+  categoryGroupConfigKey: CategoryGroupConfigKey,
+  state: ExploreState,
+  nextEntityState: EntityState
+): void {
+  state.entityStateByCategoryGroupConfigKey.set(
+    categoryGroupConfigKey,
+    nextEntityState
+  );
+}
+
+/**
  * Updates entity page state for the given entity path.
  * @param entityPath - Entity path.
  * @param entityPageState - Entity page state.
@@ -103,17 +121,13 @@ export function updateEntityStateByCategoryGroupConfigKey(
   state: ExploreState,
   nextEntityState: Partial<EntityState>
 ): void {
-  const entityStateByCategoryGroupConfigKey =
-    state.entityStateByCategoryGroupConfigKey;
   const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
   );
-  const entityState = state.entityStateByCategoryGroupConfigKey.get(
-    categoryGroupConfigKey
-  );
+  const entityState = getEntityState(categoryGroupConfigKey, state);
   if (entityState) {
-    entityStateByCategoryGroupConfigKey.set(categoryGroupConfigKey, {
+    setEntityStateByCategoryGroupConfigKey(categoryGroupConfigKey, state, {
       ...entityState,
       ...nextEntityState,
     });
