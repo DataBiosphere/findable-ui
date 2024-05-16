@@ -1,6 +1,11 @@
-import { ExploreState, PaginationState } from "../exploreState";
+import { ExploreState, PaginationState } from "../../exploreState";
+import { EntityState } from "../entities";
 
-// Template constants
+export const DEFAULT_ENTITY_STATE: EntityState = {
+  categoryViews: [],
+  filterState: [],
+};
+
 export const DEFAULT_PAGINATION_STATE: PaginationState = {
   currentPage: 1,
   index: null,
@@ -11,11 +16,11 @@ export const DEFAULT_PAGINATION_STATE: PaginationState = {
   rows: 0,
 };
 
-// Initial state
 export const INITIAL_STATE: ExploreState = {
   catalogState: undefined,
   categoryViews: [],
   entityPageState: {},
+  entityStateByCategoryGroupConfigKey: new Map(),
   featureFlagState: undefined,
   filterCount: 0,
   filterState: [],

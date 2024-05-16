@@ -26,7 +26,7 @@ import { SidebarTools } from "../../components/Layout/components/Sidebar/compone
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
 import { TableCreator } from "../../components/TableCreator/tableCreator";
 import {
-  CategoryGroupConfig,
+  CategoryGroup,
   ComponentsConfig,
   EntityConfig,
   SummaryConfig,
@@ -70,7 +70,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
   const {
-    categoryGroupConfigs,
+    categoryGroups,
     categoryViews,
     filterCount,
     isRelatedView,
@@ -83,8 +83,8 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   useEntityListRelatedView(); // Fetch related entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
-    () => buildCategoryFilters(categoryViews, categoryGroupConfigs),
-    [categoryViews, categoryGroupConfigs]
+    () => buildCategoryFilters(categoryViews, categoryGroups),
+    [categoryGroups, categoryViews]
   );
 
   /**
@@ -216,17 +216,17 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 /**
  * Builds the category views into category views grouped by the given category group configuration.
  * @param selectCategoryViews - View models of categories to display.
- * @param categoryGroupConfigs - Category group configuration.
+ * @param categoryGroups - Category groups.
  * @returns category filters.
  */
 function buildCategoryFilters(
   selectCategoryViews: SelectCategoryView[],
-  categoryGroupConfigs?: CategoryGroupConfig[]
+  categoryGroups?: CategoryGroup[]
 ): CategoryFilter[] {
-  if (!categoryGroupConfigs) {
+  if (!categoryGroups) {
     return [{ categoryViews: selectCategoryViews }];
   }
-  return categoryGroupConfigs.map(({ categoryConfigs, label }) => {
+  return categoryGroups.map(({ categoryConfigs, label }) => {
     // Grab the category views for the configured grouped categories.
     const categoryViews = categoryConfigs.reduce(
       (acc, { key: categoryKey }) => {

@@ -1,4 +1,3 @@
-import { ColumnSort } from "@tanstack/react-table";
 import React, {
   createContext,
   Dispatch,
@@ -10,12 +9,7 @@ import React, {
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategory, SelectedFilter } from "../common/entities";
-import {
-  CategoryConfig,
-  CategoryGroupConfig,
-  EntityPath,
-  SiteConfig,
-} from "../config/entities";
+import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
   buildCategoryViews,
@@ -24,9 +18,14 @@ import {
 import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import {
+  EntityPageStateMapper,
+  EntityStateByCategoryGroupConfigKey,
+} from "./exploreState/entities";
+import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
-} from "./exploreState/constants";
+} from "./exploreState/initializer/constants";
+import { initReducerArguments } from "./exploreState/initializer/utils";
 import {
   PaginateTablePayload,
   ProcessExploreResponsePayload,
@@ -38,10 +37,13 @@ import {
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
+  getEntityCategoryConfigs,
+  getEntityCategoryGroupConfigKey,
+  getEntityState,
   getFilterCount,
-  initExploreState,
   resetPage,
   updateEntityPageState,
+  updateEntityStateByCategoryGroupConfigKey,
 } from "./exploreState/utils";
 
 export type CatalogState = string | undefined;
@@ -63,33 +65,14 @@ export interface ExploreContext {
 }
 
 /**
- * State for each entity.
- */
-export interface EntityPageState {
-  categoryConfigs?: CategoryConfig[];
-  categoryGroupConfigs?: CategoryGroupConfig[];
-  categoryViews: SelectCategory[];
-  columnsVisibility: Record<string, boolean>;
-  filterCount: number;
-  filterState: SelectedFilter[];
-  sorting: ColumnSort[];
-}
-
-/**
- * State for all entities.
- */
-export interface EntityPageStateMapper {
-  [key: EntityPath]: EntityPageState;
-}
-
-/**
  * Explore state.
  */
 export type ExploreState = {
   catalogState: CatalogState;
-  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategory[];
   entityPageState: EntityPageStateMapper;
+  entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
   filterCount: number;
   filterState: SelectedFilter[];
@@ -191,8 +174,8 @@ export function ExploreStateProvider({
     useURLFilterParams();
   const { isEnabled: isAuthEnabled, token } = useAuthentication();
   const entityList = entityListType || defaultEntityListType;
-  const [initReducerState] = useState(() =>
-    initExploreState(
+  const [initializerArg] = useState(() =>
+    initReducerArguments(
       config,
       entityList,
       decodedFilterParam,
@@ -207,7 +190,7 @@ export function ExploreStateProvider({
         config,
         entityList,
       }),
-    initReducerState
+    initializerArg
   );
 
   // does this help? https://hswolff.com/blog/how-to-usecontext-with-usereducer/
@@ -374,13 +357,9 @@ function exploreReducer(
     case ExploreActionKind.ClearFilters: {
       const filterCount = 0;
       const filterState: SelectedFilter[] = [];
+      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
       return {
         ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { filterCount, filterState }
-        ),
         filterCount,
         filterState,
         paginationState: resetPage(state.paginationState),
@@ -407,23 +386,19 @@ function exploreReducer(
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
-      const { entityPageState, tabValue } = state;
-      const { categoryConfigs, categoryViews, filterState } =
-        entityPageState[tabValue];
       const nextCategoryViews = payload.selectCategories
         ? buildCategoryViews(
             payload.selectCategories,
-            categoryConfigs,
-            filterState
+            getEntityCategoryConfigs(state),
+            state.filterState
           )
-        : undefined;
+        : state.categoryViews;
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        categoryViews: nextCategoryViews,
+      });
       return {
         ...state,
-        categoryGroupConfigs: entityPageState[tabValue].categoryGroupConfigs,
-        categoryViews: nextCategoryViews ?? categoryViews,
-        entityPageState: updateEntityPageState(tabValue, entityPageState, {
-          categoryViews: nextCategoryViews ?? categoryViews,
-        }),
+        categoryViews: nextCategoryViews,
         listItems: payload.loading ? [] : payload.listItems,
         loading: payload.loading,
         paginationState: {
@@ -456,7 +431,7 @@ function exploreReducer(
      * Reset the current state to the initial
      */
     case ExploreActionKind.ResetState: {
-      return initExploreState(config, entityList, "");
+      return initReducerArguments(config, entityList, "");
     }
     /**
      * Select entity type
@@ -465,13 +440,15 @@ function exploreReducer(
       if (payload === state.tabValue) {
         return state;
       }
-      const { entityPageState } = state;
-      const entityState = entityPageState[payload];
+      const entityState = getEntityState(
+        getEntityCategoryGroupConfigKey(payload, state.entityPageState),
+        state
+      );
       return {
         ...state,
-        categoryGroupConfigs: entityState.categoryGroupConfigs,
+        categoryGroups: entityState.categoryGroups,
         categoryViews: entityState.categoryViews,
-        filterCount: entityState.filterCount,
+        filterCount: getFilterCount(entityState.filterState),
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
@@ -499,15 +476,10 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      const filterCount = getFilterCount(filterState);
+      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
       return {
         ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { filterCount, filterState }
-        ),
-        filterCount,
+        filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),
       };

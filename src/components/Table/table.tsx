@@ -31,7 +31,7 @@ import { useExploreMode } from "../../hooks/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useScroll } from "../../hooks/useScroll";
 import { ENTITY_VIEW, ExploreActionKind } from "../../providers/exploreState";
-import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/constants";
+import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializer/constants";
 import { TABLET } from "../../theme/common/breakpoints";
 import { FluidPaper, GridPaper } from "../common/Paper/paper.styles";
 import { NoResults } from "../NoResults/noResults";
