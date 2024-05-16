@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategory, SelectedFilter } from "../common/entities";
-import { CategoryGroupConfig, SiteConfig } from "../config/entities";
+import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
   buildCategoryViews,
@@ -19,7 +19,7 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import {
   EntityPageStateMapper,
-  EntityStateByCategoriesConfigKey,
+  EntityStateByCategoryGroupConfigKey,
 } from "./exploreState/entities";
 import {
   DEFAULT_PAGINATION_STATE,
@@ -37,13 +37,13 @@ import {
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
-  getEntityCategoriesConfigKey,
   getEntityCategoryConfigs,
+  getEntityCategoryGroupConfigKey,
   getEntityState,
   getFilterCount,
   resetPage,
   updateEntityPageState,
-  updateEntityStateByCategoriesConfigKey,
+  updateEntityStateByCategoryGroupConfigKey,
 } from "./exploreState/utils";
 
 export type CatalogState = string | undefined;
@@ -69,10 +69,10 @@ export interface ExploreContext {
  */
 export type ExploreState = {
   catalogState: CatalogState;
-  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategory[];
   entityPageState: EntityPageStateMapper;
-  entityStateByCategoriesConfigKey: EntityStateByCategoriesConfigKey;
+  entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
   filterCount: number;
   filterState: SelectedFilter[];
@@ -357,7 +357,7 @@ function exploreReducer(
     case ExploreActionKind.ClearFilters: {
       const filterCount = 0;
       const filterState: SelectedFilter[] = [];
-      updateEntityStateByCategoriesConfigKey(state, { filterState });
+      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
       return {
         ...state,
         filterCount,
@@ -393,7 +393,7 @@ function exploreReducer(
             state.filterState
           )
         : state.categoryViews;
-      updateEntityStateByCategoriesConfigKey(state, {
+      updateEntityStateByCategoryGroupConfigKey(state, {
         categoryViews: nextCategoryViews,
       });
       return {
@@ -440,14 +440,13 @@ function exploreReducer(
       if (payload === state.tabValue) {
         return state;
       }
-      const categoriesConfigKey = getEntityCategoriesConfigKey(
-        payload,
-        state.entityPageState
+      const entityState = getEntityState(
+        getEntityCategoryGroupConfigKey(payload, state.entityPageState),
+        state
       );
-      const entityState = getEntityState(categoriesConfigKey, state);
       return {
         ...state,
-        categoryGroupConfigs: entityState.categoryGroupConfigs,
+        categoryGroups: entityState.categoryGroups,
         categoryViews: entityState.categoryViews,
         filterCount: getFilterCount(entityState.filterState),
         filterState: entityState.filterState,
@@ -477,7 +476,7 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      updateEntityStateByCategoriesConfigKey(state, { filterState });
+      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
       return {
         ...state,
         filterCount: getFilterCount(filterState),

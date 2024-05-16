@@ -20,7 +20,7 @@ export const INITIAL_STATE: ExploreState = {
   catalogState: undefined,
   categoryViews: [],
   entityPageState: {},
-  entityStateByCategoriesConfigKey: new Map(),
+  entityStateByCategoryGroupConfigKey: new Map(),
   featureFlagState: undefined,
   filterCount: 0,
   filterState: [],

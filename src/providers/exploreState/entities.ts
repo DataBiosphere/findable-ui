@@ -1,14 +1,14 @@
 import { ColumnSort } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../common/entities";
 import {
-  CategoriesConfig,
   CategoryConfig,
+  CategoryGroup,
   CategoryGroupConfig,
   EntityPath,
 } from "../../config/entities";
 
 export interface EntityPageState {
-  categoriesConfigKey: CategoriesConfigKey;
+  categoryGroupConfigKey: CategoryGroupConfigKey;
   columnsVisibility: Record<string, boolean>;
   sorting: ColumnSort[];
 }
@@ -19,14 +19,14 @@ export interface EntityPageStateMapper {
 
 export interface EntityState {
   categoryConfigs?: CategoryConfig[];
-  categoryGroupConfigs?: CategoryGroupConfig[];
+  categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategory[];
   filterState: SelectedFilter[];
 }
 
-export type EntityStateByCategoriesConfigKey = Map<
-  CategoriesConfigKey,
+export type EntityStateByCategoryGroupConfigKey = Map<
+  CategoryGroupConfigKey,
   EntityState
 >;
 
-export type CategoriesConfigKey = CategoriesConfig["key"];
+export type CategoryGroupConfigKey = CategoryGroupConfig["key"];

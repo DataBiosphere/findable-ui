@@ -1,8 +1,8 @@
 import { SelectedFilter } from "../../../common/entities";
 import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
 import {
-  CategoriesConfig,
   CategoryConfig,
+  CategoryGroup,
   CategoryGroupConfig,
   EntityConfig,
   SiteConfig,
@@ -10,67 +10,68 @@ import {
 import { getDefaultSorting } from "../../../config/utils";
 import { ExploreState } from "../../exploreState";
 import {
-  CategoriesConfigKey,
+  CategoryGroupConfigKey,
   EntityPageStateMapper,
-  EntityStateByCategoriesConfigKey,
+  EntityStateByCategoryGroupConfigKey,
 } from "../entities";
-import { getEntityCategoriesConfigKey, getFilterCount } from "../utils";
+import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import { DEFAULT_ENTITY_STATE, INITIAL_STATE } from "./constants";
 
 /**
- * Returns entity related configured categories config where entity config takes precedence over site config.
+ * Returns entity related configured category group config where entity config takes precedence over site config.
  * @param siteConfig - Site config.
  * @param entityConfig - Entity config.
- * @returns entity related categories config.
+ * @returns entity related category group config.
  */
-function getEntityCategoriesConfig(
+function getEntityCategoryGroupConfig(
   siteConfig: SiteConfig,
   entityConfig: EntityConfig
-): CategoriesConfig | undefined {
-  const siteCategoriesConfig = siteConfig.categoriesConfig;
-  const entityCategoriesConfig = entityConfig.categoriesConfig;
-  return entityCategoriesConfig ?? siteCategoriesConfig;
+): CategoryGroupConfig | undefined {
+  const siteCategoryGroupConfig = siteConfig.categoryGroupConfig;
+  const entityCategoryGroupConfig = entityConfig.categoryGroupConfig;
+  return entityCategoryGroupConfig ?? siteCategoryGroupConfig;
 }
 
 /**
- * Returns configured grouped configured categories as a list of configured categories.
- * @param categoryGroupConfigs - Configured category groups.
+ * Returns configured category groups as a list of configured categories.
+ * @param categoryGroups - Configured category groups.
  * @returns a list of configured categories.
  */
-function flattenCategoryGroupConfigs(
-  categoryGroupConfigs?: CategoryGroupConfig[]
+function flattenCategoryGroups(
+  categoryGroups?: CategoryGroup[]
 ): CategoryConfig[] | undefined {
-  return categoryGroupConfigs?.flatMap(
-    ({ categoryConfigs }) => categoryConfigs
-  );
+  return categoryGroups?.flatMap(({ categoryConfigs }) => categoryConfigs);
 }
 
 /**
- * Initializes categories config key for the entity.
+ * Initializes category group config key for the entity.
  * @param siteConfig - Site config.
  * @param entityConfig - Entity config.
- * @returns categories config key.
+ * @returns category group config key.
  */
-function initCategoriesConfigKey(
+function initCategoryGroupConfigKey(
   siteConfig: SiteConfig,
   entityConfig: EntityConfig
-): CategoriesConfigKey {
-  const categoriesConfig = getEntityCategoriesConfig(siteConfig, entityConfig);
-  return categoriesConfig?.key || entityConfig.route;
+): CategoryGroupConfigKey {
+  const categoryGroupConfig = getEntityCategoryGroupConfig(
+    siteConfig,
+    entityConfig
+  );
+  return categoryGroupConfig?.key || entityConfig.route;
 }
 
 /**
- * Initializes category group configs for the current entity.
- * @param entityStateByCategoriesConfigKey - Entity state by categories config key.
- * @param categoriesConfigKey - Categories config key.
- * @returns category group configs.
+ * Initializes category groups for the current entity.
+ * @param entityStateByCategoryGroupConfigKey - Entity state by category group config key.
+ * @param categoryGroupConfigKey - Category group config key.
+ * @returns category groups.
  */
-function initCategoryGroupConfigs(
-  entityStateByCategoriesConfigKey: EntityStateByCategoriesConfigKey,
-  categoriesConfigKey: CategoriesConfigKey
-): CategoryGroupConfig[] | undefined {
-  return entityStateByCategoriesConfigKey.get(categoriesConfigKey)
-    ?.categoryGroupConfigs;
+function initCategoryGroups(
+  entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey,
+  categoryGroupConfigKey: CategoryGroupConfigKey
+): CategoryGroup[] | undefined {
+  return entityStateByCategoryGroupConfigKey.get(categoryGroupConfigKey)
+    ?.categoryGroups;
 }
 
 /**
@@ -83,7 +84,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
     return {
       ...acc,
       [entity.route]: {
-        categoriesConfigKey: initCategoriesConfigKey(config, entity),
+        categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
         columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
         sorting: getDefaultSorting(entity),
       },
@@ -92,32 +93,32 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
 }
 
 /**
- * Initializes entity state by categories config key.
+ * Initializes entity state by category group config key.
  * @param config - Site config.
- * @param categoriesConfigKey - Categories config key.
+ * @param categoryGroupConfigKey - Category group config key.
  * @param filterState - Filter state.
- * @returns entity state by categories config key.
+ * @returns entity state by category group config key.
  */
-function initEntityStateByCategoriesConfigKey(
+function initEntityStateByCategoryGroupConfigKey(
   config: SiteConfig,
-  categoriesConfigKey: CategoriesConfigKey,
+  categoryGroupConfigKey: CategoryGroupConfigKey,
   filterState: SelectedFilter[]
-): EntityStateByCategoriesConfigKey {
-  const entityStateByCategoriesConfigKey: EntityStateByCategoriesConfigKey =
+): EntityStateByCategoryGroupConfigKey {
+  const entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey =
     new Map();
   for (const entity of config.entities) {
-    const categoriesConfig = getEntityCategoriesConfig(config, entity);
-    if (!categoriesConfig) continue;
-    const { categoryGroupConfigs, key } = categoriesConfig;
-    if (entityStateByCategoriesConfigKey.has(key)) continue;
-    entityStateByCategoriesConfigKey.set(key, {
+    const categoryGroupConfig = getEntityCategoryGroupConfig(config, entity);
+    if (!categoryGroupConfig) continue;
+    const { categoryGroups, key } = categoryGroupConfig;
+    if (entityStateByCategoryGroupConfigKey.has(key)) continue;
+    entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
-      categoryConfigs: flattenCategoryGroupConfigs(categoryGroupConfigs),
-      categoryGroupConfigs: categoryGroupConfigs,
-      filterState: key === categoriesConfigKey ? filterState : [],
+      categoryConfigs: flattenCategoryGroups(categoryGroups),
+      categoryGroups,
+      filterState: key === categoryGroupConfigKey ? filterState : [],
     });
   }
-  return entityStateByCategoriesConfigKey;
+  return entityStateByCategoryGroupConfigKey;
 }
 
 /**
@@ -154,25 +155,26 @@ export function initReducerArguments(
 ): ExploreState {
   const filterState = initFilterState(decodedFilterParam);
   const entityPageState = initEntityPageState(config);
-  const categoriesConfigKey = getEntityCategoriesConfigKey(
+  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     entityListType,
     entityPageState
   );
-  const entityStateByCategoriesConfigKey = initEntityStateByCategoriesConfigKey(
-    config,
-    categoriesConfigKey,
-    filterState
-  );
-  const categoryGroupConfigs = initCategoryGroupConfigs(
-    entityStateByCategoriesConfigKey,
-    categoriesConfigKey
+  const entityStateByCategoryGroupConfigKey =
+    initEntityStateByCategoryGroupConfigKey(
+      config,
+      categoryGroupConfigKey,
+      filterState
+    );
+  const categoryGroups = initCategoryGroups(
+    entityStateByCategoryGroupConfigKey,
+    categoryGroupConfigKey
   );
   return {
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
-    categoryGroupConfigs,
+    categoryGroups,
     entityPageState,
-    entityStateByCategoriesConfigKey,
+    entityStateByCategoryGroupConfigKey,
     featureFlagState: decodedFeatureFlagParam,
     filterCount: getFilterCount(filterState),
     filterState,

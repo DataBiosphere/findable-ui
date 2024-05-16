@@ -2,7 +2,7 @@ import { SelectedFilter } from "../../common/entities";
 import { CategoryConfig } from "../../config/entities";
 import { ExploreState, PaginationState } from "../exploreState";
 import {
-  CategoriesConfigKey,
+  CategoryGroupConfigKey,
   EntityPageState,
   EntityPageStateMapper,
   EntityState,
@@ -10,16 +10,16 @@ import {
 import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
 
 /**
- * Returns the categories config key for the current entity.
+ * Returns the category group config key for the current entity.
  * @param entityPath - Entity path.
  * @param entityPageState - Entity page state mapper.
- * @returns categories config key.
+ * @returns category group config key.
  */
-export function getEntityCategoriesConfigKey(
+export function getEntityCategoryGroupConfigKey(
   entityPath: string,
   entityPageState: EntityPageStateMapper
-): CategoriesConfigKey {
-  return entityPageState[entityPath].categoriesConfigKey;
+): CategoryGroupConfigKey {
+  return entityPageState[entityPath].categoryGroupConfigKey;
 }
 
 /**
@@ -30,26 +30,23 @@ export function getEntityCategoriesConfigKey(
 export function getEntityCategoryConfigs(
   state: ExploreState
 ): CategoryConfig[] | undefined {
-  const categoriesConfigKey = getEntityCategoriesConfigKey(
-    state.tabValue,
-    state.entityPageState
-  );
-  return state.entityStateByCategoriesConfigKey.get(categoriesConfigKey)
-    ?.categoryConfigs;
+  return state.entityStateByCategoryGroupConfigKey.get(
+    getEntityCategoryGroupConfigKey(state.tabValue, state.entityPageState)
+  )?.categoryConfigs;
 }
 
 /**
- * Returns the entity state for the given categories config key.
- * @param categoriesConfigKey - Categories config key.
+ * Returns the entity state for the given category group config key.
+ * @param categoryGroupConfigKey - Category group config key.
  * @param state - Explore state.
  * @returns entity state.
  */
 export function getEntityState(
-  categoriesConfigKey: CategoriesConfigKey,
+  categoryGroupConfigKey: CategoryGroupConfigKey,
   state: ExploreState
 ): EntityState {
   return (
-    state.entityStateByCategoriesConfigKey.get(categoriesConfigKey) ||
+    state.entityStateByCategoryGroupConfigKey.get(categoryGroupConfigKey) ||
     DEFAULT_ENTITY_STATE
   );
 }
@@ -97,25 +94,26 @@ export function updateEntityPageState(
 }
 
 /**
- * Updates entity state by categories config key.
+ * Updates entity state by category group config key.
  * @param state - Explore state.
  * @param nextEntityState - Partial next entity state.
- * @returns updated entity state by categories config key.
+ * @returns updated entity state by category group config key.
  */
-export function updateEntityStateByCategoriesConfigKey(
+export function updateEntityStateByCategoryGroupConfigKey(
   state: ExploreState,
   nextEntityState: Partial<EntityState>
 ): void {
-  const entityStateByCategoriesConfigKey =
-    state.entityStateByCategoriesConfigKey;
-  const categoriesConfigKey = getEntityCategoriesConfigKey(
+  const entityStateByCategoryGroupConfigKey =
+    state.entityStateByCategoryGroupConfigKey;
+  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
   );
-  const entityState =
-    state.entityStateByCategoriesConfigKey.get(categoriesConfigKey);
+  const entityState = state.entityStateByCategoryGroupConfigKey.get(
+    categoryGroupConfigKey
+  );
   if (entityState) {
-    entityStateByCategoriesConfigKey.set(categoriesConfigKey, {
+    entityStateByCategoryGroupConfigKey.set(categoryGroupConfigKey, {
       ...entityState,
       ...nextEntityState,
     });
