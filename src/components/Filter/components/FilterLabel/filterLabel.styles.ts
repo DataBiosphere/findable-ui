@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
 
 export const FilterLabel = styled(Button)`
-  color: ${({ theme }) => theme.palette.ink.main};
+  font-weight: inherit;
   gap: 0;
   justify-content: space-between;
   padding: 10px 16px;
@@ -15,7 +15,6 @@ export const FilterLabel = styled(Button)`
   }
 
   &.Mui-disabled {
-    color: ${({ theme }) => theme.palette.ink.main};
     opacity: 0.3;
   }
 

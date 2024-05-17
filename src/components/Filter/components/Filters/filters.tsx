@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
 import { TrackFilterOpenedFunction } from "config/entities";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CategoryTag, SelectCategoryView } from "../../../../common/entities";
 import {
   BREAKPOINT_FN_NAME,
@@ -11,7 +11,7 @@ import { useWindowResize } from "../../../../hooks/useWindowResize";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { Filter } from "../Filter/filter";
 import { FilterTags } from "../FilterTags/filterTags";
-import { Filters as FilterList } from "./filters.styles";
+import { CategoryViewsLabel, Filters as FilterList } from "./filters.styles";
 
 export interface CategoryFilter {
   categoryViews: SelectCategoryView[];
@@ -76,16 +76,26 @@ export const Filters = ({
   const { height: windowHeight } = useWindowResize();
   const filterListRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(0);
+  const isLabeled = useMemo(
+    () => isCategoryViewsLabeled(categoryFilters),
+    [categoryFilters]
+  );
 
   useEffect(() => {
     setHeight(calculateListHeight(windowHeight, filterListRef.current));
   }, [windowHeight]);
 
   return (
-    <FilterList disabled={disabled} height={height} ref={filterListRef}>
+    <FilterList
+      disabled={disabled}
+      height={height}
+      isBaseStyle={!isLabeled}
+      ref={filterListRef}
+    >
       {categoryFilters.map(({ categoryViews, label }, i) => (
         <Fragment key={i}>
           {i !== 0 && <Divider />}
+          {label && <CategoryViewsLabel>{label}</CategoryViewsLabel>}
           {categoryViews.map((categoryView) => (
             <Filter
               key={categoryView.key}
@@ -115,4 +125,13 @@ function calculateListHeight(
   filterListEl: HTMLDivElement | null
 ): number {
   return windowHeight - (filterListEl?.getBoundingClientRect()?.top ?? 0);
+}
+
+/**
+ * Returns true if any category views are labelled.
+ * @param categoryFilters - Set of category filters.
+ * @returns true if any category views are labelled.
+ */
+function isCategoryViewsLabeled(categoryFilters: CategoryFilter[]): boolean {
+  return categoryFilters.some(({ label }) => label);
 }
