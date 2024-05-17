@@ -18,6 +18,24 @@ import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import { DEFAULT_ENTITY_STATE, INITIAL_STATE } from "./constants";
 
 /**
+ * Builds category groups from the given category group config (adds the saved filters category to the category groups).
+ * @param categoryGroupConfig - Category group config.
+ * @returns category groups with saved filters category.
+ */
+function buildCategoryGroups(
+  categoryGroupConfig: CategoryGroupConfig
+): CategoryGroup[] {
+  const { categoryGroups, savedFilters } = categoryGroupConfig;
+  if (!savedFilters) return categoryGroups;
+  const clonedCategoryGroups = [...categoryGroups];
+  const savedFiltersCategoryGroup: CategoryGroup = {
+    categoryConfigs: [{ key: "savedFilters", label: "Saved Filters" }],
+  };
+  clonedCategoryGroups.unshift(savedFiltersCategoryGroup);
+  return clonedCategoryGroups;
+}
+
+/**
  * Returns entity related configured category group config where entity config takes precedence over site config.
  * @param siteConfig - Site config.
  * @param entityConfig - Entity config.
@@ -109,13 +127,15 @@ function initEntityStateByCategoryGroupConfigKey(
   for (const entity of config.entities) {
     const categoryGroupConfig = getEntityCategoryGroupConfig(config, entity);
     if (!categoryGroupConfig) continue;
-    const { categoryGroups, key } = categoryGroupConfig;
+    const { key, savedFilters } = categoryGroupConfig;
+    const categoryGroups = buildCategoryGroups(categoryGroupConfig);
     if (entityStateByCategoryGroupConfigKey.has(key)) continue;
     entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
       categoryConfigs: flattenCategoryGroups(categoryGroups),
       categoryGroups,
       filterState: key === categoryGroupConfigKey ? filterState : [],
+      savedFilters,
     });
   }
   return entityStateByCategoryGroupConfigKey;

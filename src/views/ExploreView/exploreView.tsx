@@ -226,23 +226,25 @@ function buildCategoryFilters(
   if (!categoryGroups) {
     return [{ categoryViews: selectCategoryViews }];
   }
-  return categoryGroups.map(({ categoryConfigs, label }) => {
+  return categoryGroups.reduce((acc01, { categoryConfigs, label }) => {
     // Grab the category views for the configured grouped categories.
     const categoryViews = categoryConfigs.reduce(
-      (acc, { key: categoryKey }) => {
+      (acc02, { key: categoryKey }) => {
         const categoryView = selectCategoryViews.find(
           ({ key }) => key === categoryKey
         );
         if (categoryView) {
-          acc.push(categoryView);
+          acc02.push(categoryView);
         }
-        return acc;
+        return acc02;
       },
       [] as SelectCategoryView[]
     );
-    // Return the configured label and category views.
-    return { categoryViews, label };
-  });
+    if (categoryViews.length > 0) {
+      acc01.push({ categoryViews, label });
+    }
+    return acc01;
+  }, [] as CategoryFilter[]);
 }
 
 /**

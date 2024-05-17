@@ -5,6 +5,7 @@ import {
   CategoryGroup,
   CategoryGroupConfig,
   EntityPath,
+  SavedFilter,
 } from "../../config/entities";
 
 export interface EntityPageState {
@@ -22,6 +23,7 @@ export interface EntityState {
   categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategory[];
   filterState: SelectedFilter[];
+  savedFilters?: SavedFilter[];
 }
 
 export type EntityStateByCategoryGroupConfigKey = Map<

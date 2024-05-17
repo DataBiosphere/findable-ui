@@ -1,7 +1,7 @@
 import { Divider } from "@mui/material";
-import { TrackFilterOpenedFunction } from "config/entities";
 import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { CategoryTag, SelectCategoryView } from "../../../../common/entities";
+import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,

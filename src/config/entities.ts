@@ -56,6 +56,7 @@ export interface BackPageTabConfig extends TabConfig {
 export interface CategoryGroupConfig {
   categoryGroups: CategoryGroup[];
   key: string;
+  savedFilters?: SavedFilter[];
 }
 
 /**
@@ -302,6 +303,11 @@ type RelatedSearchFunction = (
   selectedCategoryValues: SelectedFilterValue | undefined
 ) => Promise<RelatedSearchResult | undefined>;
 
+export interface SavedFilter {
+  filter: Record<CategoryKey, SelectedFilterValue>;
+  sort?: ColumnSort;
+  title: string;
+}
 /**
  * Filter applied tracking payload
  */
