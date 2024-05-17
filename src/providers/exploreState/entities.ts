@@ -1,5 +1,6 @@
 import { ColumnSort } from "@tanstack/react-table";
 import {
+  CategoryKey,
   SelectCategory,
   SelectCategoryView,
   SelectedFilter,
@@ -9,7 +10,6 @@ import {
   CategoryGroup,
   CategoryGroupConfig,
   EntityPath,
-  SavedFilter,
 } from "../../config/entities";
 
 export interface EntityPageState {
@@ -27,8 +27,8 @@ export interface EntityState {
   categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategoryView[];
   filterState: SelectedFilter[];
-  savedFilters?: SavedFilter[];
   savedSelectCategories: SelectCategory[];
+  savedStateByCategoryKey?: SavedStateByCategoryKey;
 }
 
 export type EntityStateByCategoryGroupConfigKey = Map<
@@ -37,3 +37,10 @@ export type EntityStateByCategoryGroupConfigKey = Map<
 >;
 
 export type CategoryGroupConfigKey = CategoryGroupConfig["key"];
+
+export interface SavedState {
+  filters: SelectedFilter[];
+  sorting?: ColumnSort[];
+}
+
+export type SavedStateByCategoryKey = Map<CategoryKey, SavedState>;

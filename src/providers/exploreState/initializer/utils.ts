@@ -15,6 +15,7 @@ import {
   CategoryGroupConfigKey,
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
+  SavedStateByCategoryKey,
 } from "../entities";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import { DEFAULT_ENTITY_STATE, INITIAL_STATE } from "./constants";
@@ -60,6 +61,38 @@ function buildSavedSelectCategories(
       })),
     },
   ];
+}
+
+/**
+ * Builds saved state by category key.
+ * @param savedFilters - Saved filters.
+ * @returns saved state by category key.
+ */
+function buildSavedStateByCategoryKey(
+  savedFilters?: SavedFilter[]
+): SavedStateByCategoryKey | undefined {
+  if (!savedFilters) return;
+  const savedStateByCategoryKey: SavedStateByCategoryKey = new Map();
+  for (const { filter, sort, title } of savedFilters) {
+    const filters = buildSavedStateFilters(filter);
+    const sorting = sort ? [sort] : undefined;
+    savedStateByCategoryKey.set(title, { filters, sorting });
+  }
+  return savedStateByCategoryKey;
+}
+
+/**
+ * Builds saved state filters from the configured saved state filter.
+ * @param filter - Configured saved state filter.
+ * @returns saved state filters.
+ */
+function buildSavedStateFilters(
+  filter: SavedFilter["filter"]
+): SelectedFilter[] {
+  return Object.entries(filter).map(([categoryKey, values]) => ({
+    categoryKey,
+    value: values,
+  }));
 }
 
 /**
@@ -159,13 +192,14 @@ function initEntityStateByCategoryGroupConfigKey(
     const categoryGroups = buildCategoryGroups(categoryGroupConfig);
     const savedSelectCategories: SelectCategory[] =
       buildSavedSelectCategories(savedFilters);
+    const savedStateByCategoryKey = buildSavedStateByCategoryKey(savedFilters);
     entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
       categoryConfigs: flattenCategoryGroups(categoryGroups),
       categoryGroups,
       filterState: key === categoryGroupConfigKey ? filterState : [],
-      savedFilters,
       savedSelectCategories,
+      savedStateByCategoryKey,
     });
   }
   return entityStateByCategoryGroupConfigKey;
