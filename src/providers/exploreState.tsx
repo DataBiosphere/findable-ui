@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
-import { SelectCategory, SelectedFilter } from "../common/entities";
+import { SelectCategoryView, SelectedFilter } from "../common/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
@@ -37,7 +37,6 @@ import {
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
-  getEntityCategoryConfigs,
   getEntityCategoryGroupConfigKey,
   getEntityState,
   getFilterCount,
@@ -70,7 +69,7 @@ export interface ExploreContext {
 export type ExploreState = {
   catalogState: CatalogState;
   categoryGroups?: CategoryGroup[];
-  categoryViews: SelectCategory[];
+  categoryViews: SelectCategoryView[];
   entityPageState: EntityPageStateMapper;
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
@@ -386,10 +385,14 @@ function exploreReducer(
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
+      const entityState = getEntityState(state);
       const nextCategoryViews = payload.selectCategories
         ? buildCategoryViews(
-            payload.selectCategories,
-            getEntityCategoryConfigs(state),
+            [
+              ...payload.selectCategories,
+              ...entityState.savedSelectCategories, // "savedFilter" select categories are built from config at reducer initialization.
+            ],
+            entityState.categoryConfigs,
             state.filterState
           )
         : state.categoryViews;
@@ -441,8 +444,8 @@ function exploreReducer(
         return state;
       }
       const entityState = getEntityState(
-        getEntityCategoryGroupConfigKey(payload, state.entityPageState),
-        state
+        state,
+        getEntityCategoryGroupConfigKey(payload, state.entityPageState)
       );
       return {
         ...state,

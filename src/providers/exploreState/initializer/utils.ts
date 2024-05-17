@@ -1,14 +1,16 @@
-import { SelectedFilter } from "../../../common/entities";
+import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
 import {
   CategoryConfig,
   CategoryGroup,
   CategoryGroupConfig,
   EntityConfig,
+  SavedFilter,
   SiteConfig,
 } from "../../../config/entities";
 import { getDefaultSorting } from "../../../config/utils";
 import { ExploreState } from "../../exploreState";
+import { SELECT_CATEGORY_KEY } from "../constants";
 import {
   CategoryGroupConfigKey,
   EntityPageStateMapper,
@@ -29,10 +31,35 @@ function buildCategoryGroups(
   if (!savedFilters) return categoryGroups;
   const clonedCategoryGroups = [...categoryGroups];
   const savedFiltersCategoryGroup: CategoryGroup = {
-    categoryConfigs: [{ key: "savedFilters", label: "Saved Filters" }],
+    categoryConfigs: [
+      { key: SELECT_CATEGORY_KEY.SAVED_FILTERS, label: "Saved Filters" },
+    ],
   };
   clonedCategoryGroups.unshift(savedFiltersCategoryGroup);
   return clonedCategoryGroups;
+}
+
+/**
+ * Returns the saved filters as select categories.
+ * @param savedFilters - Saved filters.
+ * @returns select categories.
+ */
+function buildSavedSelectCategories(
+  savedFilters?: SavedFilter[]
+): SelectCategory[] {
+  if (!savedFilters) return [];
+  return [
+    {
+      key: SELECT_CATEGORY_KEY.SAVED_FILTERS,
+      label: "", // Label is applied in filter hook where it has access to the config.
+      values: savedFilters.map(({ title }) => ({
+        count: 1,
+        key: title,
+        label: title,
+        selected: false, // Selected state updated in filter hook.
+      })),
+    },
+  ];
 }
 
 /**
@@ -128,14 +155,17 @@ function initEntityStateByCategoryGroupConfigKey(
     const categoryGroupConfig = getEntityCategoryGroupConfig(config, entity);
     if (!categoryGroupConfig) continue;
     const { key, savedFilters } = categoryGroupConfig;
-    const categoryGroups = buildCategoryGroups(categoryGroupConfig);
     if (entityStateByCategoryGroupConfigKey.has(key)) continue;
+    const categoryGroups = buildCategoryGroups(categoryGroupConfig);
+    const savedSelectCategories: SelectCategory[] =
+      buildSavedSelectCategories(savedFilters);
     entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
       categoryConfigs: flattenCategoryGroups(categoryGroups),
       categoryGroups,
       filterState: key === categoryGroupConfigKey ? filterState : [],
       savedFilters,
+      savedSelectCategories,
     });
   }
   return entityStateByCategoryGroupConfigKey;

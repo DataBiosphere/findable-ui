@@ -1,5 +1,9 @@
 import { ColumnSort } from "@tanstack/react-table";
-import { SelectCategory, SelectedFilter } from "../../common/entities";
+import {
+  SelectCategory,
+  SelectCategoryView,
+  SelectedFilter,
+} from "../../common/entities";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -21,9 +25,10 @@ export interface EntityPageStateMapper {
 export interface EntityState {
   categoryConfigs?: CategoryConfig[];
   categoryGroups?: CategoryGroup[];
-  categoryViews: SelectCategory[];
+  categoryViews: SelectCategoryView[];
   filterState: SelectedFilter[];
   savedFilters?: SavedFilter[];
+  savedSelectCategories: SelectCategory[];
 }
 
 export type EntityStateByCategoryGroupConfigKey = Map<
