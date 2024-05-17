@@ -129,7 +129,7 @@ function calculateListHeight(
 
 /**
  * Returns true if any category views are labelled.
- * @param categoryFilters - Set of category filters.
+ * @param categoryFilters - Category filters.
  * @returns true if any category views are labelled.
  */
 function isCategoryViewsLabeled(categoryFilters: CategoryFilter[]): boolean {
