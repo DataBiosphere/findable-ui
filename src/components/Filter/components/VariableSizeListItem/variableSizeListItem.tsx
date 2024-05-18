@@ -7,6 +7,7 @@ import {
 import React, { CSSProperties, useEffect, useRef } from "react";
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
+import { SELECT_CATEGORY_KEY } from "../../../../providers/exploreState/constants";
 import { TEXT_BODY_SMALL_400 } from "../../../../theme/common/typography";
 import { CheckedIcon } from "../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
@@ -62,9 +63,11 @@ export default function VariableSizeListItem({
         disableTypography
         primary={<HighlightedLabel label={label} ranges={labelRanges} />}
         secondary={
-          <Typography color="ink.light" variant={TEXT_BODY_SMALL_400}>
-            {count}
-          </Typography>
+          categoryKey !== SELECT_CATEGORY_KEY.SAVED_FILTERS && (
+            <Typography color="ink.light" variant={TEXT_BODY_SMALL_400}>
+              {count}
+            </Typography>
+          )
         }
       />
     </ListItemButton>

@@ -27,6 +27,7 @@ import {
 } from "./exploreState/initializer/constants";
 import { initReducerArguments } from "./exploreState/initializer/utils";
 import {
+  ApplySavedFilterPayload,
   PaginateTablePayload,
   ProcessExploreResponsePayload,
   ProcessRelatedResponsePayload,
@@ -37,6 +38,8 @@ import {
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
+  buildEntityStateSavedFilterState,
+  buildNextSavedFilterState,
   getEntityCategoryGroupConfigKey,
   getEntityState,
   getFilterCount,
@@ -217,6 +220,7 @@ export function ExploreStateProvider({
  * Explore action kind.
  */
 export enum ExploreActionKind {
+  ApplySavedFilter = "APPLY_SAVED_FILTER",
   ClearFilters = "CLEAR_FILTERS",
   PaginateTable = "PAGINATE_TABLE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
@@ -234,6 +238,7 @@ export enum ExploreActionKind {
  * Explore action.
  */
 export type ExploreAction =
+  | ApplySavedFilterAction
   | ClearFiltersAction
   | PaginateTableAction
   | ProcessExploreResponseAction
@@ -245,6 +250,14 @@ export type ExploreAction =
   | UpdateColumnVisibilityAction
   | UpdateFilterAction
   | UpdateSortingAction;
+
+/**
+ * Apply saved filter action.
+ */
+type ApplySavedFilterAction = {
+  payload: ApplySavedFilterPayload;
+  type: ExploreActionKind.ApplySavedFilter;
+};
 
 /**
  * Clear filters action.
@@ -351,12 +364,42 @@ function exploreReducer(
 
   switch (type) {
     /**
+     * Apply saved filter
+     **/
+    case ExploreActionKind.ApplySavedFilter: {
+      const filterState = buildNextSavedFilterState(
+        state,
+        payload.selectedValue,
+        payload.selected
+      );
+      const savedFilterState = buildEntityStateSavedFilterState(
+        payload.categoryKey,
+        payload.selectedValue,
+        payload.selected
+      );
+      // TODO sorting on each page relating to the category type.
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
+      return {
+        ...state,
+        filterCount: getFilterCount(filterState),
+        filterState,
+        paginationState: resetPage(state.paginationState),
+      };
+    }
+    /**
      * Clear all filters
      **/
     case ExploreActionKind.ClearFilters: {
       const filterCount = 0;
       const filterState: SelectedFilter[] = [];
-      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
+      const savedFilterState: SelectedFilter[] = [];
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
       return {
         ...state,
         filterCount,
@@ -393,7 +436,7 @@ function exploreReducer(
               ...entityState.savedSelectCategories, // "savedFilter" select categories are built from config at reducer initialization.
             ],
             entityState.categoryConfigs,
-            state.filterState
+            [...state.filterState, ...entityState.savedFilterState]
           )
         : state.categoryViews;
       updateEntityStateByCategoryGroupConfigKey(state, {
@@ -479,7 +522,11 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
+      const savedFilterState: SelectedFilter[] = []; // Clear saved filter state.
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
       return {
         ...state,
         filterCount: getFilterCount(filterState),

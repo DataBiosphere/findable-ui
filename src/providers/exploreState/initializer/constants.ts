@@ -4,6 +4,7 @@ import { EntityState } from "../entities";
 export const DEFAULT_ENTITY_STATE: EntityState = {
   categoryViews: [],
   filterState: [],
+  savedFilterState: [],
   savedSelectCategories: [],
 };
 

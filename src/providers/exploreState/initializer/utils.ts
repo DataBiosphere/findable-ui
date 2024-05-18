@@ -15,7 +15,7 @@ import {
   CategoryGroupConfigKey,
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
-  SavedStateByCategoryKey,
+  SavedStateByCategoryValueKey,
 } from "../entities";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import { DEFAULT_ENTITY_STATE, INITIAL_STATE } from "./constants";
@@ -64,21 +64,21 @@ function buildSavedSelectCategories(
 }
 
 /**
- * Builds saved state by category key.
+ * Builds saved state by category value key.
  * @param savedFilters - Saved filters.
- * @returns saved state by category key.
+ * @returns saved state by category value key.
  */
-function buildSavedStateByCategoryKey(
+function buildSavedStateByCategoryValueKey(
   savedFilters?: SavedFilter[]
-): SavedStateByCategoryKey | undefined {
+): SavedStateByCategoryValueKey | undefined {
   if (!savedFilters) return;
-  const savedStateByCategoryKey: SavedStateByCategoryKey = new Map();
+  const savedStateByCategoryValueKey: SavedStateByCategoryValueKey = new Map();
   for (const { filter, sort, title } of savedFilters) {
     const filters = buildSavedStateFilters(filter);
     const sorting = sort ? [sort] : undefined;
-    savedStateByCategoryKey.set(title, { filters, sorting });
+    savedStateByCategoryValueKey.set(title, { filters, sorting });
   }
-  return savedStateByCategoryKey;
+  return savedStateByCategoryValueKey;
 }
 
 /**
@@ -192,14 +192,15 @@ function initEntityStateByCategoryGroupConfigKey(
     const categoryGroups = buildCategoryGroups(categoryGroupConfig);
     const savedSelectCategories: SelectCategory[] =
       buildSavedSelectCategories(savedFilters);
-    const savedStateByCategoryKey = buildSavedStateByCategoryKey(savedFilters);
+    const savedStateByCategoryValueKey =
+      buildSavedStateByCategoryValueKey(savedFilters);
     entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
       categoryConfigs: flattenCategoryGroups(categoryGroups),
       categoryGroups,
       filterState: key === categoryGroupConfigKey ? filterState : [],
       savedSelectCategories,
-      savedStateByCategoryKey,
+      savedStateByCategoryValueKey,
     });
   }
   return entityStateByCategoryGroupConfigKey;

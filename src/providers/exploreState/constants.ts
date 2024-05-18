@@ -1,5 +1,3 @@
-import { CategoryKey } from "../../common/entities";
-
-export const SELECT_CATEGORY_KEY: Record<string, CategoryKey> = {
+export const SELECT_CATEGORY_KEY = {
   SAVED_FILTERS: "savedFilters",
 };
