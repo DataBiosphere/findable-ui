@@ -73,26 +73,11 @@ function buildSavedStateByCategoryValueKey(
 ): SavedStateByCategoryValueKey | undefined {
   if (!savedFilters) return;
   const savedStateByCategoryValueKey: SavedStateByCategoryValueKey = new Map();
-  for (const { filter, sort, title } of savedFilters) {
-    const filters = buildSavedStateFilters(filter);
+  for (const { filters, sort, title } of savedFilters) {
     const sorting = sort ? [sort] : undefined;
     savedStateByCategoryValueKey.set(title, { filters, sorting });
   }
   return savedStateByCategoryValueKey;
-}
-
-/**
- * Builds saved state filters from the configured saved state filter.
- * @param filter - Configured saved state filter.
- * @returns saved state filters.
- */
-function buildSavedStateFilters(
-  filter: SavedFilter["filter"]
-): SelectedFilter[] {
-  return Object.entries(filter).map(([categoryKey, values]) => ({
-    categoryKey,
-    value: values,
-  }));
 }
 
 /**
