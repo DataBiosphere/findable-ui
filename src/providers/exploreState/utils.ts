@@ -10,7 +10,7 @@ import {
   EntityPageState,
   EntityPageStateMapper,
   EntityState,
-  SavedState,
+  EntityStateSavedFilter,
 } from "./entities";
 import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
 
@@ -43,8 +43,8 @@ export function buildNextSavedFilterState(
   selected: boolean
 ): SelectedFilter[] {
   if (!selected) return []; // Clears all filters on de-select of saved filter.
-  const savedState = getSavedState(state, selectedValue);
-  return savedState?.filters || [];
+  const savedFilter = getEntityStateSavedFilter(state, selectedValue);
+  return savedFilter?.filters || [];
 }
 
 /**
@@ -80,6 +80,20 @@ export function getEntityState(
 }
 
 /**
+ * Returns the saved filter/sorting for the given category key.
+ * @param state - Explore state.
+ * @param categoryValueKey - Category key.
+ * @returns saved filter/sorting for the category key.
+ */
+export function getEntityStateSavedFilter(
+  state: ExploreState,
+  categoryValueKey: CategoryValueKey
+): EntityStateSavedFilter | undefined {
+  const entityState = getEntityState(state);
+  return entityState.savedFilterByCategoryValueKey?.get(categoryValueKey);
+}
+
+/**
  * Returns entity state "saved filter" sorting for the given category value key.
  * @param state - Explore state.
  * @param selectedValue - Key of category value that has been de/selected.
@@ -92,8 +106,8 @@ export function getEntityStateSavedSorting(
   selected: boolean
 ): ColumnSort[] | undefined {
   if (!selected) return;
-  const savedState = getSavedState(state, selectedValue);
-  return savedState?.sorting;
+  const savedFilter = getEntityStateSavedFilter(state, selectedValue);
+  return savedFilter?.sorting;
 }
 
 /**
@@ -103,20 +117,6 @@ export function getEntityStateSavedSorting(
  */
 export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
-}
-
-/**
- * Returns the saved state for the given category key.
- * @param state - Explore state.
- * @param categoryValueKey - Category key.
- * @returns saved state for the category key.
- */
-export function getSavedState(
-  state: ExploreState,
-  categoryValueKey: CategoryValueKey
-): SavedState | undefined {
-  const entityState = getEntityState(state);
-  return entityState.savedStateByCategoryValueKey?.get(categoryValueKey);
 }
 
 /**

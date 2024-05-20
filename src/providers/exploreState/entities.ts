@@ -10,6 +10,7 @@ import {
   CategoryGroup,
   CategoryGroupConfig,
   EntityPath,
+  SavedFilter,
 } from "../../config/entities";
 
 export interface EntityPageState {
@@ -27,9 +28,9 @@ export interface EntityState {
   categoryGroups?: CategoryGroup[];
   categoryViews: SelectCategoryView[];
   filterState: SelectedFilter[];
+  savedFilterByCategoryValueKey?: SavedFilterByCategoryValueKey;
   savedFilterState: SelectedFilter[];
   savedSelectCategories: SelectCategory[];
-  savedStateByCategoryValueKey?: SavedStateByCategoryValueKey;
 }
 
 export type EntityStateByCategoryGroupConfigKey = Map<
@@ -39,9 +40,11 @@ export type EntityStateByCategoryGroupConfigKey = Map<
 
 export type CategoryGroupConfigKey = CategoryGroupConfig["key"];
 
-export interface SavedState {
-  filters: SelectedFilter[];
+export interface EntityStateSavedFilter extends Omit<SavedFilter, "sort"> {
   sorting?: ColumnSort[];
 }
 
-export type SavedStateByCategoryValueKey = Map<CategoryValueKey, SavedState>;
+export type SavedFilterByCategoryValueKey = Map<
+  CategoryValueKey,
+  EntityStateSavedFilter
+>;
