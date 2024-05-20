@@ -42,9 +42,11 @@ import {
   buildNextSavedFilterState,
   getEntityCategoryGroupConfigKey,
   getEntityState,
+  getEntityStateSavedSorting,
   getFilterCount,
   resetPage,
   updateEntityPageState,
+  updateEntityPageStateSorting,
   updateEntityStateByCategoryGroupConfigKey,
 } from "./exploreState/utils";
 
@@ -377,13 +379,18 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      // TODO sorting on each page relating to the category type.
+      const savedSorting = getEntityStateSavedSorting(
+        state,
+        payload.selectedValue,
+        payload.selected
+      );
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
         savedFilterState,
       });
       return {
         ...state,
+        entityPageState: updateEntityPageStateSorting(state, savedSorting),
         filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),

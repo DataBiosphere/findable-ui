@@ -1,3 +1,4 @@
+import { ColumnSort } from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -79,6 +80,23 @@ export function getEntityState(
 }
 
 /**
+ * Returns entity state "saved filter" sorting for the given category value key.
+ * @param state - Explore state.
+ * @param selectedValue - Key of category value that has been de/selected.
+ * @param selected - True if value is selected, false if de-selected.
+ * @returns sorting.
+ */
+export function getEntityStateSavedSorting(
+  state: ExploreState,
+  selectedValue: CategoryValueKey,
+  selected: boolean
+): ColumnSort[] | undefined {
+  if (!selected) return;
+  const savedState = getSavedState(state, selectedValue);
+  return savedState?.sorting;
+}
+
+/**
  * Returns the filter count.
  * @param filterState - Filter state.
  * @returns filter count.
@@ -149,6 +167,32 @@ export function updateEntityPageState(
       ...nextEntityPageState,
     },
   };
+}
+
+/**
+ * Updates entity page state sorting for all entities with the same category group config key.
+ * @param state - Explore state.
+ * @param sorting - Sorting.
+ * @returns entity page state.
+ */
+export function updateEntityPageStateSorting(
+  state: ExploreState,
+  sorting?: EntityPageState["sorting"]
+): EntityPageStateMapper {
+  if (!sorting) return state.entityPageState;
+  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+    state.tabValue,
+    state.entityPageState
+  );
+  return Object.entries(state.entityPageState).reduce(
+    (acc, [entityPath, entityPageState]) => {
+      if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
+        return { ...acc, [entityPath]: { ...entityPageState, sorting } };
+      }
+      return { ...acc, [entityPath]: entityPageState };
+    },
+    {} as EntityPageStateMapper
+  );
 }
 
 /**
