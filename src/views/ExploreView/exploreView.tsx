@@ -41,6 +41,7 @@ import { useEntityListRelatedView } from "../../hooks/useEntityListRelatedView";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind, ExploreState } from "../../providers/exploreState";
+import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
 
 export type ExploreViewProps = AzulEntitiesStaticResponse;
@@ -111,13 +112,18 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     categorySection?: string,
     searchTerm?: string
   ): void => {
+    const dispatchType =
+      categoryKey === SELECT_CATEGORY_KEY.SAVED_FILTERS
+        ? ExploreActionKind.ApplySavedFilter
+        : ExploreActionKind.UpdateFilter;
+
     exploreDispatch({
       payload: {
         categoryKey,
         selected,
         selectedValue: selectedCategoryValue,
       },
-      type: ExploreActionKind.UpdateFilter,
+      type: dispatchType,
     });
 
     trackingConfig?.trackFilterApplied?.({
@@ -226,23 +232,25 @@ function buildCategoryFilters(
   if (!categoryGroups) {
     return [{ categoryViews: selectCategoryViews }];
   }
-  return categoryGroups.map(({ categoryConfigs, label }) => {
+  return categoryGroups.reduce((accGroups, { categoryConfigs, label }) => {
     // Grab the category views for the configured grouped categories.
     const categoryViews = categoryConfigs.reduce(
-      (acc, { key: categoryKey }) => {
+      (accViews, { key: categoryKey }) => {
         const categoryView = selectCategoryViews.find(
           ({ key }) => key === categoryKey
         );
         if (categoryView) {
-          acc.push(categoryView);
+          accViews.push(categoryView);
         }
-        return acc;
+        return accViews;
       },
       [] as SelectCategoryView[]
     );
-    // Return the configured label and category views.
-    return { categoryViews, label };
-  });
+    if (categoryViews.length > 0) {
+      accGroups.push({ categoryViews, label });
+    }
+    return accGroups;
+  }, [] as CategoryFilter[]);
 }
 
 /**

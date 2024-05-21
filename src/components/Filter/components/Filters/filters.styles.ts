@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const Filters = styled("div", {
-  shouldForwardProp: (prop) => prop !== "height",
+  shouldForwardProp: (prop) => prop !== "height" && prop !== "isBaseStyle",
 })<Props>`
   ${(props) => (props.isBaseStyle ? textBody500(props) : textBody400(props))};
   color: ${(props) => (props.isBaseStyle ? inkMain(props) : inkLight(props))};

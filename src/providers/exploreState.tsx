@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
-import { SelectCategory, SelectedFilter } from "../common/entities";
+import { SelectCategoryView, SelectedFilter } from "../common/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
@@ -27,6 +27,7 @@ import {
 } from "./exploreState/initializer/constants";
 import { initReducerArguments } from "./exploreState/initializer/utils";
 import {
+  ApplySavedFilterPayload,
   PaginateTablePayload,
   ProcessExploreResponsePayload,
   ProcessRelatedResponsePayload,
@@ -37,12 +38,15 @@ import {
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
-  getEntityCategoryConfigs,
+  buildEntityStateSavedFilterState,
+  buildNextSavedFilterState,
   getEntityCategoryGroupConfigKey,
   getEntityState,
+  getEntityStateSavedSorting,
   getFilterCount,
   resetPage,
   updateEntityPageState,
+  updateEntityPageStateSorting,
   updateEntityStateByCategoryGroupConfigKey,
 } from "./exploreState/utils";
 
@@ -70,7 +74,7 @@ export interface ExploreContext {
 export type ExploreState = {
   catalogState: CatalogState;
   categoryGroups?: CategoryGroup[];
-  categoryViews: SelectCategory[];
+  categoryViews: SelectCategoryView[];
   entityPageState: EntityPageStateMapper;
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
@@ -218,6 +222,7 @@ export function ExploreStateProvider({
  * Explore action kind.
  */
 export enum ExploreActionKind {
+  ApplySavedFilter = "APPLY_SAVED_FILTER",
   ClearFilters = "CLEAR_FILTERS",
   PaginateTable = "PAGINATE_TABLE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
@@ -235,6 +240,7 @@ export enum ExploreActionKind {
  * Explore action.
  */
 export type ExploreAction =
+  | ApplySavedFilterAction
   | ClearFiltersAction
   | PaginateTableAction
   | ProcessExploreResponseAction
@@ -246,6 +252,14 @@ export type ExploreAction =
   | UpdateColumnVisibilityAction
   | UpdateFilterAction
   | UpdateSortingAction;
+
+/**
+ * Apply saved filter action.
+ */
+type ApplySavedFilterAction = {
+  payload: ApplySavedFilterPayload;
+  type: ExploreActionKind.ApplySavedFilter;
+};
 
 /**
  * Clear filters action.
@@ -352,12 +366,47 @@ function exploreReducer(
 
   switch (type) {
     /**
+     * Apply saved filter
+     **/
+    case ExploreActionKind.ApplySavedFilter: {
+      const filterState = buildNextSavedFilterState(
+        state,
+        payload.selectedValue,
+        payload.selected
+      );
+      const savedFilterState = buildEntityStateSavedFilterState(
+        payload.categoryKey,
+        payload.selectedValue,
+        payload.selected
+      );
+      const savedSorting = getEntityStateSavedSorting(
+        state,
+        payload.selectedValue,
+        payload.selected
+      );
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
+      return {
+        ...state,
+        entityPageState: updateEntityPageStateSorting(state, savedSorting),
+        filterCount: getFilterCount(filterState),
+        filterState,
+        paginationState: resetPage(state.paginationState),
+      };
+    }
+    /**
      * Clear all filters
      **/
     case ExploreActionKind.ClearFilters: {
       const filterCount = 0;
       const filterState: SelectedFilter[] = [];
-      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
+      const savedFilterState: SelectedFilter[] = [];
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
       return {
         ...state,
         filterCount,
@@ -386,11 +435,15 @@ function exploreReducer(
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
+      const entityState = getEntityState(state);
       const nextCategoryViews = payload.selectCategories
         ? buildCategoryViews(
-            payload.selectCategories,
-            getEntityCategoryConfigs(state),
-            state.filterState
+            [
+              ...payload.selectCategories,
+              ...entityState.savedSelectCategories, // "savedFilter" select categories are built from config at reducer initialization.
+            ],
+            entityState.categoryConfigs,
+            [...state.filterState, ...entityState.savedFilterState]
           )
         : state.categoryViews;
       updateEntityStateByCategoryGroupConfigKey(state, {
@@ -441,8 +494,8 @@ function exploreReducer(
         return state;
       }
       const entityState = getEntityState(
-        getEntityCategoryGroupConfigKey(payload, state.entityPageState),
-        state
+        state,
+        getEntityCategoryGroupConfigKey(payload, state.entityPageState)
       );
       return {
         ...state,
@@ -476,7 +529,11 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      updateEntityStateByCategoryGroupConfigKey(state, { filterState });
+      const savedFilterState: SelectedFilter[] = []; // Clear saved filter state.
+      updateEntityStateByCategoryGroupConfigKey(state, {
+        filterState,
+        savedFilterState,
+      });
       return {
         ...state,
         filterCount: getFilterCount(filterState),

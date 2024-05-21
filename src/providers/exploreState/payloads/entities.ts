@@ -13,6 +13,15 @@ import {
 } from "../../exploreState";
 
 /**
+ * Apply saved filter payload.
+ */
+export interface ApplySavedFilterPayload {
+  categoryKey: CategoryKey;
+  selected: boolean;
+  selectedValue: CategoryValueKey;
+}
+
+/**
  * Process explore response payload.
  */
 export interface ProcessExploreResponsePayload {

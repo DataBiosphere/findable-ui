@@ -1,7 +1,11 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
 import { ColumnSort } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
-import { CategoryKey, SelectedFilterValue } from "../common/entities";
+import {
+  CategoryKey,
+  SelectedFilter,
+  SelectedFilterValue,
+} from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
@@ -56,6 +60,7 @@ export interface BackPageTabConfig extends TabConfig {
 export interface CategoryGroupConfig {
   categoryGroups: CategoryGroup[];
   key: string;
+  savedFilters?: SavedFilter[];
 }
 
 /**
@@ -302,6 +307,11 @@ type RelatedSearchFunction = (
   selectedCategoryValues: SelectedFilterValue | undefined
 ) => Promise<RelatedSearchResult | undefined>;
 
+export interface SavedFilter {
+  filters: SelectedFilter[];
+  sort?: ColumnSort;
+  title: string;
+}
 /**
  * Filter applied tracking payload
  */
