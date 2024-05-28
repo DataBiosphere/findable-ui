@@ -44,7 +44,9 @@ import { ExploreActionKind, ExploreState } from "../../providers/exploreState";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
 
-export type ExploreViewProps = AzulEntitiesStaticResponse;
+export interface ExploreViewProps extends AzulEntitiesStaticResponse {
+  className?: string;
+}
 
 /**
  * Returns tabs to be used as a prop for the Tabs component.
@@ -199,6 +201,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         </Sidebar>
       )}
       <IndexView
+        className={props.className}
         List={renderList(exploreState, entityConfig, entityListType)}
         ListHero={renderComponent(listHero)}
         SideBarButton={
