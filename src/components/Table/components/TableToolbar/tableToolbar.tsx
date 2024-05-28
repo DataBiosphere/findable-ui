@@ -3,11 +3,11 @@ import React, { Fragment } from "react";
 import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { ROW_DIRECTION } from "../../common/entities";
-import { getEditColumnOptions } from "../../common/utils";
+import { getEditColumnOptions, isAnyRowSelected } from "../../common/utils";
 import { CheckboxMenu } from "../CheckboxMenu/checkboxMenu";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
-import { EntityViewToggle } from "../EntityViewToggle/entityViewToggle";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
+import { RowSelection } from "./components/RowSelection/rowSelection";
 import { Toolbar, ToolbarActions } from "./tableToolbar.styles";
 
 export interface TableToolbarProps<T> {
@@ -22,9 +22,9 @@ export const TableToolbar = <T extends object>({
   tableInstance,
 }: TableToolbarProps<T>): JSX.Element => {
   const { exploreState } = useExploreState();
-  const { paginationState, relatedListItems } = exploreState;
+  const { paginationState } = exploreState;
   const { currentPage, pages, pageSize, rows } = paginationState;
-  const { resetColumnVisibility } = tableInstance;
+  const { getSelectedRowModel, resetColumnVisibility } = tableInstance;
   const { enableDownload } = listView || {};
   const isLastPage = currentPage === pages;
   const editColumnOptions = getEditColumnOptions(tableInstance);
@@ -43,8 +43,11 @@ export const TableToolbar = <T extends object>({
     <Fragment>
       {showToolbar && (
         <Toolbar variant="table">
-          {relatedListItems ? (
-            <EntityViewToggle />
+          {isAnyRowSelected(tableInstance) ? (
+            <RowSelection
+              rows={getSelectedRowModel().rows}
+              rowSelectionView={listView?.rowSelectionView}
+            />
           ) : (
             <PaginationSummary
               firstResult={(currentPage - 1) * pageSize + 1}

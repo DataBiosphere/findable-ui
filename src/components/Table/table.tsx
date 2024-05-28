@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   InitialTableState,
+  RowSelectionState,
   TableState,
   Updater,
   useReactTable,
@@ -93,7 +94,8 @@ TableProps<T>): JSX.Element => {
     paginationState,
     tabValue,
   } = exploreState;
-  const { columnsVisibility, sorting } = entityPageState[tabValue];
+  const { columnsVisibility, enableRowSelection, rowSelection, sorting } =
+    entityPageState[tabValue];
   const { currentPage, pages, pageSize } = paginationState;
   const { disablePagination = false } = listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
@@ -126,12 +128,20 @@ TableProps<T>): JSX.Element => {
     });
   };
 
+  const onRowSelectionChange = (updater: Updater<RowSelectionState>): void => {
+    exploreDispatch({
+      payload: typeof updater === "function" ? updater(rowSelection) : updater,
+      type: ExploreActionKind.UpdateRowSelection,
+    });
+  };
+
   const state: Partial<TableState> = {
     columnVisibility: columnsVisibility,
     pagination: {
       pageIndex: 0,
       pageSize: disablePagination ? Number.MAX_SAFE_INTEGER : pageSize,
     },
+    rowSelection,
     sorting,
   };
   const tableInstance = useReactTable({
@@ -140,6 +150,7 @@ TableProps<T>): JSX.Element => {
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
     enableMultiSort: false,
+    enableRowSelection,
     enableSorting: true, // client-side filtering.
     enableSortingRemoval: false, // client-side filtering.
     getCoreRowModel: getCoreRowModel(),
@@ -154,6 +165,7 @@ TableProps<T>): JSX.Element => {
     manualPagination: clientFiltering,
     manualSorting: !clientFiltering,
     onColumnVisibilityChange,
+    onRowSelectionChange,
     onSortingChange,
     pageCount: total,
     state,

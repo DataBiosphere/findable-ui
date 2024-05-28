@@ -335,6 +335,22 @@ function getVisibleRowsTableData<T>(rows: Row<T>[]): TableData[][] {
 }
 
 /**
+ * Returns true if any or all table rows are selected.
+ * @param table - Table.
+ * @returns true if a row is selected.
+ */
+export function isAnyRowSelected<T>(table: Table<T>): boolean {
+  const {
+    getIsAllRowsSelected,
+    getIsSomeRowsSelected,
+    options: { enableRowSelection },
+  } = table;
+  return Boolean(
+    enableRowSelection && (getIsSomeRowsSelected() || getIsAllRowsSelected())
+  );
+}
+
+/**
  * Returns true if client-side filtering is enabled.
  * @param exploreMode - Explore mode.
  * @returns true if client-side filtering is enabled.

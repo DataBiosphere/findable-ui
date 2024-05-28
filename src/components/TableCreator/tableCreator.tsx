@@ -1,4 +1,5 @@
 import { CellContext, ColumnDef, ColumnSort } from "@tanstack/react-table";
+import { HeaderContext, RowData } from "@tanstack/table-core";
 import React, { useMemo } from "react";
 import { Pagination } from "../../common/entities";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
@@ -10,7 +11,11 @@ import {
   getInitialState,
   sortingFn,
 } from "../Table/common/utils";
+import { RowSelectionCell } from "../Table/components/TableCell/components/RowSelectionCell/rowSelectionCell";
+import { HeadSelectionCell } from "../Table/components/TableHead/components/HeadSelectionCell/headSelectionCell";
 import { Table } from "../Table/table";
+import { COLUMN_CONFIGS } from "./common/constants";
+import { buildBaseColumnDef } from "./common/utils";
 import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 
 export interface TableCreatorProps<T> {
@@ -26,15 +31,24 @@ export interface TableCreatorProps<T> {
   total?: number;
 }
 
-const createCell = <T extends object>(config: ColumnConfig<T>) =>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- We can't determine the cell type
-  function CellCreator({ row }: CellContext<T, any>): JSX.Element {
+const createCell = <T extends RowData>(config: ColumnConfig<T>) =>
+  function CellCreator({ row }: CellContext<T, unknown>): JSX.Element {
     return (
       <ComponentCreator
         components={[config.componentConfig]}
         response={row.original}
       />
     );
+  };
+
+const createHeaderSelectionCell = <T extends RowData>() =>
+  function CellCreator({ table }: HeaderContext<T, unknown>): JSX.Element {
+    return <HeadSelectionCell tableInstance={table} />;
+  };
+
+const createRowSelectionCell = <T extends RowData>() =>
+  function CellCreator({ row }: CellContext<T, unknown>): JSX.Element {
+    return <RowSelectionCell row={row} />;
   };
 
 export const TableCreator = <T extends object>({
@@ -51,21 +65,25 @@ export const TableCreator = <T extends object>({
 }: TableCreatorProps<T>): JSX.Element => {
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
-      columns.map(({ disableHiding, disableSorting, ...columnConfig }) => ({
-        accessorKey: columnConfig.id,
-        cell: createCell(columnConfig),
-        enableHiding: !disableHiding,
-        enableSorting: !disableSorting,
-        filterFn: arrIncludesSome,
-        header: columnConfig.header,
-        id: columnConfig.id,
-        meta: {
-          columnPinned: columnConfig.columnPinned,
-          header: columnConfig.header,
-          width: columnConfig.width,
+      columns.reduce(
+        (acc, columnConfig) => {
+          acc.push({
+            ...buildBaseColumnDef(columnConfig),
+            cell: createCell(columnConfig),
+            filterFn: arrIncludesSome,
+            sortingFn: sortingFn,
+          });
+          return acc;
         },
-        sortingFn: sortingFn,
-      })),
+        [
+          /* Initialize column definitions with the "select" column */
+          {
+            ...buildBaseColumnDef(COLUMN_CONFIGS.SELECT),
+            cell: createRowSelectionCell(),
+            header: createHeaderSelectionCell(),
+          },
+        ] as ColumnDef<T>[]
+      ),
     [columns]
   );
   const initialState = getInitialState(columns, defaultSort);

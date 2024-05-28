@@ -1,4 +1,5 @@
-import { ColumnSort } from "@tanstack/react-table";
+import { ColumnSort, RowSelectionState } from "@tanstack/react-table";
+import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
 import {
   CategoryValueKey,
   SelectCategory,
@@ -15,7 +16,9 @@ import {
 
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
-  columnsVisibility: Record<string, boolean>;
+  columnsVisibility: VisibilityState;
+  enableRowSelection: boolean;
+  rowSelection: RowSelectionState;
   sorting: ColumnSort[];
 }
 
@@ -43,6 +46,9 @@ export type CategoryGroupConfigKey = CategoryGroupConfig["key"];
 export interface EntityStateSavedFilter extends Omit<SavedFilter, "sort"> {
   sorting?: ColumnSort[];
 }
+
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
+export type ListItem = any;
 
 export type SavedFilterByCategoryValueKey = Map<
   CategoryValueKey,
