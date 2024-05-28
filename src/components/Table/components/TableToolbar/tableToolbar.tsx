@@ -8,7 +8,7 @@ import { CheckboxMenu } from "../CheckboxMenu/checkboxMenu";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { EntityViewToggle } from "../EntityViewToggle/entityViewToggle";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
-import { TableToolbar as Toolbar, ToolbarActions } from "./tableToolbar.styles";
+import { Toolbar, ToolbarActions } from "./tableToolbar.styles";
 
 export interface TableToolbarProps<T> {
   listView?: ListViewConfig;
@@ -42,7 +42,7 @@ export const TableToolbar = <T extends object>({
   return (
     <Fragment>
       {showToolbar && (
-        <Toolbar>
+        <Toolbar variant="table">
           {relatedListItems ? (
             <EntityViewToggle />
           ) : (
