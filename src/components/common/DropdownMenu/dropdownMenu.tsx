@@ -1,16 +1,18 @@
 import { MenuProps as MMenuProps } from "@mui/material";
 import React, { ElementType, Fragment, MouseEvent, useState } from "react";
-import { DropdownButtonProps } from "../Button/components/DropdownButton/dropdownButton";
 import { DEFAULT_DROPDOWN_MENU_PROPS } from "./common/constants";
+import {
+  DropdownMenuButtonProps,
+  DropdownMenuIconButtonProps,
+  DropdownMenuItemProps,
+} from "./common/entities";
 import { Menu } from "./dropdownMenu.styles";
-
-export interface DropdownMenuItemProps {
-  closeMenu: () => void;
-}
 
 export interface DropdownMenuProps
   extends Omit<MMenuProps, "children" | "open"> {
-  Button: ElementType<DropdownButtonProps>;
+  Button:
+    | ElementType<DropdownMenuButtonProps>
+    | ElementType<DropdownMenuIconButtonProps>;
   children?: ({ closeMenu }: DropdownMenuItemProps) => JSX.Element[];
   className?: string;
 }
