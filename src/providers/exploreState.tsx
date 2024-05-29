@@ -50,6 +50,7 @@ import {
   getFilterCount,
   patchEntityListItems,
   resetPage,
+  resetRowSelection,
   updateEntityPageState,
   updateEntityPageStateSorting,
   updateEntityStateByCategoryGroupConfigKey,
@@ -611,6 +612,7 @@ function exploreReducer(
       });
       return {
         ...state,
+        entityPageState: resetRowSelection(state),
         filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),

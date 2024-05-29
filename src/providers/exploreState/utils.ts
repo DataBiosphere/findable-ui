@@ -156,6 +156,30 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 }
 
 /**
+ * Resets row selection for the current entity and entities that share the same category group config key.
+ * @param state - Explore state.
+ * @returns entity page state mapper with row selection reset.
+ */
+export function resetRowSelection(state: ExploreState): EntityPageStateMapper {
+  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+    state.tabValue,
+    state.entityPageState
+  );
+  return Object.entries(state.entityPageState).reduce(
+    (acc, [entityPath, entityPageState]) => {
+      if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
+        return {
+          ...acc,
+          [entityPath]: { ...entityPageState, rowSelection: {} },
+        };
+      }
+      return { ...acc, [entityPath]: entityPageState };
+    },
+    {} as EntityPageStateMapper
+  );
+}
+
+/**
  * Sets entity state for the given category group config key.
  * @param categoryGroupConfigKey - Category group config key.
  * @param state - Explore state.
