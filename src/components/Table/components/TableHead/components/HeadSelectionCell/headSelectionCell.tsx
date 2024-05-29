@@ -14,16 +14,16 @@ export const HeadSelectionCell = <T extends RowData>({
   tableInstance,
 }: HeadSelectionCellProps<T>): JSX.Element => {
   const {
-    getIsAllRowsSelected,
-    getIsSomeRowsSelected,
+    getIsAllPageRowsSelected,
+    getIsSomePageRowsSelected,
     getToggleAllRowsSelectedHandler,
   } = tableInstance;
   return (
     <Checkbox
-      checked={getIsAllRowsSelected()}
+      checked={getIsAllPageRowsSelected()}
       checkedIcon={<CheckedIcon />}
       icon={<UncheckedIcon />}
-      indeterminate={getIsSomeRowsSelected()}
+      indeterminate={getIsSomePageRowsSelected()}
       indeterminateIcon={<IndeterminateIcon />}
       onChange={getToggleAllRowsSelectedHandler()}
     />

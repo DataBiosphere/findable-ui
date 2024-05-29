@@ -292,7 +292,7 @@ function renderList(
     relatedListItems,
     tabValue,
   } = exploreState;
-  const { list, listView } = entityConfig;
+  const { getId: getRowId, list, listView } = entityConfig;
   const { columns: columnsConfig, defaultSort } = list;
 
   if (!exploreState || !tabValue) {
@@ -309,6 +309,7 @@ function renderList(
     <TableCreator
       columns={columnsConfig}
       defaultSort={defaultSort}
+      getRowId={getRowId}
       items={
         isRelatedView && relatedListItems ? relatedListItems : listItems ?? []
       }

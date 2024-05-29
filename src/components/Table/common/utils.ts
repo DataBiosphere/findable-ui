@@ -341,12 +341,13 @@ function getVisibleRowsTableData<T>(rows: Row<T>[]): TableData[][] {
  */
 export function isAnyRowSelected<T>(table: Table<T>): boolean {
   const {
-    getIsAllRowsSelected,
-    getIsSomeRowsSelected,
+    getIsAllPageRowsSelected,
+    getIsSomePageRowsSelected,
     options: { enableRowSelection },
   } = table;
   return Boolean(
-    enableRowSelection && (getIsSomeRowsSelected() || getIsAllRowsSelected())
+    enableRowSelection &&
+      (getIsSomePageRowsSelected() || getIsAllPageRowsSelected())
   );
 }
 

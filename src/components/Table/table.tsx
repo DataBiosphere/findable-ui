@@ -14,6 +14,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { CoreOptions } from "@tanstack/table-core";
 import React, { useEffect } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
@@ -52,6 +53,7 @@ import { GridTable } from "./table.styles";
 export interface TableProps<T extends object> {
   columns: ColumnDef<T>[];
   count?: number;
+  getRowId?: CoreOptions<T>["getRowId"];
   initialState: InitialTableState;
   items: T[];
   listView?: ListViewConfig;
@@ -68,6 +70,7 @@ export interface TableProps<T extends object> {
  * Uncontrolled table will take advantage of React Table's state and will be used for static loads.
  * @param tableProps - Set of props required for displaying the table.
  * @param tableProps.columns - Set of columns to display.
+ * @param tableProps.getRowId - Function to customize the row ID.
  * @param tableProps.initialState - Initial table state.
  * @param tableProps.items - Row data to display.
  * @param tableProps.listView - List view configuration.
@@ -76,6 +79,7 @@ export interface TableProps<T extends object> {
  */
 export const TableComponent = <T extends object>({
   columns,
+  getRowId,
   initialState,
   items,
   listView,
@@ -160,6 +164,7 @@ TableProps<T>): JSX.Element => {
       : undefined,
     getFilteredRowModel: clientFiltering ? getFilteredRowModel() : undefined,
     getPaginationRowModel: getPaginationRowModel(),
+    getRowId,
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
     initialState,
     manualPagination: clientFiltering,

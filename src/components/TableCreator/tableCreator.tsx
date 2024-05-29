@@ -1,5 +1,5 @@
 import { CellContext, ColumnDef, ColumnSort } from "@tanstack/react-table";
-import { HeaderContext, RowData } from "@tanstack/table-core";
+import { CoreOptions, HeaderContext, RowData } from "@tanstack/table-core";
 import React, { useMemo } from "react";
 import { Pagination } from "../../common/entities";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
@@ -21,6 +21,7 @@ import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 export interface TableCreatorProps<T> {
   columns: ColumnConfig<T>[];
   defaultSort: ColumnSort | undefined;
+  getRowId?: CoreOptions<T>["getRowId"];
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
@@ -54,6 +55,7 @@ const createRowSelectionCell = <T extends RowData>() =>
 export const TableCreator = <T extends object>({
   columns,
   defaultSort,
+  getRowId,
   items,
   listView,
   loading,
@@ -97,6 +99,7 @@ export const TableCreator = <T extends object>({
       <Table<T>
         columns={columnDefs}
         count={pageCount}
+        getRowId={getRowId}
         initialState={initialState}
         items={items}
         listView={listView}
