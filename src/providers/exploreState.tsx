@@ -20,6 +20,7 @@ import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
+  ListItem,
 } from "./exploreState/entities";
 import {
   DEFAULT_PAGINATION_STATE,
@@ -29,12 +30,15 @@ import { initReducerArguments } from "./exploreState/initializer/utils";
 import {
   ApplySavedFilterPayload,
   PaginateTablePayload,
+  PatchExploreResponsePayload,
   ProcessExploreResponsePayload,
   ProcessRelatedResponsePayload,
   ResetExploreResponsePayload,
   ToggleEntityViewPayload,
   UpdateColumnVisibilityPayload,
+  UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
+  UpdateRowSelectionPayload,
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
@@ -44,10 +48,12 @@ import {
   getEntityState,
   getEntityStateSavedSorting,
   getFilterCount,
+  patchEntityListItems,
   resetPage,
   updateEntityPageState,
   updateEntityPageStateSorting,
   updateEntityStateByCategoryGroupConfigKey,
+  updateSelectColumnVisibility,
 } from "./exploreState/utils";
 
 export type CatalogState = string | undefined;
@@ -102,8 +108,7 @@ export type FeatureFlagState = string | undefined;
 /**
  * List items.
  */
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
-export type ListItems = any[] | undefined;
+export type ListItems = ListItem[] | undefined;
 
 /**
  * Pagination index.
@@ -225,6 +230,7 @@ export enum ExploreActionKind {
   ApplySavedFilter = "APPLY_SAVED_FILTER",
   ClearFilters = "CLEAR_FILTERS",
   PaginateTable = "PAGINATE_TABLE",
+  PatchExploreResponse = "PATCH_EXPLORE_RESPONSE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
   ProcessRelatedResponse = "PROCESS_RELATED_RESPONSE",
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
@@ -232,7 +238,9 @@ export enum ExploreActionKind {
   SelectEntityType = "SELECT_ENTITY_TYPE",
   ToggleEntityView = "TOGGLE_ENTITY_VIEW",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
+  UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
 }
 
@@ -243,6 +251,7 @@ export type ExploreAction =
   | ApplySavedFilterAction
   | ClearFiltersAction
   | PaginateTableAction
+  | PatchExploreResponseAction
   | ProcessExploreResponseAction
   | ProcessRelatedResponseAction
   | ResetExploreResponseAction
@@ -250,7 +259,9 @@ export type ExploreAction =
   | SelectEntityTypeAction
   | ToggleEntityViewAction
   | UpdateColumnVisibilityAction
+  | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateRowSelectionAction
   | UpdateSortingAction;
 
 /**
@@ -275,6 +286,14 @@ type ClearFiltersAction = {
 type PaginateTableAction = {
   payload: PaginateTablePayload;
   type: ExploreActionKind.PaginateTable;
+};
+
+/**
+ * Patch explore response action.
+ */
+type PatchExploreResponseAction = {
+  payload: PatchExploreResponsePayload;
+  type: ExploreActionKind.PatchExploreResponse;
 };
 
 /**
@@ -318,7 +337,7 @@ type SelectEntityTypeAction = {
 };
 
 /**
- * Toggle entity view.
+ * Toggle entity view action.
  */
 type ToggleEntityViewAction = {
   payload: ToggleEntityViewPayload;
@@ -334,11 +353,27 @@ type UpdateColumnVisibilityAction = {
 };
 
 /**
+ * Update entity view access action.
+ */
+type UpdateEntityViewAccessAction = {
+  payload: UpdateEntityViewAccessPayload;
+  type: ExploreActionKind.UpdateEntityViewAccess;
+};
+
+/**
  * Update filter action.
  */
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
+};
+
+/**
+ * Update row selection action.
+ */
+type UpdateRowSelectionAction = {
+  payload: UpdateRowSelectionPayload;
+  type: ExploreActionKind.UpdateRowSelection;
 };
 
 /**
@@ -432,6 +467,24 @@ function exploreReducer(
       };
     }
     /**
+     * Patch explore response
+     */
+    case ExploreActionKind.PatchExploreResponse: {
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { rowSelection: {} }
+        ),
+        listItems: patchEntityListItems(
+          state.listItems,
+          payload.updatedListItems,
+          payload.listItemKey
+        ),
+      };
+    }
+    /**
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
@@ -520,6 +573,28 @@ function exploreReducer(
       };
     }
     /**
+     * Update column visibility
+     **/
+    case ExploreActionKind.UpdateColumnVisibility: {
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { columnsVisibility: payload }
+        ),
+      };
+    }
+    /**
+     * Update entity view access
+     **/
+    case ExploreActionKind.UpdateEntityViewAccess: {
+      return {
+        ...state,
+        entityPageState: updateSelectColumnVisibility(state, payload.canEdit),
+      };
+    }
+    /**
      * Update filter
      **/
     case ExploreActionKind.UpdateFilter: {
@@ -542,6 +617,19 @@ function exploreReducer(
       };
     }
     /**
+     * Update row selection
+     */
+    case ExploreActionKind.UpdateRowSelection: {
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { rowSelection: payload }
+        ),
+      };
+    }
+    /**
      * Update sorting
      **/
     case ExploreActionKind.UpdateSorting: {
@@ -553,19 +641,6 @@ function exploreReducer(
           { sorting: payload }
         ),
         paginationState: resetPage(state.paginationState),
-      };
-    }
-    /**
-     * Update column visibility
-     **/
-    case ExploreActionKind.UpdateColumnVisibility: {
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { columnsVisibility: payload }
-        ),
       };
     }
 

@@ -1324,6 +1324,10 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
         ...theme.typography[TEXT_BODY_SMALL_500],
         padding: "20px",
       },
+      paddingCheckbox: {
+        paddingRight: 0,
+        width: "unset",
+      },
       root: {
         padding: "18px 20px",
       },

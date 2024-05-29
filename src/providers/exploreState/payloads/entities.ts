@@ -1,4 +1,8 @@
-import { ColumnSort } from "@tanstack/react-table";
+import {
+  ColumnSort,
+  RowSelectionState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -11,6 +15,7 @@ import {
   PaginationResponse,
   RelatedListItems,
 } from "../../exploreState";
+import { ListItem } from "../entities";
 
 /**
  * Apply saved filter payload.
@@ -19,6 +24,19 @@ export interface ApplySavedFilterPayload {
   categoryKey: CategoryKey;
   selected: boolean;
   selectedValue: CategoryValueKey;
+}
+
+/**
+ * Paginate table payload.
+ */
+export type PaginateTablePayload = PaginationDirectionType;
+
+/**
+ * Patch explore response payload.
+ */
+export interface PatchExploreResponsePayload {
+  listItemKey: keyof ListItem;
+  updatedListItems: ListItems;
 }
 
 /**
@@ -39,11 +57,6 @@ export interface ProcessRelatedResponsePayload {
 }
 
 /**
- * Paginate table payload.
- */
-export type PaginateTablePayload = PaginationDirectionType;
-
-/**
  * Reset explore response payload.
  */
 export type ResetExploreResponsePayload = undefined;
@@ -56,7 +69,14 @@ export type ToggleEntityViewPayload = ENTITY_VIEW;
 /**
  * Update column visibility payload.
  */
-export type UpdateColumnVisibilityPayload = Record<string, boolean>;
+export type UpdateColumnVisibilityPayload = VisibilityState;
+
+/**
+ * Update entity view access payload.
+ */
+export interface UpdateEntityViewAccessPayload {
+  canEdit: boolean;
+}
 
 /**
  * Update filter payload.
@@ -66,6 +86,11 @@ export interface UpdateFilterPayload {
   selected: boolean;
   selectedValue: CategoryValueKey;
 }
+
+/**
+ * Update row selection payload.
+ */
+export type UpdateRowSelectionPayload = RowSelectionState;
 
 /**
  * Update sorting payload.

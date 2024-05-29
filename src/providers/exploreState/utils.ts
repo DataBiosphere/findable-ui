@@ -4,13 +4,15 @@ import {
   CategoryValueKey,
   SelectedFilter,
 } from "../../common/entities";
-import { ExploreState, PaginationState } from "../exploreState";
+import { ACCESSOR_KEYS } from "../../components/TableCreator/common/constants";
+import { ExploreState, ListItems, PaginationState } from "../exploreState";
 import {
   CategoryGroupConfigKey,
   EntityPageState,
   EntityPageStateMapper,
   EntityState,
   EntityStateSavedFilter,
+  ListItem,
 } from "./entities";
 import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
 
@@ -120,6 +122,28 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
 }
 
 /**
+ * Returns list items with updated list items patched.
+ * @param listItems - List items.
+ * @param updatedListItems - List items to patch.
+ * @param listItemKey - List item key identifier to map list items.
+ * @returns list items with updated list items patched.
+ */
+export function patchEntityListItems(
+  listItems: ListItems,
+  updatedListItems: ListItems,
+  listItemKey: keyof ListItem
+): ListItems {
+  if (!listItems || !updatedListItems) return listItems;
+  const listItemById = new Map(
+    listItems.map((listItem) => [listItem[listItemKey], listItem])
+  );
+  updatedListItems.forEach((listItem) => {
+    listItemById.set(listItem[listItemKey], listItem);
+  });
+  return [...listItemById.values()];
+}
+
+/**
  * Resets pagination.
  * @param paginationState - Pagination state.
  * @returns a reset pagination state.
@@ -216,4 +240,36 @@ export function updateEntityStateByCategoryGroupConfigKey(
       ...nextEntityState,
     });
   }
+}
+
+/**
+ *  Updates the entity page state for each entity with row selection enabled,
+ *  by updating the visibility of the "select" column based on user access and resetting row selection state.
+ * @param state - Explore state.
+ * @param canEdit - User has edit access.
+ * @returns new entity page state mapper with updated column visibility and row selection state.
+ */
+export function updateSelectColumnVisibility(
+  state: ExploreState,
+  canEdit: boolean
+): EntityPageStateMapper {
+  return Object.entries(state.entityPageState).reduce(
+    (acc, [entityPath, entityPageState]) => {
+      if (entityPageState.enableRowSelection) {
+        return {
+          ...acc,
+          [entityPath]: {
+            ...entityPageState,
+            columnsVisibility: {
+              ...entityPageState.columnsVisibility,
+              [ACCESSOR_KEYS.SELECT]: canEdit,
+            },
+            rowSelection: {},
+          },
+        };
+      }
+      return { ...acc, [entityPath]: entityPageState };
+    },
+    {} as EntityPageStateMapper
+  );
 }

@@ -1,5 +1,7 @@
+import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
+import { ACCESSOR_KEYS } from "../../../components/TableCreator/common/constants";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -139,6 +141,22 @@ function initCategoryGroups(
 }
 
 /**
+ * Initializes column visibility for the given entity.
+ * @param entityConfig - Entity config.
+ * @returns column visibility.
+ */
+function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
+  const {
+    list: { columns },
+    listView: { enableRowSelection = false } = {},
+  } = entityConfig;
+  return {
+    [ACCESSOR_KEYS.SELECT]: enableRowSelection,
+    ...getInitialTableColumnVisibility(columns),
+  };
+}
+
+/**
  * Initializes entity page state.
  * @param config - Site config.
  * @returns entity page state.
@@ -149,7 +167,9 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
       ...acc,
       [entity.route]: {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
-        columnsVisibility: getInitialTableColumnVisibility(entity.list.columns),
+        columnsVisibility: initColumnVisibility(entity),
+        enableRowSelection: Boolean(entity.listView?.enableRowSelection),
+        rowSelection: {},
         sorting: getDefaultSorting(entity),
       },
     };

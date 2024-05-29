@@ -9,7 +9,7 @@ import { ButtonTextPrimary } from "../../../common/Button/components/ButtonTextP
 import { DropdownButton } from "../../../common/Button/components/DropdownButton/dropdownButton";
 import { CheckedIcon } from "../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
-import { CheckboxMenu as Menu } from "./checkboxMenu.styles";
+import { Menu } from "./checkboxMenu.styles";
 
 type MenuListItemOnChangeFn = (event: unknown) => void; // see React Table VisibilityColumn "getToggleVisibilityHandler".
 type onResetFn = () => void; // see React Table VisibilityInstance "resetColumnVisibility".
@@ -46,7 +46,9 @@ export const CheckboxMenu = ({
 
   return (
     <>
-      <DropdownButton onClick={onOpenMenu}>{buttonLabel}</DropdownButton>
+      <DropdownButton onClick={onOpenMenu} open={open}>
+        {buttonLabel}
+      </DropdownButton>
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}

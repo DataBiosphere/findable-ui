@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { Menu } from "@mui/material";
+import { Menu as MMenu } from "@mui/material";
 
-export const CheckboxMenu = styled(Menu)`
+export const Menu = styled(MMenu)`
   .MuiPaper-menu {
-    margin: 8px 0;
+    margin: 4px 0;
   }
 
   // List item button
