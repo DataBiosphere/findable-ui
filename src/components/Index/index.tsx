@@ -5,6 +5,7 @@ import { Hero } from "./components/Hero/hero";
 import { Index as IndexLayout } from "./index.styles";
 
 export interface IndexProps {
+  className?: string;
   List?: ReactNode;
   ListHero?: ReactNode | ReactNode[];
   SideBarButton?: ReactNode;
@@ -15,6 +16,7 @@ export interface IndexProps {
 }
 
 export const Index = ({
+  className,
   List,
   ListHero,
   SideBarButton,
@@ -26,7 +28,7 @@ export const Index = ({
   const { layoutState } = useLayoutState();
   const { headerHeight } = layoutState;
   return (
-    <IndexLayout marginTop={headerHeight}>
+    <IndexLayout className={className} marginTop={headerHeight}>
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} title={title} />
       {SubTitleHero}
       {Tabs}

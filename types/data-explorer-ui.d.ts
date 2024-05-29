@@ -11,6 +11,7 @@ import { PaletteColorOptions } from "@mui/material/styles/createPalette";
 import { TypographyStyleOptions } from "@mui/material/styles/createTypography";
 import type {} from "@mui/material/SvgIcon";
 import type {} from "@mui/material/Tabs";
+import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import { RowData } from "@tanstack/react-table";
 import { DataLayer } from "../src/common/analytics/entities";
@@ -197,6 +198,15 @@ declare module "@mui/material/styles" {
     "text-heading-small"?: TypographyStyleOptions;
     "text-heading-xlarge"?: TypographyStyleOptions;
     "text-uppercase-500"?: TypographyStyleOptions;
+  }
+}
+
+/**
+ * Toolbar prop options.
+ */
+declare module "@mui/material/Toolbar" {
+  interface ToolbarPropsVariantOverrides {
+    table: true;
   }
 }
 

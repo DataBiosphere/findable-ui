@@ -7,7 +7,7 @@ import {
   RoundedPaper,
 } from "../../../common/Paper/paper.styles";
 import { NoResults } from "../../../NoResults/noResults";
-import { TableToolbar } from "../../../Table/components/TableToolbar/tableToolbar.styles";
+import { Toolbar } from "../../../Table/components/TableToolbar/tableToolbar.styles";
 import { Table } from "../Table/table";
 
 interface DetailViewTableProps<T extends object> {
@@ -32,7 +32,7 @@ export const DetailViewTable = <T extends object>({
   return items.length > 0 ? (
     <Paper className={className}>
       <GridPaper>
-        {tools && <TableToolbar>{tools}</TableToolbar>}
+        {tools && <Toolbar variant="table">{tools}</Toolbar>}
         <Table
           columns={columns}
           gridTemplateColumns={gridTemplateColumns}
