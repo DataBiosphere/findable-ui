@@ -1,8 +1,9 @@
 import {
-  IconButton as MIconButton,
   IconButtonProps as MIconButtonProps,
+  IconProps as MIconProps,
 } from "@mui/material";
 import React, { ElementType } from "react";
+import { Button } from "./iconButton.styles";
 
 /**
  * Basic icon button component.
@@ -11,24 +12,22 @@ import React, { ElementType } from "react";
 
 export interface IconButtonProps extends MIconButtonProps {
   className?: string;
-  disabled?: boolean;
   Icon: ElementType;
+  iconProps?: MIconProps;
+  open?: boolean;
 }
 
 export const IconButton = ({
   className,
-  disabled = false,
   Icon,
+  iconProps = { fontSize: "small" },
+  open = false,
+  size = "large",
   ...props /* Spread props to allow for Mui IconButtonProps specific prop overrides e.g. "onClick". */
 }: IconButtonProps): JSX.Element => {
   return (
-    <MIconButton
-      className={className}
-      disabled={disabled}
-      size="large"
-      {...props}
-    >
-      <Icon fontSize="small" />
-    </MIconButton>
+    <Button className={className} open={open} size={size} {...props}>
+      <Icon {...iconProps} />
+    </Button>
   );
 };
