@@ -1,10 +1,11 @@
 import { MenuProps as MMenuProps } from "@mui/material";
-import React, { ElementType } from "react";
+import React from "react";
+import { DropdownButton as DXDropdownButton } from "../../../../../../../common/Button/components/DropdownButton/dropdownButton";
 import {
-  DropdownButton,
-  DropdownButtonProps,
-} from "../../../../../../../common/Button/components/DropdownButton/dropdownButton";
-import { DropdownMenuItemProps } from "../../../../../../../common/DropdownMenu/dropdownMenu";
+  DropdownMenuButtonProps,
+  DropdownMenuItemProps,
+} from "../../../../../../../common/DropdownMenu/common/entities";
+import { DropdownMenuProps as DXDropdownMenuProps } from "../../../../../../../common/DropdownMenu/dropdownMenu";
 import { DropdownMenu as RowSelectionDropdownMenu } from "./dropdownMenu.styles";
 
 const DEFAULT_MENU_PROPS: Partial<MMenuProps> = {
@@ -13,14 +14,14 @@ const DEFAULT_MENU_PROPS: Partial<MMenuProps> = {
 };
 
 export interface DropdownMenuProps {
-  Button?: ElementType<DropdownButtonProps>;
+  Button?: DXDropdownMenuProps["Button"];
   buttonLabel?: string;
   children: ({ closeMenu }: DropdownMenuItemProps) => JSX.Element[];
   className?: string;
 }
 
 export const DropdownMenu = ({
-  Button = (props): JSX.Element =>
+  Button = (props: DropdownMenuButtonProps): JSX.Element =>
     renderButton({ children: buttonLabel, ...props }),
   buttonLabel = "Edit",
   children,
@@ -44,6 +45,6 @@ export const DropdownMenu = ({
  * @param props - Button props e.g. "onClick".
  * @returns button element.
  */
-function renderButton(props: DropdownButtonProps): JSX.Element {
-  return <DropdownButton {...props} />;
+function renderButton(props: DropdownMenuButtonProps): JSX.Element {
+  return <DXDropdownButton {...props} />;
 }
