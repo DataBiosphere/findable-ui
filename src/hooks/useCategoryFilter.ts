@@ -73,11 +73,14 @@ function buildCategoryView(
   categoryValueViews: SelectCategoryValueView[],
   categoryConfigs: CategoryConfig[]
 ): SelectCategoryView {
+  const categoryConfig = findCategoryConfig(category.key, categoryConfigs);
+  const mapSelectCategoryValue =
+    categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
   return {
     isDisabled: false,
     key: category.key,
-    label: getCategoryLabel(category.key, categoryConfigs),
-    values: categoryValueViews,
+    label: getCategoryLabel(category.key, categoryConfig),
+    values: categoryValueViews.map(mapSelectCategoryValue),
   };
 }
 
@@ -192,20 +195,41 @@ function getCategorySelectedFilter(
 /**
  * Get the label for the given category key as per the config.
  * @param key - Key of category to find label of.
- * @param categoryConfigs - Category accept list.
+ * @param categoryConfig - Category.
  * @returns the display value for the given category.
  */
 function getCategoryLabel(
   key: string,
-  categoryConfigs: CategoryConfig[]
+  categoryConfig?: CategoryConfig
 ): string {
-  const categoryConfig = categoryConfigs.find(
-    (categoryConfig) => categoryConfig.key === key
-  );
   if (!categoryConfig) {
     return key;
   }
   return categoryConfig.label;
+}
+
+/**
+ * Default function returning select category value, unmodified.
+ * @param selectCategoryValue - Select category value.
+ * @returns original select category value.
+ */
+export function getSelectCategoryValue(
+  selectCategoryValue: SelectCategoryValue
+): SelectCategoryValue {
+  return selectCategoryValue;
+}
+
+/**
+ * Returns the category config for the given category config key.
+ * @param key - Category config key.
+ * @param categoryConfigs - Category configs.
+ * @returns category config.
+ */
+function findCategoryConfig(
+  key: string,
+  categoryConfigs: CategoryConfig[]
+): CategoryConfig | undefined {
+  return categoryConfigs.find((categoryConfig) => categoryConfig.key === key);
 }
 
 /**
