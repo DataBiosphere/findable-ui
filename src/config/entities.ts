@@ -3,6 +3,7 @@ import { ColumnSort } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
 import {
   CategoryKey,
+  SelectCategoryValueView,
   SelectedFilter,
   SelectedFilterValue,
 } from "../common/entities";
@@ -77,6 +78,9 @@ export interface CategoryGroup {
 export interface CategoryConfig {
   key: string;
   label: string;
+  mapSelectCategoryValue?: (
+    selectCategoryValue: SelectCategoryValueView
+  ) => SelectCategoryValueView;
 }
 
 /**
