@@ -1,5 +1,13 @@
+import { CategoryGroup } from "../../../config/entities";
 import { ExploreState, PaginationState } from "../../exploreState";
+import { SELECT_CATEGORY_KEY } from "../constants";
 import { EntityState } from "../entities";
+
+export const DEFAULT_CATEGORY_GROUP_SAVED_FILTERS: CategoryGroup = {
+  categoryConfigs: [
+    { key: SELECT_CATEGORY_KEY.SAVED_FILTERS, label: "Saved Filters" },
+  ],
+};
 
 export const DEFAULT_ENTITY_STATE: EntityState = {
   categoryViews: [],
