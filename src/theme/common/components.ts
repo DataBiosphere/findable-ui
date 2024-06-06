@@ -943,6 +943,11 @@ export const MuiLink: Components["MuiLink"] = {
   defaultProps: {
     underline: "hover",
   },
+  styleOverrides: {
+    root: {
+      cursor: "pointer",
+    },
+  },
 };
 
 /**
