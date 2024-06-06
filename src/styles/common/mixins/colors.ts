@@ -2,6 +2,8 @@ import { CommonColors, PaletteColor } from "@mui/material/styles/createPalette";
 import { ThemeProps } from "../../../theme/theme";
 
 // Alert
+export const alertLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
+  theme.palette.alert.light;
 export const alertLightest = ({
   theme,
 }: ThemeProps): PaletteColor["lightest"] => theme.palette.alert.lightest;
@@ -13,8 +15,6 @@ export const errorMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.error.main;
 
 // Info
-export const infoDark = ({ theme }: ThemeProps): PaletteColor["dark"] =>
-  theme.palette.info.dark;
 export const infoLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
   theme.palette.info.light;
 export const infoLightest = ({ theme }: ThemeProps): PaletteColor["lightest"] =>
@@ -23,12 +23,8 @@ export const infoMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.info.main;
 
 // Ink
-export const inkDark = ({ theme }: ThemeProps): PaletteColor["dark"] =>
-  theme.palette.ink.dark;
 export const inkLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
   theme.palette.ink.light;
-export const inkLightest = ({ theme }: ThemeProps): PaletteColor["lightest"] =>
-  theme.palette.ink.lightest;
 export const inkMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.ink.main;
 
@@ -50,6 +46,8 @@ export const smokeMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.smoke.main;
 
 // Success
+export const successLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
+  theme.palette.success.light;
 export const successLightest = ({
   theme,
 }: ThemeProps): PaletteColor["lightest"] => theme.palette.success.lightest;
@@ -57,6 +55,8 @@ export const successMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.success.main;
 
 // Warning
+export const warningLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
+  theme.palette.warning.light;
 export const warningLightest = ({
   theme,
 }: ThemeProps): PaletteColor["lightest"] => theme.palette.warning.lightest;
