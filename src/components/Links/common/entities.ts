@@ -5,4 +5,11 @@ export enum ANCHOR_TARGET {
   SELF = "_self",
 }
 
-export type Url = string | Pick<UrlObject, "href" | "query">;
+export type StrictUrlObject = Omit<UrlObject, "href" | "query"> & {
+  href: string;
+  query: string;
+};
+
+export type Url = string | UrlObjectWithHrefAndQuery;
+
+export type UrlObjectWithHrefAndQuery = Pick<StrictUrlObject, "href" | "query">;

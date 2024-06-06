@@ -7,14 +7,17 @@ import {
   ExploreActionKind,
   ExploreState,
 } from "../../../../../../providers/exploreState";
-import { ANCHOR_TARGET } from "../../../../common/entities";
+import {
+  ANCHOR_TARGET,
+  UrlObjectWithHrefAndQuery,
+} from "../../../../common/entities";
 import { LinkProps } from "../../link";
 
 const PARAM_FILTER = "filter";
 
 export interface ExploreViewLinkProps
   extends Omit<LinkProps, "copyable" | "noWrap" | "url"> {
-  url: UrlObject;
+  url: UrlObjectWithHrefAndQuery;
 }
 
 export const ExploreViewLink = ({
@@ -43,7 +46,7 @@ export const ExploreViewLink = ({
   return (
     <Link
       className={className}
-      href={url.href ?? ""}
+      href={url.href}
       onClick={onNavigate}
       rel="noopener"
       target={target}
@@ -58,9 +61,7 @@ export const ExploreViewLink = ({
  * @param href - Href.
  * @returns entity list type.
  */
-function getEntityListType(href: UrlObject["href"]): string {
-  // href should not be empty (href is expected to be a string; isValidExploreURL acts as a guard).
-  if (!href) throwError({ href, query: "" });
+function getEntityListType(href: UrlObjectWithHrefAndQuery["href"]): string {
   return href.substring(1);
 }
 
@@ -69,9 +70,9 @@ function getEntityListType(href: UrlObject["href"]): string {
  * @param query - Query.
  * @returns selected filters.
  */
-function getSelectedFilters(query: UrlObject["query"]): SelectedFilter[] {
-  // Query should not be empty (query is expected to be a string; isValidExploreURL acts as a guard).
-  if (typeof query !== "string") throwError({ href: "", query });
+function getSelectedFilters(
+  query: UrlObjectWithHrefAndQuery["query"]
+): SelectedFilter[] {
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
   return parsedQuery[PARAM_FILTER];
@@ -92,13 +93,27 @@ function isSelectedFilter(value: unknown): value is SelectedFilter {
 }
 
 /**
+ * Returns true if the given query string is a valid JSON string.
+ * @param query - Query string.
+ * @returns true if the given query string is a valid JSON string.
+ */
+function isValidJsonString(query: string): boolean {
+  try {
+    JSON.parse(query);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
  * Returns true if the given explore link is valid.
  * @param url - Explore link URL.
  * @param exploreState - Explore state.
  * @returns true if the given explore link is valid.
  */
 function isValidExploreURL(
-  url: UrlObject,
+  url: UrlObjectWithHrefAndQuery,
   exploreState: ExploreState
 ): boolean {
   const validHref = isValidHref(url, exploreState);
@@ -112,10 +127,13 @@ function isValidExploreURL(
  * @param exploreState - Explore state.
  * @returns true if the given href is configured in the explore state.
  */
-function isValidHref(url: UrlObject, exploreState: ExploreState): boolean {
+function isValidHref(
+  url: UrlObjectWithHrefAndQuery,
+  exploreState: ExploreState
+): boolean {
   const { entityPageState } = exploreState;
   const { href } = url;
-  return !!href && href.startsWith("/") && href.substring(1) in entityPageState;
+  return href.startsWith("/") && href.substring(1) in entityPageState;
 }
 
 /**
@@ -123,22 +141,21 @@ function isValidHref(url: UrlObject, exploreState: ExploreState): boolean {
  * @param url - Explore link URL.
  * @returns true if the given explore query is valid.
  */
-function isValidQuery(url: UrlObject): boolean {
+function isValidQuery(url: UrlObjectWithHrefAndQuery): boolean {
   const { query } = url;
-  // Query should not be empty.
-  if (!query) return false;
-  // Query should not be typed as ParsedUrlQueryInput.
-  if (typeof query !== "string") return false;
   // Decode and parse the query.
   const decodedQuery = decodeURIComponent(query);
-  const parsedQuery = JSON.parse(decodedQuery);
-  // Query should contain "filter" key.
-  if (PARAM_FILTER in parsedQuery) {
-    const filters = parsedQuery[PARAM_FILTER];
-    // Filter should be an array.
-    if (Array.isArray(filters)) {
-      // Filter should contain only SelectedFilter objects.
-      return filters.every(isSelectedFilter);
+  // Query should be a valid JSON string.
+  if (isValidJsonString(decodedQuery)) {
+    const parsedQuery = JSON.parse(decodedQuery);
+    // Query should contain "filter" key.
+    if (PARAM_FILTER in parsedQuery) {
+      const filters = parsedQuery[PARAM_FILTER];
+      // Filter should be an array.
+      if (Array.isArray(filters)) {
+        // Filter should contain only SelectedFilter objects.
+        return filters.every(isSelectedFilter);
+      }
     }
   }
   return false;

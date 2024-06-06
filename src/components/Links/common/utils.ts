@@ -1,6 +1,5 @@
-import { UrlObject } from "url";
 import { URL_OBJECT_KEYS } from "./constants";
-import { Url } from "./entities";
+import { Url, UrlObjectWithHrefAndQuery } from "./entities";
 
 /**
  * Returns true if the given link is an internal link.
@@ -12,14 +11,18 @@ export function isClientSideNavigation(link: string): boolean {
 }
 
 /**
- * Returns true if the given url is a URL object.
+ * Returns true if the given url is a URL object with href and query.
  * @param value - URL.
- * @returns true if the given url is a URL object.
+ * @returns true if the given url is a URL object with href and query.
  */
-export function isURLObject(value: Url): value is UrlObject {
+export function isURLObjectWithHrefAndQuery(
+  value: Url
+): value is UrlObjectWithHrefAndQuery {
   return (
     typeof value !== "string" &&
-    Object.keys(value).some((key) => URL_OBJECT_KEYS.includes(key))
+    Object.entries(value).every(
+      ([key, value]) => URL_OBJECT_KEYS.includes(key) && !!value
+    )
   );
 }
 

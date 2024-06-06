@@ -6,7 +6,7 @@ import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard
 import { ANCHOR_TARGET, Url } from "../../common/entities";
 import {
   isClientSideNavigation,
-  isURLObject,
+  isURLObjectWithHrefAndQuery,
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
@@ -18,7 +18,7 @@ export interface LinkProps {
   noWrap?: MLinkProps["noWrap"];
   onClick?: () => void;
   target?: ANCHOR_TARGET;
-  url: Url /* url specified as UrlObject is currently only used for internal links */;
+  url: Url /* url specified as UrlObject with href and query defined, and is currently only used for internal links */;
 }
 
 export const Link = ({
@@ -30,7 +30,7 @@ export const Link = ({
   target,
   url,
 }: LinkProps): JSX.Element => {
-  if (isURLObject(url)) {
+  if (isURLObjectWithHrefAndQuery(url)) {
     /* Internal navigation - explore link */
     return (
       <ExploreViewLink
