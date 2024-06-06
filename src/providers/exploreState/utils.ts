@@ -158,13 +158,16 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 /**
  * Resets row selection for the current entity and entities that share the same category group config key.
  * @param state - Explore state.
+ * @param categoryGroupConfigKey - Category group config key.
  * @returns entity page state mapper with row selection reset.
  */
-export function resetRowSelection(state: ExploreState): EntityPageStateMapper {
-  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+export function resetRowSelection(
+  state: ExploreState,
+  categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
-  );
+  )
+): EntityPageStateMapper {
   return Object.entries(state.entityPageState).reduce(
     (acc, [entityPath, entityPageState]) => {
       if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
@@ -247,16 +250,17 @@ export function updateEntityPageStateSorting(
  * Updates entity state by category group config key.
  * @param state - Explore state.
  * @param nextEntityState - Partial next entity state.
+ * @param categoryGroupConfigKey - Category group config key.
  * @returns updated entity state by category group config key.
  */
 export function updateEntityStateByCategoryGroupConfigKey(
   state: ExploreState,
-  nextEntityState: Partial<EntityState>
-): void {
-  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+  nextEntityState: Partial<EntityState>,
+  categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
-  );
+  )
+): void {
   const entityState = getEntityState(state, categoryGroupConfigKey);
   if (entityState) {
     setEntityStateByCategoryGroupConfigKey(categoryGroupConfigKey, state, {

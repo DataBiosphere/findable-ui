@@ -20,7 +20,11 @@ import {
   SavedFilterByCategoryValueKey,
 } from "../entities";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
-import { DEFAULT_ENTITY_STATE, INITIAL_STATE } from "./constants";
+import {
+  DEFAULT_CATEGORY_GROUP_SAVED_FILTERS,
+  DEFAULT_ENTITY_STATE,
+  INITIAL_STATE,
+} from "./constants";
 
 /**
  * Builds category groups from the given category group config (adds the saved filters category to the category groups).
@@ -32,14 +36,7 @@ function buildCategoryGroups(
 ): CategoryGroup[] {
   const { categoryGroups, savedFilters } = categoryGroupConfig;
   if (!savedFilters) return categoryGroups;
-  const clonedCategoryGroups = [...categoryGroups];
-  const savedFiltersCategoryGroup: CategoryGroup = {
-    categoryConfigs: [
-      { key: SELECT_CATEGORY_KEY.SAVED_FILTERS, label: "Saved Filters" },
-    ],
-  };
-  clonedCategoryGroups.unshift(savedFiltersCategoryGroup);
-  return clonedCategoryGroups;
+  return [DEFAULT_CATEGORY_GROUP_SAVED_FILTERS, ...categoryGroups];
 }
 
 /**

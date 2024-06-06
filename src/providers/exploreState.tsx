@@ -36,6 +36,7 @@ import {
   ResetExploreResponsePayload,
   ToggleEntityViewPayload,
   UpdateColumnVisibilityPayload,
+  UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
   UpdateRowSelectionPayload,
@@ -239,6 +240,7 @@ export enum ExploreActionKind {
   SelectEntityType = "SELECT_ENTITY_TYPE",
   ToggleEntityView = "TOGGLE_ENTITY_VIEW",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
+  UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
@@ -260,6 +262,7 @@ export type ExploreAction =
   | SelectEntityTypeAction
   | ToggleEntityViewAction
   | UpdateColumnVisibilityAction
+  | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
   | UpdateRowSelectionAction
@@ -351,6 +354,14 @@ type ToggleEntityViewAction = {
 type UpdateColumnVisibilityAction = {
   payload: UpdateColumnVisibilityPayload;
   type: ExploreActionKind.UpdateColumnVisibility;
+};
+
+/**
+ * Update entity filters action.
+ */
+type UpdateEntityFiltersAction = {
+  payload: UpdateEntityFiltersPayload;
+  type: ExploreActionKind.UpdateEntityFilters;
 };
 
 /**
@@ -584,6 +595,28 @@ function exploreReducer(
           state.entityPageState,
           { columnsVisibility: payload }
         ),
+      };
+    }
+    /**
+     * Update entity filters.
+     */
+    case ExploreActionKind.UpdateEntityFilters: {
+      const { entityListType, filters: filterState } = payload;
+      const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+        entityListType,
+        state.entityPageState
+      );
+      updateEntityStateByCategoryGroupConfigKey(
+        state,
+        {
+          filterState,
+          savedFilterState: [], // Clear saved filter state.
+        },
+        categoryGroupConfigKey
+      );
+      return {
+        ...state,
+        entityPageState: resetRowSelection(state, categoryGroupConfigKey),
       };
     }
     /**

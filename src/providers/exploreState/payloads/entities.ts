@@ -8,6 +8,7 @@ import {
   CategoryValueKey,
   PaginationDirectionType,
   SelectCategory,
+  SelectedFilter,
 } from "../../../common/entities";
 import {
   ENTITY_VIEW,
@@ -71,6 +72,13 @@ export type ToggleEntityViewPayload = ENTITY_VIEW;
  */
 export type UpdateColumnVisibilityPayload = VisibilityState;
 
+/**
+ * Update entity filters payload.
+ */
+export interface UpdateEntityFiltersPayload {
+  entityListType: string;
+  filters: SelectedFilter[];
+}
 /**
  * Update entity view access payload.
  */
