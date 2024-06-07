@@ -83,6 +83,7 @@ export function createAppTheme(customOptions?: ThemeOptions): Theme {
     MuiCard: C.MuiCard,
     MuiCheckbox: C.MuiCheckbox(theme),
     MuiChip: C.MuiChip(theme),
+    MuiCircularProgress: C.MuiCircularProgress(theme),
     MuiCssBaseline: C.MuiCssBaseline(theme),
     MuiDialog: C.MuiDialog(theme),
     MuiDialogActions: C.MuiDialogActions,

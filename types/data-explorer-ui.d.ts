@@ -3,6 +3,7 @@ import type {} from "@mui/material/Alert";
 import type {} from "@mui/material/Button";
 import type {} from "@mui/material/Checkbox";
 import type {} from "@mui/material/Chip";
+import type {} from "@mui/material/CircularProgress";
 import type {} from "@mui/material/IconButton";
 import type {} from "@mui/material/Paper";
 import type {} from "@mui/material/styles";
@@ -51,6 +52,15 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     nav: true;
+  }
+}
+
+/**
+ * CircularProgress prop options.
+ */
+declare module "@mui/material/CircularProgress" {
+  interface CircularProgressPropsColorOverrides {
+    alert: true;
   }
 }
 

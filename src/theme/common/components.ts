@@ -616,6 +616,33 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
 };
 
 /**
+ * MuiCircularProgress Component
+ * @param theme - Theme.
+ * @returns MuiCircularProgress component theme styles.
+ */
+export const MuiCircularProgress = (
+  theme: Theme
+): Components["MuiCircularProgress"] => {
+  return {
+    styleOverrides: {
+      circle: {
+        strokeLinecap: "round",
+      },
+    },
+    variants: [
+      {
+        props: {
+          color: "alert",
+        },
+        style: {
+          backgroundColor: theme.palette.alert.main,
+        },
+      },
+    ],
+  };
+};
+
+/**
  * MuiCssBaseline Component
  * @param theme - Theme.
  * @returns MuiCssBaseline component theme styles.
