@@ -635,7 +635,7 @@ export const MuiCircularProgress = (
           color: "alert",
         },
         style: {
-          backgroundColor: theme.palette.alert.main,
+          color: theme.palette.alert.main,
         },
       },
     ],
