@@ -25,6 +25,7 @@ export function buildBaseColumnDef<T, TValue>(
     header,
     id,
     meta: {
+      ...meta,
       columnPinned,
       header: meta ? meta.header : header,
       width,

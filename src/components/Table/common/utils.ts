@@ -364,6 +364,15 @@ export function isClientFilteringEnabled(exploreMode: ExploreMode): boolean {
 }
 
 /**
+ * Returns true if the collapsable row is disabled; i.e. only one column is visible.
+ * @param tableInstance - Table instance.
+ * @returns true if the collapsable row is disabled.
+ */
+export function isCollapsableRowDisabled<T>(tableInstance: Table<T>): boolean {
+  return tableInstance.getVisibleLeafColumns().length === 1;
+}
+
+/**
  * Returns true if column has a sort direction.
  * @param sortDirection - Column sort direction.
  * @returns true when column has a sort direction.

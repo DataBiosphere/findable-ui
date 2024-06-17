@@ -1,7 +1,7 @@
 import {
   TableCell as MTableCell,
   TableHead as MTableHead,
-  TableRow,
+  TableRow as MTableRow,
   TableSortLabel,
 } from "@mui/material";
 import { flexRender, Table } from "@tanstack/react-table";
@@ -24,28 +24,39 @@ export const TableHead = <T extends object>({
       {rowDirection === ROW_DIRECTION.DEFAULT &&
         tableInstance.getHeaderGroups().map((headerGroup) => (
           <MTableHead key={headerGroup.id}>
-            <TableRow>
-              {headerGroup.headers.map((header) => (
-                <MTableCell
-                  key={header.id}
-                  padding={getTableCellPadding(header.id)}
-                >
-                  {header.column.getCanSort() ? (
-                    <TableSortLabel {...getTableSortLabelProps(header.column)}>
-                      {flexRender(
+            <MTableRow>
+              {headerGroup.headers.map((header) => {
+                const {
+                  column: {
+                    columnDef: {
+                      meta: { enableSortingInteraction = true } = {},
+                    },
+                  },
+                } = header;
+                return header.column.getIsGrouped() ? null : (
+                  <MTableCell
+                    key={header.id}
+                    padding={getTableCellPadding(header.id)}
+                  >
+                    {header.column.getCanSort() && enableSortingInteraction ? (
+                      <TableSortLabel
+                        {...getTableSortLabelProps(header.column)}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                      </TableSortLabel>
+                    ) : (
+                      flexRender(
                         header.column.columnDef.header,
                         header.getContext()
-                      )}
-                    </TableSortLabel>
-                  ) : (
-                    flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )
-                  )}
-                </MTableCell>
-              ))}
-            </TableRow>
+                      )
+                    )}
+                  </MTableCell>
+                );
+              })}
+            </MTableRow>
           </MTableHead>
         ))}
     </Fragment>
