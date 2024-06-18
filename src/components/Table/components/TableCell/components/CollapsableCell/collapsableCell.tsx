@@ -1,5 +1,5 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
-import { flexRender, Row } from "@tanstack/react-table";
+import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
 import React, { useState } from "react";
 import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
@@ -11,11 +11,13 @@ import {
   TableCell,
 } from "./collapsableCell.styles";
 
-export interface CollapsableCellProps<T> {
+export interface CollapsableCellProps<T extends RowData> {
+  isDisabled?: boolean;
   row: Row<T>;
 }
 
-export const CollapsableCell = <T extends object>({
+export const CollapsableCell = <T extends RowData>({
+  isDisabled = false,
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
@@ -32,6 +34,7 @@ export const CollapsableCell = <T extends object>({
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
           color="ink"
+          disabled={isDisabled}
           edge="end"
           onClick={onToggleExpanded}
           size="large"
@@ -41,7 +44,9 @@ export const CollapsableCell = <T extends object>({
       </PinnedCell>
       <Collapse in={isExpanded}>
         <CollapsedContents>
-          {row.getVisibleCells().map((cell, i) => {
+          {getRowVisibleCells(row).map((cell, i) => {
+            if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
+            if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
             const header = cell.column.columnDef.meta?.header;
             return (
               i !== pinnedIndex && (
@@ -65,3 +70,20 @@ export const CollapsableCell = <T extends object>({
     </TableCell>
   );
 };
+
+/**
+ * Returns row or sub row visible cells.
+ * @param row - Row.
+ * @returns row or sub row visible cells.
+ */
+function getRowVisibleCells<T extends RowData>(
+  row: Row<T>
+): Cell<T, unknown>[] {
+  if (row.getIsGrouped()) {
+    return row
+      .getLeafRows()
+      .map((leafRow) => leafRow.getVisibleCells())
+      .flat();
+  }
+  return row.getVisibleCells();
+}

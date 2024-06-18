@@ -9,6 +9,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { TableOptions } from "@tanstack/table-core";
 import React from "react";
 import {
   BREAKPOINT_FN_NAME,
@@ -16,10 +17,10 @@ import {
 } from "../../../../hooks/useBreakpointHelper";
 import { TABLET } from "../../../../theme/common/breakpoints";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
+import { TableHead } from "../../../Table/components/TableHead/tableHead";
 import { GridTable } from "../../../Table/table.styles";
 import { generateColumnDefinitions } from "./common/utils";
 import { TableBody } from "./components/TableBody/tableBody";
-import { TableHead } from "./components/TableHead/tableHead";
 
 export interface TableView {
   table?: Partial<MTableProps>;
@@ -33,6 +34,7 @@ export interface TableProps<T extends object> {
   columns: ColumnDef<T>[];
   gridTemplateColumns: string;
   items: T[];
+  tableOptions?: Partial<TableOptions<T>>;
   tableView?: TableView;
 }
 
@@ -42,6 +44,7 @@ export const Table = <T extends object>({
   columns,
   gridTemplateColumns,
   items,
+  tableOptions,
   tableView,
 }: TableProps<T>): JSX.Element => {
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
@@ -53,7 +56,9 @@ export const Table = <T extends object>({
   const tableInstance = useReactTable({
     columns: generateColumnDefinitions(columns),
     data: items,
+    enableSorting: false,
     getCoreRowModel: getCoreRowModel(),
+    ...tableOptions,
   });
   return (
     <TableContainer className={className} sx={tableContainerSx}>

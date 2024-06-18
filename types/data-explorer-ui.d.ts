@@ -15,6 +15,7 @@ import type {} from "@mui/material/Tabs";
 import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import { RowData } from "@tanstack/react-table";
+import type {} from "@tanstack/table-core";
 import { DataLayer } from "../src/common/analytics/entities";
 import { GridTrackSize } from "../src/config/entities";
 
@@ -255,6 +256,7 @@ declare module "@tanstack/table-core" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
   interface ColumnMeta<TData extends RowData, TValue> {
     columnPinned?: boolean;
+    enableSortingInteraction?: boolean; // Flag to enable sorting interaction UI (e.g. sort icon) button; defaults to true.
     header?: string;
     width?: GridTrackSize;
   }

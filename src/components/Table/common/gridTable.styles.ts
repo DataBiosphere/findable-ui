@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Table as MTable } from "@mui/material";
+import { smokeLightest, white } from "../../../styles/common/mixins/colors";
 
 export interface GridTableProps {
   gridTemplateColumns: string;
@@ -21,7 +22,7 @@ export const GridTable = styled(MTable, {
 
   td,
   th {
-    background-color: ${({ theme }) => theme.palette.common.white};
+    background-color: ${white};
   }
 
   td,
@@ -33,6 +34,13 @@ export const GridTable = styled(MTable, {
 
     > * {
       min-width: 0; /* required; flexbox child min-width property is "auto" by default making overflow-wrap ineffectual */
+    }
+  }
+
+  [id^="grouped-row"] {
+    td {
+      background-color: ${smokeLightest};
+      grid-column: 1 / -1;
     }
   }
 `;

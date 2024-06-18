@@ -35,6 +35,10 @@ export const PinnedCell = styled.div`
   justify-content: space-between;
   padding: 12px 16px;
   word-break: break-word;
+
+  .MuiIconButton-root.Mui-disabled {
+    opacity: 0.5;
+  }
 `;
 
 export const CollapsedContents = styled.div`

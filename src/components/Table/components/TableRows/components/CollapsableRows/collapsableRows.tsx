@@ -2,6 +2,7 @@ import { TableRow as MTableRow } from "@mui/material";
 import { Row, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
+import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
 
 export interface CollapsableRowsProps<T> {
@@ -26,7 +27,10 @@ export const CollapsableRows = <T extends object>({
             data-index={virtualRow.index}
             ref={virtualizer.measureElement}
           >
-            <CollapsableCell row={row} />
+            <CollapsableCell
+              isDisabled={isCollapsableRowDisabled(tableInstance)}
+              row={row}
+            />
           </MTableRow>
         );
       })}

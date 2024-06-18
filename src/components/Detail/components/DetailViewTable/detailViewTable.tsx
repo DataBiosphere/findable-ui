@@ -8,9 +8,9 @@ import {
 } from "../../../common/Paper/paper.styles";
 import { NoResults } from "../../../NoResults/noResults";
 import { Toolbar } from "../../../Table/components/TableToolbar/tableToolbar.styles";
-import { Table } from "../Table/table";
+import { Table, TableProps } from "../Table/table";
 
-interface DetailViewTableProps<T extends object> {
+interface DetailViewTableProps<T extends object> extends TableProps<T> {
   className?: string;
   columns: ColumnDef<T>[];
   gridTemplateColumns: string;
@@ -28,6 +28,7 @@ export const DetailViewTable = <T extends object>({
   noResultsTitle,
   Paper = RoundedPaper,
   tools,
+  ...tableProps
 }: DetailViewTableProps<T>): JSX.Element => {
   return items.length > 0 ? (
     <Paper className={className}>
@@ -37,6 +38,7 @@ export const DetailViewTable = <T extends object>({
           columns={columns}
           gridTemplateColumns={gridTemplateColumns}
           items={items}
+          {...tableProps}
         />
       </GridPaper>
     </Paper>
