@@ -315,7 +315,7 @@ type RelatedSearchFunction = (
 
 export interface SavedFilter {
   filters: SelectedFilter[];
-  sort?: ColumnSort;
+  sorting?: ColumnSort[];
   title: string;
 }
 /**
