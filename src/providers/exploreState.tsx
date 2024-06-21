@@ -32,9 +32,7 @@ import {
   PaginateTablePayload,
   PatchExploreResponsePayload,
   ProcessExploreResponsePayload,
-  ProcessRelatedResponsePayload,
   ResetExploreResponsePayload,
-  ToggleEntityViewPayload,
   UpdateColumnVisibilityPayload,
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
@@ -61,14 +59,6 @@ import {
 export type CatalogState = string | undefined;
 
 /**
- * Entity view.
- */
-export enum ENTITY_VIEW {
-  EXACT = "EXACT",
-  RELATED = "RELATED",
-}
-
-/**
  * Explore context.
  */
 export interface ExploreContext {
@@ -88,12 +78,9 @@ export type ExploreState = {
   featureFlagState: FeatureFlagState;
   filterCount: number;
   filterState: SelectedFilter[];
-  isRelatedView: boolean;
   listItems: ListItems;
-  listView: ENTITY_VIEW | undefined;
   loading: boolean;
   paginationState: PaginationState;
-  relatedListItems: RelatedListItems;
   tabValue: string;
 };
 
@@ -143,12 +130,6 @@ export interface PaginationState {
   previousIndex: PaginationIndex | null;
   rows: number;
 }
-
-/**
- * Related list items.
- */
-// eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
-export type RelatedListItems = any[] | undefined;
 
 /**
  * Explore state context for storing and using filter-related and explore state.
@@ -234,11 +215,9 @@ export enum ExploreActionKind {
   PaginateTable = "PAGINATE_TABLE",
   PatchExploreResponse = "PATCH_EXPLORE_RESPONSE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
-  ProcessRelatedResponse = "PROCESS_RELATED_RESPONSE",
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
   ResetState = "RESET_STATE",
   SelectEntityType = "SELECT_ENTITY_TYPE",
-  ToggleEntityView = "TOGGLE_ENTITY_VIEW",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
@@ -256,11 +235,9 @@ export type ExploreAction =
   | PaginateTableAction
   | PatchExploreResponseAction
   | ProcessExploreResponseAction
-  | ProcessRelatedResponseAction
   | ResetExploreResponseAction
   | ResetStateAction
   | SelectEntityTypeAction
-  | ToggleEntityViewAction
   | UpdateColumnVisibilityAction
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
@@ -309,14 +286,6 @@ type ProcessExploreResponseAction = {
 };
 
 /**
- * Process related response action.
- */
-type ProcessRelatedResponseAction = {
-  payload: ProcessRelatedResponsePayload;
-  type: ExploreActionKind.ProcessRelatedResponse;
-};
-
-/**
  * Reset explore response action.
  */
 type ResetExploreResponseAction = {
@@ -338,14 +307,6 @@ type ResetStateAction = {
 type SelectEntityTypeAction = {
   payload: string;
   type: ExploreActionKind.SelectEntityType;
-};
-
-/**
- * Toggle entity view action.
- */
-type ToggleEntityViewAction = {
-  payload: ToggleEntityViewPayload;
-  type: ExploreActionKind.ToggleEntityView;
 };
 
 /**
@@ -526,15 +487,6 @@ function exploreReducer(
       };
     }
     /**
-     * Process related response
-     */
-    case ExploreActionKind.ProcessRelatedResponse: {
-      return {
-        ...state,
-        relatedListItems: payload.relatedListItems,
-      };
-    }
-    /**
      * Reset explore response.
      **/
     case ExploreActionKind.ResetExploreResponse: {
@@ -572,16 +524,6 @@ function exploreReducer(
         loading: true,
         paginationState: resetPage(state.paginationState),
         tabValue: payload,
-      };
-    }
-    /**
-     * Toggle entity view
-     */
-    case ExploreActionKind.ToggleEntityView: {
-      return {
-        ...state,
-        isRelatedView: payload === ENTITY_VIEW.RELATED,
-        listView: payload,
       };
     }
     /**

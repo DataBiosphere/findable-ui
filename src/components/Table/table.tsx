@@ -32,7 +32,7 @@ import {
 import { useExploreMode } from "../../hooks/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useScroll } from "../../hooks/useScroll";
-import { ENTITY_VIEW, ExploreActionKind } from "../../providers/exploreState";
+import { ExploreActionKind } from "../../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializer/constants";
 import { TABLET } from "../../theme/common/breakpoints";
 import { FluidPaper, GridPaper } from "../common/Paper/paper.styles";
@@ -92,7 +92,6 @@ TableProps<T>): JSX.Element => {
   const {
     entityPageState,
     filterState,
-    isRelatedView,
     listItems,
     loading,
     paginationState,
@@ -229,27 +228,20 @@ TableProps<T>): JSX.Element => {
     scrollTop();
   };
 
-  // Sets or resets react table column filters `columnFilters` state - for client-side filtering only - with update of filterState.
-  // - `columnFilters` state is "cleared" for related view, and
-  // - `columnFilters` state is "set" for all other views.
+  // Sets react table column filters `columnFilters` state - for client-side filtering only - with update of filterState.
   useEffect(() => {
     if (clientFiltering) {
-      if (isRelatedView) {
-        tableInstance.resetColumnFilters();
-      } else {
-        tableInstance.setColumnFilters(
-          filterState.map(({ categoryKey, value }) => ({
-            id: categoryKey,
-            value,
-          }))
-        );
-      }
+      tableInstance.setColumnFilters(
+        filterState.map(({ categoryKey, value }) => ({
+          id: categoryKey,
+          value,
+        }))
+      );
     }
-  }, [clientFiltering, filterState, isRelatedView, tableInstance]);
+  }, [clientFiltering, filterState, tableInstance]);
 
   // Process explore response - client-side filtering only.
   useEffect(() => {
-    if (isRelatedView) return;
     if (!listItems || listItems.length === 0) return;
     if (clientFiltering) {
       exploreDispatch({
@@ -271,20 +263,9 @@ TableProps<T>): JSX.Element => {
     clientFiltering,
     columnFilters,
     exploreDispatch,
-    isRelatedView,
     listItems,
     results,
   ]);
-
-  // Unmount - reset entity view to "exact".
-  useEffect(() => {
-    return () => {
-      exploreDispatch({
-        payload: ENTITY_VIEW.EXACT,
-        type: ExploreActionKind.ToggleEntityView,
-      });
-    };
-  }, [exploreDispatch]);
 
   function canNextPage(): boolean {
     return currentPage < pages;

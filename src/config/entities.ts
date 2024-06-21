@@ -1,12 +1,7 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
 import { ColumnSort } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
-import {
-  CategoryKey,
-  SelectCategoryValueView,
-  SelectedFilter,
-  SelectedFilterValue,
-} from "../common/entities";
+import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
@@ -267,7 +262,6 @@ export interface ListViewConfig {
   enableDownload?: boolean;
   enableRowSelection?: boolean;
   listHero?: ComponentsConfig;
-  relatedView?: RelatedViewConfig;
   rowSelectionView?: ComponentsConfig;
   subTitleHero?: ComponentsConfig;
 }
@@ -303,15 +297,6 @@ export interface Override {
   supersededBy?: string;
   withdrawn?: boolean;
 }
-
-/**
- * Related search function.
- */
-type RelatedSearchFunction = (
-  searchKey: CategoryKey | undefined,
-  resultKey: CategoryKey | undefined,
-  selectedCategoryValues: SelectedFilterValue | undefined
-) => Promise<RelatedSearchResult | undefined>;
 
 export interface SavedFilter {
   filters: SelectedFilter[];
@@ -354,24 +339,6 @@ export type TrackFilterOpenedFunction = (
 interface TrackingConfig {
   trackFilterApplied?: TrackFilterAppliedFunction;
   trackFilterOpened?: TrackFilterOpenedFunction;
-}
-
-/**
- * Product of the related search function.
- */
-export interface RelatedSearchResult {
-  resultKey: CategoryKey; // The related search function resultant search values' category key.
-  searchKey: CategoryKey; // The related search function search parameters' category key.
-  values: string[]; // Resultant search values.
-}
-
-/**
- * Related view configuration.
- */
-export interface RelatedViewConfig {
-  relatedSearchFn: RelatedSearchFunction;
-  resultKey: CategoryKey; // The related search function resultant search values' category key.
-  searchKey: CategoryKey; // The related search function search parameters' category key.
 }
 
 /**

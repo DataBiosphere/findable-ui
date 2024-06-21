@@ -10,12 +10,7 @@ import {
   SelectCategory,
   SelectedFilter,
 } from "../../../common/entities";
-import {
-  ENTITY_VIEW,
-  ListItems,
-  PaginationResponse,
-  RelatedListItems,
-} from "../../exploreState";
+import { ListItems, PaginationResponse } from "../../exploreState";
 import { ListItem } from "../entities";
 
 /**
@@ -51,21 +46,9 @@ export interface ProcessExploreResponsePayload {
 }
 
 /**
- * Process related response payload
- */
-export interface ProcessRelatedResponsePayload {
-  relatedListItems: RelatedListItems;
-}
-
-/**
  * Reset explore response payload.
  */
 export type ResetExploreResponsePayload = undefined;
-
-/**
- * Toggle entity view payload.
- */
-export type ToggleEntityViewPayload = ENTITY_VIEW;
 
 /**
  * Update column visibility payload.
