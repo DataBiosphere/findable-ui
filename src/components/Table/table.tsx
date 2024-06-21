@@ -153,7 +153,7 @@ TableProps<T>): JSX.Element => {
     data: items,
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
-    enableMultiSort: false,
+    enableMultiSort: clientFiltering,
     enableRowSelection,
     enableSorting: true, // client-side filtering.
     enableSortingRemoval: false, // client-side filtering.

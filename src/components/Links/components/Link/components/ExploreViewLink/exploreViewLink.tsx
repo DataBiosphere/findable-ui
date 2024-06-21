@@ -1,3 +1,4 @@
+import { ColumnSort } from "@tanstack/react-table";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { UrlObject } from "url";
@@ -14,6 +15,7 @@ import {
 import { LinkProps } from "../../link";
 
 const PARAM_FILTER = "filter";
+const PARAM_SORTING = "sorting";
 
 export interface ExploreViewLinkProps
   extends Omit<LinkProps, "copyable" | "noWrap" | "url"> {
@@ -36,8 +38,9 @@ export const ExploreViewLink = ({
   const onNavigate = useCallback(() => {
     const entityListType = getEntityListType(url.href);
     const filters = getSelectedFilters(url.query);
+    const sorting = getSorting(url.query);
     exploreDispatch({
-      payload: { entityListType, filters },
+      payload: { entityListType, filters, sorting },
       type: ExploreActionKind.UpdateEntityFilters,
     });
     onClick?.();
@@ -76,6 +79,19 @@ function getSelectedFilters(
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
   return parsedQuery[PARAM_FILTER];
+}
+
+/**
+ * Returns the sorting from the given query.
+ * @param query - Query.
+ * @returns sorting.
+ */
+function getSorting(
+  query: UrlObjectWithHrefAndQuery["query"]
+): ColumnSort[] | undefined {
+  const decodedQuery = decodeURIComponent(query);
+  const parsedQuery = JSON.parse(decodedQuery);
+  return parsedQuery[PARAM_SORTING];
 }
 
 /**

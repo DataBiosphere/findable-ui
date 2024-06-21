@@ -78,6 +78,7 @@ export type UpdateColumnVisibilityPayload = VisibilityState;
 export interface UpdateEntityFiltersPayload {
   entityListType: string;
   filters: SelectedFilter[];
+  sorting?: ColumnSort[];
 }
 /**
  * Update entity view access payload.
