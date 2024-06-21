@@ -601,7 +601,7 @@ function exploreReducer(
      * Update entity filters.
      */
     case ExploreActionKind.UpdateEntityFilters: {
-      const { entityListType, filters: filterState } = payload;
+      const { entityListType, filters: filterState, sorting } = payload;
       const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
         entityListType,
         state.entityPageState
@@ -616,7 +616,13 @@ function exploreReducer(
       );
       return {
         ...state,
-        entityPageState: resetRowSelection(state, categoryGroupConfigKey),
+        entityPageState: updateEntityPageState(
+          entityListType,
+          {
+            ...resetRowSelection(state, categoryGroupConfigKey), // Reset row selection for all entities with the same category group config key.
+          },
+          { sorting } // Update sorting for the entity.
+        ),
       };
     }
     /**
