@@ -260,8 +260,10 @@ export interface ListConfig<T = any> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
+  enableRowPreview?: boolean;
   enableRowSelection?: boolean;
   listHero?: ComponentsConfig;
+  rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
   subTitleHero?: ComponentsConfig;
 }

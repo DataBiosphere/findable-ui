@@ -600,6 +600,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
           backgroundColor: theme.palette.smoke.main,
           boxShadow: `0 0 0 2px ${white}`,
           height: 24,
+          minWidth: 0,
         },
       },
       {
@@ -609,6 +610,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
           boxShadow: `0 0 0 2px ${white}`,
           height: 20,
           maxWidth: "fit-content",
+          minWidth: 0,
         },
       },
     ],

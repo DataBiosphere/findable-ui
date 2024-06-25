@@ -37,5 +37,6 @@ export const INITIAL_STATE: ExploreState = {
   listItems: [],
   loading: true,
   paginationState: DEFAULT_PAGINATION_STATE,
+  rowPreview: undefined,
   tabValue: "",
 };

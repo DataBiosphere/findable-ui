@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategoryView, SelectedFilter } from "../common/entities";
+import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
@@ -37,6 +38,7 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
+  UpdateRowPreviewPayload,
   UpdateRowSelectionPayload,
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
@@ -81,6 +83,7 @@ export type ExploreState = {
   listItems: ListItems;
   loading: boolean;
   paginationState: PaginationState;
+  rowPreview: RowPreviewState;
   tabValue: string;
 };
 
@@ -222,6 +225,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
 }
@@ -242,6 +246,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction;
 
@@ -339,6 +344,14 @@ type UpdateEntityViewAccessAction = {
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
+};
+
+/**
+ * Update row preview action.
+ */
+export type UpdateRowPreviewAction = {
+  payload: UpdateRowPreviewPayload;
+  type: ExploreActionKind.UpdateRowPreview;
 };
 
 /**
@@ -597,6 +610,15 @@ function exploreReducer(
         filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),
+      };
+    }
+    /**
+     * Update row preview
+     */
+    case ExploreActionKind.UpdateRowPreview: {
+      return {
+        ...state,
+        rowPreview: payload,
       };
     }
     /**

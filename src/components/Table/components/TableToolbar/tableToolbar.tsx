@@ -1,4 +1,4 @@
-import { Table } from "@tanstack/react-table";
+import { RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
@@ -7,16 +7,17 @@ import { getEditColumnOptions, isAnyRowSelected } from "../../common/utils";
 import { CheckboxMenu } from "../CheckboxMenu/checkboxMenu";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
+import { RowPreview } from "./components/RowPreview/rowPreview";
 import { RowSelection } from "./components/RowSelection/rowSelection";
 import { Toolbar, ToolbarActions } from "./tableToolbar.styles";
 
-export interface TableToolbarProps<T> {
+export interface TableToolbarProps<T extends RowData> {
   listView?: ListViewConfig;
   rowDirection: ROW_DIRECTION;
   tableInstance: Table<T>;
 }
 
-export const TableToolbar = <T extends object>({
+export const TableToolbar = <T extends RowData>({
   listView,
   rowDirection,
   tableInstance,
@@ -25,7 +26,7 @@ export const TableToolbar = <T extends object>({
   const { paginationState } = exploreState;
   const { currentPage, pages, pageSize, rows } = paginationState;
   const { getSelectedRowModel, resetColumnVisibility } = tableInstance;
-  const { enableDownload } = listView || {};
+  const { enableDownload, rowPreviewView } = listView || {};
   const isLastPage = currentPage === pages;
   const editColumnOptions = getEditColumnOptions(tableInstance);
   const showToolbar =
@@ -70,6 +71,10 @@ export const TableToolbar = <T extends object>({
           </ToolbarActions>
         </Toolbar>
       )}
+      <RowPreview
+        rowPreviewView={rowPreviewView}
+        tableInstance={tableInstance}
+      />
     </Fragment>
   );
 };

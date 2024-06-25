@@ -1,11 +1,11 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, RowData } from "@tanstack/react-table";
 
 /**
  * Generates columns from column definitions with meta associated with the column.
  * @param columns - Column configuration.
  * @returns generated column definitions.
  */
-export function generateColumnDefinitions<T>(
+export function generateColumnDefinitions<T extends RowData>(
   columns: ColumnDef<T>[]
 ): ColumnDef<T>[] {
   return columns.map((column) => {

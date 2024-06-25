@@ -1,5 +1,8 @@
-import { ColumnSort, RowSelectionState } from "@tanstack/react-table";
-import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
+import {
+  ColumnSort,
+  RowSelectionState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import {
   CategoryValueKey,
   SelectCategory,

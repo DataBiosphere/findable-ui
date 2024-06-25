@@ -1,7 +1,12 @@
-import { CellContext, ColumnDef, ColumnSort } from "@tanstack/react-table";
-import { CoreOptions, HeaderContext, RowData } from "@tanstack/table-core";
+import {
+  CellContext,
+  ColumnDef,
+  ColumnSort,
+  CoreOptions,
+  HeaderContext,
+  RowData,
+} from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import { Pagination } from "../../common/entities";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
@@ -28,7 +33,6 @@ export interface TableCreatorProps<T> {
   pageCount?: number;
   pages: number;
   pageSize: number;
-  pagination?: Pagination;
   total?: number;
 }
 
@@ -52,7 +56,7 @@ const createRowSelectionCell = <T extends RowData>() =>
     return <RowSelectionCell row={row} />;
   };
 
-export const TableCreator = <T extends object>({
+export const TableCreator = <T extends RowData>({
   columns,
   defaultSort,
   getRowId,
@@ -62,7 +66,6 @@ export const TableCreator = <T extends object>({
   pageCount,
   pages,
   pageSize,
-  pagination,
   total,
 }: TableCreatorProps<T>): JSX.Element => {
   const columnDefs: ColumnDef<T>[] = useMemo(
@@ -106,7 +109,6 @@ export const TableCreator = <T extends object>({
         loading={loading}
         pages={pages}
         pageSize={pageSize}
-        pagination={pagination}
         total={total}
       />
     </TableCreatorContainer>

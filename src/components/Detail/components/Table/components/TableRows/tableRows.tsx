@@ -1,11 +1,11 @@
-import { TableCell as MTableCell, TableRow as MTableRow } from "@mui/material";
-import { flexRender, Row, Table } from "@tanstack/react-table";
-import { RowData } from "@tanstack/table-core";
+import { TableCell as MTableCell } from "@mui/material";
+import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { getTableCellPadding } from "../../../../../Table/components/TableCell/common/utils";
+import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
 import { TableView } from "../../table";
 
-export interface TableRowsProps<T> {
+export interface TableRowsProps<T extends RowData> {
   tableInstance: Table<T>;
   tableView?: TableView;
 }
@@ -22,7 +22,11 @@ export const TableRows = <T extends RowData>({
     <Fragment>
       {rows.map((row) => {
         return (
-          <MTableRow id={getRowId(row)} key={row.id}>
+          <TableRow
+            id={getRowId(row)}
+            isPreview={row.getIsPreview()}
+            key={row.id}
+          >
             {row.getVisibleCells().map((cell) => {
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
               if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
@@ -36,7 +40,7 @@ export const TableRows = <T extends RowData>({
                 </MTableCell>
               );
             })}
-          </MTableRow>
+          </TableRow>
         );
       })}
     </Fragment>

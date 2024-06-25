@@ -1,5 +1,4 @@
-import { Button as MButton } from "@mui/material";
-import { ButtonProps as MButtonProps } from "@mui/material/Button/Button";
+import { Button as MButton, ButtonProps as MButtonProps } from "@mui/material";
 import React, { ElementType, forwardRef } from "react";
 
 /**

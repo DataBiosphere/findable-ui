@@ -1,11 +1,10 @@
 import { Checkbox as MCheckbox } from "@mui/material";
-import { Row } from "@tanstack/react-table";
-import { RowData } from "@tanstack/table-core";
+import { Row, RowData } from "@tanstack/react-table";
 import React from "react";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 
-export interface RowSelectionCellProps<T> {
+export interface RowSelectionCellProps<T extends RowData> {
   row: Row<T>;
 }
 

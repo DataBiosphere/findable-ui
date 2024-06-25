@@ -20,9 +20,13 @@ export const GridTable = styled(MTable, {
     display: contents; /* required; allows grandchildren of grid template to appear as though direct child */
   }
 
+  tr {
+    background-color: ${white};
+  }
+
   td,
   th {
-    background-color: ${white};
+    background-color: inherit;
   }
 
   td,
@@ -38,8 +42,10 @@ export const GridTable = styled(MTable, {
   }
 
   [id^="grouped-row"] {
+    background-color: ${smokeLightest};
+
     td {
-      background-color: ${smokeLightest};
+      background-color: inherit;
       grid-column: 1 / -1;
     }
   }

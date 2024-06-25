@@ -299,7 +299,6 @@ function renderList(
       loading={loading}
       pages={paginationState.pages}
       pageSize={paginationState.pageSize}
-      pagination={undefined}
       total={paginationState.rows}
     />
   );
