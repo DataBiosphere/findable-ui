@@ -272,7 +272,7 @@ declare module "@tanstack/react-table" {
   interface InitialTableState extends CustomFeatureInitialTableState {}
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending, @typescript-eslint/no-unused-vars -- TData is an unused variable.
   interface Row<TData extends RowData> extends CustomFeatureRow {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending, @typescript-eslint/no-unused-vars -- TData is an unused variable.
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending.
   interface Table<TData extends RowData> extends CustomFeatureInstance<TData> {}
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending, @typescript-eslint/no-unused-vars -- TData is an unused variable.
   interface TableOptionsResolved<TData extends RowData>
