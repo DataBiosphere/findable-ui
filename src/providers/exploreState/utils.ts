@@ -4,6 +4,7 @@ import {
   CategoryValueKey,
   SelectedFilter,
 } from "../../common/entities";
+import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
 import { ACCESSOR_KEYS } from "../../components/TableCreator/common/constants";
 import { ExploreState, ListItems, PaginationState } from "../exploreState";
 import {
@@ -47,6 +48,18 @@ export function buildNextSavedFilterState(
   if (!selected) return []; // Clears all filters on de-select of saved filter.
   const savedFilter = getEntityStateSavedFilter(state, selectedValue);
   return savedFilter?.filters || [];
+}
+
+/**
+ * Closes row preview, if row preview is enabled.
+ * If row preview is enabled, the row preview state value is set to false.
+ * @param rowPreview - Row preview state.
+ * @returns row preview state with row preview value set to false.
+ */
+export function closeRowPreview(rowPreview: RowPreviewState): RowPreviewState {
+  if (!rowPreview) return rowPreview;
+  const [[key]] = Object.entries(rowPreview);
+  return { [key]: false };
 }
 
 /**
@@ -156,33 +169,6 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 }
 
 /**
- * Resets row selection for the current entity and entities that share the same category group config key.
- * @param state - Explore state.
- * @param categoryGroupConfigKey - Category group config key.
- * @returns entity page state mapper with row selection reset.
- */
-export function resetRowSelection(
-  state: ExploreState,
-  categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
-    state.tabValue,
-    state.entityPageState
-  )
-): EntityPageStateMapper {
-  return Object.entries(state.entityPageState).reduce(
-    (acc, [entityPath, entityPageState]) => {
-      if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
-        return {
-          ...acc,
-          [entityPath]: { ...entityPageState, rowSelection: {} },
-        };
-      }
-      return { ...acc, [entityPath]: entityPageState };
-    },
-    {} as EntityPageStateMapper
-  );
-}
-
-/**
  * Sets entity state for the given category group config key.
  * @param categoryGroupConfigKey - Category group config key.
  * @param state - Explore state.
@@ -221,24 +207,27 @@ export function updateEntityPageState(
 }
 
 /**
- * Updates entity page state sorting for all entities with the same category group config key.
+ * Updates entity page state for the current entity and entities that share the same category group config key.
  * @param state - Explore state.
- * @param sorting - Sorting.
+ * @param nextEntityPageState - Partial next entity page state.
+ * @param categoryGroupConfigKey - Category group config key.
  * @returns entity page state.
  */
-export function updateEntityPageStateSorting(
+export function updateEntityPageStateWithCommonCategoryGroupConfigKey(
   state: ExploreState,
-  sorting?: EntityPageState["sorting"]
-): EntityPageStateMapper {
-  if (!sorting) return state.entityPageState;
-  const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
+  nextEntityPageState: Partial<EntityPageState>,
+  categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
-  );
+  )
+): EntityPageStateMapper {
   return Object.entries(state.entityPageState).reduce(
     (acc, [entityPath, entityPageState]) => {
       if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
-        return { ...acc, [entityPath]: { ...entityPageState, sorting } };
+        return {
+          ...acc,
+          [entityPath]: { ...entityPageState, ...nextEntityPageState },
+        };
       }
       return { ...acc, [entityPath]: entityPageState };
     },

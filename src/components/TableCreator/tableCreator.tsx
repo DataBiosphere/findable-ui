@@ -1,7 +1,12 @@
-import { CellContext, ColumnDef, ColumnSort } from "@tanstack/react-table";
-import { CoreOptions, HeaderContext, RowData } from "@tanstack/table-core";
+import {
+  CellContext,
+  ColumnDef,
+  ColumnSort,
+  CoreOptions,
+  HeaderContext,
+  RowData,
+} from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import { Pagination } from "../../common/entities";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
@@ -25,19 +30,17 @@ export interface TableCreatorProps<T> {
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
-  pageCount?: number;
-  pages: number;
-  pageSize: number;
-  pagination?: Pagination;
-  total?: number;
 }
 
-const createCell = <T extends RowData>(config: ColumnConfig<T>) =>
-  function CellCreator({ row }: CellContext<T, unknown>): JSX.Element {
+const createCell = <T extends RowData = RowData, TData = unknown>(
+  config: ColumnConfig<T>
+) =>
+  function CellCreator(cellContext: CellContext<T, TData>): JSX.Element {
     return (
       <ComponentCreator
         components={[config.componentConfig]}
-        response={row.original}
+        response={cellContext.row.original}
+        viewContext={{ cellContext }}
       />
     );
   };
@@ -52,18 +55,13 @@ const createRowSelectionCell = <T extends RowData>() =>
     return <RowSelectionCell row={row} />;
   };
 
-export const TableCreator = <T extends object>({
+export const TableCreator = <T extends RowData>({
   columns,
   defaultSort,
   getRowId,
   items,
   listView,
   loading,
-  pageCount,
-  pages,
-  pageSize,
-  pagination,
-  total,
 }: TableCreatorProps<T>): JSX.Element => {
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
@@ -98,16 +96,11 @@ export const TableCreator = <T extends object>({
       />
       <Table<T>
         columns={columnDefs}
-        count={pageCount}
         getRowId={getRowId}
         initialState={initialState}
         items={items}
         listView={listView}
         loading={loading}
-        pages={pages}
-        pageSize={pageSize}
-        pagination={pagination}
-        total={total}
       />
     </TableCreatorContainer>
   );

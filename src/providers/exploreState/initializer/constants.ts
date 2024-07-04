@@ -34,11 +34,9 @@ export const INITIAL_STATE: ExploreState = {
   featureFlagState: undefined,
   filterCount: 0,
   filterState: [],
-  isRelatedView: false,
   listItems: [],
-  listView: undefined,
   loading: true,
   paginationState: DEFAULT_PAGINATION_STATE,
-  relatedListItems: undefined,
+  rowPreview: undefined,
   tabValue: "",
 };

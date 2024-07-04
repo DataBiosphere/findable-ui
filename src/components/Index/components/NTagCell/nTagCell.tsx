@@ -4,6 +4,8 @@ import {
   Typography,
 } from "@mui/material";
 import React, { forwardRef } from "react";
+import { TEXT_BODY_SMALL_400 } from "../../../../theme/common/typography";
+import { TypographyProps } from "../../../common/Typography/common/entities";
 import { NTag } from "../NTag/nTag";
 
 // Template constants
@@ -13,6 +15,7 @@ export type MetadataValue = string;
 
 export interface NTagCellProps {
   label: string;
+  TypographyProps?: TypographyProps;
   values: MetadataValue[];
 }
 
@@ -33,7 +36,15 @@ const Tag = forwardRef<HTMLDivElement, MChipProps>(function Tag(props, ref) {
   return <MChip ref={ref} {...props} />;
 });
 
-export const NTagCell = ({ label, values }: NTagCellProps): JSX.Element => {
+/**
+ * @deprecated - use NTagCell from "@databiosphere/findable-ui/lib/components/Table/components/TableCell/components/NTagCell/nTagCell"
+ */
+
+export const NTagCell = ({
+  label,
+  TypographyProps,
+  values,
+}: NTagCellProps): JSX.Element => {
   const metadataCount = values.length;
   const showNTag = metadataCount > MAX_DISPLAYABLE_VALUES;
   return (
@@ -42,13 +53,21 @@ export const NTagCell = ({ label, values }: NTagCellProps): JSX.Element => {
         <NTag
           Tag={<Tag label={`${metadataCount} ${label}`} variant="ntag" />}
           TooltipTitle={
-            <Typography display="block" variant="text-body-small-400">
+            <Typography display="block" variant={TEXT_BODY_SMALL_400}>
               {stringifyMetadataValues(values)}
             </Typography>
           }
         />
       ) : (
-        values.map((value, v) => <div key={`${value}${v}`}>{value}</div>)
+        values.map((value, v) => (
+          <Typography
+            key={`${value}${v}`}
+            variant="inherit"
+            {...TypographyProps}
+          >
+            {value}
+          </Typography>
+        ))
       )}
     </>
   );

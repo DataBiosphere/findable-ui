@@ -1,12 +1,7 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
-import { ColumnSort } from "@tanstack/react-table";
+import { CellContext, ColumnSort, RowData } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
-import {
-  CategoryKey,
-  SelectCategoryValueView,
-  SelectedFilter,
-  SelectedFilterValue,
-} from "../common/entities";
+import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
@@ -119,7 +114,7 @@ export interface ComponentConfig<
   props?: React.ComponentProps<T>;
   viewBuilder?: (
     model: D,
-    viewContext?: ViewContext
+    viewContext?: ViewContext<D>
   ) => React.ComponentProps<T>;
 }
 
@@ -265,9 +260,10 @@ export interface ListConfig<T = any> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
+  enableRowPreview?: boolean;
   enableRowSelection?: boolean;
   listHero?: ComponentsConfig;
-  relatedView?: RelatedViewConfig;
+  rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
   subTitleHero?: ComponentsConfig;
 }
@@ -303,15 +299,6 @@ export interface Override {
   supersededBy?: string;
   withdrawn?: boolean;
 }
-
-/**
- * Related search function.
- */
-type RelatedSearchFunction = (
-  searchKey: CategoryKey | undefined,
-  resultKey: CategoryKey | undefined,
-  selectedCategoryValues: SelectedFilterValue | undefined
-) => Promise<RelatedSearchResult | undefined>;
 
 export interface SavedFilter {
   filters: SelectedFilter[];
@@ -354,24 +341,6 @@ export type TrackFilterOpenedFunction = (
 interface TrackingConfig {
   trackFilterApplied?: TrackFilterAppliedFunction;
   trackFilterOpened?: TrackFilterOpenedFunction;
-}
-
-/**
- * Product of the related search function.
- */
-export interface RelatedSearchResult {
-  resultKey: CategoryKey; // The related search function resultant search values' category key.
-  searchKey: CategoryKey; // The related search function search parameters' category key.
-  values: string[]; // Resultant search values.
-}
-
-/**
- * Related view configuration.
- */
-export interface RelatedViewConfig {
-  relatedSearchFn: RelatedSearchFunction;
-  resultKey: CategoryKey; // The related search function resultant search values' category key.
-  searchKey: CategoryKey; // The related search function search parameters' category key.
 }
 
 /**
@@ -459,8 +428,9 @@ export type ThemeOptionsFn = (theme: Theme) => ThemeOptions;
 /**
  * View context.
  */
-export interface ViewContext {
+export interface ViewContext<T extends RowData, TData = unknown> {
   authState: Pick<AuthContextProps, "authenticationStatus" | "isAuthenticated">;
+  cellContext?: CellContext<T, TData>;
   entityConfig: EntityConfig;
   exploreState: ExploreState;
   fileManifestState: FileManifestState;

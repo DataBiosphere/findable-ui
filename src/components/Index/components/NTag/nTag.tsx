@@ -7,6 +7,10 @@ export interface NTagProps {
   TooltipTitle: ReactElement;
 }
 
+/**
+ * @deprecated - use NTag from "@databiosphere/findable-ui/lib/components/Table/components/TableCell/components/NTagCell/components/NTag/nTag"
+ */
+
 export const NTag = ({
   className,
   Tag,

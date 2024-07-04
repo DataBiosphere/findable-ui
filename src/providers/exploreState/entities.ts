@@ -1,11 +1,15 @@
-import { ColumnSort, RowSelectionState } from "@tanstack/react-table";
-import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
+import {
+  ColumnSort,
+  RowSelectionState,
+  VisibilityState,
+} from "@tanstack/react-table";
 import {
   CategoryValueKey,
   SelectCategory,
   SelectCategoryView,
   SelectedFilter,
 } from "../../common/entities";
+import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -18,6 +22,7 @@ export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
   columnsVisibility: VisibilityState;
   enableRowSelection: boolean;
+  rowPreview: RowPreviewState;
   rowSelection: RowSelectionState;
   sorting: ColumnSort[];
 }

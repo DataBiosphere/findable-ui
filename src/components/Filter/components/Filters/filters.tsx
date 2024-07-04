@@ -21,7 +21,7 @@ export interface CategoryFilter {
 export interface FiltersProps {
   categoryFilters: CategoryFilter[];
   closeAncestor?: () => void;
-  disabled: boolean; // Global disabling of filters; typically in "related" entity view.
+  disabled?: boolean; // Global disabling of filters.
   onFilter: OnFilterFn;
   trackFilterOpened?: TrackFilterOpenedFunction;
 }

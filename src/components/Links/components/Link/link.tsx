@@ -1,8 +1,13 @@
-import { Link as MLink, LinkProps as MLinkProps } from "@mui/material";
+import {
+  Link as MLink,
+  LinkProps as MLinkProps,
+  Typography as MTypography,
+} from "@mui/material";
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
+import { TypographyProps } from "../../../common/Typography/common/entities";
 import { ANCHOR_TARGET, Url } from "../../common/entities";
 import {
   isClientSideNavigation,
@@ -18,6 +23,7 @@ export interface LinkProps {
   noWrap?: MLinkProps["noWrap"];
   onClick?: () => void;
   target?: ANCHOR_TARGET;
+  TypographyProps?: TypographyProps;
   url: Url /* url specified as UrlObject with href and query defined, and is currently only used for internal links */;
 }
 
@@ -28,6 +34,7 @@ export const Link = ({
   noWrap = false,
   onClick,
   target,
+  TypographyProps,
   url,
 }: LinkProps): JSX.Element => {
   if (isURLObjectWithHrefAndQuery(url)) {
@@ -54,6 +61,7 @@ export const Link = ({
               noWrap={noWrap}
               target={target || ANCHOR_TARGET.SELF}
               onClick={onClick}
+              {...TypographyProps}
             >
               {label}
             </MLink>
@@ -73,6 +81,7 @@ export const Link = ({
             onClick={onClick}
             rel="noopener noreferrer"
             target={target || ANCHOR_TARGET.BLANK}
+            {...TypographyProps}
           >
             {label}
           </MLink>
@@ -82,5 +91,9 @@ export const Link = ({
     }
   }
   /* Invalid URL */
-  return <>{label}</>;
+  return (
+    <MTypography component="span" variant="inherit" {...TypographyProps}>
+      {label}
+    </MTypography>
+  );
 };

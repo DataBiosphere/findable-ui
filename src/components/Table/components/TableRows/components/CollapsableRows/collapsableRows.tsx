@@ -1,16 +1,16 @@
-import { TableRow as MTableRow } from "@mui/material";
-import { Row, Table } from "@tanstack/react-table";
+import { Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
+import { TableRow } from "../../../TableRow/tableRow.styles";
 
-export interface CollapsableRowsProps<T> {
+export interface CollapsableRowsProps<T extends RowData> {
   tableInstance: Table<T>;
   virtualizer: Virtualizer<Window, Element>;
 }
 
-export const CollapsableRows = <T extends object>({
+export const CollapsableRows = <T extends RowData>({
   tableInstance,
   virtualizer,
 }: CollapsableRowsProps<T>): JSX.Element => {
@@ -21,17 +21,19 @@ export const CollapsableRows = <T extends object>({
     <Fragment>
       {virtualItems.map((virtualRow) => {
         const row = rows[virtualRow.index] as Row<T>;
+        const { getIsPreview } = row;
         return (
-          <MTableRow
+          <TableRow
             key={row.id}
             data-index={virtualRow.index}
+            isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
           >
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}
               row={row}
             />
-          </MTableRow>
+          </TableRow>
         );
       })}
     </Fragment>

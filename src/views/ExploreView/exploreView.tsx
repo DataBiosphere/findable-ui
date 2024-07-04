@@ -37,7 +37,6 @@ import {
 } from "../../hooks/useBreakpointHelper";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
-import { useEntityListRelatedView } from "../../hooks/useEntityListRelatedView";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind, ExploreState } from "../../providers/exploreState";
@@ -72,18 +71,11 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { entities, explorerTitle, summaryConfig, trackingConfig } = config;
   const { listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
-  const {
-    categoryGroups,
-    categoryViews,
-    filterCount,
-    isRelatedView,
-    tabValue,
-  } = exploreState;
+  const { categoryGroups, categoryViews, filterCount, tabValue } = exploreState;
   const { push } = useRouter();
   const tabs = getTabs(entities);
   const { response: summaryResponse } = useSummary(); // Fetch summary.
   useEntityList(props); // Fetch entities.
-  useEntityListRelatedView(); // Fetch related entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
@@ -194,7 +186,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
           <Filters
             categoryFilters={categoryFilters}
             closeAncestor={onCloseDrawer}
-            disabled={isRelatedView}
             onFilter={onFilterChange.bind(null, false)}
             trackFilterOpened={trackingConfig?.trackFilterOpened}
           />
@@ -284,14 +275,7 @@ function renderList(
   entityConfig: EntityConfig,
   entityListType: string
 ): JSX.Element {
-  const {
-    isRelatedView,
-    listItems,
-    loading,
-    paginationState,
-    relatedListItems,
-    tabValue,
-  } = exploreState;
+  const { listItems, loading, tabValue } = exploreState;
   const { getId: getRowId, list, listView } = entityConfig;
   const { columns: columnsConfig, defaultSort } = list;
 
@@ -310,15 +294,9 @@ function renderList(
       columns={columnsConfig}
       defaultSort={defaultSort}
       getRowId={getRowId}
-      items={
-        isRelatedView && relatedListItems ? relatedListItems : listItems ?? []
-      }
+      items={listItems ?? []}
       listView={listView}
       loading={loading}
-      pages={paginationState.pages}
-      pageSize={paginationState.pageSize}
-      pagination={undefined}
-      total={paginationState.rows}
     />
   );
 }

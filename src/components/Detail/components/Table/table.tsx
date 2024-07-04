@@ -7,9 +7,10 @@ import {
 import {
   ColumnDef,
   getCoreRowModel,
+  RowData,
+  TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableOptions } from "@tanstack/table-core";
 import React from "react";
 import {
   BREAKPOINT_FN_NAME,
@@ -18,6 +19,7 @@ import {
 import { TABLET } from "../../../../theme/common/breakpoints";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
 import { TableHead } from "../../../Table/components/TableHead/tableHead";
+import { ROW_PREVIEW } from "../../../Table/features/RowPreview/constants";
 import { GridTable } from "../../../Table/table.styles";
 import { generateColumnDefinitions } from "./common/utils";
 import { TableBody } from "./components/TableBody/tableBody";
@@ -28,7 +30,7 @@ export interface TableView {
   tableContainer?: Partial<MTableContainerProps>;
 }
 
-export interface TableProps<T extends object> {
+export interface TableProps<T extends RowData> {
   className?: string;
   collapsable?: boolean;
   columns: ColumnDef<T>[];
@@ -38,7 +40,7 @@ export interface TableProps<T extends object> {
   tableView?: TableView;
 }
 
-export const Table = <T extends object>({
+export const Table = <T extends RowData>({
   className,
   collapsable = true,
   columns,
@@ -54,6 +56,7 @@ export const Table = <T extends object>({
   const { stickyHeader = false } = table || {};
   const { sx: tableContainerSx } = tableContainer || {};
   const tableInstance = useReactTable({
+    _features: [ROW_PREVIEW],
     columns: generateColumnDefinitions(columns),
     data: items,
     enableSorting: false,

@@ -4,18 +4,18 @@ import {
   TableRow as MTableRow,
   TableSortLabel,
 } from "@mui/material";
-import { flexRender, Table } from "@tanstack/react-table";
+import { flexRender, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
 import { getTableSortLabelProps } from "../../common/utils";
 import { getTableCellPadding } from "../TableCell/common/utils";
 
-export interface TableHeadProps<T> {
+export interface TableHeadProps<T extends RowData> {
   rowDirection: ROW_DIRECTION;
   tableInstance: Table<T>;
 }
 
-export const TableHead = <T extends object>({
+export const TableHead = <T extends RowData>({
   rowDirection,
   tableInstance,
 }: TableHeadProps<T>): JSX.Element => {

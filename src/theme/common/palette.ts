@@ -1,9 +1,5 @@
 import { PaletteColorOptions } from "@mui/material";
-import {
-  CommonColors,
-  TypeBackground,
-  TypeText,
-} from "@mui/material/styles/createPalette";
+import { CommonColors, TypeBackground, TypeText } from "@mui/material/styles";
 
 /**
  * Palette "Alert"
@@ -44,6 +40,7 @@ enum INK {
  */
 enum PRIMARY {
   DARK = "#005EA9",
+  LIGHTEST = "#E6EFF6",
   MAIN = "#1C7CC7",
 }
 
@@ -123,6 +120,7 @@ export const infoMain = INFO.MAIN;
 export const inkLight = INK.LIGHT;
 export const inkMain = INK.MAIN;
 export const primaryDark = PRIMARY.DARK;
+export const primaryLightest = PRIMARY.LIGHTEST;
 export const primaryMain = PRIMARY.MAIN;
 export const smokeDark = SMOKE.DARK;
 export const smokeLight = SMOKE.LIGHT;
@@ -202,6 +200,7 @@ export const ink: PaletteColorOptions = {
  */
 export const primary: PaletteColorOptions = {
   dark: primaryDark,
+  lightest: primaryLightest,
   main: primaryMain,
 };
 

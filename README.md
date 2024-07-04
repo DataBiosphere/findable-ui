@@ -28,4 +28,8 @@
     - Run `npm link ../../findable-ui`, which will create a symlink in node_modules pointing
       to findable-ui.
     - If any packages are later installed or uninstalled, the symlink will need to be created again, which can be done
-      with the same command or by running `npm link @databiosphere/findable-ui`.
+      with the same command or by running `npm link @databiosphere/findable-ui`. 
+    - To successfully link to findable-ui, you may need to comment out the following packages from the `next.config.mjs` webpack configuration:
+      - `@tanstack/react-table`
+      - `axios`
+

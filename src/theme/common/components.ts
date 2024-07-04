@@ -600,6 +600,8 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
           backgroundColor: theme.palette.smoke.main,
           boxShadow: `0 0 0 2px ${white}`,
           height: 24,
+          justifySelf: FLEX_START,
+          minWidth: 0,
         },
       },
       {
@@ -609,6 +611,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
           boxShadow: `0 0 0 2px ${white}`,
           height: 20,
           maxWidth: "fit-content",
+          minWidth: 0,
         },
       },
     ],
@@ -1174,6 +1177,15 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
             maxWidth: "100%",
             width: "100%",
           },
+        },
+      },
+      {
+        props: { variant: "table" }, // Copy of "panel" variant.
+        style: {
+          borderColor: theme.palette.smoke.main,
+          borderStyle: "solid",
+          borderWidth: 1,
+          boxShadow: theme.shadows[1], // elevation01
         },
       },
     ],

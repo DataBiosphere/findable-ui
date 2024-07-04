@@ -1,7 +1,6 @@
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
-import { Collapse } from "@mui/material";
-import { CollapseProps } from "@mui/material/Collapse/Collapse";
+import { Collapse, CollapseProps } from "@mui/material";
 import React, { ReactNode, useEffect, useState } from "react";
 import {
   BREAKPOINT_FN_NAME,

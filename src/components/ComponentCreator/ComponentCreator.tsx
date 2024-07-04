@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentsConfig } from "../../config/entities";
+import { ComponentsConfig, ViewContext } from "../../config/entities";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
@@ -9,6 +9,7 @@ import { useSystemStatus } from "../../hooks/useSystemStatus";
 export interface ComponentCreatorProps<T> {
   components: ComponentsConfig;
   response: T;
+  viewContext?: Partial<ViewContext<T>>;
 }
 
 /**
@@ -18,11 +19,13 @@ export interface ComponentCreatorProps<T> {
  * @param componentCreatorProps - Custom props required for creating component.
  * @param componentCreatorProps.components - Component config to render as React elements.
  * @param componentCreatorProps.response - Response returned from API endpoint, used to populate component props.
+ * @param componentCreatorProps.viewContext - Additional context to pass to the component.
  * @returns A set of React components.
  */
 export const ComponentCreator = <T,>({
   components,
   response,
+  viewContext,
 }: ComponentCreatorProps<T>): JSX.Element => {
   const { authenticationStatus, isAuthenticated } = useAuthentication();
   const { config, entityConfig } = useConfig();
@@ -43,10 +46,12 @@ export const ComponentCreator = <T,>({
             key={k}
             components={c.children}
             response={response}
+            viewContext={viewContext}
           />
         ) : null;
         const props = c.viewBuilder
           ? c.viewBuilder(response, {
+              ...viewContext,
               authState: {
                 authenticationStatus,
                 isAuthenticated,

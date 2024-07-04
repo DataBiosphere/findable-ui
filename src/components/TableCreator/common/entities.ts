@@ -1,4 +1,4 @@
-import { ColumnMeta } from "@tanstack/table-core";
+import { ColumnMeta } from "@tanstack/react-table";
 import { ColumnConfig } from "../../../config/entities";
 
 export interface BaseColumnConfig<T, TValue> extends ColumnConfig<T> {

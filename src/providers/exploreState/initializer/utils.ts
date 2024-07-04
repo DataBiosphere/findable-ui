@@ -1,4 +1,4 @@
-import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
+import { VisibilityState } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
 import { ACCESSOR_KEYS } from "../../../components/TableCreator/common/constants";
@@ -165,6 +165,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
         columnsVisibility: initColumnVisibility(entity),
         enableRowSelection: Boolean(entity.listView?.enableRowSelection),
+        rowPreview: undefined,
         rowSelection: {},
         sorting: getDefaultSorting(entity),
       },

@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, RowData } from "@tanstack/react-table";
 import React, { ReactNode } from "react";
 import {
   FlatPaper,
@@ -10,7 +10,7 @@ import { NoResults } from "../../../NoResults/noResults";
 import { Toolbar } from "../../../Table/components/TableToolbar/tableToolbar.styles";
 import { Table, TableProps } from "../Table/table";
 
-interface DetailViewTableProps<T extends object> extends TableProps<T> {
+interface DetailViewTableProps<T extends RowData> extends TableProps<T> {
   className?: string;
   columns: ColumnDef<T>[];
   gridTemplateColumns: string;
@@ -20,7 +20,7 @@ interface DetailViewTableProps<T extends object> extends TableProps<T> {
   tools?: ReactNode;
 }
 
-export const DetailViewTable = <T extends object>({
+export const DetailViewTable = <T extends RowData>({
   className,
   columns,
   gridTemplateColumns,
@@ -31,7 +31,7 @@ export const DetailViewTable = <T extends object>({
   ...tableProps
 }: DetailViewTableProps<T>): JSX.Element => {
   return items.length > 0 ? (
-    <Paper className={className}>
+    <Paper className={className} variant="table">
       <GridPaper>
         {tools && <Toolbar variant="table">{tools}</Toolbar>}
         <Table
