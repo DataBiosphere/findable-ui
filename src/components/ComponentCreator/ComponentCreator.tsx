@@ -46,6 +46,7 @@ export const ComponentCreator = <T,>({
             key={k}
             components={c.children}
             response={response}
+            viewContext={viewContext}
           />
         ) : null;
         const props = c.viewBuilder
