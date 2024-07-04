@@ -2,20 +2,21 @@ import { TableContainer } from "@mui/material";
 import {
   ColumnDef,
   ColumnSort,
+  CoreOptions,
   getCoreRowModel,
   getFacetedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   InitialTableState,
+  RowData,
   RowSelectionState,
   TableState,
   Updater,
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import { CoreOptions } from "@tanstack/table-core";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
   EVENT_NAME,
@@ -23,7 +24,6 @@ import {
   PAGINATION_DIRECTION,
   SORT_DIRECTION,
 } from "../../common/analytics/entities";
-import { Pagination } from "../../common/entities";
 import { ListViewConfig } from "../../config/entities";
 import {
   BREAKPOINT_FN_NAME,
@@ -42,26 +42,24 @@ import {
   buildCategoryViews,
   getFacetedUniqueValuesWithArrayValues,
   getGridTemplateColumns,
+  getTableStatePagination,
   isClientFilteringEnabled,
 } from "./common/utils";
 import { Pagination as DXPagination } from "./components/Pagination/pagination";
 import { TableBody } from "./components/TableBody/tableBody";
 import { TableHead } from "./components/TableHead/tableHead";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
+import { ROW_PREVIEW } from "./features/RowPreview/constants";
+import { RowPreviewState } from "./features/RowPreview/entities";
 import { GridTable } from "./table.styles";
 
-export interface TableProps<T extends object> {
+export interface TableProps<T extends RowData> {
   columns: ColumnDef<T>[];
-  count?: number;
   getRowId?: CoreOptions<T>["getRowId"];
   initialState: InitialTableState;
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
-  pages?: number;
-  pageSize: number;
-  pagination?: Pagination;
-  total?: number;
 }
 
 /**
@@ -74,16 +72,14 @@ export interface TableProps<T extends object> {
  * @param tableProps.initialState - Initial table state.
  * @param tableProps.items - Row data to display.
  * @param tableProps.listView - List view configuration.
- * @param tableProps.total - Total number of rows in the result set.
  * @returns Configured table element for display.
  */
-export const TableComponent = <T extends object>({
+export const TableComponent = <T extends RowData>({
   columns,
   getRowId,
   initialState,
   items,
   listView,
-  total,
 }: // eslint-disable-next-line sonarjs/cognitive-complexity -- TODO fix component length / complexity
 TableProps<T>): JSX.Element => {
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
@@ -95,16 +91,22 @@ TableProps<T>): JSX.Element => {
     listItems,
     loading,
     paginationState,
+    rowPreview,
     tabValue,
   } = exploreState;
   const { columnsVisibility, enableRowSelection, rowSelection, sorting } =
     entityPageState[tabValue];
-  const { currentPage, pages, pageSize } = paginationState;
-  const { disablePagination = false } = listView || {};
+  const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
+  const { disablePagination = false, enableRowPreview = false } =
+    listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
   const rowDirection = tabletDown
     ? ROW_DIRECTION.VERTICAL
     : ROW_DIRECTION.DEFAULT;
+  const pagination = useMemo(
+    () => getTableStatePagination(currentPage - 1, pageSize),
+    [currentPage, pageSize]
+  );
 
   const onSortingChange = (updater: Updater<ColumnSort[]>): void => {
     exploreDispatch({
@@ -131,6 +133,13 @@ TableProps<T>): JSX.Element => {
     });
   };
 
+  const onRowPreviewChange = (updater: Updater<RowPreviewState>): void => {
+    exploreDispatch({
+      payload: typeof updater === "function" ? updater(rowPreview) : updater,
+      type: ExploreActionKind.UpdateRowPreview,
+    });
+  };
+
   const onRowSelectionChange = (updater: Updater<RowSelectionState>): void => {
     exploreDispatch({
       payload: typeof updater === "function" ? updater(rowSelection) : updater,
@@ -140,19 +149,19 @@ TableProps<T>): JSX.Element => {
 
   const state: Partial<TableState> = {
     columnVisibility: columnsVisibility,
-    pagination: {
-      pageIndex: 0,
-      pageSize: disablePagination ? Number.MAX_SAFE_INTEGER : pageSize,
-    },
+    pagination,
+    rowPreview,
     rowSelection,
     sorting,
   };
   const tableInstance = useReactTable({
+    _features: [ROW_PREVIEW],
     columns,
     data: items,
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
     enableMultiSort: clientFiltering,
+    enableRowPreview,
     enableRowSelection,
     enableSorting: true, // client-side filtering.
     enableSortingRemoval: false, // client-side filtering.
@@ -166,12 +175,13 @@ TableProps<T>): JSX.Element => {
     getRowId,
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
     initialState,
-    manualPagination: clientFiltering,
+    manualPagination: true,
     manualSorting: !clientFiltering,
     onColumnVisibilityChange,
+    onRowPreviewChange,
     onRowSelectionChange,
     onSortingChange,
-    pageCount: total,
+    pageCount,
     state,
   });
   const {
@@ -205,7 +215,6 @@ TableProps<T>): JSX.Element => {
         [EVENT_PARAM.PAGINATION_DIRECTION]: PAGINATION_DIRECTION.NEXT,
       });
     }
-    // const nextPage = pagination?.nextPage ?? tableNextPage;
     nextPage();
     scrollTop();
   };
@@ -278,7 +287,7 @@ TableProps<T>): JSX.Element => {
   return noResults ? (
     <NoResults Paper={FluidPaper} title={"No Results found"} />
   ) : (
-    <FluidPaper>
+    <FluidPaper variant="table">
       <GridPaper>
         <TableToolbar
           listView={listView}

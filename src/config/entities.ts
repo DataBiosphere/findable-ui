@@ -1,5 +1,5 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
-import { ColumnSort } from "@tanstack/react-table";
+import { CellContext, ColumnSort, RowData } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
 import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
@@ -114,7 +114,7 @@ export interface ComponentConfig<
   props?: React.ComponentProps<T>;
   viewBuilder?: (
     model: D,
-    viewContext?: ViewContext
+    viewContext?: ViewContext<D>
   ) => React.ComponentProps<T>;
 }
 
@@ -260,8 +260,10 @@ export interface ListConfig<T = any> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
+  enableRowPreview?: boolean;
   enableRowSelection?: boolean;
   listHero?: ComponentsConfig;
+  rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
   subTitleHero?: ComponentsConfig;
 }
@@ -426,8 +428,9 @@ export type ThemeOptionsFn = (theme: Theme) => ThemeOptions;
 /**
  * View context.
  */
-export interface ViewContext {
+export interface ViewContext<T extends RowData, TData = unknown> {
   authState: Pick<AuthContextProps, "authenticationStatus" | "isAuthenticated">;
+  cellContext?: CellContext<T, TData>;
   entityConfig: EntityConfig;
   exploreState: ExploreState;
   fileManifestState: FileManifestState;

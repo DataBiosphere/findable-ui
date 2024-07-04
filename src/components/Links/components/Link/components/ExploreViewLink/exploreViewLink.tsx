@@ -18,7 +18,7 @@ const PARAM_FILTER = "filter";
 const PARAM_SORTING = "sorting";
 
 export interface ExploreViewLinkProps
-  extends Omit<LinkProps, "copyable" | "noWrap" | "url"> {
+  extends Omit<LinkProps, "copyable" | "noWrap" | "TypographyProps" | "url"> {
   url: UrlObjectWithHrefAndQuery;
 }
 

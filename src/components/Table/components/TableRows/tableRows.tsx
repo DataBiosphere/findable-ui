@@ -1,15 +1,16 @@
-import { TableCell as MTableCell, TableRow as MTableRow } from "@mui/material";
-import { flexRender, Row, Table } from "@tanstack/react-table";
+import { TableCell as MTableCell } from "@mui/material";
+import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
 import { getTableCellPadding } from "../TableCell/common/utils";
+import { TableRow } from "../TableRow/tableRow.styles";
 
-export interface TableRowsProps<T> {
+export interface TableRowsProps<T extends RowData> {
   tableInstance: Table<T>;
   virtualizer: Virtualizer<Window, Element>;
 }
 
-export const TableRows = <T extends object>({
+export const TableRows = <T extends RowData>({
   tableInstance,
   virtualizer,
 }: TableRowsProps<T>): JSX.Element => {
@@ -20,10 +21,12 @@ export const TableRows = <T extends object>({
     <Fragment>
       {virtualItems.map((virtualRow) => {
         const row = rows[virtualRow.index] as Row<T>;
+        const { getIsPreview } = row;
         return (
-          <MTableRow
+          <TableRow
             key={row.id}
             data-index={virtualRow.index}
+            isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
           >
             {row.getVisibleCells().map((cell) => (
@@ -34,7 +37,7 @@ export const TableRows = <T extends object>({
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </MTableCell>
             ))}
-          </MTableRow>
+          </TableRow>
         );
       })}
     </Fragment>

@@ -1,19 +1,20 @@
 import SouthRoundedIcon from "@mui/icons-material/SouthRounded";
-import { TableSortLabelProps } from "@mui/material/TableSortLabel/TableSortLabel";
+import { TableSortLabelProps } from "@mui/material";
 import {
   Cell,
+  Column,
   ColumnFiltersState,
   ColumnSort,
   InitialTableState,
   memo,
+  PaginationState,
   Row,
   RowData,
   SortDirection,
   sortingFns,
   Table,
+  VisibilityState,
 } from "@tanstack/react-table";
-import { Column } from "@tanstack/table-core";
-import { VisibilityState } from "@tanstack/table-core/src/features/Visibility";
 import { SelectCategory } from "../../../common/entities";
 import {
   ColumnConfig,
@@ -32,7 +33,7 @@ type CountByTerms = Map<any, number>;
 /**
  * Pinned cell and pinned cell index tuple.
  */
-type PinnedCell<T> = [Cell<T, unknown>, number];
+type PinnedCell<T extends RowData> = [Cell<T, unknown>, number];
 
 /**
  * Model of possible table data values.
@@ -50,7 +51,7 @@ type TableData = number | string | string[];
  * @param filterValue - Filter value or values.
  * @returns True if the row should be included in the filtered rows.
  */
-export function arrIncludesSome<T>(
+export function arrIncludesSome<T extends RowData>(
   row: Row<T>,
   columnId: string,
   filterValue: unknown[]
@@ -71,7 +72,7 @@ export function arrIncludesSome<T>(
  * @param columnFilters - Column filters state.
  * @returns Array of category views objects.
  */
-export function buildCategoryViews<T>(
+export function buildCategoryViews<T extends RowData>(
   columns: Column<T>[],
   columnFilters: ColumnFiltersState
 ): SelectCategory[] {
@@ -139,7 +140,9 @@ export function getColumnSortDirection(
  * @param rows - Table rows.
  * @returns filtered entity results as a blob.
  */
-export function generateDownloadBlob<T>(rows: Row<T>[]): Blob | undefined {
+export function generateDownloadBlob<T extends RowData>(
+  rows: Row<T>[]
+): Blob | undefined {
   if (rows.length === 0) {
     return;
   }
@@ -154,7 +157,7 @@ export function generateDownloadBlob<T>(rows: Row<T>[]): Blob | undefined {
  * @param table - Table.
  * @returns a list of edit column options.
  */
-export function getEditColumnOptions<T>(
+export function getEditColumnOptions<T extends RowData>(
   table: Table<T>
 ): CheckboxMenuListItem[] {
   const { getAllColumns, initialState } = table;
@@ -200,18 +203,20 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
 ) => () => CountByTerms {
   return (table, columnId) =>
     memo(
-      () => [table.getColumn(columnId).getFacetedRowModel()],
+      () => [table.getColumn(columnId)?.getFacetedRowModel()],
       (facetedRowModel) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This type matches react table getFacetedUniqueValues return type.
         const facetedUniqueValues = new Map<any, number>();
-        for (let i = 0; i < facetedRowModel.flatRows.length; i++) {
-          const value = facetedRowModel.flatRows[i]?.getValue(columnId);
-          if (Array.isArray(value)) {
-            value.map((val) => {
-              updateCountByTerms(facetedUniqueValues, val);
-            });
-          } else {
-            updateCountByTerms(facetedUniqueValues, value);
+        if (facetedRowModel) {
+          for (let i = 0; i < facetedRowModel.flatRows.length; i++) {
+            const value = facetedRowModel?.flatRows[i]?.getValue(columnId);
+            if (Array.isArray(value)) {
+              value.map((val) => {
+                updateCountByTerms(facetedUniqueValues, val);
+              });
+            } else {
+              updateCountByTerms(facetedUniqueValues, value);
+            }
           }
         }
         return facetedUniqueValues;
@@ -233,7 +238,9 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
  * @param columns - Table columns.
  * @returns string value for the css property grid-template-columns.
  */
-export function getGridTemplateColumns<T>(columns: Column<T>[]): string {
+export function getGridTemplateColumns<T extends RowData>(
+  columns: Column<T>[]
+): string {
   return columns
     .map(({ columnDef: { meta } }) => {
       const width = meta?.width;
@@ -282,7 +289,9 @@ export function getInitialTableStateSorting(
  * @param row - Row.
  * @returns pinned cell and index tuple.
  */
-export function getPinnedCellIndex<T>(row: Row<T>): PinnedCell<T> {
+export function getPinnedCellIndex<T extends RowData>(
+  row: Row<T>
+): PinnedCell<T> {
   const visibleCells = row.getVisibleCells();
   let pinnedIndex = 0;
   for (let i = 0; i < visibleCells.length; i++) {
@@ -299,7 +308,7 @@ export function getPinnedCellIndex<T>(row: Row<T>): PinnedCell<T> {
  * @param column - Table column.
  * @returns table sort label props.
  */
-export function getTableSortLabelProps<T>(
+export function getTableSortLabelProps<T extends RowData>(
   column: Column<T>
 ): TableSortLabelProps {
   const { getCanSort, getIsSorted, getToggleSortingHandler } = column;
@@ -313,11 +322,29 @@ export function getTableSortLabelProps<T>(
 }
 
 /**
+ * Returns table state pagination.
+ * @param pageIndex - Explore state page index.
+ * @param pageSize - Explore state page size.
+ * @returns table state pagination.
+ */
+export function getTableStatePagination(
+  pageIndex = 0,
+  pageSize: number
+): PaginationState {
+  return {
+    pageIndex,
+    pageSize,
+  };
+}
+
+/**
  * Returns the list of visible table headers.
  * @param rows - Table rows.
  * @returns list of visible headers.
  */
-function getVisibleHeadersTableData<T>(rows: Row<T>[]): TableData[] {
+function getVisibleHeadersTableData<T extends RowData>(
+  rows: Row<T>[]
+): TableData[] {
   return rows[0]
     .getVisibleCells()
     .map((cell) => cell.column.columnDef.header as TableData);
@@ -328,7 +355,9 @@ function getVisibleHeadersTableData<T>(rows: Row<T>[]): TableData[] {
  * @param rows - Table rows.
  * @returns list of visible data.
  */
-function getVisibleRowsTableData<T>(rows: Row<T>[]): TableData[][] {
+function getVisibleRowsTableData<T extends RowData>(
+  rows: Row<T>[]
+): TableData[][] {
   return rows.map((row) =>
     row.getVisibleCells().map((cell) => cell.getValue() as TableData)
   );
@@ -339,7 +368,7 @@ function getVisibleRowsTableData<T>(rows: Row<T>[]): TableData[][] {
  * @param table - Table.
  * @returns true if a row is selected.
  */
-export function isAnyRowSelected<T>(table: Table<T>): boolean {
+export function isAnyRowSelected<T extends RowData>(table: Table<T>): boolean {
   const {
     getIsAllPageRowsSelected,
     getIsSomePageRowsSelected,
@@ -368,7 +397,9 @@ export function isClientFilteringEnabled(exploreMode: ExploreMode): boolean {
  * @param tableInstance - Table instance.
  * @returns true if the collapsable row is disabled.
  */
-export function isCollapsableRowDisabled<T>(tableInstance: Table<T>): boolean {
+export function isCollapsableRowDisabled<T extends RowData>(
+  tableInstance: Table<T>
+): boolean {
   return tableInstance.getVisibleLeafColumns().length === 1;
 }
 

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Fade, Typography } from "@mui/material";
 import React from "react";
 
 export interface PaginationSummaryProps {
@@ -13,13 +13,15 @@ export const PaginationSummary = ({
   totalResult,
 }: PaginationSummaryProps): JSX.Element => {
   return (
-    <div>
-      <Typography variant="text-body-400">Results </Typography>
-      <Typography variant="text-body-small-500">
-        {firstResult} - {lastResult}
-      </Typography>
-      <Typography variant="text-body-400"> of </Typography>
-      <Typography variant="text-body-small-500">{totalResult}</Typography>
-    </div>
+    <Fade in={totalResult > 0}>
+      <div>
+        <Typography variant="text-body-400">Results </Typography>
+        <Typography variant="text-body-small-500">
+          {firstResult} - {lastResult}
+        </Typography>
+        <Typography variant="text-body-400"> of </Typography>
+        <Typography variant="text-body-small-500">{totalResult}</Typography>
+      </div>
+    </Fade>
   );
 };

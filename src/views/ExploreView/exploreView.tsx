@@ -275,7 +275,7 @@ function renderList(
   entityConfig: EntityConfig,
   entityListType: string
 ): JSX.Element {
-  const { listItems, loading, paginationState, tabValue } = exploreState;
+  const { listItems, loading, tabValue } = exploreState;
   const { getId: getRowId, list, listView } = entityConfig;
   const { columns: columnsConfig, defaultSort } = list;
 
@@ -297,10 +297,6 @@ function renderList(
       items={listItems ?? []}
       listView={listView}
       loading={loading}
-      pages={paginationState.pages}
-      pageSize={paginationState.pageSize}
-      pagination={undefined}
-      total={paginationState.rows}
     />
   );
 }

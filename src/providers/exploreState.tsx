@@ -1,3 +1,4 @@
+import { RowSelectionState } from "@tanstack/react-table";
 import React, {
   createContext,
   Dispatch,
@@ -9,6 +10,7 @@ import React, {
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategoryView, SelectedFilter } from "../common/entities";
+import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
 import {
@@ -37,21 +39,23 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
+  UpdateRowPreviewPayload,
   UpdateRowSelectionPayload,
   UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
   buildEntityStateSavedFilterState,
   buildNextSavedFilterState,
+  closeRowPreview,
   getEntityCategoryGroupConfigKey,
   getEntityState,
   getEntityStateSavedSorting,
   getFilterCount,
   patchEntityListItems,
+  patchRowPreview,
   resetPage,
-  resetRowSelection,
   updateEntityPageState,
-  updateEntityPageStateSorting,
+  updateEntityPageStateWithCommonCategoryGroupConfigKey,
   updateEntityStateByCategoryGroupConfigKey,
   updateSelectColumnVisibility,
 } from "./exploreState/utils";
@@ -81,6 +85,7 @@ export type ExploreState = {
   listItems: ListItems;
   loading: boolean;
   paginationState: PaginationState;
+  rowPreview: RowPreviewState;
   tabValue: string;
 };
 
@@ -222,6 +227,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
 }
@@ -242,6 +248,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction;
 
@@ -342,6 +349,14 @@ type UpdateFilterAction = {
 };
 
 /**
+ * Update row preview action.
+ */
+export type UpdateRowPreviewAction = {
+  payload: UpdateRowPreviewPayload;
+  type: ExploreActionKind.UpdateRowPreview;
+};
+
+/**
  * Update row selection action.
  */
 type UpdateRowSelectionAction = {
@@ -382,6 +397,8 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
+      const rowPreview = closeRowPreview(state.rowPreview);
+      const rowSelection: RowSelectionState = {};
       const savedFilterState = buildEntityStateSavedFilterState(
         payload.categoryKey,
         payload.selectedValue,
@@ -392,16 +409,21 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
+      const sorting = savedSorting || []; // Reset sorting to default if saved sorting is not available.
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
         savedFilterState,
       });
       return {
         ...state,
-        entityPageState: updateEntityPageStateSorting(state, savedSorting),
+        entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
+          state,
+          { rowPreview, rowSelection, sorting }
+        ),
         filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),
+        rowPreview,
       };
     }
     /**
@@ -410,6 +432,8 @@ function exploreReducer(
     case ExploreActionKind.ClearFilters: {
       const filterCount = 0;
       const filterState: SelectedFilter[] = [];
+      const rowPreview = closeRowPreview(state.rowPreview);
+      const rowSelection: RowSelectionState = {};
       const savedFilterState: SelectedFilter[] = [];
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
@@ -417,9 +441,14 @@ function exploreReducer(
       });
       return {
         ...state,
+        entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
+          state,
+          { rowPreview, rowSelection }
+        ),
         filterCount,
         filterState,
         paginationState: resetPage(state.paginationState),
+        rowPreview,
       };
     }
     /**
@@ -434,9 +463,16 @@ function exploreReducer(
         nextPaginationState.currentPage--;
         nextPaginationState.index = nextPaginationState.previousIndex;
       }
+      const rowPreview = closeRowPreview(state.rowPreview);
       return {
         ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { rowPreview }
+        ),
         paginationState: nextPaginationState,
+        rowPreview,
       };
     }
     /**
@@ -455,12 +491,18 @@ function exploreReducer(
           payload.updatedListItems,
           payload.listItemKey
         ),
+        rowPreview: patchRowPreview(
+          state.rowPreview,
+          payload.updatedListItems,
+          payload.listItemKey
+        ),
       };
     }
     /**
      * Process explore response
      **/
     case ExploreActionKind.ProcessExploreResponse: {
+      const entityPageState = state.entityPageState[state.tabValue];
       const entityState = getEntityState(state);
       const nextCategoryViews = payload.selectCategories
         ? buildCategoryViews(
@@ -472,6 +514,7 @@ function exploreReducer(
             [...state.filterState, ...entityState.savedFilterState]
           )
         : state.categoryViews;
+      const rowPreview = entityPageState.rowPreview;
       updateEntityStateByCategoryGroupConfigKey(state, {
         categoryViews: nextCategoryViews,
       });
@@ -484,6 +527,7 @@ function exploreReducer(
           ...state.paginationState,
           ...payload.paginationResponse,
         },
+        rowPreview,
       };
     }
     /**
@@ -514,6 +558,7 @@ function exploreReducer(
         state,
         getEntityCategoryGroupConfigKey(payload, state.entityPageState)
       );
+      const rowPreview = closeRowPreview(state.rowPreview); // Close row preview, without updating the entity page state row preview.
       return {
         ...state,
         categoryGroups: entityState.categoryGroups,
@@ -522,7 +567,8 @@ function exploreReducer(
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
-        paginationState: resetPage(state.paginationState),
+        paginationState: { ...resetPage(state.paginationState), rows: 0 },
+        rowPreview,
         tabValue: payload,
       };
     }
@@ -530,17 +576,26 @@ function exploreReducer(
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
+      const columnsVisibility = payload;
       return {
         ...state,
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { columnsVisibility: payload }
+          { columnsVisibility }
         ),
       };
     }
     /**
      * Update entity filters.
+     * Updates state for the given entity and entities with the same category group config key, prior to navigation to the entity.
+     * Actions for the given entity and entities with the same category group config key:
+     * - updates filter state,
+     * - clears saved filter state,
+     * - resets row selection, and
+     * - closes row preview.
+     * Actions for the current entity:
+     * - closes row preview, without updating the entity page state row preview.
      */
     case ExploreActionKind.UpdateEntityFilters: {
       const { entityListType, filters: filterState, sorting } = payload;
@@ -548,23 +603,27 @@ function exploreReducer(
         entityListType,
         state.entityPageState
       );
+      const rowPreview = closeRowPreview(
+        state.entityPageState[entityListType].rowPreview
+      );
+      const rowSelection: RowSelectionState = {};
+      const savedFilterState: SelectedFilter[] = [];
       updateEntityStateByCategoryGroupConfigKey(
         state,
         {
           filterState,
-          savedFilterState: [], // Clear saved filter state.
+          savedFilterState,
         },
         categoryGroupConfigKey
       );
       return {
         ...state,
-        entityPageState: updateEntityPageState(
-          entityListType,
-          {
-            ...resetRowSelection(state, categoryGroupConfigKey), // Reset row selection for all entities with the same category group config key.
-          },
-          { sorting } // Update sorting for the entity.
+        entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
+          state,
+          { rowPreview, rowSelection, sorting },
+          categoryGroupConfigKey
         ),
+        rowPreview: closeRowPreview(state.rowPreview),
       };
     }
     /**
@@ -586,6 +645,8 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
+      const rowPreview = closeRowPreview(state.rowPreview);
+      const rowSelection: RowSelectionState = {};
       const savedFilterState: SelectedFilter[] = []; // Clear saved filter state.
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
@@ -593,22 +654,42 @@ function exploreReducer(
       });
       return {
         ...state,
-        entityPageState: resetRowSelection(state),
+        entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
+          state,
+          { rowPreview, rowSelection }
+        ),
         filterCount: getFilterCount(filterState),
         filterState,
         paginationState: resetPage(state.paginationState),
+        rowPreview,
+      };
+    }
+    /**
+     * Update row preview
+     */
+    case ExploreActionKind.UpdateRowPreview: {
+      const rowPreview = payload;
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { rowPreview }
+        ),
+        rowPreview,
       };
     }
     /**
      * Update row selection
      */
     case ExploreActionKind.UpdateRowSelection: {
+      const rowSelection = payload;
       return {
         ...state,
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowSelection: payload }
+          { rowSelection }
         ),
       };
     }
@@ -616,14 +697,17 @@ function exploreReducer(
      * Update sorting
      **/
     case ExploreActionKind.UpdateSorting: {
+      const rowPreview = closeRowPreview(state.rowPreview);
+      const sorting = payload;
       return {
         ...state,
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { sorting: payload }
+          { rowPreview, sorting }
         ),
         paginationState: resetPage(state.paginationState),
+        rowPreview,
       };
     }
 

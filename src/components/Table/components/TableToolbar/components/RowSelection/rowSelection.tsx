@@ -1,18 +1,18 @@
 import { Typography } from "@mui/material";
-import { Row } from "@tanstack/react-table";
+import { Row, RowData } from "@tanstack/react-table";
 import React from "react";
 import { ComponentsConfig } from "../../../../../../config/entities";
 import { TEXT_BODY_400 } from "../../../../../../theme/common/typography";
 import { ComponentCreator } from "../../../../../ComponentCreator/ComponentCreator";
 import { RowSelection as RowSelectionActions } from "./rowSelection.styles";
 
-export interface RowSelectionProps<T> {
+export interface RowSelectionProps<T extends RowData> {
   className?: string;
   rows: Row<T>[];
   rowSelectionView?: ComponentsConfig;
 }
 
-export const RowSelection = <T extends object>({
+export const RowSelection = <T extends RowData>({
   className,
   rows,
   rowSelectionView,

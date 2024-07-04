@@ -1,16 +1,16 @@
-import { Row } from "@tanstack/react-table";
+import { Row, RowData } from "@tanstack/react-table";
 import React from "react";
 import { ButtonSecondary } from "../../../common/Button/components/ButtonSecondary/buttonSecondary";
 import { FileDownloadButton } from "../../../common/Button/components/FileDownloadButton/fileDownloadButton";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { generateDownloadBlob } from "../../common/utils";
 
-export interface DownloadEntityResultsProps<T> {
+export interface DownloadEntityResultsProps<T extends RowData> {
   entityName: string;
   rows: Row<T>[];
 }
 
-export const DownloadEntityResults = <T extends object>({
+export const DownloadEntityResults = <T extends RowData>({
   entityName,
   rows,
 }: DownloadEntityResultsProps<T>): JSX.Element => {

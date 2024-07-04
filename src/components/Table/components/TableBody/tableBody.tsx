@@ -1,5 +1,5 @@
 import { TableBody as MTableBody } from "@mui/material";
-import { Table } from "@tanstack/react-table";
+import { RowData, Table } from "@tanstack/react-table";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import React, { useCallback } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
@@ -9,12 +9,12 @@ import { TableRows } from "../TableRows/tableRows";
 
 const OVERSCAN = 20;
 
-export interface TableBodyProps<T> {
+export interface TableBodyProps<T extends RowData> {
   rowDirection: ROW_DIRECTION;
   tableInstance: Table<T>;
 }
 
-export const TableBody = <T extends object>({
+export const TableBody = <T extends RowData>({
   rowDirection,
   tableInstance,
 }: TableBodyProps<T>): JSX.Element => {
