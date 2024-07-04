@@ -52,7 +52,6 @@ import {
   getEntityStateSavedSorting,
   getFilterCount,
   patchEntityListItems,
-  patchRowPreview,
   resetPage,
   updateEntityPageState,
   updateEntityPageStateWithCommonCategoryGroupConfigKey,
@@ -488,11 +487,6 @@ function exploreReducer(
         ),
         listItems: patchEntityListItems(
           state.listItems,
-          payload.updatedListItems,
-          payload.listItemKey
-        ),
-        rowPreview: patchRowPreview(
-          state.rowPreview,
           payload.updatedListItems,
           payload.listItemKey
         ),

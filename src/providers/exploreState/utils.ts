@@ -157,27 +157,6 @@ export function patchEntityListItems(
 }
 
 /**
- * Returns the updated row preview state with the updated list item patched.
- * @param rowPreview - Row preview state.
- * @param updatedListItems - List items to patch.
- * @param listItemKey - List item key identifier to map list items.
- * @returns row preview state with updated list item patched.
- */
-export function patchRowPreview(
-  rowPreview: RowPreviewState,
-  updatedListItems: ListItems,
-  listItemKey: keyof ListItem
-): RowPreviewState {
-  if (!rowPreview || !updatedListItems) return rowPreview;
-  for (const updatedListItem of updatedListItems) {
-    if (updatedListItem[listItemKey] === rowPreview.id) {
-      return { ...rowPreview, original: updatedListItem };
-    }
-  }
-  return rowPreview;
-}
-
-/**
  * Resets pagination.
  * @param paginationState - Pagination state.
  * @returns a reset pagination state.
