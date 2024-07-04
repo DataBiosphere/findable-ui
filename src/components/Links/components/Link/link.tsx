@@ -1,4 +1,8 @@
-import { Link as MLink, LinkProps as MLinkProps } from "@mui/material";
+import {
+  Link as MLink,
+  LinkProps as MLinkProps,
+  Typography as MTypography,
+} from "@mui/material";
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
@@ -87,5 +91,9 @@ export const Link = ({
     }
   }
   /* Invalid URL */
-  return <>{label}</>;
+  return (
+    <MTypography component="span" variant="inherit" {...TypographyProps}>
+      {label}
+    </MTypography>
+  );
 };

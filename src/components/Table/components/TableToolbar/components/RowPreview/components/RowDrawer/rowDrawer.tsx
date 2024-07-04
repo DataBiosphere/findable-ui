@@ -36,9 +36,13 @@ export const RowDrawer = <T extends RowData>({
       <DrawerTitle
         onClose={(): void => toggleRowPreview?.()}
         title={
-          <MTypography component="div" noWrap variant={TEXT_HEADING_SMALL}>
-            {title}
-          </MTypography>
+          typeof title === "string" ? (
+            <MTypography component="div" noWrap variant={TEXT_HEADING_SMALL}>
+              {title}
+            </MTypography>
+          ) : (
+            title
+          )
         }
       />
       <Divider />
