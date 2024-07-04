@@ -4,9 +4,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { forwardRef } from "react";
-import { TEXT_BODY_SMALL_400 } from "../../../../theme/common/typography";
-import { TypographyProps } from "../../../common/Typography/common/entities";
-import { NTag } from "../NTag/nTag";
+import { TEXT_BODY_SMALL_400 } from "../../../../../../theme/common/typography";
+import { TypographyProps } from "../../../../../common/Typography/common/entities";
+import { NTag } from "./components/NTag/nTag";
 
 // Template constants
 const MAX_DISPLAYABLE_VALUES = 1;
@@ -35,10 +35,6 @@ function stringifyMetadataValues(metadataValues: MetadataValue[]): string {
 const Tag = forwardRef<HTMLDivElement, MChipProps>(function Tag(props, ref) {
   return <MChip ref={ref} {...props} />;
 });
-
-/**
- * @deprecated - use NTagCell from "@databiosphere/findable-ui/lib/components/Table/components/TableCell/components/NTagCell/nTagCell"
- */
 
 export const NTagCell = ({
   label,

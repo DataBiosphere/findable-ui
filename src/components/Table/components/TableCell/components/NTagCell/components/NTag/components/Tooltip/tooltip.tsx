@@ -28,10 +28,6 @@ export interface TooltipProps extends MTooltipProps {
   className?: string;
 }
 
-/**
- * @deprecated - use Tooltip from "@databiosphere/findable-ui/lib/components/Table/components/TableCell/components/NTagCell/components/NTag/components/Tooltip/tooltip"
- */
-
 export const Tooltip = ({
   children,
   className,
