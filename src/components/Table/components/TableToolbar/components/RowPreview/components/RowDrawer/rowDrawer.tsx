@@ -13,7 +13,7 @@ import { Drawer, DrawerTitle } from "./rowDrawer.styles";
 export interface RowDrawerProps<T extends RowData>
   extends Omit<MDrawerProps, "content" | "title"> {
   className?: string;
-  tableInstance: Table<T>;
+  tableInstance?: Table<T>;
   title: ReactNode;
 }
 
@@ -24,13 +24,14 @@ export const RowDrawer = <T extends RowData>({
   title,
   ...props /* Spread props to allow for Mui Drawer specific prop overrides. */
 }: RowDrawerProps<T>): JSX.Element => {
-  const { getIsRowPreview, resetRowPreview, toggleRowPreview } = tableInstance;
+  const { getIsRowPreview, resetRowPreview, toggleRowPreview } =
+    tableInstance || {};
   return (
     <Drawer
       {...DEFAULT_DRAWER_PROPS}
       className={className}
       onTransitionExited={resetRowPreview}
-      open={getIsRowPreview()}
+      open={getIsRowPreview?.()}
       {...props}
     >
       <DrawerTitle

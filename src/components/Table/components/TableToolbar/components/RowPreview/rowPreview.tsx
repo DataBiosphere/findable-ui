@@ -13,7 +13,14 @@ export const RowPreview = <T extends RowData>({
   tableInstance,
 }: RowPreviewProps<T>): JSX.Element | null => {
   if (!rowPreviewView) return null;
+  const { getRowPreviewRow } = tableInstance;
+  const { original: response } = getRowPreviewRow() || {};
+  if (!response) return null;
   return (
-    <ComponentCreator components={rowPreviewView} response={tableInstance} />
+    <ComponentCreator
+      components={rowPreviewView}
+      response={response}
+      viewContext={{ tableInstance }}
+    />
   );
 };
