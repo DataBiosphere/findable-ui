@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { RowData, Table } from "@tanstack/react-table";
+import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { ListConfig } from "../../../../../../../../../../config/entities";
 import { TEXT_BODY_400 } from "../../../../../../../../../../theme/common/typography";
@@ -14,7 +14,7 @@ interface RowDetailProps<T extends RowData> {
   columns: ListConfig<T>["columns"];
   expanded?: boolean;
   minColumns?: number;
-  tableInstance: Table<T>;
+  rowData: T;
 }
 
 export const RowDetail = <T extends RowData>({
@@ -22,11 +22,9 @@ export const RowDetail = <T extends RowData>({
   columns,
   expanded = true,
   minColumns = MIN_COLUMNS,
-  tableInstance,
+  rowData,
 }: RowDetailProps<T>): JSX.Element | null => {
   const [showMore, setShowMore] = React.useState<boolean>(expanded);
-  const { getRowPreviewRow } = tableInstance;
-  const { original: rowData } = getRowPreviewRow() || {};
   const visibleColumns = showMore ? columns : columns.slice(0, minColumns);
   const buttonText = showMore ? "Show less" : "Show more";
   const onToggleShowMore = (): void => setShowMore(!showMore);

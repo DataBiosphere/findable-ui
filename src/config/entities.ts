@@ -1,5 +1,5 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
-import { CellContext, ColumnSort, RowData } from "@tanstack/react-table";
+import { CellContext, ColumnSort, RowData, Table } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
 import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
@@ -435,4 +435,5 @@ export interface ViewContext<T extends RowData, TData = unknown> {
   exploreState: ExploreState;
   fileManifestState: FileManifestState;
   systemStatus: SystemStatus;
+  tableInstance?: Table<T>;
 }
