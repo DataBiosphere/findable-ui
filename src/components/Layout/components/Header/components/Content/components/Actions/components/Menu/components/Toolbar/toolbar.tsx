@@ -1,15 +1,17 @@
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { IconButton, Toolbar as MToolbar } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
+import { ComponentsConfig } from "../../../../../../../../../../../../config/entities";
+import { Announcements } from "../../../../../../../Announcements/announcements";
 import { Actions } from "../../../../actions";
 import { Authentication } from "../../../Authentication/authentication";
 import { Search } from "../../../Search/search";
 
 export interface DialogTitleProps {
   actions?: ReactNode;
-  Announcements?: ReactNode;
+  announcements?: ComponentsConfig;
   authenticationEnabled?: boolean;
-  Logo?: ReactNode;
+  logo?: ReactNode;
   onClose: () => void;
   searchEnabled?: boolean;
   searchURL?: string;
@@ -17,18 +19,18 @@ export interface DialogTitleProps {
 
 export const Toolbar = ({
   actions,
-  Announcements,
+  announcements,
   authenticationEnabled,
-  Logo,
+  logo,
   onClose,
   searchEnabled,
   searchURL,
 }: DialogTitleProps): JSX.Element => {
   return (
     <Fragment>
-      {Announcements}
+      <Announcements announcements={announcements} />
       <MToolbar>
-        {Logo}
+        {logo}
         <Actions>
           {/* Search */}
           <Search

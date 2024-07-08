@@ -10,6 +10,7 @@ import {
   ElementAlignment,
   ELEMENT_ALIGNMENT,
 } from "../../../../common/entities";
+import { ComponentsConfig } from "../../../../config/entities";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
@@ -24,6 +25,7 @@ import { DESKTOP, DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { FADE_TRANSITION_PROPS } from "./common/constants";
 import { SocialMedia } from "./common/entities";
 import { getHeaderNavigationLinks } from "./common/utils";
+import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
 import { Authentication } from "./components/Content/components/Actions/components/Authentication/authentication";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
@@ -39,10 +41,10 @@ import { AppBar as HeaderAppBar, HeaderSmAppBar } from "./header.styles";
 
 export interface HeaderProps {
   actions?: ReactNode;
-  Announcements?: ReactNode;
+  announcements?: ComponentsConfig;
   authenticationEnabled?: boolean;
   className?: string;
-  Logo: ReactNode;
+  logo: ReactNode;
   navAlignment?: ElementAlignment;
   navLinks: NavLinkItem[];
   searchEnabled?: boolean;
@@ -53,11 +55,11 @@ export interface HeaderProps {
 
 export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   const {
-    Announcements,
+    announcements,
     authenticationEnabled,
     actions,
     className,
-    Logo,
+    logo,
     navAlignment = ELEMENT_ALIGNMENT.LEFT,
     navLinks,
     searchEnabled,
@@ -110,11 +112,11 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
       position="fixed"
     >
       {/* Announcements */}
-      {Announcements}
+      <Announcements announcements={announcements} />
       {/* Toolbar */}
       <Toolbar variant="dense">
         {/* Logo */}
-        {Logo}
+        {logo}
         {/* Divider */}
         <Fade
           in={isSloganIn}

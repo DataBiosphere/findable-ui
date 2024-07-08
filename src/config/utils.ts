@@ -23,7 +23,7 @@ export function getDefaultConfig(): SiteConfig {
         socials: [],
       },
       header: {
-        Logo: null,
+        logo: null,
         navLinks: [],
       },
     },

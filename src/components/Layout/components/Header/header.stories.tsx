@@ -12,8 +12,8 @@ import { Header } from "./header";
 
 export default {
   argTypes: {
-    Logo: { control: { disable: true } },
     authenticationEnabled: { control: "boolean" },
+    logo: { control: { disable: true } },
     navAlignment: {
       control: "select",
       options: [ELEMENT_ALIGNMENT.LEFT, ELEMENT_ALIGNMENT.CENTER],
@@ -36,8 +36,8 @@ const url = "/";
 
 export const HeaderStory: Story = {
   args: {
-    Logo: <Logo alt="Logo" height={40} link="/" src={logo} />,
     authenticationEnabled: false,
+    logo: <Logo alt="Logo" height={40} link="/" src={logo} />,
     navAlignment: ELEMENT_ALIGNMENT.CENTER,
     navLinks: [
       {

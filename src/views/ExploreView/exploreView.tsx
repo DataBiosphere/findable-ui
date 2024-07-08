@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useState } from "react";
 import {
   AzulEntitiesStaticResponse,
@@ -11,7 +10,6 @@ import {
   CategoryValueKey,
   SelectCategoryView,
 } from "../../common/entities";
-import { Tab, Tabs, TabValue } from "../../components/common/Tabs/tabs";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
@@ -19,6 +17,7 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
+import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
@@ -47,33 +46,15 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
 }
 
-/**
- * Returns tabs to be used as a prop for the Tabs component.
- * @param entities - Entities config.
- * @returns tabs list.
- */
-function getTabs(entities: EntityConfig[]): Tab[] {
-  return entities.map(
-    ({ label, route, tabIcon: icon, tabIconPosition: iconPosition }) => ({
-      icon,
-      iconPosition,
-      label,
-      value: route,
-    })
-  );
-}
-
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
-  const { entities, explorerTitle, summaryConfig, trackingConfig } = config;
+  const { explorerTitle, summaryConfig, trackingConfig } = config;
   const { listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
-  const { categoryGroups, categoryViews, filterCount, tabValue } = exploreState;
-  const { push } = useRouter();
-  const tabs = getTabs(entities);
+  const { categoryGroups, categoryViews, filterCount } = exploreState;
   const { response: summaryResponse } = useSummary(); // Fetch summary.
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
@@ -146,16 +127,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   };
 
   /**
-   * Callback fired when selected tab value changes.
-   * - Sets state tabsValue to selected tab value.
-   * - Executes a pushState and resets pagination.
-   * @param tabValue - Selected tab value.
-   */
-  const onTabChange = (tabValue: TabValue): void => {
-    push(`/${tabValue}`);
-  };
-
-  /**
    * Dispatch a SelectedEntityType action when entityListType changes.
    */
   useEffect(() => {
@@ -206,7 +177,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         }
         SubTitleHero={renderComponent(subTitleHero)}
         Summaries={renderSummary(summaryConfig, summaryResponse)}
-        Tabs={<Tabs onTabChange={onTabChange} tabs={tabs} value={tabValue} />}
+        Tabs={<Tabs />}
         title={explorerTitle}
       />
     </>
