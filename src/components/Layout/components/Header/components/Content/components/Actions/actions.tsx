@@ -3,12 +3,8 @@ import { HeaderActions } from "./actions.styles";
 
 export interface ActionsProps {
   children: ReactNode | ReactNode[];
-  showActions?: boolean;
 }
 
-export const Actions = ({
-  children,
-  showActions = true,
-}: ActionsProps): JSX.Element => {
-  return <>{showActions && <HeaderActions>{children}</HeaderActions>}</>;
+export const Actions = ({ children }: ActionsProps): JSX.Element => {
+  return <HeaderActions>{children}</HeaderActions>;
 };

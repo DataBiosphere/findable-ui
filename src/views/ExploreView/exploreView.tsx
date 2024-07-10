@@ -178,7 +178,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         SubTitleHero={renderComponent(subTitleHero)}
         Summaries={renderSummary(summaryConfig, summaryResponse)}
         Tabs={<Tabs />}
-        title={explorerTitle}
+        title={entityConfig.explorerTitle || explorerTitle}
       />
     </>
   );

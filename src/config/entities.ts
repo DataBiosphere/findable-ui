@@ -159,6 +159,7 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;
+  explorerTitle?: SiteConfig["explorerTitle"];
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
   list: ListConfig;

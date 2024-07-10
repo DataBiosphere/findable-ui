@@ -1,11 +1,7 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import { MenuProps as MMenuProps } from "@mui/material";
 import React, { MouseEvent, ReactNode, useState } from "react";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../../../../../../../../../hooks/useBreakpointHelper";
-import { DESKTOP_SM } from "../../../../../../../../../../theme/common/breakpoints";
+import { useBreakpoint } from "../../../../../../../../../../hooks/useBreakpoint";
 import {
   MenuItem,
   NavigationMenuItems,
@@ -25,7 +21,7 @@ export const NavigationMenu = ({
   menuItems,
   menuLabel,
 }: NavLinkMenuProps): JSX.Element => {
-  const smDesktop = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, DESKTOP_SM);
+  const { mdUp } = useBreakpoint();
   const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
   const open = Boolean(anchorEl);
   const openMenu = (event: MouseEvent<HTMLButtonElement>): void => {
@@ -49,7 +45,7 @@ export const NavigationMenu = ({
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
         onClose={closeMenu}
-        open={smDesktop && open}
+        open={mdUp && open}
         slotProps={{ paper: { variant: "menu" } }}
         transformOrigin={{
           horizontal: "left",

@@ -1,17 +1,21 @@
+import {
+  AppBarProps as MAppBarProps,
+  ToolbarProps as MToolbarProps,
+} from "@mui/material";
+
 export const HEADER_HEIGHT = 56;
-export const HEADER_FADE_TIMEOUT = 0;
+
+export const APP_BAR_PROPS: Partial<MAppBarProps> = {
+  elevation: 1,
+  position: "fixed",
+};
 
 export const FADE_TRANSITION_PROPS = {
-  timeout: HEADER_FADE_TIMEOUT,
-  unmountOnExit: true,
-};
-
-export const HEADER_NAVIGATION_LABEL = {
-  MORE: "More",
-  SOCIALS: "Follow Us",
-};
-
-export const SWITCH_TRANSITION_PROPS = {
+  appear: false,
   timeout: 0,
   unmountOnExit: true,
+};
+
+export const TOOLBAR_PROPS: Partial<MToolbarProps> = {
+  variant: "dense",
 };

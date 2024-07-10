@@ -1,13 +1,8 @@
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Dialog as MDialog, Fade, IconButton } from "@mui/material";
-import React, { CSSProperties, forwardRef, useEffect } from "react";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../../../../../../../../../hooks/useBreakpointHelper";
-import { DESKTOP_SM } from "../../../../../../../../../../theme/common/breakpoints";
-import { SWITCH_TRANSITION_PROPS } from "../../../../../../common/constants";
-import { flattenNavigationLinks } from "../../../../../../common/utils";
+import React, { CSSProperties, forwardRef, Fragment, useEffect } from "react";
+import { useBreakpoint } from "../../../../../../../../../../hooks/useBreakpoint";
+import { getMenuNavigationLinks } from "../../../../../../common/utils";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
 import { Content } from "../../../../content.styles";
@@ -28,25 +23,23 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
   function HeaderMenu(
     { closeMenu, headerProps, open, openMenu, style }: MenuProps,
     ref
-  ): JSX.Element {
-    const { navLinks, slogan, socialMedia } = headerProps;
-    const smDesktop = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, DESKTOP_SM);
-    const switchProps = SWITCH_TRANSITION_PROPS;
+  ): JSX.Element | null {
+    const { navigation, slogan, socialMedia } = headerProps;
+    const { breakpoint, smDown } = useBreakpoint();
 
-    // Set drawer open state to false on change of media breakpoint from mobile to "small desktop".
+    // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
     useEffect(() => {
-      if (smDesktop) {
-        closeMenu();
-      }
-    }, [closeMenu, smDesktop]);
+      if (smDown) return;
+      closeMenu();
+    }, [closeMenu, smDown]);
+
+    if (!smDown) return null;
 
     return (
-      <>
-        <Fade in={!smDesktop} {...switchProps}>
-          <IconButton color="ink" onClick={openMenu} ref={ref} style={style}>
-            <MenuRoundedIcon />
-          </IconButton>
-        </Fade>
+      <Fragment>
+        <IconButton color="ink" onClick={openMenu} ref={ref} style={style}>
+          <MenuRoundedIcon />
+        </IconButton>
         <MDialog
           disableScrollLock
           fullScreen
@@ -56,7 +49,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
           open={open}
           PaperProps={{ elevation: 0 }}
           TransitionComponent={Fade}
-          transitionDuration={smDesktop ? 0 : 600}
+          transitionDuration={smDown ? 600 : 0}
           TransitionProps={{ easing: "ease-out" }}
         >
           <AppBar component="div" elevation={0}>
@@ -67,14 +60,14 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
             <Navigation
               closeAncestor={closeMenu}
               headerProps={headerProps}
-              links={flattenNavigationLinks(navLinks)}
+              links={getMenuNavigationLinks(navigation, breakpoint)}
             />
             {socialMedia && (
               <Socials buttonSize="xlarge" socials={socialMedia.socials} />
             )}
           </Content>
         </MDialog>
-      </>
+      </Fragment>
     );
   }
 );

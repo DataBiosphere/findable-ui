@@ -12,7 +12,7 @@ export enum BREAKPOINT_FN_NAME {
 }
 
 type BreakpointFnName = BREAKPOINT_FN_NAME;
-type BreakpointKey = Breakpoint;
+export type BreakpointKey = Breakpoint;
 
 export const useBreakpointHelper = (
   fnName: BreakpointFnName,
