@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { AppBar as MAppBar } from "@mui/material";
 import { HEADER_HEIGHT } from "./common/constants";
@@ -16,8 +17,30 @@ export const AppBar = styled(MAppBar)`
   }
 ` as typeof MAppBar;
 
-export const HeaderSmAppBar = styled(AppBar)`
-  .MuiToolbar-root {
-    gap: 8px;
+const group = css`
+  align-items: center;
+  display: flex;
+  flex: 1;
+`;
+
+export const Left = styled.div`
+  ${group};
+  gap: 16px;
+  justify-content: flex-start;
+
+  .MuiButton-navPrimary {
+    &:first-of-type {
+      margin-left: 24px;
+    }
   }
-` as typeof MAppBar;
+`;
+
+export const Center = styled.div`
+  ${group};
+  justify-content: center;
+`;
+
+export const Right = styled.div`
+  ${group};
+  justify-content: flex-end;
+`;

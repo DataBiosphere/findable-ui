@@ -159,6 +159,7 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;
+  explorerTitle?: SiteConfig["explorerTitle"];
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
   list: ListConfig;
@@ -262,6 +263,7 @@ export interface ListViewConfig {
   enableDownload?: boolean;
   enableRowPreview?: boolean;
   enableRowSelection?: boolean;
+  enableTab?: boolean;
   listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;

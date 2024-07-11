@@ -18,17 +18,6 @@ export interface CategoryTag {
 export type CategoryValueKey = string;
 
 /**
- * Element alignment.
- */
-export enum ELEMENT_ALIGNMENT {
-  CENTER = "CENTER",
-  LEFT = "LEFT",
-  RIGHT = "RIGHT",
-}
-
-export type ElementAlignment = ELEMENT_ALIGNMENT;
-
-/**
  * Set of selected category values.
  */
 export type Filters = SelectedFilter[];

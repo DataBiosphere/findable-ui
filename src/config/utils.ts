@@ -23,8 +23,7 @@ export function getDefaultConfig(): SiteConfig {
         socials: [],
       },
       header: {
-        Logo: null,
-        navLinks: [],
+        logo: null,
       },
     },
     redirectRootToPath: "",
