@@ -16,6 +16,7 @@ export interface NavigationDrawerProps {
   headerProps?: HeaderProps;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
+  pathname?: string;
 }
 
 export const NavigationDrawer = ({
@@ -23,6 +24,7 @@ export const NavigationDrawer = ({
   headerProps,
   menuItems,
   menuLabel,
+  pathname,
 }: NavigationDrawerProps): JSX.Element => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const openDrawer = (): void => {
@@ -71,6 +73,7 @@ export const NavigationDrawer = ({
             closeAncestor={closeDrawers}
             headerProps={headerProps}
             links={menuItems}
+            pathname={pathname}
           />
         </Content>
       </MDialog>

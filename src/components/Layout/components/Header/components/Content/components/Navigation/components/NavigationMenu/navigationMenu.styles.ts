@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Menu as MMenu } from "@mui/material";
+import {
+  inkLight,
+  smokeLight,
+  smokeMain,
+} from "../../../../../../../../../../styles/common/mixins/colors";
 import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 
 interface Props {
@@ -9,7 +14,7 @@ interface Props {
 
 export const Menu = styled(MMenu)`
   .MuiPaper-menu {
-    border-color: ${({ theme }) => theme.palette.smoke.main};
+    border-color: ${smokeMain};
     margin: 4px 0;
     max-width: 324px;
     min-width: 204px;
@@ -36,12 +41,17 @@ export const Menu = styled(MMenu)`
         }
 
         .MuiListItemText-secondary {
-          color: ${({ theme }) => theme.palette.ink.light};
+          color: ${inkLight};
           white-space: normal;
         }
       }
+
+      &.Mui-selected {
+        background-color: ${smokeLight};
+      }
     }
 
+    .MuiButton-activeNav,
     .MuiButton-nav {
       font-weight: 400;
       justify-content: space-between;
@@ -63,9 +73,9 @@ export const Button = styled(DXButton, {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<Props>`
   // Button is "active" i.e. menu is open.
-  ${({ isActive, theme }) =>
-    isActive &&
+  ${(props) =>
+    props.isActive &&
     css`
-      background-color: ${theme.palette.smoke.light};
+      background-color: ${smokeLight(props)};
     `};
 `;

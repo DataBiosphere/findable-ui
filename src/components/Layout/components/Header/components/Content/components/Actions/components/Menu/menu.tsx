@@ -16,12 +16,13 @@ export interface MenuProps {
   headerProps: HeaderProps;
   open: boolean;
   openMenu: () => void;
+  pathname?: string;
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
 
 export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
   function HeaderMenu(
-    { closeMenu, headerProps, open, openMenu, style }: MenuProps,
+    { closeMenu, headerProps, open, openMenu, pathname, style }: MenuProps,
     ref
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
@@ -61,6 +62,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
               closeAncestor={closeMenu}
               headerProps={headerProps}
               links={getMenuNavigationLinks(navigation, breakpoint)}
+              pathname={pathname}
             />
             {socialMedia && (
               <Socials buttonSize="xlarge" socials={socialMedia.socials} />

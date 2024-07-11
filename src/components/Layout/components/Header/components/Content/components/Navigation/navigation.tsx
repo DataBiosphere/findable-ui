@@ -26,12 +26,20 @@ export interface NavigationProps {
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
   links: NavLinkItem[];
+  pathname?: string;
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
 
 export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
   function Navigation(
-    { className, closeAncestor, headerProps, links, style }: NavigationProps,
+    {
+      className,
+      closeAncestor,
+      headerProps,
+      links,
+      pathname,
+      style,
+    }: NavigationProps,
     ref
   ): JSX.Element {
     const { mdUp } = useBreakpoint();
@@ -50,6 +58,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                     closeAncestor={closeAncestor}
                     menuItems={menuItems}
                     menuLabel={label}
+                    pathname={pathname}
                   />
                 ) : (
                   <NavigationDrawer
@@ -57,6 +66,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                     headerProps={headerProps}
                     menuItems={menuItems}
                     menuLabel={label}
+                    pathname={pathname}
                   />
                 )}
                 {divider && <Divider />}
@@ -70,7 +80,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                       : window.open(url, target, "noopener noreferrer");
                     closeAncestor?.();
                   }}
-                  variant="nav"
+                  variant={url === pathname ? "activeNav" : "nav"}
                 >
                   {label}
                 </Button>

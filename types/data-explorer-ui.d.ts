@@ -59,6 +59,7 @@ declare module "@mui/material/styles" {
  */
 declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
+    activeNav: true;
     nav: true;
   }
 }

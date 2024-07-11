@@ -24,11 +24,13 @@ export interface MenuItem extends NavLinkItem {
 export interface NavLinkMenuProps {
   closeMenu: () => void;
   menuItems: MenuItem[];
+  pathname?: string;
 }
 
 export const NavigationMenuItems = ({
   closeMenu,
   menuItems,
+  pathname,
 }: NavLinkMenuProps): JSX.Element => {
   const router = useRouter();
   return (
@@ -53,6 +55,7 @@ export const NavigationMenuItems = ({
               closeAncestor={closeMenu}
               menuItems={nestedMenuItems}
               menuLabel={label}
+              pathname={pathname}
             />
           ) : (
             <Fragment key={i}>
@@ -63,6 +66,7 @@ export const NavigationMenuItems = ({
                     ? router.push(url)
                     : window.open(url, target, "noopener noreferrer");
                 }}
+                selected={url === pathname}
               >
                 {icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText
