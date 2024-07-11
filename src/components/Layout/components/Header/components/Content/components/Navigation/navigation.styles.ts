@@ -14,6 +14,7 @@ export const Navigation = styled("div")`
     justify-content: inherit;
   }
 
+  .MuiButton-activeNav,
   .MuiButton-nav {
     ${textBody500};
     padding: 6px 12px;

@@ -13,6 +13,7 @@ export const Navigation = styled(DXNavigation)`
   margin: 0;
   justify-content: flex-start;
 
+  .MuiButton-activeNav,
   .MuiButton-nav {
     ${textBodyLarge500};
     justify-content: space-between;
@@ -27,6 +28,7 @@ export const Navigation = styled(DXNavigation)`
 export const DrawerNavigation = styled(Navigation)`
   gap: 0;
 
+  .MuiButton-activeNav,
   .MuiButton-nav {
     ${textBody500};
     padding: 14px 24px;

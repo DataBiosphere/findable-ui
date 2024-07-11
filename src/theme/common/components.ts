@@ -412,6 +412,23 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
     variants: [
       {
         props: {
+          variant: "activeNav", // associated with "nav" variant.
+        },
+        style: {
+          ...theme.typography[TEXT_BODY_500],
+          backgroundColor: theme.palette.smoke.light,
+          color: theme.palette.ink.main,
+          minWidth: 0,
+          textTransform: "capitalize",
+          whiteSpace: "nowrap",
+          // eslint-disable-next-line sort-keys -- disabling key order for readability
+          "&:hover": {
+            backgroundColor: theme.palette.smoke.light,
+          },
+        },
+      },
+      {
+        props: {
           variant: "nav",
         },
         style: {

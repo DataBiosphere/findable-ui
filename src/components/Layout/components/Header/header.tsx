@@ -1,4 +1,5 @@
 import { Fade, Toolbar } from "@mui/material";
+import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
 import { ComponentsConfig } from "../../../../config/entities";
 import { useBreakpoint } from "../../../../hooks/useBreakpoint";
@@ -41,6 +42,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   const { isIn } = useHeaderVisibility(headerProps);
   const { headerRef } = useMeasureHeader();
   const { onClose, onOpen, open } = useMenu();
+  const pathname = usePathname();
   const {
     actions,
     announcements,
@@ -53,6 +55,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     slogan,
     socialMedia,
   } = headerProps;
+  const navigationProps = { headerProps, pathname };
 
   return (
     <AppBar {...APP_BAR_PROPS} ref={headerRef} className={className}>
@@ -72,7 +75,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
             {/* Left navigation */}
             {isIn.isLeftNavigationIn && (
               <DXNavigation
-                headerProps={headerProps}
+                {...navigationProps}
                 links={getNavigationLinks(navItemsL, breakpoint)}
               />
             )}
@@ -84,7 +87,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
             {/* Center navigation */}
             {isIn.isCenterNavigationIn && (
               <DXNavigation
-                headerProps={headerProps}
+                {...navigationProps}
                 links={getNavigationLinks(navItemsC, breakpoint)}
               />
             )}
@@ -96,7 +99,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
             {/* Navigation */}
             {isIn.isRightNavigationIn && (
               <DXNavigation
-                headerProps={headerProps}
+                {...navigationProps}
                 links={getNavigationLinks(navItemsR)}
               />
             )}
@@ -125,8 +128,8 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                 {actions}
                 {/* Menu */}
                 <Menu
+                  {...navigationProps}
                   closeMenu={onClose}
-                  headerProps={headerProps}
                   open={open}
                   openMenu={onOpen}
                 />

@@ -13,6 +13,7 @@ export interface NavLinkMenuProps {
   closeAncestor?: () => void;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
+  pathname?: string;
 }
 
 export const NavigationMenu = ({
@@ -20,6 +21,7 @@ export const NavigationMenu = ({
   closeAncestor,
   menuItems,
   menuLabel,
+  pathname,
 }: NavLinkMenuProps): JSX.Element => {
   const { mdUp } = useBreakpoint();
   const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
@@ -52,7 +54,11 @@ export const NavigationMenu = ({
           vertical: "top",
         }}
       >
-        <NavigationMenuItems closeMenu={closeMenu} menuItems={menuItems} />
+        <NavigationMenuItems
+          closeMenu={closeMenu}
+          menuItems={menuItems}
+          pathname={pathname}
+        />
       </Menu>
     </>
   );
