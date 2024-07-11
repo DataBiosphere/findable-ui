@@ -42,7 +42,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   const { isIn } = useHeaderVisibility(headerProps);
   const { headerRef } = useMeasureHeader();
   const { onClose, onOpen, open } = useMenu();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const {
     actions,
     announcements,
