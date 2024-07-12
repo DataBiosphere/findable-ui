@@ -13,6 +13,7 @@ import {
 } from "../../../../../../../../../../theme/common/typography";
 import { ANCHOR_TARGET } from "../../../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../../../Links/common/utils";
+import { isNavigationLinkSelected } from "../../common/utils";
 import { NavLinkItem } from "../../navigation";
 import { NavigationMenu } from "../NavigationMenu/navigationMenu";
 
@@ -43,6 +44,7 @@ export const NavigationMenuItems = ({
             icon,
             label,
             menuItems: nestedMenuItems,
+            selectedMatch,
             target = ANCHOR_TARGET.SELF,
             url,
           },
@@ -66,7 +68,11 @@ export const NavigationMenuItems = ({
                     ? router.push(url)
                     : window.open(url, target, "noopener noreferrer");
                 }}
-                selected={url === pathname}
+                selected={isNavigationLinkSelected(
+                  url,
+                  pathname,
+                  selectedMatch
+                )}
               >
                 {icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText

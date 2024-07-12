@@ -1,11 +1,10 @@
-import Link from "next/link";
 import React from "react";
 import {
   ImageSrc,
   StaticImage,
 } from "../../../../../../../common/StaticImage/staticImage";
 import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
-import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
+import { StyledLink } from "./logo.styles";
 
 export interface LogoProps {
   alt: string;
@@ -26,23 +25,12 @@ export const Logo = ({
   target = ANCHOR_TARGET.SELF,
   width,
 }: LogoProps): JSX.Element => {
-  const logo = (
-    <StaticImage alt={alt} height={height} src={src} width={width} />
-  );
-  return isClientSideNavigation(link) ? (
-    <Link href={link} legacyBehavior passHref>
-      <a className={className} href="passHref" rel="noopener" target={target}>
-        {logo}
-      </a>
-    </Link>
-  ) : (
-    <a
+  return (
+    <StyledLink
       className={className}
-      href={link}
-      rel="noopener noreferrer"
+      label={<StaticImage alt={alt} height={height} src={src} width={width} />}
       target={target}
-    >
-      {logo}
-    </a>
+      url={link}
+    />
   );
 };

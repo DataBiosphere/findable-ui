@@ -22,5 +22,7 @@ export const Slogan = styled.div`
 `;
 
 export const Divider = styled(MDivider)`
-  max-height: 32px;
+  align-self: center;
+  display: flex;
+  height: 32px;
 `;

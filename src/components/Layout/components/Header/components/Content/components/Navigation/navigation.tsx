@@ -5,7 +5,9 @@ import { useBreakpoint } from "../../../../../../../../hooks/useBreakpoint";
 import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper";
 import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
+import { SELECTED_MATCH } from "../../../../common/entities";
 import { HeaderProps } from "../../../../header";
+import { isNavigationLinkSelected } from "./common/utils";
 import { NavigationDrawer } from "./components/NavigationDrawer/navigationDrawer";
 import { NavigationMenu } from "./components/NavigationMenu/navigationMenu";
 import { MenuItem } from "./components/NavigationMenuItems/navigationMenuItems";
@@ -16,6 +18,7 @@ export interface NavLinkItem {
   flatten?: Partial<Record<BreakpointKey, boolean>>;
   label: ReactNode;
   menuItems?: MenuItem[];
+  selectedMatch?: SELECTED_MATCH;
   target?: ANCHOR_TARGET;
   url: string;
   visible?: Partial<Record<BreakpointKey, boolean>>;
@@ -48,7 +51,14 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
       <Links ref={ref} className={className} style={style}>
         {links.map(
           (
-            { divider, label, menuItems, target = ANCHOR_TARGET.SELF, url },
+            {
+              divider,
+              label,
+              menuItems,
+              selectedMatch,
+              target = ANCHOR_TARGET.SELF,
+              url,
+            },
             i
           ) =>
             menuItems ? (
@@ -80,7 +90,11 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                       : window.open(url, target, "noopener noreferrer");
                     closeAncestor?.();
                   }}
-                  variant={url === pathname ? "activeNav" : "nav"}
+                  variant={
+                    isNavigationLinkSelected(url, pathname, selectedMatch)
+                      ? "activeNav"
+                      : "nav"
+                  }
                 >
                   {label}
                 </Button>

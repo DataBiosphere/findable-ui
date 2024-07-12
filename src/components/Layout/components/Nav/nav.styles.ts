@@ -51,5 +51,11 @@ export const List = styled(MList)`
         }
       }
     }
+
+    &:first-of-type {
+      .MuiListItemButton-root.Mui-disabled {
+        margin-top: 0;
+      }
+    }
   }
 `;
