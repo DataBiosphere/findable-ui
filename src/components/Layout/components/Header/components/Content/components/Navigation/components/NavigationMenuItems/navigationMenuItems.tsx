@@ -44,7 +44,6 @@ export const NavigationMenuItems = ({
             icon,
             label,
             menuItems: nestedMenuItems,
-            selectedMatch,
             target = ANCHOR_TARGET.SELF,
             url,
           },
@@ -68,11 +67,7 @@ export const NavigationMenuItems = ({
                     ? router.push(url)
                     : window.open(url, target, "noopener noreferrer");
                 }}
-                selected={isNavigationLinkSelected(
-                  url,
-                  pathname,
-                  selectedMatch
-                )}
+                selected={isNavigationLinkSelected(url, pathname)}
               >
                 {icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText

@@ -8,11 +8,6 @@ export type Navigation = [
   NavLinkItem[] | undefined
 ]; // [LEFT, CENTER, RIGHT]
 
-export enum SELECTED_MATCH {
-  EQUALS = "EQUALS",
-  STARTS_WITH = "STARTS_WITH", // Default value.
-}
-
 export interface SocialMedia {
   label: ReactNode;
   socials: Social[];
