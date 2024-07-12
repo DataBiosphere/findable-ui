@@ -2,6 +2,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { IconButton, Toolbar as MToolbar } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
 import { ComponentsConfig } from "../../../../../../../../../../../../config/entities";
+import { Left, Right } from "../../../../../../../../header.styles";
 import { Announcements } from "../../../../../../../Announcements/announcements";
 import { Actions } from "../../../../actions";
 import { Authentication } from "../../../Authentication/authentication";
@@ -30,26 +31,28 @@ export const Toolbar = ({
     <Fragment>
       <Announcements announcements={announcements} />
       <MToolbar>
-        {logo}
-        <Actions>
-          {/* Search */}
-          <Search
-            closeMenu={onClose}
-            searchEnabled={searchEnabled}
-            searchURL={searchURL}
-          />
-          {/* Authentication */}
-          <Authentication
-            authenticationEnabled={authenticationEnabled}
-            closeMenu={onClose}
-          />
-          {/* Additional actions i.e. call-to-action button */}
-          {actions}
-          {/* Close menu */}
-          <IconButton color="ink" onClick={onClose}>
-            <CloseRoundedIcon />
-          </IconButton>
-        </Actions>
+        <Left>{logo}</Left>
+        <Right>
+          <Actions>
+            {/* Search */}
+            <Search
+              closeMenu={onClose}
+              searchEnabled={searchEnabled}
+              searchURL={searchURL}
+            />
+            {/* Authentication */}
+            <Authentication
+              authenticationEnabled={authenticationEnabled}
+              closeMenu={onClose}
+            />
+            {/* Additional actions i.e. call-to-action button */}
+            {actions}
+            {/* Close menu */}
+            <IconButton color="ink" onClick={onClose}>
+              <CloseRoundedIcon />
+            </IconButton>
+          </Actions>
+        </Right>
       </MToolbar>
     </Fragment>
   );

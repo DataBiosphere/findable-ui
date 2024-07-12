@@ -6,6 +6,7 @@ import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper
 import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
 import { HeaderProps } from "../../../../header";
+import { isNavigationLinkSelected } from "./common/utils";
 import { NavigationDrawer } from "./components/NavigationDrawer/navigationDrawer";
 import { NavigationMenu } from "./components/NavigationMenu/navigationMenu";
 import { MenuItem } from "./components/NavigationMenuItems/navigationMenuItems";
@@ -80,7 +81,11 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                       : window.open(url, target, "noopener noreferrer");
                     closeAncestor?.();
                   }}
-                  variant={url === pathname ? "activeNav" : "nav"}
+                  variant={
+                    isNavigationLinkSelected(url, pathname)
+                      ? "activeNav"
+                      : "nav"
+                  }
                 >
                   {label}
                 </Button>

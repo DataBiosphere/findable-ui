@@ -11,7 +11,10 @@ export const AppBar = styled(MAppBar)`
   }
 
   .MuiToolbar-root {
+    display: grid;
     gap: 16px;
+    grid-template-areas: "left center right";
+    grid-template-columns: 1fr auto 1fr;
     height: ${HEADER_HEIGHT}px;
     min-height: unset;
   }
@@ -26,6 +29,7 @@ const group = css`
 export const Left = styled.div`
   ${group};
   gap: 16px;
+  grid-area: left;
   justify-content: flex-start;
 
   .MuiButton-navPrimary {
@@ -37,10 +41,12 @@ export const Left = styled.div`
 
 export const Center = styled.div`
   ${group};
+  grid-area: center;
   justify-content: center;
 `;
 
 export const Right = styled.div`
   ${group};
+  grid-area: right;
   justify-content: flex-end;
 `;
