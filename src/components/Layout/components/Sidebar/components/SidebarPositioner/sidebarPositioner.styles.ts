@@ -11,7 +11,7 @@ export const SidebarPositioner = styled("div")<Props>`
   padding: 16px 0;
 
   ${mediaDesktopSmallUp} {
-    height: ${({ headerHeight }) => `calc(100vh - ${headerHeight}px)`};
+    max-height: 100vh;
     overflow: auto;
     padding: ${({ headerHeight }) => headerHeight}px 0 0;
     position: sticky;
