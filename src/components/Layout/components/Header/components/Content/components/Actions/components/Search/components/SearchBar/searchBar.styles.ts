@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 import { Dialog, Input } from "@mui/material";
+import {
+  inkLight,
+  smokeMain,
+} from "../../../../../../../../../../../../styles/common/mixins/colors";
 import { IconButton } from "../../../../../../../../../../../common/IconButton/iconButton";
 import { HEADER_HEIGHT } from "../../../../../../../../common/constants";
 
@@ -22,16 +26,16 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchInput = styled(Input)`
-  border-bottom: 1px solid ${({ theme }) => theme.palette.smoke.main};
+  border-bottom: 1px solid ${smokeMain};
   height: 40px;
   padding: 0;
 
   &&.Mui-focused ::placeholder {
-    color: ${({ theme }) => theme.palette.ink.light};
+    color: ${inkLight};
     opacity: 1;
   }
 `;
 
 export const ClearButton = styled(IconButton)`
-  color: ${({ theme }) => theme.palette.ink.light};
+  color: ${inkLight};
 ` as typeof IconButton;

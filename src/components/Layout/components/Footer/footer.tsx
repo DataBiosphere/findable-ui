@@ -1,6 +1,5 @@
 import { Toolbar } from "@mui/material";
 import React, { ReactNode } from "react";
-import { IconButtonSocialsFooter } from "../../../common/IconButton/iconButton.styles";
 import { Social } from "../../../common/Socials/socials";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { NavLinkItem } from "../Header/components/Content/components/Navigation/navigation";
@@ -39,13 +38,7 @@ export const Footer = ({
                   url={url}
                 />
               ))}
-            {socials && (
-              <Socials
-                buttonSize="small"
-                IconButtonElType={IconButtonSocialsFooter}
-                socials={socials}
-              />
-            )}
+            {socials && <Socials buttonSize="small" socials={socials} />}
           </Links>
         )}
       </Toolbar>
