@@ -6,10 +6,11 @@ import {
   Content,
   ContentGrid,
   ContentLayout as Layout,
-  Navigation as NavigationPositioner,
+  Navigation,
   NavigationGrid,
-  Outline as OutlinePositioner,
+  Outline,
   OutlineGrid,
+  Positioner,
 } from "./contentLayout.styles";
 
 export interface ContentLayoutProps {
@@ -38,7 +39,9 @@ export const ContentLayout = ({
           headerHeight={headerHeight}
           panelColor={layoutStyle?.navigation}
         >
-          <NavigationPositioner>{navigation}</NavigationPositioner>
+          <Positioner headerHeight={headerHeight}>
+            <Navigation>{navigation}</Navigation>
+          </Positioner>
         </NavigationGrid>
       )}
       <ContentGrid
@@ -53,7 +56,9 @@ export const ContentLayout = ({
           headerHeight={headerHeight}
           panelColor={layoutStyle?.outline}
         >
-          <OutlinePositioner>{outline}</OutlinePositioner>
+          <Positioner headerHeight={headerHeight}>
+            <Outline>{outline}</Outline>
+          </Positioner>
         </OutlineGrid>
       )}
     </Layout>

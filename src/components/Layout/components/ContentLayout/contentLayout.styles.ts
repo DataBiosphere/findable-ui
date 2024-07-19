@@ -73,13 +73,12 @@ const content = ({
   padding-top: ${headerHeight}px;
 `;
 
-const navigation = ({
-  headerHeight,
-  panelColor,
-  theme,
-}: GridProps & ThemeProps) => css`
+const navigation = ({ panelColor, theme }: GridProps & ThemeProps) => css`
   background-color: ${getPanelBackgroundColor(theme, panelColor)};
-  max-height: calc(100vh - ${headerHeight}px);
+`;
+
+const positioner = ({ headerHeight }: GridProps) => css`
+  max-height: 100vh;
   overflow: auto;
   padding-top: ${headerHeight}px;
   position: sticky;
@@ -111,6 +110,10 @@ export const OutlineGrid = styled("div")<GridProps>`
   ${media1366Up} {
     display: block;
   }
+`;
+
+export const Positioner = styled.div<GridProps>`
+  ${positioner};
 `;
 
 export const Navigation = styled.div`
