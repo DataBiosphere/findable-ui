@@ -1,6 +1,9 @@
 import NLink from "next/link";
 import React, { ElementType } from "react";
-import { ANCHOR_TARGET } from "../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { ButtonPrimary } from "../ButtonPrimary/buttonPrimary";
 
@@ -31,7 +34,7 @@ export const CallToActionButton = ({
         className={className}
         disabled={disabled}
         href="passHref"
-        rel="noopener"
+        rel={REL_ATTRIBUTE.NO_OPENER}
         target={target || ANCHOR_TARGET.SELF}
       >
         {label}
@@ -42,7 +45,7 @@ export const CallToActionButton = ({
       className={className}
       disabled={disabled}
       href={url}
-      rel="noopener noreferrer"
+      rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
       target={target || ANCHOR_TARGET.BLANK}
     >
       {label}

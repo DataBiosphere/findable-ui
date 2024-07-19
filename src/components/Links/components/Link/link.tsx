@@ -8,7 +8,7 @@ import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
-import { ANCHOR_TARGET, Url } from "../../common/entities";
+import { ANCHOR_TARGET, REL_ATTRIBUTE, Url } from "../../common/entities";
 import {
   isClientSideNavigation,
   isURLObjectWithHrefAndQuery,
@@ -57,7 +57,7 @@ export const Link = ({
           <NLink href={url} legacyBehavior passHref>
             <MLink
               className={className}
-              rel="noopener"
+              rel={REL_ATTRIBUTE.NO_OPENER}
               noWrap={noWrap}
               target={target || ANCHOR_TARGET.SELF}
               onClick={onClick}
@@ -79,7 +79,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel="noopener noreferrer"
+            rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
           >

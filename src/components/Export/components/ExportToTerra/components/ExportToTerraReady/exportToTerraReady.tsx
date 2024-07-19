@@ -1,7 +1,10 @@
 import React, { ElementType } from "react";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";
-import { ANCHOR_TARGET } from "../../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../../Links/common/entities";
 import {
   Section,
   SectionActions,
@@ -18,7 +21,11 @@ export const ExportToTerraReady = ({
   exportURL,
 }: ExportToTerraReadyProps): JSX.Element => {
   const onOpenTerra = (): void => {
-    window.open(exportURL, ANCHOR_TARGET.BLANK, "noopener noreferrer");
+    window.open(
+      exportURL,
+      ANCHOR_TARGET.BLANK,
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+    );
   };
   return (
     <FluidPaper>

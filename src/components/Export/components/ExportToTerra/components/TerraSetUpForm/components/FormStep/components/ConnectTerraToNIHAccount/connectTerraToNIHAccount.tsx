@@ -1,6 +1,9 @@
 import React, { ReactNode } from "react";
 import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
-import { ANCHOR_TARGET } from "../../../../../../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../../../../../../Links/common/entities";
 import { FormStep } from "../../formStep";
 
 export interface ConnectTerraToNIHAccountProps {
@@ -18,7 +21,7 @@ export const ConnectTerraToNIHAccount = ({
     window.open(
       "https://support.terra.bio/hc/en-us/articles/360038086332-Linking-authorization-accessing-controlled-data-on-external-servers",
       ANCHOR_TARGET.BLANK,
-      "noopener noreferrer"
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
     );
   };
   return (
