@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Menu as MMenu } from "@mui/material";
+import { Menu as MMenu, MenuItem as MMenuItem } from "@mui/material";
 import {
   inkLight,
   smokeLight,
@@ -33,17 +33,24 @@ export const Menu = styled(MMenu)`
       .MuiListItemText-root {
         display: grid;
         gap: 4px;
+        white-space: normal;
 
         .MuiListItemText-primary {
           align-items: center;
           display: flex;
           gap: 4px;
+          min-width: 0;
         }
 
         .MuiListItemText-secondary {
           color: ${inkLight};
           white-space: normal;
         }
+      }
+
+      &.Mui-disabled {
+        color: ${inkLight};
+        opacity: 1;
       }
 
       &.Mui-selected {
@@ -67,6 +74,11 @@ export const Menu = styled(MMenu)`
       margin: 8px 0;
     }
   }
+
+  .MuiPopover-root {
+    cursor: default;
+    z-index: -1;
+  }
 `;
 
 export const Button = styled(DXButton, {
@@ -78,4 +90,8 @@ export const Button = styled(DXButton, {
     css`
       background-color: ${smokeLight(props)};
     `};
+`;
+
+export const StyledMenuItem = styled(MMenuItem)`
+  padding: 0;
 `;

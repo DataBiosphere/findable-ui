@@ -1,5 +1,4 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import { Dialog as MDialog } from "@mui/material";
 import React, { ReactNode, useState } from "react";
 import { Button } from "../../../../../../../../../common/Button/button";
 import { BackArrowIcon } from "../../../../../../../../../common/CustomIcon/components/BackArrowIcon/backArrowIcon";
@@ -9,7 +8,11 @@ import { DrawerNavigation as Navigation } from "../../../Actions/components/Menu
 import { Toolbar } from "../../../Actions/components/Menu/components/Toolbar/toolbar";
 import { MenuItem } from "../NavigationMenuItems/navigationMenuItems";
 import { Slide } from "./components/Slide/slide";
-import { Button as BackButton, Content } from "./navigationDrawer.styles";
+import {
+  Button as BackButton,
+  Content,
+  Dialog,
+} from "./navigationDrawer.styles";
 
 export interface NavigationDrawerProps {
   closeAncestor?: () => void;
@@ -46,7 +49,7 @@ export const NavigationDrawer = ({
       >
         {menuLabel}
       </Button>
-      <MDialog
+      <Dialog
         disableScrollLock
         fullScreen
         hideBackdrop
@@ -65,7 +68,7 @@ export const NavigationDrawer = ({
             fullWidth
             onClick={closeDrawer}
             StartIcon={BackArrowIcon}
-            variant="nav"
+            variant="backNav"
           >
             {menuLabel}
           </BackButton>
@@ -76,7 +79,7 @@ export const NavigationDrawer = ({
             pathname={pathname}
           />
         </Content>
-      </MDialog>
+      </Dialog>
     </>
   );
 };
