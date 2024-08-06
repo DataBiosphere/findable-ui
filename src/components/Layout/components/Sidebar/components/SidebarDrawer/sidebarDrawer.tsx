@@ -1,9 +1,8 @@
 import { CloseRounded } from "@mui/icons-material";
 import { PopoverPosition, PopoverProps } from "@mui/material";
 import React, { ReactNode } from "react";
-import { CloseDrawerIconButton } from "../../../../../common/IconButton/iconButton.styles";
 import { DrawerTransition } from "../../../../../Filter/components/Filter/components/DrawerTransition/drawerTransition";
-import { TemporarySidebar } from "./sidebarDrawer.styles";
+import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
@@ -34,11 +33,7 @@ export const SidebarDrawer = ({
       TransitionComponent={DrawerTransition}
       transitionDuration={drawerOpen ? 250 : 300}
     >
-      <CloseDrawerIconButton
-        Icon={CloseRounded}
-        onClick={onDrawerClose}
-        size="medium"
-      />
+      <IconButton Icon={CloseRounded} onClick={onDrawerClose} size="medium" />
       {children}
     </TemporarySidebar>
   );

@@ -4,11 +4,10 @@ import React, { MouseEvent, ReactNode, useState } from "react";
 import { SelectCategoryView } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
-import { CloseDrawerIconButton } from "../../../common/IconButton/iconButton.styles";
 import { FilterLabel } from "../FilterLabel/filterLabel";
 import { FilterMenu } from "../FilterMenu/filterMenu";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
-import { FilterPopover } from "./filter.styles";
+import { FilterPopover, IconButton } from "./filter.styles";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 const DEFAULT_SLOT_PROPS: PopoverProps["slotProps"] = {
@@ -94,7 +93,7 @@ export const Filter = ({
         transitionDuration={TransitionDuration}
       >
         {isOpen && isFilterDrawer && (
-          <CloseDrawerIconButton
+          <IconButton
             Icon={CloseRounded}
             onClick={onCloseFilters}
             size="medium"

@@ -2,7 +2,7 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import WestRoundedIcon from "@mui/icons-material/WestRounded";
 import { Typography } from "@mui/material";
 import React from "react";
-import { IconButtonSecondary } from "../../../common/IconButton/iconButton.styles";
+import { IconButton } from "../../../common/IconButton/iconButton";
 import { Stack } from "../../../common/Stack/stack";
 import { Pagination as TablePagination } from "./pagination.styles";
 
@@ -32,12 +32,14 @@ export const Pagination = ({
         </Typography>
       </div>
       <Stack direction="row" gap={2}>
-        <IconButtonSecondary
+        <IconButton
+          color="secondary"
           disabled={!canPreviousPage}
           Icon={WestRoundedIcon}
           onClick={onPreviousPage}
         />
-        <IconButtonSecondary
+        <IconButton
+          color="secondary"
           disabled={!canNextPage}
           Icon={EastRoundedIcon}
           onClick={onNextPage}

@@ -4,8 +4,8 @@ import { API_FILE_LOCATION_FETCH } from "../../../../apis/azul/common/constants"
 import { useRequestFileLocation } from "../../../../hooks/useRequestFileLocation";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
-import { LoadingIconButton } from "../../../common/IconButton/components/LoadingIconButton/loadingIconButton";
-import { IconButtonPrimary } from "../../../common/IconButton/iconButton.styles";
+import { IconButton } from "../../../common/IconButton/iconButton";
+import { StyledIconButton } from "./azulFileDownload.styles";
 
 export interface AzulFileDownloadProps {
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
@@ -42,19 +42,20 @@ export const AzulFileDownload = ({
     run();
   };
 
-  const realButton = (
-    <IconButtonPrimary
-      disabled={!url}
-      Icon={isLoading ? LoadingIcon : DownloadIcon}
-      onClick={onFileLocationRequested}
-      size="medium"
-    />
-  );
-  const mockButton = <LoadingIconButton />;
+  if (isDownloading)
+    return (
+      <StyledIconButton color="primary" Icon={LoadingIcon} size="medium" />
+    );
 
   return (
     <>
-      {isDownloading ? mockButton : realButton}
+      <IconButton
+        color="primary"
+        disabled={!url}
+        Icon={isLoading ? LoadingIcon : DownloadIcon}
+        onClick={onFileLocationRequested}
+        size="medium"
+      />
       <Box component="a" download ref={downloadRef} sx={{ display: "none" }} />
     </>
   );

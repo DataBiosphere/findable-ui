@@ -5,6 +5,10 @@ export enum ANCHOR_TARGET {
   SELF = "_self",
 }
 
+export enum REL_ATTRIBUTE {
+  NO_OPENER_NO_REFERRER = "noopener noreferrer",
+}
+
 export type StrictUrlObject = Omit<UrlObject, "href" | "query"> & {
   href: string;
   query: string;
