@@ -1,5 +1,5 @@
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { QUERY_PARAM } from "./constants";
+import { SEARCH_PARAMETERS } from "./constants";
 
 /**
  * Return the search params, for the given search string.
@@ -12,6 +12,6 @@ export function getSearchParams(
   searchStr: string
 ): URLSearchParams {
   const params = new URLSearchParams(searchParams.toString());
-  params.set(QUERY_PARAM, searchStr);
+  params.set(SEARCH_PARAMETERS.QUERY, searchStr);
   return params;
 }

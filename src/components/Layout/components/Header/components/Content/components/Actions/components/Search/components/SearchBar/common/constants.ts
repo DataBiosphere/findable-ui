@@ -1,1 +1,4 @@
-export const QUERY_PARAM = "q";
+export const SEARCH_PARAMETERS = {
+  CATEGORY: "category",
+  QUERY: "q",
+};
