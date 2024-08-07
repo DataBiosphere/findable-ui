@@ -8,6 +8,7 @@ import {
   REL_ATTRIBUTE,
 } from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
+import { SELECTED_MATCH } from "../../../../common/entities";
 import { HeaderProps } from "../../../../header";
 import { isNavigationLinkSelected } from "./common/utils";
 import { NavigationButtonLabel } from "./components/NavigationButtonLabel/navigationButtonLabel";
@@ -21,6 +22,7 @@ export interface NavLinkItem {
   flatten?: Partial<Record<BreakpointKey, boolean>>;
   label: ReactNode;
   menuItems?: MenuItem[];
+  selectedMatch?: SELECTED_MATCH;
   target?: ANCHOR_TARGET;
   url: string;
   visible?: Partial<Record<BreakpointKey, boolean>>;
@@ -53,7 +55,14 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
       <Links ref={ref} className={className} style={style}>
         {links.map(
           (
-            { divider, label, menuItems, target = ANCHOR_TARGET.SELF, url },
+            {
+              divider,
+              label,
+              menuItems,
+              selectedMatch,
+              target = ANCHOR_TARGET.SELF,
+              url,
+            },
             i
           ) =>
             menuItems ? (
@@ -91,7 +100,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                         );
                   }}
                   variant={
-                    isNavigationLinkSelected(url, pathname)
+                    isNavigationLinkSelected(url, pathname, selectedMatch)
                       ? "activeNav"
                       : "nav"
                   }
