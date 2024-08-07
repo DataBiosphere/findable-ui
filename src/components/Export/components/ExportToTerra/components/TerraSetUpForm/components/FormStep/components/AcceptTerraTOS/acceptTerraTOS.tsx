@@ -4,7 +4,10 @@ import { useAuthentication } from "../../../../../../../../../../hooks/useAuthen
 import { TerraResponse } from "../../../../../../../../../../hooks/useAuthentication/useFetchTerraProfile";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
 import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
-import { ANCHOR_TARGET } from "../../../../../../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../../../../../../Links/common/entities";
 import { FormStep } from "../../formStep";
 
 export interface AcceptTerraTOSProps {
@@ -25,7 +28,11 @@ export const AcceptTerraTOS = ({
 
   const onOpenTerra = (): void => {
     if (exportToTerraUrl) {
-      window.open(exportToTerraUrl, ANCHOR_TARGET.BLANK, "noopener noreferrer");
+      window.open(
+        exportToTerraUrl,
+        ANCHOR_TARGET.BLANK,
+        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+      );
     }
   };
 

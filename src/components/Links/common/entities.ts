@@ -6,6 +6,7 @@ export enum ANCHOR_TARGET {
 }
 
 export enum REL_ATTRIBUTE {
+  NO_OPENER = "noopener",
   NO_OPENER_NO_REFERRER = "noopener noreferrer",
 }
 

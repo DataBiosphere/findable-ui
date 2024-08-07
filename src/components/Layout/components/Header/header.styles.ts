@@ -47,6 +47,7 @@ export const Center = styled.div`
 
 export const Right = styled.div`
   ${group};
+  gap: 8px;
   grid-area: right;
   justify-content: flex-end;
 `;

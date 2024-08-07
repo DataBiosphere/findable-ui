@@ -10,6 +10,7 @@ import {
 } from "../../../../../../providers/exploreState";
 import {
   ANCHOR_TARGET,
+  REL_ATTRIBUTE,
   UrlObjectWithHrefAndQuery,
 } from "../../../../common/entities";
 import { LinkProps } from "../../link";
@@ -51,7 +52,7 @@ export const ExploreViewLink = ({
       className={className}
       href={url.href}
       onClick={onNavigate}
-      rel="noopener"
+      rel={REL_ATTRIBUTE.NO_OPENER}
       target={target}
     >
       {label}

@@ -1,7 +1,10 @@
 import { CardActionArea as MCardActionArea } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
-import { ANCHOR_TARGET } from "../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 
 export interface CardActionAreaProps {
@@ -22,7 +25,11 @@ export const CardActionArea = ({
       if (isClientSideNavigation(url)) {
         push(url);
       } else {
-        window.open(url, ANCHOR_TARGET.BLANK, "noopener noreferrer");
+        window.open(
+          url,
+          ANCHOR_TARGET.BLANK,
+          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+        );
       }
     }
   };

@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   ReactNode,
 } from "react";
-import { ANCHOR_TARGET } from "../../Links/common/entities";
+import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../Links/common/entities";
 import {
   IconButton as StyledIconButton,
   Socials as StyledSocials,
@@ -42,7 +42,7 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
           <IconButton
             key={i}
             href={url}
-            rel="noopener noreferrer"
+            rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             size={buttonSize}
             target={ANCHOR_TARGET.BLANK}
           >

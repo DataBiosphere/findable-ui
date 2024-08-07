@@ -1,7 +1,10 @@
 import { SvgIconProps } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { ANCHOR_TARGET } from "../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { HelpIcon } from "../../../CustomIcon/components/HelpIcon/helpIcon";
 import { HelpIconButton as Button } from "./helpIconButton.styles";
@@ -22,7 +25,7 @@ export const HelpIconButton = ({
     <Link href={url} legacyBehavior passHref>
       <Button
         href="passHref"
-        rel="noopener"
+        rel={REL_ATTRIBUTE.NO_OPENER}
         target={target || ANCHOR_TARGET.SELF}
       >
         <HelpIcon fontSize={size} />
@@ -31,7 +34,7 @@ export const HelpIconButton = ({
   ) : (
     <Button
       href={url}
-      rel="noopener noreferrer"
+      rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
       target={target || ANCHOR_TARGET.BLANK}
     >
       <HelpIcon fontSize={size} />

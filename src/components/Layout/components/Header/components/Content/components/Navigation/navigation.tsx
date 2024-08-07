@@ -3,10 +3,14 @@ import { useRouter } from "next/router";
 import React, { CSSProperties, forwardRef, Fragment, ReactNode } from "react";
 import { useBreakpoint } from "../../../../../../../../hooks/useBreakpoint";
 import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper";
-import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
+import {
+  ANCHOR_TARGET,
+  REL_ATTRIBUTE,
+} from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
 import { HeaderProps } from "../../../../header";
 import { isNavigationLinkSelected } from "./common/utils";
+import { NavigationButtonLabel } from "./components/NavigationButtonLabel/navigationButtonLabel";
 import { NavigationDrawer } from "./components/NavigationDrawer/navigationDrawer";
 import { NavigationMenu } from "./components/NavigationMenu/navigationMenu";
 import { MenuItem } from "./components/NavigationMenuItems/navigationMenuItems";
@@ -75,11 +79,16 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
             ) : (
               <Fragment key={i}>
                 <Button
+                  disabled={!url}
                   onClick={(): void => {
+                    closeAncestor?.();
                     isClientSideNavigation(url)
                       ? router.push(url)
-                      : window.open(url, target, "noopener noreferrer");
-                    closeAncestor?.();
+                      : window.open(
+                          url,
+                          target,
+                          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+                        );
                   }}
                   variant={
                     isNavigationLinkSelected(url, pathname)
@@ -87,7 +96,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                       : "nav"
                   }
                 >
-                  {label}
+                  <NavigationButtonLabel label={label} />
                 </Button>
                 {divider && <Divider />}
               </Fragment>

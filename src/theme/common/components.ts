@@ -23,6 +23,7 @@ import {
   TEXT_BODY_SMALL_400,
   TEXT_BODY_SMALL_500,
   TEXT_HEADING,
+  TEXT_HEADING_SMALL,
 } from "./typography";
 
 // Constants
@@ -417,6 +418,22 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         style: {
           ...theme.typography[TEXT_BODY_500],
           backgroundColor: theme.palette.smoke.light,
+          color: theme.palette.ink.main,
+          minWidth: 0,
+          textTransform: "capitalize",
+          whiteSpace: "nowrap",
+          // eslint-disable-next-line sort-keys -- disabling key order for readability
+          "&:hover": {
+            backgroundColor: theme.palette.smoke.light,
+          },
+        },
+      },
+      {
+        props: {
+          variant: "backNav", // associated with "nav" variant.
+        },
+        style: {
+          ...theme.typography[TEXT_HEADING_SMALL],
           color: theme.palette.ink.main,
           minWidth: 0,
           textTransform: "capitalize",
