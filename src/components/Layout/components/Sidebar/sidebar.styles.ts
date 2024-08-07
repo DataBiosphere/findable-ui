@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { smokeMain } from "../../../../styles/common/mixins/colors";
 
 export const Sidebar = styled.div`
   align-self: stretch;
-  border-right: 1px solid ${({ theme }) => theme.palette.smoke.main};
+  border-right: 1px solid ${smokeMain};
   box-sizing: content-box;
   width: 264px;
 `;
