@@ -36,6 +36,7 @@ export const Link = ({
   target,
   TypographyProps,
   url,
+  ...props /* Spread props to allow for specific MuiLink prop overrides. */
 }: LinkProps): JSX.Element => {
   if (isURLObjectWithHrefAndQuery(url)) {
     /* Internal navigation - explore link */
@@ -62,6 +63,7 @@ export const Link = ({
               target={target || ANCHOR_TARGET.SELF}
               onClick={onClick}
               {...TypographyProps}
+              {...props}
             >
               {label}
             </MLink>
@@ -82,6 +84,7 @@ export const Link = ({
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
+            {...props}
           >
             {label}
           </MLink>
@@ -92,7 +95,12 @@ export const Link = ({
   }
   /* Invalid URL */
   return (
-    <MTypography component="span" variant="inherit" {...TypographyProps}>
+    <MTypography
+      component="span"
+      variant="inherit"
+      {...TypographyProps}
+      {...props}
+    >
       {label}
     </MTypography>
   );

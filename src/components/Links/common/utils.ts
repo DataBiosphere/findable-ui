@@ -7,7 +7,7 @@ import { Url, UrlObjectWithHrefAndQuery } from "./entities";
  * @returns true if the given link is an internal link.
  */
 export function isClientSideNavigation(link: string): boolean {
-  return /^\/(?!\/)/.test(link);
+  return /^\/(?!\/)|^#/.test(link);
 }
 
 /**
