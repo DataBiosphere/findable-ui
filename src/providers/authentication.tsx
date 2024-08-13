@@ -58,7 +58,7 @@ export const AuthContext = createContext<AuthContextProps>({
   authenticateUser: () => {},
   authenticationStatus: AUTHENTICATION_STATUS.INCOMPLETE,
   isAuthenticated: false,
-  isEnabled: true,
+  isEnabled: false,
   // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default state.
   requestAuthentication: () => {},
   terraNIHProfileLoginStatus:
