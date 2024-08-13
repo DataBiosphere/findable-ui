@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const SidebarPositioner = styled("div")<Props>`
+  box-sizing: border-box;
   height: 100%;
   overflow: visible;
   padding: 16px 0;
