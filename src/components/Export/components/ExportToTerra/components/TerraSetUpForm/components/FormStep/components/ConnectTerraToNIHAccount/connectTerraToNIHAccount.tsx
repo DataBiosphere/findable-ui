@@ -19,7 +19,7 @@ export const ConnectTerraToNIHAccount = ({
 }: ConnectTerraToNIHAccountProps): JSX.Element | null => {
   const onGotoTutorial = (): void => {
     window.open(
-      "https://support.terra.bio/hc/en-us/articles/360038086332-Linking-authorization-accessing-controlled-data-on-external-servers",
+      "https://support.terra.bio/hc/en-us/articles/19124069598235-Access-controlled-data-files-by-linking-your-NIH-account-in-Terra",
       ANCHOR_TARGET.BLANK,
       REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
     );
