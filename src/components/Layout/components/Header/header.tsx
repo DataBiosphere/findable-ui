@@ -11,7 +11,8 @@ import { Navigation, SocialMedia } from "./common/entities";
 import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
 import {
-  Authentication,
+  AuthenticationProps,
+  Authentication as DefaultAuthentication,
   renderButton as renderAuthenticationButton,
   renderIconButton as renderAuthenticationIconButton,
 } from "./components/Content/components/Actions/components/Authentication/authentication";
@@ -34,6 +35,7 @@ import { useMenu } from "./hooks/useMenu";
 export interface HeaderProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
+  authenticationComponent?: React.ComponentType<AuthenticationProps>;
   authenticationEnabled?: boolean;
   className?: string;
   logo: ReactNode;
@@ -54,6 +56,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     actions,
     announcements,
     authenticationEnabled,
+    authenticationComponent: Authentication = DefaultAuthentication,
     className,
     logo,
     searchEnabled,
