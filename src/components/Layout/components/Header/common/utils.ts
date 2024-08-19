@@ -106,14 +106,9 @@ function getSelectedMatch(
 function getSelectMatchValue(
   selectedMatchValue?: boolean | SELECTED_MATCH
 ): SELECTED_MATCH | undefined {
-  switch (selectedMatchValue) {
-    case false:
-      return undefined;
-    case true:
-      return SELECTED_MATCH.STARTS_WITH;
-    default:
-      return selectedMatchValue;
-  }
+  if (selectedMatchValue === false) return undefined;
+  if (selectedMatchValue === true) return SELECTED_MATCH.STARTS_WITH;
+  return selectedMatchValue || SELECTED_MATCH.STARTS_WITH;
 }
 
 /**
