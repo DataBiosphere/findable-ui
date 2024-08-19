@@ -26,7 +26,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
     ref
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
-    const { breakpoint, smDown } = useBreakpoint();
+    const { smDown } = useBreakpoint();
 
     // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
     useEffect(() => {
@@ -61,7 +61,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
             <Navigation
               closeAncestor={closeMenu}
               headerProps={headerProps}
-              links={getMenuNavigationLinks(navigation, breakpoint)}
+              links={getMenuNavigationLinks(navigation)}
               pathname={pathname}
             />
             {socialMedia && (

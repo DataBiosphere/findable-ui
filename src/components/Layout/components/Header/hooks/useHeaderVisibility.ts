@@ -38,9 +38,9 @@ export const useHeaderVisibility = (
   const hasActions = Boolean(actions);
   const hasLogo = Boolean(logo);
   const hasMenu = !mdUp;
-  const hasNavItemsC = Boolean(navItemsC);
-  const hasNavItemsL = Boolean(navItemsL);
-  const hasNavItemsR = Boolean(navItemsR);
+  const hasNavItemsC = Boolean(navItemsC && navItemsC.length > 0);
+  const hasNavItemsL = Boolean(navItemsL && navItemsL.length > 0);
+  const hasNavItemsR = Boolean(navItemsR && navItemsR.length > 0);
   const hasSlogan = Boolean(slogan);
   const hasSocials = Boolean(socialMedia);
   // Determines header content visibility.

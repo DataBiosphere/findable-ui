@@ -13,12 +13,12 @@ export interface UseMenu {
 export const useMenu = (): UseMenu => {
   const [open, setOpen] = useState<boolean>(false);
 
-  // Closes header menu.
+  // Closes menu.
   const onClose = useCallback((): void => {
     setOpen(false);
   }, []);
 
-  // Opens header menu.
+  // Opens menu.
   const onOpen = useCallback((): void => {
     setOpen(true);
   }, []);

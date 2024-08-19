@@ -49,7 +49,7 @@ export const NavigationMenuItems = ({
             icon,
             label,
             menuItems: nestedMenuItems,
-            selectedMatch,
+            selectedPatterns,
             target = ANCHOR_TARGET.SELF,
             url,
           },
@@ -79,11 +79,7 @@ export const NavigationMenuItems = ({
                         REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
                       );
                 }}
-                selected={isNavigationLinkSelected(
-                  url,
-                  pathname,
-                  selectedMatch
-                )}
+                selected={isNavigationLinkSelected(pathname, selectedPatterns)}
               >
                 {icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText

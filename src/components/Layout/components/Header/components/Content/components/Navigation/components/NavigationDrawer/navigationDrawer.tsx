@@ -1,7 +1,8 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useCallback } from "react";
 import { Button } from "../../../../../../../../../common/Button/button";
 import { BackArrowIcon } from "../../../../../../../../../common/CustomIcon/components/BackArrowIcon/backArrowIcon";
+import { useDialog } from "../../../../../../../../../common/Dialog/hooks/useDialog";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
 import { DrawerNavigation as Navigation } from "../../../Actions/components/Menu/components/Content/components/Navigation/navigation.styles";
@@ -17,6 +18,7 @@ import {
 export interface NavigationDrawerProps {
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
+  isSelected?: boolean;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
   pathname?: string;
@@ -25,27 +27,22 @@ export interface NavigationDrawerProps {
 export const NavigationDrawer = ({
   closeAncestor,
   headerProps,
+  isSelected = false,
   menuItems,
   menuLabel,
   pathname,
 }: NavigationDrawerProps): JSX.Element => {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-  const openDrawer = (): void => {
-    setDrawerOpen(true);
-  };
-  const closeDrawer = (): void => {
-    setDrawerOpen(false);
-  };
-  const closeDrawers = (): void => {
-    setDrawerOpen(false);
+  const { onClose, onOpen, open } = useDialog();
+  const closeDrawers = useCallback((): void => {
+    onClose();
     closeAncestor?.();
-  };
+  }, [closeAncestor, onClose]);
   return (
     <>
       <Button
         EndIcon={ArrowDropDownRoundedIcon}
-        onClick={openDrawer}
-        variant="nav"
+        onClick={onOpen}
+        variant={isSelected ? "activeNav" : "nav"}
       >
         {menuLabel}
       </Button>
@@ -55,7 +52,7 @@ export const NavigationDrawer = ({
         hideBackdrop
         keepMounted={false}
         onClose={closeDrawers}
-        open={drawerOpen}
+        open={open}
         PaperProps={{ elevation: 0 }}
         TransitionComponent={Slide}
         transitionDuration={300}
@@ -66,7 +63,7 @@ export const NavigationDrawer = ({
         <Content>
           <BackButton
             fullWidth
-            onClick={closeDrawer}
+            onClick={onClose}
             StartIcon={BackArrowIcon}
             variant="backNav"
           >

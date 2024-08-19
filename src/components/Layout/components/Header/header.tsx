@@ -2,15 +2,12 @@ import { Fade, Toolbar } from "@mui/material";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
 import { ComponentsConfig } from "../../../../config/entities";
-import { useBreakpoint } from "../../../../hooks/useBreakpoint";
-import { useMenu } from "../../../../hooks/useMenu";
 import {
   APP_BAR_PROPS,
   FADE_TRANSITION_PROPS,
   TOOLBAR_PROPS,
 } from "./common/constants";
 import { Navigation, SocialMedia } from "./common/entities";
-import { getNavigationLinks } from "./common/utils";
 import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
 import { Authentication } from "./components/Content/components/Actions/components/Authentication/authentication";
@@ -21,8 +18,10 @@ import { Slogan } from "./components/Content/components/Slogan/slogan";
 import { Divider } from "./components/Content/components/Slogan/slogan.styles";
 import { Socials } from "./components/Content/components/Socials/socials.styles";
 import { AppBar, Center, Left, Right } from "./header.styles";
+import { useHeaderNavigation } from "./hooks/useHeaderNavigation";
 import { useHeaderVisibility } from "./hooks/useHeaderVisibility";
 import { useMeasureHeader } from "./hooks/useMeasureHeader";
+import { useMenu } from "./hooks/useMenu";
 
 export interface HeaderProps {
   actions?: ReactNode;
@@ -38,8 +37,8 @@ export interface HeaderProps {
 }
 
 export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
-  const { breakpoint } = useBreakpoint();
-  const { isIn } = useHeaderVisibility(headerProps);
+  const { navigation } = useHeaderNavigation(headerProps);
+  const { isIn } = useHeaderVisibility({ ...headerProps, navigation });
   const { headerRef } = useMeasureHeader();
   const { onClose, onOpen, open } = useMenu();
   const pathname = usePathname() ?? "";
@@ -49,14 +48,16 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     authenticationEnabled,
     className,
     logo,
-    navigation: [navItemsL, navItemsC, navItemsR] = [],
     searchEnabled,
     searchURL,
     slogan,
     socialMedia,
   } = headerProps;
-  const navigationProps = { headerProps, pathname };
-
+  const [navItemsL, navItemsC, navItemsR] = navigation;
+  const navigationProps = {
+    headerProps: { ...headerProps, navigation },
+    pathname,
+  };
   return (
     <AppBar {...APP_BAR_PROPS} ref={headerRef} className={className}>
       {/* Announcements */}
@@ -74,10 +75,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
             {isIn.isSloganIn && <Slogan slogan={slogan} />}
             {/* Left navigation */}
             {isIn.isLeftNavigationIn && (
-              <DXNavigation
-                {...navigationProps}
-                links={getNavigationLinks(navItemsL, breakpoint)}
-              />
+              <DXNavigation {...navigationProps} links={navItemsL} />
             )}
           </Left>
         </Fade>
@@ -86,10 +84,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
           <Center>
             {/* Center navigation */}
             {isIn.isCenterNavigationIn && (
-              <DXNavigation
-                {...navigationProps}
-                links={getNavigationLinks(navItemsC, breakpoint)}
-              />
+              <DXNavigation {...navigationProps} links={navItemsC} />
             )}
           </Center>
         </Fade>
@@ -98,10 +93,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
           <Right>
             {/* Navigation */}
             {isIn.isRightNavigationIn && (
-              <DXNavigation
-                {...navigationProps}
-                links={getNavigationLinks(navItemsR)}
-              />
+              <DXNavigation {...navigationProps} links={navItemsR} />
             )}
             {/* Socials */}
             {isIn.isSocialsIn && (

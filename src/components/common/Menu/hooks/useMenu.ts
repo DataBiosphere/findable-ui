@@ -1,7 +1,7 @@
 import { MenuProps as MMenuProps } from "@mui/material";
 import { MouseEvent, useCallback, useMemo, useState } from "react";
 
-export interface UseMenuWithPosition {
+export interface UseMenu {
   anchorEl: MMenuProps["anchorEl"];
   onClose: () => void;
   onOpen: (event: MouseEvent<HTMLElement>) => void;
@@ -13,16 +13,16 @@ export interface UseMenuWithPosition {
  * Menu functionality for menu dropdown, with menu position.
  * @returns menu functionality.
  */
-export const useMenuWithPosition = (): UseMenuWithPosition => {
+export const useMenu = (): UseMenu => {
   const [anchorEl, setAnchorEl] = useState<MMenuProps["anchorEl"]>(null);
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
-  // Closes header menu.
+  // Closes menu.
   const onClose = useCallback((): void => {
     setAnchorEl(null);
   }, []);
 
-  // Opens header menu.
+  // Opens menu.
   const onOpen = useCallback((event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   }, []);
