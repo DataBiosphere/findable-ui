@@ -27,10 +27,10 @@ export const useBreakpoint = (): UseBreakpoint => {
   const md = breakpoint === "md";
   const lg = breakpoint === "lg";
   // Current breakpoint, down.
-  const xsDown = xs;
-  const smDown = xs || sm;
-  const mdDown = xs || sm || md;
-  const lgDown = xs || sm || md || lg;
+  const xsDown = false;
+  const smDown = xs;
+  const mdDown = xs || sm;
+  const lgDown = xs || sm || md;
   // Current breakpoint, up.
   const xsUp = xs || sm || md || lg;
   const smUp = sm || md || lg;
