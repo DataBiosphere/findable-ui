@@ -71,7 +71,6 @@ export const HeaderStory: Story = {
     searchEnabled: true,
     slogan: "Header Slogan",
     socialMedia: {
-      label: "Follow Us",
       socials: [
         {
           Icon: XIcon,

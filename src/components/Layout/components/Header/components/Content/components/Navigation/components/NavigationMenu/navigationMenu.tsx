@@ -2,7 +2,7 @@ import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import { MenuProps as MMenuProps } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
 import { useBreakpoint } from "../../../../../../../../../../hooks/useBreakpoint";
-import { useMenuWithPosition } from "../../../../../../../../../../hooks/useMenuWithPosition";
+import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
   MenuItem,
@@ -15,6 +15,7 @@ export interface NavLinkMenuProps {
   anchorOrigin?: MMenuProps["anchorOrigin"];
   closeAncestor?: () => void;
   disablePortal?: boolean;
+  isSelected?: boolean;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
   pathname?: string;
@@ -24,12 +25,13 @@ export const NavigationMenu = ({
   anchorOrigin = MENU_ANCHOR_ORIGIN_LEFT_BOTTOM,
   closeAncestor,
   disablePortal,
+  isSelected = false,
   menuItems,
   menuLabel,
   pathname,
 }: NavLinkMenuProps): JSX.Element => {
   const { mdUp } = useBreakpoint();
-  const { anchorEl, onClose, onToggleOpen, open } = useMenuWithPosition();
+  const { anchorEl, onClose, onToggleOpen, open } = useMenu();
   const MenuItem = disablePortal ? StyledMenuItem : Fragment;
   const menuItemProps = disablePortal ? { onMouseLeave: onClose } : {};
   return (
@@ -38,7 +40,7 @@ export const NavigationMenu = ({
         EndIcon={ArrowDropDownRoundedIcon}
         isActive={open}
         onClick={onToggleOpen}
-        variant="nav"
+        variant={isSelected ? "activeNav" : "nav"}
       >
         <NavigationButtonLabel label={menuLabel} />
       </Button>

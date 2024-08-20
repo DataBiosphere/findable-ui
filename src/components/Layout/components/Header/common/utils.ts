@@ -1,24 +1,45 @@
 import { Breakpoint } from "@mui/material";
+import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { NavLinkItem } from "../components/Content/components/Navigation/navigation";
-import { Navigation } from "./entities";
+import { Navigation, SelectedMatch, SELECTED_MATCH } from "./entities";
 
 /**
- * Returns the configured menu navigation links, for the current breakpoint.
+ * Adds to the set of selected patterns, for the navigation link, at the current breakpoint.
+ * @param setOfPatterns - Set of selected patterns.
+ * @param navLinkItem - Navigation link.
+ * @param breakpoint - Breakpoint.
+ */
+function addSelectedPattern(
+  setOfPatterns: Set<string>,
+  navLinkItem: NavLinkItem,
+  breakpoint?: Breakpoint
+): void {
+  if (!navLinkItem.url) return;
+  // Exclude external links.
+  if (!isClientSideNavigation(navLinkItem.url)) return;
+  // Get the configured selected match for the current breakpoint.
+  const selectedMatch = getSelectedMatch(navLinkItem.selectedMatch, breakpoint);
+  if (!selectedMatch) return;
+  // Add the selected pattern for the navigation link.
+  if (selectedMatch === SELECTED_MATCH.EQUALS) {
+    setOfPatterns.add(getPatternEquals(navLinkItem.url));
+    return;
+  }
+  setOfPatterns.add(getPatternStartsWith(navLinkItem.url));
+}
+
+/**
+ * Returns the configured menu navigation links.
  * @param navigation - Navigation links.
- * @param breakpoint - Current breakpoint.
  * @returns navigation links.
  */
-export function getMenuNavigationLinks(
-  navigation?: Navigation,
-  breakpoint?: Breakpoint
-): NavLinkItem[] {
+export function getMenuNavigationLinks(navigation?: Navigation): NavLinkItem[] {
   if (!navigation) return [];
-  const navLinkItems = navigation.reduce((acc: NavLinkItem[], navLinkItems) => {
+  return navigation.reduce((acc: NavLinkItem[], navLinkItems) => {
     if (!navLinkItems) return acc;
     acc.push(...navLinkItems);
     return acc;
   }, []);
-  return getNavigationLinks(navLinkItems, breakpoint);
 }
 
 /**
@@ -32,16 +53,62 @@ export function getNavigationLinks(
   breakpoint?: Breakpoint
 ): NavLinkItem[] {
   if (!navigationLinks) return [];
-  return navigationLinks.reduce(
-    (acc: NavLinkItem[], navLinkItem: NavLinkItem) => {
+  return navigationLinks
+    .map((navigationLink) => mapSelectedMatches(navigationLink, breakpoint))
+    .reduce((acc: NavLinkItem[], navLinkItem: NavLinkItem) => {
       const processedNavLink = processNavLinkItem(navLinkItem, breakpoint);
       if (processedNavLink) {
         acc.push(...processedNavLink);
       }
       return acc;
-    },
-    []
-  );
+    }, []);
+}
+
+/**
+ * Returns the pattern for an exact match, for the given URL e.g. "^/about$".
+ * @param url - URL.
+ * @returns pattern for an exact match.
+ */
+function getPatternEquals(url: string): string {
+  return `^${url}$`;
+}
+
+/**
+ * Returns the pattern for a match that starts with the given URL e.g. "^/about".
+ * @param url - URL.
+ * @returns pattern for a match that starts with the given URL.
+ */
+function getPatternStartsWith(url: string): string {
+  return `^${url}`;
+}
+
+/**
+ * Returns the configured selected match.
+ * @param selectedMatch - Selected match.
+ * @param breakpoint - Breakpoint.
+ * @returns selected match.
+ */
+function getSelectedMatch(
+  selectedMatch?: SelectedMatch,
+  breakpoint?: Breakpoint
+): SELECTED_MATCH | undefined {
+  if (!selectedMatch) return SELECTED_MATCH.STARTS_WITH;
+  if (typeof selectedMatch === "string") return selectedMatch;
+  if (!breakpoint) return;
+  return getSelectMatchValue(selectedMatch[breakpoint]);
+}
+
+/**
+ * Returns the selected match value, for the current breakpoint.
+ * @param selectedMatchValue - Selected match value.
+ * @returns selected match.
+ */
+function getSelectMatchValue(
+  selectedMatchValue?: boolean | SELECTED_MATCH
+): SELECTED_MATCH | undefined {
+  if (selectedMatchValue === false) return undefined;
+  if (selectedMatchValue === true) return SELECTED_MATCH.STARTS_WITH;
+  return selectedMatchValue || SELECTED_MATCH.STARTS_WITH;
 }
 
 /**
@@ -72,6 +139,32 @@ function isLinkVisible(
   if (!breakpoint) return true; // Default is visible.
   if (!navLinkItem.visible) return true; // Default is visible.
   return navLinkItem.visible[breakpoint] !== false;
+}
+
+/**
+ * Returns the navigation link with the selected matches, for the current breakpoint.
+ * @param navLinkItem - Navigation link.
+ * @param breakpoint - Breakpoint.
+ * @returns navigation link with the selected matches.
+ */
+function mapSelectedMatches(
+  navLinkItem: NavLinkItem,
+  breakpoint?: Breakpoint
+): NavLinkItem {
+  const setOfPatterns = new Set<string>();
+  // Add selected pattern for the current navigation link.
+  addSelectedPattern(setOfPatterns, navLinkItem, breakpoint);
+  const cloneLink = { ...navLinkItem };
+  if (cloneLink.menuItems) {
+    cloneLink.menuItems = [...cloneLink.menuItems].map((menuItem) =>
+      mapSelectedMatches(menuItem, breakpoint)
+    );
+    for (const { selectedPatterns = [] } of cloneLink.menuItems) {
+      selectedPatterns.forEach((pattern) => setOfPatterns.add(pattern));
+    }
+  }
+  cloneLink.selectedPatterns = [...setOfPatterns];
+  return cloneLink;
 }
 
 /**

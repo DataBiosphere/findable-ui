@@ -8,7 +8,7 @@ import {
   REL_ATTRIBUTE,
 } from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
-import { SELECTED_MATCH } from "../../../../common/entities";
+import { SelectedMatch } from "../../../../common/entities";
 import { HeaderProps } from "../../../../header";
 import { isNavigationLinkSelected } from "./common/utils";
 import { NavigationButtonLabel } from "./components/NavigationButtonLabel/navigationButtonLabel";
@@ -22,7 +22,8 @@ export interface NavLinkItem {
   flatten?: Partial<Record<BreakpointKey, boolean>>;
   label: ReactNode;
   menuItems?: MenuItem[];
-  selectedMatch?: SELECTED_MATCH;
+  selectedMatch?: SelectedMatch;
+  selectedPatterns?: string[];
   target?: ANCHOR_TARGET;
   url: string;
   visible?: Partial<Record<BreakpointKey, boolean>>;
@@ -59,7 +60,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
               divider,
               label,
               menuItems,
-              selectedMatch,
+              selectedPatterns,
               target = ANCHOR_TARGET.SELF,
               url,
             },
@@ -70,6 +71,10 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                 {mdUp ? (
                   <NavigationMenu
                     closeAncestor={closeAncestor}
+                    isSelected={isNavigationLinkSelected(
+                      pathname,
+                      selectedPatterns
+                    )}
                     menuItems={menuItems}
                     menuLabel={label}
                     pathname={pathname}
@@ -78,6 +83,10 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                   <NavigationDrawer
                     closeAncestor={closeAncestor}
                     headerProps={headerProps}
+                    isSelected={isNavigationLinkSelected(
+                      pathname,
+                      selectedPatterns
+                    )}
                     menuItems={menuItems}
                     menuLabel={label}
                     pathname={pathname}
@@ -100,7 +109,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                         );
                   }}
                   variant={
-                    isNavigationLinkSelected(url, pathname, selectedMatch)
+                    isNavigationLinkSelected(pathname, selectedPatterns)
                       ? "activeNav"
                       : "nav"
                   }
