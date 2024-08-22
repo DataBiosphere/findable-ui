@@ -8,6 +8,7 @@ import { AppBar } from "../../../../../../header.styles";
 import { DrawerNavigation as Navigation } from "../../../Actions/components/Menu/components/Content/components/Navigation/navigation.styles";
 import { Toolbar } from "../../../Actions/components/Menu/components/Toolbar/toolbar";
 import { MenuItem } from "../NavigationMenuItems/navigationMenuItems";
+import { DIALOG_PROPS } from "./common/constants";
 import { Slide } from "./components/Slide/slide";
 import {
   Button as BackButton,
@@ -18,6 +19,7 @@ import {
 export interface NavigationDrawerProps {
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
+  isMenuIn: boolean;
   isSelected?: boolean;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
@@ -27,6 +29,7 @@ export interface NavigationDrawerProps {
 export const NavigationDrawer = ({
   closeAncestor,
   headerProps,
+  isMenuIn,
   isSelected = false,
   menuItems,
   menuLabel,
@@ -47,15 +50,10 @@ export const NavigationDrawer = ({
         {menuLabel}
       </Button>
       <Dialog
-        disableScrollLock
-        fullScreen
-        hideBackdrop
-        keepMounted={false}
+        {...DIALOG_PROPS}
         onClose={closeDrawers}
         open={open}
-        PaperProps={{ elevation: 0 }}
         TransitionComponent={Slide}
-        transitionDuration={300}
       >
         <AppBar component="div" elevation={1}>
           <Toolbar onClose={closeDrawers} {...headerProps} />
@@ -72,6 +70,7 @@ export const NavigationDrawer = ({
           <Navigation
             closeAncestor={closeDrawers}
             headerProps={headerProps}
+            isMenuIn={isMenuIn}
             links={menuItems}
             pathname={pathname}
           />

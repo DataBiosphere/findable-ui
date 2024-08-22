@@ -122,6 +122,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                 <Menu
                   {...navigationProps}
                   closeMenu={onClose}
+                  isMenuIn={isIn.isMenuIn}
                   open={open}
                   openMenu={onOpen}
                 />

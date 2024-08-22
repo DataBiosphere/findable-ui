@@ -1,7 +1,6 @@
 import { Button, Divider } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { CSSProperties, forwardRef, Fragment, ReactNode } from "react";
-import { useBreakpoint } from "../../../../../../../../hooks/useBreakpoint";
 import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper";
 import {
   ANCHOR_TARGET,
@@ -33,6 +32,7 @@ export interface NavigationProps {
   className?: string;
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
+  isMenuIn?: boolean;
   links: NavLinkItem[];
   pathname?: string;
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
@@ -44,16 +44,16 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
       className,
       closeAncestor,
       headerProps,
+      isMenuIn = false,
       links,
       pathname,
       style,
     }: NavigationProps,
     ref
   ): JSX.Element {
-    const { mdUp } = useBreakpoint();
     const router = useRouter();
     return (
-      <Links ref={ref} className={className} style={style}>
+      <Links ref={ref} className={className} isMenuIn={isMenuIn} style={style}>
         {links.map(
           (
             {
@@ -68,9 +68,11 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
           ) =>
             menuItems ? (
               <Fragment key={i}>
-                {mdUp ? (
-                  <NavigationMenu
+                {isMenuIn ? (
+                  <NavigationDrawer
                     closeAncestor={closeAncestor}
+                    headerProps={headerProps}
+                    isMenuIn={isMenuIn}
                     isSelected={isNavigationLinkSelected(
                       pathname,
                       selectedPatterns
@@ -80,9 +82,8 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                     pathname={pathname}
                   />
                 ) : (
-                  <NavigationDrawer
+                  <NavigationMenu
                     closeAncestor={closeAncestor}
-                    headerProps={headerProps}
                     isSelected={isNavigationLinkSelected(
                       pathname,
                       selectedPatterns

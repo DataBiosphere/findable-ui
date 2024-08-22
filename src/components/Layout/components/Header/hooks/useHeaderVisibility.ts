@@ -8,6 +8,7 @@ export interface UseHeaderVisibility {
     isCenterNavigationIn: boolean;
     isLeftGroupIn: boolean;
     isLeftNavigationIn: boolean;
+    isMenuIn: boolean;
     isRightGroupIn: boolean;
     isRightNavigationIn: boolean;
     isSloganIn: boolean;
@@ -50,6 +51,7 @@ export const useHeaderVisibility = (
     (hasActions || searchEnabled || authenticationEnabled || hasMenu) &&
     hasBreakpoint;
   const isNavigationIn = smUp;
+  const isMenuIn = hasMenu;
   const isSloganIn = hasSlogan && mdUp;
   const isSocialsIn = hasSocials && lgUp;
   // Determines navigation visibility.
@@ -67,6 +69,7 @@ export const useHeaderVisibility = (
       isCenterNavigationIn,
       isLeftGroupIn,
       isLeftNavigationIn,
+      isMenuIn,
       isRightGroupIn,
       isRightNavigationIn,
       isSloganIn,
