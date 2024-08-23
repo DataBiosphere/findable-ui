@@ -5,8 +5,14 @@ import { ComponentsConfig } from "../../../../../../../../../../../../config/ent
 import { Left, Right } from "../../../../../../../../header.styles";
 import { Announcements } from "../../../../../../../Announcements/announcements";
 import { Actions } from "../../../../actions";
-import { Authentication } from "../../../Authentication/authentication";
-import { Search } from "../../../Search/search";
+import {
+  Authentication,
+  renderIconButton as renderAuthenticationIconButton,
+} from "../../../Authentication/authentication";
+import {
+  renderIconButton as renderSearchIconButton,
+  Search,
+} from "../../../Search/search";
 
 export interface DialogTitleProps {
   actions?: ReactNode;
@@ -36,6 +42,7 @@ export const Toolbar = ({
           <Actions>
             {/* Search */}
             <Search
+              Button={renderSearchIconButton}
               closeMenu={onClose}
               searchEnabled={searchEnabled}
               searchURL={searchURL}
@@ -43,6 +50,7 @@ export const Toolbar = ({
             {/* Authentication */}
             <Authentication
               authenticationEnabled={authenticationEnabled}
+              Button={renderAuthenticationIconButton}
               closeMenu={onClose}
             />
             {/* Additional actions i.e. call-to-action button */}
