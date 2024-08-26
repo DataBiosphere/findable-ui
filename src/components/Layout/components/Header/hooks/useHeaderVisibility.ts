@@ -8,6 +8,7 @@ export interface UseHeaderVisibility {
     isCenterNavigationIn: boolean;
     isLeftGroupIn: boolean;
     isLeftNavigationIn: boolean;
+    isMenuIn: boolean;
     isRightGroupIn: boolean;
     isRightNavigationIn: boolean;
     isSloganIn: boolean;
@@ -23,7 +24,7 @@ export interface UseHeaderVisibility {
 export const useHeaderVisibility = (
   headerProps: HeaderProps
 ): UseHeaderVisibility => {
-  const { lgUp, mdUp } = useBreakpoint();
+  const { breakpoint, lgUp, mdUp, smDown, smUp } = useBreakpoint();
   // Header configuration.
   const {
     actions,
@@ -34,10 +35,12 @@ export const useHeaderVisibility = (
     slogan,
     socialMedia,
   } = headerProps;
+  // Breakpoint.
+  const hasBreakpoint = Boolean(breakpoint);
   // Header content.
   const hasActions = Boolean(actions);
   const hasLogo = Boolean(logo);
-  const hasMenu = !mdUp;
+  const hasMenu = smDown;
   const hasNavItemsC = Boolean(navItemsC && navItemsC.length > 0);
   const hasNavItemsL = Boolean(navItemsL && navItemsL.length > 0);
   const hasNavItemsR = Boolean(navItemsR && navItemsR.length > 0);
@@ -45,8 +48,10 @@ export const useHeaderVisibility = (
   const hasSocials = Boolean(socialMedia);
   // Determines header content visibility.
   const isActionsIn =
-    hasActions || searchEnabled || authenticationEnabled || hasMenu;
-  const isNavigationIn = mdUp;
+    (hasActions || searchEnabled || authenticationEnabled || hasMenu) &&
+    hasBreakpoint;
+  const isNavigationIn = smUp;
+  const isMenuIn = hasMenu;
   const isSloganIn = hasSlogan && mdUp;
   const isSocialsIn = hasSocials && lgUp;
   // Determines navigation visibility.
@@ -54,10 +59,9 @@ export const useHeaderVisibility = (
   const isLeftNavigationIn = isNavigationIn && hasNavItemsL;
   const isRightNavigationIn = isNavigationIn && hasNavItemsR;
   // Determines group visibility.
-  const isLeftGroupIn = hasLogo || isSocialsIn || isLeftNavigationIn;
+  const isLeftGroupIn = hasLogo || isSloganIn || isLeftNavigationIn;
   const isCenterGroupIn = isCenterNavigationIn;
   const isRightGroupIn = isRightNavigationIn || isSocialsIn || isActionsIn;
-
   return {
     isIn: {
       isActionsIn,
@@ -65,6 +69,7 @@ export const useHeaderVisibility = (
       isCenterNavigationIn,
       isLeftGroupIn,
       isLeftNavigationIn,
+      isMenuIn,
       isRightGroupIn,
       isRightNavigationIn,
       isSloganIn,

@@ -1,3 +1,4 @@
+import { BREAKPOINT_FN_NAME, useBreakpointHelper } from "./useBreakpointHelper";
 import {
   UseCurrentBreakpoint,
   useCurrentBreakpoint,
@@ -27,15 +28,15 @@ export const useBreakpoint = (): UseBreakpoint => {
   const md = breakpoint === "md";
   const lg = breakpoint === "lg";
   // Current breakpoint, down.
-  const xsDown = xs;
-  const smDown = xs || sm;
-  const mdDown = xs || sm || md;
-  const lgDown = xs || sm || md || lg;
+  const xsDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "xs");
+  const smDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
+  const mdDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
+  const lgDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "lg");
   // Current breakpoint, up.
-  const xsUp = xs || sm || md || lg;
-  const smUp = sm || md || lg;
-  const mdUp = md || lg;
-  const lgUp = lg;
+  const xsUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "xs");
+  const smUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "sm");
+  const mdUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "md");
+  const lgUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "lg");
   return {
     breakpoint,
     lg,

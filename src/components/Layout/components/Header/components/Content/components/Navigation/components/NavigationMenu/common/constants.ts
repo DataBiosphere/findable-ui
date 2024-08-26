@@ -1,23 +1,15 @@
-import { MenuProps as MMenuProps } from "@mui/material";
+import { PopperProps as MPopperProps } from "@mui/material";
 
-export const MENU_ANCHOR_ORIGIN_LEFT_BOTTOM: MMenuProps["anchorOrigin"] = {
-  horizontal: "left",
-  vertical: "bottom",
-};
-
-export const MENU_ANCHOR_ORIGIN_RIGHT_TOP: MMenuProps["anchorOrigin"] = {
-  horizontal: "right",
-  vertical: "top",
-};
-
-export const MENU_PROPS: Partial<MMenuProps> = {
-  slotProps: {
-    paper: {
-      variant: "menu",
+export const POPPER_PROPS: Partial<MPopperProps> = {
+  modifiers: [
+    {
+      name: "flip",
+      options: {
+        padding: 16,
+      },
     },
-  },
-  transformOrigin: {
-    horizontal: "left",
-    vertical: "top",
-  },
+  ],
+  placement: "bottom-start",
+  role: "presentation",
+  transition: true,
 };

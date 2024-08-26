@@ -19,8 +19,8 @@ import {
 import { isClientSideNavigation } from "../../../../../../../../../Links/common/utils";
 import { isNavigationLinkSelected } from "../../common/utils";
 import { NavLinkItem } from "../../navigation";
-import { MENU_ANCHOR_ORIGIN_RIGHT_TOP } from "../NavigationMenu/common/constants";
 import { NavigationMenu } from "../NavigationMenu/navigationMenu";
+import { POPPER_PROPS } from "./common/constants";
 
 export interface MenuItem extends NavLinkItem {
   description?: string;
@@ -58,12 +58,13 @@ export const NavigationMenuItems = ({
           nestedMenuItems ? (
             <NavigationMenu
               key={i}
-              anchorOrigin={MENU_ANCHOR_ORIGIN_RIGHT_TOP}
               closeAncestor={closeMenu}
-              disablePortal
+              isSelected={isNavigationLinkSelected(pathname, selectedPatterns)}
+              isSubMenu={true}
               menuItems={nestedMenuItems}
               menuLabel={label}
               pathname={pathname}
+              popperProps={POPPER_PROPS}
             />
           ) : (
             <Fragment key={i}>

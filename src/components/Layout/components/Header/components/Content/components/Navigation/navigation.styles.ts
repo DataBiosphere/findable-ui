@@ -1,18 +1,24 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { mediaDesktopSmallUp } from "../../../../../../../../styles/common/mixins/breakpoints";
 import { textBody500 } from "../../../../../../../../styles/common/mixins/fonts";
 
-export const Navigation = styled("div")`
+interface Props {
+  isMenuIn: boolean;
+}
+
+export const Navigation = styled("div")<Props>`
   display: flex;
   flex: 1;
   flex-direction: row;
   gap: 8px;
   justify-content: flex-start;
 
-  ${mediaDesktopSmallUp} {
-    flex: unset;
-    justify-content: inherit;
-  }
+  ${({ isMenuIn }) =>
+    isMenuIn &&
+    css`
+      flex: unset;
+      justify-content: inherit;
+    `};
 
   .MuiButton-activeNav,
   .MuiButton-nav {
@@ -28,8 +34,10 @@ export const Navigation = styled("div")`
   .MuiDivider-root {
     margin: 8px 0;
 
-    ${mediaDesktopSmallUp} {
-      display: none;
-    }
+    ${({ isMenuIn }) =>
+      isMenuIn &&
+      css`
+        display: none;
+      `};
   }
 `;

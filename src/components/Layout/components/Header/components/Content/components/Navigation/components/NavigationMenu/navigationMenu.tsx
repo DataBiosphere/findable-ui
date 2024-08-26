@@ -1,69 +1,98 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
-import { MenuProps as MMenuProps } from "@mui/material";
-import React, { Fragment, ReactNode } from "react";
-import { useBreakpoint } from "../../../../../../../../../../hooks/useBreakpoint";
+import {
+  ClickAwayListener as MClickAwayListener,
+  Grow,
+  MenuList as MMenuList,
+  Paper as MPaper,
+  PopperProps as MPopperProps,
+} from "@mui/material";
+import React, { Fragment, ReactNode, useEffect } from "react";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
   MenuItem,
   NavigationMenuItems,
 } from "../NavigationMenuItems/navigationMenuItems";
-import { MENU_ANCHOR_ORIGIN_LEFT_BOTTOM, MENU_PROPS } from "./common/constants";
-import { Button, Menu, StyledMenuItem } from "./navigationMenu.styles";
+import { POPPER_PROPS } from "./common/constants";
+import { Button, StyledMenuItem, StyledPopper } from "./navigationMenu.styles";
 
 export interface NavLinkMenuProps {
-  anchorOrigin?: MMenuProps["anchorOrigin"];
   closeAncestor?: () => void;
-  disablePortal?: boolean;
   isSelected?: boolean;
+  isSubMenu?: boolean;
   menuItems: MenuItem[];
   menuLabel: ReactNode;
   pathname?: string;
+  popperProps?: Partial<MPopperProps>;
 }
 
 export const NavigationMenu = ({
-  anchorOrigin = MENU_ANCHOR_ORIGIN_LEFT_BOTTOM,
   closeAncestor,
-  disablePortal,
   isSelected = false,
+  isSubMenu = false,
   menuItems,
   menuLabel,
   pathname,
+  popperProps,
 }: NavLinkMenuProps): JSX.Element => {
-  const { mdUp } = useBreakpoint();
-  const { anchorEl, onClose, onToggleOpen, open } = useMenu();
-  const MenuItem = disablePortal ? StyledMenuItem : Fragment;
-  const menuItemProps = disablePortal ? { onMouseLeave: onClose } : {};
+  const {
+    anchorEl,
+    onClose,
+    onDisableScrollLock,
+    onEnableScrollLock,
+    onOpen,
+    open,
+  } = useMenu();
+  const MenuItem = isSubMenu ? StyledMenuItem : Fragment;
+
+  useEffect(() => {
+    return () => {
+      if (isSubMenu || !open) return;
+      onDisableScrollLock();
+    };
+  }, [isSubMenu, onDisableScrollLock, open]);
+
   return (
-    <MenuItem {...menuItemProps}>
+    <MenuItem>
       <Button
         EndIcon={ArrowDropDownRoundedIcon}
         isActive={open}
-        onClick={onToggleOpen}
+        onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}
       >
         <NavigationButtonLabel label={menuLabel} />
       </Button>
-      <Menu
-        {...MENU_PROPS}
+      <StyledPopper
+        {...POPPER_PROPS}
+        {...popperProps}
         anchorEl={anchorEl}
-        anchorOrigin={anchorOrigin}
-        disablePortal={disablePortal}
-        onClose={(): void => {
-          onClose();
-          closeAncestor?.();
-        }}
-        open={mdUp && open}
+        open={open}
       >
-        <NavigationMenuItems
-          closeMenu={(): void => {
-            onClose();
-            closeAncestor?.();
-          }}
-          menuItems={menuItems}
-          pathname={pathname}
-        />
-      </Menu>
+        {({ TransitionProps }): JSX.Element => (
+          <Grow
+            {...TransitionProps}
+            onEntered={(): void => {
+              if (isSubMenu) return;
+              onEnableScrollLock();
+            }}
+          >
+            <MPaper variant="menu">
+              <MClickAwayListener onClickAway={onClose}>
+                <MMenuList>
+                  <NavigationMenuItems
+                    closeMenu={(): void => {
+                      onClose();
+                      closeAncestor?.();
+                    }}
+                    menuItems={menuItems}
+                    pathname={pathname}
+                  />
+                </MMenuList>
+              </MClickAwayListener>
+            </MPaper>
+          </Grow>
+        )}
+      </StyledPopper>
     </MenuItem>
   );
 };

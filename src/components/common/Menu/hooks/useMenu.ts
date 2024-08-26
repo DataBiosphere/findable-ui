@@ -1,9 +1,11 @@
-import { MenuProps as MMenuProps } from "@mui/material";
+import { PopperProps as MPopperProps } from "@mui/material";
 import { MouseEvent, useCallback, useMemo, useState } from "react";
 
 export interface UseMenu {
-  anchorEl: MMenuProps["anchorEl"];
+  anchorEl: MPopperProps["anchorEl"];
   onClose: () => void;
+  onDisableScrollLock: () => void;
+  onEnableScrollLock: () => void;
   onOpen: (event: MouseEvent<HTMLElement>) => void;
   onToggleOpen: (event: MouseEvent<HTMLElement>) => void;
   open: boolean;
@@ -14,12 +16,22 @@ export interface UseMenu {
  * @returns menu functionality.
  */
 export const useMenu = (): UseMenu => {
-  const [anchorEl, setAnchorEl] = useState<MMenuProps["anchorEl"]>(null);
+  const [anchorEl, setAnchorEl] = useState<MPopperProps["anchorEl"]>(null);
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
   // Closes menu.
   const onClose = useCallback((): void => {
     setAnchorEl(null);
+  }, []);
+
+  // Disables scroll lock.
+  const onDisableScrollLock = useCallback((): void => {
+    document.body.style.removeProperty("overflow");
+  }, []);
+
+  // Enables scroll lock.
+  const onEnableScrollLock = useCallback((): void => {
+    document.body.style.setProperty("overflow", "hidden");
   }, []);
 
   // Opens menu.
@@ -42,6 +54,8 @@ export const useMenu = (): UseMenu => {
   return {
     anchorEl,
     onClose,
+    onDisableScrollLock,
+    onEnableScrollLock,
     onOpen,
     onToggleOpen,
     open,

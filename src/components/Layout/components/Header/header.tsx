@@ -10,9 +10,17 @@ import {
 import { Navigation, SocialMedia } from "./common/entities";
 import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
-import { Authentication } from "./components/Content/components/Actions/components/Authentication/authentication";
+import {
+  Authentication,
+  renderButton as renderAuthenticationButton,
+  renderIconButton as renderAuthenticationIconButton,
+} from "./components/Content/components/Actions/components/Authentication/authentication";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
-import { Search } from "./components/Content/components/Actions/components/Search/search";
+import {
+  renderButton as renderSearchButton,
+  renderIconButton as renderSearchIconButton,
+  Search,
+} from "./components/Content/components/Actions/components/Search/search";
 import { Navigation as DXNavigation } from "./components/Content/components/Navigation/navigation";
 import { Slogan } from "./components/Content/components/Slogan/slogan";
 import { Divider } from "./components/Content/components/Slogan/slogan.styles";
@@ -107,12 +115,22 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
               <Actions>
                 {/* Search */}
                 <Search
+                  Button={({ ...props }): JSX.Element =>
+                    isIn.isMenuIn
+                      ? renderSearchIconButton(props)
+                      : renderSearchButton(props)
+                  }
                   closeMenu={onClose}
                   searchEnabled={searchEnabled}
                   searchURL={searchURL}
                 />
                 {/* Authentication */}
                 <Authentication
+                  Button={({ ...props }): JSX.Element =>
+                    isIn.isMenuIn
+                      ? renderAuthenticationIconButton(props)
+                      : renderAuthenticationButton(props)
+                  }
                   authenticationEnabled={authenticationEnabled}
                   closeMenu={onClose}
                 />
@@ -122,6 +140,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                 <Menu
                   {...navigationProps}
                   closeMenu={onClose}
+                  isMenuIn={isIn.isMenuIn}
                   open={open}
                   openMenu={onOpen}
                 />

@@ -1,12 +1,12 @@
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import { Dialog as MDialog, Fade, IconButton } from "@mui/material";
 import React, { CSSProperties, forwardRef, Fragment, useEffect } from "react";
-import { useBreakpoint } from "../../../../../../../../../../hooks/useBreakpoint";
 import { getMenuNavigationLinks } from "../../../../../../common/utils";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
 import { Content } from "../../../../content.styles";
 import { Slogan } from "../../../Slogan/slogan";
+import { DIALOG_PROPS } from "./common/constants";
 import { Navigation } from "./components/Content/components/Navigation/navigation.styles";
 import { Socials } from "./components/Content/components/Socials/socials.styles";
 import { Toolbar } from "./components/Toolbar/toolbar";
@@ -14,6 +14,7 @@ import { Toolbar } from "./components/Toolbar/toolbar";
 export interface MenuProps {
   closeMenu: () => void;
   headerProps: HeaderProps;
+  isMenuIn: boolean;
   open: boolean;
   openMenu: () => void;
   pathname?: string;
@@ -22,19 +23,26 @@ export interface MenuProps {
 
 export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
   function HeaderMenu(
-    { closeMenu, headerProps, open, openMenu, pathname, style }: MenuProps,
+    {
+      closeMenu,
+      headerProps,
+      isMenuIn,
+      open,
+      openMenu,
+      pathname,
+      style,
+    }: MenuProps,
     ref
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
-    const { smDown } = useBreakpoint();
 
     // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
     useEffect(() => {
-      if (smDown) return;
+      if (isMenuIn) return;
       closeMenu();
-    }, [closeMenu, smDown]);
+    }, [closeMenu, isMenuIn]);
 
-    if (!smDown) return null;
+    if (!isMenuIn) return null;
 
     return (
       <Fragment>
@@ -42,16 +50,11 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
           <MenuRoundedIcon />
         </IconButton>
         <MDialog
-          disableScrollLock
-          fullScreen
-          hideBackdrop
-          keepMounted={false}
+          {...DIALOG_PROPS}
           onClose={closeMenu}
           open={open}
-          PaperProps={{ elevation: 0 }}
           TransitionComponent={Fade}
-          transitionDuration={smDown ? 600 : 0}
-          TransitionProps={{ easing: "ease-out" }}
+          transitionDuration={isMenuIn ? 600 : 0}
         >
           <AppBar component="div" elevation={0}>
             <Toolbar onClose={closeMenu} {...headerProps} />
@@ -61,6 +64,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
             <Navigation
               closeAncestor={closeMenu}
               headerProps={headerProps}
+              isMenuIn={isMenuIn}
               links={getMenuNavigationLinks(navigation)}
               pathname={pathname}
             />
