@@ -79,6 +79,7 @@ export const Filter = ({
       <FilterLabel
         count={categoryView.values.length}
         disabled={categoryView.isDisabled}
+        isOpen={isOpen}
         label={categoryView.label}
         onClick={onOpenFilter}
       />

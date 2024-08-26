@@ -6,13 +6,14 @@ import { IconButton as DXIconButton } from "../../../common/IconButton/iconButto
 
 export const FilterPopover = styled(Popover)`
   .MuiPaper-menu {
-    margin: 0;
+    margin: 4px 0;
   }
 
   ${mediaDesktopSmallDown} {
     .MuiPaper-root {
       background-color: ${smokeLight};
       height: 100%;
+      margin: 0;
       max-height: 100%;
       overflow: visible; // required; allows backdrop button to render outside of drawer container.
     }

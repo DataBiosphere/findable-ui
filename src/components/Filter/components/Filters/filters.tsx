@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { CategoryTag, SelectCategoryView } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import {
@@ -76,22 +76,13 @@ export const Filters = ({
   const { height: windowHeight } = useWindowResize();
   const filterListRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(0);
-  const isLabeled = useMemo(
-    () => isCategoryViewsLabeled(categoryFilters),
-    [categoryFilters]
-  );
 
   useEffect(() => {
     setHeight(calculateListHeight(windowHeight, filterListRef.current));
   }, [windowHeight]);
 
   return (
-    <FilterList
-      disabled={disabled}
-      height={height}
-      isBaseStyle={!isLabeled}
-      ref={filterListRef}
-    >
+    <FilterList disabled={disabled} height={height} ref={filterListRef}>
       {categoryFilters.map(({ categoryViews, label }, i) => (
         <Fragment key={i}>
           {i !== 0 && <Divider />}
@@ -125,13 +116,4 @@ function calculateListHeight(
   filterListEl: HTMLDivElement | null
 ): number {
   return windowHeight - (filterListEl?.getBoundingClientRect()?.top ?? 0);
-}
-
-/**
- * Returns true if any category views are labelled.
- * @param categoryFilters - Category filters.
- * @returns true if any category views are labelled.
- */
-function isCategoryViewsLabeled(categoryFilters: CategoryFilter[]): boolean {
-  return categoryFilters.some(({ label }) => label);
 }

@@ -6,6 +6,7 @@ export default {
   argTypes: {
     count: { control: "number" },
     disabled: { control: "boolean" },
+    isOpen: { control: "boolean" },
     label: { control: "text" },
   },
   component: FilterLabel,
@@ -27,5 +28,6 @@ export const FilterLabelStory = FilterLabelTemplate.bind({});
 FilterLabelStory.args = {
   count: 123,
   disabled: false,
+  isOpen: false,
   label: "Label",
 };
