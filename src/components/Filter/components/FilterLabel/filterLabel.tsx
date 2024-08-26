@@ -5,6 +5,7 @@ import { FilterLabel as Label } from "./filterLabel.styles";
 export interface FilterLabelProps {
   count?: number;
   disabled?: boolean;
+  isOpen: boolean;
   label: string;
   onClick: (event: MouseEvent<HTMLButtonElement>) => void;
 }
@@ -12,6 +13,7 @@ export interface FilterLabelProps {
 export const FilterLabel = ({
   count,
   disabled = false,
+  isOpen,
   label,
   onClick,
 }: FilterLabelProps): JSX.Element => {
@@ -22,6 +24,7 @@ export const FilterLabel = ({
       disabled={disabled}
       endIcon={<ArrowDropDownRoundedIcon fontSize="small" />}
       fullWidth
+      isOpen={isOpen}
       onClick={onClick}
     >
       {filterLabel}

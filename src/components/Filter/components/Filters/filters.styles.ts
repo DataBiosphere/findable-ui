@@ -3,25 +3,22 @@ import styled from "@emotion/styled";
 import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
 import { inkLight, inkMain } from "../../../../styles/common/mixins/colors";
 import {
-  textBody400,
   textBody500,
+  textUppercase500,
 } from "../../../../styles/common/mixins/fonts";
 
 interface Props {
   disabled: boolean;
   height: number;
-  isBaseStyle: boolean;
 }
 
-export const Filters = styled("div", {
-  shouldForwardProp: (prop) => prop !== "height" && prop !== "isBaseStyle",
-})<Props>`
-  ${(props) => (props.isBaseStyle ? textBody500(props) : textBody400(props))};
-  color: ${(props) => (props.isBaseStyle ? inkMain(props) : inkLight(props))};
+export const Filters = styled("div")<Props>`
+  ${textBody500};
+  color: ${inkMain};
   height: ${({ height }) => height}px;
   margin: 8px 0;
   overflow: auto;
-  padding: 0 0 8px;
+  padding: 0 8px 8px;
 
   // Filters are globally "disabled".
   ${({ disabled }) =>
@@ -31,22 +28,18 @@ export const Filters = styled("div", {
     `};
 
   .MuiDivider-root {
-    margin: 8px 0;
+    margin: 8px;
   }
 
   ${mediaDesktopSmallUp} {
     height: unset;
     overflow: unset;
-    padding: 0 12px 0 16px;
+    padding: 0 8px;
   }
 `;
 
 export const CategoryViewsLabel = styled("div")`
-  ${textBody500};
-  color: ${inkMain};
-  padding: 8px 16px;
-
-  ${mediaDesktopSmallUp} {
-    padding: 8px 0;
-  }
+  ${textUppercase500};
+  color: ${inkLight};
+  padding: 8px;
 `;
