@@ -4,7 +4,7 @@ export const FilterTags = styled.span`
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-bottom: 8px;
+  margin: 4px 0 8px;
   padding: 0 8px;
 
   &:last-child {
