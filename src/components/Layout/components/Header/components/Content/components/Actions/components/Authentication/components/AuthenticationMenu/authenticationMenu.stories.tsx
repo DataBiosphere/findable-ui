@@ -22,14 +22,14 @@ const AuthenticationMenuTemplate: StoryFn<typeof AuthenticationMenu> = (
 export const AuthenticationMenuStory = AuthenticationMenuTemplate.bind({});
 AuthenticationMenuStory.args = {
   userProfile: {
-    email: "john@smith.com",
-    email_verified: true,
-    family_name: "Smith",
-    given_name: "John",
-    hd: "",
-    locale: "",
+    // email: "john@smith.com",
+    // email_verified: true,
+    // family_name: "Smith",
+    // given_name: "John",
+    // hd: "",
+    // locale: "",
     name: "john_smith",
     picture: "https://i.pravatar.cc/200",
-    sub: "",
+    // sub: "",
   },
 };

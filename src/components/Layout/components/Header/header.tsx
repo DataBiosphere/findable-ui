@@ -10,7 +10,10 @@ import {
 import { Navigation, SocialMedia } from "./common/entities";
 import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
-import { Authentication } from "./components/Content/components/Actions/components/Authentication/authentication";
+import {
+  Authentication as DefaultAuthentication,
+  AuthenticationProps,
+} from "./components/Content/components/Actions/components/Authentication/authentication";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
 import { Search } from "./components/Content/components/Actions/components/Search/search";
 import { Navigation as DXNavigation } from "./components/Content/components/Navigation/navigation";
@@ -26,6 +29,7 @@ import { useMenu } from "./hooks/useMenu";
 export interface HeaderProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
+  authenticationComponent?: React.ComponentType<AuthenticationProps>;
   authenticationEnabled?: boolean;
   className?: string;
   logo: ReactNode;
@@ -46,6 +50,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     actions,
     announcements,
     authenticationEnabled,
+    authenticationComponent: Authentication = DefaultAuthentication,
     className,
     logo,
     searchEnabled,
