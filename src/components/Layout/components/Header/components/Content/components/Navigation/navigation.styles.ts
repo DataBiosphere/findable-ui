@@ -8,16 +8,16 @@ interface Props {
 
 export const Navigation = styled("div")<Props>`
   display: flex;
-  flex: 1;
+  flex: unset;
   flex-direction: row;
   gap: 8px;
-  justify-content: flex-start;
+  justify-content: inherit;
 
   ${({ isMenuIn }) =>
     isMenuIn &&
     css`
-      flex: unset;
-      justify-content: inherit;
+      flex: 1;
+      justify-content: flex-start;
     `};
 
   .MuiButton-activeNav,
@@ -33,11 +33,5 @@ export const Navigation = styled("div")<Props>`
 
   .MuiDivider-root {
     margin: 8px 0;
-
-    ${({ isMenuIn }) =>
-      isMenuIn &&
-      css`
-        display: none;
-      `};
   }
 `;
