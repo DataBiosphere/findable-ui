@@ -28,9 +28,9 @@ import {
   OPTIONS,
 } from "./common/constants";
 import {
-  FormState,
   FORM_CONTROL_LABEL,
   FORM_CONTROL_NAME,
+  FormState,
   RequestValue,
   ValidateResponse,
 } from "./common/entities";

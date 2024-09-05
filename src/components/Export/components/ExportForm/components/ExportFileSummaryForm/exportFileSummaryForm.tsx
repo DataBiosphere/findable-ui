@@ -20,8 +20,8 @@ import { FileSummaryFacet } from "../../../../common/entities";
 import { OnFilterFn, OnUpdateFilterFacet } from "../../common/entities";
 import { ERROR, OnClearError } from "../../exportForm";
 import {
-  GridPaper,
   TableFormControl as FormControl,
+  GridPaper,
 } from "../../exportForm.styles";
 
 export interface ExportFileSummaryFormProps {

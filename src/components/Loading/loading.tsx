@@ -1,7 +1,7 @@
 import { Fade, SvgIconProps, Typography } from "@mui/material";
 import React from "react";
 import { LoadingIcon } from "../common/CustomIcon/components/LoadingIcon/loadingIcon";
-import { PaperPanelStyle, PAPER_PANEL_STYLE } from "../common/Paper/paper";
+import { PAPER_PANEL_STYLE, PaperPanelStyle } from "../common/Paper/paper";
 import { LoadingPaper, LoadingPositioner } from "./loading.styles";
 
 /**

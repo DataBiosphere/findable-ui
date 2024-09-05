@@ -1,8 +1,8 @@
 import { Breakpoint } from "@mui/material";
 import { useMemo } from "react";
 import {
-  BreakpointKey,
   BREAKPOINT_FN_NAME,
+  BreakpointKey,
   useBreakpointHelper,
 } from "./useBreakpointHelper";
 

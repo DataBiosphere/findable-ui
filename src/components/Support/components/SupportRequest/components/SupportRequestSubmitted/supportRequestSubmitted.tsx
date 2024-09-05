@@ -6,8 +6,8 @@ import {
 } from "../../../../../../theme/common/typography";
 import { EmailReadIcon } from "../../../../../common/CustomIcon/components/EmailReadIcon/emailReadIcon";
 import {
-  IconBadge,
   ICON_BADGE_COLOR,
+  IconBadge,
 } from "../../../../../common/IconBadge/iconBadge";
 import {
   Section,

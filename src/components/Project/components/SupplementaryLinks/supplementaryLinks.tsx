@@ -7,8 +7,8 @@ import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { Link } from "../../../Links/components/Link/link";
 import { SupplementaryLink } from "../../common/entities";
 import {
-  Marker,
   SupplementaryLink as EllipsisLink,
+  Marker,
   SupplementaryList,
 } from "./supplementaryLinks.styles";
 

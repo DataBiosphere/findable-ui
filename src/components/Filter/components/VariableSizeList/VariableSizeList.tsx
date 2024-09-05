@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ListChildComponentProps,
   VariableSizeList as List,
+  ListChildComponentProps,
   VariableSizeListProps as ListProps,
 } from "react-window";
 import { CategoryKey } from "../../../../common/entities";

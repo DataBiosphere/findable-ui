@@ -1,7 +1,7 @@
 import {
+  AlertTitle,
   Alert as MAlert,
   AlertProps as MAlertProps,
-  AlertTitle,
 } from "@mui/material";
 import React, { ReactNode } from "react";
 

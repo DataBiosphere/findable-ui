@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import {
-  OnboardingStatus,
   ONBOARDING_STEP,
+  OnboardingStatus,
   useAuthenticationForm,
 } from "../../../../../../hooks/useAuthentication/useAuthenticationForm";
 import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";

@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Paper, PAPER_PANEL_STYLE } from "../common/Paper/paper";
-import { LoadingPanelStyle, LOADING_PANEL_STYLE } from "./loading";
+import { LOADING_PANEL_STYLE, LoadingPanelStyle } from "./loading";
 
 interface Props {
   panelStyle: LoadingPanelStyle;

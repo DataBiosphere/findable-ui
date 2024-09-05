@@ -21,7 +21,7 @@ import {
   GridTrackMinMax,
   GridTrackSize,
 } from "../../../config/entities";
-import { ExploreMode, EXPLORE_MODE } from "../../../hooks/useExploreMode";
+import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
 import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
 
 /**

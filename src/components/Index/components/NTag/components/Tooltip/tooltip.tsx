@@ -1,7 +1,7 @@
 import {
-  PopperProps,
   Tooltip as MTooltip,
   TooltipProps as MTooltipProps,
+  PopperProps,
 } from "@mui/material";
 import { detectOverflow } from "@popperjs/core";
 import { State } from "@popperjs/core/lib/types";

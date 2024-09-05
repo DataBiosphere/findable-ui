@@ -10,7 +10,7 @@ import {
   warningLightest,
   warningMain,
 } from "../../../styles/common/mixins/colors";
-import { IconBadgeColor, ICON_BADGE_COLOR } from "./iconBadge";
+import { ICON_BADGE_COLOR, IconBadgeColor } from "./iconBadge";
 
 interface Props {
   color: IconBadgeColor;

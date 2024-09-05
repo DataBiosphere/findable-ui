@@ -1,7 +1,7 @@
 import { EntityConfig, EntityMapper } from "../config/entities";
 import { getEntityConfig } from "../config/utils";
 import { createEntityService } from "../entity/service/factory";
-import { EntityService, ENTITY_SERVICE_TYPE } from "../entity/service/model";
+import { ENTITY_SERVICE_TYPE, EntityService } from "../entity/service/model";
 import { useCatalog } from "./useCatalog";
 import { useConfig } from "./useConfig";
 import { EXPLORE_MODE } from "./useExploreMode";

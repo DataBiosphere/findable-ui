@@ -1,4 +1,4 @@
-import { FormOption, FormState, FORM_CONTROL_NAME } from "./entities";
+import { FORM_CONTROL_NAME, FormOption, FormState } from "./entities";
 
 // Validation constraints
 export const CONSTRAINTS = {

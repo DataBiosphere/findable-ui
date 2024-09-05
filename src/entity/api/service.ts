@@ -4,11 +4,11 @@
 // TODO move to Azul APIs section
 import {
   APIEndpoints,
+  AZUL_PARAM,
   AzulCatalogResponse,
   AzulEntitiesResponse,
   AzulListParams,
   AzulSummaryResponse,
-  AZUL_PARAM,
 } from "../../apis/azul/common/entities";
 import { transformFilters } from "../../apis/azul/common/filterTransformer";
 import { getConfig } from "../../config/config";
