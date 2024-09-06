@@ -16,3 +16,16 @@ jobs:
           npm run lint
           npm run test
           npm run test-compile
+
+  install-without-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "20.10.0"
+
+      - run: |
+          rm package-lock.json
+          npm install
+          npm run test-compile
