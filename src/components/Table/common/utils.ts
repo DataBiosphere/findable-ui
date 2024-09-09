@@ -22,6 +22,7 @@ import {
   GridTrackSize,
 } from "../../../config/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
+import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
 import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
 
 /**
@@ -146,8 +147,8 @@ export function generateDownloadBlob<T extends RowData>(
   if (rows.length === 0) {
     return;
   }
-  const tableHeaders = getVisibleHeadersTableData(rows);
-  const tableData = getVisibleRowsTableData(rows);
+  const tableHeaders = getHeadersTableData(rows);
+  const tableData = getRowsTableData(rows);
   const tsv = formatDataToTSV([tableHeaders, ...tableData]);
   return new Blob([tsv], { type: "text/tab-separated-values" });
 }
@@ -338,28 +339,29 @@ export function getTableStatePagination(
 }
 
 /**
- * Returns the list of visible table headers.
+ * Returns the list of table headers, excluding "select" column.
  * @param rows - Table rows.
- * @returns list of visible headers.
+ * @returns list of headers.
  */
-function getVisibleHeadersTableData<T extends RowData>(
-  rows: Row<T>[]
-): TableData[] {
+function getHeadersTableData<T extends RowData>(rows: Row<T>[]): TableData[] {
+  console.log(rows[0].getAllCells());
   return rows[0]
-    .getVisibleCells()
+    .getAllCells()
+    .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
     .map((cell) => cell.column.columnDef.header as TableData);
 }
 
 /**
- * Returns the list of visible table data.
+ * Returns the list of table data, excluding "select" column.
  * @param rows - Table rows.
- * @returns list of visible data.
+ * @returns list of data.
  */
-function getVisibleRowsTableData<T extends RowData>(
-  rows: Row<T>[]
-): TableData[][] {
+function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
   return rows.map((row) =>
-    row.getVisibleCells().map((cell) => cell.getValue() as TableData)
+    row
+      .getAllCells()
+      .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
+      .map((cell) => cell.getValue() as TableData)
   );
 }
 
