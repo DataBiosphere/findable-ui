@@ -11,12 +11,12 @@ import { InputFormControl } from "./select.styles";
  * Basic form select component.
  */
 
-export interface SelectProps extends MSelectProps {
+export type SelectProps = MSelectProps & {
   children: ReactNode;
   className?: string;
   isFilled: boolean;
   label?: string;
-}
+};
 
 export const Select = ({
   children,

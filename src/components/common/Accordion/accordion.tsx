@@ -1,8 +1,8 @@
 import {
-  Accordion as MAccordion,
   AccordionDetails,
-  AccordionProps as MAccordionProps,
   AccordionSummary,
+  Accordion as MAccordion,
+  AccordionProps as MAccordionProps,
   Typography,
 } from "@mui/material";
 import React, { ReactNode, useState } from "react";

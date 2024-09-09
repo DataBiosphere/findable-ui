@@ -3,8 +3,8 @@ import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities"
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import {
-  FileManifestType,
   FILE_MANIFEST_TYPE,
+  FileManifestType,
 } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";

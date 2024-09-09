@@ -10,10 +10,10 @@ import {
   PaginationResponse,
 } from "../../../providers/exploreState";
 import {
+  AZUL_FILTER_OPERATOR,
   AzulPaginationResponse,
   AzulSearchIndex,
   AzulTermFacets,
-  AZUL_FILTER_OPERATOR,
   LABEL,
 } from "./entities";
 import { getFilterParameterValue } from "./utils";

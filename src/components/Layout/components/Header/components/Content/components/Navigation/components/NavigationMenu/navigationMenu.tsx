@@ -1,7 +1,7 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import {
-  ClickAwayListener as MClickAwayListener,
   Grow,
+  ClickAwayListener as MClickAwayListener,
   MenuList as MMenuList,
   Paper as MPaper,
   PopperProps as MPopperProps,

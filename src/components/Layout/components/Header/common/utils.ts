@@ -1,7 +1,7 @@
 import { Breakpoint } from "@mui/material";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { NavLinkItem } from "../components/Content/components/Navigation/navigation";
-import { Navigation, SelectedMatch, SELECTED_MATCH } from "./entities";
+import { Navigation, SELECTED_MATCH, SelectedMatch } from "./entities";
 
 /**
  * Adds to the set of selected patterns, for the navigation link, at the current breakpoint.

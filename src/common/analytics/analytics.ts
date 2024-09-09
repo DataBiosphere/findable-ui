@@ -1,5 +1,5 @@
 import { getConfig } from "../../config/config";
-import { DataLayer, EventParams, EVENT_NAME } from "./entities";
+import { DataLayer, EVENT_NAME, EventParams } from "./entities";
 
 /**
  * Returns the GTM data layer for the environment, if enabled.

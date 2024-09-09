@@ -1,4 +1,4 @@
-import { RequestValue, REQUEST_FIELD_ID, UploadResponse } from "./entities";
+import { REQUEST_FIELD_ID, RequestValue, UploadResponse } from "./entities";
 
 /**
  * Create support request.

@@ -9,8 +9,8 @@ import { AlertIcon } from "../common/CustomIcon/components/AlertIcon/alertIcon";
 import { Grid } from "../common/Grid/grid";
 import { RoundedPaper } from "../common/Paper/paper.styles";
 import {
-  SectionActions,
   SectionContent as Content,
+  SectionActions,
 } from "../common/Section/section.styles";
 import { PRIORITY, StatusIcon } from "../common/StatusIcon/statusIcon";
 import {

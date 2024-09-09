@@ -1,4 +1,4 @@
-import { AlertProps as MAlertProps, ButtonProps } from "@mui/material";
+import { ButtonProps, AlertProps as MAlertProps } from "@mui/material";
 import React, { forwardRef, Fragment, ReactNode } from "react";
 import { FLAG } from "../../../../../hooks/useFeatureFlag/common/entities";
 import { setLocalStorage } from "../../../../../hooks/useLocalStorage/common/utils";

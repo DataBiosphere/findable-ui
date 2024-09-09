@@ -5,9 +5,9 @@ import {
   StaticImageProps,
 } from "../../../../../common/StaticImage/staticImage";
 import {
-  HeroLogo as Logo,
-  HeroText,
   NavBarHero as Hero,
+  HeroText,
+  HeroLogo as Logo,
 } from "./navBarHero.styles";
 
 export interface NavBarHeroProps {
