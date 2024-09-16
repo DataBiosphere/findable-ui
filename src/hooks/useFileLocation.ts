@@ -1,35 +1,37 @@
-import { API_FILE_LOCATION_FETCH } from "../apis/azul/common/constants";
 import {
   useRequestFileLocation,
   UseRequestFileLocationResult,
 } from "./useRequestFileLocation";
+
+const NOT_PREPENDED_WITH_FETCH_REGEX = /^(\/(?!fetch))/;
 
 export interface UseFileLocation extends UseRequestFileLocationResult {
   fileUrl?: string;
 }
 
 export const useFileLocation = (fileUrl?: string): UseFileLocation => {
-  // Prepend "/fetch" to the path of the specified file URL, if not already included.
   const url = buildFetchFileUrl(fileUrl);
   const fileLocation = useRequestFileLocation(url);
-  const { data } = fileLocation;
-  const { location } = data || {};
-  return { ...fileLocation, fileUrl: location };
+  return { ...fileLocation, fileUrl: fileLocation.data?.location };
 };
 
 /**
  * Prepends "/fetch" to the path of the specified file URL, if not already included.
- * @param fileUrl - File url.
- * @returns file url with path prepended with "/fetch".
+ * @param url - URL.
+ * @returns file URL with path prepended with "/fetch".
  */
-function buildFetchFileUrl(fileUrl?: string): string | undefined {
-  if (!fileUrl) {
+export function buildFetchFileUrl(url?: string): string | undefined {
+  if (!url) {
     return;
   }
-  const url = new URL(fileUrl);
-  const path = url.pathname;
-  if (!path.includes(API_FILE_LOCATION_FETCH)) {
-    url.pathname = `${API_FILE_LOCATION_FETCH}${path}`;
+  try {
+    const urlObj = new URL(url);
+    urlObj.pathname = urlObj.pathname.replace(
+      NOT_PREPENDED_WITH_FETCH_REGEX,
+      "/fetch/"
+    );
+    return urlObj.href;
+  } catch (e) {
+    throw new Error(`Invalid file URL: ${url}`);
   }
-  return url.toString();
 }
