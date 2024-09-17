@@ -75,9 +75,12 @@ describe("AzulFileDownload", () => {
         run: MOCK_RUN,
       });
       render(<AzulFileDownload url={URL} />);
+      const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       const anchorEl = getAnchorEl(AZUL_FILE_DOWNLOAD_TEST_ID);
+      fireEvent.click(buttonEl);
       expect(anchorEl.download).not.toBeNull();
       expect(anchorEl.href).toBe(FILE_URL);
+      expect(screen.queryByTestId(AZUL_FILE_DOWNLOAD_TEST_ID)).not.toBeNull();
     });
   });
 });
