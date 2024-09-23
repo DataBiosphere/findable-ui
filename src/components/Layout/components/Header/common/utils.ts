@@ -1,7 +1,13 @@
 import { Breakpoint } from "@mui/material";
+import { UseBreakpoint } from "../../../../../hooks/useBreakpoint";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { NavLinkItem } from "../components/Content/components/Navigation/navigation";
-import { Navigation, SELECTED_MATCH, SelectedMatch } from "./entities";
+import {
+  Navigation,
+  SELECTED_MATCH,
+  SelectedMatch,
+  SocialMedia,
+} from "./entities";
 
 /**
  * Adds to the set of selected patterns, for the navigation link, at the current breakpoint.
@@ -139,6 +145,22 @@ function isLinkVisible(
   if (!breakpoint) return true; // Default is visible.
   if (!navLinkItem.visible) return true; // Default is visible.
   return navLinkItem.visible[breakpoint] !== false;
+}
+
+/**
+ * Returns true if the social media is visible at the current breakpoint.
+ * @param bp - Breakpoint.
+ * @param socialMedia - Social media.
+ * @returns true.
+ */
+export function isSocialsVisible(
+  bp: Pick<UseBreakpoint, "breakpoint" | "lgUp">,
+  socialMedia?: SocialMedia
+): boolean {
+  if (!socialMedia) return false;
+  if (!bp.breakpoint) return false;
+  if (!socialMedia.visible) return bp.lgUp;
+  return socialMedia.visible[bp.breakpoint] !== false;
 }
 
 /**
