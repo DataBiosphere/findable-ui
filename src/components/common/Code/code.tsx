@@ -22,7 +22,7 @@ export const Code = ({ className, code }: CodeProps): JSX.Element => {
       const copiedTimeout = setTimeout(() => {
         setCopied(false);
       }, 2000);
-      return () => clearTimeout(copiedTimeout);
+      return (): void => clearTimeout(copiedTimeout);
     }
   }, [copied]);
 

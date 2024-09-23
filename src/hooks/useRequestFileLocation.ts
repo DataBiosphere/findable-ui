@@ -140,7 +140,7 @@ export const useRequestFileLocation = (
 
   useEffect(() => {
     active.current = true;
-    return () => {
+    return (): void => {
       active.current = false;
     };
   }, []);

@@ -58,8 +58,7 @@
     "jsdoc/require-returns-description": "error",
     "jsdoc/check-alignment": "error",
     "jsdoc/check-param-names": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "@typescript-eslint/no-duplicate-enum-values": "off"
+    "react-hooks/exhaustive-deps": "error"
   },
   "overrides": [
     {

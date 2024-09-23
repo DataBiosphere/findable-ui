@@ -54,7 +54,7 @@ export const CollapsableSection = ({
       const duration = setTimeout(() => {
         setTransitionDuration("auto");
       }, 100);
-      return () => {
+      return (): void => {
         clearTimeout(duration);
       };
     } else {
