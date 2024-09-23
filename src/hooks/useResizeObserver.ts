@@ -42,7 +42,7 @@ export function useResizeObserver(
     const observer = observerRef.current;
     const observedEl = ref.current;
     observer.observe(observedEl);
-    return () => {
+    return (): void => {
       observer.unobserve(observedEl);
     };
   }, [onResize, ref]);

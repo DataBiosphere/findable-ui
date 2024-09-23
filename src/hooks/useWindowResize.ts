@@ -26,7 +26,7 @@ export const useWindowResize = (timeout = 200): WindowSize => {
     };
     // Add resize event listener.
     window.addEventListener("resize", onResize);
-    return () => {
+    return (): void => {
       // Remove resize event listener.
       window.removeEventListener("resize", onResize);
       // Clear timeout.

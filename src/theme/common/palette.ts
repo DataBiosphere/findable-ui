@@ -4,107 +4,107 @@ import { CommonColors, TypeBackground, TypeText } from "@mui/material/styles";
 /**
  * Palette "Alert"
  */
-enum ALERT {
-  LIGHT = "#FED3D1",
-  LIGHTEST = "#FFF4F4",
-  MAIN = "#B42318",
-}
+const ALERT = {
+  LIGHT: "#FED3D1",
+  LIGHTEST: "#FFF4F4",
+  MAIN: "#B42318",
+};
 
 /**
  * Palette "Background"
  */
-enum BACKGROUND {
-  DEFAULT = "#F6F6F7",
-}
+const BACKGROUND = {
+  DEFAULT: "#F6F6F7",
+};
 
 /**
  * Palette "Info"
  */
-enum INFO {
-  CONTRAST_TEXT = "#00729C",
-  LIGHT = "#97D6EA",
-  LIGHTEST = "#F2FAFC",
-  MAIN = "#00729C",
-}
+const INFO = {
+  CONTRAST_TEXT: "#00729C",
+  LIGHT: "#97D6EA",
+  LIGHTEST: "#F2FAFC",
+  MAIN: "#00729C",
+};
 
 /**
  * Palette "Ink"
  */
-enum INK {
-  LIGHT = "#637381",
-  MAIN = "#212B36",
-}
+const INK = {
+  LIGHT: "#637381",
+  MAIN: "#212B36",
+};
 
 /**
  * Palette "Primary"
  */
-enum PRIMARY {
-  DARK = "#005EA9",
-  LIGHTEST = "#E6EFF6",
-  MAIN = "#1C7CC7",
-}
+const PRIMARY = {
+  DARK: "#005EA9",
+  LIGHTEST: "#E6EFF6",
+  MAIN: "#1C7CC7",
+};
 
 /**
  * Palette "Smoke"
  */
-enum SMOKE {
-  DARK = "#C4CDD5",
-  LIGHT = "#F6F6F7",
-  LIGHTEST = "#FAFBFB",
-  MAIN = "#E1E3E5",
-}
+const SMOKE = {
+  DARK: "#C4CDD5",
+  LIGHT: "#F6F6F7",
+  LIGHTEST: "#FAFBFB",
+  MAIN: "#E1E3E5",
+};
 
 /**
  * Palette "Success"
  */
-enum SUCCESS {
-  LIGHT = "#AEE9D1",
-  LIGHTEST = "#F1F8F5",
-  MAIN = "#287555",
-}
+const SUCCESS = {
+  LIGHT: "#AEE9D1",
+  LIGHTEST: "#F1F8F5",
+  MAIN: "#287555",
+};
 
 /**
  * Palette "Text"
  */
-enum TEXT {
-  PRIMARY = "#212B36",
-}
+const TEXT = {
+  PRIMARY: "#212B36",
+};
 
 /**
  * Palette "Warning"
  */
-enum WARNING {
-  CONTRAST_TEXT = "#B54708",
-  LIGHT = "#FFD79D",
-  LIGHTEST = "#FFFAEB",
-  MAIN = "#B54708",
-}
+const WARNING = {
+  CONTRAST_TEXT: "#B54708",
+  LIGHT: "#FFD79D",
+  LIGHTEST: "#FFFAEB",
+  MAIN: "#B54708",
+};
 
 /**
  * Default "Black"
  */
-enum BLACK {
-  DEFAULT = "#000000",
-}
+const BLACK = {
+  DEFAULT: "#000000",
+};
 
 /**
  * Default "White"
  */
-enum WHITE {
-  DEFAULT = "#ffffff",
-}
+const WHITE = {
+  DEFAULT: "#ffffff",
+};
 
 /**
  * Color alpha
  */
-enum ALPHA {
-  A04 = "0a",
-  A08 = "14",
-  A32 = "52",
-  A60 = "99",
-  A64 = "a3",
-  A80 = "cc",
-}
+const ALPHA = {
+  A04: "0a",
+  A08: "14",
+  A32: "52",
+  A60: "99",
+  A64: "a3",
+  A80: "cc",
+};
 
 /**
  * Color constants

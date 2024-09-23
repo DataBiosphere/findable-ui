@@ -31,7 +31,7 @@ export const useRequestFileManifest = (
       },
       type: FileManifestActionKind.FetchFileManifest,
     });
-    return () => {
+    return (): void => {
       fileManifestDispatch({
         payload: undefined,
         type: FileManifestActionKind.ClearFileManifest,

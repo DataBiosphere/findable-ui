@@ -27,7 +27,7 @@ export const CopyToClipboard = ({
       const tooltipTimeout = setTimeout(() => {
         setShowTooltip(false);
       }, 2000);
-      return () => clearTimeout(tooltipTimeout);
+      return (): void => clearTimeout(tooltipTimeout);
     }
   }, [showTooltip]);
 

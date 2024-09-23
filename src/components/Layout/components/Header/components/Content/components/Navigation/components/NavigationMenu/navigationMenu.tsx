@@ -46,7 +46,7 @@ export const NavigationMenu = ({
   const MenuItem = isSubMenu ? StyledMenuItem : Fragment;
 
   useEffect(() => {
-    return () => {
+    return (): void => {
       if (isSubMenu || !open) return;
       onDisableScrollLock();
     };
