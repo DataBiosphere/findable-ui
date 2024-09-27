@@ -1,4 +1,5 @@
 import { useBreakpoint } from "../../../../../hooks/useBreakpoint";
+import { isSocialsVisible } from "../common/utils";
 import { HeaderProps } from "../header";
 
 export interface UseHeaderVisibility {
@@ -53,7 +54,8 @@ export const useHeaderVisibility = (
   const isNavigationIn = smUp;
   const isMenuIn = hasMenu;
   const isSloganIn = hasSlogan && mdUp;
-  const isSocialsIn = hasSocials && lgUp;
+  const isSocialsIn =
+    hasSocials && isSocialsVisible({ breakpoint, lgUp }, socialMedia);
   // Determines navigation visibility.
   const isCenterNavigationIn = isNavigationIn && hasNavItemsC;
   const isLeftNavigationIn = isNavigationIn && hasNavItemsL;

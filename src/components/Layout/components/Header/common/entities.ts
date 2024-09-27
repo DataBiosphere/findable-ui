@@ -19,4 +19,5 @@ export enum SELECTED_MATCH {
 
 export interface SocialMedia {
   socials: Social[];
+  visible?: Partial<Record<BreakpointKey, boolean>>;
 }
