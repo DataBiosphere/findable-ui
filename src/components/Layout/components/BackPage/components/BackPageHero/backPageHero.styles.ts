@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Stack } from "@mui/material";
-import { TABLET } from "../../../../../../theme/common/breakpoints";
+import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
 import { CallToActionButton as CTAButton } from "../../../../../common/Button/components/CallToActionButton/callToActionButton";
 
 export const BackPageHeroHeadline = styled.div`
@@ -10,7 +10,7 @@ export const BackPageHeroHeadline = styled.div`
     grid-column: 1 / -1; // Title and breadcrumbs consume full width of available grid.
   }
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${mediaTabletUp} {
     display: flex;
     flex: 1;
     gap: 88px;
@@ -29,7 +29,7 @@ export const CallToActionButton = styled(CTAButton)`
   align-self: center;
   justify-self: flex-start;
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${mediaTabletUp} {
     justify-self: flex-end;
   }
 `;

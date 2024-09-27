@@ -1,3 +1,4 @@
+import { ButtonProps } from "@mui/material";
 import NLink from "next/link";
 import React, { ElementType } from "react";
 import {
@@ -15,6 +16,7 @@ export interface CallToAction {
 
 export interface CallToActionButtonProps {
   ButtonElType?: ElementType;
+  buttonProps?: Partial<ButtonProps>;
   callToAction: CallToAction;
   className?: string;
   disabled?: boolean;
@@ -22,6 +24,7 @@ export interface CallToActionButtonProps {
 
 export const CallToActionButton = ({
   ButtonElType: Button = ButtonPrimary,
+  buttonProps,
   callToAction,
   className,
   disabled = false,
@@ -36,6 +39,7 @@ export const CallToActionButton = ({
         href="passHref"
         rel={REL_ATTRIBUTE.NO_OPENER}
         target={target || ANCHOR_TARGET.SELF}
+        {...buttonProps}
       >
         {label}
       </Button>
@@ -47,6 +51,7 @@ export const CallToActionButton = ({
       href={url}
       rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
       target={target || ANCHOR_TARGET.BLANK}
+      {...buttonProps}
     >
       {label}
     </Button>
