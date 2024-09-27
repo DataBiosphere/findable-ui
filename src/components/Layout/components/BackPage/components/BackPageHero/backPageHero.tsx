@@ -17,6 +17,7 @@ import { SubTitle } from "./components/SubTitle/subTitle";
  */
 
 export interface BackPageHeroProps {
+  actions?: ReactNode;
   breadcrumbs?: Breadcrumb[];
   callToAction?: CallToAction;
   children?: ReactNode;
@@ -25,13 +26,15 @@ export interface BackPageHeroProps {
 }
 
 export const BackPageHero = ({
+  actions,
   breadcrumbs,
   callToAction,
   children,
   subTitle,
   title,
 }: BackPageHeroProps): JSX.Element => {
-  const HeroHeadline = callToAction ? BackPageHeroHeadline : Fragment;
+  const HeroHeadline =
+    actions || callToAction ? BackPageHeroHeadline : Fragment;
   return (
     <>
       {(breadcrumbs || title) && (
@@ -41,6 +44,7 @@ export const BackPageHero = ({
             {title && <Title title={title} />}
             <SubTitle subTitle={subTitle} />
           </HeroHeader>
+          {actions}
           {callToAction && <CallToActionButton callToAction={callToAction} />}
         </HeroHeadline>
       )}
