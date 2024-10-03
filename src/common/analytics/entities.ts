@@ -20,7 +20,6 @@ export enum EVENT_PARAM {
   COLUMN_NAME = "column_name",
   CURRENT_QUERY = "current_query",
   ENTITY_NAME = "entity_name",
-  ENTITY_TYPE = "entity_type",
   FILTER_NAME = "filter_name",
   FILTER_VALUE = "filter_value",
   INDEX = "index",
@@ -52,7 +51,6 @@ export type EventParams = {
   [EVENT_NAME.BULK_DOWNLOAD_REQUESTED]: {
     [EVENT_PARAM.CATALOG]: string;
     [EVENT_PARAM.CURRENT_QUERY]: string;
-    [EVENT_PARAM.ENTITY_TYPE]: string;
     [EVENT_PARAM.INDEX]: string;
     [EVENT_PARAM.TOOL_NAME]: string;
   };
