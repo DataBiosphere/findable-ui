@@ -23,7 +23,6 @@ export function bulkDownloadTracking(
   track(EVENT_NAME.BULK_DOWNLOAD_REQUESTED, {
     [EVENT_PARAM.CATALOG]: catalog,
     [EVENT_PARAM.CURRENT_QUERY]: currentQuery,
-    [EVENT_PARAM.ENTITY_TYPE]: "Bulk Download",
     [EVENT_PARAM.INDEX]: index,
     [EVENT_PARAM.TOOL_NAME]: toolName,
   });
