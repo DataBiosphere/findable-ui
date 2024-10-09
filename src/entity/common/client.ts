@@ -6,21 +6,34 @@ import axios, {
 } from "axios";
 import { getURL } from "../../shared/utils";
 
-let axiosInstance: AxiosInstance | null = null;
+const MAX_RETRIES = 3;
+const INITIAL_RETRY = 1000;
+const RETRY_BACKOFF = 3;
 
 /**
  * Adding response interceptors to axios instances.
  * @param api - AxiosInstance.
  */
 export const configureInterceptors = (api: AxiosInstance): void => {
+  let nextRetryInterval = INITIAL_RETRY;
+  let retryCount = 0;
   api.interceptors.response.use(
     (response: AxiosResponse) => response,
     (error: AxiosError) => {
       const { config, response } = error;
 
-      if (response?.status === HttpStatusCode.ServiceUnavailable && config) {
+      if (
+        response?.status === HttpStatusCode.ServiceUnavailable &&
+        config &&
+        retryCount < MAX_RETRIES
+      ) {
         const retryAfterValue = response.headers["Retry-After"];
-        const waitingTime = retryAfterValue ? +retryAfterValue : 0;
+        let waitingTime = Number(retryAfterValue);
+        if (isNaN(waitingTime) || waitingTime <= 0) {
+          waitingTime = nextRetryInterval;
+          nextRetryInterval *= RETRY_BACKOFF;
+        }
+        retryCount++;
         return new Promise((resolve) => {
           setTimeout(() => resolve(api(config)), waitingTime);
         });
@@ -32,17 +45,15 @@ export const configureInterceptors = (api: AxiosInstance): void => {
 };
 
 /**
- * Returns a singleton Axios instance configured for making HTTP requests to a specified base URL.
+ * Returns an Axios instance configured for making HTTP requests to a specified base URL.
  * @param baseURL - The base URL to use for the AxiosInstance.
  * @returns axios instance.
  */
 export const api = (baseURL = getURL()): AxiosInstance => {
-  if (!axiosInstance) {
-    axiosInstance = axios.create({
-      baseURL,
-      timeout: 20 * 1000,
-    });
-    configureInterceptors(axiosInstance);
-  }
+  const axiosInstance = axios.create({
+    baseURL,
+    timeout: 20 * 1000,
+  });
+  configureInterceptors(axiosInstance);
   return axiosInstance;
 };
