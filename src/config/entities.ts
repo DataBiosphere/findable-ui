@@ -24,12 +24,21 @@ export interface AnalyticsConfig {
  * Interface to define the authentication configuration for a given site.
  */
 export interface AuthenticationConfig {
+  /**
+   * @deprecated - Use `provider` instead.
+   */
   googleGISAuthConfig?: GoogleGISAuthConfig;
+  provider?: ProviderConfig;
   termsOfService?: ReactNode;
   terraAuthConfig?: TerraAuthConfig;
   text?: ReactNode;
   title: string;
   warning?: ReactNode;
+}
+
+export interface AuthProviderConfig {
+  endpoint: string;
+  oauth?: OAuthConfig;
 }
 
 /**
@@ -278,6 +287,11 @@ export interface LoginNotice {
   privacyUrl: string;
 }
 
+export interface OAuthConfig {
+  client_id: string;
+  scope: string;
+}
+
 /**
  * Option Method.
  */
@@ -300,6 +314,10 @@ export interface Override {
   redirectUrl?: string;
   supersededBy?: string;
   withdrawn?: boolean;
+}
+
+export interface ProviderConfig {
+  [provider: string]: AuthProviderConfig;
 }
 
 export interface SavedFilter {
