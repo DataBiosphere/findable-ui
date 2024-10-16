@@ -10,19 +10,18 @@ export enum EVENT_NAME {
   ENTITY_TABLE_PAGINATED = "entity_table_paginated",
   ENTITY_TABLE_SORTED = "entity_table_sorted",
   FILTER_SELECTED = "filter_selected",
+  INDEX_ANALYZE_IN_TERRA_REQUESTED = "index_analyze_in_terra_requested",
+  INDEX_FILE_MANIFEST_REQUESTED = "index_file_manifest_requested",
 }
 
 /**
  * Set of analytics event parameters.
  */
 export enum EVENT_PARAM {
-  CATALOG = "catalog",
   COLUMN_NAME = "column_name",
-  CURRENT_QUERY = "current_query",
   ENTITY_NAME = "entity_name",
   FILTER_NAME = "filter_name",
   FILTER_VALUE = "filter_value",
-  INDEX = "index",
   PAGINATION_DIRECTION = "pagination_direction",
   SORT_DIRECTION = "sort_direction",
   TOOL_NAME = "tool_name",
@@ -49,9 +48,7 @@ export enum SORT_DIRECTION {
  */
 export type EventParams = {
   [EVENT_NAME.BULK_DOWNLOAD_REQUESTED]: {
-    [EVENT_PARAM.CATALOG]: string;
-    [EVENT_PARAM.CURRENT_QUERY]: string;
-    [EVENT_PARAM.INDEX]: string;
+    [EVENT_PARAM.ENTITY_NAME]: string;
     [EVENT_PARAM.TOOL_NAME]: string;
   };
   [EVENT_NAME.ENTITY_SELECTED]: { [EVENT_PARAM.ENTITY_NAME]: string };
@@ -67,5 +64,11 @@ export type EventParams = {
   [EVENT_NAME.FILTER_SELECTED]: {
     [EVENT_PARAM.FILTER_NAME]: string;
     [EVENT_PARAM.FILTER_VALUE]: string;
+  };
+  [EVENT_NAME.INDEX_ANALYZE_IN_TERRA_REQUESTED]: {
+    [EVENT_PARAM.ENTITY_NAME]: string;
+  };
+  [EVENT_NAME.INDEX_FILE_MANIFEST_REQUESTED]: {
+    [EVENT_PARAM.ENTITY_NAME]: string;
   };
 };

@@ -2,10 +2,7 @@ import React, { ElementType, useState } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
-import {
-  FILE_MANIFEST_TYPE,
-  FileManifestType,
-} from "../../../../hooks/useFileManifest/common/entities";
+import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
 import { FileLocation } from "../../../../hooks/useRequestFileLocation";
@@ -35,7 +32,6 @@ export const DownloadCurlCommand = ({
   DownloadCurlStart,
   DownloadCurlSuccess,
   fileManifestState,
-  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
@@ -50,7 +46,6 @@ export const DownloadCurlCommand = ({
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  const { requestParams } = fileManifestState;
   const { data, isLoading, run } = useFileManifest();
   const curlCommand = getBulkDownloadCurlCommand(data, executionEnvironment);
   return curlCommand ? (
@@ -68,12 +63,7 @@ export const DownloadCurlCommand = ({
       isLoading={isLoading}
       onRequestManifest={(): void => {
         // Execute GTM tracking.
-        track(
-          fileManifestType,
-          entityList,
-          executionEnvironment,
-          requestParams
-        );
+        bulkDownloadTracking(entityList, executionEnvironment);
         // Request manifest.
         run();
       }}
@@ -97,22 +87,4 @@ function getBulkDownloadCurlCommand(
     return;
   }
   return commandLine[executionEnvironment];
-}
-
-/**
- * Executes GTM tracking.
- * @param fileManifestType - File manifest type.
- * @param index - Index.
- * @param toolName - Execution environment.
- * @param requestParams - Request params.
- */
-function track(
-  fileManifestType: FileManifestType,
-  index: string,
-  toolName: string,
-  requestParams?: URLSearchParams
-): void {
-  if (fileManifestType === FILE_MANIFEST_TYPE.BULK_DOWNLOAD) {
-    bulkDownloadTracking(index, toolName, requestParams);
-  }
 }
