@@ -145,8 +145,6 @@ export const SupportRequestForm = ({
         submitting: false,
       }));
       setFormSubmitted(true); // Shows form submitted message.
-      // Execute GTM tracking.
-      // TODO(cc) add GTM tracking.
     } catch (error) {
       setFormState((formState) => ({
         ...formState,
