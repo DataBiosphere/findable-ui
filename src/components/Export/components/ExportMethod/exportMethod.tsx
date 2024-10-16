@@ -10,7 +10,6 @@ import {
   SectionContent,
 } from "../../../common/Section/section.styles";
 import { ExportButton, SectionFootnote } from "./exportMethod.styles";
-
 export interface ExportMethodProps {
   buttonLabel: string;
   description: ReactNode;
@@ -18,6 +17,7 @@ export interface ExportMethodProps {
   isAccessible?: boolean;
   route: string;
   title: string;
+  trackingId?: string;
 }
 
 export const ExportMethod = ({
@@ -27,6 +27,7 @@ export const ExportMethod = ({
   isAccessible = true,
   route,
   title,
+  trackingId,
 }: ExportMethodProps): JSX.Element => {
   const { disabled, message } = useDownloadStatus();
   return (
@@ -40,9 +41,18 @@ export const ExportMethod = ({
           <Tooltip arrow title={message}>
             <span>
               <Link href={route} legacyBehavior passHref>
-                <ExportButton disabled={disabled || !isAccessible}>
-                  {buttonLabel}
-                </ExportButton>
+                {trackingId ? (
+                  <ExportButton
+                    disabled={disabled || !isAccessible}
+                    id={trackingId}
+                  >
+                    {buttonLabel}
+                  </ExportButton>
+                ) : (
+                  <ExportButton disabled={disabled || !isAccessible}>
+                    {buttonLabel}
+                  </ExportButton>
+                )}
               </Link>
             </span>
           </Tooltip>
