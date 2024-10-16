@@ -249,6 +249,7 @@ export const SupportRequestForm = ({
                 disabled={Boolean(errors) || formState.submitting}
                 fullWidth
                 onClick={onSupportRequestSubmitted}
+                id="button-support-request"
               >
                 Send
               </ButtonPrimary>
