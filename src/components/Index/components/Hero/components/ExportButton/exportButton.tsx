@@ -10,7 +10,11 @@ export const ExportButton = (): JSX.Element => {
     <Tooltip arrow title={message}>
       <span>
         <Link href="/export" legacyBehavior passHref>
-          <Button disabled={disabled || isLoading} href="passHref">
+          <Button
+            disabled={disabled || isLoading}
+            href="passHref"
+            id="button-cohort-export"
+          >
             Export
           </Button>
         </Link>
