@@ -1,12 +1,14 @@
 import React, { ElementType } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
+import { useExploreState } from "../../../../hooks/useExploreState";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
 import { FileLocation } from "../../../../hooks/useRequestFileLocation";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet } from "../../common/entities";
+import { fileManifestTracking } from "../../common/tracking";
 import { ManifestDownloadNotStarted } from "./components/ManifestDownloadNotStarted/manifestDownloadNotStarted";
 import { ManifestDownloadReady } from "./components/ManifestDownloadReady/manifestDownloadReady";
 
@@ -35,6 +37,9 @@ export const ManifestDownload = ({
     filters,
     fileSummaryFacetName
   );
+  const {
+    exploreState: { tabValue: entityList },
+  } = useExploreState();
   const { data, isLoading, run } = useFileManifest();
   const manifestURL = getManifestDownloadURL(data);
   return manifestURL ? (
@@ -49,7 +54,10 @@ export const ManifestDownload = ({
       fileManifestState={fileManifestState}
       formFacet={formFacet}
       isLoading={isLoading}
-      onRequestManifest={run}
+      onRequestManifest={(): void => {
+        fileManifestTracking(entityList);
+        run();
+      }}
     />
   );
 };

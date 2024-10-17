@@ -1,11 +1,13 @@
 import React, { ElementType } from "react";
 import { Filters } from "../../../../common/entities";
+import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
+import { exportToTerraTracking } from "../../common/tracking";
 import { ExportToTerraNotStarted } from "./components/ExportToTerraNotStarted/exportToTerraNotStarted";
 import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerraReady";
 
@@ -33,6 +35,9 @@ export const ExportToTerra = ({
   manifestDownloadFormat,
   manifestDownloadFormats,
 }: ExportToTerraProps): JSX.Element => {
+  const {
+    exploreState: { tabValue: entityList },
+  } = useExploreState();
   useRequestFileManifest(manifestDownloadFormat, filters, fileSummaryFacetName);
   const { requestParams } = fileManifestState;
   const { data, isLoading, run } = useFileManifest();
@@ -50,7 +55,12 @@ export const ExportToTerra = ({
       formFacet={formFacet}
       isLoading={isLoading}
       manifestDownloadFormats={manifestDownloadFormats}
-      onRequestManifest={run}
+      onRequestManifest={(): void => {
+        // Execute GA tracking
+        exportToTerraTracking(entityList);
+        // Request manifest
+        run();
+      }}
     />
   );
 };
