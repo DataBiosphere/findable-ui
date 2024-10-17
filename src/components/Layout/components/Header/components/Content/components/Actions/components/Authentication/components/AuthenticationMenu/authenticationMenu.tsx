@@ -1,6 +1,5 @@
 import { MenuItem } from "@mui/material";
 import React, { MouseEvent, useState } from "react";
-import { UserProfile } from "../../../../../../../../../../../../hooks/useAuthentication/useFetchGoogleProfile";
 import {
   Avatar,
   AuthenticationMenu as Menu,
@@ -11,7 +10,10 @@ import {
 
 export interface AuthenticationMenuProps {
   onLogout: () => void;
-  userProfile: UserProfile;
+  userProfile: {
+    name: string;
+    picture: string;
+  };
 }
 
 export const AuthenticationMenu = ({
@@ -32,10 +34,7 @@ export const AuthenticationMenu = ({
   return (
     <>
       <UserIcon onClick={onOpenMenu}>
-        <Avatar
-          alt={`${userProfile.given_name} ${userProfile.family_name}`}
-          src={userProfile.picture}
-        />
+        <Avatar alt={userProfile.name} src={userProfile.picture} />
       </UserIcon>
       <Menu
         anchorEl={anchorEl}
@@ -51,9 +50,7 @@ export const AuthenticationMenu = ({
       >
         <UserSummary>
           You are signed in as:
-          <UserNames noWrap>
-            {userProfile.given_name} {userProfile.family_name}
-          </UserNames>
+          <UserNames noWrap>{userProfile.name}</UserNames>
         </UserSummary>
         <MenuItem
           onClick={(): void => {
