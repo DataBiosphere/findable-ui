@@ -1,15 +1,26 @@
+import { jest } from "@jest/globals";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { AzulFileDownload } from "../src/components/Index/components/AzulFileDownload/azulFileDownload";
 import {
   AZUL_FILE_DOWNLOAD_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
 } from "../src/components/Index/components/AzulFileDownload/common/constants";
-import { useFileLocation } from "../src/hooks/useFileLocation";
 import { getAnchorEl, getButtonById } from "../src/utils/tests";
 
-jest.mock("../src/hooks/useFileLocation");
+jest.unstable_mockModule("../src/hooks/useFileLocation", () => ({
+  useFileLocation: jest.fn(),
+}));
+
+let AzulFileDownload: typeof import("../src/components/Index/components/AzulFileDownload/azulFileDownload").AzulFileDownload;
+let useFileLocation: typeof import("../src/hooks/useFileLocation").useFileLocation;
+
+beforeAll(async () => {
+  ({ AzulFileDownload } = await import(
+    "../src/components/Index/components/AzulFileDownload/azulFileDownload"
+  ));
+  ({ useFileLocation } = await import("../src/hooks/useFileLocation"));
+});
 
 describe("AzulFileDownload", () => {
   const FILE_URL = "https://example.com/storage/file";

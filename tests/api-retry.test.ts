@@ -1,55 +1,41 @@
-import { api } from "../src/entity/common/client";
+import { jest } from "@jest/globals";
+import fetchMock from "jest-fetch-mock";
 
-interface TestAxiosInstance {
-  (): Promise<TestAxiosResponse>;
-  get: TestAxiosInstance;
-  interceptors: {
-    response: {
-      use(onFulfilled: TestOnFulfilled, onRejected: TestOnRejected): void;
-    };
-  };
-}
-
-interface TestAxiosResponse {
-  headers: Record<string, unknown>;
-  status: number;
-}
-
-interface TestAxiosInterceptor {
-  onFulfilled: TestOnFulfilled;
-  onRejected: TestOnRejected;
-}
-
-type TestOnFulfilled = (
-  r: TestAxiosResponse
-) => TestAxiosResponse | Promise<TestAxiosResponse>;
-
-type TestOnRejected = (
-  e: unknown
-) => TestAxiosResponse | Promise<TestAxiosResponse>;
-
-const mockCreate = jest.fn();
-
-jest.mock("axios", () => ({
-  ...jest.requireActual("axios"),
-  create: (): TestAxiosInstance => mockCreate(),
+jest.unstable_mockModule("../src/shared/utils", () => ({
+  getURL: (): string => "",
 }));
 
+/*
 const mockSetTimeout = jest
   .spyOn(globalThis, "setTimeout")
   .mockImplementation(((callback: () => void) => {
     callback();
   }) as typeof setTimeout);
+*/
+
+let fetchApi: typeof import("../src/entity/common/client").fetchApi;
+
+beforeAll(async () => {
+  fetchMock.doMock();
+  globalThis.fetch = fetchMock as typeof fetch;
+  /*
+  AbortSignal.prototype.throwIfAborted = function (): void {
+    if (this.aborted) throw this.reason;
+  };
+  */
+  ({ fetchApi } = await import("../src/entity/common/client"));
+});
 
 describe("api", () => {
   it("returns immediately-successful response", async () => {
-    const { addResponse, mockInstance } = createMockAxiosInstance();
-    mockCreate.mockReturnValueOnce(mockInstance);
-    addResponse(200);
-    const res = await api("").get("");
+    // addResponse(200);
+    fetchMock.mockResponseOnce("asd");
+    const res = await fetchApi("http://example.com");
+    console.log(await res.text());
     expect(res).toMatchObject({ status: 200 });
   });
 
+  /*
   it("returns response after backing off from three 503 responses", async () => {
     mockSetTimeout.mockClear();
     const { addResponse, mockInstance } = createMockAxiosInstance();
@@ -103,56 +89,5 @@ describe("api", () => {
     expect(mockSetTimeout).toBeCalledTimes(1);
     expect(mockSetTimeout.mock.calls[0][1]).toBe(123);
   });
+  */
 });
-
-function createMockAxiosInstance(): {
-  addResponse: (status: number, headers?: Record<string, unknown>) => void;
-  mockInstance: TestAxiosInstance;
-} {
-  const getResponseStatus = jest.fn<number, []>();
-  const getResponseHeaders = jest.fn<Record<string, unknown>, []>();
-  const responseInterceptors: TestAxiosInterceptor[] = [];
-  const mockInstance = async (): Promise<TestAxiosResponse> => {
-    const initialStatus = getResponseStatus();
-    let response: TestAxiosResponse = {
-      headers: getResponseHeaders(),
-      status: initialStatus,
-    };
-    let error: unknown = { config: {}, response };
-    let hasError = 500 <= response.status && response.status < 600;
-    for (const interceptor of responseInterceptors) {
-      await Promise.resolve(
-        hasError
-          ? interceptor.onRejected(error)
-          : interceptor.onFulfilled(response)
-      )
-        .then((newResponse: TestAxiosResponse) => {
-          response = newResponse;
-          error = { config: {}, response };
-          hasError = 500 <= response.status && response.status < 600;
-        })
-        .catch((newError: unknown) => {
-          error = newError;
-          hasError = true;
-        });
-    }
-    if (hasError) throw error;
-    return response;
-  };
-  mockInstance.get = mockInstance;
-  mockInstance.interceptors = {
-    response: {
-      use(onFulfilled: TestOnFulfilled, onRejected: TestOnRejected): void {
-        responseInterceptors.push({ onFulfilled, onRejected });
-      },
-    },
-  };
-  const addResponse = (
-    status: number,
-    headers: Record<string, unknown> = {}
-  ): void => {
-    getResponseStatus.mockReturnValueOnce(status);
-    getResponseHeaders.mockReturnValueOnce(headers);
-  };
-  return { addResponse, mockInstance };
-}

@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { LOGIN_STATUS_NOT_STARTED } from "../src/hooks/useAuthentication/common/constants";
 import {
   LoginStatus,
@@ -6,7 +7,16 @@ import {
 import { GoogleResponse } from "../src/hooks/useAuthentication/useFetchGoogleProfile";
 import { TerraResponse } from "../src/hooks/useAuthentication/useFetchTerraProfile";
 import { TerraTermsOfServiceResponse } from "../src/hooks/useAuthentication/useFetchTerraTermsOfService";
-import { shouldReleaseToken } from "../src/providers/authentication";
+
+jest.unstable_mockModule("react-idle-timer", () => ({
+  useIdleTimer: jest.fn(),
+}));
+
+let shouldReleaseToken: typeof import("../src/providers/authentication").shouldReleaseToken;
+
+beforeAll(async () => {
+  ({ shouldReleaseToken } = await import("../src/providers/authentication"));
+});
 
 describe("authentication", () => {
   // Boolean constants.

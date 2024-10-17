@@ -1,10 +1,18 @@
-import { buildFetchFileUrl } from "../src/hooks/useFileLocation";
+import { jest } from "@jest/globals";
 
 const URL_INVALID = "invalidUrl";
 const URL_WITH_FETCH_PREPEND = "https://example.com/fetch/repository/file";
 const URL_WITHOUT_FETCH_PREPEND = "https://example.com/repository/file";
 
-jest.mock("../src/hooks/useRequestFileLocation");
+jest.unstable_mockModule("../src/hooks/useRequestFileLocation", () => ({
+  useRequestFileLocation: jest.fn(),
+}));
+
+let buildFetchFileUrl: typeof import("../src/hooks/useFileLocation").buildFetchFileUrl;
+
+beforeAll(async () => {
+  ({ buildFetchFileUrl } = await import("../src/hooks/useFileLocation"));
+});
 
 describe("useFileLocation", () => {
   describe("build file URL", () => {
