@@ -1,31 +1,57 @@
 name: Run checks
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - "**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20.10.0"
+          cache: "npm"
 
-      - run: |
-          npm ci
-          npm run check-format
-          npm run lint
-          npm run test
-          npm run test-compile
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check code format
+        run: npm run check-format
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Test compilation
+        run: npm run test-compile
 
   install-without-lock:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20.10.0"
+          cache: "npm"
 
-      - run: |
-          rm package-lock.json
-          npm install
-          npm run test-compile
+      - name: Remove package lock
+        run: rm package-lock.json
+
+      - name: Install dependencies without lock
+        run: npm install
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Test compilation
+        run: npm run test-compile
