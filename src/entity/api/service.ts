@@ -16,12 +16,11 @@ import { FilterState } from "../../hooks/useCategoryFilter";
 import {
   getDefaultDetailParams,
   getDefaultListParams,
-  getEntityURL,
 } from "../../shared/utils";
 import { convertUrlParams } from "../../utils/url";
-import { api } from "../common/client";
+import { fetchApi } from "../common/client";
 import { fetchEntitiesFromURL } from "../common/service";
-import { getAxiosRequestOptions } from "../common/utils";
+import { getKyRequestOptions } from "../common/utils";
 
 /**
  * Make a GET or POST request for a list of entities
@@ -70,9 +69,9 @@ export const fetchAllEntities = async (
   let hits = result.hits;
   let nextPage = result.pagination.next;
   while (nextPage) {
-    const { data: nextPageJson } = await api().get<AzulEntitiesResponse>(
-      nextPage
-    );
+    const nextPageJson = await (
+      await fetchApi<AzulEntitiesResponse>(nextPage)
+    ).json();
     nextPage = nextPageJson.pagination.next;
     hits = [...hits, ...nextPageJson.hits];
   }
@@ -84,8 +83,8 @@ export const fetchAllEntities = async (
  * @returns name of the default catalog and all available catalogs.
  */
 export const fetchCatalog = async (): Promise<AzulCatalogResponse> => {
-  const res = await api().get(APIEndpoints.CATALOGS);
-  return res.data;
+  const res = await fetchApi(APIEndpoints.CATALOGS);
+  return await res.json();
 };
 
 /**
@@ -108,18 +107,16 @@ export const fetchEntityDetail = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- this response type can't be determined beforehand
 ): Promise<any> => {
   const catalogParam = catalog ? { [AZUL_PARAM.CATALOG]: catalog } : undefined;
-  const options = getAxiosRequestOptions(accessToken);
-  const baseURL = getEntityURL();
-  return await api(baseURL)
-    .get(
-      `${apiPath}/${id}?${convertUrlParams({
-        ...defaultParams,
-        ...catalogParam,
-      })}`,
-      options
-    )
+  const options = getKyRequestOptions(accessToken);
+  return await fetchApi(
+    `${apiPath}/${id}?${convertUrlParams({
+      ...defaultParams,
+      ...catalogParam,
+    })}`,
+    options
+  )
     .then((res) => {
-      return res.data;
+      return res.json();
     })
     .catch((error) => {
       if (swallow404) {
@@ -162,12 +159,12 @@ export const fetchSummary = async (
     };
   }
 
-  const options = getAxiosRequestOptions(accessToken);
-  const res = await api().get<AzulSummaryResponse>(
+  const options = getKyRequestOptions(accessToken);
+  const res = await fetchApi<AzulSummaryResponse>(
     `${apiPath}?${convertUrlParams({ ...summaryParams })}`,
     options
   );
-  return res.data;
+  return await res.json();
 };
 
 /**
@@ -180,11 +177,11 @@ export const fetchSummaryFromURL = async (
   path: string,
   accessToken: string | undefined
 ): Promise<AzulSummaryResponse> => {
-  const res = await api().get<AzulSummaryResponse>(
+  const res = await fetchApi<AzulSummaryResponse>(
     path,
-    getAxiosRequestOptions(accessToken)
+    getKyRequestOptions(accessToken)
   );
-  return res.data;
+  return await res.json();
 };
 
 /**
@@ -193,6 +190,6 @@ export const fetchSummaryFromURL = async (
  * @returns system status.
  */
 export const fetchSystemStatusFromURL = async <R>(URL: string): Promise<R> => {
-  const res = await api().get<AzulSummaryResponse>(URL);
-  return res.data;
+  const res = await fetchApi<AzulSummaryResponse>(URL);
+  return await res.json();
 };

@@ -1,48 +1,30 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  HttpStatusCode,
-} from "axios";
+import ky, { KyInstance, Options, ResponsePromise } from "ky";
 import { getURL } from "../../shared/utils";
 
-let axiosInstance: AxiosInstance | null = null;
+let kyInstance: KyInstance | null = null;
 
 /**
- * Adding response interceptors to axios instances.
- * @param api - AxiosInstance.
+ * Makes an HTTP request with the API URL as a base.
+ * @param url - URL to fetch.
+ * @param options - Ky options.
+ * @returns Ky response.
  */
-export const configureInterceptors = (api: AxiosInstance): void => {
-  api.interceptors.response.use(
-    (response: AxiosResponse) => response,
-    (error: AxiosError) => {
-      const { config, response } = error;
-
-      if (response?.status === HttpStatusCode.ServiceUnavailable && config) {
-        const retryAfterValue = response.headers["Retry-After"];
-        const waitingTime = retryAfterValue ? +retryAfterValue : 0;
-        return new Promise((resolve) => {
-          setTimeout(() => resolve(api(config)), waitingTime);
-        });
-      } else {
-        return Promise.reject(error);
-      }
-    }
-  );
-};
-
-/**
- * Returns a singleton Axios instance configured for making HTTP requests to a specified base URL.
- * @param baseURL - The base URL to use for the AxiosInstance.
- * @returns axios instance.
- */
-export const api = (baseURL = getURL()): AxiosInstance => {
-  if (!axiosInstance) {
-    axiosInstance = axios.create({
-      baseURL,
+export function fetchApi<T>(
+  url: string,
+  options: Options = {}
+): ResponsePromise<T> {
+  if (!kyInstance) {
+    kyInstance = ky.create({
+      prefixUrl: getURL(),
+      retry: {
+        delay: (attemptCount) => 1000 * 3 ** (attemptCount - 1),
+        limit: 3,
+      },
       timeout: 20 * 1000,
     });
-    configureInterceptors(axiosInstance);
   }
-  return axiosInstance;
-};
+  // If a full URL is provided, there shouldn't be a prefix URL. Otherwise, Ky requires that the URL not start with a slash.
+  if (/^https?:\/\//.test(url)) options = { prefixUrl: "", ...options };
+  else url = url.replace(/^\//, "");
+  return kyInstance.get(url, options);
+}

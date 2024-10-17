@@ -1,13 +1,11 @@
-import { AxiosRequestConfig } from "axios";
+import { Options } from "ky";
 
 /**
- * Returns Axios request configuration.
+ * Returns Ky request configuration.
  * @param accessToken - Access token.
- * @returns Axios request configuration.
+ * @returns Ky request configuration.
  */
-export function getAxiosRequestOptions(
-  accessToken: string | undefined
-): AxiosRequestConfig {
+export function getKyRequestOptions(accessToken: string | undefined): Options {
   return {
     headers: accessToken ? { Authorization: "Bearer " + accessToken } : {},
   };

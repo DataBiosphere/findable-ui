@@ -1,19 +1,20 @@
-import { AxiosError, isAxiosError } from "axios";
+import { HTTPError } from "ky";
 import React from "react";
 import { ErrorBox } from "./components/errorBox";
 
 interface TempErrorProps {
-  error: Error | AxiosError;
+  error: Error | HTTPError;
 }
 
 export const TempError = ({ error }: TempErrorProps): JSX.Element => {
-  const { code, request } = isAxiosError(error)
-    ? {
-        ...error,
-        code: error.response?.status,
-        request: error.request.responseURL,
-      }
-    : { ...error, code: null, request: null };
+  const { code, request } =
+    error instanceof HTTPError
+      ? {
+          ...error,
+          code: error.response.status,
+          request: error.response.url,
+        }
+      : { ...error, code: null, request: null };
 
   return (
     <div>

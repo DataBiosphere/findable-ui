@@ -2,9 +2,8 @@ import {
   AzulEntitiesResponse,
   AzulEntityStaticResponse,
 } from "../../apis/azul/common/entities";
-import { getEntityURL } from "../../shared/utils";
-import { api } from "./client";
-import { getAxiosRequestOptions } from "./utils";
+import { fetchApi } from "./client";
+import { getKyRequestOptions } from "./utils";
 
 /**
  * Fetch entities from the given URL.
@@ -16,11 +15,11 @@ export const fetchEntitiesFromURL = async (
   URL: string,
   accessToken?: string
 ): Promise<AzulEntitiesResponse> => {
-  const res = await api().get<AzulEntitiesResponse>(
+  const res = await fetchApi<AzulEntitiesResponse>(
     URL,
-    getAxiosRequestOptions(accessToken)
+    getKyRequestOptions(accessToken)
   );
-  return res.data;
+  return await res.json();
 };
 
 /**
@@ -33,10 +32,9 @@ export const fetchEntityFromURL = async (
   URL: string,
   accessToken?: string
 ): Promise<AzulEntityStaticResponse> => {
-  const baseURL = getEntityURL();
-  const res = await api(baseURL).get<AzulEntityStaticResponse>(
+  const res = await fetchApi<AzulEntityStaticResponse>(
     URL,
-    getAxiosRequestOptions(accessToken)
+    getKyRequestOptions(accessToken)
   );
-  return res.data;
+  return await res.json();
 };
