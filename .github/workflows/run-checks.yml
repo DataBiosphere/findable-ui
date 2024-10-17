@@ -50,5 +50,8 @@ jobs:
       - name: Install dependencies without lock
         run: npm install
 
+      - name: Run tests
+        run: npm run test
+
       - name: Test compilation
         run: npm run test-compile
