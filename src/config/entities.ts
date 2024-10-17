@@ -139,7 +139,6 @@ export interface DataSourceConfig {
   defaultParams?: {
     catalog: string;
   };
-  entityURL?: string;
   url: string;
 }
 

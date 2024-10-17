@@ -26,15 +26,6 @@ export function getDefaultListParams():
 }
 
 /**
- * Returns entity source URL.
- * @returns entity source URL.
- */
-export function getEntityURL(): string {
-  const dataSource = getConfig().dataSource;
-  return dataSource.entityURL || dataSource.url;
-}
-
-/**
  * Returns application URL.
  * @returns application url.
  */
