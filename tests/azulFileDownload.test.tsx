@@ -12,15 +12,10 @@ jest.unstable_mockModule("../src/hooks/useFileLocation", () => ({
   useFileLocation: jest.fn(),
 }));
 
-let AzulFileDownload: typeof import("../src/components/Index/components/AzulFileDownload/azulFileDownload").AzulFileDownload;
-let useFileLocation: typeof import("../src/hooks/useFileLocation").useFileLocation;
-
-beforeAll(async () => {
-  ({ AzulFileDownload } = await import(
-    "../src/components/Index/components/AzulFileDownload/azulFileDownload"
-  ));
-  ({ useFileLocation } = await import("../src/hooks/useFileLocation"));
-});
+const { AzulFileDownload } = await import(
+  "../src/components/Index/components/AzulFileDownload/azulFileDownload"
+);
+const { useFileLocation } = await import("../src/hooks/useFileLocation");
 
 describe("AzulFileDownload", () => {
   const FILE_URL = "https://example.com/storage/file";

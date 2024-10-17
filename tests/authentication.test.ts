@@ -12,11 +12,7 @@ jest.unstable_mockModule("react-idle-timer", () => ({
   useIdleTimer: jest.fn(),
 }));
 
-let shouldReleaseToken: typeof import("../src/providers/authentication").shouldReleaseToken;
-
-beforeAll(async () => {
-  ({ shouldReleaseToken } = await import("../src/providers/authentication"));
-});
+const { shouldReleaseToken } = await import("../src/providers/authentication");
 
 describe("authentication", () => {
   // Boolean constants.

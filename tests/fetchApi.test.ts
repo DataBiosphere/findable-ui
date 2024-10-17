@@ -5,6 +5,8 @@ jest.unstable_mockModule("../src/shared/utils", () => ({
   getURL: (): string => "http://example.com",
 }));
 
+const { fetchApi } = await import("../src/entity/common/client");
+
 const actualSetTimeout = setTimeout;
 
 const mockSetTimeout = jest
@@ -14,8 +16,6 @@ const mockSetTimeout = jest
     else callback();
   }) as typeof setTimeout);
 
-let fetchApi: typeof import("../src/entity/common/client").fetchApi;
-
 beforeAll(async () => {
   fetchMock.doMock();
   globalThis.fetch = ((...args) => {
@@ -24,7 +24,6 @@ beforeAll(async () => {
   AbortSignal.prototype.throwIfAborted = function (): void {
     if (this.aborted) throw this.reason;
   };
-  ({ fetchApi } = await import("../src/entity/common/client"));
 });
 
 describe("api", () => {

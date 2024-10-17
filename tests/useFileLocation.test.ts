@@ -8,11 +8,7 @@ jest.unstable_mockModule("../src/hooks/useRequestFileLocation", () => ({
   useRequestFileLocation: jest.fn(),
 }));
 
-let buildFetchFileUrl: typeof import("../src/hooks/useFileLocation").buildFetchFileUrl;
-
-beforeAll(async () => {
-  ({ buildFetchFileUrl } = await import("../src/hooks/useFileLocation"));
-});
+const { buildFetchFileUrl } = await import("../src/hooks/useFileLocation");
 
 describe("useFileLocation", () => {
   describe("build file URL", () => {
