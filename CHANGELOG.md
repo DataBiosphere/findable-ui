@@ -1,5 +1,12 @@
 # Changelog
 
+## [13.0.1](https://github.com/DataBiosphere/findable-ui/compare/v13.0.0...v13.0.1) (2024-10-18)
+
+
+### Bug Fixes
+
+* give release-please workflow step an id ([#235](https://github.com/DataBiosphere/findable-ui/issues/235)) ([#236](https://github.com/DataBiosphere/findable-ui/issues/236)) ([420733f](https://github.com/DataBiosphere/findable-ui/commit/420733f3d6dc51f44301b06476550f499b4ffbd3))
+
 ## [13.0.0](https://github.com/DataBiosphere/findable-ui/compare/v12.0.0...v13.0.0) (2024-10-18)
 
 
