@@ -42,6 +42,6 @@ jobs:
 
       - name: Publish to NPM
         if: ${{ steps.release.outputs.release_created }}
-        run: npm publish --dry-run
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DATABIOSPHERE_FINDABLE_UI_NPM_PUBLISH_TOKEN }} # Ensure this token is scoped to only the permissions required for npm publication to limit security risks.
