@@ -1,6 +1,5 @@
-import { SvgIcon } from "@mui/material";
+import { SvgIcon, SvgIconProps } from "@mui/material";
 import React from "react";
-import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom Google logo icon.
@@ -9,8 +8,8 @@ import { CustomSVGIconProps } from "../../common/entities";
 export const GoogleIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 20 20",
-  ...props /* Spread props to allow for Mui SvgIconProps specific prop overrides e.g. "htmlColor". */
-}: CustomSVGIconProps): JSX.Element => {
+  ...props
+}: SvgIconProps): JSX.Element => {
   return (
     <SvgIcon fontSize={fontSize} viewBox={viewBox} {...props}>
       <path

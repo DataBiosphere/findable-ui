@@ -1,6 +1,8 @@
 import { MenuItem } from "@mui/material";
-import React, { MouseEvent, useState } from "react";
-import { UserProfile } from "../../../../../../../../../../../../hooks/useAuthentication/useFetchGoogleProfile";
+import React, { Fragment } from "react";
+import { useAuth } from "../../../../../../../../../../../../providers/authentication/auth/hook";
+import { UserProfile } from "../../../../../../../../../../../../providers/authentication/authentication/types";
+import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";
 import {
   Avatar,
   AuthenticationMenu as Menu,
@@ -8,62 +10,36 @@ import {
   UserNames,
   UserSummary,
 } from "./authenticationMenu.styles";
+import { MENU_PROPS } from "./constants";
 
 export interface AuthenticationMenuProps {
-  onLogout: () => void;
-  userProfile: UserProfile;
+  profile: UserProfile;
 }
 
 export const AuthenticationMenu = ({
-  onLogout,
-  userProfile,
+  profile,
 }: AuthenticationMenuProps): JSX.Element => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null);
-  const open = Boolean(anchorEl);
-
-  const onOpenMenu = (event: MouseEvent<HTMLButtonElement>): void => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const onCloseMenu = (): void => {
-    setAnchorEl(null);
-  };
-
+  const { service: { requestLogout } = {} } = useAuth();
+  const { anchorEl, onClose, onOpen, open } = useMenu<HTMLElement>();
   return (
-    <>
-      <UserIcon onClick={onOpenMenu}>
-        <Avatar
-          alt={`${userProfile.given_name} ${userProfile.family_name}`}
-          src={userProfile.picture}
-        />
+    <Fragment>
+      <UserIcon onClick={onOpen}>
+        <Avatar alt={profile.name} src={profile.image} />
       </UserIcon>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-        autoFocus={false}
-        onClose={onCloseMenu}
-        open={open}
-        slotProps={{ paper: { variant: "menu" } }}
-        transformOrigin={{
-          horizontal: "right",
-          vertical: "top",
-        }}
-      >
+      <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
         <UserSummary>
           You are signed in as:
-          <UserNames noWrap>
-            {userProfile.given_name} {userProfile.family_name}
-          </UserNames>
+          <UserNames noWrap>{profile.name}</UserNames>
         </UserSummary>
         <MenuItem
           onClick={(): void => {
-            onCloseMenu();
-            onLogout();
+            requestLogout?.();
+            onClose();
           }}
         >
           Logout
         </MenuItem>
       </Menu>
-    </>
+    </Fragment>
   );
 };

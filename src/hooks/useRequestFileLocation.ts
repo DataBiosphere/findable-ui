@@ -4,9 +4,9 @@ import {
   FILE_LOCATION_SUCCESSFULLY,
 } from "../apis/azul/common/constants";
 import { FileLocationResponse } from "../apis/azul/common/entities";
+import { useToken } from "./authentication/token/useToken";
 import { METHOD } from "./types";
 import { useAsync } from "./useAsync";
-import { useAuthentication } from "./useAuthentication/useAuthentication";
 
 export interface FileLocation {
   commandLine?: { [key: string]: string };
@@ -123,8 +123,7 @@ export const useRequestFileLocation = (
   url?: string,
   method?: Method
 ): UseRequestFileLocationResult => {
-  // Grab token from authentication.
-  const { token } = useAuthentication();
+  const { token } = useToken();
   const {
     data,
     isIdle,

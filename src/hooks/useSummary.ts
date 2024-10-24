@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
+import { useToken } from "./authentication/token/useToken";
 import { useAsync } from "./useAsync";
-import { useAuthentication } from "./useAuthentication/useAuthentication";
 import { useConfig } from "./useConfig";
 import { useEntityService } from "./useEntityService";
 import { useExploreState } from "./useExploreState";
@@ -16,7 +16,7 @@ interface UseSummaryResponse {
  * @returns an object with the loaded data and a flag indicating is the data is loading
  */
 export const useSummary = (): UseSummaryResponse => {
-  const { token } = useAuthentication();
+  const { token } = useToken();
   const { config } = useConfig();
   const { exploreState } = useExploreState();
   const { filterState } = exploreState;
@@ -39,7 +39,7 @@ export const useSummary = (): UseSummaryResponse => {
     return { isLoading: false }; //TODO: return a summary placeholder
   }
 
-  // Return the fetch status and summary data once fetch is complete..
+  // Return the fetch status and summary data once fetch is complete.
   return {
     isLoading: apiIsLoading,
     response,

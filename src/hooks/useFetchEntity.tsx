@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { PARAMS_INDEX_UUID } from "../common/constants";
 import { EntityDetailViewProps } from "../views/EntityDetailView/entityDetailView";
+import { useToken } from "./authentication/token/useToken";
 import { useAsync } from "./useAsync";
-import { useAuthentication } from "./useAuthentication/useAuthentication";
 import { useEntityService } from "./useEntityService";
 import { EXPLORE_MODE, useExploreMode } from "./useExploreMode";
 import { useExploreState } from "./useExploreState";
@@ -23,7 +23,7 @@ export const useFetchEntity = <T,>(
   detailViewProps?: EntityDetailViewProps
 ): UseEntityDetailResponse<T> => {
   const { data: staticData, entityListType } = detailViewProps || {};
-  const { token } = useAuthentication();
+  const { token } = useToken();
   const exploreMode = useExploreMode();
   const { exploreState } = useExploreState();
   const { catalogState } = exploreState;

@@ -2,7 +2,7 @@ import React from "react";
 import {
   expireTimeInSeconds,
   useAuthenticationNIHExpiry,
-} from "../../../../../../../../hooks/useAuthentication/useAuthenticationNIHExpiry";
+} from "../../../../../../../../hooks/authentication/terra/useAuthenticationNIHExpiry";
 import { Alert } from "../../../../../../../common/Alert/alert";
 import { ALERT_PROPS } from "../../../../../../../common/Alert/constants";
 import { FluidPaper } from "../../../../../../../common/Paper/paper.styles";
