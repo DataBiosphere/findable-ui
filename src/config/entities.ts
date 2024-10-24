@@ -6,7 +6,9 @@ import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
 import { ExploreMode } from "../hooks/useExploreMode";
-import { AuthContextProps } from "../providers/authentication";
+import { AuthState } from "../providers/authentication/auth/types";
+import { UserProfile } from "../providers/authentication/authentication/types";
+import { ProviderId } from "../providers/authentication/common/types";
 import { ExploreState } from "../providers/exploreState";
 import { FileManifestState } from "../providers/fileManifestState";
 import { SystemStatus, SystemStatusResponse } from "../providers/systemStatus";
@@ -24,12 +26,17 @@ export interface AnalyticsConfig {
  * Interface to define the authentication configuration for a given site.
  */
 export interface AuthenticationConfig {
-  googleGISAuthConfig?: GoogleGISAuthConfig;
+  providers?: OAuthProvider[];
+  services?: AuthService[];
   termsOfService?: ReactNode;
-  terraAuthConfig?: TerraAuthConfig;
   text?: ReactNode;
   title: string;
   warning?: ReactNode;
+}
+
+export interface AuthService {
+  endpoint: Record<string, string>;
+  id: string;
 }
 
 /**
@@ -207,15 +214,6 @@ export type GetIdFunction<T> = (detail: T) => string;
 export type GetTitleFunction<T> = (detail?: T) => string | undefined;
 
 /**
- * Google GIS authentication configuration.
- */
-export interface GoogleGISAuthConfig {
-  clientId: string;
-  googleProfileEndpoint: string;
-  scope: string;
-}
-
-/**
  * Grid track configuration.
  */
 export type GridTrackAuto = "auto"; // Dimension specifying the track's maximum of the largest max-content size of the items in that track.
@@ -269,12 +267,15 @@ export interface ListViewConfig {
   subTitleHero?: ComponentsConfig;
 }
 
-/**
- * Interface to define the authentication login notice component.
- */
-export interface LoginNotice {
-  conditionsUrl: string;
-  privacyUrl: string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
+export interface OAuthProvider<P = any> {
+  authorization: { params: { scope: string } };
+  clientId: string;
+  icon: ReactNode;
+  id: ProviderId;
+  name: string;
+  profile: (profile: P) => UserProfile;
+  userinfo: string;
 }
 
 /**
@@ -414,12 +415,6 @@ export interface TabConfig {
   tabName?: string; // Used by the entity view to generate a title for the <Head> component; when label is not typed string.
 }
 
-export interface TerraAuthConfig {
-  termsOfServiceEndpoint: string;
-  terraNIHProfileEndpoint?: string;
-  terraProfileEndpoint: string;
-}
-
 /**
  * Theme options function.
  * Defines theme options, and provides a reference to the specified theme.
@@ -430,7 +425,7 @@ export type ThemeOptionsFn = (theme: Theme) => ThemeOptions;
  * View context.
  */
 export interface ViewContext<T extends RowData, TData = unknown> {
-  authState: Pick<AuthContextProps, "authenticationStatus" | "isAuthenticated">;
+  authState: Pick<AuthState, "isAuthenticated">;
   cellContext?: CellContext<T, TData>;
   entityConfig: EntityConfig;
   exploreState: ExploreState;
