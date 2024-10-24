@@ -2,7 +2,7 @@ import React from "react";
 import {
   expireTimeInSeconds,
   useAuthenticationNIHExpiry,
-} from "../../../../../../../../hooks/useAuthentication/useAuthenticationNIHExpiry";
+} from "../../../../../../../../hooks/authentication/terra/useAuthenticationNIHExpiry";
 import { FluidAlert } from "../../../../../../../common/Alert/alert.styles";
 import { Link } from "../../../../../../../Links/components/Link/link";
 

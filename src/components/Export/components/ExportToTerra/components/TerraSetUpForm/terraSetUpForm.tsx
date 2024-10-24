@@ -4,7 +4,9 @@ import {
   ONBOARDING_STEP,
   OnboardingStatus,
   useAuthenticationForm,
-} from "../../../../../../hooks/useAuthentication/useAuthenticationForm";
+} from "../../../../../../hooks/authentication/terra/useAuthenticationForm";
+import { useAuth } from "../../../../../../providers/authentication/auth/hook";
+import { AUTH_STATUS } from "../../../../../../providers/authentication/auth/types";
 import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
 import {
   FluidPaper,
@@ -17,11 +19,12 @@ import { CreateTerraAccount } from "./components/FormStep/components/CreateTerra
 import { Section, SectionContent } from "./terraSetUpForm.styles";
 
 export const TerraSetUpForm = (): JSX.Element | null => {
-  const { isComplete, isReady, onboardingStatusByStep } =
-    useAuthenticationForm();
-
-  if (!isReady) return null;
-
+  const {
+    authState: { isAuthenticated, status },
+  } = useAuth();
+  const { isComplete, onboardingStatusByStep } = useAuthenticationForm();
+  if (!isAuthenticated) return null;
+  if (status === AUTH_STATUS.PENDING) return null;
   return isComplete ? null : (
     <FluidPaper>
       <GridPaper>
