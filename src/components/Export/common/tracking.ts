@@ -17,15 +17,21 @@ export function bulkDownloadTracking(
   });
 }
 
+/**
+ * Executes event tracking for the file manifest export.
+ * @param entity_name - Entity (tab) name.
+ */
 export function fileManifestTracking(entity_name: string): void {
   // Track the file manifest requested event.
-  console.log("tracking file manifest requested event");
-  console.log(entity_name);
   track(EVENT_NAME.INDEX_FILE_MANIFEST_REQUESTED, {
     [EVENT_PARAM.ENTITY_NAME]: entity_name,
   });
 }
 
+/**
+ * Executes event tracking for the Terra export.
+ * @param entity_name - Entity (tab) name.
+ */
 export function exportToTerraTracking(entity_name: string): void {
   // Track the export to terra event.
   track(EVENT_NAME.INDEX_ANALYZE_IN_TERRA_REQUESTED, {
