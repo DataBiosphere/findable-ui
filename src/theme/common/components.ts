@@ -1047,11 +1047,14 @@ export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
  */
 export const MuiLink: Components["MuiLink"] = {
   defaultProps: {
-    underline: "hover",
+    underline: "always",
   },
   styleOverrides: {
     root: {
       cursor: "pointer",
+      textDecorationColor: "currentColor",
+      textDecorationSkipInk: "none",
+      textUnderlinePosition: "from-font",
     },
   },
 };

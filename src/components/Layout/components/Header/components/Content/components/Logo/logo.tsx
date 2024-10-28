@@ -1,4 +1,5 @@
 import React from "react";
+import { BaseComponentProps } from "../../../../../../../../theme/common/types";
 import {
   ImageSrc,
   StaticImage,
@@ -6,9 +7,8 @@ import {
 import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
 import { StyledLink } from "./logo.styles";
 
-export interface LogoProps {
+export interface LogoProps extends BaseComponentProps {
   alt: string;
-  className?: string;
   height?: number;
   link: string;
   src: ImageSrc;
@@ -30,6 +30,7 @@ export const Logo = ({
       className={className}
       label={<StaticImage alt={alt} height={height} src={src} width={width} />}
       target={target}
+      underline="none"
       url={link}
     />
   );

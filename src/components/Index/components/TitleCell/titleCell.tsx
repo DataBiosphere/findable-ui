@@ -4,7 +4,7 @@ import { TEXT_BODY_400 } from "../../../../theme/common/typography";
 import { Link, LinkProps } from "../../../Links/components/Link/link";
 import { TitleCell as Cell } from "./titleCell.styles";
 
-export interface TitleCellProps extends LinkProps {
+export interface TitleCellProps extends Omit<LinkProps, "title"> {
   title: ReactNode;
 }
 

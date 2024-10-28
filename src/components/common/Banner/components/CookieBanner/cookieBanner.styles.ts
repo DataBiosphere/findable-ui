@@ -23,11 +23,6 @@ export const CookieBanner = styled(Banner)`
 
     .MuiLink-root {
       color: inherit;
-      text-decoration: underline;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
   }
 
