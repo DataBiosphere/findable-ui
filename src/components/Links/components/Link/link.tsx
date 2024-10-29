@@ -6,6 +6,7 @@ import {
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
+import { BaseComponentProps } from "../../../../theme/common/types";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
 import { ANCHOR_TARGET, REL_ATTRIBUTE, Url } from "../../common/entities";
@@ -16,11 +17,11 @@ import {
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
 
-export interface LinkProps {
-  className?: string;
+export interface LinkProps
+  extends BaseComponentProps,
+    Omit<MLinkProps, "children" | "component"> {
   copyable?: boolean;
   label: ReactNode /* link label may be an element */;
-  noWrap?: MLinkProps["noWrap"];
   onClick?: () => void;
   target?: ANCHOR_TARGET;
   TypographyProps?: TypographyProps;
@@ -55,19 +56,19 @@ export const Link = ({
       /* Client-side navigation */
       return (
         <>
-          <NLink href={url} legacyBehavior passHref>
-            <MLink
-              className={className}
-              rel={REL_ATTRIBUTE.NO_OPENER}
-              noWrap={noWrap}
-              target={target || ANCHOR_TARGET.SELF}
-              onClick={onClick}
-              {...TypographyProps}
-              {...props}
-            >
-              {label}
-            </MLink>
-          </NLink>
+          <MLink
+            className={className}
+            component={NLink}
+            href={url}
+            noWrap={noWrap}
+            onClick={onClick}
+            rel={REL_ATTRIBUTE.NO_OPENER}
+            target={target || ANCHOR_TARGET.SELF}
+            {...TypographyProps}
+            {...props}
+          >
+            {label}
+          </MLink>
           {copyable && <CopyToClipboard copyStr={url} />}
         </>
       );

@@ -1,20 +1,16 @@
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import {
-  Link as BreadcrumbLink,
-  Breadcrumbs as MBreadcrumbs,
-  Typography,
-} from "@mui/material";
-import Link from "next/link";
+import { Link, Breadcrumbs as MBreadcrumbs, Typography } from "@mui/material";
+import NLink from "next/link";
 import React, { ReactNode } from "react";
+import { BaseComponentProps } from "../../../theme/common/types";
 
 export interface Breadcrumb {
   path: string;
   text: ReactNode;
 }
 
-export interface BreadcrumbsProps {
+export interface BreadcrumbsProps extends BaseComponentProps {
   breadcrumbs: Breadcrumb[];
-  className?: string;
   Separator?: ReactNode;
 }
 
@@ -29,8 +25,8 @@ export const Breadcrumbs = ({
         <MBreadcrumbs className={className} separator={Separator}>
           {breadcrumbs.map(({ path, text }, b) =>
             path ? (
-              <Link key={`${path}${b}`} href={path} legacyBehavior passHref>
-                <BreadcrumbLink>{text}</BreadcrumbLink>
+              <Link component={NLink} key={b} href={path}>
+                {text}
               </Link>
             ) : (
               <Typography key={`${path}${b}`} maxWidth={180} noWrap>

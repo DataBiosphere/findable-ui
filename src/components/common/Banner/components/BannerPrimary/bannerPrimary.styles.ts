@@ -16,5 +16,9 @@ export const Alert = styled(MAlert)`
   .MuiAlert-message {
     ${textBodySmall400};
     text-align: center;
+
+    .MuiLink-root {
+      color: inherit;
+    }
   }
 `;

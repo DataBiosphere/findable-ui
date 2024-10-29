@@ -3,12 +3,12 @@ import React, { forwardRef, Fragment, ReactNode } from "react";
 import { FLAG } from "../../../../../hooks/useFeatureFlag/common/entities";
 import { setLocalStorage } from "../../../../../hooks/useLocalStorage/common/utils";
 import { useLocalStorage } from "../../../../../hooks/useLocalStorage/useLocalStorage";
+import { BaseComponentProps } from "../../../../../theme/common/types";
 import { ButtonPrimary } from "../../../Button/components/ButtonPrimary/buttonPrimary";
 import { DismissibleBanner } from "../DismissibleBanner/dismissibleBanner";
 import { CookieBanner as Banner } from "./cookieBanner.styles";
 
-export interface CookieBannerProps extends MAlertProps {
-  className?: string;
+export interface CookieBannerProps extends BaseComponentProps, MAlertProps {
   localStorageKey: string;
   message?: ReactNode;
   secondaryAction?: ReactNode;
