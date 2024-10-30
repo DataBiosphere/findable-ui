@@ -1,14 +1,14 @@
-import { DEFAULT_AUTH_STATE } from "../auth/constants";
-import { AUTH_STATUS, AuthState } from "../auth/types";
-import { DEFAULT_AUTHENTICATION_STATE } from "../authentication/constants";
+import { DEFAULT_AUTH_STATE } from "../authentication/auth/constants";
+import { AUTH_STATUS, AuthState } from "../authentication/auth/types";
+import { DEFAULT_AUTHENTICATION_STATE } from "../authentication/authentication/constants";
 import {
   AUTHENTICATION_STATUS,
   AuthenticationState,
-} from "../authentication/types";
+} from "../authentication/authentication/types";
 import {
   AUTHORIZATION_STATUS,
   AuthorizationState,
-} from "../authorization/types";
+} from "../authentication/authorization/types";
 
 export const AUTH_STATE: AuthState = {
   ...DEFAULT_AUTH_STATE,

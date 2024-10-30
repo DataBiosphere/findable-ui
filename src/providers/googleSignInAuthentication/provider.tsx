@@ -1,31 +1,31 @@
 import React from "react";
-import { useAuthReducer } from "../../../hooks/authentication/auth/useAuthReducer";
-import { useAuthenticationReducer } from "../../../hooks/authentication/authentication/useAuthenticationReducer";
-import { useAuthorizationReducer } from "../../../hooks/authentication/authorization/useAuthorizationReducer";
-import { useCredentialsReducer } from "../../../hooks/authentication/credentials/useCredentialsReducer";
-import { useSessionActive } from "../../../hooks/authentication/session/useSessionActive";
-import { useSessionAuth } from "../../../hooks/authentication/session/useSessionAuth";
-import { useSessionCallbackUrl } from "../../../hooks/authentication/session/useSessionCallbackUrl";
-import { useSessionCredentials } from "../../../hooks/authentication/session/useSessionCredentials";
-import { useSessionTimeout } from "../../../hooks/authentication/session/useSessionTimeout";
-import { useTokenReducer } from "../../../hooks/authentication/token/useTokenReducer";
-import { AuthContext } from "../auth/context";
-import { AuthenticationContext } from "../authentication/context";
-import { AuthorizationContext } from "../authorization/context";
-import { CredentialsContext } from "../credentials/context";
+import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
+import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
+import { useAuthorizationReducer } from "../../hooks/authentication/authorization/useAuthorizationReducer";
+import { useCredentialsReducer } from "../../hooks/authentication/credentials/useCredentialsReducer";
+import { useSessionActive } from "../../hooks/authentication/session/useSessionActive";
+import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
+import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
+import { useSessionCredentials } from "../../hooks/authentication/session/useSessionCredentials";
+import { useSessionTimeout } from "../../hooks/authentication/session/useSessionTimeout";
+import { useTokenReducer } from "../../hooks/authentication/token/useTokenReducer";
+import { AuthContext } from "../authentication/auth/context";
+import { AuthenticationContext } from "../authentication/authentication/context";
+import { AuthorizationContext } from "../authentication/authorization/context";
+import { CredentialsContext } from "../authentication/credentials/context";
 import {
   AUTH_STATE,
   AUTHENTICATION_STATE,
   AUTHORIZATION_STATE,
 } from "./contants";
 import { useGoogleSignInService } from "./hooks/useGoogleSignInService";
-import { GoogleSignInProviderProps } from "./types";
+import { GoogleSignInAuthenticationProviderProps } from "./types";
 
-export function GoogleSignInProvider({
+export function GoogleSignInAuthenticationProvider({
   APIServicesProvider,
   children,
   timeout,
-}: GoogleSignInProviderProps): JSX.Element {
+}: GoogleSignInAuthenticationProviderProps): JSX.Element {
   const authReducer = useAuthReducer(AUTH_STATE);
   const authenticationReducer = useAuthenticationReducer(AUTHENTICATION_STATE);
   const authorizationReducer = useAuthorizationReducer(AUTHORIZATION_STATE);

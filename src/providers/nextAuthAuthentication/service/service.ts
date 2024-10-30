@@ -1,5 +1,5 @@
 import { signIn, SignInOptions, signOut, SignOutParams } from "next-auth/react";
-import { ProviderId } from "../../common/types";
+import { ProviderId } from "../../authentication/common/types";
 
 export const service = {
   login: (providerId: ProviderId, options?: SignInOptions): void => {

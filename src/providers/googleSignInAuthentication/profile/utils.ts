@@ -1,4 +1,4 @@
-import { UserProfile } from "../../authentication/types";
+import { UserProfile } from "../../authentication/authentication/types";
 import { GOOGLE_SIGN_IN_PROVIDER_ID } from "../service/constants";
 import { GoogleProfile } from "./types";
 
