@@ -3,7 +3,6 @@ import {
   ButtonProps as MButtonProps,
   IconButton as MIconButton,
   IconButtonProps as MIconButtonProps,
-  Skeleton,
 } from "@mui/material";
 import Router from "next/router";
 import React, { ElementType } from "react";
@@ -23,9 +22,8 @@ export const Authentication = ({
   Button,
   closeMenu,
 }: AuthenticationProps): JSX.Element | null => {
-  const { isLoading, profile } = useProfile();
+  const { profile } = useProfile();
   if (!authenticationEnabled) return null;
-  if (isLoading) return <Skeleton height={32} variant="circular" width={32} />;
   if (profile) return <AuthenticationMenu profile={profile} />;
   return (
     <Button

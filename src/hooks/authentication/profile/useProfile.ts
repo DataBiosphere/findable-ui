@@ -1,5 +1,4 @@
 import { useAuthentication } from "../../../providers/authentication/authentication/hook";
-import { AUTHENTICATION_STATUS } from "../../../providers/authentication/authentication/types";
 import { UseProfile } from "./types";
 
 /**
@@ -8,10 +7,9 @@ import { UseProfile } from "./types";
  */
 export const useProfile = (): UseProfile => {
   const {
-    authenticationState: { profile, status },
+    authenticationState: { profile },
   } = useAuthentication();
   return {
-    isLoading: status === AUTHENTICATION_STATUS.PENDING,
     profile,
   };
 };
