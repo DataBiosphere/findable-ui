@@ -1,8 +1,8 @@
 import Router from "next/router";
 import { useCallback } from "react";
-import { useProviders } from "../../../../hooks/authentication/providers/useProviders";
-import { Service } from "../../auth/types";
-import { ProviderId } from "../../common/types";
+import { useProviders } from "../../../hooks/authentication/providers/useProviders";
+import { Service } from "../../authentication/auth/types";
+import { ProviderId } from "../../authentication/common/types";
 import { SessionReducer } from "../common/types";
 import { service } from "../service/service";
 
