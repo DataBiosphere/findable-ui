@@ -1,5 +1,5 @@
-import { GoogleIcon } from "../../../../components/common/CustomIcon/components/GoogleIcon/googleIcon";
-import { OAuthProvider } from "../../../../config/entities";
+import { GoogleIcon } from "../../../components/common/CustomIcon/components/GoogleIcon/googleIcon";
+import { OAuthProvider } from "../../../config/entities";
 import { GoogleProfile } from "../profile/types";
 import { mapProfile } from "../profile/utils";
 
