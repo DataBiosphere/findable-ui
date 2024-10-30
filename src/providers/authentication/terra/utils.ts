@@ -1,29 +1,29 @@
-import { AUTHORIZATION_STATUS } from "../authorization/types";
 import { LoginStatus, REQUEST_STATUS } from "./hooks/common/entities";
 import { TerraNIHResponse } from "./hooks/useFetchTerraNIHProfile";
 import { TerraResponse } from "./hooks/useFetchTerraProfile";
 import { TerraTermsOfServiceResponse } from "./hooks/useFetchTerraTermsOfService";
+import { TERRA_PROFILE_STATUS } from "./types";
 
 /**
- * Determines the authorization status of a user based on authentication and Terra service statuses.
- * **Authorization Logic:**
- * - **Unauthorized** if the user is not authenticated.
+ * Determines the status of a user based on authentication and Terra service statuses.
+ * **Logic:**
+ * - **Pending** if the user is not authenticated.
  * - **Pending** if any supported Terra service request is not started or pending.
- * - **Unauthorized** if the Terra profile is supported but the Terms of Service have not been accepted.
- * - **Authorized** in all other cases.
- * @param isAuthenticated - Authentication status.
+ * - **Unauthenticated** if the Terra profile is supported but the Terms of Service have not been accepted.
+ * - **Authenticated** in all other cases.
+ * @param isUserAuthenticated - User authentication status.
  * @param terraNIHProfileLoginStatus - Terra NIH profile login status.
  * @param terraProfileLoginStatus - Terra profile login status.
  * @param terraTOSLoginStatus - Terra terms of service login status.
- * @returns True if the token should be released.
+ * @returns Terra profile status.
  */
-export function getAuthorizationStatus(
-  isAuthenticated: boolean,
+export function getProfileStatus(
+  isUserAuthenticated: boolean,
   terraNIHProfileLoginStatus: LoginStatus<TerraNIHResponse>,
   terraProfileLoginStatus: LoginStatus<TerraResponse>,
   terraTOSLoginStatus: LoginStatus<TerraTermsOfServiceResponse>
-): AUTHORIZATION_STATUS {
-  if (!isAuthenticated) return AUTHORIZATION_STATUS.UNAUTHORIZED;
+): TERRA_PROFILE_STATUS {
+  if (!isUserAuthenticated) return TERRA_PROFILE_STATUS.PENDING;
 
   // Check if any supported Terra service request is not started or pending.
   const terraServices = [
@@ -37,13 +37,13 @@ export function getAuthorizationStatus(
       (requestStatus === REQUEST_STATUS.NOT_STARTED ||
         requestStatus === REQUEST_STATUS.PENDING)
   );
-  if (isAnyServicePending) return AUTHORIZATION_STATUS.PENDING;
+  if (isAnyServicePending) return TERRA_PROFILE_STATUS.PENDING;
 
   // If Terra profile is supported but Terms of Service not accepted.
   if (terraProfileLoginStatus.isSupported && !terraTOSLoginStatus.isSuccess) {
-    return AUTHORIZATION_STATUS.UNAUTHORIZED;
+    return TERRA_PROFILE_STATUS.UNAUTHENTICATED;
   }
 
-  // Authorized in all other cases.
-  return AUTHORIZATION_STATUS.AUTHORIZED;
+  // Authenticated in all other cases.
+  return TERRA_PROFILE_STATUS.AUTHENTICATED;
 }
