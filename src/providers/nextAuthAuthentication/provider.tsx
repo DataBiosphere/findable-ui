@@ -1,23 +1,23 @@
 import { SessionProvider } from "next-auth/react";
 import React from "react";
-import { SessionController } from "../../../components/Authentication/components/SessionController/SessionController";
-import { useAuthReducer } from "../../../hooks/authentication/auth/useAuthReducer";
-import { useAuthenticationReducer } from "../../../hooks/authentication/authentication/useAuthenticationReducer";
-import { useAuthorizationReducer } from "../../../hooks/authentication/authorization/useAuthorizationReducer";
-import { useSessionAuth } from "../../../hooks/authentication/session/useSessionAuth";
-import { useSessionCallbackUrl } from "../../../hooks/authentication/session/useSessionCallbackUrl";
-import { useSessionTimeout } from "../../../hooks/authentication/session/useSessionTimeout";
-import { AuthContext } from "../auth/context";
-import { AuthenticationContext } from "../authentication/context";
-import { AuthorizationContext } from "../authorization/context";
+import { SessionController } from "../../components/Authentication/components/SessionController/SessionController";
+import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
+import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
+import { useAuthorizationReducer } from "../../hooks/authentication/authorization/useAuthorizationReducer";
+import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
+import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
+import { useSessionTimeout } from "../../hooks/authentication/session/useSessionTimeout";
+import { AuthContext } from "../authentication/auth/context";
+import { AuthenticationContext } from "../authentication/authentication/context";
+import { AuthorizationContext } from "../authentication/authorization/context";
 import { useNextAuthService } from "./hooks/useNextAuthService";
-import { NextAuthProviderProps } from "./types";
+import { NextAuthAuthenticationProviderProps } from "./types";
 
-export function NextAuthProvider({
+export function NextAuthAuthenticationProvider({
   children,
   session,
   timeout,
-}: NextAuthProviderProps): JSX.Element {
+}: NextAuthAuthenticationProviderProps): JSX.Element {
   const authReducer = useAuthReducer();
   const authenticationReducer = useAuthenticationReducer();
   const authorizationReducer = useAuthorizationReducer();

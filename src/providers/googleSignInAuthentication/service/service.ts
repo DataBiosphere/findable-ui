@@ -1,21 +1,21 @@
-import { OAuthProvider } from "../../../../config/entities";
+import { OAuthProvider } from "../../../config/entities";
 import {
   requestAuthentication,
   resetState as resetAuthenticationState,
   updateAuthentication,
-} from "../../authentication/dispatch";
-import { AUTHENTICATION_STATUS } from "../../authentication/types";
-import { fetchProfile } from "../../authentication/utils";
+} from "../../authentication/authentication/dispatch";
+import { AUTHENTICATION_STATUS } from "../../authentication/authentication/types";
+import { fetchProfile } from "../../authentication/authentication/utils";
 import {
   requestAuthorization,
   resetState as resetAuthorizationState,
-} from "../../authorization/dispatch";
-import { resetState as resetCredentialsState } from "../../credentials/dispatch";
-import { getAuthenticationRequestOptions } from "../../terra/hooks/common/utils";
+} from "../../authentication/authorization/dispatch";
+import { resetState as resetCredentialsState } from "../../authentication/credentials/dispatch";
+import { getAuthenticationRequestOptions } from "../../authentication/terra/hooks/common/utils";
 import {
   resetState as resetTokenState,
   updateToken,
-} from "../../token/dispatch";
+} from "../../authentication/token/dispatch";
 import { SessionDispatch } from "../common/types";
 import { GoogleProfile, TokenSetParameters } from "../profile/types";
 

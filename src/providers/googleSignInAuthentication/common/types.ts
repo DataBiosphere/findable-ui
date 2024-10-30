@@ -2,16 +2,19 @@ import { Dispatch } from "react";
 import {
   AuthenticationAction,
   AuthenticationContextProps,
-} from "../../authentication/types";
+} from "../../authentication/authentication/types";
 import {
   AuthorizationAction,
   AuthorizationContextProps,
-} from "../../authorization/types";
+} from "../../authentication/authorization/types";
 import {
   CredentialsAction,
   CredentialsContextProps,
-} from "../../credentials/types";
-import { TokenAction, TokenContextProps } from "../../token/types";
+} from "../../authentication/credentials/types";
+import {
+  TokenAction,
+  TokenContextProps,
+} from "../../authentication/token/types";
 
 export interface SessionReducer {
   authenticationReducer: AuthenticationContextProps;
