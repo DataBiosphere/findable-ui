@@ -10,7 +10,6 @@ export const useGoogleSignInService = (reducer: SessionReducer): Service => {
   const { findProvider } = useProviders();
   const {
     authenticationReducer: { authenticationDispatch },
-    authorizationReducer: { authorizationDispatch },
     credentialsReducer: { credentialsDispatch },
     tokenReducer: { tokenDispatch },
   } = reducer;
@@ -19,32 +18,22 @@ export const useGoogleSignInService = (reducer: SessionReducer): Service => {
     (providerId: ProviderId) => {
       const provider = findProvider(providerId);
       if (!provider) return;
-      service.login(provider, {
-        authenticationDispatch,
-        authorizationDispatch,
-        tokenDispatch,
-      });
+      service.login(provider, { authenticationDispatch, tokenDispatch });
     },
-    [authenticationDispatch, authorizationDispatch, findProvider, tokenDispatch]
+    [authenticationDispatch, findProvider, tokenDispatch]
   );
 
   const onLogout = useCallback(
     (options?: { callbackUrl?: string }) => {
       service.logout({
         authenticationDispatch,
-        authorizationDispatch,
         credentialsDispatch,
         tokenDispatch,
       });
       if (!options?.callbackUrl) return;
       Router.push(options?.callbackUrl).catch((e) => console.error(e));
     },
-    [
-      authenticationDispatch,
-      authorizationDispatch,
-      credentialsDispatch,
-      tokenDispatch,
-    ]
+    [authenticationDispatch, credentialsDispatch, tokenDispatch]
   );
 
   return { requestLogin: onLogin, requestLogout: onLogout };

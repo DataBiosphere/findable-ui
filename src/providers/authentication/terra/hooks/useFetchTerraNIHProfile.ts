@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useAuthenticationConfig } from "../../../../hooks/authentication/config/useAuthenticationConfig";
 import {
   LOGIN_STATUS_FAILED,
+  LOGIN_STATUS_NOT_STARTED,
   LOGIN_STATUS_PENDING,
   TERRA_SERVICE_ID,
 } from "./common/constants";
@@ -47,6 +48,7 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
   const fetchEndpointData = useCallback(
     (endpoint: string, accessToken?: string): void => {
       if (!accessToken) {
+        setLoginStatus(LOGIN_STATUS_NOT_STARTED as Status);
         return;
       }
       setLoginStatus(LOGIN_STATUS_PENDING as Status);

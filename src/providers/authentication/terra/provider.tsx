@@ -1,44 +1,38 @@
-import React, { useEffect, useMemo } from "react";
-import { useAuth } from "../auth/hook";
-import { updateAuthorization } from "../authorization/dispatch";
-import { useAuthorization } from "../authorization/hook";
+import React, { useEffect } from "react";
+import { authenticationComplete } from "../authentication/dispatch";
+import { useAuthentication } from "../authentication/hook";
+import { updateCredentials } from "../credentials/dispatch";
+import { useCredentials } from "../credentials/hook";
 import { TerraProfileContext } from "./context";
-import { useFetchTerraNIHProfile } from "./hooks/useFetchTerraNIHProfile";
-import { useFetchTerraProfile } from "./hooks/useFetchTerraProfile";
-import { useFetchTerraTermsOfService } from "./hooks/useFetchTerraTermsOfService";
+import { useFetchProfiles } from "./hooks/useFetchProfiles";
 import { TerraProfileProviderProps } from "./types";
-import { getAuthorizationStatus } from "./utils";
 
 export function TerraProfileProvider({
   children,
   token,
 }: TerraProfileProviderProps): JSX.Element {
+  const { authenticationDispatch } = useAuthentication();
+  const { credentialsDispatch } = useCredentials();
   const {
-    authState: { isAuthenticated },
-  } = useAuth();
-  const { authorizationDispatch } = useAuthorization();
-  const terraNIHProfileLoginStatus = useFetchTerraNIHProfile(token);
-  const terraProfileLoginStatus = useFetchTerraProfile(token);
-  const terraTOSLoginStatus = useFetchTerraTermsOfService(token);
-  const authorizationStatus = useMemo(
-    () =>
-      getAuthorizationStatus(
-        isAuthenticated,
-        terraNIHProfileLoginStatus,
-        terraProfileLoginStatus,
-        terraTOSLoginStatus
-      ),
-    [
-      isAuthenticated,
-      terraNIHProfileLoginStatus,
-      terraProfileLoginStatus,
-      terraTOSLoginStatus,
-    ]
-  );
+    isComplete,
+    isProfileActive,
+    terraNIHProfileLoginStatus,
+    terraProfileLoginStatus,
+    terraTOSLoginStatus,
+  } = useFetchProfiles(token);
 
   useEffect(() => {
-    authorizationDispatch?.(updateAuthorization(authorizationStatus));
-  }, [authorizationDispatch, authorizationStatus]);
+    if (!isComplete) return;
+    authenticationDispatch?.(authenticationComplete());
+    if (!isProfileActive) return;
+    credentialsDispatch?.(updateCredentials(token));
+  }, [
+    authenticationDispatch,
+    credentialsDispatch,
+    isComplete,
+    isProfileActive,
+    token,
+  ]);
 
   return (
     <TerraProfileContext.Provider

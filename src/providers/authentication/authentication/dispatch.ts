@@ -1,10 +1,22 @@
 import {
+  AUTHENTICATION_STATUS,
   AuthenticationActionKind,
   RequestAuthenticationAction,
   ResetStateAction,
   UpdateAuthenticationAction,
   UpdateAuthenticationPayload,
 } from "./types";
+
+/**
+ * Authentication is complete.
+ * @returns Action.
+ */
+export function authenticationComplete(): UpdateAuthenticationAction {
+  return {
+    payload: { status: AUTHENTICATION_STATUS.DONE },
+    type: AuthenticationActionKind.UpdateAuthentication,
+  };
+}
 
 /**
  * Request authentication action.

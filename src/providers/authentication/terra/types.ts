@@ -5,6 +5,12 @@ import { TerraNIHResponse } from "./hooks/useFetchTerraNIHProfile";
 import { TerraResponse } from "./hooks/useFetchTerraProfile";
 import { TerraTermsOfServiceResponse } from "./hooks/useFetchTerraTermsOfService";
 
+export enum TERRA_PROFILE_STATUS {
+  AUTHENTICATED = "AUTHENTICATED",
+  PENDING = "PENDING",
+  UNAUTHENTICATED = "UNAUTHENTICATED",
+}
+
 export interface TerraProfileProviderProps {
   children: ReactNode;
   token: TokenState["token"];

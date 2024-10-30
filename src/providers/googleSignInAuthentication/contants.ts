@@ -5,10 +5,6 @@ import {
   AUTHENTICATION_STATUS,
   AuthenticationState,
 } from "../authentication/authentication/types";
-import {
-  AUTHORIZATION_STATUS,
-  AuthorizationState,
-} from "../authentication/authorization/types";
 
 export const AUTH_STATE: AuthState = {
   ...DEFAULT_AUTH_STATE,
@@ -17,9 +13,5 @@ export const AUTH_STATE: AuthState = {
 
 export const AUTHENTICATION_STATE: AuthenticationState = {
   ...DEFAULT_AUTHENTICATION_STATE,
-  status: AUTHENTICATION_STATUS.UNAUTHENTICATED,
-};
-
-export const AUTHORIZATION_STATE: AuthorizationState = {
-  status: AUTHORIZATION_STATUS.UNAUTHORIZED,
+  status: AUTHENTICATION_STATUS.DONE,
 };

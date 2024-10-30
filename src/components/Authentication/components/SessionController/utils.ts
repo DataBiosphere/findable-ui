@@ -5,10 +5,6 @@ import {
   UpdateAuthenticationPayload,
   UserProfile,
 } from "../../../../providers/authentication/authentication/types";
-import {
-  AUTHORIZATION_STATUS,
-  UpdateAuthorizationStatusPayload,
-} from "../../../../providers/authentication/authorization/types";
 
 /**
  * Returns the authentication profile and status from the session context.
@@ -51,28 +47,10 @@ function mapAuthenticationStatus(
 ): AUTHENTICATION_STATUS {
   switch (status) {
     case "authenticated":
-      return AUTHENTICATION_STATUS.AUTHENTICATED;
+      return AUTHENTICATION_STATUS.DONE;
     case "loading":
       return AUTHENTICATION_STATUS.PENDING;
     default:
-      return AUTHENTICATION_STATUS.UNAUTHENTICATED;
-  }
-}
-
-/**
- * Maps the session context value to an authorization status.
- * @param session - Session context value.
- * @returns authorization status.
- */
-export function mapAuthorization(
-  session: SessionContextValue
-): UpdateAuthorizationStatusPayload {
-  switch (session.status) {
-    case "authenticated":
-      return AUTHORIZATION_STATUS.AUTHORIZED;
-    case "loading":
-      return AUTHORIZATION_STATUS.PENDING;
-    default:
-      return AUTHORIZATION_STATUS.UNAUTHORIZED;
+      return AUTHENTICATION_STATUS.DONE;
   }
 }
