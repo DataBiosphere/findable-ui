@@ -6,9 +6,9 @@ import {
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
-import { BaseComponentProps } from "../../../../theme/common/types";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
+import { BaseComponentProps } from "../../../types";
 import { ANCHOR_TARGET, REL_ATTRIBUTE, Url } from "../../common/entities";
 import {
   isClientSideNavigation,

@@ -4,6 +4,7 @@ import * as C from "./common/components";
 import * as P from "./common/palette";
 import { shadows } from "./common/shadows";
 import * as T from "./common/typography";
+import * as M from "./components";
 
 export interface ThemeProps {
   theme: Theme;
@@ -71,8 +72,8 @@ export function createAppTheme(customOptions?: ThemeOptions): Theme {
     MuiAccordion: C.MuiAccordion(theme),
     MuiAccordionDetails: C.MuiAccordionDetails,
     MuiAccordionSummary: C.MuiAccordionSummary,
-    MuiAlert: C.MuiAlert(theme),
-    MuiAlertTitle: C.MuiAlertTitle(theme),
+    MuiAlert: M.MuiAlert(theme),
+    MuiAlertTitle: M.MuiAlertTitle,
     MuiAppBar: C.MuiAppBar,
     MuiBackdrop: C.MuiBackdrop(theme),
     MuiBreadcrumbs: C.MuiBreadcrumbs(theme),
