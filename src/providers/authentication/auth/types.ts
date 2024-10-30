@@ -17,7 +17,6 @@ export interface AuthContextProps {
 export interface AuthState {
   initialState?: AuthState;
   isAuthenticated: boolean;
-  isAuthorized: boolean;
   status: AUTH_STATUS;
 }
 
@@ -49,6 +48,5 @@ export interface UpdateAuthStateAction {
 
 export interface UpdateAuthStatePayload {
   isAuthenticated?: boolean;
-  isAuthorized?: boolean;
   status?: AUTH_STATUS;
 }
