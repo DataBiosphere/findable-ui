@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { Button as MButton } from "@mui/material";
+import { Button } from "@mui/material";
 
-export const StyledButton = styled(MButton)`
+export const StyledButton = styled(Button)`
+  &.MuiButton-activeNav,
   &.MuiButton-nav {
     padding: 6px 12px;
   }

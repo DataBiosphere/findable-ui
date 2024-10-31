@@ -6,7 +6,7 @@ import {
 } from "../../../providers/authentication/auth/types";
 import { ROUTE } from "../../../routes/constants";
 import { useRouteHistory } from "../../useRouteHistory";
-import { INACTIVITY_PARAM } from "../../useSessionTimeout";
+import { INACTIVITY_PARAM } from "./useSessionTimeout";
 
 export const useSessionActive = (authState: AuthState): void => {
   const { status } = authState;

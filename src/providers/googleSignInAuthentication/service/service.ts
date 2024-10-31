@@ -27,6 +27,7 @@ export const service = {
       callback: (response: TokenSetParameters) => {
         const { id, profile, userinfo } = provider;
         const { access_token: token } = response;
+        dispatch.authenticationDispatch?.(requestAuthentication());
         dispatch.tokenDispatch?.(updateToken({ providerId: id, token }));
         fetchProfile(userinfo, getAuthenticationRequestOptions(token), {
           onError: () =>
@@ -48,7 +49,6 @@ export const service = {
       client_id: provider.clientId,
       scope: provider.authorization.params.scope,
     });
-    dispatch.authenticationDispatch?.(requestAuthentication());
     client.requestAccessToken();
   },
   logout: (dispatch: SessionDispatch): void => {

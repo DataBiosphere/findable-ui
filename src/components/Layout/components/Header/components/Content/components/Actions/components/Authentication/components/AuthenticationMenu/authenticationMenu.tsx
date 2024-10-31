@@ -4,8 +4,8 @@ import { useAuth } from "../../../../../../../../../../../../providers/authentic
 import { UserProfile } from "../../../../../../../../../../../../providers/authentication/authentication/types";
 import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";
 import {
-  Avatar,
   AuthenticationMenu as Menu,
+  StyledAvatar,
   UserIcon,
   UserNames,
   UserSummary,
@@ -24,7 +24,7 @@ export const AuthenticationMenu = ({
   return (
     <Fragment>
       <UserIcon onClick={onOpen}>
-        <Avatar alt={profile.name} src={profile.image} />
+        <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
       <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
         <UserSummary>

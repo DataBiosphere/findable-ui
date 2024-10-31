@@ -1,5 +1,6 @@
 import Router, { useRouter } from "next/router";
 import { useCallback, useEffect, useRef } from "react";
+import { useRouteRoot } from "./useRouteRoot";
 
 const ROUTE_CHANGE_EVENT = "routeChangeComplete";
 const MAX_HISTORY_LENGTH = 4;
@@ -14,8 +15,8 @@ export interface UseRouteHistory {
 export function useRouteHistory(
   maxHistory = MAX_HISTORY_LENGTH
 ): UseRouteHistory {
-  const { asPath, basePath } = useRouter();
-  const rootPath = basePath.trim() || "/";
+  const { asPath } = useRouter();
+  const rootPath = useRouteRoot();
   const historyRef = useRef<string[]>([asPath]);
 
   const onRouteChange = useCallback(
@@ -38,11 +39,12 @@ export function useRouteHistory(
 
   const callbackUrl = useCallback(
     (transformFn?: TransformRouteFn): string | undefined => {
-      return (
-        transformFn?.(historyRef.current) || getHistoryAt(historyRef.current, 1)
-      );
+      if (transformFn) {
+        return transformFn(historyRef.current) || rootPath;
+      }
+      return getHistoryAt(historyRef.current, 1) || rootPath;
     },
-    []
+    [rootPath]
   );
 
   const goBack = useCallback(
