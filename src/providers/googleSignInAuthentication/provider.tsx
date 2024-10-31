@@ -5,7 +5,7 @@ import { useCredentialsReducer } from "../../hooks/authentication/credentials/us
 import { useSessionActive } from "../../hooks/authentication/session/useSessionActive";
 import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
 import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
-import { useSessionTimeout } from "../../hooks/authentication/session/useSessionTimeout";
+import { useSessionIdleTimer } from "../../hooks/authentication/session/useSessionIdleTimer";
 import { useTokenReducer } from "../../hooks/authentication/token/useTokenReducer";
 import { AuthContext } from "../authentication/auth/context";
 import { AuthenticationContext } from "../authentication/authentication/context";
@@ -32,7 +32,7 @@ export function GoogleSignInAuthenticationProvider({
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
   useSessionActive(authState);
-  useSessionTimeout({
+  useSessionIdleTimer({
     disabled: !isAuthenticated,
     onIdle: () => service.requestLogout({ callbackUrl }),
     timeout,
