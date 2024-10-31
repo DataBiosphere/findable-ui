@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { useEffect } from "react";
 import { escapeRegExp } from "../../../common/utils";
 import {
@@ -10,11 +11,11 @@ import { INACTIVITY_PARAM } from "./useSessionTimeout";
 
 export const useSessionActive = (authState: AuthState): void => {
   const { status } = authState;
-  const { goBack } = useRouteHistory(2);
+  const { callbackUrl } = useRouteHistory(2);
   useEffect(() => {
     if (status !== AUTH_STATUS.DONE) return;
-    goBack(transformRoute).catch((e) => console.error(e));
-  }, [goBack, status]);
+    Router.push(callbackUrl(transformRoute));
+  }, [callbackUrl, status]);
 };
 
 /**

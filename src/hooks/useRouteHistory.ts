@@ -8,8 +8,7 @@ const MAX_HISTORY_LENGTH = 4;
 export type TransformRouteFn = (routes: string[]) => string | undefined;
 
 export interface UseRouteHistory {
-  callbackUrl: (transformFn?: TransformRouteFn) => string | undefined;
-  goBack: (transformFn?: TransformRouteFn) => Promise<void>;
+  callbackUrl: (transformFn?: TransformRouteFn) => string;
 }
 
 export function useRouteHistory(
@@ -21,7 +20,7 @@ export function useRouteHistory(
 
   const onRouteChange = useCallback(
     (route: string): void => {
-      if (route === getHistoryAt(historyRef.current, 0)) return;
+      if (route === historyRef.current[0]) return;
       historyRef.current.unshift(route);
       if (historyRef.current.length > maxHistory) {
         historyRef.current.pop();
@@ -38,42 +37,29 @@ export function useRouteHistory(
   }, [onRouteChange]);
 
   const callbackUrl = useCallback(
-    (transformFn?: TransformRouteFn): string | undefined => {
-      if (transformFn) {
-        return transformFn(historyRef.current) || rootPath;
-      }
-      return getHistoryAt(historyRef.current, 1) || rootPath;
-    },
+    (transformFn?: TransformRouteFn): string =>
+      getCallbackUrl(historyRef.current, rootPath, transformFn),
     [rootPath]
   );
 
-  const goBack = useCallback(
-    async (transformFn?: TransformRouteFn): Promise<void> => {
-      const route =
-        transformFn?.(historyRef.current) ||
-        getHistoryAt(historyRef.current, 1);
-      if (route) {
-        await Router.push(route);
-      } else {
-        await Router.push(rootPath);
-      }
-    },
-    [rootPath]
-  );
-
-  return { callbackUrl, goBack };
+  return { callbackUrl };
 }
 
 /**
- * Retrieves the route history entry at the specified index.
- * If the index is out of bounds or the history array is empty, it returns `undefined`.
- * @param history - The array of route history.
- * @param index - The index of the history entry to retrieve.
- * @returns The history entry at the given index, or `undefined` if the index is invalid.
+ * Generates a callback URL based on the provided history and root path.
+ * Returns the callback URL determined by the transform function or the second item in history and if neither condition is met, returns the root path.
+ * @param history - Navigation history.
+ * @param rootPath - The default root path to return if no other conditions are met.
+ * @param [transformFn] - An optional function that transforms the history array to a specific route.
+ * @returns {string} - The callback UR.
  */
-export function getHistoryAt(
+export function getCallbackUrl(
   history: string[],
-  index: number
-): string | undefined {
-  return history.at(index);
+  rootPath: string,
+  transformFn?: TransformRouteFn
+): string {
+  if (transformFn) {
+    return transformFn(history) || rootPath;
+  }
+  return history[1] || rootPath;
 }
