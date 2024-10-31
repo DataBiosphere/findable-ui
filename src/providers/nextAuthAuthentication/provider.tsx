@@ -5,7 +5,7 @@ import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
 import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
 import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
 import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
-import { useSessionTimeout } from "../../hooks/authentication/session/useSessionTimeout";
+import { useSessionIdleTimer } from "../../hooks/authentication/session/useSessionIdleTimer";
 import { AuthContext } from "../authentication/auth/context";
 import { AuthenticationContext } from "../authentication/authentication/context";
 import { useNextAuthService } from "./hooks/useNextAuthService";
@@ -22,7 +22,7 @@ export function NextAuthAuthenticationProvider({
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
   const { callbackUrl } = useSessionCallbackUrl();
-  useSessionTimeout({
+  useSessionIdleTimer({
     disabled: !isAuthenticated,
     onIdle: () => {
       service.requestLogout({ callbackUrl, redirect: true });

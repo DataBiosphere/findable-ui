@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {
-  Avatar as MAvatar,
+  Avatar,
   IconButton as MIconButton,
   Menu as MMenu,
   MenuItem,
@@ -33,7 +33,7 @@ export const UserNames = styled(Typography)`
   max-width: 200px;
 `;
 
-export const Avatar = styled(MAvatar)`
+export const StyledAvatar = styled(Avatar)`
   height: 32px;
   width: 32px;
 `;
