@@ -13,6 +13,7 @@ import { NextAuthAuthenticationProviderProps } from "./types";
 
 export function NextAuthAuthenticationProvider({
   children,
+  refetchInterval = 0,
   session,
   timeout,
 }: NextAuthAuthenticationProviderProps): JSX.Element {
@@ -23,6 +24,7 @@ export function NextAuthAuthenticationProvider({
   const { isAuthenticated } = authState;
   const { callbackUrl } = useSessionCallbackUrl();
   useSessionIdleTimer({
+    crossTab: true,
     disabled: !isAuthenticated,
     onIdle: () => {
       service.requestLogout({ callbackUrl, redirect: true });
@@ -31,7 +33,7 @@ export function NextAuthAuthenticationProvider({
   });
   useSessionAuth({ authReducer, authenticationReducer });
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={session} refetchInterval={refetchInterval / 1000}>
       <AuthenticationContext.Provider value={authenticationReducer}>
         <AuthContext.Provider value={{ authDispatch, authState, service }}>
           <SessionController>{children}</SessionController>
