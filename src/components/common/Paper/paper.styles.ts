@@ -7,11 +7,13 @@ import { Paper } from "./paper";
  * e.g. the entire width of mobile viewports.
  */
 export const FlatPaper = styled(Paper)`
-  align-self: stretch;
-  border-left: none;
-  border-radius: 0;
-  border-right: none;
-  box-shadow: none;
+  & {
+    align-self: stretch;
+    border-left: none;
+    border-radius: 0;
+    border-right: none;
+    box-shadow: none;
+  }
 `;
 
 /**
@@ -19,8 +21,10 @@ export const FlatPaper = styled(Paper)`
  * To use RoundedPaper, wrap the styled paper around a single child element e.g. "Section" or "Sections" component. TODO
  */
 export const RoundedPaper = styled(Paper)`
-  align-self: stretch;
-  border-radius: 8px;
+  & {
+    align-self: stretch;
+    border-radius: 8px;
+  }
 `;
 
 /* eslint-disable valid-jsdoc -- disable require param */
@@ -30,11 +34,13 @@ export const RoundedPaper = styled(Paper)`
  */
 /* eslint-enable valid-jsdoc -- disable require param */
 export const FluidPaper = styled(RoundedPaper)`
-  ${({ theme }) => theme.breakpoints.down(TABLET)} {
-    border-left: none;
-    border-radius: 0;
-    border-right: none;
-    box-shadow: none;
+  & {
+    ${({ theme }) => theme.breakpoints.down(TABLET)} {
+      border-left: none;
+      border-radius: 0;
+      border-right: none;
+      box-shadow: none;
+    }
   }
 `;
 

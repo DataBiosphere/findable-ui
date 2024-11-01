@@ -25,20 +25,20 @@ import {
   CustomFeatureTableState,
 } from "../src/components/Table/features/entities";
 import { GridTrackSize } from "../src/config/entities";
+import { SIZE } from "../src/styles/common/constants/size";
 
 /**
  * Alert prop options.
  */
 declare module "@mui/material/Alert" {
+  interface AlertProps {
+    size?: SIZE.MEDIUM | SIZE.LARGE;
+  }
+
   interface AlertPropsColorOverrides {
     ink: true;
     primary: true;
     smoke: true;
-  }
-
-  interface AlertPropsVariantOverrides {
-    banner: true; // Single line alert.
-    neutral: true;
   }
 }
 

@@ -1,39 +1,18 @@
-import {
-  AlertTitle,
-  Alert as MAlert,
-  AlertProps as MAlertProps,
-} from "@mui/material";
-import React, { ReactNode } from "react";
+import { AlertProps } from "@mui/material";
+import React, { forwardRef } from "react";
+import { BaseComponentProps } from "../../types";
+import { StyledAlert } from "./alert.styles";
 
-export interface AlertProps {
-  children?: ReactNode;
-  className?: string;
-  color?: MAlertProps["color"];
-  icon?: MAlertProps["icon"];
-  severity: MAlertProps["severity"];
-  title?: ReactNode;
-  variant?: MAlertProps["variant"];
-}
-
-export const Alert = ({
-  children,
-  className,
-  color,
-  icon,
-  severity,
-  title,
-  variant = "standard",
-}: AlertProps): JSX.Element => {
+export const Alert = forwardRef<
+  HTMLDivElement,
+  AlertProps & BaseComponentProps
+>(function Alert(
+  { children, className, ...props }: AlertProps & BaseComponentProps,
+  ref
+): JSX.Element {
   return (
-    <MAlert
-      className={className}
-      color={color}
-      icon={icon}
-      severity={severity}
-      variant={variant}
-    >
-      {title && <AlertTitle>{title}</AlertTitle>}
+    <StyledAlert className={className} ref={ref} {...props}>
       {children}
-    </MAlert>
+    </StyledAlert>
   );
-};
+});
