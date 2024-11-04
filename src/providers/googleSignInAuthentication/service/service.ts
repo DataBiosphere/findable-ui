@@ -34,7 +34,7 @@ export const service = {
             dispatch.authenticationDispatch?.(
               updateAuthentication({
                 profile: undefined,
-                status: AUTHENTICATION_STATUS.DONE,
+                status: AUTHENTICATION_STATUS.SETTLED,
               })
             ),
           onSuccess: (r: GoogleProfile) =>
