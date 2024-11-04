@@ -2,7 +2,7 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { Link, Breadcrumbs as MBreadcrumbs, Typography } from "@mui/material";
 import NLink from "next/link";
 import React, { ReactNode } from "react";
-import { BaseComponentProps } from "../../../theme/common/types";
+import { BaseComponentProps } from "../../types";
 
 export interface Breadcrumb {
   path: string;

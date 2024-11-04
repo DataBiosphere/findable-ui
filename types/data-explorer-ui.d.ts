@@ -33,6 +33,7 @@ declare module "@mui/material/Alert" {
   interface AlertPropsColorOverrides {
     ink: true;
     primary: true;
+    smoke: true;
   }
 
   interface AlertPropsVariantOverrides {

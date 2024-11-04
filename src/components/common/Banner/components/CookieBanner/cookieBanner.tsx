@@ -1,14 +1,16 @@
-import { ButtonProps, AlertProps as MAlertProps } from "@mui/material";
-import React, { forwardRef, Fragment, ReactNode } from "react";
+import { AlertProps, Button, Fade } from "@mui/material";
+import React, { Fragment, ReactNode, useEffect } from "react";
 import { FLAG } from "../../../../../hooks/useFeatureFlag/common/entities";
 import { setLocalStorage } from "../../../../../hooks/useLocalStorage/common/utils";
 import { useLocalStorage } from "../../../../../hooks/useLocalStorage/useLocalStorage";
-import { BaseComponentProps } from "../../../../../theme/common/types";
-import { ButtonPrimary } from "../../../Button/components/ButtonPrimary/buttonPrimary";
-import { DismissibleBanner } from "../DismissibleBanner/dismissibleBanner";
-import { CookieBanner as Banner } from "./cookieBanner.styles";
+import { BaseComponentProps } from "../../../../types";
+import { useTransition } from "../../../Alert/hooks/useTransition/useTransition";
+import { ALERT_PROPS } from "./constants";
+import { StyledAlert } from "./cookieBanner.styles";
 
-export interface CookieBannerProps extends BaseComponentProps, MAlertProps {
+export interface CookieBannerProps
+  extends Omit<AlertProps, "children">,
+    BaseComponentProps {
   localStorageKey: string;
   message?: ReactNode;
   secondaryAction?: ReactNode;
@@ -20,66 +22,36 @@ export const CookieBanner = ({
   message,
   secondaryAction,
 }: CookieBannerProps): JSX.Element => {
+  const { isIn, onEnter, onExit } = useTransition();
   const localStorage = useLocalStorage(localStorageKey);
-  const isCookieAccepted = localStorage === FLAG.TRUE;
 
-  // Callback fired when the banner requests to be closed.
-  const onDismiss = (): void => {
-    setLocalStorage(localStorageKey, FLAG.TRUE);
-  };
+  useEffect(() => {
+    if (localStorage === null) onEnter();
+  }, [localStorage, onEnter]);
 
   return (
-    <DismissibleBanner
-      Alert={Alert}
-      className={className}
-      onDismiss={onDismiss}
-      open={!isCookieAccepted}
-      slots={{
-        closeButton: (props) => renderCloseButton(props, secondaryAction),
-      }}
-    >
-      {message}
-    </DismissibleBanner>
+    <Fade in={isIn} unmountOnExit>
+      <StyledAlert
+        {...ALERT_PROPS}
+        action={
+          <Fragment>
+            <Button
+              color="primary"
+              onClick={(): void => {
+                setLocalStorage(localStorageKey, FLAG.TRUE);
+                onExit();
+              }}
+              variant="contained"
+            >
+              Ok, Got It
+            </Button>
+            {secondaryAction}
+          </Fragment>
+        }
+        className={className}
+      >
+        {message}
+      </StyledAlert>
+    </Fade>
   );
 };
-
-/**
- * Return the cookie banner alert.
- * @param props - Alert props e.g. "onClick" to close banner.
- * @returns alert element.
- */
-const Alert = forwardRef<HTMLDivElement, MAlertProps>(function Alert(
-  { ...props },
-  ref
-): JSX.Element {
-  return (
-    <Banner
-      color="ink"
-      elevation={2}
-      icon={false}
-      ref={ref}
-      variant="filled"
-      {...props}
-    >
-      {props.children}
-    </Banner>
-  );
-});
-
-/**
- * Returns the close action component(s).
- * @param buttonProps - Button props e.g. "onClick" to close banner.
- * @param secondaryAction - Secondary action component.
- * @returns close button element(s).
- */
-function renderCloseButton(
-  buttonProps: ButtonProps,
-  secondaryAction?: ReactNode
-): JSX.Element {
-  return (
-    <Fragment>
-      <ButtonPrimary onClick={buttonProps.onClick}>Ok, Got It</ButtonPrimary>
-      {secondaryAction}
-    </Fragment>
-  );
-}

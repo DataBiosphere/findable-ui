@@ -1,8 +1,4 @@
 import { Components, Theme } from "@mui/material";
-import { ErrorIcon } from "../../components/common/CustomIcon/components/ErrorIcon/errorIcon";
-import { InfoIcon } from "../../components/common/CustomIcon/components/InfoIcon/infoIcon";
-import { SuccessIcon } from "../../components/common/CustomIcon/components/SuccessIcon/successIcon";
-import { WarningIcon } from "../../components/common/CustomIcon/components/WarningIcon/warningIcon";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
@@ -19,7 +15,6 @@ import {
   TEXT_BODY_400,
   TEXT_BODY_400_2_LINES,
   TEXT_BODY_500,
-  TEXT_BODY_LARGE_500,
   TEXT_BODY_SMALL_400,
   TEXT_BODY_SMALL_500,
   TEXT_HEADING,
@@ -83,159 +78,6 @@ export const MuiAccordionSummary: Components["MuiAccordionSummary"] = {
       padding: 0,
     },
   },
-};
-
-/**
- * MuiAlert Component
- * @param theme - Theme.
- * @returns MuiAlert component theme styles.
- */
-export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
-  return {
-    defaultProps: {
-      iconMapping: {
-        error: ErrorIcon({ fontSize: "small" }),
-        info: InfoIcon({ fontSize: "small" }),
-        success: SuccessIcon({ fontSize: "small" }),
-        warning: WarningIcon({ fontSize: "small" }),
-      },
-    },
-    styleOverrides: {
-      icon: {
-        opacity: 1,
-        padding: "2px 0",
-      },
-      message: {
-        display: "grid",
-        gap: 4,
-        padding: 0,
-      },
-      root: {
-        ...theme.typography[TEXT_BODY_400_2_LINES],
-        borderRadius: 8,
-        boxShadow: theme.shadows[1], // elevation01
-        color: theme.palette.ink.main,
-      },
-      standard: {
-        alignItems: FLEX_START,
-        padding: 20,
-      },
-      standardError: {
-        backgroundColor: theme.palette.alert.lightest,
-        border: `1px solid ${theme.palette.alert.main}${alpha32}`,
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiAlert-icon": {
-          color: theme.palette.alert.main,
-        },
-      },
-      standardInfo: {
-        backgroundColor: theme.palette.info.lightest,
-        border: `1px solid ${theme.palette.info.main}${alpha32}`,
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiAlert-icon": {
-          color: theme.palette.info.main,
-        },
-      },
-      standardSuccess: {
-        backgroundColor: theme.palette.success.lightest,
-        border: `1px solid ${theme.palette.success.main}${alpha32}`,
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiAlert-icon": {
-          color: theme.palette.success.main,
-        },
-      },
-      standardWarning: {
-        backgroundColor: theme.palette.warning.lightest,
-        border: `1px solid ${theme.palette.warning.main}${alpha32}`,
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiAlert-icon": {
-          color: theme.palette.warning.main,
-        },
-      },
-    },
-    variants: [
-      {
-        props: { severity: "info", variant: "neutral" },
-        style: {
-          backgroundColor: theme.palette.smoke.light,
-          padding: 16,
-        },
-      },
-      {
-        props: { variant: "banner" },
-        style: {
-          padding: 16,
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
-          "& .MuiAlert-icon": {
-            padding: 0,
-          },
-          "& .MuiAlertTitle-root": {
-            ...theme.typography[TEXT_BODY_500],
-          },
-        },
-      },
-      {
-        props: { severity: "error", variant: "banner" },
-        style: {
-          backgroundColor: theme.palette.alert.lightest,
-          border: `1px solid ${theme.palette.alert.main}${alpha32}`,
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
-          "& .MuiAlert-icon": {
-            color: theme.palette.alert.main,
-          },
-        },
-      },
-      {
-        props: { severity: "info", variant: "banner" },
-        style: {
-          backgroundColor: theme.palette.info.lightest,
-          border: `1px solid ${theme.palette.info.main}${alpha32}`,
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
-          "& .MuiAlert-icon": {
-            color: theme.palette.info.main,
-          },
-        },
-      },
-      {
-        props: { severity: "success", variant: "banner" },
-        style: {
-          backgroundColor: theme.palette.success.lightest,
-          border: `1px solid ${theme.palette.success.main}${alpha32}`,
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
-          "& .MuiAlert-icon": {
-            color: theme.palette.success.main,
-          },
-        },
-      },
-      {
-        props: { severity: "warning", variant: "banner" },
-        style: {
-          backgroundColor: theme.palette.warning.lightest,
-          border: `1px solid ${theme.palette.warning.main}${alpha32}`,
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
-          "& .MuiAlert-icon": {
-            color: theme.palette.warning.main,
-          },
-        },
-      },
-    ],
-  };
-};
-
-/**
- * MuiAlertTitle Component
- * @param theme - Theme.
- * @returns MuiAlertTitle component theme styles.
- */
-export const MuiAlertTitle = (theme: Theme): Components["MuiAlertTitle"] => {
-  return {
-    styleOverrides: {
-      root: {
-        ...theme.typography[TEXT_BODY_LARGE_500],
-        margin: 0,
-      },
-    },
-  };
 };
 
 /**
@@ -1214,6 +1056,18 @@ export const MuiOutlinedInput = (
 export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
   return {
     variants: [
+      {
+        props: { elevation: 1 },
+        style: {
+          boxShadow: theme.shadows[1], // elevation01
+        },
+      },
+      {
+        props: { elevation: 2 },
+        style: {
+          boxShadow: theme.shadows[2], // elevation02
+        },
+      },
       {
         props: { variant: "footer" },
         style: {

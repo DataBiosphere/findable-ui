@@ -6,8 +6,8 @@ import { getLocalStorage } from "./common/utils";
  * @param key - Local storage key.
  * @returns local storage value.
  */
-export function useLocalStorage(key: string): string | null {
-  const [value, setValue] = useState<string | null>(null);
+export function useLocalStorage(key: string): string | null | undefined {
+  const [value, setValue] = useState<string | null>();
 
   useEffect(() => {
     setValue(getLocalStorage(key));

@@ -1,10 +1,10 @@
 import React from "react";
-import { BaseComponentProps } from "../../../../../../../../theme/common/types";
 import {
   ImageSrc,
   StaticImage,
 } from "../../../../../../../common/StaticImage/staticImage";
 import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
+import { BaseComponentProps } from "../../../../../../../types";
 import { StyledLink } from "./logo.styles";
 
 export interface LogoProps extends BaseComponentProps {
