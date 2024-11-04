@@ -37,8 +37,8 @@ export interface Service {
 }
 
 export enum AUTH_STATUS {
-  DONE = "DONE",
   PENDING = "PENDING",
+  SETTLED = "SETTLED",
 }
 
 export interface UpdateAuthStateAction {
