@@ -4,8 +4,8 @@ import { useAuthentication } from "../../../providers/authentication/authenticat
 import { UseProfile } from "./types";
 
 /**
- * Authentication hook.
- * @returns authentication context.
+ * Profile hook - returns user profile.
+ * @returns user profile.
  */
 export const useProfile = (): UseProfile => {
   const {
