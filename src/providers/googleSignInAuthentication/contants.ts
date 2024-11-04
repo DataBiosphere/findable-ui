@@ -13,5 +13,5 @@ export const AUTH_STATE: AuthState = {
 
 export const AUTHENTICATION_STATE: AuthenticationState = {
   ...DEFAULT_AUTHENTICATION_STATE,
-  status: AUTHENTICATION_STATUS.DONE,
+  status: AUTHENTICATION_STATUS.SETTLED,
 };

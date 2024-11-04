@@ -47,10 +47,10 @@ function mapAuthenticationStatus(
 ): AUTHENTICATION_STATUS {
   switch (status) {
     case "authenticated":
-      return AUTHENTICATION_STATUS.DONE;
+      return AUTHENTICATION_STATUS.SETTLED;
     case "loading":
       return AUTHENTICATION_STATUS.PENDING;
     default:
-      return AUTHENTICATION_STATUS.DONE;
+      return AUTHENTICATION_STATUS.SETTLED;
   }
 }

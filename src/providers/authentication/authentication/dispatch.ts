@@ -13,7 +13,7 @@ import {
  */
 export function authenticationComplete(): UpdateAuthenticationAction {
   return {
-    payload: { status: AUTHENTICATION_STATUS.DONE },
+    payload: { status: AUTHENTICATION_STATUS.SETTLED },
     type: AuthenticationActionKind.UpdateAuthentication,
   };
 }

@@ -1,8 +1,8 @@
 import { Dispatch } from "react";
 
 export enum AUTHENTICATION_STATUS {
-  DONE = "DONE",
   PENDING = "PENDING",
+  SETTLED = "SETTLED",
 }
 
 export type AuthenticationAction =
