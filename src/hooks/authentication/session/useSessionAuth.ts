@@ -43,7 +43,7 @@ function getSession(
   switch (status) {
     case AUTH_STATUS.PENDING:
       return { isAuthenticated: false, status };
-    case AUTH_STATUS.DONE:
+    case AUTH_STATUS.SETTLED:
       return { isAuthenticated, status };
     default:
       return { isAuthenticated: false, status };
@@ -57,5 +57,5 @@ function getSession(
  */
 function getSessionStatus(status: AUTHENTICATION_STATUS): AUTH_STATUS {
   if (status === AUTHENTICATION_STATUS.PENDING) return AUTH_STATUS.PENDING;
-  return AUTH_STATUS.DONE;
+  return AUTH_STATUS.SETTLED;
 }
