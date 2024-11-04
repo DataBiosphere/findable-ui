@@ -13,7 +13,7 @@ export const useSessionActive = (authState: AuthState): void => {
   const { status } = authState;
   const { callbackUrl } = useRouteHistory(2);
   useEffect(() => {
-    if (status !== AUTH_STATUS.DONE) return;
+    if (status !== AUTH_STATUS.SETTLED) return;
     Router.push(callbackUrl(transformRoute));
   }, [callbackUrl, status]);
 };

@@ -8,7 +8,7 @@ import {
 
 export const AUTH_STATE: AuthState = {
   ...DEFAULT_AUTH_STATE,
-  status: AUTH_STATUS.DONE,
+  status: AUTH_STATUS.SETTLED,
 };
 
 export const AUTHENTICATION_STATE: AuthenticationState = {
