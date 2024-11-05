@@ -3,7 +3,9 @@ import {
   expireTimeInSeconds,
   useAuthenticationNIHExpiry,
 } from "../../../../../../../../hooks/useAuthentication/useAuthenticationNIHExpiry";
-import { FluidAlert } from "../../../../../../../common/Alert/alert.styles";
+import { Alert } from "../../../../../../../common/Alert/alert";
+import { ALERT_PROPS } from "../../../../../../../common/Alert/constants";
+import { FluidPaper } from "../../../../../../../common/Paper/paper.styles";
 import { Link } from "../../../../../../../Links/components/Link/link";
 
 export const NIHAccountExpiryWarning = (): JSX.Element | null => {
@@ -14,23 +16,19 @@ export const NIHAccountExpiryWarning = (): JSX.Element | null => {
   if (!isReady) return null;
 
   return linkWillExpire || linkExpired ? (
-    <FluidAlert
-      severity="warning"
-      title={
-        <>
-          <span>{getExpiryMessage(linkExpired, linkExpireTime)}</span>{" "}
-          <span>
-            Please{" "}
-            <Link
-              label="renew your account"
-              url="https://support.terra.bio/hc/en-us/articles/360038086332-Linking-authorization-accessing-controlled-data-on-external-servers#heading-4"
-            />{" "}
-            link.
-          </span>
-        </>
-      }
-      variant="banner"
-    />
+    <Alert {...ALERT_PROPS.STANDARD_WARNING} component={FluidPaper}>
+      <span>
+        <span>{getExpiryMessage(linkExpired, linkExpireTime)}</span>{" "}
+        <span>
+          Please{" "}
+          <Link
+            label="renew your account"
+            url="https://support.terra.bio/hc/en-us/articles/360038086332-Linking-authorization-accessing-controlled-data-on-external-servers#heading-4"
+          />{" "}
+          link.
+        </span>
+      </span>
+    </Alert>
   ) : null;
 };
 
