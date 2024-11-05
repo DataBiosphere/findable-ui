@@ -2,6 +2,6 @@ export interface BaseComponentProps {
   className?: string;
 }
 
-export interface TestId {
+export interface TestIdProps {
   testId?: string;
 }
