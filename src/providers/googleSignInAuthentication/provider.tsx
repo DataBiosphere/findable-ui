@@ -10,7 +10,7 @@ import { useTokenReducer } from "../../hooks/authentication/token/useTokenReduce
 import { AuthContext } from "../authentication/auth/context";
 import { AuthenticationContext } from "../authentication/authentication/context";
 import { CredentialsContext } from "../authentication/credentials/context";
-import { AUTH_STATE, AUTHENTICATION_STATE } from "./contants";
+import { AUTH_STATE, AUTHENTICATION_STATE } from "./constants";
 import { useGoogleSignInService } from "./hooks/useGoogleSignInService";
 import { GoogleSignInAuthenticationProviderProps } from "./types";
 
