@@ -1,26 +1,21 @@
-import { AlertProps as MAlertProps } from "@mui/material";
-import React, { Fragment, ReactNode } from "react";
+import { AlertProps, Fade } from "@mui/material";
+import React from "react";
 import { useSessionTimeout } from "../../../../../hooks/useSessionTimeout";
-import { Banner } from "./sessionTimeout.styles";
-
-export interface SessionTimeoutProps extends Omit<MAlertProps, "title"> {
-  className?: string;
-  title?: ReactNode;
-}
+import { BaseComponentProps, ContentProps } from "../../../../types";
+import { Banner } from "../../banner";
 
 export const SessionTimeout = ({
+  children,
   className,
-  title = "For your security, you have been logged out due to 15 minutes of inactivity.",
+  content,
   ...props
-}: SessionTimeoutProps): JSX.Element => {
+}: AlertProps & BaseComponentProps & ContentProps): JSX.Element => {
   const { clearSessionTimeout, isSessionTimeout } = useSessionTimeout();
   return (
-    <Fragment>
-      {isSessionTimeout && (
-        <Banner className={className} onClose={clearSessionTimeout} {...props}>
-          {title}
-        </Banner>
-      )}
-    </Fragment>
+    <Fade in={isSessionTimeout} unmountOnExit>
+      <Banner className={className} onClose={clearSessionTimeout} {...props}>
+        {content || children}
+      </Banner>
+    </Fade>
   );
 };
