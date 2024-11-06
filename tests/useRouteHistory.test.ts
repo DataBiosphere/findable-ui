@@ -5,11 +5,9 @@ import Router, { NextRouter } from "next/router";
 const ROOT_PATH = "/";
 const ROUTES = ["/route1", "/route2", "/route3", "/route4"];
 
-jest.unstable_mockModule("next/router", async () => {
-  const original =
-    jest.requireActual<typeof import("next/router")>("next/router");
+jest.unstable_mockModule("next/router", () => {
   return {
-    ...original,
+    ...jest.requireActual<typeof import("next/router")>("next/router"),
     useRouter: jest.fn(),
   };
 });
