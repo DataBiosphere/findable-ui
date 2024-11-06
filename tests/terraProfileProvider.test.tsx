@@ -55,6 +55,8 @@ const { TerraProfileProvider } = await import(
   "../src/providers/authentication/terra/provider"
 );
 
+const MOCK_AUTHENTICATION_DISPATCH = jest.fn();
+const MOCK_CREDENTIALS_DISPATCH = jest.fn();
 const MOCK_USE_AUTHENTICATION = useAuthentication as jest.MockedFunction<
   typeof useAuthentication
 >;
@@ -66,17 +68,14 @@ const MOCK_USE_FETCH_PROFILES = useFetchProfiles as jest.MockedFunction<
 >;
 
 describe("TerraProfileProvider", () => {
-  const mockAuthenticationDispatch = jest.fn();
-  const mockCredentialsDispatch = jest.fn();
-
   beforeEach(() => {
     jest.clearAllMocks();
     MOCK_USE_AUTHENTICATION.mockReturnValue({
-      authenticationDispatch: mockAuthenticationDispatch,
+      authenticationDispatch: MOCK_AUTHENTICATION_DISPATCH,
       authenticationState: DEFAULT_AUTHENTICATION_STATE,
     });
     MOCK_USE_CREDENTIALS.mockReturnValue({
-      credentialsDispatch: mockCredentialsDispatch,
+      credentialsDispatch: MOCK_CREDENTIALS_DISPATCH,
       credentialsState: DEFAULT_CREDENTIALS_STATE,
     });
     MOCK_USE_FETCH_PROFILES.mockReturnValue(PROFILE_PENDING);
@@ -88,8 +87,8 @@ describe("TerraProfileProvider", () => {
         <div>Child Component</div>
       </TerraProfileProvider>
     );
-    expect(mockAuthenticationDispatch).not.toHaveBeenCalled();
-    expect(mockCredentialsDispatch).not.toHaveBeenCalled();
+    expect(MOCK_AUTHENTICATION_DISPATCH).not.toHaveBeenCalled();
+    expect(MOCK_CREDENTIALS_DISPATCH).not.toHaveBeenCalled();
   });
 
   it("calls authenticationComplete dispatch when terra profile is SETTLED and INACTIVE", () => {
@@ -99,10 +98,10 @@ describe("TerraProfileProvider", () => {
         <div>Child Component</div>
       </TerraProfileProvider>
     );
-    expect(mockAuthenticationDispatch).toHaveBeenCalledWith(
+    expect(MOCK_AUTHENTICATION_DISPATCH).toHaveBeenCalledWith(
       authenticationComplete()
     );
-    expect(mockCredentialsDispatch).not.toHaveBeenCalled();
+    expect(MOCK_CREDENTIALS_DISPATCH).not.toHaveBeenCalled();
   });
 
   it("dispatches authenticationComplete and updateCredentials when terra profile is SETTLED and ACTIVE", () => {
@@ -112,10 +111,10 @@ describe("TerraProfileProvider", () => {
         <div>Child Component</div>
       </TerraProfileProvider>
     );
-    expect(mockAuthenticationDispatch).toHaveBeenCalledWith(
+    expect(MOCK_AUTHENTICATION_DISPATCH).toHaveBeenCalledWith(
       authenticationComplete()
     );
-    expect(mockCredentialsDispatch).toHaveBeenCalledWith(
+    expect(MOCK_CREDENTIALS_DISPATCH).toHaveBeenCalledWith(
       updateCredentials(TOKEN)
     );
   });
