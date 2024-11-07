@@ -66,7 +66,15 @@ describe("useRouteHistory", () => {
       Router.events.emit("routeChangeComplete", ROUTES[2]);
       Router.events.emit("routeChangeComplete", ROUTES[3]);
     });
-    expect(result.current.callbackUrl()).toBe(ROUTES[2]);
+    // Use `callbackUrl` with a transform function to capture the full history.
+    let history;
+    result.current.callbackUrl((routes) => {
+      history = routes;
+      return ROOT_PATH;
+    });
+    // After emitting the routes, the history stack is [ROUTES[3], ROUTES[2].
+    expect(history).toHaveLength(2);
+    expect(history).toEqual([ROUTES[3], ROUTES[2]]);
   });
 
   test("uses transform function if provided", () => {
