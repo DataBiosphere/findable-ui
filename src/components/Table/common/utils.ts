@@ -344,7 +344,6 @@ export function getTableStatePagination(
  * @returns list of headers.
  */
 function getHeadersTableData<T extends RowData>(rows: Row<T>[]): TableData[] {
-  console.log(rows[0].getAllCells());
   return rows[0]
     .getAllCells()
     .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
