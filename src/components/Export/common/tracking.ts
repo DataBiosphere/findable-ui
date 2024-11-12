@@ -38,3 +38,22 @@ export function exportToTerraTracking(entity_name: string): void {
     [EVENT_PARAM.ENTITY_NAME]: entity_name,
   });
 }
+
+/**
+ * Executes event tracking for individual file downloads
+ * @param entity_name - The name of the file downloaded.
+ * @param related_entity_id - The ID of the file's dataset / project
+ * @param related_entity_name -The name of the file's dataset / project
+ */
+export function trackFileDownload(
+  entity_name: string,
+  related_entity_id: string,
+  related_entity_name: string
+): void {
+  // Track the file downloaded event.
+  track(EVENT_NAME.FILE_DOWNLOADED, {
+    [EVENT_PARAM.ENTITY_NAME]: entity_name,
+    [EVENT_PARAM.RELATED_ENTITY_ID]: related_entity_id,
+    [EVENT_PARAM.RELATED_ENTITY_NAME]: related_entity_name,
+  });
+}

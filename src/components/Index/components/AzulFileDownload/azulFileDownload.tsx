@@ -1,9 +1,11 @@
 import { Box } from "@mui/material";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import { stringifyValues } from "../../../../common/utils";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { IconButton } from "../../../common/IconButton/iconButton";
+import { trackFileDownload } from "../../../Export/common/tracking";
 import { StyledIconButton } from "./azulFileDownload.styles";
 import {
   AZUL_FILE_DOWNLOAD_TEST_ID,
@@ -12,10 +14,16 @@ import {
 } from "./common/constants";
 
 export interface AzulFileDownloadProps {
+  entityName?: string; // The name of the file downloaded.
+  relatedEntityId?: string[]; // An array of IDs of the file's datasets / projects
+  relatedEntityName?: string[]; // An array of names of the file's datasets / projects
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
 }
 
 export const AzulFileDownload = ({
+  entityName,
+  relatedEntityId,
+  relatedEntityName,
   url,
 }: AzulFileDownloadProps): JSX.Element => {
   const { fileUrl, isLoading, run } = useFileLocation(url);
@@ -49,6 +57,11 @@ export const AzulFileDownload = ({
           Icon={isLoading ? LoadingIcon : DownloadIcon}
           onClick={(): void => {
             setIsRequestPending(true);
+            trackFileDownload(
+              entityName ?? "",
+              stringifyValues(relatedEntityId ?? [""]),
+              stringifyValues(relatedEntityName ?? [""])
+            );
             run();
           }}
           size="medium"
