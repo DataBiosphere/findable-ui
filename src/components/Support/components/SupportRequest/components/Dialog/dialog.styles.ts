@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Fab as MFab, Popover as MPopover } from "@mui/material";
+import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
 import { smokeMain } from "../../../../../../styles/common/mixins/colors";
 import { shadows02 } from "../../../../../../styles/common/mixins/shadows";
 import { tabletUp } from "../../../../../../theme/common/breakpoints";
@@ -15,6 +16,10 @@ export const Fab = styled(MFab)<Props>`
   position: fixed;
   right: 16px;
   z-index: ${({ open }) => (open ? 1350 : 1050)}; // Above backdrop component.
+
+  ${mediaTabletUp} {
+    bottom: 72px;
+  }
 `;
 
 export const Popover = styled(MPopover)`

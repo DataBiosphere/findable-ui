@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
 import {
   primaryDark,
   primaryMain,
@@ -26,5 +27,9 @@ export const Fab = styled("a")`
 
   &:hover {
     background-color: ${primaryDark};
+  }
+
+  ${mediaTabletUp} {
+    bottom: 72px;
   }
 `;

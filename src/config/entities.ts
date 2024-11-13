@@ -360,6 +360,7 @@ export interface SiteConfig {
   explorerTitle: HeroTitle;
   export?: ExportConfig;
   exportToTerraUrl?: string; // TODO(cc) revist location; possibly nest inside "export"?
+  gitHubUrl?: string;
   layout: {
     floating?: FloatingConfig;
     footer: FooterProps;

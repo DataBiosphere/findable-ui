@@ -6,10 +6,11 @@ import { NavLinkItem } from "../Header/components/Content/components/Navigation/
 import { AppBar, Link, Links, Socials } from "./footer.styles";
 
 export interface FooterProps {
-  Branding: ReactNode;
+  Branding?: ReactNode;
   className?: string;
   navLinks?: NavLinkItem[];
   socials?: Social[];
+  versionInfo?: ReactNode;
 }
 
 export const Footer = ({
@@ -17,6 +18,7 @@ export const Footer = ({
   className,
   navLinks,
   socials,
+  versionInfo,
 }: FooterProps): JSX.Element => {
   return (
     <AppBar
@@ -27,7 +29,7 @@ export const Footer = ({
     >
       <Toolbar variant="dense">
         {Branding}
-        {(navLinks || socials) && (
+        {(navLinks || socials || versionInfo) && (
           <Links>
             {navLinks &&
               navLinks.map(({ label, target = ANCHOR_TARGET.SELF, url }, i) => (
@@ -39,6 +41,7 @@ export const Footer = ({
                 />
               ))}
             {socials && <Socials buttonSize="small" socials={socials} />}
+            {versionInfo}
           </Links>
         )}
       </Toolbar>
