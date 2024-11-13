@@ -12,7 +12,7 @@ import {
   ExecutionEnvironment,
   FormFacet,
 } from "../../common/entities";
-import { bulkDownloadTracking } from "../../common/tracking";
+import { trackBulkDownloadRequested } from "../../common/tracking";
 import { DownloadCurlCommandNotStarted } from "./components/DownloadCurlCommandNotStarted/downloadCurlCommandNotStarted";
 import { DownloadCurlCommandReady } from "./components/DownloadCurlCommandReady/downloadCurlCommandReady";
 
@@ -63,7 +63,7 @@ export const DownloadCurlCommand = ({
       isLoading={isLoading}
       onRequestManifest={(): void => {
         // Execute GTM tracking.
-        bulkDownloadTracking(entityList, executionEnvironment);
+        trackBulkDownloadRequested(entityList, executionEnvironment);
         // Request manifest.
         run();
       }}

@@ -6,7 +6,7 @@ import { EVENT_NAME, EVENT_PARAM } from "../../../common/analytics/entities";
  * @param entity_name - Entity (tab) name.
  * @param toolName - Tool name.
  */
-export function bulkDownloadTracking(
+export function trackBulkDownloadRequested(
   entity_name: string,
   toolName: string
 ): void {
@@ -21,7 +21,7 @@ export function bulkDownloadTracking(
  * Executes event tracking for the file manifest export.
  * @param entity_name - Entity (tab) name.
  */
-export function fileManifestTracking(entity_name: string): void {
+export function trackFileManifestRequested(entity_name: string): void {
   // Track the file manifest requested event.
   track(EVENT_NAME.INDEX_FILE_MANIFEST_REQUESTED, {
     [EVENT_PARAM.ENTITY_NAME]: entity_name,
@@ -32,7 +32,7 @@ export function fileManifestTracking(entity_name: string): void {
  * Executes event tracking for the Terra export.
  * @param entity_name - Entity (tab) name.
  */
-export function exportToTerraTracking(entity_name: string): void {
+export function trackExportToTerraRequested(entity_name: string): void {
   // Track the export to terra event.
   track(EVENT_NAME.INDEX_ANALYZE_IN_TERRA_REQUESTED, {
     [EVENT_PARAM.ENTITY_NAME]: entity_name,
@@ -45,7 +45,7 @@ export function exportToTerraTracking(entity_name: string): void {
  * @param related_entity_id - The ID of the file's dataset / project
  * @param related_entity_name -The name of the file's dataset / project
  */
-export function trackFileDownload(
+export function trackFileDownloaded(
   entity_name: string,
   related_entity_id: string,
   related_entity_name: string

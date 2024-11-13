@@ -8,7 +8,7 @@ import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useReq
 import { FileLocation } from "../../../../hooks/useRequestFileLocation";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet } from "../../common/entities";
-import { fileManifestTracking } from "../../common/tracking";
+import { trackFileManifestRequested } from "../../common/tracking";
 import { ManifestDownloadNotStarted } from "./components/ManifestDownloadNotStarted/manifestDownloadNotStarted";
 import { ManifestDownloadReady } from "./components/ManifestDownloadReady/manifestDownloadReady";
 
@@ -55,7 +55,7 @@ export const ManifestDownload = ({
       formFacet={formFacet}
       isLoading={isLoading}
       onRequestManifest={(): void => {
-        fileManifestTracking(entityList);
+        trackFileManifestRequested(entityList);
         run();
       }}
     />
