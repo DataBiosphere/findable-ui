@@ -1,5 +1,6 @@
 import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
+import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
   alpha32,
@@ -417,8 +418,23 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         color: "inherit",
         margin: "0 -2px 0 0",
       },
+      label: {
+        ...theme.typography[TEXT_BODY_SMALL_400],
+      },
     },
     variants: [
+      {
+        props: { size: CHIP_PROPS.SIZE.SMALL },
+        style: {
+          height: 20,
+        },
+      },
+      {
+        props: { size: CHIP_PROPS.SIZE.MEDIUM },
+        style: {
+          height: 24,
+        },
+      },
       {
         props: { color: "default" },
         style: {
