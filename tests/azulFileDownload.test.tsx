@@ -21,6 +21,11 @@ describe("AzulFileDownload", () => {
   const FILE_URL = "https://example.com/storage/file";
   const MOCK_RUN = jest.fn();
   const URL = "https://example.com/repository/file";
+  const TRACKING_PARAMETERS = {
+    entityName: "filename.extension",
+    relatedEntityId: "id",
+    relatedEntityName: "name",
+  };
   beforeEach(() => {
     (useFileLocation as jest.Mock).mockReturnValue({
       fileUrl: undefined,
@@ -33,24 +38,24 @@ describe("AzulFileDownload", () => {
   });
   describe("download button", () => {
     test("should render the download button", () => {
-      render(<AzulFileDownload url={URL} />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       expect(buttonEl).not.toBeNull();
     });
     test("should disable the download button if URL is undefined", () => {
-      render(<AzulFileDownload />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       expect(buttonEl.disabled).toBe(true);
     });
     test("should enable the download button if a URL is provided", () => {
-      render(<AzulFileDownload url={URL} />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       expect(buttonEl.disabled).toBe(false);
     });
   });
   describe("download functionality", () => {
     test("should call the run function when the button is clicked", () => {
-      render(<AzulFileDownload url={URL} />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);
       expect(MOCK_RUN).toHaveBeenCalled();
@@ -61,7 +66,7 @@ describe("AzulFileDownload", () => {
         isLoading: false,
         run: MOCK_RUN,
       });
-      render(<AzulFileDownload url={URL} />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);
       await waitFor(() => {
@@ -80,7 +85,7 @@ describe("AzulFileDownload", () => {
         isLoading: false,
         run: MOCK_RUN,
       });
-      render(<AzulFileDownload url={URL} />);
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       const anchorEl = getAnchorEl(AZUL_FILE_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);

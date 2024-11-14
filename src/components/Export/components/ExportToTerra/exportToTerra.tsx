@@ -7,7 +7,7 @@ import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManife
 import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
-import { exportToTerraTracking } from "../../common/tracking";
+import { trackExportToTerraRequested } from "../../common/tracking";
 import { ExportToTerraNotStarted } from "./components/ExportToTerraNotStarted/exportToTerraNotStarted";
 import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerraReady";
 
@@ -57,7 +57,7 @@ export const ExportToTerra = ({
       manifestDownloadFormats={manifestDownloadFormats}
       onRequestManifest={(): void => {
         // Execute GA tracking
-        exportToTerraTracking(entityList);
+        trackExportToTerraRequested(entityList);
         // Request manifest
         run();
       }}

@@ -9,6 +9,7 @@ export enum EVENT_NAME {
   ENTITY_SELECTED = "entity_selected",
   ENTITY_TABLE_PAGINATED = "entity_table_paginated",
   ENTITY_TABLE_SORTED = "entity_table_sorted",
+  FILE_DOWNLOADED = "file_downloaded",
   FILTER_SELECTED = "filter_selected",
   INDEX_ANALYZE_IN_TERRA_REQUESTED = "index_analyze_in_terra_requested",
   INDEX_FILE_MANIFEST_REQUESTED = "index_file_manifest_requested",
@@ -23,6 +24,8 @@ export enum EVENT_PARAM {
   FILTER_NAME = "filter_name",
   FILTER_VALUE = "filter_value",
   PAGINATION_DIRECTION = "pagination_direction",
+  RELATED_ENTITY_ID = "related_entity_id",
+  RELATED_ENTITY_NAME = "related_entity_name",
   SORT_DIRECTION = "sort_direction",
   TOOL_NAME = "tool_name",
 }
@@ -60,6 +63,11 @@ export type EventParams = {
     [EVENT_PARAM.ENTITY_NAME]: string;
     [EVENT_PARAM.COLUMN_NAME]: string;
     [EVENT_PARAM.SORT_DIRECTION]: SORT_DIRECTION;
+  };
+  [EVENT_NAME.FILE_DOWNLOADED]: {
+    [EVENT_PARAM.ENTITY_NAME]: string;
+    [EVENT_PARAM.RELATED_ENTITY_ID]: string;
+    [EVENT_PARAM.RELATED_ENTITY_NAME]: string;
   };
   [EVENT_NAME.FILTER_SELECTED]: {
     [EVENT_PARAM.FILTER_NAME]: string;
