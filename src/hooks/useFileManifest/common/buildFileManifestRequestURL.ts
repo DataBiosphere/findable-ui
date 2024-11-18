@@ -20,13 +20,12 @@ export interface FileManifestRequestURL {
  */
 export const buildFileManifestRequestURL = (
   url: string,
-  filters: Filters,
+  filters: Filters | undefined,
   catalog: string,
   manifestFormat: ManifestDownloadFormat | undefined
 ): FileManifestRequestURL | undefined => {
-  if (!manifestFormat) {
-    return;
-  }
+  if (!manifestFormat) return;
+  if (!filters) return;
 
   // Build request params.
   const requestParams = new URLSearchParams({

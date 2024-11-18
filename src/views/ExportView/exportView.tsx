@@ -14,7 +14,7 @@ export const ExportView = (props: ExportViewProps): JSX.Element => {
     exploreState: { filterState },
   } = useExploreState();
   useUpdateURLSearchParams();
-  useRequestFileManifest(undefined, filterState, undefined);
+  useRequestFileManifest(undefined, undefined, filterState, undefined);
   const { tabs, top } = useExportConfig();
   const currentTab = tabs[0];
   const { mainColumn, sideColumn } = currentTab;

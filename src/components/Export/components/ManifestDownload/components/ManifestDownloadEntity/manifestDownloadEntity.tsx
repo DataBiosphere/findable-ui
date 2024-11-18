@@ -13,10 +13,16 @@ export interface ManifestDownloadEntityProps {
 }
 
 export const ManifestDownloadEntity = ({
+  fileManifestType,
   filters,
   metadataFilters,
 }: ManifestDownloadEntityProps): JSX.Element => {
-  useRequestFileManifest(MANIFEST_DOWNLOAD_FORMAT.COMPACT, filters, undefined);
+  useRequestFileManifest(
+    fileManifestType,
+    MANIFEST_DOWNLOAD_FORMAT.COMPACT,
+    filters,
+    undefined
+  );
   return (
     <>
       <FileManifestSpreadsheet filters={metadataFilters} />

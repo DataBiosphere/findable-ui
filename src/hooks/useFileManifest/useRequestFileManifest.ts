@@ -3,14 +3,17 @@ import { ManifestDownloadFormat } from "../../apis/azul/common/entities";
 import { Filters } from "../../common/entities";
 import { FileManifestActionKind } from "../../providers/fileManifestState";
 import { useFileManifestState } from "../useFileManifestState";
+import { FileManifestType } from "./common/entities";
 
 /**
  * Initializes and fetches file manifest comprising file facets and summary for the given file manifest format.
+ * @param fileManifestType - File manifest type.
  * @param fileManifestFormat - File manifest format.
  * @param initialFilters - Filters to initialize file manifest request.
  * @param fileSummaryFacetName - File summary facet name.
  */
 export const useRequestFileManifest = (
+  fileManifestType: FileManifestType | undefined,
   fileManifestFormat: ManifestDownloadFormat | undefined,
   initialFilters: Filters | undefined = [],
   fileSummaryFacetName?: string
@@ -26,6 +29,7 @@ export const useRequestFileManifest = (
     fileManifestDispatch({
       payload: {
         fileManifestFormat,
+        fileManifestType,
         fileSummaryFacetName,
         filters: initFilters,
       },
@@ -40,6 +44,7 @@ export const useRequestFileManifest = (
   }, [
     fileManifestDispatch,
     fileManifestFormat,
+    fileManifestType,
     fileSummaryFacetName,
     initFilters,
   ]);
