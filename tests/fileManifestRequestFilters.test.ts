@@ -1,5 +1,4 @@
-import { SelectedFilter } from "../lib/common/entities";
-import { Filters } from "../src/common/entities";
+import { Filters, SelectedFilter } from "../src/common/entities";
 import {
   FILE_MANIFEST_TYPE,
   FileFacet,
