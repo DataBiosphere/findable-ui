@@ -28,28 +28,8 @@ import { useFetchFilesFacets } from "../hooks/useFileManifest/useFetchFilesFacet
 import { useFetchSummary } from "../hooks/useFileManifest/useFetchSummary";
 import { useFileManifestURL } from "../hooks/useFileManifest/useFileManifestURL";
 import { updateFileManifestAction } from "./fileManifestState/actions";
+import { FILE_MANIFEST_STATE } from "./fileManifestState/constants";
 import { getRequestFilters } from "./fileManifestState/utils";
-
-// Default file manifest state.
-export const DEFAULT_FILE_MANIFEST_STATE: FileManifestState = {
-  fileManifestFormat: undefined,
-  fileManifestType: undefined,
-  fileSummary: undefined,
-  fileSummaryFacetName: undefined,
-  fileSummaryFilters: [],
-  filesFacets: [],
-  filesFacetsStatus: FILES_FACETS_STATUS.NOT_STARTED,
-  filters: [],
-  isEnabled: false,
-  isFacetsLoading: false,
-  isFacetsSuccess: false,
-  isFileSummaryLoading: false,
-  isLoading: false,
-  isSummaryLoading: false,
-  requestParams: undefined,
-  requestURL: undefined,
-  summary: undefined,
-};
 
 /**
  * File manifest state.
@@ -86,7 +66,7 @@ export const FileManifestStateContext =
   createContext<FileManifestStateContextProps>({
     // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default state.
     fileManifestDispatch: () => {},
-    fileManifestState: DEFAULT_FILE_MANIFEST_STATE,
+    fileManifestState: FILE_MANIFEST_STATE,
   });
 
 export interface FileManifestStateProps {
@@ -106,7 +86,7 @@ export function FileManifestStateProvider({
   const [fileManifestState, fileManifestDispatch] = useReducer(
     (s: FileManifestState, a: FileManifestAction) =>
       fileManifestReducer(s, a, { URL, catalog }),
-    DEFAULT_FILE_MANIFEST_STATE
+    FILE_MANIFEST_STATE
   );
 
   const { fileSummaryFacetName, fileSummaryFilters, filters, isEnabled } =
