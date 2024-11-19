@@ -25,6 +25,7 @@ export interface ManifestDownloadProps {
 
 export const ManifestDownload = ({
   fileManifestState,
+  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
@@ -33,6 +34,7 @@ export const ManifestDownload = ({
   ManifestDownloadSuccess,
 }: ManifestDownloadProps): JSX.Element => {
   useRequestFileManifest(
+    fileManifestType,
     MANIFEST_DOWNLOAD_FORMAT.COMPACT,
     filters,
     fileSummaryFacetName

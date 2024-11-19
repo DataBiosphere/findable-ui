@@ -32,11 +32,13 @@ export const DownloadCurlCommand = ({
   DownloadCurlStart,
   DownloadCurlSuccess,
   fileManifestState,
+  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
 }: DownloadCurlCommandProps): JSX.Element => {
   useRequestFileManifest(
+    fileManifestType,
     MANIFEST_DOWNLOAD_FORMAT.CURL,
     filters,
     fileSummaryFacetName

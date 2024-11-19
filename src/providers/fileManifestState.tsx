@@ -19,36 +19,26 @@ import {
 import { useCatalog } from "../hooks/useCatalog";
 import { buildNextFilterState } from "../hooks/useCategoryFilter";
 import { buildFileManifestRequestURL } from "../hooks/useFileManifest/common/buildFileManifestRequestURL";
-import { FileFacet } from "../hooks/useFileManifest/common/entities";
+import {
+  FileFacet,
+  FileManifestType,
+  FILES_FACETS_STATUS,
+} from "../hooks/useFileManifest/common/entities";
 import { useFetchFilesFacets } from "../hooks/useFileManifest/useFetchFilesFacets";
 import { useFetchSummary } from "../hooks/useFileManifest/useFetchSummary";
 import { useFileManifestURL } from "../hooks/useFileManifest/useFileManifestURL";
-
-// Default file manifest state.
-export const DEFAULT_FILE_MANIFEST_STATE = {
-  fileManifestFormat: undefined,
-  fileSummary: undefined,
-  fileSummaryFacetName: undefined,
-  fileSummaryFilters: [],
-  filesFacets: [],
-  filters: [],
-  isEnabled: false,
-  isFacetsLoading: false,
-  isFacetsSuccess: false,
-  isFileSummaryLoading: false,
-  isLoading: false,
-  isSummaryLoading: false,
-  requestParams: undefined,
-  requestURL: undefined,
-  summary: undefined,
-};
+import { updateFileManifestAction } from "./fileManifestState/actions";
+import { FILE_MANIFEST_STATE } from "./fileManifestState/constants";
+import { getRequestFilters } from "./fileManifestState/utils";
 
 /**
  * File manifest state.
  */
 export type FileManifestState = {
   fileManifestFormat?: ManifestDownloadFormat;
+  fileManifestType?: FileManifestType;
   filesFacets: FileFacet[];
+  filesFacetsStatus: FILES_FACETS_STATUS;
   fileSummary?: AzulSummaryResponse;
   fileSummaryFacetName?: string;
   fileSummaryFilters: Filters;
@@ -76,7 +66,7 @@ export const FileManifestStateContext =
   createContext<FileManifestStateContextProps>({
     // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default state.
     fileManifestDispatch: () => {},
-    fileManifestState: DEFAULT_FILE_MANIFEST_STATE,
+    fileManifestState: FILE_MANIFEST_STATE,
   });
 
 export interface FileManifestStateProps {
@@ -96,7 +86,7 @@ export function FileManifestStateProvider({
   const [fileManifestState, fileManifestDispatch] = useReducer(
     (s: FileManifestState, a: FileManifestAction) =>
       fileManifestReducer(s, a, { URL, catalog }),
-    DEFAULT_FILE_MANIFEST_STATE
+    FILE_MANIFEST_STATE
   );
 
   const { fileSummaryFacetName, fileSummaryFilters, filters, isEnabled } =
@@ -233,6 +223,7 @@ type UpdateFiltersCategoryAction = {
  */
 type FetchFileManifestPayload = {
   fileManifestFormat?: ManifestDownloadFormat;
+  fileManifestType?: FileManifestType;
   fileSummaryFacetName?: string;
   filters: Filters;
 };
@@ -240,7 +231,7 @@ type FetchFileManifestPayload = {
 /**
  * Update file manifest payload.
  */
-type UpdateFileManifestPayload = {
+export type UpdateFileManifestPayload = {
   filesFacets: FileFacet[];
   fileSummary?: AzulSummaryResponse;
   isFacetsLoading: boolean;
@@ -288,6 +279,7 @@ function fileManifestReducer(
       return {
         ...state,
         fileManifestFormat: undefined,
+        filesFacetsStatus: FILES_FACETS_STATUS.NOT_STARTED,
         isEnabled: false,
         requestParams: undefined,
         requestURL: undefined,
@@ -300,35 +292,29 @@ function fileManifestReducer(
         payload.filters,
         payload.fileSummaryFacetName
       );
-      // Build request params and request URL.
-      const { requestParams, requestURL } =
-        buildFileManifestRequestURL(
-          URL,
-          payload.filters,
-          catalog,
-          payload.fileManifestFormat
-        ) || {};
       return {
         ...state,
         ...payload,
         fileSummaryFilters,
         isEnabled: true,
-        requestParams,
-        requestURL,
+        requestParams: undefined,
+        requestURL: undefined,
       };
     }
     // Updates file manifest.
     case FileManifestActionKind.UpdateFileManifest: {
-      return {
-        ...state,
-        ...payload,
-      };
+      return updateFileManifestAction(state, payload, fileManifestContext);
     }
     // Updates file manifest format.
     case FileManifestActionKind.UpdateFileManifestFormat: {
       // Build request params and request URL.
       const { requestParams, requestURL } =
-        buildFileManifestRequestURL(URL, state.filters, catalog, payload) || {};
+        buildFileManifestRequestURL(
+          URL,
+          getRequestFilters(state),
+          catalog,
+          payload
+        ) || {};
       return {
         ...state,
         fileManifestFormat: payload,
@@ -350,20 +336,13 @@ function fileManifestReducer(
         filters,
         state.fileSummaryFacetName
       );
-      // Build request params and request URL.
-      const { requestParams, requestURL } =
-        buildFileManifestRequestURL(
-          URL,
-          filters,
-          catalog,
-          state.fileManifestFormat
-        ) || {};
       return {
         ...state,
         fileSummaryFilters,
+        filesFacetsStatus: FILES_FACETS_STATUS.NOT_STARTED,
         filters,
-        requestParams,
-        requestURL,
+        requestParams: undefined,
+        requestURL: undefined,
       };
     }
     // Updates selected file manifest filters by category.
@@ -379,20 +358,13 @@ function fileManifestReducer(
         filters,
         state.fileSummaryFacetName
       );
-      // Build request params and request URL.
-      const { requestParams, requestURL } =
-        buildFileManifestRequestURL(
-          URL,
-          filters,
-          catalog,
-          state.fileManifestFormat
-        ) || {};
       return {
         ...state,
         fileSummaryFilters,
+        filesFacetsStatus: FILES_FACETS_STATUS.NOT_STARTED,
         filters,
-        requestParams,
-        requestURL,
+        requestParams: undefined,
+        requestURL: undefined,
       };
     }
     default:

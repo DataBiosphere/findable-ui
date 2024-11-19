@@ -29,6 +29,7 @@ export const ExportToTerra = ({
   ExportToTerraStart,
   ExportToTerraSuccess,
   fileManifestState,
+  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
@@ -38,7 +39,12 @@ export const ExportToTerra = ({
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  useRequestFileManifest(manifestDownloadFormat, filters, fileSummaryFacetName);
+  useRequestFileManifest(
+    fileManifestType,
+    manifestDownloadFormat,
+    filters,
+    fileSummaryFacetName
+  );
   const { requestParams } = fileManifestState;
   const { data, isLoading, run } = useFileManifest();
   const exportURL = useExportToTerraResponseURL(requestParams, data);
