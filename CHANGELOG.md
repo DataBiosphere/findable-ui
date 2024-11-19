@@ -1,5 +1,24 @@
 # Changelog
 
+## [15.0.0](https://github.com/DataBiosphere/findable-ui/compare/v14.0.0...v15.0.0) (2024-11-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* added file download tracking ([#260](https://github.com/DataBiosphere/findable-ui/issues/260)) (#263)
+
+### Features
+
+* add optional version information to footer ([#258](https://github.com/DataBiosphere/findable-ui/issues/258)) ([#265](https://github.com/DataBiosphere/findable-ui/issues/265)) ([7a245ca](https://github.com/DataBiosphere/findable-ui/commit/7a245caf8f8966da3406f04559ecbf19ad978b6e))
+* added file download tracking ([#260](https://github.com/DataBiosphere/findable-ui/issues/260)) ([#263](https://github.com/DataBiosphere/findable-ui/issues/263)) ([092ad93](https://github.com/DataBiosphere/findable-ui/commit/092ad9390cff425c2bcc4a65e7212bde5acd573f))
+
+
+### Bug Fixes
+
+* add support for inclusion of orphans in verbatim PFB ([#264](https://github.com/DataBiosphere/findable-ui/issues/264)) ([#269](https://github.com/DataBiosphere/findable-ui/issues/269)) ([5f295e0](https://github.com/DataBiosphere/findable-ui/commit/5f295e0d008fb5db92b82f7ac1aa09dbbac06bbe))
+* remove `console.log` from `getHeadersTableData` ([#256](https://github.com/DataBiosphere/findable-ui/issues/256)) ([#261](https://github.com/DataBiosphere/findable-ui/issues/261)) ([7a87206](https://github.com/DataBiosphere/findable-ui/commit/7a872063aac9bee7ca05c55c6dc007ca83f5df61))
+* simplify release-please config and remove pat ([#267](https://github.com/DataBiosphere/findable-ui/issues/267)) ([#268](https://github.com/DataBiosphere/findable-ui/issues/268)) ([b6d3efa](https://github.com/DataBiosphere/findable-ui/commit/b6d3efab4c10a71b162df5168595e3142454d62e))
+
 ## [14.0.0](https://github.com/DataBiosphere/findable-ui/compare/v13.0.1...v14.0.0) (2024-11-05)
 
 
