@@ -2,7 +2,9 @@ import { Toolbar } from "@mui/material";
 import React, { ReactNode } from "react";
 import { Social } from "../../../common/Socials/socials";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";
+import { isNodeBoolean } from "../../../utils";
 import { NavLinkItem } from "../Header/components/Content/components/Navigation/navigation";
+import { VersionInfo } from "./components/VersionInfo/versionInfo";
 import { AppBar, Link, Links, Socials } from "./footer.styles";
 
 export interface FooterProps {
@@ -41,7 +43,7 @@ export const Footer = ({
                 />
               ))}
             {socials && <Socials buttonSize="small" socials={socials} />}
-            {versionInfo}
+            {isNodeBoolean(versionInfo) ? <VersionInfo /> : versionInfo}
           </Links>
         )}
       </Toolbar>
