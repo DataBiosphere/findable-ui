@@ -75,6 +75,7 @@ export function getEntityConfig(
   entityListType: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
 ): EntityConfig {
+  if (!entityListType) return getDefaultEntityConfig();
   const entityConfig = entities.find(({ route }) => route === entityListType);
   if (!entityConfig) {
     throw Error("No entity config found with name: " + entityListType);

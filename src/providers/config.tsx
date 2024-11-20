@@ -16,7 +16,7 @@ export type ConfigContextProps = {
 export interface ConfigProps {
   children: ReactNode | ReactNode[];
   config: SiteConfig;
-  entityListType: string;
+  entityListType?: string;
 }
 
 export const ConfigContext = createContext<ConfigContextProps>({
@@ -29,7 +29,7 @@ export const ConfigContext = createContext<ConfigContextProps>({
 export function ConfigProvider({
   children,
   config,
-  entityListType,
+  entityListType = "",
 }: ConfigProps): JSX.Element {
   const { entities } = config;
   const defaultEntityListType = config.redirectRootToPath.slice(1);
