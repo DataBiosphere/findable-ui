@@ -1,5 +1,12 @@
 # Changelog
 
+## [15.0.2](https://github.com/DataBiosphere/findable-ui/compare/v15.0.1...v15.0.2) (2024-11-20)
+
+
+### Bug Fixes
+
+* centre alignment of version info and update Config Provider entity list as optional ([#275](https://github.com/DataBiosphere/findable-ui/issues/275)) ([#276](https://github.com/DataBiosphere/findable-ui/issues/276)) ([4234063](https://github.com/DataBiosphere/findable-ui/commit/4234063fe1180afde7e5195bb54faa453c190ae0))
+
 ## [15.0.1](https://github.com/DataBiosphere/findable-ui/compare/v15.0.0...v15.0.1) (2024-11-20)
 
 
