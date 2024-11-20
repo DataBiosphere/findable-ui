@@ -1,5 +1,12 @@
 # Changelog
 
+## [15.0.1](https://github.com/DataBiosphere/findable-ui/compare/v15.0.0...v15.0.1) (2024-11-20)
+
+
+### Bug Fixes
+
+* access NEXT_PUBLIC environment variables directly from the environment ([#272](https://github.com/DataBiosphere/findable-ui/issues/272)) ([#273](https://github.com/DataBiosphere/findable-ui/issues/273)) ([0926331](https://github.com/DataBiosphere/findable-ui/commit/0926331f4dbe4c069e03789b97fa8888ebfc898a))
+
 ## [15.0.0](https://github.com/DataBiosphere/findable-ui/compare/v14.0.0...v15.0.0) (2024-11-19)
 
 
