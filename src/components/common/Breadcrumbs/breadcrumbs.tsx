@@ -3,6 +3,7 @@ import { Link, Breadcrumbs as MBreadcrumbs, Typography } from "@mui/material";
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { BaseComponentProps } from "../../types";
+import { LINK_PROPS } from "./constants";
 
 export interface Breadcrumb {
   path: string;
@@ -25,7 +26,7 @@ export const Breadcrumbs = ({
         <MBreadcrumbs className={className} separator={Separator}>
           {breadcrumbs.map(({ path, text }, b) =>
             path ? (
-              <Link component={NLink} key={b} href={path}>
+              <Link {...LINK_PROPS} component={NLink} key={b} href={path}>
                 {text}
               </Link>
             ) : (
