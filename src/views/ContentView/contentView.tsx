@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import { LayoutStyle } from "../../components/Layout/components/ContentLayout/common/entities";
 import { ContentLayout } from "../../components/Layout/components/ContentLayout/contentLayout";
+import { BaseComponentProps } from "../../components/types";
 
 export interface ContentViewProps {
   content: ReactNode;
@@ -10,13 +11,15 @@ export interface ContentViewProps {
 }
 
 export const ContentView = ({
+  className,
   content,
   layoutStyle,
   navigation,
   outline,
-}: ContentViewProps): JSX.Element => {
+}: BaseComponentProps & ContentViewProps): JSX.Element => {
   return (
     <ContentLayout
+      className={className}
       content={content}
       layoutStyle={layoutStyle}
       navigation={navigation}

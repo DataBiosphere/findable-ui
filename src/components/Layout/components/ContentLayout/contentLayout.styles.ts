@@ -30,6 +30,7 @@ const COLOR: Record<
 };
 
 interface LayoutProps {
+  hasNavigation?: boolean;
   panelColor?: PanelBackgroundColor;
 }
 
@@ -49,10 +50,18 @@ export const ContentLayout = styled.div<LayoutProps>`
   margin: 0 auto;
 
   ${mediaDesktopSmallUp} {
-    grid-template-areas: "navigation content";
-    grid-template-columns:
-      ${NAV_GRID_WIDTH}px
-      1fr;
+    ${({ hasNavigation }) =>
+      hasNavigation
+        ? css`
+            grid-template-areas: "navigation content";
+            grid-template-columns:
+              ${NAV_GRID_WIDTH}px
+              1fr;
+          `
+        : css`
+            grid-template-areas: "content";
+            grid-template-columns: 1fr;
+          `};
   }
 
   ${media1366Up} {

@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 import { useLayoutState } from "../../../../hooks/useLayoutState";
+import { BaseComponentProps } from "../../../types";
 import { LayoutStyle } from "./common/entities";
 import {
   Content,
@@ -14,7 +15,6 @@ import {
 } from "./contentLayout.styles";
 
 export interface ContentLayoutProps {
-  className?: string;
   content: ReactNode;
   layoutStyle?: LayoutStyle;
   navigation?: ReactNode;
@@ -27,13 +27,17 @@ export const ContentLayout = ({
   layoutStyle,
   navigation,
   outline,
-}: ContentLayoutProps): JSX.Element => {
+}: BaseComponentProps & ContentLayoutProps): JSX.Element => {
   const { asPath } = useRouter();
   const {
     layoutState: { headerHeight },
   } = useLayoutState();
   return (
-    <Layout className={className} panelColor={layoutStyle?.content}>
+    <Layout
+      className={className}
+      hasNavigation={Boolean(navigation)}
+      panelColor={layoutStyle?.content}
+    >
       {navigation && (
         <NavigationGrid
           headerHeight={headerHeight}
