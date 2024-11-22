@@ -1303,38 +1303,6 @@ export const MuiTab = (theme: Theme): Components["MuiTab"] => {
 };
 
 /**
- * MuiTableCell Component
- * @param theme - Theme.
- * @returns MuiTableCell component theme styles.
- */
-export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
-  return {
-    styleOverrides: {
-      body: {
-        ...theme.typography[TEXT_BODY_400],
-      },
-      head: {
-        ...theme.typography[TEXT_BODY_SMALL_500],
-        padding: "20px",
-      },
-      paddingCheckbox: {
-        paddingRight: 0,
-        width: "unset",
-      },
-      root: {
-        padding: "18px 20px",
-      },
-      sizeSmall: {
-        padding: "14px 20px",
-      },
-      stickyHeader: {
-        boxShadow: `0 1px 0 ${theme.palette.smoke.main}`,
-      },
-    },
-  };
-};
-
-/**
  * MuiTableSortLabel Component
  */
 export const MuiTableSortLabel: Components["MuiTableSortLabel"] = {

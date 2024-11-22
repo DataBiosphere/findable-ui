@@ -2,11 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormControl as MFormControl } from "@mui/material";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import {
-  inkMain,
-  smokeLightest,
-  smokeMain,
-} from "../../../../styles/common/mixins/colors";
+import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
 import { textBodyLarge500 } from "../../../../styles/common/mixins/fonts";
 import { ThemeProps } from "../../../../theme/theme";
 import {
@@ -75,8 +71,6 @@ export const TableFormControl = styled(FormControl)`
 
     .MuiTable-root {
       th {
-        background-color: ${smokeLightest};
-
         .MuiFormControlLabel-label {
           font: inherit;
         }

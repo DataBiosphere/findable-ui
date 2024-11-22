@@ -11,6 +11,7 @@ import type {} from "@mui/material/styles/createPalette";
 import { PaletteColorOptions } from "@mui/material/styles/createPalette";
 import { TypographyStyleOptions } from "@mui/material/styles/createTypography";
 import type {} from "@mui/material/SvgIcon";
+import type {} from "@mui/material/TableCell";
 import type {} from "@mui/material/Tabs";
 import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
@@ -266,6 +267,7 @@ declare module "@emotion/react" {
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
   interface ColumnMeta<TData extends RowData, TValue> {
+    align?: TableCellProps["align"];
     columnPinned?: boolean;
     enableSortingInteraction?: boolean; // Flag to enable sorting interaction UI (e.g. sort icon) button; defaults to true.
     header?: string;

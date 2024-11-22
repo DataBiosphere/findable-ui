@@ -1,8 +1,11 @@
-import { TableCell as MTableCell } from "@mui/material";
+import { TableCell } from "@mui/material";
 import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
-import { getTableCellPadding } from "../TableCell/common/utils";
+import {
+  getTableCellAlign,
+  getTableCellPadding,
+} from "../TableCell/common/utils";
 import { TableRow } from "../TableRow/tableRow.styles";
 
 export interface TableRowsProps<T extends RowData> {
@@ -30,12 +33,13 @@ export const TableRows = <T extends RowData>({
             ref={virtualizer.measureElement}
           >
             {row.getVisibleCells().map((cell) => (
-              <MTableCell
+              <TableCell
                 key={cell.id}
+                align={getTableCellAlign(cell.column)}
                 padding={getTableCellPadding(cell.column.id)}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </MTableCell>
+              </TableCell>
             ))}
           </TableRow>
         );

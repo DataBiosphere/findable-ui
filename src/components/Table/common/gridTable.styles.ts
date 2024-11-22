@@ -24,8 +24,7 @@ export const GridTable = styled(MTable, {
     background-color: ${white};
   }
 
-  td,
-  th {
+  td {
     background-color: inherit;
   }
 

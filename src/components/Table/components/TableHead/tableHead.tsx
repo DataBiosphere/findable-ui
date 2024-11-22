@@ -1,14 +1,17 @@
 import {
-  TableCell as MTableCell,
   TableHead as MTableHead,
   TableRow as MTableRow,
+  TableCell,
   TableSortLabel,
 } from "@mui/material";
 import { flexRender, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
 import { getTableSortLabelProps } from "../../common/utils";
-import { getTableCellPadding } from "../TableCell/common/utils";
+import {
+  getTableCellAlign,
+  getTableCellPadding,
+} from "../TableCell/common/utils";
 
 export interface TableHeadProps<T extends RowData> {
   rowDirection: ROW_DIRECTION;
@@ -34,8 +37,9 @@ export const TableHead = <T extends RowData>({
                   },
                 } = header;
                 return header.column.getIsGrouped() ? null : (
-                  <MTableCell
+                  <TableCell
                     key={header.id}
+                    align={getTableCellAlign(header.column)}
                     padding={getTableCellPadding(header.id)}
                   >
                     {header.column.getCanSort() && enableSortingInteraction ? (
@@ -53,7 +57,7 @@ export const TableHead = <T extends RowData>({
                         header.getContext()
                       )
                     )}
-                  </MTableCell>
+                  </TableCell>
                 );
               })}
             </MTableRow>

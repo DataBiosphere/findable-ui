@@ -1,5 +1,12 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
-import { CellContext, ColumnSort, RowData, Table } from "@tanstack/react-table";
+import {
+  CellContext,
+  ColumnMeta,
+  ColumnSort,
+  RowData,
+  Table,
+  TableOptions,
+} from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
 import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
@@ -94,6 +101,7 @@ export interface ColumnConfig<
   disableSorting?: boolean; // Disables sorting for the column.
   header: string;
   id: string; // The unique identifier for the column.
+  meta?: ColumnMeta<T, unknown>;
   tooltip?: string; // TODO review need to define `tooltip` field - it is currently not in use.
   width: GridTrackSize;
 }
@@ -161,7 +169,7 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   explorerTitle?: SiteConfig["explorerTitle"];
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
-  list: ListConfig;
+  list: ListConfig<T>;
   listView?: ListViewConfig;
   options?: Options;
   overrides?: Override[];
@@ -249,9 +257,10 @@ export type GridTrackSize =
  * List configuration.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model can receive any model as type
-export interface ListConfig<T = any> {
+export interface ListConfig<T extends RowData> {
   columns: ColumnConfig<T>[];
   defaultSort?: ColumnSort; // Establishes initial table state "sorting" state.
+  tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">; // Additional TanStack Table's options.
 }
 
 /**

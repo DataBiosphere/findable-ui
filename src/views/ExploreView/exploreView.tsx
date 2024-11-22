@@ -248,7 +248,7 @@ function renderList(
 ): JSX.Element {
   const { listItems, loading, tabValue } = exploreState;
   const { getId: getRowId, list, listView } = entityConfig;
-  const { columns: columnsConfig, defaultSort } = list;
+  const { columns: columnsConfig, defaultSort, tableOptions } = list;
 
   if (!exploreState || !tabValue) {
     return <></>; //TODO: return the loading UI component
@@ -268,6 +268,7 @@ function renderList(
       items={listItems ?? []}
       listView={listView}
       loading={loading}
+      tableOptions={tableOptions}
     />
   );
 }
