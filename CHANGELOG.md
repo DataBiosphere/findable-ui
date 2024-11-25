@@ -1,5 +1,18 @@
 # Changelog
 
+## [16.0.0](https://github.com/DataBiosphere/findable-ui/compare/v15.0.2...v16.0.0) (2024-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* option to add row count on tables ([#284](https://github.com/DataBiosphere/findable-ui/issues/284)) (#285)
+
+### Features
+
+* breadcrumbs should not inherit the new link style ([#271](https://github.com/DataBiosphere/findable-ui/issues/271)) ([#280](https://github.com/DataBiosphere/findable-ui/issues/280)) ([bae0178](https://github.com/DataBiosphere/findable-ui/commit/bae017818f3c13aea39530e9e7a1a9dd63123f1a))
+* option to add row count on tables ([#284](https://github.com/DataBiosphere/findable-ui/issues/284)) ([#285](https://github.com/DataBiosphere/findable-ui/issues/285)) ([1643efb](https://github.com/DataBiosphere/findable-ui/commit/1643efbf366546509a07b1a59ba00a131f081e13))
+* update contentlayout to centre content when there is no navigation ([#282](https://github.com/DataBiosphere/findable-ui/issues/282)) ([#286](https://github.com/DataBiosphere/findable-ui/issues/286)) ([798312f](https://github.com/DataBiosphere/findable-ui/commit/798312f803038d52463698caf0f415914668d4be))
+
 ## [15.0.2](https://github.com/DataBiosphere/findable-ui/compare/v15.0.1...v15.0.2) (2024-11-20)
 
 
