@@ -143,12 +143,17 @@ function initCategoryGroups(
  */
 function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
-    list: { columns },
+    list: {
+      columns,
+      tableOptions: { initialState: { columnVisibility = {} } = {} } = {},
+    },
     listView: { enableRowSelection = false } = {},
   } = entityConfig;
   return {
+    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibilty` is initialized from columns configuration.
     [ACCESSOR_KEYS.SELECT]: enableRowSelection,
     ...getInitialTableColumnVisibility(columns),
+    ...columnVisibility, // `columnVisibility` is managed by ExploreState; use table options to override this setting.
   };
 }
 

@@ -49,6 +49,7 @@ import { Pagination as DXPagination } from "./components/Pagination/pagination";
 import { TableBody } from "./components/TableBody/tableBody";
 import { TableHead } from "./components/TableHead/tableHead";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
+import { ROW_POSITION } from "./features/RowPosition/constants";
 import { ROW_PREVIEW } from "./features/RowPreview/constants";
 import { RowPreviewState } from "./features/RowPreview/entities";
 import { GridTable } from "./table.styles";
@@ -174,7 +175,7 @@ TableProps<T>): JSX.Element => {
   const { initialState: _initialState, ...restTableOptions } =
     tableOptions ?? {};
   const tableInstance = useReactTable({
-    _features: [ROW_PREVIEW],
+    _features: [ROW_POSITION, ROW_PREVIEW],
     columns,
     data: items,
     enableColumnFilters: true, // client-side filtering.
@@ -193,7 +194,7 @@ TableProps<T>): JSX.Element => {
     getPaginationRowModel: getPaginationRowModel(),
     getRowId,
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
-    initialState: { ...initialState, ..._initialState }, // Currently, `sorting` and `columnVisibility` are managed by the ExploreState.
+    initialState: { ...initialState, ..._initialState }, // `sorting` and `columnVisibility` are managed by the ExploreState.
     manualPagination: true,
     manualSorting: !clientFiltering,
     onColumnVisibilityChange,

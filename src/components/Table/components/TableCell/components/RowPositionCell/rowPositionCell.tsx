@@ -3,7 +3,6 @@ import { CellContext, RowData } from "@tanstack/react-table";
 import React from "react";
 import { BaseComponentProps } from "../../../../../types";
 import { TYPOGRAPHY_PROPS } from "./constants";
-import { getRowPosition } from "./utils";
 
 export const RowPositionCell = <TData extends RowData, TValue>({
   className,
@@ -11,7 +10,7 @@ export const RowPositionCell = <TData extends RowData, TValue>({
 }: BaseComponentProps & CellContext<TData, TValue>): JSX.Element => {
   return (
     <Typography {...TYPOGRAPHY_PROPS} className={className} component="div">
-      {getRowPosition(cellContext)}
+      {cellContext.row.getRowPosition()}
     </Typography>
   );
 };

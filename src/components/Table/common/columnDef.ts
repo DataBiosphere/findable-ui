@@ -6,8 +6,14 @@ import { RowPositionCell } from "../components/TableCell/components/RowPositionC
 export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_POSITION: {
     cell: RowPositionCell,
+    enableHiding: false,
+    enableSorting: false,
     header: "",
     id: ACCESSOR_KEYS.ROW_POSITION,
-    meta: { align: TABLE_CELL_PROPS.ALIGN.RIGHT, header: "" },
+    meta: {
+      align: TABLE_CELL_PROPS.ALIGN.RIGHT,
+      header: "",
+      width: "max-content",
+    },
   },
 };

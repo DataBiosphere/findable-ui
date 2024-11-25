@@ -15,6 +15,7 @@ import {
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { Loading } from "../Loading/loading";
+import { COLUMN_DEF } from "../Table/common/columnDef";
 import {
   arrIncludesSome,
   getInitialState,
@@ -82,6 +83,8 @@ export const TableCreator = <T extends RowData>({
           return acc;
         },
         [
+          /* Initialize column definitions with the "row position" column */
+          COLUMN_DEF.ROW_POSITION,
           /* Initialize column definitions with the "select" column */
           {
             ...buildBaseColumnDef(COLUMN_CONFIGS.SELECT),

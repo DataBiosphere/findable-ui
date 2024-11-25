@@ -15,7 +15,7 @@ export const COLUMN_CONFIGS: Record<
 > = {
   ROW_POSITION: {
     columnPinned: false,
-    columnVisible: true,
+    columnVisible: false,
     componentConfig: {
       component: RowPositionCell,
       viewBuilder: (_, viewContext) => viewContext?.cellContext,
