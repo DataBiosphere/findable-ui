@@ -7,10 +7,15 @@ import {
   RowData,
 } from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import { ColumnConfig, ListViewConfig } from "../../config/entities";
+import {
+  ColumnConfig,
+  ListConfig,
+  ListViewConfig,
+} from "../../config/entities";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { Loading } from "../Loading/loading";
+import { COLUMN_DEF } from "../Table/common/columnDef";
 import {
   arrIncludesSome,
   getInitialState,
@@ -30,6 +35,7 @@ export interface TableCreatorProps<T> {
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
+  tableOptions?: ListConfig<T>["tableOptions"];
 }
 
 const createCell = <T extends RowData = RowData, TData = unknown>(
@@ -62,6 +68,7 @@ export const TableCreator = <T extends RowData>({
   items,
   listView,
   loading,
+  tableOptions,
 }: TableCreatorProps<T>): JSX.Element => {
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
@@ -76,6 +83,8 @@ export const TableCreator = <T extends RowData>({
           return acc;
         },
         [
+          /* Initialize column definitions with the "row position" column */
+          COLUMN_DEF.ROW_POSITION,
           /* Initialize column definitions with the "select" column */
           {
             ...buildBaseColumnDef(COLUMN_CONFIGS.SELECT),
@@ -101,6 +110,7 @@ export const TableCreator = <T extends RowData>({
         items={items}
         listView={listView}
         loading={loading}
+        tableOptions={tableOptions}
       />
     </TableCreatorContainer>
   );

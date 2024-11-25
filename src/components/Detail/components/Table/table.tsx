@@ -17,8 +17,10 @@ import {
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
 import { TABLET } from "../../../../theme/common/breakpoints";
+import { COLUMN_DEF } from "../../../Table/common/columnDef";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
 import { TableHead } from "../../../Table/components/TableHead/tableHead";
+import { ROW_POSITION } from "../../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../../Table/features/RowPreview/constants";
 import { GridTable } from "../../../Table/table.styles";
 import { generateColumnDefinitions } from "./common/utils";
@@ -56,8 +58,11 @@ export const Table = <T extends RowData>({
   const { stickyHeader = false } = table || {};
   const { sx: tableContainerSx } = tableContainer || {};
   const tableInstance = useReactTable({
-    _features: [ROW_PREVIEW],
-    columns: generateColumnDefinitions(columns),
+    _features: [ROW_POSITION, ROW_PREVIEW],
+    columns: generateColumnDefinitions([
+      COLUMN_DEF.ROW_POSITION as ColumnDef<T>,
+      ...columns,
+    ]),
     data: items,
     enableSorting: false,
     getCoreRowModel: getCoreRowModel(),

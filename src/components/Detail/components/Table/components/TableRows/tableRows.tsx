@@ -1,7 +1,10 @@
-import { TableCell as MTableCell } from "@mui/material";
+import { TableCell } from "@mui/material";
 import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
-import { getTableCellPadding } from "../../../../../Table/components/TableCell/common/utils";
+import {
+  getTableCellAlign,
+  getTableCellPadding,
+} from "../../../../../Table/components/TableCell/common/utils";
 import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
 import { TableView } from "../../table";
 
@@ -31,13 +34,14 @@ export const TableRows = <T extends RowData>({
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
               if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
               return (
-                <MTableCell
+                <TableCell
                   key={cell.id}
+                  align={getTableCellAlign(cell.column)}
                   padding={getTableCellPadding(cell.column.id)}
                   size={tableCellSize}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </MTableCell>
+                </TableCell>
               );
             })}
           </TableRow>

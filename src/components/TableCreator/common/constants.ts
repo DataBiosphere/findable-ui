@@ -3,6 +3,7 @@ import { RowSelectionCell } from "../../Table/components/TableCell/components/Ro
 import { BaseColumnConfig } from "./entities";
 
 export const ACCESSOR_KEYS = {
+  ROW_POSITION: "rowPosition",
   SELECT: "select",
 };
 
