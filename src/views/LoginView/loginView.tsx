@@ -1,18 +1,24 @@
+import { ClientSafeProvider } from "next-auth/react";
 import React from "react";
 import { Login } from "../../components/Login/login";
-import { useAuthenticationConfig } from "../../hooks/useAuthenticationConfig";
+import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 
-export const LoginView = (): JSX.Element => {
-  const { googleGISAuthConfig, termsOfService, text, title, warning } =
-    useAuthenticationConfig();
+export interface LoginViewProps {
+  providers?: ClientSafeProvider[];
+}
 
+export const LoginView = ({
+  providers,
+}: LoginViewProps): JSX.Element | null => {
+  const authConfig = useAuthenticationConfig();
+  if (!authConfig) return null;
   return (
     <Login
-      isGoogle={!!googleGISAuthConfig}
-      termsOfService={termsOfService}
-      text={text}
-      title={title}
-      warning={warning}
+      providers={providers || authConfig.providers}
+      termsOfService={authConfig.termsOfService}
+      text={authConfig.text}
+      title={authConfig.title}
+      warning={authConfig.warning}
     />
   );
 };
