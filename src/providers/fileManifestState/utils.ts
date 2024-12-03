@@ -49,7 +49,6 @@ export function getRequestFilters(
   state: FileManifestState
 ): Filters | undefined {
   if (state.filesFacetsStatus !== FILES_FACETS_STATUS.COMPLETED) return;
-  // Form facets are not defined (no form terms have been selected).
   if (state.setOfFormFacetNames.size === 0) return;
   // Form terms are partially selected; return filters.
   if (!areAllFormFiltersSelected(state)) return state.filters;
