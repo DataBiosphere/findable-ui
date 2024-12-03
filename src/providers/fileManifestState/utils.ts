@@ -1,14 +1,43 @@
 import { Filters } from "../../common/entities";
-import {
-  FileFacet,
-  FILES_FACETS_STATUS,
-} from "../../hooks/useFileManifest/common/entities";
+import { FILES_FACETS_STATUS } from "../../hooks/useFileManifest/common/entities";
 import { findFacet } from "../../hooks/useFileManifest/common/utils";
 import {
   FileManifestState,
   UpdateFileManifestPayload,
 } from "../fileManifestState";
-import { ENTITIES_FILE_MANIFEST_TYPES } from "./constants";
+
+/**
+ * Determines if all form facet terms are fully selected.
+ * @param state - File manifest state.
+ * @returns true if all form facet terms are fully selected.
+ */
+export function areAllFormFiltersSelected(state: FileManifestState): boolean {
+  const { filesFacets, filters, setOfFormFacetNames } = state;
+  for (const { categoryKey, value } of filters) {
+    if (setOfFormFacetNames.has(categoryKey)) {
+      const facet = findFacet(filesFacets, categoryKey);
+      if (!facet) continue;
+      if (value.length < facet.termCount) return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Filters out fully selected form facets from the filters.
+ * @param state - File manifest state.
+ * @returns filters.
+ */
+export function excludeFullySelectedFormFilters(
+  state: FileManifestState
+): Filters {
+  const filters: Filters = [];
+  for (const filter of state.filters) {
+    if (state.setOfFormFacetNames.has(filter.categoryKey)) continue;
+    filters.push(filter);
+  }
+  return filters;
+}
 
 /**
  * Generates the filters for a request URL based on the file manifest state.
@@ -20,47 +49,12 @@ export function getRequestFilters(
   state: FileManifestState
 ): Filters | undefined {
   if (state.filesFacetsStatus !== FILES_FACETS_STATUS.COMPLETED) return;
-  // Determine if the filters are user-selected.
-  if (isFiltersUserSelected(state)) {
-    return state.filters;
-  }
-  for (const filter of state.filters) {
-    const facet = findFacet(state.filesFacets, filter.categoryKey);
-    if (!facet) return [filter]; // The entity identifier related filter will not have a corresponding term facet.
-  }
-}
-
-/**
- * Returns true if filter values for each selected facet are partially selected.
- * @param filters - Selected filters.
- * @param filesFacets - Files facets.
- * @returns true if the filters are partially selected.
- */
-function isFiltersPartiallySelected(
-  filters: Filters,
-  filesFacets: FileFacet[]
-): boolean {
-  for (const { categoryKey, value } of filters) {
-    const facet = findFacet(filesFacets, categoryKey);
-    if (!facet) continue; // Continue; the entity identifier related filter will not have a corresponding term facet.
-    if (value.length < facet.termCount) return true;
-  }
-  return false;
-}
-
-/**
- * Returns true if the filters are user-selected, when:
- * - The file manifest type is not set.
- * - The file manifest type is an entity list related type.
- * - Filter values for each selected facet are partially selected.
- * @param state - File manifest state.
- * @returns true if the filters are user-selected.
- */
-export function isFiltersUserSelected(state: FileManifestState): boolean {
-  if (!state.fileManifestType) return true;
-  if (ENTITIES_FILE_MANIFEST_TYPES.includes(state.fileManifestType))
-    return true;
-  return isFiltersPartiallySelected(state.filters, state.filesFacets);
+  // Form facets are not defined (no form terms have been selected).
+  if (state.setOfFormFacetNames.size === 0) return;
+  // Form terms are partially selected; return filters.
+  if (!areAllFormFiltersSelected(state)) return state.filters;
+  // Form terms are fully selected; return filters excluding form filters.
+  return excludeFullySelectedFormFilters(state);
 }
 
 /**
