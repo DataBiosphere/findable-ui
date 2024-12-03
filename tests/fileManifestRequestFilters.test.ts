@@ -1,6 +1,5 @@
 import { Filters, SelectedFilter } from "../src/common/entities";
 import {
-  FILE_MANIFEST_TYPE,
   FileFacet,
   FILES_FACETS_STATUS,
 } from "../src/hooks/useFileManifest/common/entities";
@@ -24,36 +23,39 @@ const FILE_MANIFEST_STATE_COMPLETED: FileManifestState = {
 };
 
 const FILES_FACETS: Partial<FileFacet>[] = [
-  {
-    name: "category01",
-    termCount: 2,
-  },
-  {
-    name: "category02",
-    termCount: 3,
-  },
+  { name: "category01", termCount: 2 },
+  { name: "category02", termCount: 3 },
+  { name: "category03", termCount: 1 },
 ];
 
-const FILTER_IDENTIFIER: SelectedFilter = {
-  categoryKey: "identifier",
+const SELECTED_FILTER_ENTITY_LIST: SelectedFilter = {
+  categoryKey: "category03",
   value: ["value05"],
 };
 
-const FILTERS_COMPLETE_SET: Filters = [
+const SELECTED_FILTERS: Filters = [SELECTED_FILTER_ENTITY_LIST]; // Filters pre-selected i.e. entity list selected filters, or entity ID filter.
+
+const SELECTED_FILTERS_FORM_COMPLETE_SET: Filters = [
   { categoryKey: "category01", value: ["value01", "value02"] },
   { categoryKey: "category02", value: ["value02", "value03", "value04"] },
 ];
 
-const FILTERS_SUBSET: Filters = [
+const SELECTED_FILTERS_FORM_SUBSET: Filters = [
   { categoryKey: "category01", value: ["value01"] },
   { categoryKey: "category02", value: ["value02", "value03", "value04"] },
 ];
 
-const FILE_MANIFEST_STATE_USER_SELECT_FILTERS: FileManifestState = {
-  ...FILE_MANIFEST_STATE,
-  filesFacetsStatus: FILES_FACETS_STATUS.COMPLETED,
-  filters: FILTERS_SUBSET,
-};
+const FILTERS_COMPLETE_SET: Filters = [
+  ...SELECTED_FILTERS,
+  ...SELECTED_FILTERS_FORM_COMPLETE_SET,
+];
+
+const FILTERS_SUBSET: Filters = [
+  ...SELECTED_FILTERS,
+  ...SELECTED_FILTERS_FORM_SUBSET,
+];
+
+const FORM_FACET_NAMES: FileFacet["name"][] = ["category01", "category02"];
 
 describe("fileManifestRequestFilters", () => {
   describe("when filters and facets are undefined or empty", () => {
@@ -80,81 +82,49 @@ describe("fileManifestRequestFilters", () => {
     });
 
     test("returns request filters when status is COMPLETED", () => {
-      expect(FILE_MANIFEST_STATE_COMPLETED.fileManifestType).toBeUndefined();
-      expect(getRequestFilters(FILE_MANIFEST_STATE_COMPLETED)).toEqual([]);
+      expect(
+        getRequestFilters({
+          ...FILE_MANIFEST_STATE_COMPLETED,
+          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
+        })
+      ).toEqual(FILE_MANIFEST_STATE_COMPLETED.filters);
     });
   });
 
-  describe("when filters are user-selected", () => {
-    describe("and fileManifestType is undefined", () => {
-      test("returns user-selected filters", () => {
-        expect(
-          getRequestFilters(FILE_MANIFEST_STATE_USER_SELECT_FILTERS)
-        ).toEqual(FILTERS_SUBSET);
-      });
-    });
-
-    describe("and fileManifestType is ENTITY LIST", () => {
-      test("returns user-selected filters for BULK_DOWNLOAD", () => {
-        expect(
-          getRequestFilters({
-            ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-            fileManifestType: FILE_MANIFEST_TYPE.BULK_DOWNLOAD,
-          })
-        ).toEqual(FILTERS_SUBSET);
-      });
-
-      test("returns user-selected filters for DOWNLOAD_MANIFEST", () => {
-        expect(
-          getRequestFilters({
-            ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-            fileManifestType: FILE_MANIFEST_TYPE.DOWNLOAD_MANIFEST,
-          })
-        ).toEqual(FILTERS_SUBSET);
-      });
-
-      test("returns user-selected filters for EXPORT_TO_TERRA", () => {
-        expect(
-          getRequestFilters({
-            ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-            fileManifestType: FILE_MANIFEST_TYPE.EXPORT_TO_TERRA,
-          })
-        ).toEqual(FILTERS_SUBSET);
-      });
-    });
-
-    test("returns user-selected filters that are a subset of facet terms", () => {
+  describe("when form terms are not-selected", () => {
+    test("returns undefined", () => {
       expect(
         getRequestFilters({
-          ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-          fileManifestType: FILE_MANIFEST_TYPE.ENTITY_BULK_DOWNLOAD, // FILE_MANIFEST_TYPE is NOT ENTITY LIST.
+          ...FILE_MANIFEST_STATE_COMPLETED,
           filesFacets: FILES_FACETS as FileFacet[],
+        })
+      ).toBeUndefined();
+    });
+  });
+
+  describe("when form terms are partially-selected", () => {
+    test("returns complete set of user-selected filters", () => {
+      expect(
+        getRequestFilters({
+          ...FILE_MANIFEST_STATE_COMPLETED,
+          filesFacets: FILES_FACETS as FileFacet[],
+          filters: FILTERS_SUBSET,
+          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
         })
       ).toEqual(FILTERS_SUBSET);
     });
   });
 
-  describe("when filters are NOT user-selected", () => {
-    test("returns undefined when all terms are included, and identifier filter is not defined", () => {
+  describe("when form terms are fully-selected", () => {
+    test("returns a subset of user-selected filters", () => {
       expect(
         getRequestFilters({
-          ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-          fileManifestType: FILE_MANIFEST_TYPE.ENTITY_BULK_DOWNLOAD, // FILE_MANIFEST_TYPE is NOT ENTITY LIST.
+          ...FILE_MANIFEST_STATE_COMPLETED,
           filesFacets: FILES_FACETS as FileFacet[],
           filters: FILTERS_COMPLETE_SET,
+          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
         })
-      ).toBeUndefined();
-    });
-
-    test("returns identifier filter when all terms are included, and identifier filter is defined", () => {
-      const filters = getRequestFilters({
-        ...FILE_MANIFEST_STATE_USER_SELECT_FILTERS,
-        fileManifestType: FILE_MANIFEST_TYPE.ENTITY_BULK_DOWNLOAD, // FILE_MANIFEST_TYPE is NOT ENTITY LIST.
-        filesFacets: FILES_FACETS as FileFacet[],
-        filters: [...FILTERS_COMPLETE_SET, FILTER_IDENTIFIER],
-      });
-      expect(filters?.length).toBe(1);
-      expect(filters?.[0].categoryKey).toBe(FILTER_IDENTIFIER.categoryKey);
+      ).toEqual(SELECTED_FILTERS);
     });
   });
 });
