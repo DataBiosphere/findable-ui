@@ -1,4 +1,4 @@
-import { Filters } from "../../common/entities";
+import { Filters, SelectedFilter } from "../../common/entities";
 import { FILES_FACETS_STATUS } from "../../hooks/useFileManifest/common/entities";
 import { findFacet } from "../../hooks/useFileManifest/common/utils";
 import {
@@ -30,12 +30,13 @@ export function areAllFormFacetsSelected(state: FileManifestState): boolean {
  */
 export function areAllFormFiltersSelected(state: FileManifestState): boolean {
   const { filesFacets, filters, selectedFormFacetNames } = state;
-  for (const { categoryKey, value } of filters) {
-    if (selectedFormFacetNames.has(categoryKey)) {
-      const facet = findFacet(filesFacets, categoryKey);
-      if (!facet) continue;
-      if (value.length < facet.termCount) return false; // Return false if the facet has unselected terms.
-    }
+  for (const facetName of [...selectedFormFacetNames]) {
+    const facet = findFacet(filesFacets, facetName);
+    if (!facet)
+      throw new Error(`Facet "${facetName}" not found in filesFacets.`); // Facet, should be always present; form is generated from filesFacets.
+    const filter = findFilter(filters, facetName);
+    if (!filter) return false; // Form facet has no selected terms.
+    if (filter.value.length < facet.termCount) return false; // Form facet has unselected terms.
   }
   return true;
 }
@@ -75,6 +76,19 @@ export function getRequestFilters(
   if (!areAllFormFiltersSelected(state)) return state.filters;
   // Form terms are fully selected; return filters excluding form filters.
   return excludeFullySelectedFormFilters(state);
+}
+
+/**
+ * Finds selected filter by facet name.
+ * @param filters - Filters.
+ * @param facetName - Facet name.
+ * @returns selected filter.
+ */
+export function findFilter(
+  filters: Filters,
+  facetName: string
+): SelectedFilter | undefined {
+  return filters.find(({ categoryKey }) => categoryKey === facetName);
 }
 
 /**
