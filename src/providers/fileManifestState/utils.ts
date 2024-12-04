@@ -41,7 +41,10 @@ export function excludeFullySelectedFormFilters(
 
 /**
  * Generates the filters for a request URL based on the file manifest state.
- * If all terms in a facet are selected, the corresponding facet is excluded.
+ * Filters are returned based on the following conditions:
+ * - **form terms unselected**: No filters are returned.
+ * - **form terms partially selected**: All filters returned, including form filters.
+ * - **form terms fully selected**: Filters returned, excluding form filters.
  * @param state - File manifest state.
  * @returns filters for the request URL.
  */
