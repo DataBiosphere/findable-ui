@@ -34,7 +34,7 @@ export function areAllFormFiltersSelected(state: FileManifestState): boolean {
     if (selectedFormFacetNames.has(categoryKey)) {
       const facet = findFacet(filesFacets, categoryKey);
       if (!facet) continue;
-      if (value.length < facet.termCount) return false;
+      if (value.length < facet.termCount) return false; // Return false if the facet has unselected terms.
     }
   }
   return true;
