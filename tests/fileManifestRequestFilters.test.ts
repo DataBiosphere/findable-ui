@@ -40,14 +40,25 @@ const SELECTED_FILTERS_FORM_COMPLETE_SET: Filters = [
   { categoryKey: "category02", value: ["value02", "value03", "value04"] },
 ];
 
+const SELECTED_FILTERS_FORM_INCOMPLETE_SET: Filters = [
+  { categoryKey: "category01", value: ["value01", "value02"] },
+];
+
 const SELECTED_FILTERS_FORM_SUBSET: Filters = [
   { categoryKey: "category01", value: ["value01"] },
   { categoryKey: "category02", value: ["value02", "value03", "value04"] },
 ];
 
+const FILTERS: Filters = SELECTED_FILTERS;
+
 const FILTERS_COMPLETE_SET: Filters = [
   ...SELECTED_FILTERS,
   ...SELECTED_FILTERS_FORM_COMPLETE_SET,
+];
+
+const FILTERS_INCOMPLETE_SET: Filters = [
+  ...SELECTED_FILTERS,
+  ...SELECTED_FILTERS_FORM_INCOMPLETE_SET,
 ];
 
 const FILTERS_SUBSET: Filters = [
@@ -81,14 +92,37 @@ describe("fileManifestRequestFilters", () => {
       ).toBeUndefined();
     });
 
-    test("returns request filters when status is COMPLETED", () => {
+    test("returns undefined when status is COMPLETED but no form facet terms are selected", () => {
       expect(
         getRequestFilters({
           ...FILE_MANIFEST_STATE_COMPLETED,
+          filesFacets: FILES_FACETS as FileFacet[],
+          filters: FILTERS, // Entity list filters.
+        })
+      ).toBeUndefined();
+    });
+
+    test("returns undefined when status is COMPLETED but one or more form facets have no terms selected", () => {
+      expect(
+        getRequestFilters({
+          ...FILE_MANIFEST_STATE_COMPLETED,
+          filesFacets: FILES_FACETS as FileFacet[],
+          filters: FILTERS_INCOMPLETE_SET,
           selectedFormFacetNames: new Set(FORM_FACET_NAMES),
         })
-      ).toEqual(FILE_MANIFEST_STATE_COMPLETED.filters);
+      ).toBeUndefined();
     });
+  });
+
+  test("returns request filters when status is COMPLETED and at least one term is selected for each form facet", () => {
+    expect(
+      getRequestFilters({
+        ...FILE_MANIFEST_STATE_COMPLETED,
+        filesFacets: FILES_FACETS as FileFacet[],
+        filters: FILTERS_SUBSET,
+        selectedFormFacetNames: new Set(FORM_FACET_NAMES),
+      })
+    ).toEqual(FILTERS_SUBSET);
   });
 
   describe("when form terms are not-selected", () => {

@@ -7,6 +7,21 @@ import {
 } from "../fileManifestState";
 
 /**
+ * Checks if all form facets are in a selected state.
+ * The form facets are considered selected if they are present in the filters.
+ * @param state - File manifest state.
+ * @returns true if all form facets are fully selected.
+ */
+export function areAllFormFacetsSelected(state: FileManifestState): boolean {
+  const { filters, selectedFormFacetNames } = state;
+  for (const facetName of [...selectedFormFacetNames]) {
+    if (isFacetSelected(filters, facetName)) continue;
+    return false;
+  }
+  return true;
+}
+
+/**
  * Determines if all form facet terms are fully selected.
  * @param state - File manifest state.
  * @returns true if all form facet terms are fully selected.
@@ -53,10 +68,21 @@ export function getRequestFilters(
 ): Filters | undefined {
   if (state.filesFacetsStatus !== FILES_FACETS_STATUS.COMPLETED) return;
   if (state.selectedFormFacetNames.size === 0) return;
+  if (!areAllFormFacetsSelected(state)) return;
   // Form terms are partially selected; return filters.
   if (!areAllFormFiltersSelected(state)) return state.filters;
   // Form terms are fully selected; return filters excluding form filters.
   return excludeFullySelectedFormFilters(state);
+}
+
+/**
+ * Returns true if the facet is selected i.e. present in the filters.
+ * @param filters - Filters.
+ * @param facetName - Facet name.
+ * @returns true if the facet is selected.
+ */
+function isFacetSelected(filters: Filters, facetName: string): boolean {
+  return filters.some(({ categoryKey }) => categoryKey === facetName);
 }
 
 /**
