@@ -18,6 +18,6 @@ export const FILE_MANIFEST_STATE: FileManifestState = {
   isSummaryLoading: false,
   requestParams: undefined,
   requestURL: undefined,
-  setOfFormFacetNames: new Set(),
+  selectedFormFacetNames: new Set(),
   summary: undefined,
 };

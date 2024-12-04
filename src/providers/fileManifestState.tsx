@@ -51,7 +51,7 @@ export type FileManifestState = {
   isSummaryLoading: boolean;
   requestParams?: URLSearchParams;
   requestURL?: string;
-  setOfFormFacetNames: Set<FileFacet["name"]>;
+  selectedFormFacetNames: Set<FileFacet["name"]>;
   summary?: AzulSummaryResponse;
 };
 
@@ -284,7 +284,7 @@ function fileManifestReducer(
         isEnabled: false,
         requestParams: undefined,
         requestURL: undefined,
-        setOfFormFacetNames: new Set(),
+        selectedFormFacetNames: new Set(),
       };
     }
     // Fetches file manifest.
@@ -339,7 +339,7 @@ function fileManifestReducer(
         state.fileSummaryFacetName
       );
       // Update set of form facet names.
-      state.setOfFormFacetNames.add(payload.categoryKey);
+      state.selectedFormFacetNames.add(payload.categoryKey);
       return {
         ...state,
         fileSummaryFilters,
@@ -363,7 +363,7 @@ function fileManifestReducer(
         state.fileSummaryFacetName
       );
       // Update set of form facet names.
-      state.setOfFormFacetNames.add(payload);
+      state.selectedFormFacetNames.add(payload);
       return {
         ...state,
         fileSummaryFilters,

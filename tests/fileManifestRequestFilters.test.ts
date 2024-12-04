@@ -85,7 +85,7 @@ describe("fileManifestRequestFilters", () => {
       expect(
         getRequestFilters({
           ...FILE_MANIFEST_STATE_COMPLETED,
-          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
+          selectedFormFacetNames: new Set(FORM_FACET_NAMES),
         })
       ).toEqual(FILE_MANIFEST_STATE_COMPLETED.filters);
     });
@@ -109,7 +109,7 @@ describe("fileManifestRequestFilters", () => {
           ...FILE_MANIFEST_STATE_COMPLETED,
           filesFacets: FILES_FACETS as FileFacet[],
           filters: FILTERS_SUBSET,
-          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
+          selectedFormFacetNames: new Set(FORM_FACET_NAMES),
         })
       ).toEqual(FILTERS_SUBSET);
     });
@@ -122,7 +122,7 @@ describe("fileManifestRequestFilters", () => {
           ...FILE_MANIFEST_STATE_COMPLETED,
           filesFacets: FILES_FACETS as FileFacet[],
           filters: FILTERS_COMPLETE_SET,
-          setOfFormFacetNames: new Set(FORM_FACET_NAMES),
+          selectedFormFacetNames: new Set(FORM_FACET_NAMES),
         })
       ).toEqual(SELECTED_FILTERS);
     });
