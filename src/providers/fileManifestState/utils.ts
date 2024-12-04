@@ -22,9 +22,11 @@ export function areAllFormFacetsSelected(state: FileManifestState): boolean {
 }
 
 /**
- * Determines if all form facet terms are fully selected.
+ * Checks whether all form facets have all their terms fully selected.
+ * - **true**: All form facets have all their terms selected.
+ * - **false**: At least one form facet has an unselected term.
  * @param state - File manifest state.
- * @returns true if all form facet terms are fully selected.
+ * @returns true if all form facets have all their terms selected.
  */
 export function areAllFormFiltersSelected(state: FileManifestState): boolean {
   const { filesFacets, filters, selectedFormFacetNames } = state;
