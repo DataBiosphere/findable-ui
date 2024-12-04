@@ -12,9 +12,9 @@ import {
  * @returns true if all form facet terms are fully selected.
  */
 export function areAllFormFiltersSelected(state: FileManifestState): boolean {
-  const { filesFacets, filters, setOfFormFacetNames } = state;
+  const { filesFacets, filters, selectedFormFacetNames } = state;
   for (const { categoryKey, value } of filters) {
-    if (setOfFormFacetNames.has(categoryKey)) {
+    if (selectedFormFacetNames.has(categoryKey)) {
       const facet = findFacet(filesFacets, categoryKey);
       if (!facet) continue;
       if (value.length < facet.termCount) return false;
@@ -33,7 +33,7 @@ export function excludeFullySelectedFormFilters(
 ): Filters {
   const filters: Filters = [];
   for (const filter of state.filters) {
-    if (state.setOfFormFacetNames.has(filter.categoryKey)) continue;
+    if (state.selectedFormFacetNames.has(filter.categoryKey)) continue;
     filters.push(filter);
   }
   return filters;
@@ -49,7 +49,7 @@ export function getRequestFilters(
   state: FileManifestState
 ): Filters | undefined {
   if (state.filesFacetsStatus !== FILES_FACETS_STATUS.COMPLETED) return;
-  if (state.setOfFormFacetNames.size === 0) return;
+  if (state.selectedFormFacetNames.size === 0) return;
   // Form terms are partially selected; return filters.
   if (!areAllFormFiltersSelected(state)) return state.filters;
   // Form terms are fully selected; return filters excluding form filters.
