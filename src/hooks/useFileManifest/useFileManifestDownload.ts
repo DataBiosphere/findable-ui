@@ -3,10 +3,12 @@ import { MANIFEST_DOWNLOAD_FORMAT } from "../../apis/azul/common/entities";
 import { Filters } from "../../common/entities";
 import { BULK_DOWNLOAD_EXECUTION_ENVIRONMENT } from "../../components/Export/common/entities";
 import { useCatalog } from "../useCatalog";
-import { FileLocation } from "../useRequestFileLocation";
-import { buildFileManifestRequestURL } from "./common/buildFileManifestRequestURL";
-import { useFileManifest } from "./useFileManifest";
-import { useFileManifestURL } from "./useFileManifestURL";
+import { useConfig } from "../useConfig";
+import {
+  FileLocation,
+  useRequestFileLocation,
+} from "../useRequestFileLocation";
+import { buildRequestManifest } from "../useRequestManifest/utils";
 
 export interface ManifestDownload {
   fileName?: string;
@@ -25,19 +27,22 @@ export const useFileManifestDownload = (
   filters: Filters,
   disabled: boolean
 ): ManifestDownload => {
-  // Determine file manifest request data URL.
-  const URL = useFileManifestURL();
+  // Retrieve the endpoint URL from configured data source.
+  const config = useConfig();
+  const endpointUrl = config.config.dataSource.url;
   // Determine catalog.
   const catalog = useCatalog() as string; // catalog should be defined.
-  // Build request URL.
-  const { requestURL } =
-    buildFileManifestRequestURL(
-      URL,
-      filters,
-      catalog,
-      MANIFEST_DOWNLOAD_FORMAT.COMPACT
-    ) || {};
-  const { data, isIdle, isLoading, run } = useFileManifest(requestURL);
+  // Build request manifest request URL.
+  const { requestMethod, requestUrl } = buildRequestManifest(
+    endpointUrl,
+    catalog,
+    filters,
+    MANIFEST_DOWNLOAD_FORMAT.COMPACT
+  );
+  const { data, isIdle, isLoading, run } = useRequestFileLocation(
+    requestUrl,
+    requestMethod
+  );
   const manifestURL = getManifestDownloadURL(data);
   const fileName = getManifestDownloadFileName(data);
 
@@ -45,7 +50,7 @@ export const useFileManifestDownload = (
   useEffect(() => {
     if (disabled) return;
     run();
-  }, [disabled, requestURL, run]);
+  }, [disabled, requestUrl, run]);
 
   return {
     fileName,

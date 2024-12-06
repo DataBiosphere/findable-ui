@@ -4,7 +4,9 @@ import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
-import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
+import { useFileManifestFormat } from "../../../../hooks/useFileManifest/useFileManifestFormat";
+import { useRequestFileLocation } from "../../../../hooks/useRequestFileLocation";
+import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
 import { trackExportToTerraRequested } from "../../common/tracking";
@@ -29,7 +31,6 @@ export const ExportToTerra = ({
   ExportToTerraStart,
   ExportToTerraSuccess,
   fileManifestState,
-  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
@@ -39,14 +40,16 @@ export const ExportToTerra = ({
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  useRequestFileManifest(
-    fileManifestType,
-    manifestDownloadFormat,
-    filters,
-    fileSummaryFacetName
+  useFileManifest(filters, fileSummaryFacetName);
+  const fileManifestFormatState = useFileManifestFormat(manifestDownloadFormat);
+  const { requestMethod, requestParams, requestUrl } = useRequestManifest(
+    fileManifestFormatState.fileManifestFormat,
+    formFacet
   );
-  const { requestParams } = fileManifestState;
-  const { data, isLoading, run } = useFileManifest();
+  const { data, isLoading, run } = useRequestFileLocation(
+    requestUrl,
+    requestMethod
+  );
   const exportURL = useExportToTerraResponseURL(requestParams, data);
   return exportURL ? (
     <ExportToTerraReady
@@ -57,6 +60,7 @@ export const ExportToTerra = ({
     <ExportToTerraNotStarted
       ExportTerraForm={ExportForm}
       ExportToTerraStart={ExportToTerraStart}
+      fileManifestFormatState={fileManifestFormatState}
       fileManifestState={fileManifestState}
       formFacet={formFacet}
       isLoading={isLoading}

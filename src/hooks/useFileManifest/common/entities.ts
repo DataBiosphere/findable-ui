@@ -45,12 +45,6 @@ export enum FILE_MANIFEST_TYPE {
 
 export type FileManifestType = FILE_MANIFEST_TYPE;
 
-export enum FILES_FACETS_STATUS {
-  COMPLETED = "COMPLETED",
-  IN_PROGRESS = "IN_PROGRESS",
-  NOT_STARTED = "NOT_STARTED",
-}
-
 export type SelectedSearchTermsBySearchKey = Map<
   CategoryKey,
   Set<CategoryValueKey>
