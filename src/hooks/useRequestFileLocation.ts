@@ -4,6 +4,7 @@ import {
   FILE_LOCATION_SUCCESSFULLY,
 } from "../apis/azul/common/constants";
 import { FileLocationResponse } from "../apis/azul/common/entities";
+import { METHOD } from "./types";
 import { useAsync } from "./useAsync";
 import { useAuthentication } from "./useAuthentication/useAuthentication";
 
@@ -23,11 +24,6 @@ export interface UseRequestFileLocationResult {
 }
 
 export type Method = METHOD;
-
-export enum METHOD {
-  GET = "GET",
-  PUT = "PUT",
-}
 
 type ResolveFn = (file: FileLocation | PromiseLike<FileLocation>) => void;
 type RejectFn = (reason: FileLocation) => void;

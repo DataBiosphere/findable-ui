@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { FileManifestFormatState } from "../../../../../../hooks/useFileManifest/useFileManifestFormat";
 import { FormFacet, ManifestDownloadFormat } from "../../../../common/entities";
 import { ExportButton } from "../../../ExportForm/components/ExportButton/exportButton";
 import { ExportManifestDownloadFormatForm } from "../../../ExportForm/components/ExportManifestDownloadFormatForm/exportManifestDownloadFormatForm";
@@ -8,17 +9,20 @@ import {
 } from "../../../ExportForm/exportForm";
 
 export interface ExportToTerraFormProps {
+  fileManifestFormatState: FileManifestFormatState;
   formFacet: FormFacet;
   isLoading: boolean;
-  manifestDownloadFormat?: ManifestDownloadFormat;
   manifestDownloadFormats: ManifestDownloadFormat[];
   onRequestManifest: OnRequestManifestFn;
+  setFileManifestFormat: Dispatch<
+    SetStateAction<ManifestDownloadFormat | undefined>
+  >;
 }
 
 export const ExportToTerraForm = ({
+  fileManifestFormatState,
   formFacet,
   isLoading,
-  manifestDownloadFormat,
   manifestDownloadFormats,
   onRequestManifest,
 }: ExportToTerraFormProps): JSX.Element => {
@@ -30,7 +34,7 @@ export const ExportToTerraForm = ({
       onRequestManifest={onRequestManifest}
     >
       <ExportManifestDownloadFormatForm
-        manifestDownloadFormat={manifestDownloadFormat}
+        fileManifestFormatState={fileManifestFormatState}
         manifestDownloadFormats={manifestDownloadFormats}
       />
     </ExportForm>
