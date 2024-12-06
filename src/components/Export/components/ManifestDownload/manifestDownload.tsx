@@ -4,10 +4,13 @@ import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
-import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
-import { FileLocation } from "../../../../hooks/useRequestFileLocation";
+import {
+  FileLocation,
+  useRequestFileLocation,
+} from "../../../../hooks/useRequestFileLocation";
+import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
-import { FormFacet } from "../../common/entities";
+import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
 import { trackFileManifestRequested } from "../../common/tracking";
 import { ManifestDownloadNotStarted } from "./components/ManifestDownloadNotStarted/manifestDownloadNotStarted";
 import { ManifestDownloadReady } from "./components/ManifestDownloadReady/manifestDownloadReady";
@@ -19,30 +22,33 @@ export interface ManifestDownloadProps {
   filters: Filters; // Initializes manifest download filters.
   formFacet: FormFacet;
   ManifestDownloadForm: ElementType;
+  manifestDownloadFormat?: ManifestDownloadFormat;
   ManifestDownloadStart: ElementType;
   ManifestDownloadSuccess: ElementType;
 }
 
 export const ManifestDownload = ({
   fileManifestState,
-  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
   ManifestDownloadForm,
+  manifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT.COMPACT,
   ManifestDownloadStart,
   ManifestDownloadSuccess,
 }: ManifestDownloadProps): JSX.Element => {
-  useRequestFileManifest(
-    fileManifestType,
-    MANIFEST_DOWNLOAD_FORMAT.COMPACT,
-    filters,
-    fileSummaryFacetName
-  );
+  useFileManifest(filters, fileSummaryFacetName);
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  const { data, isLoading, run } = useFileManifest();
+  const { requestMethod, requestUrl } = useRequestManifest(
+    manifestDownloadFormat,
+    formFacet
+  );
+  const { data, isLoading, run } = useRequestFileLocation(
+    requestUrl,
+    requestMethod
+  );
   const manifestURL = getManifestDownloadURL(data);
   return manifestURL ? (
     <ManifestDownloadReady

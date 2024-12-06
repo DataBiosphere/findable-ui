@@ -4,13 +4,17 @@ import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
-import { useRequestFileManifest } from "../../../../hooks/useFileManifest/useRequestFileManifest";
-import { FileLocation } from "../../../../hooks/useRequestFileLocation";
+import {
+  FileLocation,
+  useRequestFileLocation,
+} from "../../../../hooks/useRequestFileLocation";
+import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import {
   BULK_DOWNLOAD_EXECUTION_ENVIRONMENT,
   ExecutionEnvironment,
   FormFacet,
+  ManifestDownloadFormat,
 } from "../../common/entities";
 import { trackBulkDownloadRequested } from "../../common/tracking";
 import { DownloadCurlCommandNotStarted } from "./components/DownloadCurlCommandNotStarted/downloadCurlCommandNotStarted";
@@ -25,6 +29,7 @@ interface DownloadCurlCommandProps {
   fileSummaryFacetName: string;
   filters: Filters; // Initializes bulk download filters.
   formFacet: FormFacet;
+  manifestDownloadFormat?: ManifestDownloadFormat;
 }
 
 export const DownloadCurlCommand = ({
@@ -32,23 +37,25 @@ export const DownloadCurlCommand = ({
   DownloadCurlStart,
   DownloadCurlSuccess,
   fileManifestState,
-  fileManifestType,
   fileSummaryFacetName,
   filters,
   formFacet,
+  manifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT.CURL,
 }: DownloadCurlCommandProps): JSX.Element => {
-  useRequestFileManifest(
-    fileManifestType,
-    MANIFEST_DOWNLOAD_FORMAT.CURL,
-    filters,
-    fileSummaryFacetName
-  );
+  useFileManifest(filters, fileSummaryFacetName);
   const [executionEnvironment, setExecutionEnvironment] =
     useState<ExecutionEnvironment>(BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH);
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  const { data, isLoading, run } = useFileManifest();
+  const { requestMethod, requestUrl } = useRequestManifest(
+    manifestDownloadFormat,
+    formFacet
+  );
+  const { data, isLoading, run } = useRequestFileLocation(
+    requestUrl,
+    requestMethod
+  );
   const curlCommand = getBulkDownloadCurlCommand(data, executionEnvironment);
   return curlCommand ? (
     <DownloadCurlCommandReady
