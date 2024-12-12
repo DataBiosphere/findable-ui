@@ -1,5 +1,12 @@
 # Changelog
 
+## [16.1.0](https://github.com/DataBiosphere/findable-ui/compare/v16.0.0...v16.1.0) (2024-12-12)
+
+
+### Features
+
+* allow url objects for explore links to have a path before the entity name ([#291](https://github.com/DataBiosphere/findable-ui/issues/291)) ([#292](https://github.com/DataBiosphere/findable-ui/issues/292)) ([aa63b5a](https://github.com/DataBiosphere/findable-ui/commit/aa63b5a11c79efa91360aaa6a0395810dd9e5c05))
+
 ## [16.0.0](https://github.com/DataBiosphere/findable-ui/compare/v15.0.2...v16.0.0) (2024-11-25)
 
 
