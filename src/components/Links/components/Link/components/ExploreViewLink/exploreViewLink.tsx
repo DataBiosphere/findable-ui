@@ -66,7 +66,7 @@ export const ExploreViewLink = ({
  * @returns entity list type.
  */
 function getEntityListType(href: UrlObjectWithHrefAndQuery["href"]): string {
-  return href.substring(1);
+  return href.substring(href.lastIndexOf("/") + 1);
 }
 
 /**
@@ -139,7 +139,7 @@ function isValidExploreURL(
 }
 
 /**
- * Returns true if the given href is a configured key in the explore state's entityPageState.
+ * Returns true if the given href is a path ending with a configured key in the explore state's entityPageState.
  * @param url - Explore link URL.
  * @param exploreState - Explore state.
  * @returns true if the given href is configured in the explore state.
@@ -150,7 +150,10 @@ function isValidHref(
 ): boolean {
   const { entityPageState } = exploreState;
   const { href } = url;
-  return href.startsWith("/") && href.substring(1) in entityPageState;
+  return (
+    href.startsWith("/") &&
+    href.substring(href.lastIndexOf("/") + 1) in entityPageState
+  );
 }
 
 /**
