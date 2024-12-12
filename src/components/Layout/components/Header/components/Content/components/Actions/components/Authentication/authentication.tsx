@@ -3,10 +3,13 @@ import {
   ButtonProps as MButtonProps,
   IconButton as MIconButton,
   IconButtonProps as MIconButtonProps,
+  Skeleton,
 } from "@mui/material";
-import { useRouter } from "next/router";
-import React, { ElementType, useCallback } from "react";
-import { useAuthentication } from "../../../../../../../../../../hooks/useAuthentication/useAuthentication";
+import Router from "next/router";
+import React, { ElementType } from "react";
+import { useProfile } from "../../../../../../../../../../hooks/authentication/profile/useProfile";
+import { ROUTE } from "../../../../../../../../../../routes/constants";
+import { isNavigationLinkSelected } from "../../../Navigation/common/utils";
 import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticationMenu";
 import { StyledButton } from "./components/Button/button.styles";
 
@@ -21,39 +24,38 @@ export const Authentication = ({
   Button,
   closeMenu,
 }: AuthenticationProps): JSX.Element | null => {
-  const { isAuthenticated, requestAuthentication, userProfile } =
-    useAuthentication();
-  const router = useRouter();
-  const onLogout = useCallback((): void => {
-    location.href = router.basePath;
-  }, [router]);
-
+  const { isLoading, profile } = useProfile();
   if (!authenticationEnabled) return null;
-
+  if (isLoading) return <Skeleton height={32} variant="circular" width={32} />;
+  if (profile) return <AuthenticationMenu profile={profile} />;
   return (
-    <>
-      {isAuthenticated && userProfile ? (
-        <AuthenticationMenu onLogout={onLogout} userProfile={userProfile} />
-      ) : (
-        <Button
-          onClick={(): void => {
-            requestAuthentication();
-            closeMenu();
-          }}
-        />
-      )}
-    </>
+    <Button
+      onClick={async (): Promise<void> => {
+        await Router.push(ROUTE.LOGIN);
+        closeMenu();
+      }}
+    />
   );
 };
 
 /**
  * Renders authentication button.
  * @param props - Button props.
+ * @param pathname - Pathname.
  * @returns button.
  */
-export function renderButton(props: MButtonProps): JSX.Element {
+export function renderButton(
+  props: MButtonProps,
+  pathname: string
+): JSX.Element {
   return (
-    <StyledButton startIcon={<LoginRoundedIcon />} variant="nav" {...props}>
+    <StyledButton
+      startIcon={<LoginRoundedIcon />}
+      variant={
+        isNavigationLinkSelected(pathname, [ROUTE.LOGIN]) ? "activeNav" : "nav"
+      }
+      {...props}
+    >
       Sign in
     </StyledButton>
   );
