@@ -1,5 +1,16 @@
 # Changelog
 
+## [17.0.0](https://github.com/DataBiosphere/findable-ui/compare/v16.1.0...v17.0.0) (2024-12-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* exports via main button don't include orphans ([#287](https://github.com/DataBiosphere/findable-ui/issues/287)) (#288)
+
+### Features
+
+* exports via main button don't include orphans ([#287](https://github.com/DataBiosphere/findable-ui/issues/287)) ([#288](https://github.com/DataBiosphere/findable-ui/issues/288)) ([86e3e40](https://github.com/DataBiosphere/findable-ui/commit/86e3e4047cce84a90348719c9ca7b41a3a93e4c3))
+
 ## [16.1.0](https://github.com/DataBiosphere/findable-ui/compare/v16.0.0...v16.1.0) (2024-12-12)
 
 
