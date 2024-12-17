@@ -16,5 +16,6 @@ export function getFilterParameterValue(value: unknown): ParamValue {
     return false;
   }
   if (typeof value === "string" || typeof value === "boolean") return value;
-  return value ? String(value) : null;
+  if (value === null || value === undefined) return null;
+  return String(value);
 }
