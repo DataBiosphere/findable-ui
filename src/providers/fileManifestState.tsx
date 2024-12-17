@@ -262,7 +262,7 @@ function fileManifestReducer(
       const filters = buildNextFilterState(
         state.filters,
         payload.categoryKey,
-        getFilterParameterValue(payload.selectedValue) as unknown as string, // TODO CategoryValueKey may be boolean or null.
+        getFilterParameterValue(payload.selectedValue),
         payload.selected
       );
       // Get file summary filters.
@@ -322,9 +322,7 @@ function buildNextFileSummaryFilterState(
  * @returns all terms for the given category.
  */
 function getFileFacetTerms(fileFacet: FileFacet): SelectedFilterValue {
-  return fileFacet.terms.map(
-    (term) => getFilterParameterValue(term.name) as unknown as string // TODO CategoryValueKey may be boolean or null.
-  );
+  return fileFacet.terms.map((term) => getFilterParameterValue(term.name));
 }
 
 /**
