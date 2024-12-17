@@ -150,7 +150,7 @@ function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
     listView: { enableRowSelection = false } = {},
   } = entityConfig;
   return {
-    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibilty` is initialized from columns configuration.
+    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibility` is initialized from columns configuration.
     [ACCESSOR_KEYS.SELECT]: enableRowSelection,
     ...getInitialTableColumnVisibility(columns),
     ...columnVisibility, // `columnVisibility` is managed by ExploreState; use table options to override this setting.

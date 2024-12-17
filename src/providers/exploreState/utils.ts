@@ -147,6 +147,16 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
 }
 
+/**
+ * Returns column sorting.
+ * Adjusts the sorting state by ensuring the first grouped column is inserted as the first sort column.
+ * If grouping is active, the first grouped column is sorted in ascending order (`desc: false`)
+ * and is placed at the beginning of the sorting state. Existing sorting rules for other columns are preserved,
+ * but any existing sorting rule for the grouped column is removed before re-adding it.
+ * @param grouping - Grouping state.
+ * @param columnSorting - Column sorting state.
+ * @returns column sorting.
+ */
 export function getSorting(
   grouping: GroupingState = [],
   columnSorting: ColumnSort[]
@@ -154,8 +164,10 @@ export function getSorting(
   if (grouping.length === 0) return columnSorting;
   // Retrieve the first column ID from the grouping state (grouping is currently only supported for one column).
   const [id] = grouping;
-  // Add the grouped column to the sorting state.
-  return [{ desc: false, id }, ...columnSorting];
+  // Filter out the grouped column from the sorting state.
+  const sorting = columnSorting.filter((columnSort) => columnSort.id !== id);
+  // Add the grouped column to the sorting state (with descending sort order).
+  return [{ desc: false, id }, ...sorting];
 }
 
 /**
