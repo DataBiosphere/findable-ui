@@ -74,8 +74,8 @@ export function getSortMatchesFn(
       let match = matchString(value.label || "");
       if (match) {
         matches.push({ labelRanges: match.ranges, score: match.score, value });
-      } else {
-        match = matchString(String(value.key) || "");
+      } else if (typeof value.key === "string") {
+        match = matchString(value.key || "");
         if (match) matches.push({ score: match.score, value });
       }
     }
