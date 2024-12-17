@@ -39,6 +39,7 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
+  UpdateGroupingPayload,
   UpdateRowPreviewPayload,
   UpdateRowSelectionPayload,
   UpdateSortingPayload,
@@ -48,9 +49,11 @@ import {
   buildNextSavedFilterState,
   closeRowPreview,
   getEntityCategoryGroupConfigKey,
+  getEntityPageStateValue,
   getEntityState,
   getEntityStateSavedSorting,
   getFilterCount,
+  getSorting,
   patchEntityListItems,
   resetPage,
   updateEntityPageState,
@@ -226,6 +229,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateGrouping = "UPDATE_GROUPING",
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
@@ -247,6 +251,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateGroupingAction
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction;
@@ -345,6 +350,14 @@ type UpdateEntityViewAccessAction = {
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
+};
+
+/**
+ * Update grouping action.
+ */
+type UpdateGroupingAction = {
+  payload: UpdateGroupingPayload;
+  type: ExploreActionKind.UpdateGrouping;
 };
 
 /**
@@ -659,6 +672,25 @@ function exploreReducer(
       };
     }
     /**
+     * Update grouping
+     **/
+    case ExploreActionKind.UpdateGrouping: {
+      const grouping = payload;
+      const entityPageState = getEntityPageStateValue(
+        state.tabValue,
+        state.entityPageState
+      );
+      const sorting = getSorting(grouping, entityPageState.sorting);
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { grouping, sorting }
+        ),
+      };
+    }
+    /**
      * Update row preview
      */
     case ExploreActionKind.UpdateRowPreview: {
@@ -692,7 +724,12 @@ function exploreReducer(
      **/
     case ExploreActionKind.UpdateSorting: {
       const rowPreview = closeRowPreview(state.rowPreview);
-      const sorting = payload;
+      const entityPageState = getEntityPageStateValue(
+        state.tabValue,
+        state.entityPageState
+      );
+      const grouping = entityPageState.grouping;
+      const sorting = getSorting(grouping, payload);
       return {
         ...state,
         entityPageState: updateEntityPageState(

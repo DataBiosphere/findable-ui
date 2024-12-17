@@ -9,5 +9,7 @@ export const Button = styled(DXButton)`
   &:hover {
     background-color: transparent;
     text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-underline-position: from-font;
   }
 `;

@@ -170,6 +170,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
         columnsVisibility: initColumnVisibility(entity),
         enableRowSelection: Boolean(entity.listView?.enableRowSelection),
+        grouping: entity.list.tableOptions?.initialState?.grouping || [],
         rowPreview: undefined,
         rowSelection: {},
         sorting: getDefaultSorting(entity),

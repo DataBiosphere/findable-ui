@@ -1,4 +1,4 @@
-import { ColumnSort } from "@tanstack/react-table";
+import { ColumnSort, GroupingState } from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -76,6 +76,19 @@ export function getEntityCategoryGroupConfigKey(
 }
 
 /**
+ * Returns the entity page state value for the given entity path.
+ * @param entityPath - Entity path.
+ * @param entityPageState - Entity page state mapper.
+ * @returns entity page state value.
+ */
+export function getEntityPageStateValue(
+  entityPath: string,
+  entityPageState: EntityPageStateMapper
+): EntityPageState {
+  return entityPageState[entityPath];
+}
+
+/**
  * Returns the entity state for the current entity.
  * @param state - Explore state.
  * @param categoryGroupConfigKey - Category group config key.
@@ -132,6 +145,17 @@ export function getEntityStateSavedSorting(
  */
 export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
+}
+
+export function getSorting(
+  grouping: GroupingState = [],
+  columnSorting: ColumnSort[]
+): ColumnSort[] {
+  if (grouping.length === 0) return columnSorting;
+  // Retrieve the first column ID from the grouping state (grouping is currently only supported for one column).
+  const [id] = grouping;
+  // Add the grouped column to the sorting state.
+  return [{ desc: false, id }, ...columnSorting];
 }
 
 /**

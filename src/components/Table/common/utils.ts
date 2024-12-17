@@ -243,6 +243,7 @@ export function getGridTemplateColumns<T extends RowData>(
   columns: Column<T>[]
 ): string {
   return columns
+    .filter(filterGroupedColumn)
     .map(({ columnDef: { meta } }) => {
       const width = meta?.width;
       if (isGridTrackMinMax(width)) {
@@ -362,6 +363,15 @@ function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
       .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
       .map((cell) => cell.getValue() as TableData)
   );
+}
+
+/**
+ * Returns true if the column is not grouped (filters out grouped columns).
+ * @param column - Table column.
+ * @returns true if the column is not grouped.
+ */
+function filterGroupedColumn<T extends RowData>(column: Column<T>): boolean {
+  return !column.getIsGrouped();
 }
 
 /**

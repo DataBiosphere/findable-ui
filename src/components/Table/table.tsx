@@ -4,6 +4,7 @@ import {
   ColumnSort,
   CoreOptions,
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -98,8 +99,13 @@ TableProps<T>): JSX.Element => {
     rowPreview,
     tabValue,
   } = exploreState;
-  const { columnsVisibility, enableRowSelection, rowSelection, sorting } =
-    entityPageState[tabValue];
+  const {
+    columnsVisibility,
+    enableRowSelection,
+    grouping,
+    rowSelection,
+    sorting,
+  } = entityPageState[tabValue];
   const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
   const { disablePagination = false, enableRowPreview = false } =
     listView || {};
@@ -153,6 +159,7 @@ TableProps<T>): JSX.Element => {
 
   const state: Partial<TableState> = {
     columnVisibility: columnsVisibility,
+    grouping,
     pagination,
     rowPreview,
     rowSelection,
@@ -186,6 +193,7 @@ TableProps<T>): JSX.Element => {
     enableSorting: true, // client-side filtering.
     enableSortingRemoval: false, // client-side filtering.
     getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
       ? getFacetedUniqueValuesWithArrayValues()
