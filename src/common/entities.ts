@@ -53,7 +53,7 @@ export interface SelectCategory {
  */
 export interface SelectCategoryValue {
   count: number;
-  key: CategoryKey;
+  key: unknown;
   label: string; // Allows for displaying null values as "Unspecified"
   selected: boolean;
 }
@@ -63,7 +63,7 @@ export interface SelectCategoryValue {
  */
 export interface SelectCategoryValueView {
   count: number;
-  key: CategoryValueKey;
+  key: unknown;
   label: string;
   selected: boolean;
 }
@@ -89,4 +89,4 @@ export interface SelectedFilter {
 /**
  * Possible types of selected category values.
  */
-export type SelectedFilterValue = CategoryValueKey[];
+export type SelectedFilterValue = unknown[];

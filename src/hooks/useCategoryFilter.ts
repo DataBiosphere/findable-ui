@@ -1,7 +1,6 @@
 import { COLLATOR_CASE_INSENSITIVE } from "../common/constants";
 import {
   CategoryKey,
-  CategoryValueKey,
   Filters,
   SelectCategory,
   SelectCategoryValue,
@@ -30,7 +29,7 @@ export interface FilterInstance {
  */
 export type OnFilterFn = (
   categoryKey: CategoryKey,
-  selectedCategoryValue: CategoryValueKey,
+  selectedCategoryValue: unknown,
   selected: boolean,
   categorySection?: string,
   searchTerm?: string
@@ -139,7 +138,7 @@ export function buildCategoryViews(
 export function buildNextFilterState(
   filterState: FilterState,
   categoryKey: CategoryKey,
-  selectedValue: CategoryValueKey,
+  selectedValue: unknown,
   selected: boolean
 ): FilterState {
   // Check if the selected category already has selected values.
@@ -167,7 +166,7 @@ export function buildNextFilterState(
   // Otherwise, category value has been de-selected; remove the selected value from the selected set of values.
   else {
     nextCategorySelectedFilter.value = nextCategorySelectedFilter.value.filter(
-      (value: CategoryValueKey) => value !== selectedValue
+      (value: unknown) => value !== selectedValue
     );
   }
 
@@ -239,7 +238,7 @@ function findCategoryConfig(
  * @returns True if category value is in the set of currently selected values.
  */
 function isCategoryValueSelected(
-  categoryValueKey: CategoryValueKey,
+  categoryValueKey: unknown,
   categorySelectedFilter?: SelectedFilter
 ): boolean {
   if (!categorySelectedFilter) {

@@ -1,5 +1,5 @@
 import React, { ElementType, Fragment, ReactNode, useState } from "react";
-import { CategoryKey, CategoryValueKey } from "../../../../common/entities";
+import { CategoryKey } from "../../../../common/entities";
 import { useFileManifestState } from "../../../../hooks/useFileManifestState";
 import { FileManifestActionKind } from "../../../../providers/fileManifestState";
 import { PAPER_PANEL_STYLE } from "../../../common/Paper/paper";
@@ -59,7 +59,7 @@ export const ExportForm = ({
   // Updates file manifest filter state.
   const onFilter = (
     categoryKey: CategoryKey,
-    selectedCategoryValue: CategoryValueKey,
+    selectedCategoryValue: unknown,
     selected: boolean
   ): void => {
     fileManifestDispatch({

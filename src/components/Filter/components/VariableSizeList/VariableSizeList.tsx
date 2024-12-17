@@ -17,7 +17,7 @@ import { FilterMenuSearchMatch } from "../../common/entities";
 import { List as FilterList } from "../FilterList/filterList.styles";
 import VariableSizeListItem from "../VariableSizeListItem/variableSizeListItem";
 
-export type ItemSizeByItemKey = Map<string, number>;
+export type ItemSizeByItemKey = Map<unknown, number>;
 
 export interface VariableSizeListProps {
   categoryKey: CategoryKey;

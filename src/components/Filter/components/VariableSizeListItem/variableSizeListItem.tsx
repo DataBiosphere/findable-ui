@@ -19,7 +19,7 @@ interface Props {
   categorySection?: string;
   matchedItem: FilterMenuSearchMatch;
   onFilter: OnFilterFn;
-  onUpdateItemSizeByItemKey: (itemKey: string, itemSize: number) => void;
+  onUpdateItemSizeByItemKey: (itemKey: unknown, itemSize: number) => void;
   style: CSSProperties;
 }
 

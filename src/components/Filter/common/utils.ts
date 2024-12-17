@@ -75,7 +75,7 @@ export function getSortMatchesFn(
       if (match) {
         matches.push({ labelRanges: match.ranges, score: match.score, value });
       } else {
-        match = matchString(value.key || "");
+        match = matchString(String(value.key) || "");
         if (match) matches.push({ score: match.score, value });
       }
     }

@@ -7,12 +7,7 @@ import React, {
 } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { getFilterParameterValue } from "../apis/azul/common/utils";
-import {
-  CategoryKey,
-  CategoryValueKey,
-  Filters,
-  SelectedFilterValue,
-} from "../common/entities";
+import { CategoryKey, Filters, SelectedFilterValue } from "../common/entities";
 import { useCatalog } from "../hooks/useCatalog";
 import { buildNextFilterState } from "../hooks/useCategoryFilter";
 import { FileFacet } from "../hooks/useFileManifest/common/entities";
@@ -216,7 +211,7 @@ export type UpdateFileManifestPayload = {
 export type UpdateFilterPayload = {
   categoryKey: CategoryKey;
   selected: boolean;
-  selectedValue: CategoryValueKey;
+  selectedValue: unknown;
 };
 
 /**
