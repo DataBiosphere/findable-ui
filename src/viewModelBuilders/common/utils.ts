@@ -19,27 +19,27 @@ export function mapCategoryKeyLabel(
 }
 
 /**
- * Sanitizes a string for display i.e. any empty, null or undefined value is sanitized to "Unspecified".
- * @param str - String to sanitize.
+ * Sanitizes a value to a string for display i.e. any empty, null or undefined value is sanitized to "Unspecified".
+ * @param value - Value to sanitize.
  * @returns the string or sanitized string value.
  */
-export function sanitizeString(str: string): string {
-  if (str === "" || str === null || str === undefined) {
+export function sanitizeString(value: unknown): string {
+  if (value === "" || value === null || value === undefined) {
     return "Unspecified";
   } else {
-    return str;
+    return String(value);
   }
 }
 
 /**
- * Sanitizes a string array for display i.e. any string element within the string array that is an empty, null or
+ * Sanitizes array elements to strings for display i.e. any element within the string array that is an empty, null or
  * undefined value is sanitized to "Unspecified".
- * @param strArray - String array to sanitize.
+ * @param array - Array to sanitize.
  * @returns the string array, sanitized.
  */
-export function sanitizeStringArray(strArray: string[]): string[] {
-  if (!strArray || strArray.length === 0) {
+export function sanitizeStringArray(array: unknown[]): string[] {
+  if (!array || array.length === 0) {
     return ["Unspecified"];
   }
-  return strArray.map(sanitizeString);
+  return array.map(sanitizeString);
 }
