@@ -4,6 +4,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import {
+  CategoryValueKey,
   SelectCategory,
   SelectCategoryView,
   SelectedFilter,
@@ -55,6 +56,6 @@ export interface EntityStateSavedFilter extends Omit<SavedFilter, "sort"> {
 export type ListItem = any;
 
 export type SavedFilterByCategoryValueKey = Map<
-  unknown,
+  CategoryValueKey,
   EntityStateSavedFilter
 >;

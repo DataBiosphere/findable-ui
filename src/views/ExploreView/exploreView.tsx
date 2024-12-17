@@ -5,7 +5,11 @@ import {
 } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
-import { CategoryKey, SelectCategoryView } from "../../common/entities";
+import {
+  CategoryKey,
+  CategoryValueKey,
+  SelectCategoryView,
+} from "../../common/entities";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
@@ -78,7 +82,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const onFilterChange = (
     fromSearchAll: boolean,
     categoryKey: CategoryKey,
-    selectedCategoryValue: unknown,
+    selectedCategoryValue: CategoryValueKey,
     selected: boolean,
     categorySection?: string,
     searchTerm?: string

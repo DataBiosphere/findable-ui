@@ -1,5 +1,5 @@
 import { AzulSummaryResponse } from "../../../apis/azul/common/entities";
-import { CategoryKey } from "../../../common/entities";
+import { CategoryKey, CategoryValueKey } from "../../../common/entities";
 
 /**
  * Model of data returned from entity end points, including:
@@ -45,7 +45,10 @@ export enum FILE_MANIFEST_TYPE {
 
 export type FileManifestType = FILE_MANIFEST_TYPE;
 
-export type SelectedSearchTermsBySearchKey = Map<CategoryKey, Set<unknown>>;
+export type SelectedSearchTermsBySearchKey = Map<
+  CategoryKey,
+  Set<CategoryValueKey>
+>;
 
 /**
  * Model of an individual facet value. For example, the term "Homo Sapiens" contained in the facet "Species".

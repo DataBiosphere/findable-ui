@@ -1,5 +1,9 @@
 import { ColumnSort } from "@tanstack/react-table";
-import { CategoryKey, SelectedFilter } from "../../common/entities";
+import {
+  CategoryKey,
+  CategoryValueKey,
+  SelectedFilter,
+} from "../../common/entities";
 import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
 import { ACCESSOR_KEYS } from "../../components/TableCreator/common/constants";
 import { ExploreState, ListItems, PaginationState } from "../exploreState";
@@ -22,7 +26,7 @@ import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
  */
 export function buildEntityStateSavedFilterState(
   categoryKey: CategoryKey,
-  selectedValue: unknown,
+  selectedValue: CategoryValueKey,
   selected: boolean
 ): SelectedFilter[] {
   if (!selected) return [];
@@ -38,7 +42,7 @@ export function buildEntityStateSavedFilterState(
  */
 export function buildNextSavedFilterState(
   state: ExploreState,
-  selectedValue: unknown,
+  selectedValue: CategoryValueKey,
   selected: boolean
 ): SelectedFilter[] {
   if (!selected) return []; // Clears all filters on de-select of saved filter.
@@ -98,7 +102,7 @@ export function getEntityState(
  */
 export function getEntityStateSavedFilter(
   state: ExploreState,
-  categoryValueKey: unknown
+  categoryValueKey: CategoryValueKey
 ): EntityStateSavedFilter | undefined {
   const entityState = getEntityState(state);
   return entityState.savedFilterByCategoryValueKey?.get(categoryValueKey);
@@ -113,7 +117,7 @@ export function getEntityStateSavedFilter(
  */
 export function getEntityStateSavedSorting(
   state: ExploreState,
-  selectedValue: unknown,
+  selectedValue: CategoryValueKey,
   selected: boolean
 ): ColumnSort[] | undefined {
   if (!selected) return;

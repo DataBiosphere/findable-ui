@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-table";
 import {
   CategoryKey,
+  CategoryValueKey,
   PaginationDirectionType,
   SelectCategory,
   SelectedFilter,
@@ -19,7 +20,7 @@ import { ListItem } from "../entities";
 export interface ApplySavedFilterPayload {
   categoryKey: CategoryKey;
   selected: boolean;
-  selectedValue: unknown;
+  selectedValue: CategoryValueKey;
 }
 
 /**
@@ -76,7 +77,7 @@ export interface UpdateEntityViewAccessPayload {
 export interface UpdateFilterPayload {
   categoryKey: CategoryKey;
   selected: boolean;
-  selectedValue: unknown;
+  selectedValue: CategoryValueKey;
 }
 
 /**
