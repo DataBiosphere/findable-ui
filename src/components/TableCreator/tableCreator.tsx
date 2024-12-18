@@ -23,6 +23,7 @@ import {
 } from "../Table/common/utils";
 import { RowSelectionCell } from "../Table/components/TableCell/components/RowSelectionCell/rowSelectionCell";
 import { HeadSelectionCell } from "../Table/components/TableHead/components/HeadSelectionCell/headSelectionCell";
+import { useTableOptions } from "../Table/hooks/useTableOptions";
 import { Table } from "../Table/table";
 import { COLUMN_CONFIGS } from "./common/constants";
 import { buildBaseColumnDef } from "./common/utils";
@@ -68,8 +69,9 @@ export const TableCreator = <T extends RowData>({
   items,
   listView,
   loading,
-  tableOptions,
+  tableOptions: configuredTableOptions,
 }: TableCreatorProps<T>): JSX.Element => {
+  const tableOptions = useTableOptions(configuredTableOptions);
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
       columns.reduce(

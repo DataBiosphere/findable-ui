@@ -1,6 +1,7 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
 import {
   CellContext,
+  ColumnDef,
   ColumnMeta,
   ColumnSort,
   RowData,
@@ -88,12 +89,13 @@ export interface CategoryConfig {
 /**
  * Column configuration.
  */
-export interface ColumnConfig<
+export type ColumnConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
-  T = any,
+  T extends RowData = any,
+  TData = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
   C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
-> {
+> = ColumnDef<T, TData> & {
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
   columnVisible?: boolean; // Column is visible. Default is "true".
   componentConfig: ComponentConfig<C, T>;
@@ -104,7 +106,7 @@ export interface ColumnConfig<
   meta?: ColumnMeta<T, unknown>;
   tooltip?: string; // TODO review need to define `tooltip` field - it is currently not in use.
   width: GridTrackSize;
-}
+};
 
 /**
  * Interface used to define the configuration of a component.

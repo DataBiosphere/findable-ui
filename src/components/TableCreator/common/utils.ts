@@ -1,18 +1,19 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { BaseColumnConfig } from "./entities";
+import { ColumnConfig } from "../../../config/entities";
 
 /**
  * Builds a base column definition.
  * @param baseColumnConfig - Base column configuration.
  * @returns column definition.
  */
-export function buildBaseColumnDef<T, TValue>(
-  baseColumnConfig: BaseColumnConfig<T, TValue>
+export function buildBaseColumnDef<T>(
+  baseColumnConfig: ColumnConfig<T>
 ): ColumnDef<T> {
   const {
     columnPinned,
     disableHiding,
     disableSorting,
+    enableGrouping = false,
     header,
     id,
     meta,
@@ -20,6 +21,7 @@ export function buildBaseColumnDef<T, TValue>(
   } = baseColumnConfig;
   return {
     accessorKey: id,
+    enableGrouping,
     enableHiding: !disableHiding,
     enableSorting: !disableSorting,
     header,

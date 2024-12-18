@@ -57,11 +57,11 @@ export function getDefaultEntityConfig(): EntityConfig {
  * @returns initial sorting state.
  */
 export function getDefaultSorting(entityConfig: EntityConfig): ColumnSort[] {
-  const columnSort = entityConfig.list.defaultSort;
-  if (!columnSort) {
-    return [];
-  }
-  return [columnSort];
+  const {
+    list: { defaultSort, tableOptions: { initialState } = {} },
+  } = entityConfig;
+  if (defaultSort) return [defaultSort];
+  return initialState?.sorting || [];
 }
 
 /**
