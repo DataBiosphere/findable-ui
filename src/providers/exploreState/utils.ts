@@ -1,4 +1,4 @@
-import { ColumnSort } from "@tanstack/react-table";
+import { ColumnSort, GroupingState } from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -134,6 +134,43 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
 }
 
+function getNextEntityPageState(
+  currentEntityPageState: EntityPageState,
+  partialNextEntityPageState: Partial<EntityPageState>
+): EntityPageState {
+  return {
+    ...currentEntityPageState,
+    ...partialNextEntityPageState,
+    sorting: getSorting(
+      partialNextEntityPageState.grouping,
+      partialNextEntityPageState.sorting
+    ),
+  };
+}
+
+/**
+ * Returns column sorting.
+ * Adjusts the sorting state by ensuring the first grouped column is inserted as the first sort column.
+ * If grouping is active, the first grouped column is sorted in ascending order (`desc: false`)
+ * and is placed at the beginning of the sorting state. Existing sorting rules for other columns are preserved,
+ * but any existing sorting rule for the grouped column is removed before re-adding it.
+ * @param grouping - Grouping state.
+ * @param columnSorting - Column sorting state.
+ * @returns column sorting.
+ */
+export function getSorting(
+  grouping: GroupingState = [],
+  columnSorting: ColumnSort[] = []
+): ColumnSort[] {
+  if (grouping.length === 0) return columnSorting;
+  // Retrieve the first column ID from the grouping state (grouping is currently only supported for one column).
+  const [id] = grouping;
+  // Filter out the grouped column from the sorting state.
+  const sorting = columnSorting.filter((columnSort) => columnSort.id !== id);
+  // Add the grouped column to the sorting state (with descending sort order).
+  return [{ desc: false, id }, ...sorting];
+}
+
 /**
  * Returns list items with updated list items patched.
  * @param listItems - List items.
@@ -189,19 +226,26 @@ function setEntityStateByCategoryGroupConfigKey(
  * Updates entity page state for the given entity path.
  * @param entityPath - Entity path.
  * @param entityPageState - Entity page state.
- * @param nextEntityPageState - Partial next entity page state.
+ * @param partialNextEntityPageState - Partial next entity page state.
  * @returns updated entity page state.
  */
 export function updateEntityPageState(
   entityPath: string, // entityListType.
   entityPageState: EntityPageStateMapper,
-  nextEntityPageState: Partial<EntityPageState>
+  partialNextEntityPageState: Partial<EntityPageState>
 ): EntityPageStateMapper {
+  const nextEntityPageState = {
+    ...entityPageState[entityPath],
+    ...partialNextEntityPageState,
+  };
   return {
     ...entityPageState,
     [entityPath]: {
-      ...entityPageState[entityPath],
       ...nextEntityPageState,
+      sorting: getSorting(
+        nextEntityPageState.grouping,
+        nextEntityPageState.sorting
+      ),
     },
   };
 }
@@ -215,7 +259,7 @@ export function updateEntityPageState(
  */
 export function updateEntityPageStateWithCommonCategoryGroupConfigKey(
   state: ExploreState,
-  nextEntityPageState: Partial<EntityPageState>,
+  nextEntityPageState: Partial<Omit<EntityPageState, "grouping">>,
   categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
     state.entityPageState
@@ -226,7 +270,14 @@ export function updateEntityPageStateWithCommonCategoryGroupConfigKey(
       if (entityPageState.categoryGroupConfigKey === categoryGroupConfigKey) {
         return {
           ...acc,
-          [entityPath]: { ...entityPageState, ...nextEntityPageState },
+          [entityPath]: {
+            ...entityPageState,
+            ...nextEntityPageState,
+            sorting: getSorting(
+              entityPageState.grouping,
+              nextEntityPageState.sorting || entityPageState.sorting
+            ),
+          },
         };
       }
       return { ...acc, [entityPath]: entityPageState };

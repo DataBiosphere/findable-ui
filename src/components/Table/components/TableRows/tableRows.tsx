@@ -7,6 +7,7 @@ import {
   getTableCellPadding,
 } from "../TableCell/common/utils";
 import { TableRow } from "../TableRow/tableRow.styles";
+import { getRowId } from "./utils";
 
 export interface TableRowsProps<T extends RowData> {
   tableInstance: Table<T>;
@@ -29,18 +30,23 @@ export const TableRows = <T extends RowData>({
           <TableRow
             key={row.id}
             data-index={virtualRow.index}
+            id={getRowId(row)}
             isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
           >
-            {row.getVisibleCells().map((cell) => (
-              <TableCell
-                key={cell.id}
-                align={getTableCellAlign(cell.column)}
-                padding={getTableCellPadding(cell.column.id)}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
-            ))}
+            {row.getVisibleCells().map((cell) => {
+              if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
+              if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
+              return (
+                <TableCell
+                  key={cell.id}
+                  align={getTableCellAlign(cell.column)}
+                  padding={getTableCellPadding(cell.column.id)}
+                >
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              );
+            })}
           </TableRow>
         );
       })}

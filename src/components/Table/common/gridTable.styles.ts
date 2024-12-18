@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Table as MTable } from "@mui/material";
 import { smokeLightest, white } from "../../../styles/common/mixins/colors";
+import { textBodySmall500 } from "../../../styles/common/mixins/fonts";
 
 export interface GridTableProps {
   gridTemplateColumns: string;
@@ -44,6 +45,7 @@ export const GridTable = styled(MTable, {
     background-color: ${smokeLightest};
 
     td {
+      ${textBodySmall500};
       background-color: inherit;
       grid-column: 1 / -1;
     }
