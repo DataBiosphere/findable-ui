@@ -70,7 +70,7 @@ function bindFacets(
 function bindFacetTerms(
   facetName: string,
   responseTerms: AzulTerm[],
-  searchTermNames: string[]
+  searchTermNames: unknown[]
 ): Term[] {
   return responseTerms.reduce((accum: Term[], responseTerm) => {
     // Default term name to "Unspecified" if term name is null.
@@ -203,7 +203,7 @@ export function isFacetTermSelected(
 function listFacetSearchTermNames(
   facetName: string,
   searchTermsBySearchKey: SelectedSearchTermsBySearchKey
-): string[] {
+): unknown[] {
   return [...(searchTermsBySearchKey.get(facetName) ?? [])];
 }
 

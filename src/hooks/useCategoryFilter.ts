@@ -273,7 +273,11 @@ function sortCategoryValueViews(
   cvv0: SelectCategoryValueView,
   cvv1: SelectCategoryValueView
 ): number {
-  return COLLATOR_CASE_INSENSITIVE.compare(cvv0.label, cvv1.label);
+  return !cvv0.label
+    ? 1
+    : !cvv1.label
+    ? -1
+    : COLLATOR_CASE_INSENSITIVE.compare(cvv0.label, cvv1.label);
 }
 
 /**

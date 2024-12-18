@@ -88,7 +88,7 @@ export function buildCategoryViews<T extends RowData>(
       const values = [...getFacetedUniqueValues()].map(([value, count]) => ({
         count,
         key: value,
-        label: value,
+        label: String(value ?? ""),
         selected: false, // Selected state updated in reducer.
       }));
       categoryViews.push({

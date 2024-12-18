@@ -324,7 +324,7 @@ export interface TrackFilterAppliedPayload {
   searchTerm: string;
   section: string;
   selected: boolean;
-  value: string;
+  value: unknown;
 }
 
 /**

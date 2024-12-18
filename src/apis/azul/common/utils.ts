@@ -5,7 +5,7 @@ import { ParamValue } from "./filterTransformer";
  * @param value - Filter value.
  * @returns filter parameter value.
  */
-export function getFilterParameterValue(value: string): ParamValue {
+export function getFilterParameterValue(value: unknown): ParamValue {
   if (value === "Unspecified") {
     return null;
   }
@@ -15,5 +15,7 @@ export function getFilterParameterValue(value: string): ParamValue {
   if (value === "false") {
     return false;
   }
-  return value;
+  if (typeof value === "string" || typeof value === "boolean") return value;
+  if (value === null || value === undefined) return null;
+  return String(value);
 }

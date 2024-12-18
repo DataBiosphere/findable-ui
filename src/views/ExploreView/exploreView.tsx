@@ -114,7 +114,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     if (selected) {
       track(EVENT_NAME.FILTER_SELECTED, {
         [EVENT_PARAM.FILTER_NAME]: categoryKey,
-        [EVENT_PARAM.FILTER_VALUE]: selectedCategoryValue,
+        [EVENT_PARAM.FILTER_VALUE]: String(selectedCategoryValue),
       });
     }
   };

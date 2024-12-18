@@ -131,7 +131,7 @@ export function transformTermFacets(
       categoryValues.push({
         count: 0,
         key: term,
-        label: term ?? LABEL.UNSPECIFIED,
+        label: String(term ?? LABEL.UNSPECIFIED),
         selected: false, // Selected state updated in filter hook
       });
     }

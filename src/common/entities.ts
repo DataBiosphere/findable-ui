@@ -15,7 +15,7 @@ export interface CategoryTag {
 /**
  * Category values to be used as keys. For example, "Homo sapiens" or "10X 3' v2 sequencing".
  */
-export type CategoryValueKey = string;
+export type CategoryValueKey = unknown;
 
 /**
  * Set of selected category values.
@@ -53,7 +53,7 @@ export interface SelectCategory {
  */
 export interface SelectCategoryValue {
   count: number;
-  key: CategoryKey;
+  key: CategoryValueKey;
   label: string; // Allows for displaying null values as "Unspecified"
   selected: boolean;
 }
@@ -73,7 +73,7 @@ export interface SelectCategoryValueView {
  */
 export interface SelectCategoryView {
   isDisabled?: boolean;
-  key: CategoryValueKey;
+  key: CategoryKey;
   label: string;
   values: SelectCategoryValueView[];
 }
