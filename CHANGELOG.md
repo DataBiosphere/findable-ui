@@ -1,5 +1,16 @@
 # Changelog
 
+## [18.0.0](https://github.com/DataBiosphere/findable-ui/compare/v17.0.0...v18.0.0) (2024-12-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* ensure select category value label is string and type key as unknown ([#298](https://github.com/DataBiosphere/findable-ui/issues/298)) (#299)
+
+### Bug Fixes
+
+* ensure select category value label is string and type key as unknown ([#298](https://github.com/DataBiosphere/findable-ui/issues/298)) ([#299](https://github.com/DataBiosphere/findable-ui/issues/299)) ([c7b5baa](https://github.com/DataBiosphere/findable-ui/commit/c7b5baae525f6e54493a2748070fa46cc36d9f67))
+
 ## [17.0.0](https://github.com/DataBiosphere/findable-ui/compare/v16.1.0...v17.0.0) (2024-12-12)
 
 
