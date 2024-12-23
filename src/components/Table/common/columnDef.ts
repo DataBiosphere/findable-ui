@@ -6,6 +6,7 @@ import { RowPositionCell } from "../components/TableCell/components/RowPositionC
 export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_POSITION: {
     cell: RowPositionCell,
+    enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
     header: "",

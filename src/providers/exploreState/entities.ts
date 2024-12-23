@@ -1,5 +1,6 @@
 import {
   ColumnSort,
+  GroupingState,
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -22,6 +23,7 @@ export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
   columnsVisibility: VisibilityState;
   enableRowSelection: boolean;
+  grouping: GroupingState;
   rowPreview: RowPreviewState;
   rowSelection: RowSelectionState;
   sorting: ColumnSort[];

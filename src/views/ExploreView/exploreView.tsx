@@ -248,7 +248,7 @@ function renderList(
 ): JSX.Element {
   const { listItems, loading, tabValue } = exploreState;
   const { getId: getRowId, list, listView } = entityConfig;
-  const { columns: columnsConfig, defaultSort, tableOptions } = list;
+  const { columns: columnsConfig } = list;
 
   if (!exploreState || !tabValue) {
     return <></>; //TODO: return the loading UI component
@@ -263,12 +263,10 @@ function renderList(
   return (
     <TableCreator
       columns={columnsConfig}
-      defaultSort={defaultSort}
       getRowId={getRowId}
       items={listItems ?? []}
       listView={listView}
       loading={loading}
-      tableOptions={tableOptions}
     />
   );
 }

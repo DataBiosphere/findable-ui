@@ -269,7 +269,6 @@ declare module "@tanstack/react-table" {
   interface ColumnMeta<TData extends RowData, TValue> {
     align?: TableCellProps["align"];
     columnPinned?: boolean;
-    enableSortingInteraction?: boolean; // Flag to enable sorting interaction UI (e.g. sort icon) button; defaults to true.
     header?: string;
     width?: GridTrackSize;
   }
@@ -277,6 +276,14 @@ declare module "@tanstack/react-table" {
   interface InitialTableState extends CustomFeatureInitialTableState {}
   // eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars -- empty interface is needed for extending, TData is an unused variable.
   interface Row<TData extends RowData> extends CustomFeatureRow {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData is an unused variables.
+  interface SortingOptions<TData extends RowData> {
+    /**
+     * When false, sorting can still be applied programmatically (e.g., `getSortedRowModel`),
+     * but user interactions or showing sort icons are disabled.
+     */
+    enableSortingInteraction?: boolean;
+  }
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending.
   interface Table<TData extends RowData> extends CustomFeatureInstance<TData> {}
   // eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars -- empty interface is needed for extending, TData is an unused variable.

@@ -1,5 +1,6 @@
 import {
   ColumnSort,
+  GroupingState,
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -79,6 +80,11 @@ export interface UpdateFilterPayload {
   selected: boolean;
   selectedValue: CategoryValueKey;
 }
+
+/**
+ * Update grouping payload.
+ */
+export type UpdateGroupingPayload = GroupingState;
 
 /**
  * Update row preview payload.

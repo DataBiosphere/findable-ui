@@ -1,4 +1,3 @@
-import { ColumnSort } from "@tanstack/react-table";
 import { EXPLORE_MODE } from "../hooks/useExploreMode";
 import { getConfig } from "./config";
 import { EntityConfig, SiteConfig } from "./entities";
@@ -49,19 +48,6 @@ export function getDefaultEntityConfig(): EntityConfig {
     },
     route: "",
   };
-}
-
-/**
- * Returns the initial table sorting state for the specified entity list configuration.
- * @param entityConfig - Entity configuration.
- * @returns initial sorting state.
- */
-export function getDefaultSorting(entityConfig: EntityConfig): ColumnSort[] {
-  const columnSort = entityConfig.list.defaultSort;
-  if (!columnSort) {
-    return [];
-  }
-  return [columnSort];
 }
 
 /**

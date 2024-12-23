@@ -1,6 +1,7 @@
 import { TabProps as MTabProps, Theme, ThemeOptions } from "@mui/material";
 import {
   CellContext,
+  ColumnDef,
   ColumnMeta,
   ColumnSort,
   RowData,
@@ -87,24 +88,24 @@ export interface CategoryConfig {
 
 /**
  * Column configuration.
+ * TanStack ColumnDef properties not currently supported include:
+ * - `enableMultiSort` - Note, table multi-sort is managed via table options.
  */
-export interface ColumnConfig<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
-  T = any,
+export type ColumnConfig<
+  T extends RowData,
+  TValue = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
   C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
-> {
+> = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
   columnVisible?: boolean; // Column is visible. Default is "true".
   componentConfig: ComponentConfig<C, T>;
   disableHiding?: boolean; // Disables hiding of column. Column is unavailable for "Edit Columns" functionality when "true".
-  disableSorting?: boolean; // Disables sorting for the column.
   header: string;
   id: string; // The unique identifier for the column.
   meta?: ColumnMeta<T, unknown>;
-  tooltip?: string; // TODO review need to define `tooltip` field - it is currently not in use.
   width: GridTrackSize;
-}
+};
 
 /**
  * Interface used to define the configuration of a component.
@@ -256,7 +257,6 @@ export type GridTrackSize =
 /**
  * List configuration.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model can receive any model as type
 export interface ListConfig<T extends RowData> {
   columns: ColumnConfig<T>[];
   defaultSort?: ColumnSort; // Establishes initial table state "sorting" state.

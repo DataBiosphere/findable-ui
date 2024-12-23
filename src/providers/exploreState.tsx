@@ -39,6 +39,7 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
+  UpdateGroupingPayload,
   UpdateRowPreviewPayload,
   UpdateRowSelectionPayload,
   UpdateSortingPayload,
@@ -226,6 +227,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateGrouping = "UPDATE_GROUPING",
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
@@ -247,6 +249,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateGroupingAction
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction;
@@ -345,6 +348,14 @@ type UpdateEntityViewAccessAction = {
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
+};
+
+/**
+ * Update grouping action.
+ */
+type UpdateGroupingAction = {
+  payload: UpdateGroupingPayload;
+  type: ExploreActionKind.UpdateGrouping;
 };
 
 /**
@@ -656,6 +667,20 @@ function exploreReducer(
         filterState,
         paginationState: resetPage(state.paginationState),
         rowPreview,
+      };
+    }
+    /**
+     * Update grouping
+     **/
+    case ExploreActionKind.UpdateGrouping: {
+      const grouping = payload;
+      return {
+        ...state,
+        entityPageState: updateEntityPageState(
+          state.tabValue,
+          state.entityPageState,
+          { grouping }
+        ),
       };
     }
     /**

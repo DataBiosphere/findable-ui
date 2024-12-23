@@ -1,11 +1,12 @@
 import { TableCell } from "@mui/material";
-import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
+import { flexRender, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../../../../../Table/components/TableCell/common/utils";
 import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
+import { getRowId } from "../../../../../Table/components/TableRows/utils";
 import { TableView } from "../../table";
 
 export interface TableRowsProps<T extends RowData> {
@@ -50,18 +51,3 @@ export const TableRows = <T extends RowData>({
     </Fragment>
   );
 };
-
-/**
- * Returns identifier for a row.
- * @param row - Row.
- * @returns row identifier.
- */
-function getRowId<T extends RowData>(row: Row<T>): string | undefined {
-  const { depth, getIsGrouped, id } = row;
-  if (getIsGrouped()) {
-    return `grouped-row-${id}`;
-  }
-  if (depth > 0) {
-    return `sub-row-${id}`;
-  }
-}
