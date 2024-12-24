@@ -144,10 +144,8 @@ export function generateDownloadBlob<T extends RowData>(
 export function getEditColumnOptions<T extends RowData>(
   table: Table<T>
 ): CheckboxMenuListItem[] {
-  const {
-    getAllColumns,
-    options: { initialState: { columnVisibility = {} } = {} },
-  } = table;
+  const { getAllColumns, initialState } = table;
+  const { columnVisibility: initialVisibilityState } = initialState;
   const allColumns = getAllColumns();
   return allColumns.reduce((acc, column) => {
     const {
@@ -159,7 +157,7 @@ export function getEditColumnOptions<T extends RowData>(
     if (getCanHide()) {
       const option: CheckboxMenuListItem = {
         checked: getIsVisible(),
-        disabled: columnVisibility[id],
+        disabled: initialVisibilityState[id],
         label: header as string, // TODO revisit type assertion here
         onChange: () => {
           handleToggleVisibility(table, column);
