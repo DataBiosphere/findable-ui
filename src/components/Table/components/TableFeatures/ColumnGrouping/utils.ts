@@ -1,4 +1,4 @@
-import { Column, ColumnSort, RowData, Table } from "@tanstack/react-table";
+import { Column, RowData, Table } from "@tanstack/react-table";
 import { buildColumnSort } from "../RowSorting/utils";
 
 /**
@@ -34,10 +34,7 @@ export function handleClearGroupingState<T extends RowData>(
  * - **Column sorting is not enabled**:
  *   - Resets sorting state to initial state.
  * - **Column sorting is enabled**:
- *   - **Single-Sort Mode**:
- *     - The grouped column is the only sortable column in the sorting state.
- *   - **Multi-Sort Mode**:
- *     - The grouped column is preserved as the first sort key, and other initial sorting state rules are appended.
+ *   - Sets new sorting state with the grouped column as the first sort key.
  * @param table - Table.
  * @param column - Column.
  */
@@ -46,15 +43,11 @@ export function handleToggleGrouping<T extends RowData>(
   column: Column<T>
 ): void {
   const {
-    options: {
-      enableMultiSort,
-      enableSorting,
-      initialState: { sorting = [] } = {},
-    },
+    options: { enableSorting },
     resetSorting,
     setSorting,
   } = table;
-  const { getCanGroup, getCanSort, id } = column;
+  const { getCanGroup, getCanSort } = column;
 
   // Column cannot be grouped.
   if (!getCanGroup()) return;
@@ -67,18 +60,8 @@ export function handleToggleGrouping<T extends RowData>(
 
   // Column sorting is enabled.
   if (getCanSort()) {
-    // Create new sorting state; grouped column is preserved as the first sort.
-    const nextSorting: ColumnSort[] = [buildColumnSort(column)];
-
-    // Multi-sort mode.
-    if (enableMultiSort) {
-      // Filter out grouped column from initial sorting state.
-      const filteredSorting = sorting.filter((sort) => sort.id !== id);
-      // Append filtered sorting state to new sorting state.
-      nextSorting.push(...filteredSorting);
-    }
-
-    setSorting(nextSorting);
+    // Set new sorting state; grouped column is first sort.
+    setSorting([buildColumnSort(column)]);
     return;
   }
 
