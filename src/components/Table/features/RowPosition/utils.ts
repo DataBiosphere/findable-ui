@@ -21,10 +21,11 @@ export function getRowModel<T extends RowData>(
   const rowModel = getRowModel();
   let i = 0;
   rowModel.rows.forEach(({ getIsGrouped, id }) => {
-    const index = i; // Capture the current value of i for this iteration.
+    const isGroupedRow = getIsGrouped();
+    const index = isGroupedRow ? -1 : i; // Capture the current value of i for this iteration.
     rowModel.rowsById[id].getRowPosition = (): number =>
       calculateRowPosition(table, index);
-    if (getIsGrouped()) return; // Skip grouped rows.
+    if (isGroupedRow) return; // Iterate only for non-grouped rows.
     i++;
   });
   return rowModel;
@@ -55,6 +56,7 @@ function calculateRowPosition<T extends RowData>(
   table: Table<T>,
   index: number
 ): number {
+  if (index < 0) return index; // Grouped rows have a position of -1.
   const { getState } = table;
   const {
     pagination: { pageIndex, pageSize },
