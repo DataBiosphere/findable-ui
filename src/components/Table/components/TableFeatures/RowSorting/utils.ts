@@ -78,7 +78,7 @@ export function handleToggleSorting<T extends RowData>(
         return;
       }
     } else {
-      // Space case; in single-sort mode we do not override a grouped sort.
+      // Special case; in single-sort mode we do not override a grouped sort.
       return;
     }
   }
