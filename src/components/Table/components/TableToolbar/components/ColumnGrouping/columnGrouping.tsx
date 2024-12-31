@@ -17,9 +17,10 @@ export const ColumnGrouping = <T extends RowData>({
     getState,
     options: { enableGrouping },
   } = tableInstance;
-  if (!enableGrouping) return null;
   const { grouping } = getState();
   const groupingByColumnId = getColumnGrouping(tableInstance);
+  if (!enableGrouping) return null;
+  if (groupingByColumnId.size === 0) return null;
   return (
     <DropdownMenu
       {...MENU_PROPS}
