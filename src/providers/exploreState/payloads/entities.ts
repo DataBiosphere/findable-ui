@@ -83,11 +83,6 @@ export interface UpdateFilterPayload {
 }
 
 /**
- * Update grouping payload.
- */
-export type UpdateGroupingPayload = GroupingState;
-
-/**
  * Update row preview payload.
  */
 export type UpdateRowPreviewPayload = RowPreviewState;

@@ -19,6 +19,8 @@ import {
 } from "../hooks/useCategoryFilter";
 import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
+import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
+import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
 import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
@@ -39,7 +41,6 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
-  UpdateGroupingPayload,
   UpdateRowPreviewPayload,
   UpdateRowSelectionPayload,
   UpdateSortingPayload,
@@ -348,14 +349,6 @@ type UpdateEntityViewAccessAction = {
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
-};
-
-/**
- * Update grouping action.
- */
-type UpdateGroupingAction = {
-  payload: UpdateGroupingPayload;
-  type: ExploreActionKind.UpdateGrouping;
 };
 
 /**
@@ -686,15 +679,7 @@ function exploreReducer(
      * Update grouping
      **/
     case ExploreActionKind.UpdateGrouping: {
-      const grouping = payload;
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { grouping }
-        ),
-      };
+      return updateGroupingAction(state, payload);
     }
     /**
      * Update row preview
