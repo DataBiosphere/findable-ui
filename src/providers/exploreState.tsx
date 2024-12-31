@@ -50,7 +50,7 @@ import {
   closeRowPreview,
   getEntityCategoryGroupConfigKey,
   getEntityState,
-  getEntityStateSavedSorting,
+  getEntityStateSavedProperty,
   getFilterCount,
   patchEntityListItems,
   resetPage,
@@ -414,11 +414,19 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      const savedSorting = getEntityStateSavedSorting(
+      const savedGrouping = getEntityStateSavedProperty(
         state,
         payload.selectedValue,
-        payload.selected
+        payload.selected,
+        "grouping"
       );
+      const savedSorting = getEntityStateSavedProperty(
+        state,
+        payload.selectedValue,
+        payload.selected,
+        "sorting"
+      );
+      const grouping = savedGrouping || []; // Reset grouping to default if saved grouping is not available.
       const sorting = savedSorting || []; // Reset sorting to default if saved sorting is not available.
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
@@ -428,7 +436,7 @@ function exploreReducer(
         ...state,
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection, sorting }
+          { grouping, rowPreview, rowSelection, sorting }
         ),
         filterCount: getFilterCount(filterState),
         filterState,

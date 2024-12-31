@@ -50,9 +50,7 @@ export type EntityStateByCategoryGroupConfigKey = Map<
 
 export type CategoryGroupConfigKey = CategoryGroupConfig["key"];
 
-export interface EntityStateSavedFilter extends Omit<SavedFilter, "sort"> {
-  sorting?: ColumnSort[];
-}
+export type EntityStateSavedFilter = SavedFilter;
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
 export type ListItem = any;

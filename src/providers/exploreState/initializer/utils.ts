@@ -76,8 +76,13 @@ function buildSavedFilterByCategoryValueKey(
   if (!savedFilters) return;
   const savedFilterByCategoryValueKey: SavedFilterByCategoryValueKey =
     new Map();
-  for (const { filters, sorting, title } of savedFilters) {
-    savedFilterByCategoryValueKey.set(title, { filters, sorting, title });
+  for (const { filters, grouping, sorting, title } of savedFilters) {
+    savedFilterByCategoryValueKey.set(title, {
+      filters,
+      grouping,
+      sorting,
+      title,
+    });
   }
   return savedFilterByCategoryValueKey;
 }

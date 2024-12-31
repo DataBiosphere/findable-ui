@@ -1,4 +1,3 @@
-import { ColumnSort } from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -109,20 +108,24 @@ export function getEntityStateSavedFilter(
 }
 
 /**
- * Returns entity state "saved filter" sorting for the given category value key.
+ * Retrieves a specified property from the "saved filter" for the given category value key.
+ * This function fetches a property (e.g., "sorting" or "grouping") from the saved filter
+ * associated with a given `selectedValue`.
  * @param state - Explore state.
  * @param selectedValue - Key of category value that has been de/selected.
  * @param selected - True if value is selected, false if de-selected.
- * @returns sorting.
+ * @param propertyName - The name of the property to retrieve from the saved filter. Should be one of the predefined keys: "sorting" or "grouping".
+ * @returns value of the specified property from the saved filter, or undefined if `selected` is false.
  */
-export function getEntityStateSavedSorting(
+export function getEntityStateSavedProperty<K extends "sorting" | "grouping">(
   state: ExploreState,
   selectedValue: CategoryValueKey,
-  selected: boolean
-): ColumnSort[] | undefined {
+  selected: boolean,
+  propertyName: K
+): EntityStateSavedFilter[K] | undefined {
   if (!selected) return;
   const savedFilter = getEntityStateSavedFilter(state, selectedValue);
-  return savedFilter?.sorting;
+  return savedFilter?.[propertyName];
 }
 
 /**

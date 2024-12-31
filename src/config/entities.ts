@@ -4,6 +4,7 @@ import {
   ColumnDef,
   ColumnMeta,
   ColumnSort,
+  GroupingState,
   RowData,
   Table,
   TableOptions,
@@ -312,6 +313,7 @@ export interface Override {
 
 export interface SavedFilter {
   filters: SelectedFilter[];
+  grouping?: GroupingState;
   sorting?: ColumnSort[];
   title: string;
 }
