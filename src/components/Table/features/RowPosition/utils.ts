@@ -19,9 +19,13 @@ export function getRowModel<T extends RowData>(
   getRowModel: Table<T>[`getRowModel`]
 ): RowModel<T> {
   const rowModel = getRowModel();
-  rowModel.rows.forEach(({ id }, i) => {
+  let i = 0;
+  rowModel.rows.forEach(({ getIsGrouped, id }) => {
+    const index = i; // Capture the current value of i for this iteration.
     rowModel.rowsById[id].getRowPosition = (): number =>
-      calculateRowPosition(table, i);
+      calculateRowPosition(table, index);
+    if (getIsGrouped()) return; // Skip grouped rows.
+    i++;
   });
   return rowModel;
 }
