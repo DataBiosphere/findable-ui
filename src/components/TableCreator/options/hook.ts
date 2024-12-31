@@ -1,11 +1,10 @@
-import { RowData } from "@tanstack/react-table";
-import { useConfig } from "../../../../hooks/useConfig";
-import { useExpandedOptions } from "../../../Table/options/expanded/hook";
-import { useGroupingOptions } from "../../../Table/options/grouping/hook";
-import { useSortingOptions } from "../../../Table/options/sorting/hook";
-import { UseTableOptions } from "./types";
+import { RowData, TableOptions } from "@tanstack/react-table";
+import { useConfig } from "../../../hooks/useConfig";
+import { useExpandedOptions } from "./expanded/hook";
+import { useGroupingOptions } from "./grouping/hook";
+import { useSortingOptions } from "./sorting/hook";
 
-export function useTableOptions<T extends RowData>(): UseTableOptions<T> {
+export function useTableOptions<T extends RowData>(): Partial<TableOptions<T>> {
   const {
     entityConfig: {
       list: { defaultSort, tableOptions },

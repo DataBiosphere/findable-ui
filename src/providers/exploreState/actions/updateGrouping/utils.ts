@@ -1,5 +1,5 @@
 import { GroupingState, Updater } from "@tanstack/react-table";
-import { resolveUpdater } from "../../../../components/Table/options/common/utils";
+import { resolveUpdater } from "../../../../components/Table/options/updater";
 import { ExploreState } from "../../../exploreState";
 
 /**

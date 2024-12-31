@@ -21,7 +21,7 @@ import { HeadSelectionCell } from "../Table/components/TableHead/components/Head
 import { Table } from "../Table/table";
 import { COLUMN_CONFIGS } from "./common/constants";
 import { buildBaseColumnDef } from "./common/utils";
-import { useTableOptions } from "./hooks/useTableOptions/useTableOptions";
+import { useTableOptions } from "./options/hook";
 import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 
 export interface TableCreatorProps<T> {
