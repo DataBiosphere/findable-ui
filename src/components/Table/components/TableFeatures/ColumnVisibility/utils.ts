@@ -44,7 +44,6 @@ export function handleToggleVisibility<T extends RowData>(
 
   // Column is visible.
   // Table grouping is enabled, and column is grouped.
-  // We can have the table TODO table grouping not enabled, but still have a column grouped!
   if (enableGrouping && getIsGrouped()) {
     resetGrouping(true); // Clears grouping state to `[]`.
     // Currently, only a grouped column's sorting state is cleared.

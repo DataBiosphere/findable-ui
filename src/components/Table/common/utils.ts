@@ -157,7 +157,7 @@ export function getEditColumnOptions<T extends RowData>(
     if (getCanHide()) {
       const option: CheckboxMenuListItem = {
         checked: getIsVisible(),
-        disabled: initialVisibilityState[id],
+        disabled: initialVisibilityState[id], // TODO(cc) column visibility toggle should be disabled when table enableGrouping is false, and column is grouped.
         label: header as string, // TODO revisit type assertion here
         onChange: () => {
           handleToggleVisibility(table, column);
