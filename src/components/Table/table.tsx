@@ -129,8 +129,8 @@ TableProps<T>): JSX.Element => {
     // TODO(cc) GTM tracking when `onSortingChange` is triggered only tracks the first column sorted, and takes the value from explore state which is not updated yet.
     track(EVENT_NAME.ENTITY_TABLE_SORTED, {
       [EVENT_PARAM.ENTITY_NAME]: exploreState.tabValue,
-      [EVENT_PARAM.COLUMN_NAME]: sorting[0]?.id,
-      [EVENT_PARAM.SORT_DIRECTION]: sorting[0]?.desc
+      [EVENT_PARAM.COLUMN_NAME]: sorting?.[0]?.id, // TODO(cc) sorting should always be at least `[]` and never `undefined`.
+      [EVENT_PARAM.SORT_DIRECTION]: sorting?.[0]?.desc // TODO(cc) sorting should always be at least `[]` and never `undefined`.
         ? SORT_DIRECTION.DESC
         : SORT_DIRECTION.ASC,
     });

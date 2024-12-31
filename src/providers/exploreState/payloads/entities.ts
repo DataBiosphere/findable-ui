@@ -63,6 +63,7 @@ export type UpdateColumnVisibilityPayload = VisibilityState;
 export interface UpdateEntityFiltersPayload {
   entityListType: string;
   filters: SelectedFilter[];
+  grouping?: GroupingState;
   sorting?: ColumnSort[];
 }
 /**

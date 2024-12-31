@@ -611,7 +611,12 @@ function exploreReducer(
      * - closes row preview, without updating the entity page state row preview.
      */
     case ExploreActionKind.UpdateEntityFilters: {
-      const { entityListType, filters: filterState, sorting } = payload;
+      const {
+        entityListType,
+        filters: filterState,
+        grouping = [],
+        sorting = [],
+      } = payload;
       const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
         entityListType,
         state.entityPageState
@@ -633,7 +638,7 @@ function exploreReducer(
         ...state,
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection, sorting },
+          { grouping, rowPreview, rowSelection, sorting },
           categoryGroupConfigKey
         ),
         rowPreview: closeRowPreview(state.rowPreview),
