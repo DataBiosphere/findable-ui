@@ -53,7 +53,7 @@ export function handleToggleGrouping<T extends RowData>(
   if (!getCanGroup()) return;
 
   // Toggle column grouping.
-  column.toggleGrouping();
+  column.toggleGrouping(); // Grouping state currently only supports single-column grouping.
 
   // Table sorting is not enabled.
   if (!enableSorting) return;

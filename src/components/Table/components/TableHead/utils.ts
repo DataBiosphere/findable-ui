@@ -33,7 +33,7 @@ export function isTableSortLabelDisabled<T extends RowData>(
       // Multi-sort mode is enabled.
       if (enableMultiSort) return false;
       // Single-sort mode; grouped column is sorted.
-      const groupedColumn = getColumn(grouping[0]);
+      const groupedColumn = getColumn(grouping[0]); // Grouping state currently only supports single-column grouping.
       return !!groupedColumn?.getIsSorted();
     }
     // Column is not sortable.

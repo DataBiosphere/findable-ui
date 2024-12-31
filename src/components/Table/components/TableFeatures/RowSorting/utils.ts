@@ -64,7 +64,7 @@ export function handleToggleSorting<T extends RowData>(
   }
 
   // Retrieve the grouped column.
-  const groupedColumn = getColumn(grouping[0]);
+  const groupedColumn = getColumn(grouping[0]); // Grouping state currently only supports single-column grouping.
 
   // Single-sort requested (either single-sort or multi-sort mode).
   // Grouped column is sorted.

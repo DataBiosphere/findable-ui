@@ -15,7 +15,7 @@ export function buildNextGrouping(
 ): GroupingState {
   const grouping = resolveUpdater(updaterOrValue, getOldGrouping(state));
   if (grouping.length > 1) {
-    // Explore state only supports one grouping column.
+    // Explore state only supports single-column grouping.
     return grouping.slice(-1);
   }
   return grouping;
