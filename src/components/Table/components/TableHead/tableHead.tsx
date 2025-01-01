@@ -14,15 +14,12 @@ import {
 } from "../TableCell/common/utils";
 import { handleToggleSorting } from "../TableFeatures/RowSorting/utils";
 import { TableHeadProps } from "./types";
-import { isTableSortLabelDisabled } from "./utils";
+import { isSortDisabled, shouldSortColumn } from "./utils";
 
 export const TableHead = <T extends RowData>({
   rowDirection,
   tableInstance,
 }: TableHeadProps<T>): JSX.Element => {
-  const {
-    options: { enableSortingInteraction },
-  } = tableInstance;
   return (
     <Fragment>
       {rowDirection === ROW_DIRECTION.DEFAULT &&
@@ -30,26 +27,28 @@ export const TableHead = <T extends RowData>({
           <MTableHead key={headerGroup.id}>
             <MTableRow>
               {headerGroup.headers.map(({ column, getContext, id }) => {
-                const { columnDef, getCanSort, getIsGrouped, getIsSorted } =
-                  column;
+                const { columnDef, getIsGrouped, getIsSorted } = column;
                 return getIsGrouped() ? null : (
                   <TableCell
                     key={id}
                     align={getTableCellAlign(column)}
                     padding={getTableCellPadding(id)}
                   >
-                    <TableSortLabel
-                      IconComponent={SouthRoundedIcon}
-                      active={enableSortingInteraction && !!getIsSorted()}
-                      direction={getIsSorted() || undefined}
-                      disabled={isTableSortLabelDisabled(tableInstance, column)}
-                      hideSortIcon={!enableSortingInteraction || !getCanSort()}
-                      onClick={(mouseEvent) =>
-                        handleToggleSorting(mouseEvent, tableInstance, column)
-                      }
-                    >
-                      {flexRender(columnDef.header, getContext())}
-                    </TableSortLabel>
+                    {shouldSortColumn(tableInstance, column) ? (
+                      <TableSortLabel
+                        IconComponent={SouthRoundedIcon}
+                        active={Boolean(getIsSorted())}
+                        direction={getIsSorted() || undefined}
+                        disabled={isSortDisabled(tableInstance)}
+                        onClick={(mouseEvent) =>
+                          handleToggleSorting(mouseEvent, tableInstance, column)
+                        }
+                      >
+                        {flexRender(columnDef.header, getContext())}
+                      </TableSortLabel>
+                    ) : (
+                      flexRender(columnDef.header, getContext())
+                    )}
                   </TableCell>
                 );
               })}
