@@ -258,7 +258,12 @@ export function getPinnedCellIndex<T extends RowData>(
   const visibleCells = row.getVisibleCells();
   let pinnedIndex = 0;
   for (let i = 0; i < visibleCells.length; i++) {
-    if (visibleCells[i].column.columnDef.meta?.columnPinned) {
+    const cell = visibleCells[i];
+    if (cell.getIsGrouped()) {
+      pinnedIndex = i;
+      break;
+    }
+    if (cell.column.columnDef.meta?.columnPinned) {
       pinnedIndex = i;
       break;
     }

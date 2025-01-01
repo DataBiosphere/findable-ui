@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
-import React, { useState } from "react";
+import React from "react";
 import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";
@@ -20,29 +20,22 @@ export const CollapsableCell = <T extends RowData>({
   isDisabled = false,
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
-
-  // Toggles open/close table cell.
-  const onToggleExpanded = (): void => {
-    setIsExpanded((expanded) => !expanded);
-  };
-
   return (
-    <TableCell isExpanded={isExpanded}>
+    <TableCell isExpanded={row.getIsExpanded()}>
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
           color="ink"
           disabled={isDisabled}
           edge="end"
-          onClick={onToggleExpanded}
+          onClick={() => row.toggleExpanded()}
           size="large"
         >
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={isExpanded}>
+      <Collapse in={row.getIsExpanded()}>
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
