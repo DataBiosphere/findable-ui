@@ -271,7 +271,6 @@ export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
   enableRowPreview?: boolean;
-  enableRowSelection?: boolean;
   enableTab?: boolean;
   listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.

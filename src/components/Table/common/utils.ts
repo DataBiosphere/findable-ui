@@ -323,15 +323,8 @@ function filterGroupedColumn<T extends RowData>(column: Column<T>): boolean {
  * @returns true if a row is selected.
  */
 export function isAnyRowSelected<T extends RowData>(table: Table<T>): boolean {
-  const {
-    getIsAllPageRowsSelected,
-    getIsSomePageRowsSelected,
-    options: { enableRowSelection },
-  } = table;
-  return Boolean(
-    enableRowSelection &&
-      (getIsSomePageRowsSelected() || getIsAllPageRowsSelected())
-  );
+  const { getIsAllPageRowsSelected, getIsSomePageRowsSelected } = table;
+  return getIsSomePageRowsSelected() || getIsAllPageRowsSelected();
 }
 
 /**

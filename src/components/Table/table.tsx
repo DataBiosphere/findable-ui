@@ -159,6 +159,7 @@ TableProps<T>): JSX.Element => {
 
   const onRowSelectionChange = useCallback(
     (updater: Updater<RowSelectionState>): void => {
+      // TODO(cc) refactor `onRowSelectionChange` to /options/rowSelection/hook.ts see onGroupingChange.
       exploreDispatch({
         payload:
           typeof updater === "function" ? updater(rowSelection) : updater,
@@ -198,7 +199,7 @@ TableProps<T>): JSX.Element => {
     data: items,
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
-    enableMultiSort: clientFiltering,
+    enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
     enableRowPreview,
     enableRowSelection,
     getCoreRowModel: getCoreRowModel(),

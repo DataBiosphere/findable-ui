@@ -153,16 +153,27 @@ function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
     list: {
       columns,
-      tableOptions: { initialState: { columnVisibility = {} } = {} } = {},
+      tableOptions: {
+        enableRowSelection,
+        initialState: { columnVisibility = {} } = {},
+      } = {},
     },
-    listView: { enableRowSelection = false } = {},
   } = entityConfig;
   return {
     [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibility` is initialized from columns configuration.
-    [ACCESSOR_KEYS.SELECT]: enableRowSelection,
+    [ACCESSOR_KEYS.SELECT]: Boolean(enableRowSelection),
     ...getInitialTableColumnVisibility(columns),
     ...columnVisibility, // `columnVisibility` is managed by ExploreState; use table options to override this setting.
   };
+}
+
+/**
+ * Returns the initial `enableRowSelection` option for the specified entity list configuration.
+ * @param entityConfig - Entity configuration.
+ * @returns initial `enableRowSelection` option.
+ */
+function initEnableRowSelection(entityConfig: EntityConfig): boolean {
+  return Boolean(entityConfig.list.tableOptions?.enableRowSelection);
 }
 
 /**
@@ -177,7 +188,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
       [entity.route]: {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
         columnsVisibility: initColumnVisibility(entity),
-        enableRowSelection: Boolean(entity.listView?.enableRowSelection),
+        enableRowSelection: initEnableRowSelection(entity),
         grouping: initGrouping(entity),
         rowPreview: undefined,
         rowSelection: {},
