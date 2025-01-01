@@ -32,10 +32,10 @@ export function buildBaseColumnDef<T>(
     header,
     id,
     meta: {
-      ...meta,
       columnPinned,
-      header: meta ? meta.header : header,
+      header: typeof header === "string" ? header : undefined,
       width,
+      ...meta,
     },
   };
 }
