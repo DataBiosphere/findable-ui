@@ -40,8 +40,10 @@ export const CollapsableCell = <T extends RowData>({
       </PinnedCell>
       <Collapse
         in={row.getIsExpanded()}
+        mountOnEnter
         onEntered={() => virtualizer?.measure()} // Measure when cell is opened.
         onExited={() => virtualizer?.measure()} // Measure when cell is closed.
+        unmountOnExit
       >
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
