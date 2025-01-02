@@ -17,7 +17,10 @@ export const GridTable = styled(MTable, {
   tbody,
   thead,
   tr {
-    display: contents; /* required; allows grandchildren of grid template to appear as though direct child */ /* TODO(cc) use new sub-grid */
+    display: grid;
+    gap: inherit;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
   }
 
   tr {
