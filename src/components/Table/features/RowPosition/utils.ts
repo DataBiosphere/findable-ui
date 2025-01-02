@@ -11,14 +11,13 @@ import { DEFAULT_PAGINATION } from "../constants";
 /**
  * Returns row model, with getter for row position.
  * @param table - Table.
- * @param getRowModel - Table getRowModel function.
+ * @param rowModel - Row model.
  * @returns row model.
  */
 export function getRowModel<T extends RowData>(
   table: Table<T>,
-  getRowModel: Table<T>[`getRowModel`]
+  rowModel: RowModel<T>
 ): RowModel<T> {
-  const rowModel = getRowModel();
   let i = 0;
   rowModel.rows.forEach(({ getIsGrouped, id }) => {
     const isGroupedRow = getIsGrouped();
