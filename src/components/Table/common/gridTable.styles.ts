@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Table as MTable } from "@mui/material";
-import { smokeLightest, white } from "../../../styles/common/mixins/colors";
-import { textBodySmall500 } from "../../../styles/common/mixins/fonts";
+import { white } from "../../../styles/common/mixins/colors";
 
 export interface GridTableProps {
   gridTemplateColumns: string;
@@ -18,7 +17,7 @@ export const GridTable = styled(MTable, {
   tbody,
   thead,
   tr {
-    display: contents; /* required; allows grandchildren of grid template to appear as though direct child */
+    display: contents; /* required; allows grandchildren of grid template to appear as though direct child */ /* TODO(cc) use new sub-grid */
   }
 
   tr {
@@ -38,16 +37,6 @@ export const GridTable = styled(MTable, {
 
     > * {
       min-width: 0; /* required; flexbox child min-width property is "auto" by default making overflow-wrap ineffectual */
-    }
-  }
-
-  [id^="grouped-row"] {
-    background-color: ${smokeLightest};
-
-    td {
-      ${textBodySmall500};
-      background-color: inherit;
-      grid-column: 1 / -1;
     }
   }
 `;

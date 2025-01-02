@@ -7,7 +7,6 @@ import {
   getTableCellPadding,
 } from "../TableCell/common/utils";
 import { TableRow } from "../TableRow/tableRow.styles";
-import { getRowId } from "./utils";
 
 export interface TableRowsProps<T extends RowData> {
   tableInstance: Table<T>;
@@ -25,12 +24,12 @@ export const TableRows = <T extends RowData>({
     <Fragment>
       {virtualItems.map((virtualRow) => {
         const row = rows[virtualRow.index] as Row<T>;
-        const { getIsPreview } = row;
+        const { getIsGrouped, getIsPreview } = row;
         return (
           <TableRow
             key={row.id}
             data-index={virtualRow.index}
-            id={getRowId(row)}
+            isGrouped={getIsGrouped()}
             isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
           >

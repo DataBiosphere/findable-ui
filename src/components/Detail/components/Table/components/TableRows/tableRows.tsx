@@ -6,7 +6,6 @@ import {
   getTableCellPadding,
 } from "../../../../../Table/components/TableCell/common/utils";
 import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
-import { getRowId } from "../../../../../Table/components/TableRows/utils";
 import { TableView } from "../../table";
 
 export interface TableRowsProps<T extends RowData> {
@@ -27,9 +26,9 @@ export const TableRows = <T extends RowData>({
       {rows.map((row) => {
         return (
           <TableRow
-            id={getRowId(row)}
-            isPreview={row.getIsPreview()}
             key={row.id}
+            isGrouped={row.getIsGrouped()}
+            isPreview={row.getIsPreview()}
           >
             {row.getVisibleCells().map((cell) => {
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.

@@ -1,5 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
+import { Virtualizer } from "@tanstack/react-virtual";
 import React from "react";
 import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
@@ -14,11 +15,13 @@ import {
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
   row: Row<T>;
+  virtualizer?: Virtualizer<Window, Element>;
 }
 
 export const CollapsableCell = <T extends RowData>({
   isDisabled = false,
   row,
+  virtualizer,
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
   return (
@@ -35,7 +38,11 @@ export const CollapsableCell = <T extends RowData>({
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={row.getIsExpanded()}>
+      <Collapse
+        in={row.getIsExpanded()}
+        onEntered={() => virtualizer?.measure()} // Measure when cell is opened.
+        onExited={() => virtualizer?.measure()} // Measure when cell is closed.
+      >
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
