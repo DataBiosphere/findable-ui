@@ -7,16 +7,17 @@ import { TableRow } from "../../../TableRow/tableRow.styles";
 import { useCollapsableRows } from "./hook";
 
 export interface CollapsableRowsProps<T extends RowData> {
+  rows: Row<T>[];
   tableInstance: Table<T>;
   virtualizer: Virtualizer<Window, Element>;
 }
 
 export const CollapsableRows = <T extends RowData>({
+  rows,
   tableInstance,
   virtualizer,
 }: CollapsableRowsProps<T>): JSX.Element => {
-  const { getRowModel, getState } = tableInstance;
-  const { rows } = getRowModel();
+  const { getState } = tableInstance;
   const { grouping } = getState();
   const virtualItems = virtualizer.getVirtualItems();
   useCollapsableRows(tableInstance);

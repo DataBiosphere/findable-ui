@@ -232,8 +232,8 @@ TableProps<T>): JSX.Element => {
   } = tableInstance;
   const allColumns = getAllColumns();
   const { columnFilters } = getState();
-  const { rows: results } = getRowModel();
-  const noResults = !loading && (!results || results.length === 0);
+  const { rows } = getRowModel();
+  const noResults = !loading && (!rows || rows.length === 0);
   const scrollTop = useScroll();
   const visibleColumns = getVisibleFlatColumns();
   const gridTemplateColumns = getGridTemplateColumns(visibleColumns);
@@ -297,8 +297,8 @@ TableProps<T>): JSX.Element => {
           loading: false,
           paginationResponse: {
             ...DEFAULT_PAGINATION_STATE,
-            pageSize: results.length,
-            rows: results.length,
+            pageSize: rows.length,
+            rows: rows.length,
           },
           selectCategories: buildCategoryViews(allColumns, columnFilters),
         },
@@ -311,7 +311,7 @@ TableProps<T>): JSX.Element => {
     columnFilters,
     exploreDispatch,
     listItems,
-    results,
+    rows,
   ]);
 
   function canNextPage(): boolean {
@@ -342,6 +342,7 @@ TableProps<T>): JSX.Element => {
               tableInstance={tableInstance}
             />
             <TableBody
+              rows={rows}
               rowDirection={rowDirection}
               tableInstance={tableInstance}
             />

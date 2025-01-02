@@ -1,5 +1,5 @@
 import { TableBody as MTableBody } from "@mui/material";
-import { RowData, Table } from "@tanstack/react-table";
+import { Row, RowData, Table } from "@tanstack/react-table";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import React, { useCallback } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
@@ -11,15 +11,15 @@ const OVERSCAN = 20;
 
 export interface TableBodyProps<T extends RowData> {
   rowDirection: ROW_DIRECTION;
+  rows: Row<T>[];
   tableInstance: Table<T>;
 }
 
 export const TableBody = <T extends RowData>({
   rowDirection,
+  rows,
   tableInstance,
 }: TableBodyProps<T>): JSX.Element => {
-  const { getRowModel } = tableInstance;
-  const { rows } = getRowModel();
   const estimateSize = useCallback(() => 100, []);
   const count = rows.length;
   const virtualizer = useWindowVirtualizer({
@@ -32,9 +32,10 @@ export const TableBody = <T extends RowData>({
     <MTableBody>
       <VirtualizedRow isUpperRow={true} virtualizer={virtualizer} />
       {rowDirection === ROW_DIRECTION.DEFAULT ? (
-        <TableRows tableInstance={tableInstance} virtualizer={virtualizer} />
+        <TableRows rows={rows} virtualizer={virtualizer} />
       ) : (
         <CollapsableRows
+          rows={rows}
           tableInstance={tableInstance}
           virtualizer={virtualizer}
         />
