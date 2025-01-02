@@ -19,7 +19,7 @@ export function getRowModel<T extends RowData>(
   rowModel: RowModel<T>
 ): RowModel<T> {
   let i = 0;
-  rowModel.rows.forEach(({ getIsGrouped, id }) => {
+  rowModel.flatRows.forEach(({ getIsGrouped, id }) => {
     const isGroupedRow = getIsGrouped();
     const index = isGroupedRow ? -1 : i; // Capture the current value of i for this iteration.
     rowModel.rowsById[id].getRowPosition = (): number =>
