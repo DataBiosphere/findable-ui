@@ -80,10 +80,7 @@ function getRowVisibleCells<T extends RowData>(
   row: Row<T>
 ): Cell<T, unknown>[] {
   if (row.getIsGrouped()) {
-    return row
-      .getLeafRows()
-      .map((leafRow) => leafRow.getVisibleCells())
-      .flat();
+    return row.subRows.map(({ getVisibleCells }) => getVisibleCells()).flat();
   }
   return row.getVisibleCells();
 }
