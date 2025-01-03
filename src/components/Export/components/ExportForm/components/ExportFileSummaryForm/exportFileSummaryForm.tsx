@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { Fragment } from "react";
+import React from "react";
 import { formatCountSize } from "../../../../../../utils/formatCountSize";
 import { formatFileSize } from "../../../../../../utils/formatFileSize";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
@@ -81,37 +81,33 @@ export const ExportFileSummaryForm = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              {fileSummaryFacet.terms.map(
-                ({ count, name, selected, size = 0 }) => (
-                  <Fragment key={name}>
-                    <TableCell>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={selected}
-                            checkedIcon={<CheckedIcon />}
-                            icon={
-                              error ? <UncheckedErrorIcon /> : <UncheckedIcon />
-                            }
-                            onChange={(): void => {
-                              onClearError(error, ERROR.FILE_SUMMARY_ERROR);
-                              onFilter(fileSummaryFacet.name, name, selected);
-                            }}
-                          />
-                        }
-                        key={name}
-                        label={name}
-                      />
-                    </TableCell>
-                    <TableCell>{formatCountSize(count)}</TableCell>
-                    {hasFileSize && (
-                      <TableCell>{formatFileSize(size)}</TableCell>
-                    )}
-                  </Fragment>
-                )
-              )}
-            </TableRow>
+            {fileSummaryFacet.terms.map(
+              ({ count, name, selected, size = 0 }) => (
+                <TableRow key={name}>
+                  <TableCell>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={selected}
+                          checkedIcon={<CheckedIcon />}
+                          icon={
+                            error ? <UncheckedErrorIcon /> : <UncheckedIcon />
+                          }
+                          onChange={(): void => {
+                            onClearError(error, ERROR.FILE_SUMMARY_ERROR);
+                            onFilter(fileSummaryFacet.name, name, selected);
+                          }}
+                        />
+                      }
+                      key={name}
+                      label={name}
+                    />
+                  </TableCell>
+                  <TableCell>{formatCountSize(count)}</TableCell>
+                  {hasFileSize && <TableCell>{formatFileSize(size)}</TableCell>}
+                </TableRow>
+              )
+            )}
           </TableBody>
         </GridTable>
       </GridPaper>

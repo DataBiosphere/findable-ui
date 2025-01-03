@@ -7,6 +7,7 @@ import { getEditColumnOptions, isAnyRowSelected } from "../../common/utils";
 import { CheckboxMenu } from "../CheckboxMenu/checkboxMenu";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
+import { ColumnGrouping } from "./components/ColumnGrouping/columnGrouping";
 import { RowPreview } from "./components/RowPreview/rowPreview";
 import { RowSelection } from "./components/RowSelection/rowSelection";
 import { Toolbar, ToolbarActions } from "./tableToolbar.styles";
@@ -25,13 +26,17 @@ export const TableToolbar = <T extends RowData>({
   const { exploreState } = useExploreState();
   const { paginationState } = exploreState;
   const { currentPage, pages, pageSize, rows } = paginationState;
-  const { getSelectedRowModel, resetColumnVisibility } = tableInstance;
+  const {
+    getSelectedRowModel,
+    options: { enableGrouping },
+    resetColumnVisibility,
+  } = tableInstance;
   const { enableDownload, rowPreviewView } = listView || {};
   const isLastPage = currentPage === pages;
   const editColumnOptions = getEditColumnOptions(tableInstance);
   const showToolbar =
     rowDirection === ROW_DIRECTION.DEFAULT &&
-    (editColumnOptions || enableDownload);
+    (editColumnOptions || enableDownload || enableGrouping);
 
   /**
    * Resets column visibility to default state.
@@ -63,6 +68,7 @@ export const TableToolbar = <T extends RowData>({
                 rows={tableInstance.getFilteredRowModel().rows}
               />
             )}
+            <ColumnGrouping tableInstance={tableInstance} />
             <CheckboxMenu
               label="Edit Columns"
               onReset={onResetColumnVisibility}

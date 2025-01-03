@@ -1,13 +1,12 @@
-import { PopperProps as MPopperProps } from "@mui/material";
 import { MouseEvent, useCallback, useMemo, useState } from "react";
 
-export interface UseMenu {
-  anchorEl: MPopperProps["anchorEl"];
+export interface UseMenu<E extends HTMLElement> {
+  anchorEl: E | null;
   onClose: () => void;
   onDisableScrollLock: () => void;
   onEnableScrollLock: () => void;
-  onOpen: (event: MouseEvent<HTMLElement>) => void;
-  onToggleOpen: (event: MouseEvent<HTMLElement>) => void;
+  onOpen: (event: MouseEvent<E>) => void;
+  onToggleOpen: (event: MouseEvent<E>) => void;
   open: boolean;
 }
 
@@ -15,8 +14,8 @@ export interface UseMenu {
  * Menu functionality for menu dropdown, with menu position.
  * @returns menu functionality.
  */
-export const useMenu = (): UseMenu => {
-  const [anchorEl, setAnchorEl] = useState<MPopperProps["anchorEl"]>(null);
+export const useMenu = <E extends HTMLElement>(): UseMenu<E> => {
+  const [anchorEl, setAnchorEl] = useState<E | null>(null);
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
   // Closes menu.
@@ -35,13 +34,13 @@ export const useMenu = (): UseMenu => {
   }, []);
 
   // Opens menu.
-  const onOpen = useCallback((event: MouseEvent<HTMLElement>): void => {
+  const onOpen = useCallback((event: MouseEvent<E>): void => {
     setAnchorEl(event.currentTarget);
   }, []);
 
   // Toggles menu open/close.
   const onToggleOpen = useCallback(
-    (event: MouseEvent<HTMLElement>): void => {
+    (event: MouseEvent<E>): void => {
       if (open) {
         setAnchorEl(null);
       } else {

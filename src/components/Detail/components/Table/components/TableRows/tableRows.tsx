@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
+import { flexRender, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import {
   getTableCellAlign,
@@ -26,9 +26,9 @@ export const TableRows = <T extends RowData>({
       {rows.map((row) => {
         return (
           <TableRow
-            id={getRowId(row)}
-            isPreview={row.getIsPreview()}
             key={row.id}
+            isGrouped={row.getIsGrouped()}
+            isPreview={row.getIsPreview()}
           >
             {row.getVisibleCells().map((cell) => {
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
@@ -50,18 +50,3 @@ export const TableRows = <T extends RowData>({
     </Fragment>
   );
 };
-
-/**
- * Returns identifier for a row.
- * @param row - Row.
- * @returns row identifier.
- */
-function getRowId<T extends RowData>(row: Row<T>): string | undefined {
-  const { depth, getIsGrouped, id } = row;
-  if (getIsGrouped()) {
-    return `grouped-row-${id}`;
-  }
-  if (depth > 0) {
-    return `sub-row-${id}`;
-  }
-}

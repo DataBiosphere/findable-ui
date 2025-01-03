@@ -19,6 +19,8 @@ import {
 } from "../hooks/useCategoryFilter";
 import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
+import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
+import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
 import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
@@ -49,7 +51,7 @@ import {
   closeRowPreview,
   getEntityCategoryGroupConfigKey,
   getEntityState,
-  getEntityStateSavedSorting,
+  getEntityStateSavedProperty,
   getFilterCount,
   patchEntityListItems,
   resetPage,
@@ -226,6 +228,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateGrouping = "UPDATE_GROUPING",
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
@@ -247,6 +250,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateGroupingAction
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction;
@@ -403,11 +407,19 @@ function exploreReducer(
         payload.selectedValue,
         payload.selected
       );
-      const savedSorting = getEntityStateSavedSorting(
+      const savedGrouping = getEntityStateSavedProperty(
         state,
         payload.selectedValue,
-        payload.selected
+        payload.selected,
+        "grouping"
       );
+      const savedSorting = getEntityStateSavedProperty(
+        state,
+        payload.selectedValue,
+        payload.selected,
+        "sorting"
+      );
+      const grouping = savedGrouping || []; // Reset grouping to default if saved grouping is not available.
       const sorting = savedSorting || []; // Reset sorting to default if saved sorting is not available.
       updateEntityStateByCategoryGroupConfigKey(state, {
         filterState,
@@ -417,7 +429,7 @@ function exploreReducer(
         ...state,
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection, sorting }
+          { grouping, rowPreview, rowSelection, sorting }
         ),
         filterCount: getFilterCount(filterState),
         filterState,
@@ -592,7 +604,12 @@ function exploreReducer(
      * - closes row preview, without updating the entity page state row preview.
      */
     case ExploreActionKind.UpdateEntityFilters: {
-      const { entityListType, filters: filterState, sorting } = payload;
+      const {
+        entityListType,
+        filters: filterState,
+        grouping = [],
+        sorting = [],
+      } = payload;
       const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
         entityListType,
         state.entityPageState
@@ -614,7 +631,7 @@ function exploreReducer(
         ...state,
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection, sorting },
+          { grouping, rowPreview, rowSelection, sorting },
           categoryGroupConfigKey
         ),
         rowPreview: closeRowPreview(state.rowPreview),
@@ -657,6 +674,12 @@ function exploreReducer(
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
+    }
+    /**
+     * Update grouping
+     **/
+    case ExploreActionKind.UpdateGrouping: {
+      return updateGroupingAction(state, payload);
     }
     /**
      * Update row preview

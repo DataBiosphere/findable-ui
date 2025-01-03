@@ -23,9 +23,9 @@ export const ROW_POSITION: TableFeature = {
     };
   },
   createTable: <T extends RowData>(table: Table<T>): void => {
-    const originalGetRowModel = table.getRowModel.bind(table);
     table.getRowModel = (): RowModel<T> => {
-      return getRowModel(table, originalGetRowModel);
+      const rowModel = table.getPaginationRowModel();
+      return getRowModel(table, rowModel);
     };
   },
   getInitialState: (initialState?: InitialTableState): Partial<TableState> => {

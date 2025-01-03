@@ -1,6 +1,6 @@
-import { ColumnSort } from "@tanstack/react-table";
+import { ColumnSort, GroupingState } from "@tanstack/react-table";
 import Link from "next/link";
-import React, { useCallback } from "react";
+import React from "react";
 import { UrlObject } from "url";
 import { SelectedFilter } from "../../../../../../common/entities";
 import { useExploreState } from "../../../../../../hooks/useExploreState";
@@ -16,6 +16,7 @@ import {
 import { LinkProps } from "../../link";
 
 const PARAM_FILTER = "filter";
+const PARAM_GROUPING = "grouping";
 const PARAM_SORTING = "sorting";
 
 export interface ExploreViewLinkProps
@@ -36,22 +37,22 @@ export const ExploreViewLink = ({
     throwError(url);
   }
 
-  const onNavigate = useCallback(() => {
-    const entityListType = getEntityListType(url.href);
-    const filters = getSelectedFilters(url.query);
-    const sorting = getSorting(url.query);
-    exploreDispatch({
-      payload: { entityListType, filters, sorting },
-      type: ExploreActionKind.UpdateEntityFilters,
-    });
-    onClick?.();
-  }, [exploreDispatch, onClick, url]);
+  const entityListType = getEntityListType(url.href);
+  const filters = getSelectedFilters(url.query);
+  const grouping = getGrouping(url.query);
+  const sorting = getSorting(url.query);
 
   return (
     <Link
       className={className}
       href={url.href}
-      onClick={onNavigate}
+      onClick={(): void => {
+        exploreDispatch({
+          payload: { entityListType, filters, grouping, sorting },
+          type: ExploreActionKind.UpdateEntityFilters,
+        });
+        onClick?.();
+      }}
       rel={REL_ATTRIBUTE.NO_OPENER}
       target={target}
     >
@@ -67,6 +68,19 @@ export const ExploreViewLink = ({
  */
 function getEntityListType(href: UrlObjectWithHrefAndQuery["href"]): string {
   return href.substring(href.lastIndexOf("/") + 1);
+}
+
+/**
+ * Returns the grouping from the given query.
+ * @param query - Query.
+ * @returns grouping.
+ */
+function getGrouping(
+  query: UrlObjectWithHrefAndQuery["query"]
+): GroupingState | undefined {
+  const decodedQuery = decodeURIComponent(query);
+  const parsedQuery = JSON.parse(decodedQuery);
+  return parsedQuery[PARAM_GROUPING];
 }
 
 /**

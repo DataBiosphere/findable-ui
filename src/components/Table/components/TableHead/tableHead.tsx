@@ -1,22 +1,20 @@
+import SouthRoundedIcon from "@mui/icons-material/SouthRounded";
 import {
   TableHead as MTableHead,
   TableRow as MTableRow,
   TableCell,
   TableSortLabel,
 } from "@mui/material";
-import { flexRender, RowData, Table } from "@tanstack/react-table";
+import { flexRender, RowData } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
-import { getTableSortLabelProps } from "../../common/utils";
 import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../TableCell/common/utils";
-
-export interface TableHeadProps<T extends RowData> {
-  rowDirection: ROW_DIRECTION;
-  tableInstance: Table<T>;
-}
+import { handleToggleSorting } from "../TableFeatures/RowSorting/utils";
+import { TableHeadProps } from "./types";
+import { isSortDisabled, shouldSortColumn } from "./utils";
 
 export const TableHead = <T extends RowData>({
   rowDirection,
@@ -28,34 +26,28 @@ export const TableHead = <T extends RowData>({
         tableInstance.getHeaderGroups().map((headerGroup) => (
           <MTableHead key={headerGroup.id}>
             <MTableRow>
-              {headerGroup.headers.map((header) => {
-                const {
-                  column: {
-                    columnDef: {
-                      meta: { enableSortingInteraction = true } = {},
-                    },
-                  },
-                } = header;
-                return header.column.getIsGrouped() ? null : (
+              {headerGroup.headers.map(({ column, getContext, id }) => {
+                const { columnDef, getIsGrouped, getIsSorted } = column;
+                return getIsGrouped() ? null : (
                   <TableCell
-                    key={header.id}
-                    align={getTableCellAlign(header.column)}
-                    padding={getTableCellPadding(header.id)}
+                    key={id}
+                    align={getTableCellAlign(column)}
+                    padding={getTableCellPadding(id)}
                   >
-                    {header.column.getCanSort() && enableSortingInteraction ? (
+                    {shouldSortColumn(tableInstance, column) ? (
                       <TableSortLabel
-                        {...getTableSortLabelProps(header.column)}
+                        IconComponent={SouthRoundedIcon}
+                        active={Boolean(getIsSorted())}
+                        direction={getIsSorted() || undefined}
+                        disabled={isSortDisabled(tableInstance)}
+                        onClick={(mouseEvent) =>
+                          handleToggleSorting(mouseEvent, tableInstance, column)
+                        }
                       >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        {flexRender(columnDef.header, getContext())}
                       </TableSortLabel>
                     ) : (
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )
+                      flexRender(columnDef.header, getContext())
                     )}
                   </TableCell>
                 );

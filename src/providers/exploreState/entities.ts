@@ -1,5 +1,6 @@
 import {
   ColumnSort,
+  GroupingState,
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -22,6 +23,7 @@ export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
   columnsVisibility: VisibilityState;
   enableRowSelection: boolean;
+  grouping: GroupingState;
   rowPreview: RowPreviewState;
   rowSelection: RowSelectionState;
   sorting: ColumnSort[];
@@ -48,9 +50,7 @@ export type EntityStateByCategoryGroupConfigKey = Map<
 
 export type CategoryGroupConfigKey = CategoryGroupConfig["key"];
 
-export interface EntityStateSavedFilter extends Omit<SavedFilter, "sort"> {
-  sorting?: ColumnSort[];
-}
+export type EntityStateSavedFilter = SavedFilter;
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
 export type ListItem = any;

@@ -1,16 +1,12 @@
-import SouthRoundedIcon from "@mui/icons-material/SouthRounded";
-import { TableSortLabelProps } from "@mui/material";
 import {
   Cell,
   Column,
   ColumnFiltersState,
-  ColumnSort,
   InitialTableState,
   memo,
   PaginationState,
   Row,
   RowData,
-  SortDirection,
   sortingFns,
   Table,
   VisibilityState,
@@ -24,6 +20,7 @@ import {
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
 import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
 import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
+import { handleToggleVisibility } from "../components/TableFeatures/ColumnVisibility/utils";
 
 /**
  * Internal model of a category term count keyed by category term.
@@ -123,20 +120,6 @@ function formatDataToTSV(data: TableData[][]): string {
 }
 
 /**
- * Returns the column sort direction.
- * @param sortDirection - Column sort direction.
- * @returns the coumn sort direction.
- */
-export function getColumnSortDirection(
-  sortDirection: false | SortDirection
-): SortDirection | undefined {
-  if (!sortDirection) {
-    return;
-  }
-  return sortDirection;
-}
-
-/**
  * Returns filtered entity results as a blob.
  * @param rows - Table rows.
  * @returns filtered entity results as a blob.
@@ -164,31 +147,27 @@ export function getEditColumnOptions<T extends RowData>(
   const { getAllColumns, initialState } = table;
   const { columnVisibility: initialVisibilityState } = initialState;
   const allColumns = getAllColumns();
-  return allColumns.reduce(
-    (
-      acc,
-      {
-        columnDef: { header },
-        getCanHide,
-        getIsVisible,
-        getToggleVisibilityHandler,
-        id,
-      }
-    ) => {
-      if (getCanHide()) {
-        const option: CheckboxMenuListItem = {
-          checked: getIsVisible(),
-          disabled: initialVisibilityState[id],
-          label: header as string, // TODO revisit type assertion here
-          onChange: getToggleVisibilityHandler(),
-          value: id,
-        };
-        acc.push(option);
-      }
-      return acc;
-    },
-    [] as CheckboxMenuListItem[]
-  );
+  return allColumns.reduce((acc, column) => {
+    const {
+      columnDef: { header },
+      getCanHide,
+      getIsVisible,
+      id,
+    } = column;
+    if (getCanHide()) {
+      const option: CheckboxMenuListItem = {
+        checked: getIsVisible(),
+        disabled: initialVisibilityState[id], // TODO(cc) column visibility toggle should be disabled when table enableGrouping is false, and column is grouped.
+        label: header as string, // TODO revisit type assertion here
+        onChange: () => {
+          handleToggleVisibility(table, column);
+        },
+        value: id,
+      };
+      acc.push(option);
+    }
+    return acc;
+  }, [] as CheckboxMenuListItem[]);
 }
 
 /**
@@ -243,6 +222,7 @@ export function getGridTemplateColumns<T extends RowData>(
   columns: Column<T>[]
 ): string {
   return columns
+    .filter(filterGroupedColumn)
     .map(({ columnDef: { meta } }) => {
       const width = meta?.width;
       if (isGridTrackMinMax(width)) {
@@ -256,33 +236,15 @@ export function getGridTemplateColumns<T extends RowData>(
 /**
  * Returns initial table state.
  * @param columns - Column configuration.
- * @param defaultSort - Column sort configuration.
  * @returns initial table state.
  */
-export function getInitialState(
-  columns: ColumnConfig[],
-  defaultSort: ColumnSort | undefined
+export function getInitialState<T extends RowData>(
+  columns: ColumnConfig<T>[]
 ): InitialTableState {
   const columnVisibility = getInitialTableColumnVisibility(columns);
-  const sorting = getInitialTableStateSorting(defaultSort);
   return {
     columnVisibility,
-    sorting,
   };
-}
-
-/**
- * Returns the initial table sorting state for the specified column sort configuration.
- * @param defaultSort - Column sort configuration.
- * @returns initial table sorting state.
- */
-export function getInitialTableStateSorting(
-  defaultSort: ColumnSort | undefined
-): ColumnSort[] {
-  if (!defaultSort) {
-    return [];
-  }
-  return [defaultSort];
 }
 
 /**
@@ -296,30 +258,17 @@ export function getPinnedCellIndex<T extends RowData>(
   const visibleCells = row.getVisibleCells();
   let pinnedIndex = 0;
   for (let i = 0; i < visibleCells.length; i++) {
-    if (visibleCells[i].column.columnDef.meta?.columnPinned) {
+    const cell = visibleCells[i];
+    if (cell.getIsGrouped()) {
+      pinnedIndex = i;
+      break;
+    }
+    if (cell.column.columnDef.meta?.columnPinned) {
       pinnedIndex = i;
       break;
     }
   }
   return [visibleCells[pinnedIndex], pinnedIndex];
-}
-
-/**
- * Returns table sort label props.
- * @param column - Table column.
- * @returns table sort label props.
- */
-export function getTableSortLabelProps<T extends RowData>(
-  column: Column<T>
-): TableSortLabelProps {
-  const { getCanSort, getIsSorted, getToggleSortingHandler } = column;
-  return {
-    IconComponent: SouthRoundedIcon,
-    active: isColumnSortActive(getIsSorted()),
-    direction: getColumnSortDirection(getIsSorted()),
-    disabled: !getCanSort(),
-    onClick: getToggleSortingHandler(),
-  };
 }
 
 /**
@@ -365,20 +314,22 @@ function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
 }
 
 /**
+ * Returns true if the column is not grouped (filters out grouped columns).
+ * @param column - Table column.
+ * @returns true if the column is not grouped.
+ */
+function filterGroupedColumn<T extends RowData>(column: Column<T>): boolean {
+  return !column.getIsGrouped();
+}
+
+/**
  * Returns true if any or all table rows are selected.
  * @param table - Table.
  * @returns true if a row is selected.
  */
 export function isAnyRowSelected<T extends RowData>(table: Table<T>): boolean {
-  const {
-    getIsAllPageRowsSelected,
-    getIsSomePageRowsSelected,
-    options: { enableRowSelection },
-  } = table;
-  return Boolean(
-    enableRowSelection &&
-      (getIsSomePageRowsSelected() || getIsAllPageRowsSelected())
-  );
+  const { getIsAllPageRowsSelected, getIsSomePageRowsSelected } = table;
+  return getIsSomePageRowsSelected() || getIsAllPageRowsSelected();
 }
 
 /**
@@ -402,20 +353,6 @@ export function isCollapsableRowDisabled<T extends RowData>(
   tableInstance: Table<T>
 ): boolean {
   return tableInstance.getVisibleLeafColumns().length === 1;
-}
-
-/**
- * Returns true if column has a sort direction.
- * @param sortDirection - Column sort direction.
- * @returns true when column has a sort direction.
- */
-export function isColumnSortActive(
-  sortDirection: false | SortDirection
-): boolean {
-  if (!sortDirection) {
-    return sortDirection;
-  }
-  return true;
 }
 
 /**
@@ -465,8 +402,8 @@ function basicSort<TValue>(val0: TValue, val1: TValue): number {
  * @param columns - Column configuration.
  * @returns initial table visibility state.
  */
-export function getInitialTableColumnVisibility(
-  columns: ColumnConfig[]
+export function getInitialTableColumnVisibility<T extends RowData>(
+  columns: ColumnConfig<T>[]
 ): VisibilityState {
   return columns.reduce((acc, { columnVisible = true, id }) => {
     Object.assign(acc, { [id]: columnVisible });

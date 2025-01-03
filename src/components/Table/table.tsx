@@ -16,7 +16,7 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
   EVENT_NAME,
@@ -98,8 +98,13 @@ TableProps<T>): JSX.Element => {
     rowPreview,
     tabValue,
   } = exploreState;
-  const { columnsVisibility, enableRowSelection, rowSelection, sorting } =
-    entityPageState[tabValue];
+  const {
+    columnsVisibility,
+    enableRowSelection,
+    grouping,
+    rowSelection,
+    sorting,
+  } = entityPageState[tabValue];
   const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
   const { disablePagination = false, enableRowPreview = false } =
     listView || {};
@@ -113,15 +118,19 @@ TableProps<T>): JSX.Element => {
   );
 
   const onSortingChange = (updater: Updater<ColumnSort[]>): void => {
+    // TODO(cc) memoize `onSortingChange` with `useCallback`.
+    // TODO(cc) copy `onSortingChange` to ../options/sorting/hook.ts see src/components/Table/options/grouping/hook.ts for example.
     exploreDispatch({
       payload: typeof updater === "function" ? updater(sorting) : updater,
       type: ExploreActionKind.UpdateSorting,
     });
     // Execute GTM tracking.
+    // TODO(cc) update tracking to handle sorting of multiple columns.
+    // TODO(cc) GTM tracking when `onSortingChange` is triggered only tracks the first column sorted, and takes the value from explore state which is not updated yet.
     track(EVENT_NAME.ENTITY_TABLE_SORTED, {
       [EVENT_PARAM.ENTITY_NAME]: exploreState.tabValue,
-      [EVENT_PARAM.COLUMN_NAME]: sorting[0].id,
-      [EVENT_PARAM.SORT_DIRECTION]: sorting[0].desc
+      [EVENT_PARAM.COLUMN_NAME]: sorting?.[0]?.id, // TODO(cc) sorting should always be at least `[]` and never `undefined`.
+      [EVENT_PARAM.SORT_DIRECTION]: sorting?.[0]?.desc // TODO(cc) sorting should always be at least `[]` and never `undefined`.
         ? SORT_DIRECTION.DESC
         : SORT_DIRECTION.ASC,
     });
@@ -130,6 +139,7 @@ TableProps<T>): JSX.Element => {
   const onColumnVisibilityChange = (
     updater: Updater<VisibilityState>
   ): void => {
+    // TODO(cc) memoize `onColumnVisibilityChange` with `useCallback`.
     exploreDispatch({
       payload:
         typeof updater === "function" ? updater(columnsVisibility) : updater,
@@ -137,22 +147,31 @@ TableProps<T>): JSX.Element => {
     });
   };
 
-  const onRowPreviewChange = (updater: Updater<RowPreviewState>): void => {
-    exploreDispatch({
-      payload: typeof updater === "function" ? updater(rowPreview) : updater,
-      type: ExploreActionKind.UpdateRowPreview,
-    });
-  };
+  const onRowPreviewChange = useCallback(
+    (updater: Updater<RowPreviewState>): void => {
+      exploreDispatch({
+        payload: typeof updater === "function" ? updater(rowPreview) : updater,
+        type: ExploreActionKind.UpdateRowPreview,
+      });
+    },
+    [exploreDispatch, rowPreview]
+  );
 
-  const onRowSelectionChange = (updater: Updater<RowSelectionState>): void => {
-    exploreDispatch({
-      payload: typeof updater === "function" ? updater(rowSelection) : updater,
-      type: ExploreActionKind.UpdateRowSelection,
-    });
-  };
+  const onRowSelectionChange = useCallback(
+    (updater: Updater<RowSelectionState>): void => {
+      // TODO(cc) refactor `onRowSelectionChange` to /options/rowSelection/hook.ts see onGroupingChange.
+      exploreDispatch({
+        payload:
+          typeof updater === "function" ? updater(rowSelection) : updater,
+        type: ExploreActionKind.UpdateRowSelection,
+      });
+    },
+    [exploreDispatch, rowSelection]
+  );
 
   const state: Partial<TableState> = {
     columnVisibility: columnsVisibility,
+    grouping,
     pagination,
     rowPreview,
     rowSelection,
@@ -180,11 +199,9 @@ TableProps<T>): JSX.Element => {
     data: items,
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
-    enableMultiSort: clientFiltering,
+    enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
     enableRowPreview,
     enableRowSelection,
-    enableSorting: true, // client-side filtering.
-    enableSortingRemoval: false, // client-side filtering.
     getCoreRowModel: getCoreRowModel(),
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
@@ -215,8 +232,8 @@ TableProps<T>): JSX.Element => {
   } = tableInstance;
   const allColumns = getAllColumns();
   const { columnFilters } = getState();
-  const { rows: results } = getRowModel();
-  const noResults = !loading && (!results || results.length === 0);
+  const { rows } = getRowModel();
+  const noResults = !loading && (!rows || rows.length === 0);
   const scrollTop = useScroll();
   const visibleColumns = getVisibleFlatColumns();
   const gridTemplateColumns = getGridTemplateColumns(visibleColumns);
@@ -280,8 +297,8 @@ TableProps<T>): JSX.Element => {
           loading: false,
           paginationResponse: {
             ...DEFAULT_PAGINATION_STATE,
-            pageSize: results.length,
-            rows: results.length,
+            pageSize: rows.filter(({ getIsGrouped }) => !getIsGrouped()).length,
+            rows: rows.filter(({ getIsGrouped }) => !getIsGrouped()).length,
           },
           selectCategories: buildCategoryViews(allColumns, columnFilters),
         },
@@ -294,7 +311,7 @@ TableProps<T>): JSX.Element => {
     columnFilters,
     exploreDispatch,
     listItems,
-    results,
+    rows,
   ]);
 
   function canNextPage(): boolean {
@@ -325,6 +342,7 @@ TableProps<T>): JSX.Element => {
               tableInstance={tableInstance}
             />
             <TableBody
+              rows={rows}
               rowDirection={rowDirection}
               tableInstance={tableInstance}
             />

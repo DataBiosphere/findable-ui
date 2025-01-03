@@ -1,17 +1,12 @@
 import {
   CellContext,
   ColumnDef,
-  ColumnSort,
   CoreOptions,
   HeaderContext,
   RowData,
 } from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import {
-  ColumnConfig,
-  ListConfig,
-  ListViewConfig,
-} from "../../config/entities";
+import { ColumnConfig, ListViewConfig } from "../../config/entities";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { Loading } from "../Loading/loading";
@@ -26,16 +21,15 @@ import { HeadSelectionCell } from "../Table/components/TableHead/components/Head
 import { Table } from "../Table/table";
 import { COLUMN_CONFIGS } from "./common/constants";
 import { buildBaseColumnDef } from "./common/utils";
+import { useTableOptions } from "./options/hook";
 import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 
 export interface TableCreatorProps<T> {
   columns: ColumnConfig<T>[];
-  defaultSort: ColumnSort | undefined;
   getRowId?: CoreOptions<T>["getRowId"];
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
-  tableOptions?: ListConfig<T>["tableOptions"];
 }
 
 const createCell = <T extends RowData = RowData, TData = unknown>(
@@ -63,13 +57,12 @@ const createRowSelectionCell = <T extends RowData>() =>
 
 export const TableCreator = <T extends RowData>({
   columns,
-  defaultSort,
   getRowId,
   items,
   listView,
   loading,
-  tableOptions,
 }: TableCreatorProps<T>): JSX.Element => {
+  const tableOptions = useTableOptions<T>();
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
       columns.reduce(
@@ -95,7 +88,7 @@ export const TableCreator = <T extends RowData>({
       ),
     [columns]
   );
-  const initialState = getInitialState(columns, defaultSort);
+  const initialState = getInitialState(columns);
   return (
     <TableCreatorContainer>
       <Loading

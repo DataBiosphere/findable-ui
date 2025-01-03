@@ -1,5 +1,6 @@
 import {
   ColumnSort,
+  GroupingState,
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
@@ -62,6 +63,7 @@ export type UpdateColumnVisibilityPayload = VisibilityState;
 export interface UpdateEntityFiltersPayload {
   entityListType: string;
   filters: SelectedFilter[];
+  grouping?: GroupingState;
   sorting?: ColumnSort[];
 }
 /**

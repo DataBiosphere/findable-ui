@@ -11,17 +11,21 @@ import { DEFAULT_PAGINATION } from "../constants";
 /**
  * Returns row model, with getter for row position.
  * @param table - Table.
- * @param getRowModel - Table getRowModel function.
+ * @param rowModel - Row model.
  * @returns row model.
  */
 export function getRowModel<T extends RowData>(
   table: Table<T>,
-  getRowModel: Table<T>[`getRowModel`]
+  rowModel: RowModel<T>
 ): RowModel<T> {
-  const rowModel = getRowModel();
-  rowModel.rows.forEach(({ id }, i) => {
+  let i = 0;
+  rowModel.flatRows.forEach(({ getIsGrouped, id }) => {
+    const isGroupedRow = getIsGrouped();
+    const index = isGroupedRow ? -1 : i; // Capture the current value of i for this iteration.
     rowModel.rowsById[id].getRowPosition = (): number =>
-      calculateRowPosition(table, i);
+      calculateRowPosition(table, index);
+    if (isGroupedRow) return; // Iterate only for non-grouped rows.
+    i++;
   });
   return rowModel;
 }
@@ -51,6 +55,7 @@ function calculateRowPosition<T extends RowData>(
   table: Table<T>,
   index: number
 ): number {
+  if (index < 0) return index; // Grouped rows have a position of -1.
   const { getState } = table;
   const {
     pagination: { pageIndex, pageSize },
