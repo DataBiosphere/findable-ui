@@ -12,7 +12,7 @@ import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { SelectCategoryView, SelectedFilter } from "../common/entities";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
-import { useAuthentication } from "../hooks/useAuthentication/useAuthentication";
+import { useToken } from "../hooks/authentication/token/useToken";
 import {
   buildCategoryViews,
   buildNextFilterState,
@@ -170,7 +170,7 @@ export function ExploreStateProvider({
   const { config, defaultEntityListType } = useConfig();
   const { decodedCatalogParam, decodedFeatureFlagParam, decodedFilterParam } =
     useURLFilterParams();
-  const { isEnabled: isAuthEnabled, token } = useAuthentication();
+  const { token } = useToken();
   const entityList = entityListType || defaultEntityListType;
   const [initializerArg] = useState(() =>
     initReducerArguments(
@@ -198,12 +198,11 @@ export function ExploreStateProvider({
 
   // Reset explore response when token changes.
   useEffect(() => {
-    if (!isAuthEnabled) return;
     exploreDispatch({
       payload: undefined,
       type: ExploreActionKind.ResetExploreResponse,
     });
-  }, [exploreDispatch, isAuthEnabled, token]);
+  }, [exploreDispatch, token]);
 
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>

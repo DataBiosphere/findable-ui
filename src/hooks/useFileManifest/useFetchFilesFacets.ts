@@ -6,8 +6,8 @@ import {
 import { Filters } from "../../common/entities";
 import { fetchEntitiesFromURL } from "../../entity/common/service";
 import { fetchQueryParams, SearchParams } from "../../utils/fetchQueryParams";
+import { useToken } from "../authentication/token/useToken";
 import { useAsync } from "../useAsync";
-import { useAuthentication } from "../useAuthentication/useAuthentication";
 import { useFetchRequestURL } from "../useFetchRequestURL";
 import { FetchFilesFacets } from "./common/entities";
 import { bindEntitySearchResultsResponse } from "./common/utils";
@@ -26,8 +26,7 @@ export const useFetchFilesFacets = (
   searchParams: SearchParams | undefined,
   isEnabled: boolean
 ): FetchFilesFacets => {
-  // Grab token from authentication.
-  const { token } = useAuthentication();
+  const { token } = useToken();
   // Build request params.
   const requestParams = fetchQueryParams(filters, catalog, searchParams);
   // Build request URL.
