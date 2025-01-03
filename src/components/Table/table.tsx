@@ -297,8 +297,8 @@ TableProps<T>): JSX.Element => {
           loading: false,
           paginationResponse: {
             ...DEFAULT_PAGINATION_STATE,
-            pageSize: rows.length,
-            rows: rows.length,
+            pageSize: rows.filter(({ getIsGrouped }) => !getIsGrouped()).length,
+            rows: rows.filter(({ getIsGrouped }) => !getIsGrouped()).length,
           },
           selectCategories: buildCategoryViews(allColumns, columnFilters),
         },
