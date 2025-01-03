@@ -1,5 +1,16 @@
 # Changelog
 
+## [19.0.0](https://github.com/DataBiosphere/findable-ui/compare/v18.0.0...v19.0.0) (2025-01-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* implement group by list ([#302](https://github.com/DataBiosphere/findable-ui/issues/302)) (#303)
+
+### Features
+
+* implement group by list ([#302](https://github.com/DataBiosphere/findable-ui/issues/302)) ([#303](https://github.com/DataBiosphere/findable-ui/issues/303)) ([36e4330](https://github.com/DataBiosphere/findable-ui/commit/36e433053b1c2f17ddc75964c8e8eec35440b7bd))
+
 ## [18.0.0](https://github.com/DataBiosphere/findable-ui/compare/v17.0.0...v18.0.0) (2024-12-18)
 
 
