@@ -4,7 +4,7 @@ import {
   AUTHENTICATION_STATUS,
   UpdateAuthenticationPayload,
   UserProfile,
-} from "../../../../providers/authentication/authentication/types";
+} from "../../../../../../providers/authentication/authentication/types";
 
 /**
  * Returns the authentication profile and status from the session context.

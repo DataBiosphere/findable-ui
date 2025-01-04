@@ -1,9 +1,9 @@
 import React from "react";
+import { SessionController as DefaultSessionController } from "../../components/Authentication/components/SessionController/components/GoogleSessionController/SessionController";
 import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
 import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
 import { useCredentialsReducer } from "../../hooks/authentication/credentials/useCredentialsReducer";
 import { useSessionActive } from "../../hooks/authentication/session/useSessionActive";
-import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
 import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
 import { useSessionIdleTimer } from "../../hooks/authentication/session/useSessionIdleTimer";
 import { useTokenReducer } from "../../hooks/authentication/token/useTokenReducer";
@@ -15,8 +15,8 @@ import { useGoogleSignInService } from "./hooks/useGoogleSignInService";
 import { GoogleSignInAuthenticationProviderProps } from "./types";
 
 export function GoogleSignInAuthenticationProvider({
-  APIServicesProvider,
   children,
+  SessionController = DefaultSessionController,
   timeout,
 }: GoogleSignInAuthenticationProviderProps): JSX.Element {
   const authReducer = useAuthReducer(AUTH_STATE);
@@ -24,6 +24,7 @@ export function GoogleSignInAuthenticationProvider({
   const credentialsReducer = useCredentialsReducer();
   const tokenReducer = useTokenReducer(); // Reducer, local to Google Sign-In process only.
   const service = useGoogleSignInService({
+    authReducer,
     authenticationReducer,
     credentialsReducer,
     tokenReducer,
@@ -31,20 +32,20 @@ export function GoogleSignInAuthenticationProvider({
   const { callbackUrl } = useSessionCallbackUrl();
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
-  useSessionActive(authState);
+  const { authenticationState } = authenticationReducer;
+  useSessionActive(authState, authenticationState);
   useSessionIdleTimer({
     disabled: !isAuthenticated,
     onIdle: () => service.requestLogout({ callbackUrl }),
     timeout,
   });
-  useSessionAuth({ authReducer, authenticationReducer });
   return (
     <CredentialsContext.Provider value={credentialsReducer}>
       <AuthenticationContext.Provider value={authenticationReducer}>
         <AuthContext.Provider value={{ authDispatch, authState, service }}>
-          <APIServicesProvider token={tokenReducer.tokenState.token}>
+          <SessionController token={tokenReducer.tokenState.token}>
             {children}
-          </APIServicesProvider>
+          </SessionController>
         </AuthContext.Provider>
       </AuthenticationContext.Provider>
     </CredentialsContext.Provider>

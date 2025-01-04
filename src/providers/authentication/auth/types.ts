@@ -1,9 +1,13 @@
 import { Dispatch } from "react";
 import { ProviderId } from "../common/types";
 
-export type AuthAction = ResetStateAction | UpdateAuthStateAction;
+export type AuthAction =
+  | RequestAuthAction
+  | ResetStateAction
+  | UpdateAuthStateAction;
 
 export enum AuthActionKind {
+  RequestAuth = "REQUEST_AUTH",
   ResetState = "RESET_STATE",
   UpdateAuthState = "UPDATE_AUTH_STATE",
 }
@@ -19,6 +23,13 @@ export interface AuthState {
   isAuthenticated: boolean;
   status: AUTH_STATUS;
 }
+
+export type RequestAuthAction = {
+  payload: RequestAuthPayload;
+  type: AuthActionKind.RequestAuth;
+};
+
+export type RequestAuthPayload = undefined;
 
 export type ResetStateAction = {
   payload: ResetStatePayload;

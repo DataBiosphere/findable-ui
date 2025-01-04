@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { AuthAction, AuthContextProps } from "../../authentication/auth/types";
 import {
   AuthenticationAction,
   AuthenticationContextProps,
@@ -14,11 +15,13 @@ import {
 
 export interface SessionReducer {
   authenticationReducer: AuthenticationContextProps;
+  authReducer: Omit<AuthContextProps, "service">;
   credentialsReducer: CredentialsContextProps;
   tokenReducer: TokenContextProps;
 }
 
 export interface SessionDispatch {
+  authDispatch: Dispatch<AuthAction> | null;
   authenticationDispatch: Dispatch<AuthenticationAction> | null;
   credentialsDispatch: Dispatch<CredentialsAction> | null;
   tokenDispatch: Dispatch<TokenAction> | null;

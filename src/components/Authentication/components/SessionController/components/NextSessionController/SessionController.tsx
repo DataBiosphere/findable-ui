@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import React, { Fragment, useEffect } from "react";
-import { updateAuthentication } from "../../../../providers/authentication/authentication/dispatch";
-import { useAuthentication } from "../../../../providers/authentication/authentication/hook";
+import { updateAuthentication } from "../../../../../../providers/authentication/authentication/dispatch";
+import { useAuthentication } from "../../../../../../providers/authentication/authentication/hook";
 import { SessionControllerProps } from "./types";
 import { mapAuthentication } from "./utils";
 

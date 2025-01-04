@@ -1,6 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import React from "react";
-import { SessionController } from "../../components/Authentication/components/SessionController/SessionController";
+import { SessionController } from "../../components/Authentication/components/SessionController/components/NextSessionController/SessionController";
 import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
 import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
 import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";

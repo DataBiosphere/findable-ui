@@ -1,7 +1,7 @@
 import { ElementType, ReactNode } from "react";
 
 export interface GoogleSignInAuthenticationProviderProps {
-  APIServicesProvider: ElementType;
   children: ReactNode | ReactNode[];
+  SessionController?: ElementType;
   timeout?: number;
 }

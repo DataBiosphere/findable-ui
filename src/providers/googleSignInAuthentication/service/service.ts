@@ -1,4 +1,5 @@
 import { OAuthProvider } from "../../../config/entities";
+import { requestAuth, resetState } from "../../authentication/auth/dispatch";
 import {
   requestAuthentication,
   resetState as resetAuthenticationState,
@@ -21,27 +22,34 @@ declare const google: any;
 export const service = {
   login: (
     provider: OAuthProvider,
-    dispatch: Pick<SessionDispatch, "authenticationDispatch" | "tokenDispatch">
+    dispatch: Pick<
+      SessionDispatch,
+      "authDispatch" | "authenticationDispatch" | "tokenDispatch"
+    >
   ): void => {
     const client = google.accounts.oauth2.initTokenClient({
       callback: (response: TokenSetParameters) => {
         const { id, profile, userinfo } = provider;
         const { access_token: token } = response;
+        dispatch.authDispatch?.(requestAuth());
         dispatch.authenticationDispatch?.(requestAuthentication());
         dispatch.tokenDispatch?.(updateToken({ providerId: id, token }));
         fetchProfile(userinfo, getAuthenticationRequestOptions(token), {
-          onError: () =>
+          onError: () => {
+            dispatch.authDispatch?.(resetState());
             dispatch.authenticationDispatch?.(
               updateAuthentication({
                 profile: undefined,
                 status: AUTHENTICATION_STATUS.SETTLED,
               })
-            ),
+            );
+            dispatch.tokenDispatch?.(resetTokenState());
+          },
           onSuccess: (r: GoogleProfile) =>
             dispatch.authenticationDispatch?.(
               updateAuthentication({
                 profile: profile(r),
-                status: AUTHENTICATION_STATUS.PENDING, // Authentication is pending until Terra profile status is resolved.
+                status: AUTHENTICATION_STATUS.PENDING, // Authentication is pending until session controller is resolved.
               })
             ),
         });
@@ -52,6 +60,7 @@ export const service = {
     client.requestAccessToken();
   },
   logout: (dispatch: SessionDispatch): void => {
+    dispatch.authDispatch?.(resetState());
     dispatch.authenticationDispatch?.(resetAuthenticationState());
     dispatch.credentialsDispatch?.(resetCredentialsState());
     dispatch.tokenDispatch?.(resetTokenState());

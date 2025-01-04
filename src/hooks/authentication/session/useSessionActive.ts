@@ -5,17 +5,29 @@ import {
   AUTH_STATUS,
   AuthState,
 } from "../../../providers/authentication/auth/types";
+import {
+  AUTHENTICATION_STATUS,
+  AuthenticationState,
+} from "../../../providers/authentication/authentication/types";
 import { ROUTE } from "../../../routes/constants";
 import { useRouteHistory } from "../../useRouteHistory";
 import { INACTIVITY_PARAM } from "./useSessionTimeout";
 
-export const useSessionActive = (authState: AuthState): void => {
-  const { status } = authState;
+export const useSessionActive = (
+  authState: AuthState,
+  authenticationState: AuthenticationState
+): void => {
+  const { status: authStatus } = authState;
+  const { status: authenticationStatus } = authenticationState;
   const { callbackUrl } = useRouteHistory(2);
+  const isReady =
+    authenticationStatus === AUTHENTICATION_STATUS.SETTLED &&
+    authStatus === AUTH_STATUS.SETTLED;
+
   useEffect(() => {
-    if (status !== AUTH_STATUS.SETTLED) return;
+    if (!isReady) return;
     Router.push(callbackUrl(transformRoute));
-  }, [callbackUrl, status]);
+  }, [callbackUrl, isReady]);
 };
 
 /**

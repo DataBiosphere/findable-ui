@@ -1,5 +1,5 @@
 import { updateAuthState } from "./actions";
-import { AuthAction, AuthActionKind, AuthState } from "./types";
+import { AUTH_STATUS, AuthAction, AuthActionKind, AuthState } from "./types";
 
 /**
  * Auth reducer.
@@ -10,6 +10,9 @@ import { AuthAction, AuthActionKind, AuthState } from "./types";
 export function authReducer(state: AuthState, action: AuthAction): AuthState {
   const { payload, type } = action;
   switch (type) {
+    case AuthActionKind.RequestAuth: {
+      return { ...state, status: AUTH_STATUS.PENDING };
+    }
     case AuthActionKind.ResetState: {
       return { ...state, ...state.initialState };
     }

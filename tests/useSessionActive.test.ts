@@ -5,6 +5,10 @@ import {
   AUTH_STATUS,
   AuthState,
 } from "../src/providers/authentication/auth/types";
+import {
+  AUTHENTICATION_STATUS,
+  AuthenticationState,
+} from "../src/providers/authentication/authentication/types";
 
 const AUTH_STATE_AUTHENTICATED_SETTLED: AuthState = {
   isAuthenticated: true,
@@ -19,6 +23,16 @@ const AUTH_STATE_PENDING: AuthState = {
 const AUTH_STATE_UNAUTHENTICATED_SETTLED: AuthState = {
   isAuthenticated: false,
   status: AUTH_STATUS.SETTLED,
+};
+
+const AUTHENTICATION_STATE_PENDING: AuthenticationState = {
+  profile: undefined,
+  status: AUTHENTICATION_STATUS.PENDING,
+};
+
+const AUTHENTICATION_STATE_SETTLED: AuthenticationState = {
+  profile: { email: "", name: "" },
+  status: AUTHENTICATION_STATUS.SETTLED,
 };
 
 const ROOT_PATH = "/";
@@ -57,18 +71,37 @@ describe("useSessionActive", () => {
     });
   });
 
-  test("does not redirect if auth status is PENDING", () => {
-    renderHook(() => useSessionActive(AUTH_STATE_PENDING));
+  test("does not redirect if auth status and authentication status is PENDING", () => {
+    renderHook(() =>
+      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_PENDING)
+    );
     expect(Router.push).not.toHaveBeenCalled();
   });
 
-  test("redirects if auth status is SETTLED", () => {
-    renderHook(() => useSessionActive(AUTH_STATE_UNAUTHENTICATED_SETTLED));
+  test("does not redirect if auth status is PENDING and authentication status is SETTLED", () => {
+    renderHook(() =>
+      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_SETTLED)
+    );
+    expect(Router.push).not.toHaveBeenCalled();
+  });
+
+  test("redirects if auth status and authentication status is SETTLED", () => {
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_UNAUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED
+      )
+    );
     expect(Router.push).toHaveBeenCalled();
   });
 
-  test("redirects to callback URL if auth status is SETTLED", () => {
-    renderHook(() => useSessionActive(AUTH_STATE_AUTHENTICATED_SETTLED));
+  test("redirects to callback URL if auth status is SETTLED and authentication status is SETTLED", () => {
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_AUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED
+      )
+    );
     expect(Router.push).toHaveBeenCalledWith(ROUTES[1]);
   });
 });
