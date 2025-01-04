@@ -21,7 +21,7 @@ export function SessionController({
   useEffect(() => {
     // Dispatch only when profile is available:
     // - Login errors are managed by the login service.
-    // - Logout operations handle resetting credentials and authentication state.
+    // - Logout operations handle resetting credentials, authentication and auth state.
     if (!profile) return;
     credentialsDispatch?.(updateCredentials(token)); // Release credentials.
     authenticationDispatch?.(authenticationComplete()); // Authentication `status` is "SETTLED".

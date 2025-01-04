@@ -14,6 +14,7 @@ import {
 } from "./useFetchTerraTermsOfService";
 
 export interface UseFetchProfiles {
+  isAuthenticated: boolean;
   isComplete: boolean;
   isProfileActive: boolean;
   terraNIHProfileLoginStatus: LoginStatus<TerraNIHResponse>;
@@ -50,6 +51,7 @@ export const useFetchProfiles = (token?: string): UseFetchProfiles => {
   ]);
 
   return {
+    isAuthenticated: isUserAuthenticated,
     isComplete: status !== TERRA_PROFILE_STATUS.PENDING,
     isProfileActive: status === TERRA_PROFILE_STATUS.AUTHENTICATED,
     terraNIHProfileLoginStatus,
