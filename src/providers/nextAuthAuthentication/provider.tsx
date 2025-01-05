@@ -3,7 +3,6 @@ import React from "react";
 import { SessionController } from "../../components/Authentication/components/SessionController/components/NextSessionController/SessionController";
 import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
 import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";
-import { useSessionAuth } from "../../hooks/authentication/session/useSessionAuth";
 import { useSessionCallbackUrl } from "../../hooks/authentication/session/useSessionCallbackUrl";
 import { useSessionIdleTimer } from "../../hooks/authentication/session/useSessionIdleTimer";
 import { AuthContext } from "../authentication/auth/context";
@@ -31,7 +30,6 @@ export function NextAuthAuthenticationProvider({
     },
     timeout,
   });
-  useSessionAuth({ authReducer, authenticationReducer });
   return (
     <SessionProvider session={session} refetchInterval={refetchInterval / 1000}>
       <AuthenticationContext.Provider value={authenticationReducer}>
