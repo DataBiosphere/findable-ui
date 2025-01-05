@@ -1,4 +1,4 @@
-import Router from "next/router";
+import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { useProviders } from "../../../hooks/authentication/providers/useProviders";
 import { Service } from "../../authentication/auth/types";
@@ -8,6 +8,7 @@ import { service } from "../service/service";
 
 export const useGoogleSignInService = (reducer: SessionReducer): Service => {
   const { findProvider } = useProviders();
+  const { basePath } = useRouter();
   const {
     authenticationReducer: { authenticationDispatch },
     authReducer: { authDispatch },
@@ -36,10 +37,16 @@ export const useGoogleSignInService = (reducer: SessionReducer): Service => {
         credentialsDispatch,
         tokenDispatch,
       });
-      if (!options?.callbackUrl) return;
-      Router.push(options?.callbackUrl).catch((e) => console.error(e));
+      // Request page reload, ensuring that the entity detail page is re-initialized with the correct state and associated data.
+      location.href = options?.callbackUrl || basePath;
     },
-    [authDispatch, authenticationDispatch, credentialsDispatch, tokenDispatch]
+    [
+      authDispatch,
+      authenticationDispatch,
+      basePath,
+      credentialsDispatch,
+      tokenDispatch,
+    ]
   );
 
   return { requestLogin: onLogin, requestLogout: onLogout };

@@ -37,7 +37,7 @@ export const useFetchEntity = <T,>(
     () =>
       isFetchRequired(
         exploreMode !== EXPLORE_MODE.CS_FETCH_CS_FILTERING,
-        Boolean(token),
+        Boolean(token), // TODO(cc), note a fetch is required if the token is true, but is unable to re-fetch on logout when token is undefined! Page is required to reload!
         Boolean(catalogState),
         Boolean(entityResponse)
       ),
