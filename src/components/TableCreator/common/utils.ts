@@ -16,8 +16,6 @@ export function buildBaseColumnDef<T>(
     columnPinned,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Destructure to avoid passing it to the columnDef.
     componentConfig,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Destructure to avoid passing it to the columnDef.
-    disableHiding,
     header,
     id,
     meta,

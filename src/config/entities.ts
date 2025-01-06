@@ -107,7 +107,6 @@ export type ColumnConfig<
 > = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
   componentConfig: ComponentConfig<C, T>;
-  disableHiding?: boolean; // Disables hiding of column. Column is unavailable for "Edit Columns" functionality when "true".
   header: string;
   id: string; // The unique identifier for the column.
   meta?: ColumnMeta<T, unknown>;

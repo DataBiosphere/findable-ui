@@ -11,7 +11,6 @@ export const COLUMN_CONFIGS: Record<string, ColumnConfig<RowData>> = {
   SELECT: {
     columnPinned: false,
     componentConfig: { component: RowSelectionCell },
-    disableHiding: true,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
