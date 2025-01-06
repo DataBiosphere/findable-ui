@@ -187,7 +187,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
       ...acc,
       [entity.route]: {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
-        columnsVisibility: initColumnVisibility(entity),
+        columnVisibility: initColumnVisibility(entity),
         enableRowSelection: initEnableRowSelection(entity),
         grouping: initGrouping(entity),
         rowPreview: undefined,

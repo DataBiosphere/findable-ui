@@ -95,7 +95,7 @@ TableProps<T>): JSX.Element => {
     tabValue,
   } = exploreState;
   const {
-    columnsVisibility, // TODO rename to `columnVisibility`.
+    columnVisibility,
     enableRowSelection,
     grouping,
     rowSelection,
@@ -138,7 +138,7 @@ TableProps<T>): JSX.Element => {
     // TODO(cc) memoize `onColumnVisibilityChange` with `useCallback`.
     exploreDispatch({
       payload:
-        typeof updater === "function" ? updater(columnsVisibility) : updater,
+        typeof updater === "function" ? updater(columnVisibility) : updater,
       type: ExploreActionKind.UpdateColumnVisibility,
     });
   };
@@ -166,7 +166,7 @@ TableProps<T>): JSX.Element => {
   );
 
   const state: Partial<TableState> = {
-    columnVisibility: columnsVisibility,
+    columnVisibility,
     grouping,
     pagination,
     rowPreview,

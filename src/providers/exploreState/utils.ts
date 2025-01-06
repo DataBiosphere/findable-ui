@@ -280,8 +280,8 @@ export function updateSelectColumnVisibility(
           ...acc,
           [entityPath]: {
             ...entityPageState,
-            columnsVisibility: {
-              ...entityPageState.columnsVisibility,
+            columnVisibility: {
+              ...entityPageState.columnVisibility,
               [ACCESSOR_KEYS.SELECT]: canEdit,
             },
             rowSelection: {},

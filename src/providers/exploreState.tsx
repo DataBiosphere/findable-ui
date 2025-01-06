@@ -581,13 +581,13 @@ function exploreReducer(
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
-      const columnsVisibility = payload;
+      const columnVisibility = payload;
       return {
         ...state,
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { columnsVisibility }
+          { columnVisibility }
         ),
       };
     }
