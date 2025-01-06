@@ -2,7 +2,6 @@ import {
   CellContext,
   ColumnDef,
   CoreOptions,
-  HeaderContext,
   RowData,
 } from "@tanstack/react-table";
 import React, { useMemo } from "react";
@@ -12,10 +11,7 @@ import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { Loading } from "../Loading/loading";
 import { COLUMN_DEF } from "../Table/common/columnDef";
 import { arrIncludesSome, sortingFn } from "../Table/common/utils";
-import { RowSelectionCell } from "../Table/components/TableCell/components/RowSelectionCell/rowSelectionCell";
-import { HeadSelectionCell } from "../Table/components/TableHead/components/HeadSelectionCell/headSelectionCell";
 import { Table } from "../Table/table";
-import { COLUMN_CONFIGS } from "./common/constants";
 import { buildBaseColumnDef } from "./common/utils";
 import { useTableOptions } from "./options/hook";
 import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
@@ -41,16 +37,6 @@ const createCell = <T extends RowData = RowData, TData = unknown>(
     );
   };
 
-const createHeaderSelectionCell = <T extends RowData>() =>
-  function CellCreator({ table }: HeaderContext<T, unknown>): JSX.Element {
-    return <HeadSelectionCell tableInstance={table} />;
-  };
-
-const createRowSelectionCell = <T extends RowData>() =>
-  function CellCreator({ row }: CellContext<T, unknown>): JSX.Element {
-    return <RowSelectionCell row={row} />;
-  };
-
 export const TableCreator = <T extends RowData>({
   columns,
   getRowId,
@@ -74,12 +60,8 @@ export const TableCreator = <T extends RowData>({
         [
           /* Initialize column definitions with the "row position" column */
           COLUMN_DEF.ROW_POSITION,
-          /* Initialize column definitions with the "select" column */
-          {
-            ...buildBaseColumnDef(COLUMN_CONFIGS.SELECT),
-            cell: createRowSelectionCell(),
-            header: createHeaderSelectionCell(),
-          },
+          /* Initialize column definitions with the "row selection" column */
+          COLUMN_DEF.ROW_SELECTION,
         ] as ColumnDef<T>[]
       ),
     [columns]

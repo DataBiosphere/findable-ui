@@ -1,5 +1,5 @@
 import { Column, RowData } from "@tanstack/react-table";
-import { ACCESSOR_KEYS } from "../../../../../../../TableCreator/common/constants";
+import { COLUMN_IDENTIFIER } from "../../../../../../common/columnIdentifier";
 import { isStringHeaderColumn } from "../../../../../../common/typeGuards";
 
 /**
@@ -16,7 +16,7 @@ export function getCanGroupColumns<T extends RowData>(
 }
 
 /**
- * Returns the number of visible columns, excluding system columns "rowPosition" and "select".
+ * Returns the number of visible columns, excluding system columns "rowPosition" and "rowSelection".
  * @param columns - Columns.
  * @returns number of visible columns.
  */
@@ -29,14 +29,14 @@ export function getVisibleColumnCount<T extends RowData>(
 }
 
 /**
- * Returns true if the column is a system column "rowPosition" or "select".
+ * Returns true if the column is a system column "rowPosition" or "rowSelection".
  * @param column - Column.
  * @returns true if the column is a system column.
  */
 function isSystemColumn<T extends RowData>(column: Column<T>): boolean {
   return (
-    column.id === ACCESSOR_KEYS.ROW_POSITION ||
-    column.id === ACCESSOR_KEYS.SELECT
+    column.id === COLUMN_IDENTIFIER.ROW_POSITION ||
+    column.id === COLUMN_IDENTIFIER.ROW_SELECTION
   );
 }
 

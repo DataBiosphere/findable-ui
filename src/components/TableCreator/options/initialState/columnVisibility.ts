@@ -1,5 +1,5 @@
 import { RowData, TableOptions, VisibilityState } from "@tanstack/react-table";
-import { ACCESSOR_KEYS } from "../../common/constants";
+import { COLUMN_IDENTIFIER } from "../../../Table/common/columnIdentifier";
 
 /**
  * Returns initial column visibility state.
@@ -15,8 +15,8 @@ export function getInitialColumnVisibilityState<T extends RowData>(
   const enableRowPosition = Boolean(tableOptions?.enableRowPosition);
   const enableRowSelection = Boolean(tableOptions?.enableRowSelection);
   return {
-    [ACCESSOR_KEYS.ROW_POSITION]: enableRowPosition,
-    [ACCESSOR_KEYS.SELECT]: enableRowSelection,
+    [COLUMN_IDENTIFIER.ROW_POSITION]: enableRowPosition,
+    [COLUMN_IDENTIFIER.ROW_SELECTION]: enableRowSelection,
     ...initialState?.columnVisibility,
   };
 }

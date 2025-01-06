@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table";
 import { SelectCategory } from "../../../common/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
-import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
+import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 
 /**
  * Internal model of a category term count keyed by category term.
@@ -210,19 +210,19 @@ export function getTableStatePagination(
 }
 
 /**
- * Returns the list of table headers, excluding "select" column.
+ * Returns the list of table headers, excluding "rowSelection" column.
  * @param rows - Table rows.
  * @returns list of headers.
  */
 function getHeadersTableData<T extends RowData>(rows: Row<T>[]): TableData[] {
   return rows[0]
     .getAllCells()
-    .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
+    .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
     .map((cell) => cell.column.columnDef.header as TableData);
 }
 
 /**
- * Returns the list of table data, excluding "select" column.
+ * Returns the list of table data, excluding "rowSelection" column.
  * @param rows - Table rows.
  * @returns list of data.
  */
@@ -230,7 +230,7 @@ function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
   return rows.map((row) =>
     row
       .getAllCells()
-      .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
+      .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
       .map((cell) => cell.getValue() as TableData)
   );
 }

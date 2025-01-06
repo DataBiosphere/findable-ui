@@ -3,8 +3,8 @@ import {
   CategoryValueKey,
   SelectedFilter,
 } from "../../common/entities";
+import { COLUMN_IDENTIFIER } from "../../components/Table/common/columnIdentifier";
 import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
-import { ACCESSOR_KEYS } from "../../components/TableCreator/common/constants";
 import { ExploreState, ListItems, PaginationState } from "../exploreState";
 import {
   CategoryGroupConfigKey,
@@ -264,7 +264,7 @@ export function updateEntityStateByCategoryGroupConfigKey(
 
 /**
  *  Updates the entity page state for each entity with row selection enabled,
- *  by updating the visibility of the "select" column based on user access and resetting row selection state.
+ *  by updating the visibility of the "rowSelection" column based on user access and resetting row selection state.
  * @param state - Explore state.
  * @param canEdit - User has edit access.
  * @returns new entity page state mapper with updated column visibility and row selection state.
@@ -282,7 +282,7 @@ export function updateSelectColumnVisibility(
             ...entityPageState,
             columnVisibility: {
               ...entityPageState.columnVisibility,
-              [ACCESSOR_KEYS.SELECT]: canEdit,
+              [COLUMN_IDENTIFIER.ROW_SELECTION]: canEdit,
             },
             rowSelection: {},
           },

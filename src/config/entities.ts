@@ -105,11 +105,13 @@ export type ColumnConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
   C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
 > = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
+  // @deprecated - Use `meta.columnPinned` instead.
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
   componentConfig: ComponentConfig<C, T>;
   header: string;
   id: string; // The unique identifier for the column.
   meta?: ColumnMeta<T, unknown>;
+  // @deprecated - Use `meta.width` instead.
   width: GridTrackSize;
 };
 

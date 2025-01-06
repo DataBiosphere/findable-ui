@@ -1,5 +1,5 @@
 import { Column, RowData } from "@tanstack/react-table";
-import { ACCESSOR_KEYS } from "../../common/constants";
+import { COLUMN_IDENTIFIER } from "../../../Table/common/columnIdentifier";
 import { isGridTrackMinMax } from "./typeGuards";
 
 /**
@@ -7,7 +7,7 @@ import { isGridTrackMinMax } from "./typeGuards";
  * Creates a string value for the `grid-template-columns` CSS property based on the visible columns.
  * It ensures proper sizing for grouped, system, and non-system columns.
  * - Grouped columns are excluded from grid sizing as they flex across the table.
- * - System columns (e.g., "rowPosition" and "select") have pre-defined sizing.
+ * - System columns (e.g., "rowPosition" and "rowSelection") have pre-defined sizing.
  * - Non-system columns collectively fill the table's width. If their total fractional sizing is less than `1fr`, the first non-system column is assigned `1fr` to ensure the table is filled.
  * @param visibleColumns - Visible columns.
  * @returns string defining the CSS `grid-template-columns` value for the table.
@@ -72,14 +72,14 @@ export function getColumnTrackSize<T extends RowData>(
 }
 
 /**
- * Returns true if the column is a system column "rowPosition" or "select".
+ * Returns true if the column is a system column "rowPosition" or "rowSelection".
  * @param column - Column.
  * @returns true if the column is a system column.
  */
 function isSystemColumn<T extends RowData>(column: Column<T>): boolean {
   return (
-    column.id === ACCESSOR_KEYS.ROW_POSITION ||
-    column.id === ACCESSOR_KEYS.SELECT
+    column.id === COLUMN_IDENTIFIER.ROW_POSITION ||
+    column.id === COLUMN_IDENTIFIER.ROW_SELECTION
   );
 }
 
