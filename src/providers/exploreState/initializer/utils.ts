@@ -4,7 +4,6 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
-import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
 import { ACCESSOR_KEYS } from "../../../components/TableCreator/common/constants";
 import {
   CategoryConfig,
@@ -152,7 +151,6 @@ function initCategoryGroups(
 function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
     list: {
-      columns,
       tableOptions: {
         enableRowSelection,
         initialState: { columnVisibility = {} } = {},
@@ -160,10 +158,9 @@ function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
     },
   } = entityConfig;
   return {
-    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibility` is initialized from columns configuration.
+    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false as default value.
     [ACCESSOR_KEYS.SELECT]: Boolean(enableRowSelection),
-    ...getInitialTableColumnVisibility(columns),
-    ...columnVisibility, // `columnVisibility` is managed by ExploreState; use table options to override this setting.
+    ...columnVisibility,
   };
 }
 

@@ -8,14 +8,9 @@ import {
   RowData,
   sortingFns,
   Table,
-  VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory } from "../../../common/entities";
-import {
-  ColumnConfig,
-  GridTrackMinMax,
-  GridTrackSize,
-} from "../../../config/entities";
+import { GridTrackMinMax, GridTrackSize } from "../../../config/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
 import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
 import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
@@ -380,21 +375,6 @@ export function sortingFn<T>(
  */
 function basicSort<TValue>(val0: TValue, val1: TValue): number {
   return val0 === val1 ? 0 : val0 > val1 ? 1 : -1;
-}
-
-/**
- * Returns the initial table visibility state for the specified column configuration.
- * TODO remove.
- * @param columns - Column configuration.
- * @returns initial table visibility state.
- */
-export function getInitialTableColumnVisibility<T extends RowData>(
-  columns: ColumnConfig<T>[]
-): VisibilityState {
-  return columns.reduce((acc, { enableHiding = true, id }) => {
-    Object.assign(acc, { [id]: enableHiding });
-    return acc;
-  }, {});
 }
 
 /**
