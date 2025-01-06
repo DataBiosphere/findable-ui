@@ -1,5 +1,6 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
 import { useConfig } from "../../../hooks/useConfig";
+import { ACCESSOR_KEYS } from "../common/constants";
 import { useExpandedOptions } from "./expanded/hook";
 import { useGroupingOptions } from "./grouping/hook";
 import { useRowSelectionOptions } from "./rowSelection/hook";
@@ -26,6 +27,11 @@ export function useTableOptions<T extends RowData>(): Partial<TableOptions<T>> {
     ...tableOptions,
     initialState: {
       ...tableOptions?.initialState,
+      columnVisibility: {
+        [ACCESSOR_KEYS.ROW_POSITION]: false,
+        [ACCESSOR_KEYS.SELECT]: false,
+        ...tableOptions?.initialState?.columnVisibility,
+      },
       sorting: defaultSort
         ? [defaultSort] // TODO(cc) deprecate `defaultSort` in favor of `initialState.sorting`.
         : tableOptions?.initialState?.sorting,
