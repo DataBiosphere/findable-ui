@@ -8,6 +8,7 @@ import {
 
 /**
  * Authentication reducer.
+ * Reducer for user profile and status.
  * @param state - State.
  * @param action - Action.
  * @returns state.
