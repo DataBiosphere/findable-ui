@@ -1,5 +1,16 @@
 # Changelog
 
+## [20.0.0](https://github.com/DataBiosphere/findable-ui/compare/v19.0.0...v20.0.0) (2025-01-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove terra functionality from authprovider into its own provider ([#178](https://github.com/DataBiosphere/findable-ui/issues/178)) (#240)
+
+### Features
+
+* remove terra functionality from authprovider into its own provider ([#178](https://github.com/DataBiosphere/findable-ui/issues/178)) ([#240](https://github.com/DataBiosphere/findable-ui/issues/240)) ([18b0ea8](https://github.com/DataBiosphere/findable-ui/commit/18b0ea875b0096a76e968f8578769f62fbab8804))
+
 ## [19.0.0](https://github.com/DataBiosphere/findable-ui/compare/v18.0.0...v19.0.0) (2025-01-03)
 
 
