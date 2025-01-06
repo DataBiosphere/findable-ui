@@ -1,43 +1,38 @@
-import { Column, GroupingState, RowData, Table } from "@tanstack/react-table";
+import { Column, RowData } from "@tanstack/react-table";
+import { isStringHeaderColumn } from "../../../../common/typeGuards";
 
 /**
  * Retrieves the button label for the column grouping dropdown.
- * Currently, the grouping state supports grouping by a single column only.
- * @param groupingByColumnId - Map of column groupings by column ID.
- * @param groupingState - Grouping state.
+ * @param columns - Columns.
  * @returns button label.
  */
 export function getButtonLabel<T extends RowData>(
-  groupingByColumnId: Map<string, [string, Column<T>]>,
-  groupingState: GroupingState
+  columns: Column<T>[]
 ): string {
-  const grouping = groupingByColumnId.get(groupingState[0]);
-  if (!grouping) return "Group by";
-  return `Group by: ${grouping[0]}`;
+  const headers = columns
+    .filter(isColumnGrouped)
+    .filter(isStringHeaderColumn)
+    .map(mapGroupedHeader);
+  if (headers.length === 0) return "Group by";
+  return `Group by: ${headers.join(", ")}`;
 }
 
 /**
- * Retrieves a map of column groupings by column ID from the given table instance.
- * Columns that are group-able with a `string` header are included and are keyed by
- * their column ID. The value is a tuple containing the column header and the column instance.
- * @param table - Table.
- * @returns map of column grouping by column id.
+ * Returns true if the column is grouped.
+ * @param column - Column.
+ * @returns true if the column is grouped.
  */
-export function getColumnGrouping<T extends RowData>(
-  table: Table<T>
-): Map<string, [string, Column<T>]> {
-  const groupingByColumnId = new Map<string, [string, Column<T>]>();
-  for (const column of table.getAllColumns()) {
-    const {
-      columnDef: { header },
-      getCanGroup,
-      id,
-    } = column;
-    if (!getCanGroup()) continue;
-    // Currently, headers are configured as strings.
-    // Only include columns that have a string header (for now).
-    if (typeof header !== "string") continue;
-    groupingByColumnId.set(id, [header, column]);
-  }
-  return groupingByColumnId;
+function isColumnGrouped<T extends RowData>(column: Column<T>): boolean {
+  return column.getIsGrouped();
+}
+
+/**
+ * Maps a column to its header.
+ * @param column - Column.
+ * @returns header.
+ */
+function mapGroupedHeader<T extends RowData>(
+  column: Column<T> & { columnDef: { header: string } }
+): string {
+  return column.columnDef.header;
 }
