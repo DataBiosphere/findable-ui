@@ -1,5 +1,16 @@
 # Changelog
 
+## [21.0.0](https://github.com/DataBiosphere/findable-ui/compare/v20.0.0...v21.0.0) (2025-01-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* update column visibility to use only tanstack api ([#307](https://github.com/DataBiosphere/findable-ui/issues/307)) (#308)
+
+### Features
+
+* update column visibility to use only tanstack api ([#307](https://github.com/DataBiosphere/findable-ui/issues/307)) ([#308](https://github.com/DataBiosphere/findable-ui/issues/308)) ([4baf212](https://github.com/DataBiosphere/findable-ui/commit/4baf212bf564d539b757dd82144511fc97ca7717))
+
 ## [20.0.0](https://github.com/DataBiosphere/findable-ui/compare/v19.0.0...v20.0.0) (2025-01-06)
 
 
