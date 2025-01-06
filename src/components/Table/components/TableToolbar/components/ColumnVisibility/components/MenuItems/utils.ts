@@ -1,4 +1,5 @@
 import { Column, RowData } from "@tanstack/react-table";
+import { isStringHeaderColumn } from "../../../../../../common/typeGuards";
 
 /**
  * Returns columns that are enabled to be hidden.
@@ -7,8 +8,10 @@ import { Column, RowData } from "@tanstack/react-table";
  */
 export function getCanHideColumns<T extends RowData>(
   columns: Column<T>[]
-): Column<T>[] {
-  return columns.filter(({ getCanHide }) => getCanHide());
+): (Column<T> & { columnDef: { header: string } })[] {
+  return columns
+    .filter(isStringHeaderColumn) // Currently, headers are configured as strings. Only include columns that have a string header (for now).
+    .filter(({ getCanHide }) => getCanHide());
 }
 
 /**

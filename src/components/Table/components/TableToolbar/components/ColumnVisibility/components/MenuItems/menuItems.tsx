@@ -36,7 +36,7 @@ export const MenuItems = <T extends RowData>({
               icon={<UncheckedIcon />}
             />
             <ListItemText disableTypography>
-              {column.columnDef.meta?.header}
+              {column.columnDef.header}
             </ListItemText>
           </ListItemButton>
         );
