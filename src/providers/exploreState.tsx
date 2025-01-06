@@ -21,6 +21,8 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
+import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
+import { UpdateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/types";
 import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
@@ -37,7 +39,6 @@ import {
   PatchExploreResponsePayload,
   ProcessExploreResponsePayload,
   ResetExploreResponsePayload,
-  UpdateColumnVisibilityPayload,
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
@@ -319,14 +320,6 @@ type SelectEntityTypeAction = {
 };
 
 /**
- * Update column visibility action.
- */
-type UpdateColumnVisibilityAction = {
-  payload: UpdateColumnVisibilityPayload;
-  type: ExploreActionKind.UpdateColumnVisibility;
-};
-
-/**
  * Update entity filters action.
  */
 type UpdateEntityFiltersAction = {
@@ -581,15 +574,7 @@ function exploreReducer(
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
-      const columnVisibility = payload;
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { columnVisibility }
-        ),
-      };
+      return updateColumnVisibilityAction(state, payload);
     }
     /**
      * Update entity filters.

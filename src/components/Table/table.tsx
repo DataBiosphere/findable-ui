@@ -13,7 +13,6 @@ import {
   TableState,
   Updater,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { track } from "../../common/analytics/analytics";
@@ -132,17 +131,6 @@ TableProps<T>): JSX.Element => {
     });
   };
 
-  const onColumnVisibilityChange = (
-    updater: Updater<VisibilityState>
-  ): void => {
-    // TODO(cc) memoize `onColumnVisibilityChange` with `useCallback`.
-    exploreDispatch({
-      payload:
-        typeof updater === "function" ? updater(columnVisibility) : updater,
-      type: ExploreActionKind.UpdateColumnVisibility,
-    });
-  };
-
   const onRowPreviewChange = useCallback(
     (updater: Updater<RowPreviewState>): void => {
       exploreDispatch({
@@ -203,7 +191,6 @@ TableProps<T>): JSX.Element => {
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
     manualPagination: true,
     manualSorting: !clientFiltering,
-    onColumnVisibilityChange,
     onRowPreviewChange,
     onRowSelectionChange,
     onSortingChange,

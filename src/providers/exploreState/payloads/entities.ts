@@ -2,7 +2,6 @@ import {
   ColumnSort,
   GroupingState,
   RowSelectionState,
-  VisibilityState,
 } from "@tanstack/react-table";
 import {
   CategoryKey,
@@ -51,11 +50,6 @@ export interface ProcessExploreResponsePayload {
  * Reset explore response payload.
  */
 export type ResetExploreResponsePayload = undefined;
-
-/**
- * Update column visibility payload.
- */
-export type UpdateColumnVisibilityPayload = VisibilityState;
 
 /**
  * Update entity filters payload.
