@@ -106,7 +106,6 @@ export type ColumnConfig<
   C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
 > = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
-  columnVisible?: boolean; // Column is visible. Default is "true".
   componentConfig: ComponentConfig<C, T>;
   disableHiding?: boolean; // Disables hiding of column. Column is unavailable for "Edit Columns" functionality when "true".
   header: string;

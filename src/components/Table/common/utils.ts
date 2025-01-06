@@ -391,8 +391,8 @@ function basicSort<TValue>(val0: TValue, val1: TValue): number {
 export function getInitialTableColumnVisibility<T extends RowData>(
   columns: ColumnConfig<T>[]
 ): VisibilityState {
-  return columns.reduce((acc, { columnVisible = true, id }) => {
-    Object.assign(acc, { [id]: columnVisible });
+  return columns.reduce((acc, { enableHiding = true, id }) => {
+    Object.assign(acc, { [id]: enableHiding });
     return acc;
   }, {});
 }

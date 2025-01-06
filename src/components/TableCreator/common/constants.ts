@@ -10,10 +10,10 @@ export const ACCESSOR_KEYS = {
 export const COLUMN_CONFIGS: Record<string, ColumnConfig<RowData>> = {
   SELECT: {
     columnPinned: false,
-    columnVisible: false,
     componentConfig: { component: RowSelectionCell },
     disableHiding: true,
     enableGrouping: false,
+    enableHiding: false,
     enableSorting: false,
     header: ACCESSOR_KEYS.SELECT,
     id: ACCESSOR_KEYS.SELECT,
