@@ -129,7 +129,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                   Button={({ ...props }): JSX.Element =>
                     isIn.isMenuIn
                       ? renderAuthenticationIconButton(props)
-                      : renderAuthenticationButton(props)
+                      : renderAuthenticationButton(props, pathname)
                   }
                   authenticationEnabled={authenticationEnabled}
                   closeMenu={onClose}

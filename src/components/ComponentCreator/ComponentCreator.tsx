@@ -1,10 +1,10 @@
 import React from "react";
 import { ComponentsConfig, ViewContext } from "../../config/entities";
-import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useFileManifestState } from "../../hooks/useFileManifestState";
 import { useSystemStatus } from "../../hooks/useSystemStatus";
+import { useAuth } from "../../providers/authentication/auth/hook";
 
 export interface ComponentCreatorProps<T> {
   components: ComponentsConfig;
@@ -27,7 +27,9 @@ export const ComponentCreator = <T,>({
   response,
   viewContext,
 }: ComponentCreatorProps<T>): JSX.Element => {
-  const { authenticationStatus, isAuthenticated } = useAuthentication();
+  const {
+    authState: { isAuthenticated },
+  } = useAuth();
   const { config, entityConfig } = useConfig();
   const { exploreState } = useExploreState();
   const { fileManifestState } = useFileManifestState();
@@ -53,7 +55,6 @@ export const ComponentCreator = <T,>({
           ? c.viewBuilder(response, {
               ...viewContext,
               authState: {
-                authenticationStatus,
                 isAuthenticated,
               },
               entityConfig,

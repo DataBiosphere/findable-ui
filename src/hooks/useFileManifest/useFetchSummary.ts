@@ -6,8 +6,8 @@ import {
 import { Filters } from "../../common/entities";
 import { fetchSummaryFromURL } from "../../entity/api/service";
 import { fetchQueryParams } from "../../utils/fetchQueryParams";
+import { useToken } from "../authentication/token/useToken";
 import { useAsync } from "../useAsync";
-import { useAuthentication } from "../useAuthentication/useAuthentication";
 import { useFetchRequestURL } from "../useFetchRequestURL";
 import { FetchFileSummary } from "./common/entities";
 
@@ -23,8 +23,7 @@ export const useFetchSummary = (
   catalog: string,
   isEnabled: boolean
 ): FetchFileSummary => {
-  // Grab token from authentication.
-  const { token } = useAuthentication();
+  const { token } = useToken();
   // Build request params.
   const requestParams = fetchQueryParams(filters, catalog, undefined);
   // Build request URL.

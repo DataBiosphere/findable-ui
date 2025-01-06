@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react";
-import { LoginStatus } from "../../../../../../../../../../hooks/useAuthentication/common/entities";
-import { useAuthentication } from "../../../../../../../../../../hooks/useAuthentication/useAuthentication";
-import { TerraResponse } from "../../../../../../../../../../hooks/useAuthentication/useFetchTerraProfile";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
+import { useTerraProfile } from "../../../../../../../../../../providers/authentication/terra/hook";
+import { LoginStatus } from "../../../../../../../../../../providers/authentication/terra/hooks/common/entities";
+import { TerraResponse } from "../../../../../../../../../../providers/authentication/terra/hooks/useFetchTerraProfile";
 import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import {
   ANCHOR_TARGET,
@@ -23,7 +23,7 @@ export const AcceptTerraTOS = ({
 }: AcceptTerraTOSProps): JSX.Element | null => {
   const { config } = useConfig();
   const { exportToTerraUrl } = config;
-  const { terraProfileLoginStatus } = useAuthentication();
+  const { terraProfileLoginStatus } = useTerraProfile();
   const isTOSAccepted = isTermsOfServiceAccepted(terraProfileLoginStatus);
 
   const onOpenTerra = (): void => {

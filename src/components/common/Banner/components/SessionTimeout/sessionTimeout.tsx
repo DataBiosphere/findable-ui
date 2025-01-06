@@ -1,6 +1,6 @@
 import { AlertProps, Fade } from "@mui/material";
 import React from "react";
-import { useSessionTimeout } from "../../../../../hooks/useSessionTimeout";
+import { useSessionTimeout } from "../../../../../hooks/authentication/session/useSessionTimeout";
 import { BaseComponentProps, ContentProps } from "../../../../types";
 import { Banner } from "../../banner";
 

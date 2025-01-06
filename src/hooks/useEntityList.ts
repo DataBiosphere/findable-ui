@@ -13,8 +13,8 @@ import { EntityMapper } from "../config/entities";
 import { getEntityConfig } from "../config/utils";
 import { ExploreActionKind } from "../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../providers/exploreState/initializer/constants";
+import { useToken } from "./authentication/token/useToken";
 import { useAsync } from "./useAsync";
-import { useAuthentication } from "./useAuthentication/useAuthentication";
 import { useConfig } from "./useConfig";
 import { useEntityService } from "./useEntityService";
 import { EXPLORE_MODE, ExploreMode, useExploreMode } from "./useExploreMode";
@@ -31,7 +31,7 @@ export const useEntityList = (
   staticResponse: AzulEntitiesStaticResponse
 ): void => {
   const { data: staticData, entityListType } = staticResponse;
-  const { token } = useAuthentication();
+  const { token } = useToken();
   const { config } = useConfig();
   const { apiPath } = getEntityConfig(config.entities, entityListType);
   const exploreMode = useExploreMode();

@@ -1,13 +1,13 @@
 import { Checkbox, Typography } from "@mui/material";
-import React, { ChangeEvent, ReactNode, useState } from "react";
-import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
-import { LoginButton } from "../common/Button/components/LoginButton/loginButton";
+import React, { ChangeEvent, useCallback, useState } from "react";
+import { useAuth } from "../../providers/authentication/auth/hook";
+import { ProviderId } from "../../providers/authentication/common/types";
 import { CheckedIcon } from "../common/CustomIcon/components/CheckedIcon/checkedIcon";
-import { GoogleIcon } from "../common/CustomIcon/components/GoogleIcon/googleIcon";
 import { UncheckedErrorIcon } from "../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
 import { UncheckedIcon } from "../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { RoundedPaper } from "../common/Paper/paper.styles";
 import { SectionContent } from "../common/Section/section.styles";
+import { Button } from "./components/Button/button";
 import {
   LoginAgreement,
   LoginSection,
@@ -17,35 +17,31 @@ import {
   LoginWrapper,
   TermsOfService,
 } from "./login.styles";
+import { Props } from "./types";
 
-export interface LoginProps {
-  isGoogle?: boolean;
-  termsOfService?: ReactNode;
-  text?: ReactNode;
-  title: string;
-  warning?: ReactNode;
-}
-
-export const Login = ({
-  isGoogle = false,
+export const Login = <P,>({
+  providers = [],
   termsOfService,
   text,
   title,
   warning,
-}: LoginProps): JSX.Element => {
-  const { authenticateUser } = useAuthentication();
+}: Props<P>): JSX.Element => {
+  const { service: { requestLogin } = {} } = useAuth();
   const [isError, setIsError] = useState<boolean>(false);
   const [isInAgreement, setIsInAgreement] = useState<boolean>(!termsOfService);
 
   // Authenticates the user, if the user has agreed to the terms of service.
   // If the terms of service are not accepted, set the terms of service error state to true.
-  const onAuthenticateUser = (): void => {
-    if (!isInAgreement) {
-      setIsError(true);
-      return;
-    }
-    authenticateUser();
-  };
+  const onLogin = useCallback(
+    (providerId: ProviderId): void => {
+      if (!isInAgreement) {
+        setIsError(true);
+        return;
+      }
+      requestLogin?.(providerId);
+    },
+    [isInAgreement, requestLogin]
+  );
 
   // Callback fired when the checkbox value is changed.
   // Clears the terms of service error state and sets state isInAgreement with checkbox selected value.
@@ -75,11 +71,15 @@ export const Login = ({
                 <TermsOfService>{termsOfService}</TermsOfService>
               </LoginAgreement>
             )}
-            {isGoogle && (
-              <LoginButton EndIcon={GoogleIcon} onClick={onAuthenticateUser}>
-                Google
-              </LoginButton>
-            )}
+            {providers?.map((provider) => (
+              <Button
+                key={provider.id}
+                endIcon={"icon" in provider && provider.icon}
+                onClick={() => onLogin(provider.id)}
+              >
+                {provider.name}
+              </Button>
+            ))}
           </LoginSectionActions>
         </LoginSection>
       </RoundedPaper>
