@@ -8,7 +8,6 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  InitialTableState,
   RowData,
   RowSelectionState,
   TableState,
@@ -57,7 +56,6 @@ import { GridTable } from "./table.styles";
 export interface TableProps<T extends RowData> {
   columns: ColumnDef<T>[];
   getRowId?: CoreOptions<T>["getRowId"];
-  initialState: InitialTableState;
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
@@ -71,7 +69,6 @@ export interface TableProps<T extends RowData> {
  * @param tableProps - Set of props required for displaying the table.
  * @param tableProps.columns - Set of columns to display.
  * @param tableProps.getRowId - Function to customize the row ID.
- * @param tableProps.initialState - Initial table state.
  * @param tableProps.items - Row data to display.
  * @param tableProps.listView - List view configuration.
  * @param tableProps.tableOptions - TanStack table options.
@@ -80,7 +77,6 @@ export interface TableProps<T extends RowData> {
 export const TableComponent = <T extends RowData>({
   columns,
   getRowId,
-  initialState,
   items,
   listView,
   tableOptions,
@@ -99,7 +95,7 @@ TableProps<T>): JSX.Element => {
     tabValue,
   } = exploreState;
   const {
-    columnsVisibility,
+    columnsVisibility, // TODO rename to `columnVisibility`.
     enableRowSelection,
     grouping,
     rowSelection,
@@ -183,16 +179,10 @@ TableProps<T>): JSX.Element => {
    * - Standardize column definitions to leverage the full power of TanStack Table's feature set and improve compatibility.
    * TODO: Deprecate the following properties:
    * - `defaultSort` in `ListConfig`: Replace this with TanStack Table's `tableOptions.initialState.sorting` feature.
-   * - `columnVisible` in `ColumnConfig`: Replace this with TanStack Table's `tableOptions.initialState.columnVisibility` feature.
-   * TODO: Define `columnVisibility` and `sorting` directly within `ListConfig` via the `tableOptions.initialState` property.
+   * TODO: Define `sorting` directly within `ListConfig` via the `tableOptions.initialState` property.
    * - This will simplify the configuration structure and centralize table state definitions, reducing redundancy and improving clarity.
    * - It will also allow for direct configuration of other TanStack Table options such as `columnOrder` via `tableOptions.initialState.columnOrder`.
-   *
-   * Current Workaround:
-   * - The `initialState` property from `tableOptions` is destructured to separate it from other options. This allows the remaining properties in `tableOptions` to be passed directly to the TanStack Table configuration without breaking the current ListConfig `defaultSort` and `columnVisible` properties.
    */
-  const { initialState: _initialState, ...restTableOptions } =
-    tableOptions ?? {};
   const tableInstance = useReactTable({
     _features: [ROW_POSITION, ROW_PREVIEW],
     columns,
@@ -211,7 +201,6 @@ TableProps<T>): JSX.Element => {
     getPaginationRowModel: getPaginationRowModel(),
     getRowId,
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
-    initialState: { ...initialState, ..._initialState }, // `sorting` and `columnVisibility` are managed by the ExploreState.
     manualPagination: true,
     manualSorting: !clientFiltering,
     onColumnVisibilityChange,
@@ -220,7 +209,7 @@ TableProps<T>): JSX.Element => {
     onSortingChange,
     pageCount,
     state,
-    ...restTableOptions,
+    ...tableOptions,
   });
   const {
     getAllColumns,

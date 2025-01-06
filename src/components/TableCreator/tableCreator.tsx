@@ -11,11 +11,7 @@ import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { Loading } from "../Loading/loading";
 import { COLUMN_DEF } from "../Table/common/columnDef";
-import {
-  arrIncludesSome,
-  getInitialState,
-  sortingFn,
-} from "../Table/common/utils";
+import { arrIncludesSome, sortingFn } from "../Table/common/utils";
 import { RowSelectionCell } from "../Table/components/TableCell/components/RowSelectionCell/rowSelectionCell";
 import { HeadSelectionCell } from "../Table/components/TableHead/components/HeadSelectionCell/headSelectionCell";
 import { Table } from "../Table/table";
@@ -88,7 +84,6 @@ export const TableCreator = <T extends RowData>({
       ),
     [columns]
   );
-  const initialState = getInitialState(columns);
   return (
     <TableCreatorContainer>
       <Loading
@@ -99,7 +94,6 @@ export const TableCreator = <T extends RowData>({
       <Table<T>
         columns={columnDefs}
         getRowId={getRowId}
-        initialState={initialState}
         items={items}
         listView={listView}
         loading={loading}

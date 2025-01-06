@@ -2,7 +2,6 @@ import {
   Cell,
   Column,
   ColumnFiltersState,
-  InitialTableState,
   memo,
   PaginationState,
   Row,
@@ -234,20 +233,6 @@ export function getGridTemplateColumns<T extends RowData>(
 }
 
 /**
- * Returns initial table state.
- * @param columns - Column configuration.
- * @returns initial table state.
- */
-export function getInitialState<T extends RowData>(
-  columns: ColumnConfig<T>[]
-): InitialTableState {
-  const columnVisibility = getInitialTableColumnVisibility(columns);
-  return {
-    columnVisibility,
-  };
-}
-
-/**
  * Returns the pinned cell and its index tuple.
  * @param row - Row.
  * @returns pinned cell and index tuple.
@@ -399,6 +384,7 @@ function basicSort<TValue>(val0: TValue, val1: TValue): number {
 
 /**
  * Returns the initial table visibility state for the specified column configuration.
+ * TODO remove.
  * @param columns - Column configuration.
  * @returns initial table visibility state.
  */
