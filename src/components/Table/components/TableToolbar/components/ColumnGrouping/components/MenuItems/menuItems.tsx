@@ -15,7 +15,7 @@ export const MenuItems = <T extends RowData>({
     <MenuItem
       {...MENU_ITEM_PROPS}
       key={column.id}
-      disabled={!column.getCanGroup()}
+      disabled={!column.getCanGroup() || !column.getIsVisible()}
       onClick={() => {
         handleToggleGrouping(tableInstance, column);
         closeMenu();

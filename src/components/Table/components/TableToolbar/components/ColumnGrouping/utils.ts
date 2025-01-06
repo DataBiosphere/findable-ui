@@ -18,7 +18,7 @@ export function getButtonLabel<T extends RowData>(
 
 /**
  * Retrieves a map of column groupings by column ID from the given table instance.
- * Columns that are visible, group-able with a `string` header are included and are keyed by
+ * Columns that are group-able with a `string` header are included and are keyed by
  * their column ID. The value is a tuple containing the column header and the column instance.
  * @param table - Table.
  * @returns map of column grouping by column id.
@@ -31,11 +31,9 @@ export function getColumnGrouping<T extends RowData>(
     const {
       columnDef: { header },
       getCanGroup,
-      getIsVisible,
       id,
     } = column;
     if (!getCanGroup()) continue;
-    if (!getIsVisible()) continue;
     // Currently, headers are configured as strings.
     // Only include columns that have a string header (for now).
     if (typeof header !== "string") continue;
