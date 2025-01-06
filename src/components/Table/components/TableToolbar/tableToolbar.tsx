@@ -3,11 +3,11 @@ import React, { Fragment } from "react";
 import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { ROW_DIRECTION } from "../../common/entities";
-import { getEditColumnOptions, isAnyRowSelected } from "../../common/utils";
-import { CheckboxMenu } from "../CheckboxMenu/checkboxMenu";
+import { isAnyRowSelected } from "../../common/utils";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
 import { ColumnGrouping } from "./components/ColumnGrouping/columnGrouping";
+import { ColumnVisibility } from "./components/ColumnVisibility/columnVisibility";
 import { RowPreview } from "./components/RowPreview/rowPreview";
 import { RowSelection } from "./components/RowSelection/rowSelection";
 import { Toolbar, ToolbarActions } from "./tableToolbar.styles";
@@ -28,23 +28,13 @@ export const TableToolbar = <T extends RowData>({
   const { currentPage, pages, pageSize, rows } = paginationState;
   const {
     getSelectedRowModel,
-    options: { enableGrouping },
-    resetColumnVisibility,
+    options: { enableGrouping, enableHiding },
   } = tableInstance;
   const { enableDownload, rowPreviewView } = listView || {};
   const isLastPage = currentPage === pages;
-  const editColumnOptions = getEditColumnOptions(tableInstance);
   const showToolbar =
     rowDirection === ROW_DIRECTION.DEFAULT &&
-    (editColumnOptions || enableDownload || enableGrouping);
-
-  /**
-   * Resets column visibility to default state.
-   */
-  const onResetColumnVisibility = (): void => {
-    resetColumnVisibility(false);
-  };
-
+    (enableHiding || enableDownload || enableGrouping);
   return (
     <Fragment>
       {showToolbar && (
@@ -69,11 +59,7 @@ export const TableToolbar = <T extends RowData>({
               />
             )}
             <ColumnGrouping tableInstance={tableInstance} />
-            <CheckboxMenu
-              label="Edit Columns"
-              onReset={onResetColumnVisibility}
-              options={editColumnOptions}
-            />
+            <ColumnVisibility tableInstance={tableInstance} />
           </ToolbarActions>
         </Toolbar>
       )}

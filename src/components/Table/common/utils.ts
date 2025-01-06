@@ -13,8 +13,6 @@ import { SelectCategory } from "../../../common/entities";
 import { GridTrackMinMax, GridTrackSize } from "../../../config/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
 import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
-import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
-import { handleToggleVisibility } from "../components/TableFeatures/ColumnVisibility/utils";
 
 /**
  * Internal model of a category term count keyed by category term.
@@ -128,40 +126,6 @@ export function generateDownloadBlob<T extends RowData>(
   const tableData = getRowsTableData(rows);
   const tsv = formatDataToTSV([tableHeaders, ...tableData]);
   return new Blob([tsv], { type: "text/tab-separated-values" });
-}
-
-/**
- * Returns edit column checkbox menu options.
- * @param table - Table.
- * @returns a list of edit column options.
- */
-export function getEditColumnOptions<T extends RowData>(
-  table: Table<T>
-): CheckboxMenuListItem[] {
-  const { getAllColumns, initialState } = table;
-  const { columnVisibility: initialVisibilityState } = initialState;
-  const allColumns = getAllColumns();
-  return allColumns.reduce((acc, column) => {
-    const {
-      columnDef: { header },
-      getCanHide,
-      getIsVisible,
-      id,
-    } = column;
-    if (getCanHide()) {
-      const option: CheckboxMenuListItem = {
-        checked: getIsVisible(),
-        disabled: initialVisibilityState[id], // TODO(cc) column visibility toggle should be disabled when table enableGrouping is false, and column is grouped.
-        label: header as string, // TODO revisit type assertion here
-        onChange: () => {
-          handleToggleVisibility(table, column);
-        },
-        value: id,
-      };
-      acc.push(option);
-    }
-    return acc;
-  }, [] as CheckboxMenuListItem[]);
 }
 
 /**
