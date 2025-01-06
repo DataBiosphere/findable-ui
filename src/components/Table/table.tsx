@@ -35,11 +35,11 @@ import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializ
 import { TABLET } from "../../theme/common/breakpoints";
 import { FluidPaper, GridPaper } from "../common/Paper/paper.styles";
 import { NoResults } from "../NoResults/noResults";
+import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
 import { ROW_DIRECTION } from "./common/entities";
 import {
   buildCategoryViews,
   getFacetedUniqueValuesWithArrayValues,
-  getGridTemplateColumns,
   getTableStatePagination,
   isClientFilteringEnabled,
 } from "./common/utils";
@@ -211,8 +211,6 @@ TableProps<T>): JSX.Element => {
   const { rows } = getRowModel();
   const noResults = !loading && (!rows || rows.length === 0);
   const scrollTop = useScroll();
-  const visibleColumns = getVisibleFlatColumns();
-  const gridTemplateColumns = getGridTemplateColumns(visibleColumns);
 
   const handleTableNextPage = (): void => {
     let nextPage = tableNextPage;
@@ -311,7 +309,7 @@ TableProps<T>): JSX.Element => {
         <TableContainer>
           <GridTable
             collapsable={true}
-            gridTemplateColumns={gridTemplateColumns}
+            gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
           >
             <TableHead
               rowDirection={rowDirection}

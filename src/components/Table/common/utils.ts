@@ -10,7 +10,6 @@ import {
   Table,
 } from "@tanstack/react-table";
 import { SelectCategory } from "../../../common/entities";
-import { GridTrackMinMax, GridTrackSize } from "../../../config/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
 import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
 
@@ -171,27 +170,6 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
 }
 
 /**
- * Generates a string value for the CSS property grid-template-columns.
- * Defines grid table track sizing (for each visible column).
- * @param columns - Table columns.
- * @returns string value for the css property grid-template-columns.
- */
-export function getGridTemplateColumns<T extends RowData>(
-  columns: Column<T>[]
-): string {
-  return columns
-    .filter(filterGroupedColumn)
-    .map(({ columnDef: { meta } }) => {
-      const width = meta?.width;
-      if (isGridTrackMinMax(width)) {
-        return `minmax(${width.min}, ${width.max})`;
-      }
-      return width;
-    })
-    .join(" ");
-}
-
-/**
  * Returns the pinned cell and its index tuple.
  * @param row - Row.
  * @returns pinned cell and index tuple.
@@ -255,15 +233,6 @@ function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
       .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
       .map((cell) => cell.getValue() as TableData)
   );
-}
-
-/**
- * Returns true if the column is not grouped (filters out grouped columns).
- * @param column - Table column.
- * @returns true if the column is not grouped.
- */
-function filterGroupedColumn<T extends RowData>(column: Column<T>): boolean {
-  return !column.getIsGrouped();
 }
 
 /**
@@ -339,15 +308,6 @@ export function sortingFn<T>(
  */
 function basicSort<TValue>(val0: TValue, val1: TValue): number {
   return val0 === val1 ? 0 : val0 > val1 ? 1 : -1;
-}
-
-/**
- * Determine if the given track size width is a size range.
- * @param width - Grid table track size.
- * @returns true if the given track size width is a size range.
- */
-function isGridTrackMinMax(width?: GridTrackSize): width is GridTrackMinMax {
-  return (width as GridTrackMinMax).min !== undefined;
 }
 
 /**

@@ -2,6 +2,7 @@ import { RowData } from "@tanstack/react-table";
 import { ColumnConfig } from "../../../config/entities";
 import { RowSelectionCell } from "../../Table/components/TableCell/components/RowSelectionCell/rowSelectionCell";
 
+// TODO(cc) We should rename `ACCESSOR_KEYS` as COLUMN_ID_IDENTIFIERS and refactor (move) to /Table/common/columnIdentifiers.ts
 export const ACCESSOR_KEYS = {
   ROW_POSITION: "rowPosition",
   SELECT: "select",
