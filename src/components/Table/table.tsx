@@ -93,16 +93,10 @@ TableProps<T>): JSX.Element => {
     rowPreview,
     tabValue,
   } = exploreState;
-  const {
-    columnVisibility,
-    enableRowSelection,
-    grouping,
-    rowSelection,
-    sorting,
-  } = entityPageState[tabValue];
+  const { columnVisibility, grouping, rowSelection, sorting } =
+    entityPageState[tabValue];
   const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
-  const { disablePagination = false, enableRowPreview = false } =
-    listView || {};
+  const { disablePagination = false } = listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
   const rowDirection = tabletDown
     ? ROW_DIRECTION.VERTICAL
@@ -162,14 +156,10 @@ TableProps<T>): JSX.Element => {
     sorting,
   };
   /**
-   * TODO: Refactor `ListConfig` to follow the API patterns of the TanStack Table library.
    * TODO: Update `ColumnConfig` to follow the `ColumnDef` API of TanStack Table.
    * - Standardize column definitions to leverage the full power of TanStack Table's feature set and improve compatibility.
-   * TODO: Deprecate the following properties:
-   * - `defaultSort` in `ListConfig`: Replace this with TanStack Table's `tableOptions.initialState.sorting` feature.
    * TODO: Define `sorting` directly within `ListConfig` via the `tableOptions.initialState` property.
    * - This will simplify the configuration structure and centralize table state definitions, reducing redundancy and improving clarity.
-   * - It will also allow for direct configuration of other TanStack Table options such as `columnOrder` via `tableOptions.initialState.columnOrder`.
    */
   const tableInstance = useReactTable({
     _features: [ROW_POSITION, ROW_PREVIEW],
@@ -178,8 +168,6 @@ TableProps<T>): JSX.Element => {
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
     enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
-    enableRowPreview,
-    enableRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering

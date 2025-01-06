@@ -6,10 +6,9 @@ import {
   RowModel,
   Table,
   TableFeature,
-  TableState,
+  TableOptionsResolved,
 } from "@tanstack/react-table";
-import { InitialTableState } from "@tanstack/table-core/src/types";
-import { getRowModel, getRowPosition, initInitialState } from "./utils";
+import { getRowModel, getRowPosition } from "./utils";
 
 export const ROW_POSITION: TableFeature = {
   createCell: <T extends RowData, TValue>(
@@ -28,7 +27,11 @@ export const ROW_POSITION: TableFeature = {
       return getRowModel(table, rowModel);
     };
   },
-  getInitialState: (initialState?: InitialTableState): Partial<TableState> => {
-    return initInitialState(initialState);
+  getDefaultOptions: <T extends RowData>(): Partial<
+    TableOptionsResolved<T>
+  > => {
+    return {
+      enableRowPosition: false,
+    };
   },
 };

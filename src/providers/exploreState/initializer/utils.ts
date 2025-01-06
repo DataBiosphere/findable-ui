@@ -4,7 +4,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
-import { ACCESSOR_KEYS } from "../../../components/TableCreator/common/constants";
+import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -150,18 +150,9 @@ function initCategoryGroups(
  */
 function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
-    list: {
-      tableOptions: {
-        enableRowSelection,
-        initialState: { columnVisibility = {} } = {},
-      } = {},
-    },
+    list: { tableOptions = {} },
   } = entityConfig;
-  return {
-    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false as default value.
-    [ACCESSOR_KEYS.SELECT]: Boolean(enableRowSelection),
-    ...columnVisibility,
-  };
+  return getInitialColumnVisibilityState(tableOptions);
 }
 
 /**
@@ -266,12 +257,8 @@ function initGrouping(entityConfig: EntityConfig): GroupingState {
  */
 function initSorting(entityConfig: EntityConfig): ColumnSort[] {
   const {
-    list: {
-      defaultSort,
-      tableOptions: { initialState: { sorting = [] } = {} } = {},
-    },
+    list: { tableOptions: { initialState: { sorting = [] } = {} } = {} },
   } = entityConfig;
-  if (defaultSort) return [defaultSort];
   return sorting;
 }
 

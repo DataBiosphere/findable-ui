@@ -256,7 +256,6 @@ export type GridTrackSize =
  */
 export interface ListConfig<T extends RowData> {
   columns: ColumnConfig<T>[];
-  defaultSort?: ColumnSort; // Establishes initial table state "sorting" state.
   tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">; // Additional TanStack Table's options.
 }
 
@@ -266,7 +265,6 @@ export interface ListConfig<T extends RowData> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
-  enableRowPreview?: boolean;
   enableTab?: boolean;
   listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
