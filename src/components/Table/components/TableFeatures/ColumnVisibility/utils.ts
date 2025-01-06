@@ -1,52 +1,33 @@
-import { Column, RowData, Table } from "@tanstack/react-table";
+import { RowData, Table, VisibilityState } from "@tanstack/react-table";
 
 /**
- * Toggles the visibility state for the given column.
- * ### Column Visibility State
- * - **Column visibility is not enabled**:
- *   - No column visibility action (exit).
- * - **Column visibility is enabled**:
- *   - Toggles the visibility state of the specified column.
- * ### Grouping and Sorting State
- * - **Column is not visible**:
- *   - No grouping or sorting action (exit).
- * - **Column is visible**:
- *   - **Column is grouped**:
- *     - Resets grouping state to `[]`.
- *     - Clears column from sorting state.
- *   - **Column is not grouped**:
- *     - No grouping or sorting action.
+ * Resets column visibility state of the table.
+ * ### Default Behavior:
+ * - Column visibility state is reset to initial state.
+ * ### Grouping State:
+ * - Column visibility state is reset to initial state, with any grouped columns remaining visible.
  * @param table - Table.
- * @param column - Column.
  */
-export function handleToggleVisibility<T extends RowData>(
-  table: Table<T>,
-  column: Column<T>
+export function handleResetVisibilityState<T extends RowData>(
+  table: Table<T>
 ): void {
-  const {
-    options: { enableGrouping },
-    resetGrouping,
-  } = table;
-  const {
-    clearSorting,
-    getCanHide,
-    getIsGrouped,
-    getIsVisible,
-    toggleVisibility,
-  } = column;
-  if (!getCanHide()) return;
-
-  // Toggle column visibility.
-  toggleVisibility();
-
-  // Column is not visible i.e. requesting column visibility and therefore no further action is needed.
-  if (!getIsVisible()) return;
-
-  // Column is visible.
-  // Table grouping is enabled, and column is grouped.
-  if (enableGrouping && getIsGrouped()) {
-    resetGrouping(true); // Clears grouping state to `[]`.
-    // Currently, only a grouped column's sorting state is cleared.
-    clearSorting(); // Clears column sorting.
+  const { getState, initialState, resetColumnVisibility, setColumnVisibility } =
+    table;
+  const { grouping } = getState();
+  if (grouping.length === 0) {
+    resetColumnVisibility(); // Resets column visibility state.
+    return;
   }
+
+  // Table is grouped.
+  // Ensure grouped columns remain visible (as their initial visibility state may have been `false`).
+  const groupedColumnVisibility: VisibilityState = {};
+  for (const id of grouping) {
+    groupedColumnVisibility[id] = true;
+  }
+
+  setColumnVisibility({
+    ...initialState.columnVisibility,
+    ...groupedColumnVisibility,
+  });
 }

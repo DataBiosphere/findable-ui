@@ -2,25 +2,16 @@ import {
   Cell,
   Column,
   ColumnFiltersState,
-  InitialTableState,
   memo,
   PaginationState,
   Row,
   RowData,
   sortingFns,
   Table,
-  VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory } from "../../../common/entities";
-import {
-  ColumnConfig,
-  GridTrackMinMax,
-  GridTrackSize,
-} from "../../../config/entities";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
-import { ACCESSOR_KEYS } from "../../TableCreator/common/constants";
-import { CheckboxMenuListItem } from "../components/CheckboxMenu/checkboxMenu";
-import { handleToggleVisibility } from "../components/TableFeatures/ColumnVisibility/utils";
+import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 
 /**
  * Internal model of a category term count keyed by category term.
@@ -137,40 +128,6 @@ export function generateDownloadBlob<T extends RowData>(
 }
 
 /**
- * Returns edit column checkbox menu options.
- * @param table - Table.
- * @returns a list of edit column options.
- */
-export function getEditColumnOptions<T extends RowData>(
-  table: Table<T>
-): CheckboxMenuListItem[] {
-  const { getAllColumns, initialState } = table;
-  const { columnVisibility: initialVisibilityState } = initialState;
-  const allColumns = getAllColumns();
-  return allColumns.reduce((acc, column) => {
-    const {
-      columnDef: { header },
-      getCanHide,
-      getIsVisible,
-      id,
-    } = column;
-    if (getCanHide()) {
-      const option: CheckboxMenuListItem = {
-        checked: getIsVisible(),
-        disabled: initialVisibilityState[id], // TODO(cc) column visibility toggle should be disabled when table enableGrouping is false, and column is grouped.
-        label: header as string, // TODO revisit type assertion here
-        onChange: () => {
-          handleToggleVisibility(table, column);
-        },
-        value: id,
-      };
-      acc.push(option);
-    }
-    return acc;
-  }, [] as CheckboxMenuListItem[]);
-}
-
-/**
  * Returns unique category term counts keyed by category terms.
  * Custom function based off react table function getFacetedUniqueValues, see
  * https://tanstack.com/table/v8/docs/api/features/filters#getfaceteduniquevalues, and
@@ -210,41 +167,6 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
         onChange: () => {},
       }
     );
-}
-
-/**
- * Generates a string value for the CSS property grid-template-columns.
- * Defines grid table track sizing (for each visible column).
- * @param columns - Table columns.
- * @returns string value for the css property grid-template-columns.
- */
-export function getGridTemplateColumns<T extends RowData>(
-  columns: Column<T>[]
-): string {
-  return columns
-    .filter(filterGroupedColumn)
-    .map(({ columnDef: { meta } }) => {
-      const width = meta?.width;
-      if (isGridTrackMinMax(width)) {
-        return `minmax(${width.min}, ${width.max})`;
-      }
-      return width;
-    })
-    .join(" ");
-}
-
-/**
- * Returns initial table state.
- * @param columns - Column configuration.
- * @returns initial table state.
- */
-export function getInitialState<T extends RowData>(
-  columns: ColumnConfig<T>[]
-): InitialTableState {
-  const columnVisibility = getInitialTableColumnVisibility(columns);
-  return {
-    columnVisibility,
-  };
 }
 
 /**
@@ -288,19 +210,19 @@ export function getTableStatePagination(
 }
 
 /**
- * Returns the list of table headers, excluding "select" column.
+ * Returns the list of table headers, excluding "rowSelection" column.
  * @param rows - Table rows.
  * @returns list of headers.
  */
 function getHeadersTableData<T extends RowData>(rows: Row<T>[]): TableData[] {
   return rows[0]
     .getAllCells()
-    .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
+    .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
     .map((cell) => cell.column.columnDef.header as TableData);
 }
 
 /**
- * Returns the list of table data, excluding "select" column.
+ * Returns the list of table data, excluding "rowSelection" column.
  * @param rows - Table rows.
  * @returns list of data.
  */
@@ -308,18 +230,9 @@ function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
   return rows.map((row) =>
     row
       .getAllCells()
-      .filter((cell) => cell.column.id !== ACCESSOR_KEYS.SELECT)
+      .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
       .map((cell) => cell.getValue() as TableData)
   );
-}
-
-/**
- * Returns true if the column is not grouped (filters out grouped columns).
- * @param column - Table column.
- * @returns true if the column is not grouped.
- */
-function filterGroupedColumn<T extends RowData>(column: Column<T>): boolean {
-  return !column.getIsGrouped();
 }
 
 /**
@@ -395,29 +308,6 @@ export function sortingFn<T>(
  */
 function basicSort<TValue>(val0: TValue, val1: TValue): number {
   return val0 === val1 ? 0 : val0 > val1 ? 1 : -1;
-}
-
-/**
- * Returns the initial table visibility state for the specified column configuration.
- * @param columns - Column configuration.
- * @returns initial table visibility state.
- */
-export function getInitialTableColumnVisibility<T extends RowData>(
-  columns: ColumnConfig<T>[]
-): VisibilityState {
-  return columns.reduce((acc, { columnVisible = true, id }) => {
-    Object.assign(acc, { [id]: columnVisible });
-    return acc;
-  }, {});
-}
-
-/**
- * Determine if the given track size width is a size range.
- * @param width - Grid table track size.
- * @returns true if the given track size width is a size range.
- */
-function isGridTrackMinMax(width?: GridTrackSize): width is GridTrackMinMax {
-  return (width as GridTrackMinMax).min !== undefined;
 }
 
 /**

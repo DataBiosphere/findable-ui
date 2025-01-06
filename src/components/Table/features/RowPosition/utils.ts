@@ -1,12 +1,4 @@
-import {
-  InitialTableState,
-  RowData,
-  RowModel,
-  Table,
-  TableState,
-} from "@tanstack/react-table";
-import { ACCESSOR_KEYS } from "../../../TableCreator/common/constants";
-import { DEFAULT_PAGINATION } from "../constants";
+import { RowData, RowModel, Table } from "@tanstack/react-table";
 
 /**
  * Returns row model, with getter for row position.
@@ -61,25 +53,4 @@ function calculateRowPosition<T extends RowData>(
     pagination: { pageIndex, pageSize },
   } = getState();
   return pageIndex * pageSize + (index + 1);
-}
-
-/**
- * Returns the initial table state.
- * @param initialState - Initial state.
- * @returns initial state.
- */
-export function initInitialState(
-  initialState?: InitialTableState
-): Partial<TableState> {
-  return {
-    ...initialState,
-    columnVisibility: {
-      [ACCESSOR_KEYS.ROW_POSITION]: false,
-      ...initialState?.columnVisibility,
-    },
-    pagination: {
-      ...DEFAULT_PAGINATION,
-      ...initialState?.pagination,
-    },
-  };
 }

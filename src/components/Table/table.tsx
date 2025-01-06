@@ -8,13 +8,11 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  InitialTableState,
   RowData,
   RowSelectionState,
   TableState,
   Updater,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { track } from "../../common/analytics/analytics";
@@ -37,11 +35,11 @@ import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializ
 import { TABLET } from "../../theme/common/breakpoints";
 import { FluidPaper, GridPaper } from "../common/Paper/paper.styles";
 import { NoResults } from "../NoResults/noResults";
+import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
 import { ROW_DIRECTION } from "./common/entities";
 import {
   buildCategoryViews,
   getFacetedUniqueValuesWithArrayValues,
-  getGridTemplateColumns,
   getTableStatePagination,
   isClientFilteringEnabled,
 } from "./common/utils";
@@ -57,7 +55,6 @@ import { GridTable } from "./table.styles";
 export interface TableProps<T extends RowData> {
   columns: ColumnDef<T>[];
   getRowId?: CoreOptions<T>["getRowId"];
-  initialState: InitialTableState;
   items: T[];
   listView?: ListViewConfig;
   loading?: boolean;
@@ -71,7 +68,6 @@ export interface TableProps<T extends RowData> {
  * @param tableProps - Set of props required for displaying the table.
  * @param tableProps.columns - Set of columns to display.
  * @param tableProps.getRowId - Function to customize the row ID.
- * @param tableProps.initialState - Initial table state.
  * @param tableProps.items - Row data to display.
  * @param tableProps.listView - List view configuration.
  * @param tableProps.tableOptions - TanStack table options.
@@ -80,7 +76,6 @@ export interface TableProps<T extends RowData> {
 export const TableComponent = <T extends RowData>({
   columns,
   getRowId,
-  initialState,
   items,
   listView,
   tableOptions,
@@ -98,16 +93,10 @@ TableProps<T>): JSX.Element => {
     rowPreview,
     tabValue,
   } = exploreState;
-  const {
-    columnsVisibility,
-    enableRowSelection,
-    grouping,
-    rowSelection,
-    sorting,
-  } = entityPageState[tabValue];
+  const { columnVisibility, grouping, rowSelection, sorting } =
+    entityPageState[tabValue];
   const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
-  const { disablePagination = false, enableRowPreview = false } =
-    listView || {};
+  const { disablePagination = false } = listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
   const rowDirection = tabletDown
     ? ROW_DIRECTION.VERTICAL
@@ -136,17 +125,6 @@ TableProps<T>): JSX.Element => {
     });
   };
 
-  const onColumnVisibilityChange = (
-    updater: Updater<VisibilityState>
-  ): void => {
-    // TODO(cc) memoize `onColumnVisibilityChange` with `useCallback`.
-    exploreDispatch({
-      payload:
-        typeof updater === "function" ? updater(columnsVisibility) : updater,
-      type: ExploreActionKind.UpdateColumnVisibility,
-    });
-  };
-
   const onRowPreviewChange = useCallback(
     (updater: Updater<RowPreviewState>): void => {
       exploreDispatch({
@@ -170,7 +148,7 @@ TableProps<T>): JSX.Element => {
   );
 
   const state: Partial<TableState> = {
-    columnVisibility: columnsVisibility,
+    columnVisibility,
     grouping,
     pagination,
     rowPreview,
@@ -178,21 +156,11 @@ TableProps<T>): JSX.Element => {
     sorting,
   };
   /**
-   * TODO: Refactor `ListConfig` to follow the API patterns of the TanStack Table library.
    * TODO: Update `ColumnConfig` to follow the `ColumnDef` API of TanStack Table.
    * - Standardize column definitions to leverage the full power of TanStack Table's feature set and improve compatibility.
-   * TODO: Deprecate the following properties:
-   * - `defaultSort` in `ListConfig`: Replace this with TanStack Table's `tableOptions.initialState.sorting` feature.
-   * - `columnVisible` in `ColumnConfig`: Replace this with TanStack Table's `tableOptions.initialState.columnVisibility` feature.
-   * TODO: Define `columnVisibility` and `sorting` directly within `ListConfig` via the `tableOptions.initialState` property.
+   * TODO: Define `sorting` directly within `ListConfig` via the `tableOptions.initialState` property.
    * - This will simplify the configuration structure and centralize table state definitions, reducing redundancy and improving clarity.
-   * - It will also allow for direct configuration of other TanStack Table options such as `columnOrder` via `tableOptions.initialState.columnOrder`.
-   *
-   * Current Workaround:
-   * - The `initialState` property from `tableOptions` is destructured to separate it from other options. This allows the remaining properties in `tableOptions` to be passed directly to the TanStack Table configuration without breaking the current ListConfig `defaultSort` and `columnVisible` properties.
    */
-  const { initialState: _initialState, ...restTableOptions } =
-    tableOptions ?? {};
   const tableInstance = useReactTable({
     _features: [ROW_POSITION, ROW_PREVIEW],
     columns,
@@ -200,8 +168,6 @@ TableProps<T>): JSX.Element => {
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
     enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
-    enableRowPreview,
-    enableRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
@@ -211,16 +177,14 @@ TableProps<T>): JSX.Element => {
     getPaginationRowModel: getPaginationRowModel(),
     getRowId,
     getSortedRowModel: clientFiltering ? getSortedRowModel() : undefined,
-    initialState: { ...initialState, ..._initialState }, // `sorting` and `columnVisibility` are managed by the ExploreState.
     manualPagination: true,
     manualSorting: !clientFiltering,
-    onColumnVisibilityChange,
     onRowPreviewChange,
     onRowSelectionChange,
     onSortingChange,
     pageCount,
     state,
-    ...restTableOptions,
+    ...tableOptions,
   });
   const {
     getAllColumns,
@@ -235,8 +199,6 @@ TableProps<T>): JSX.Element => {
   const { rows } = getRowModel();
   const noResults = !loading && (!rows || rows.length === 0);
   const scrollTop = useScroll();
-  const visibleColumns = getVisibleFlatColumns();
-  const gridTemplateColumns = getGridTemplateColumns(visibleColumns);
 
   const handleTableNextPage = (): void => {
     let nextPage = tableNextPage;
@@ -335,7 +297,7 @@ TableProps<T>): JSX.Element => {
         <TableContainer>
           <GridTable
             collapsable={true}
-            gridTemplateColumns={gridTemplateColumns}
+            gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
           >
             <TableHead
               rowDirection={rowDirection}

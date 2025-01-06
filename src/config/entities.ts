@@ -105,13 +105,13 @@ export type ColumnConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
   C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
 > = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
+  // @deprecated - Use `meta.columnPinned` instead.
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
-  columnVisible?: boolean; // Column is visible. Default is "true".
   componentConfig: ComponentConfig<C, T>;
-  disableHiding?: boolean; // Disables hiding of column. Column is unavailable for "Edit Columns" functionality when "true".
   header: string;
   id: string; // The unique identifier for the column.
   meta?: ColumnMeta<T, unknown>;
+  // @deprecated - Use `meta.width` instead.
   width: GridTrackSize;
 };
 
@@ -258,7 +258,6 @@ export type GridTrackSize =
  */
 export interface ListConfig<T extends RowData> {
   columns: ColumnConfig<T>[];
-  defaultSort?: ColumnSort; // Establishes initial table state "sorting" state.
   tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">; // Additional TanStack Table's options.
 }
 
@@ -268,7 +267,6 @@ export interface ListConfig<T extends RowData> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
-  enableRowPreview?: boolean;
   enableTab?: boolean;
   listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.

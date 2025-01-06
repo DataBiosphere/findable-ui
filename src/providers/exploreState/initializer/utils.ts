@@ -4,8 +4,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
-import { getInitialTableColumnVisibility } from "../../../components/Table/common/utils";
-import { ACCESSOR_KEYS } from "../../../components/TableCreator/common/constants";
+import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -151,20 +150,9 @@ function initCategoryGroups(
  */
 function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
-    list: {
-      columns,
-      tableOptions: {
-        enableRowSelection,
-        initialState: { columnVisibility = {} } = {},
-      } = {},
-    },
+    list: { tableOptions = {} },
   } = entityConfig;
-  return {
-    [ACCESSOR_KEYS.ROW_POSITION]: false, // Explicitly setting row position to false; required - currently `columnVisibility` is initialized from columns configuration.
-    [ACCESSOR_KEYS.SELECT]: Boolean(enableRowSelection),
-    ...getInitialTableColumnVisibility(columns),
-    ...columnVisibility, // `columnVisibility` is managed by ExploreState; use table options to override this setting.
-  };
+  return getInitialColumnVisibilityState(tableOptions);
 }
 
 /**
@@ -187,7 +175,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
       ...acc,
       [entity.route]: {
         categoryGroupConfigKey: initCategoryGroupConfigKey(config, entity),
-        columnsVisibility: initColumnVisibility(entity),
+        columnVisibility: initColumnVisibility(entity),
         enableRowSelection: initEnableRowSelection(entity),
         grouping: initGrouping(entity),
         rowPreview: undefined,
@@ -269,12 +257,8 @@ function initGrouping(entityConfig: EntityConfig): GroupingState {
  */
 function initSorting(entityConfig: EntityConfig): ColumnSort[] {
   const {
-    list: {
-      defaultSort,
-      tableOptions: { initialState: { sorting = [] } = {} } = {},
-    },
+    list: { tableOptions: { initialState: { sorting = [] } = {} } = {} },
   } = entityConfig;
-  if (defaultSort) return [defaultSort];
   return sorting;
 }
 

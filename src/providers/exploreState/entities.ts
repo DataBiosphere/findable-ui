@@ -21,7 +21,7 @@ import {
 
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
-  columnsVisibility: VisibilityState;
+  columnVisibility: VisibilityState;
   enableRowSelection: boolean;
   grouping: GroupingState;
   rowPreview: RowPreviewState;

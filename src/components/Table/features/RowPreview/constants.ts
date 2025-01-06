@@ -52,7 +52,7 @@ export const ROW_PREVIEW: TableFeature = {
     table: Table<T>
   ): Partial<TableOptionsResolved<T>> => {
     return {
-      enableRowPreview: true,
+      enableRowPreview: false,
       onRowPreviewChange: makeStateUpdater("rowPreview", table),
     };
   },
