@@ -41,11 +41,11 @@ export const EntityDetailView = (props: EntityDetailViewProps): JSX.Element => {
   const { push, query } = useRouter();
   const { entityConfig } = useConfig();
   const { mainColumn, sideColumn } = currentTab;
-  const { detail, route: entityRoute } = entityConfig;
+  const { detail, hideTabs, route: entityRoute } = entityConfig;
   const { detailOverviews, top } = detail;
   const uuid = query.params?.[PARAMS_INDEX_UUID];
   const isDetailOverview = detailOverviews?.includes(currentTab.label);
-  const tabs = getTabs(entityConfig);
+  const tabs = hideTabs ? [] : getTabs(entityConfig);
   const title = useEntityHeadTitle(response);
 
   if (!response) {
@@ -78,7 +78,13 @@ export const EntityDetailView = (props: EntityDetailViewProps): JSX.Element => {
             <ComponentCreator components={sideColumn} response={response} />
           ) : undefined
         }
-        Tabs={<Tabs onTabChange={onTabChange} tabs={tabs} value={tabRoute} />}
+        Tabs={
+          hideTabs ? (
+            <></>
+          ) : (
+            <Tabs onTabChange={onTabChange} tabs={tabs} value={tabRoute} />
+          )
+        }
         top={<ComponentCreator components={top} response={response} />}
       />
     </Fragment>
