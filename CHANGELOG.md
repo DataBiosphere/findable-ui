@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.1.0](https://github.com/DataBiosphere/findable-ui/compare/v21.0.0...v21.1.0) (2025-01-30)
+
+
+### Features
+
+* support unifying export views  [#4102](https://github.com/DataBiosphere/findable-ui/issues/4102) ([#312](https://github.com/DataBiosphere/findable-ui/issues/312)) ([cbeb6e5](https://github.com/DataBiosphere/findable-ui/commit/cbeb6e5c6c264049767c3e7a5bebe4c72e25e6b1))
+
 ## [21.0.0](https://github.com/DataBiosphere/findable-ui/compare/v20.0.0...v21.0.0) (2025-01-06)
 
 
