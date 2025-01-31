@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.1.1](https://github.com/DataBiosphere/findable-ui/compare/v21.1.0...v21.1.1) (2025-01-31)
+
+
+### Bug Fixes
+
+* quote values in tsv export when they contain syntactic characters ([#314](https://github.com/DataBiosphere/findable-ui/issues/314)) ([#315](https://github.com/DataBiosphere/findable-ui/issues/315)) ([d6832a5](https://github.com/DataBiosphere/findable-ui/commit/d6832a56f5245281e635902000dcecaab62c155f))
+
 ## [21.1.0](https://github.com/DataBiosphere/findable-ui/compare/v21.0.0...v21.1.0) (2025-01-30)
 
 
