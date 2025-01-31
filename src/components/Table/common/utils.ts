@@ -99,11 +99,16 @@ function formatDataToTSV(data: TableData[][]): string {
     .map((row) => {
       return row
         .map((data) => {
-          // Concatenate array values.
-          if (Array.isArray(data)) {
-            return data.join(", ");
-          }
-          return data;
+          // Use empty string in place of undefined and null.
+          if (data === undefined || data === null) return "";
+          // Convert to string.
+          const dataString = Array.isArray(data)
+            ? data.join(", ")
+            : String(data);
+          // Quote if necessary.
+          return /[\t\r\n"]/.test(dataString)
+            ? `"${dataString.replaceAll('"', '""')}"`
+            : dataString;
         })
         .join("\t");
     })
