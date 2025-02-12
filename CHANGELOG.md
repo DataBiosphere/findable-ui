@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.2.0](https://github.com/DataBiosphere/findable-ui/compare/v21.1.1...v21.2.0) (2025-02-12)
+
+
+### Features
+
+* create data dictionary tooltip component ([#317](https://github.com/DataBiosphere/findable-ui/issues/317)) ([#318](https://github.com/DataBiosphere/findable-ui/issues/318)) ([be4fd30](https://github.com/DataBiosphere/findable-ui/commit/be4fd30bcc2d04db230f0beefbae5ff3f7998d0b))
+
 ## [21.1.1](https://github.com/DataBiosphere/findable-ui/compare/v21.1.0...v21.1.1) (2025-01-31)
 
 
