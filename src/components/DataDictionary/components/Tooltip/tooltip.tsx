@@ -1,9 +1,10 @@
-import { Tooltip as MTooltip, TooltipProps } from "@mui/material";
+import { Tooltip as MTooltip } from "@mui/material";
 import React from "react";
 import { BaseComponentProps } from "../../../types";
 import { Title } from "./components/Title/title";
 import { TitleProps } from "./components/Title/types";
 import { TOOLTIP_PROPS } from "./constants";
+import { TooltipProps } from "./types";
 
 export const Tooltip = ({
   children,
