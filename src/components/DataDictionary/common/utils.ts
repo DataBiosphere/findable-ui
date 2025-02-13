@@ -16,13 +16,8 @@ export function annotateColumnConfig(
   siteConfig: SiteConfig,
   annotationsByKey: Record<string, DataDictionaryAnnotation>
 ): void {
-  const { entities } = siteConfig;
-  if (!entities) {
-    return;
-  }
-
   // Annotate every column in every entity.
-  entities.forEach((entity) => {
+  siteConfig.entities.forEach((entity) => {
     entity.list.columns.forEach((columnConfig) => {
       // Find the annotation for the column key.
       const annotation = annotationsByKey[columnConfig.id];
@@ -55,7 +50,7 @@ export function annotateSiteConfig(siteConfig: SiteConfig): void {
 
   // Annotate elements of site config.
   annotateEntityConfig(siteConfig, annotationsByKey);
-  annotateFilterConfig(siteConfig, annotationsByKey);
+  annotateCategoryConfig(siteConfig, annotationsByKey);
   annotateColumnConfig(siteConfig, annotationsByKey);
 }
 
@@ -65,7 +60,7 @@ export function annotateSiteConfig(siteConfig: SiteConfig): void {
  * @param siteConfig - The site configuration to annotate.
  * @param annotationsByKey - Data dictionary annotations keyed by key.
  */
-function annotateEntityConfig(
+export function annotateEntityConfig(
   siteConfig: SiteConfig,
   annotationsByKey: Record<string, DataDictionaryAnnotation>
 ): void {
@@ -89,7 +84,7 @@ function annotateEntityConfig(
  * @param siteConfig - Site configuration to annotate.
  * @param annotationsByKey - Data dictionary annotations keyed by key.
  */
-function annotateFilterConfig(
+export function annotateCategoryConfig(
   siteConfig: SiteConfig,
   annotationsByKey: Record<string, DataDictionaryAnnotation>
 ): void {
