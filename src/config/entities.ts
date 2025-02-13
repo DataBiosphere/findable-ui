@@ -10,7 +10,12 @@ import {
   TableOptions,
 } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
-import { SelectCategoryValueView, SelectedFilter } from "../common/entities";
+import {
+  DataDictionary,
+  DataDictionaryAnnotation,
+  SelectCategoryValueView,
+  SelectedFilter,
+} from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
@@ -87,6 +92,7 @@ export interface CategoryGroup {
  * Model of category configured in site config.
  */
 export interface CategoryConfig {
+  annotation?: DataDictionaryAnnotation;
   key: string;
   label: string;
   mapSelectCategoryValue?: (
@@ -170,6 +176,7 @@ export type EntityPath = string;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
 export interface EntityConfig<T = any, I = any> extends TabConfig {
+  annotation?: DataDictionaryAnnotation;
   apiPath?: EntityPath;
   categoryGroupConfig?: CategoryGroupConfig;
   detail: BackPageConfig;
@@ -180,6 +187,7 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
   hideTabs?: boolean;
+  key?: string; // Optional data dictionary key
   list: ListConfig<T>;
   listView?: ListViewConfig;
   options?: Options;
@@ -366,6 +374,7 @@ export interface SiteConfig {
   categoryGroupConfig?: CategoryGroupConfig;
   contentDir?: string;
   contentThemeOptionsFn?: ThemeOptionsFn;
+  dataDictionary?: DataDictionary;
   dataSource: DataSourceConfig;
   entities: EntityConfig[];
   explorerTitle: HeroTitle;

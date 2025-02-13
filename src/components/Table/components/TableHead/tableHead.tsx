@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { flexRender, RowData } from "@tanstack/react-table";
 import React, { Fragment } from "react";
+import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import { ROW_DIRECTION } from "../../common/entities";
 import {
   getTableCellAlign,
@@ -28,27 +29,38 @@ export const TableHead = <T extends RowData>({
             <MTableRow>
               {headerGroup.headers.map(({ column, getContext, id }) => {
                 const { columnDef, getIsGrouped, getIsSorted } = column;
+                const annotation =
+                  getContext().column.columnDef.meta?.annotation;
                 return getIsGrouped() ? null : (
                   <TableCell
                     key={id}
                     align={getTableCellAlign(column)}
                     padding={getTableCellPadding(id)}
                   >
-                    {shouldSortColumn(tableInstance, column) ? (
-                      <TableSortLabel
-                        IconComponent={SouthRoundedIcon}
-                        active={Boolean(getIsSorted())}
-                        direction={getIsSorted() || undefined}
-                        disabled={isSortDisabled(tableInstance)}
-                        onClick={(mouseEvent) =>
-                          handleToggleSorting(mouseEvent, tableInstance, column)
-                        }
-                      >
-                        {flexRender(columnDef.header, getContext())}
-                      </TableSortLabel>
-                    ) : (
-                      flexRender(columnDef.header, getContext())
-                    )}
+                    <Tooltip
+                      title={annotation?.label}
+                      description={annotation?.description}
+                    >
+                      {shouldSortColumn(tableInstance, column) ? (
+                        <TableSortLabel
+                          IconComponent={SouthRoundedIcon}
+                          active={Boolean(getIsSorted())}
+                          direction={getIsSorted() || undefined}
+                          disabled={isSortDisabled(tableInstance)}
+                          onClick={(mouseEvent) =>
+                            handleToggleSorting(
+                              mouseEvent,
+                              tableInstance,
+                              column
+                            )
+                          }
+                        >
+                          {flexRender(columnDef.header, getContext())}
+                        </TableSortLabel>
+                      ) : (
+                        flexRender(columnDef.header, getContext())
+                      )}
+                    </Tooltip>
                   </TableCell>
                 );
               })}

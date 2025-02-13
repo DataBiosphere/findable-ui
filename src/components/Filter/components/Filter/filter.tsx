@@ -77,6 +77,7 @@ export const Filter = ({
   return (
     <>
       <FilterLabel
+        annotation={categoryView.annotation}
         count={categoryView.values.length}
         disabled={categoryView.isDisabled}
         isOpen={isOpen}

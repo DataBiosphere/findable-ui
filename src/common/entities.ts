@@ -1,4 +1,13 @@
 /**
+ * Model of a value of a metadata class.
+ */
+export interface Attribute {
+  description: string;
+  key: string;
+  label: string;
+}
+
+/**
  * Filterable metadata keys.
  */
 export type CategoryKey = string;
@@ -13,9 +22,36 @@ export interface CategoryTag {
 }
 
 /**
+ * Model of a metadata class, to be specified manually or built from LinkML schema.
+ */
+export interface Class {
+  attributes: Attribute[];
+  description: string;
+  key: string;
+  label: string;
+  name: string;
+}
+
+/**
  * Category values to be used as keys. For example, "Homo sapiens" or "10X 3' v2 sequencing".
  */
 export type CategoryValueKey = unknown;
+
+/**
+ * Model of a metadata dictionary containing a set of classes and their definitions.
+ */
+export interface DataDictionary {
+  classes: Class[];
+}
+
+/**
+ * Label and description values from a data dictionary that are added to a site
+ * config value.
+ */
+export interface DataDictionaryAnnotation {
+  description: string;
+  label: string;
+}
 
 /**
  * Set of selected category values.
@@ -72,6 +108,7 @@ export interface SelectCategoryValueView {
  * View model of category, for multiselect categories.
  */
 export interface SelectCategoryView {
+  annotation?: DataDictionaryAnnotation;
   isDisabled?: boolean;
   key: CategoryKey;
   label: string;

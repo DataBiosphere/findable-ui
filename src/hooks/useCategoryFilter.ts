@@ -77,6 +77,7 @@ function buildCategoryView(
   const mapSelectCategoryValue =
     categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
   return {
+    annotation: categoryConfig?.annotation,
     isDisabled: false,
     key: category.key,
     label: getCategoryLabel(category.key, categoryConfig),

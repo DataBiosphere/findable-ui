@@ -3,7 +3,9 @@ import {
   Tabs as MTabs,
   TabsProps as MTabsProps,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
+import { DataDictionaryAnnotation } from "../../../common/entities";
+import { Tooltip } from "../../DataDictionary/components/Tooltip/tooltip";
 import { Tab, TabScrollFuzz } from "./tabs.styles";
 
 export type TabsValue = MTabsProps["value"]; // any
@@ -11,6 +13,7 @@ export type TabValue = MTabProps["value"]; // any
 export type OnTabChangeFn = (tabValue: TabValue) => void; // Function invoked when selected tab value changes.
 
 export interface Tab {
+  annotation?: DataDictionaryAnnotation;
   count?: string;
   icon?: MTabProps["icon"]; // element or string
   iconPosition?: MTabProps["iconPosition"]; // "bottom" or "end" or "start" or "top
@@ -41,14 +44,21 @@ export const Tabs = ({
     >
       {tabs.map(
         (
-          { count, icon, iconPosition = "start", label, value: tabValue },
+          {
+            annotation,
+            count,
+            icon,
+            iconPosition = "start",
+            label,
+            value: tabValue,
+          },
           t
         ) => (
           <Tab
             icon={icon}
             iconPosition={icon ? iconPosition : undefined}
             key={`${label}${t}`}
-            label={count ? `${label} (${count})` : label}
+            label={buildTabLabel(label, count, annotation)}
             value={tabValue}
           />
         )
@@ -56,3 +66,23 @@ export const Tabs = ({
     </MTabs>
   );
 };
+
+/**
+ * Build a tab value from a tab config. Specifically, display the tab label
+ * with a tooltip annotation if necessary.
+ * @param label - Tab display value.
+ * @param count - Optional count to display next to the tab label.
+ * @param annotation - Data dictionary annotation.
+ * @returns Tab label with optional count and tooltip.
+ */
+function buildTabLabel(
+  label: ReactNode,
+  count?: string,
+  annotation?: DataDictionaryAnnotation
+): ReactElement {
+  return (
+    <Tooltip title={annotation?.label} description={annotation?.description}>
+      <span>{count ? `${label} (${count})` : label}</span>
+    </Tooltip>
+  );
+}

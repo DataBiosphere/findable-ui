@@ -1,8 +1,11 @@
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import React, { MouseEvent } from "react";
+import { DataDictionaryAnnotation } from "../../../../common/entities";
+import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import { FilterLabel as Label } from "./filterLabel.styles";
 
 export interface FilterLabelProps {
+  annotation?: DataDictionaryAnnotation;
   count?: number;
   disabled?: boolean;
   isOpen: boolean;
@@ -11,6 +14,7 @@ export interface FilterLabelProps {
 }
 
 export const FilterLabel = ({
+  annotation,
   count,
   disabled = false,
   isOpen,
@@ -19,15 +23,17 @@ export const FilterLabel = ({
 }: FilterLabelProps): JSX.Element => {
   const filterLabel = count ? `${label}\xa0(${count})` : label; // When the count is present, a non-breaking space is used to prevent it from being on its own line
   return (
-    <Label
-      color="inherit"
-      disabled={disabled}
-      endIcon={<ArrowDropDownRoundedIcon fontSize="small" />}
-      fullWidth
-      isOpen={isOpen}
-      onClick={onClick}
-    >
-      {filterLabel}
-    </Label>
+    <Tooltip title={annotation?.label} description={annotation?.description}>
+      <Label
+        color="inherit"
+        disabled={disabled}
+        endIcon={<ArrowDropDownRoundedIcon fontSize="small" />}
+        fullWidth
+        isOpen={isOpen}
+        onClick={onClick}
+      >
+        {filterLabel}
+      </Label>
+    </Tooltip>
   );
 };
