@@ -64,9 +64,8 @@ export function annotateEntityConfig(
   siteConfig: SiteConfig,
   annotationsByKey: Record<string, DataDictionaryAnnotation>
 ): void {
-  const { entities } = siteConfig;
   // Annotate every entity.
-  entities.forEach((entityConfig) => {
+  siteConfig.entities.forEach((entityConfig) => {
     // Check entity for a data dictionary key.
     const { key } = entityConfig;
     if (!key) {
