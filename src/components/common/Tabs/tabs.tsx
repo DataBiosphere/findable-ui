@@ -81,7 +81,7 @@ function buildTabLabel(
   annotation?: DataDictionaryAnnotation
 ): ReactElement {
   return (
-    <Tooltip title={annotation?.label} description={annotation?.description}>
+    <Tooltip description={annotation?.description} title={annotation?.label}>
       <span>{count ? `${label} (${count})` : label}</span>
     </Tooltip>
   );

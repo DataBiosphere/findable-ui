@@ -23,7 +23,7 @@ export const FilterLabel = ({
 }: FilterLabelProps): JSX.Element => {
   const filterLabel = count ? `${label}\xa0(${count})` : label; // When the count is present, a non-breaking space is used to prevent it from being on its own line
   return (
-    <Tooltip title={annotation?.label} description={annotation?.description}>
+    <Tooltip description={annotation?.description} title={annotation?.label}>
       <Label
         color="inherit"
         disabled={disabled}
