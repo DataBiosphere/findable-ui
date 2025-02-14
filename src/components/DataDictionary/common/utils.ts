@@ -4,7 +4,7 @@ import {
   DataDictionary,
   DataDictionaryAnnotation,
 } from "../../../common/entities";
-import { SiteConfig } from "../../../config/entities";
+import { CategoryGroupConfig, SiteConfig } from "../../../config/entities";
 
 /**
  * Annotate each entity column configuration with data dictionary values. Specifically,
@@ -50,7 +50,8 @@ export function annotateSiteConfig(siteConfig: SiteConfig): void {
 
   // Annotate elements of site config.
   annotateEntityConfig(siteConfig, annotationsByKey);
-  annotateCategoryConfig(siteConfig, annotationsByKey);
+  annotateDefaultCategoryConfig(siteConfig, annotationsByKey);
+  annotateEntityCategoryConfig(siteConfig, annotationsByKey);
   annotateColumnConfig(siteConfig, annotationsByKey);
 }
 
@@ -78,21 +79,49 @@ export function annotateEntityConfig(
 }
 
 /**
- * Annotate filter configuration with data dictionary values. Specifically, look
- * up label and description for each filter key.
+ * Annotate top-level (app-wide) category config with data dictionary values.
+ * Specifically, look up label and description for each filter key.
  * @param siteConfig - Site configuration to annotate.
  * @param annotationsByKey - Data dictionary annotations keyed by key.
  */
-export function annotateCategoryConfig(
+export function annotateDefaultCategoryConfig(
   siteConfig: SiteConfig,
   annotationsByKey: Record<string, DataDictionaryAnnotation>
 ): void {
   const { categoryGroupConfig } = siteConfig;
-  if (!categoryGroupConfig) {
-    return;
+  if (categoryGroupConfig) {
+    annotateCategoryGroupConfig(categoryGroupConfig, annotationsByKey);
   }
+}
 
-  // Annotate every filter in every filter group.
+/**
+ * Annotate entity-specific category config with data dictionary values. Specifically,
+ * look up label and description for each category key.
+ * @param siteConfig - Site configuration to annotate.
+ * @param annotationsByKey - Data dictionary annotations keyed by key.
+ */
+export function annotateEntityCategoryConfig(
+  siteConfig: SiteConfig,
+  annotationsByKey: Record<string, DataDictionaryAnnotation>
+): void {
+  // Annotate every category in every entity.
+  siteConfig.entities.forEach((entityConfig) => {
+    const { categoryGroupConfig } = entityConfig;
+    if (categoryGroupConfig) {
+      annotateCategoryGroupConfig(categoryGroupConfig, annotationsByKey);
+    }
+  });
+}
+
+/**
+ * Annonate category group configuration with data dictionary values.
+ * @param categoryGroupConfig - Category group to annotate.
+ * @param annotationsByKey - Data dictionary annotations keyed by key.
+ */
+function annotateCategoryGroupConfig(
+  categoryGroupConfig: CategoryGroupConfig,
+  annotationsByKey: Record<string, DataDictionaryAnnotation>
+): void {
   categoryGroupConfig.categoryGroups.forEach((categoryGroup) => {
     categoryGroup.categoryConfigs.forEach((categorConfig) => {
       categorConfig.annotation = annotationsByKey[categorConfig.key];

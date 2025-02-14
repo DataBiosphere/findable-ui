@@ -1,6 +1,7 @@
 import {
-  annotateCategoryConfig,
   annotateColumnConfig,
+  annotateDefaultCategoryConfig,
+  annotateEntityCategoryConfig,
   annotateEntityConfig,
 } from "../src/components/DataDictionary/common/utils";
 import { SiteConfig } from "../src/config/entities";
@@ -38,7 +39,49 @@ describe("Data Dictionary", () => {
     expect(entity.annotation).toEqual(annotation);
   });
 
-  it("annotates category config", () => {
+  it("annotates entity category config", () => {
+    const key = "filter0";
+
+    // Create annotation for column and add to dummy annotation map.
+    const annotation = {
+      description: "description for filter 0",
+      label: "filter 0",
+    };
+    const annotationsByKey = {
+      [key]: annotation,
+    };
+
+    // Create dummy site config.
+    const siteConfig = {
+      entities: [
+        {
+          categoryGroupConfig: {
+            categoryGroups: [
+              {
+                categoryConfigs: [
+                  {
+                    key,
+                    label: "filter 0",
+                  },
+                ],
+              },
+            ],
+          },
+        },
+      ],
+    } as unknown as SiteConfig;
+
+    // Annotate
+    annotateEntityCategoryConfig(siteConfig, annotationsByKey);
+
+    // Confirm filter is annotated.
+    const categoryConfig =
+      siteConfig.entities[0].categoryGroupConfig?.categoryGroups[0]
+        .categoryConfigs[0];
+    expect(categoryConfig?.annotation).toEqual(annotation);
+  });
+
+  it("annotates default category config", () => {
     const key = "filter0";
 
     // Create annotation for column and add to dummy annotation map.
@@ -67,7 +110,7 @@ describe("Data Dictionary", () => {
     } as unknown as SiteConfig;
 
     // Annotate
-    annotateCategoryConfig(siteConfig, annotationsByKey);
+    annotateDefaultCategoryConfig(siteConfig, annotationsByKey);
 
     // Confirm filter is annotated.
     const categoryConfig =

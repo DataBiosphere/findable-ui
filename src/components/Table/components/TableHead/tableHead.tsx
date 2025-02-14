@@ -29,8 +29,7 @@ export const TableHead = <T extends RowData>({
             <MTableRow>
               {headerGroup.headers.map(({ column, getContext, id }) => {
                 const { columnDef, getIsGrouped, getIsSorted } = column;
-                const annotation =
-                  getContext().column.columnDef.meta?.annotation;
+                const annotation = columnDef.meta?.annotation;
                 return getIsGrouped() ? null : (
                   <TableCell
                     key={id}
