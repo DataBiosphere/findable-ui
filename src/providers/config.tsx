@@ -1,4 +1,5 @@
-import React, { createContext, ReactNode } from "react";
+import React, { createContext, ReactNode, useState } from "react";
+import { annotateSiteConfig } from "../components/DataDictionary/common/utils";
 import { EntityConfig, SiteConfig } from "../config/entities";
 import {
   getDefaultConfig,
@@ -31,7 +32,14 @@ export function ConfigProvider({
   config,
   entityListType = "",
 }: ConfigProps): JSX.Element {
-  const { entities } = config;
+  // Annote config on init. Note config is mutated but using state here to
+  // ensure annotated config is calculated once and is used rather than the raw config.
+  const [annotatedConfig] = useState(() => {
+    annotateSiteConfig(config);
+    return config;
+  });
+
+  const { entities } = annotatedConfig;
   const defaultEntityListType = config.redirectRootToPath.slice(1);
   const entityName = entityListType || defaultEntityListType;
   const entityConfig = getEntityConfig(entities, entityName);

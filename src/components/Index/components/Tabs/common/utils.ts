@@ -11,6 +11,7 @@ export function getEntityListTabs(entities: EntityConfig[]): Tab[] {
     (
       acc: Tab[],
       {
+        annotation,
         label,
         listView: { enableTab = true } = {},
         route,
@@ -20,6 +21,7 @@ export function getEntityListTabs(entities: EntityConfig[]): Tab[] {
     ) => {
       if (enableTab) {
         acc.push({
+          annotation,
           icon,
           iconPosition,
           label,

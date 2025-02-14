@@ -18,6 +18,7 @@ import type {} from "@mui/material/Typography";
 import type {} from "@tanstack/react-table";
 import { RowData } from "@tanstack/react-table";
 import { DataLayer } from "../src/common/analytics/entities";
+import { DataDictionaryAnnotation } from "../src/common/entities";
 import {
   CustomFeatureInitialTableState,
   CustomFeatureInstance,
@@ -268,6 +269,7 @@ declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
   interface ColumnMeta<TData extends RowData, TValue> {
     align?: TableCellProps["align"];
+    annotation?: DataDictionaryAnnotation;
     columnPinned?: boolean;
     header?: string;
     width?: GridTrackSize;
