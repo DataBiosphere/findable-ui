@@ -38,8 +38,8 @@ export const TableHead = <T extends RowData>({
                     padding={getTableCellPadding(id)}
                   >
                     <Tooltip
-                      title={annotation?.label}
                       description={annotation?.description}
+                      title={annotation?.label}
                     >
                       {shouldSortColumn(tableInstance, column) ? (
                         <TableSortLabel
