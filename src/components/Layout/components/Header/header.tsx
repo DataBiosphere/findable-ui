@@ -21,6 +21,7 @@ import {
   renderIconButton as renderSearchIconButton,
   Search,
 } from "./components/Content/components/Actions/components/Search/search";
+import { NAVIGATION_TEST_ID } from "./components/Content/components/Navigation/constants";
 import { Navigation as DXNavigation } from "./components/Content/components/Navigation/navigation";
 import { Slogan } from "./components/Content/components/Slogan/slogan";
 import { Divider } from "./components/Content/components/Slogan/slogan.styles";
@@ -92,7 +93,11 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
           <Center>
             {/* Center navigation */}
             {isIn.isCenterNavigationIn && (
-              <DXNavigation {...navigationProps} links={navItemsC} />
+              <DXNavigation
+                {...navigationProps}
+                testId={NAVIGATION_TEST_ID}
+                links={navItemsC}
+              />
             )}
           </Center>
         </Fade>

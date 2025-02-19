@@ -7,6 +7,7 @@ import {
   REL_ATTRIBUTE,
 } from "../../../../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../../../../Links/common/utils";
+import { TestIdProps } from "../../../../../../../types";
 import { SelectedMatch } from "../../../../common/entities";
 import { HeaderProps } from "../../../../header";
 import { isNavigationLinkSelected } from "./common/utils";
@@ -28,7 +29,7 @@ export interface NavLinkItem {
   visible?: Partial<Record<BreakpointKey, boolean>>;
 }
 
-export interface NavigationProps {
+export interface NavigationProps extends TestIdProps {
   className?: string;
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
@@ -48,11 +49,18 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
       links,
       pathname,
       style,
+      testId,
     }: NavigationProps,
     ref
   ): JSX.Element {
     return (
-      <Links ref={ref} className={className} isMenuIn={isMenuIn} style={style}>
+      <Links
+        ref={ref}
+        className={className}
+        data-testid={testId}
+        isMenuIn={isMenuIn}
+        style={style}
+      >
         {links.map(
           (
             {
