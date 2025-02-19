@@ -1,5 +1,5 @@
-import { Button, Divider } from "@mui/material";
-import { useRouter } from "next/router";
+import { Button, Divider, Link as MLink } from "@mui/material";
+import Link from "next/link";
 import React, { CSSProperties, forwardRef, Fragment, ReactNode } from "react";
 import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper";
 import {
@@ -51,7 +51,6 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
     }: NavigationProps,
     ref
   ): JSX.Element {
-    const router = useRouter();
     return (
       <Links ref={ref} className={className} isMenuIn={isMenuIn} style={style}>
         {links.map(
@@ -65,8 +64,9 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
               url,
             },
             i
-          ) =>
-            menuItems ? (
+          ) => {
+            const isClientSide = isClientSideNavigation(url);
+            return menuItems ? (
               <Fragment key={i}>
                 {isMenuIn ? (
                   <NavigationDrawer
@@ -98,17 +98,16 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
             ) : (
               <Fragment key={i}>
                 <Button
+                  component={isClientSide ? Link : MLink}
                   disabled={!url}
-                  onClick={(): void => {
-                    closeAncestor?.();
-                    isClientSideNavigation(url)
-                      ? router.push(url)
-                      : window.open(
-                          url,
-                          target,
-                          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
-                        );
-                  }}
+                  href={url}
+                  onClick={(): void => closeAncestor?.()}
+                  rel={
+                    isClientSide
+                      ? REL_ATTRIBUTE.NO_OPENER
+                      : REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+                  }
+                  target={target}
                   variant={
                     isNavigationLinkSelected(pathname, selectedPatterns)
                       ? "activeNav"
@@ -119,7 +118,8 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                 </Button>
                 {divider && <Divider />}
               </Fragment>
-            )
+            );
+          }
         )}
       </Links>
     );
