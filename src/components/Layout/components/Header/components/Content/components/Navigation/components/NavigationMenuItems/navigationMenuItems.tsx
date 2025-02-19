@@ -2,9 +2,10 @@ import {
   Divider,
   ListItemIcon,
   ListItemText,
+  Link as MLink,
   MenuItem as MMenuItem,
 } from "@mui/material";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import React, { Fragment, ReactNode } from "react";
 import {
   TEXT_BODY_400,
@@ -38,7 +39,6 @@ export const NavigationMenuItems = ({
   menuItems,
   pathname,
 }: NavLinkMenuProps): JSX.Element => {
-  const router = useRouter();
   return (
     <>
       {menuItems.map(
@@ -54,8 +54,9 @@ export const NavigationMenuItems = ({
             url,
           },
           i
-        ) =>
-          nestedMenuItems ? (
+        ) => {
+          const isClientSide = isClientSideNavigation(url);
+          return nestedMenuItems ? (
             <NavigationMenu
               key={i}
               closeAncestor={closeMenu}
@@ -69,18 +70,17 @@ export const NavigationMenuItems = ({
           ) : (
             <Fragment key={i}>
               <MMenuItem
+                component={isClientSide ? Link : MLink}
                 disabled={!url}
-                onClick={(): void => {
-                  closeMenu();
-                  isClientSideNavigation(url)
-                    ? router.push(url)
-                    : window.open(
-                        url,
-                        target,
-                        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
-                      );
-                }}
+                href={url}
+                onClick={(): void => closeMenu()}
+                rel={
+                  isClientSide
+                    ? REL_ATTRIBUTE.NO_OPENER
+                    : REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+                }
                 selected={isNavigationLinkSelected(pathname, selectedPatterns)}
+                target={target}
               >
                 {icon && <ListItemIcon>{icon}</ListItemIcon>}
                 <ListItemText
@@ -100,7 +100,8 @@ export const NavigationMenuItems = ({
               </MMenuItem>
               {divider && <Divider />}
             </Fragment>
-          )
+          );
+        }
       )}
     </>
   );
