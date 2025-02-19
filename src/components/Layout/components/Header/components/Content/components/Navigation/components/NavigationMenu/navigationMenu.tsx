@@ -78,7 +78,7 @@ export const NavigationMenu = ({
           >
             <MPaper variant="menu">
               <MClickAwayListener onClickAway={onClose}>
-                <MMenuList>
+                <MMenuList component="div">
                   <NavigationMenuItems
                     closeMenu={(): void => {
                       onClose();
