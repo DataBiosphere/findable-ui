@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
+import { useLoginGuard } from "../../../../providers/loginGuard/hook";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { IconButton } from "../../../common/IconButton/iconButton";
@@ -29,6 +30,9 @@ export const AzulFileDownload = ({
   const downloadRef = useRef<HTMLAnchorElement>(null);
   const [isRequestPending, setIsRequestPending] = useState(false);
 
+  // Prompt user for login before download, if required.
+  const { requireLogin } = useLoginGuard();
+
   // Initiates file download when file location request is successful.
   useEffect(() => {
     if (!fileUrl) return;
@@ -38,6 +42,13 @@ export const AzulFileDownload = ({
     downloadEl.click();
     setIsRequestPending(false);
   }, [fileUrl]);
+
+  // Initiates file download when download button is clicked.
+  const handleDownloadClick = (): void => {
+    setIsRequestPending(true);
+    trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
+    run();
+  };
 
   return (
     <Fragment>
@@ -54,11 +65,7 @@ export const AzulFileDownload = ({
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
           disabled={!url}
           Icon={isLoading ? LoadingIcon : DownloadIcon}
-          onClick={(): void => {
-            setIsRequestPending(true);
-            trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
-            run();
-          }}
+          onClick={() => requireLogin(handleDownloadClick)}
           size="medium"
         />
       )}

@@ -6,6 +6,7 @@ import {
   AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
 } from "../src/components/Index/components/AzulFileDownload/common/constants";
+import { LoginGuardProvider } from "../src/providers/loginGuard/provider";
 import { getAnchorEl, getButtonById } from "../src/utils/tests";
 
 jest.unstable_mockModule("../src/hooks/useFileLocation", () => ({
@@ -55,7 +56,13 @@ describe("AzulFileDownload", () => {
   });
   describe("download functionality", () => {
     test("should call the run function when the button is clicked", () => {
-      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
+      render(
+        <>
+          <LoginGuardProvider>
+            <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
+          </LoginGuardProvider>
+        </>
+      );
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);
       expect(MOCK_RUN).toHaveBeenCalled();
@@ -66,7 +73,13 @@ describe("AzulFileDownload", () => {
         isLoading: false,
         run: MOCK_RUN,
       });
-      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
+      render(
+        <>
+          <LoginGuardProvider>
+            <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
+          </LoginGuardProvider>
+        </>
+      );
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);
       await waitFor(() => {

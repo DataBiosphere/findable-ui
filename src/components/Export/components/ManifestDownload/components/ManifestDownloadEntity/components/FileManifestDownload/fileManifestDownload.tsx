@@ -10,6 +10,7 @@ import React, { useRef } from "react";
 import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestDownload } from "../../../../../../../../hooks/useFileManifest/useFileManifestDownload";
+import { useLoginGuard } from "../../../../../../../../providers/loginGuard/hook";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import { ButtonGroupButton } from "../../../../../../../common/ButtonGroup/components/ButtonGroupButton/buttonGroupButton";
 import {
@@ -45,6 +46,9 @@ export const FileManifestDownload = ({
   );
   const isInProgress = (isIdle || isLoading) && !disabled;
   const isReady = Boolean(manifestURL) || disabled;
+
+  // Prompt user for login before download and copy, if required.
+  const { requireLogin } = useLoginGuard();
 
   // Copies file manifest.
   const copyManifestURL = (url?: string): void => {
@@ -89,15 +93,19 @@ export const FileManifestDownload = ({
                                 action="Download file manifest"
                                 disabled={disabled}
                                 label={<DownloadIconSmall />}
-                                onClick={downloadManifestURL}
+                                onClick={() =>
+                                  requireLogin(downloadManifestURL)
+                                }
                               />,
                               <ButtonGroupButton
                                 key="copy"
                                 action="Copy file manifest"
                                 disabled={disabled}
                                 label={<ContentCopyIconSmall />}
-                                onClick={(): void =>
-                                  copyManifestURL(manifestURL)
+                                onClick={() =>
+                                  requireLogin((): void =>
+                                    copyManifestURL(manifestURL)
+                                  )
                                 }
                               />,
                             ]}
