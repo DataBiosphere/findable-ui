@@ -379,6 +379,7 @@ export interface SiteConfig {
   entities: EntityConfig[];
   explorerTitle: HeroTitle;
   export?: ExportConfig;
+  exportsRequireAuth?: boolean;
   exportToTerraUrl?: string; // TODO(cc) revist location; possibly nest inside "export"?
   gitHubUrl?: string;
   layout: {
