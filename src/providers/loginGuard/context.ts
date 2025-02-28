@@ -1,10 +1,12 @@
 import { createContext } from "react";
-import { LoginGuardContextProps } from "./common/types";
+import { LoginGuardCallback, LoginGuardContextProps } from "./common/types";
 
 /**
- * LoginGuardContext provides a way to trigger a login process. Default value is a
- * no-op function.
+ * LoginGuardContext provides a way to trigger a login process. Default value is to
+ * call the callback immediately, if specified.
  */
 export const LoginGuardContext = createContext<LoginGuardContextProps>({
-  requireLogin: () => {},
+  requireLogin: (callback?: LoginGuardCallback) => {
+    callback?.();
+  },
 });

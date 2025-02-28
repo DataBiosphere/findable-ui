@@ -6,7 +6,6 @@ import {
   AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
 } from "../src/components/Index/components/AzulFileDownload/common/constants";
-import { LoginGuardProvider } from "../src/providers/loginGuard/provider";
 import { getAnchorEl, getButtonById } from "../src/utils/tests";
 
 jest.unstable_mockModule("../src/hooks/useFileLocation", () => ({
@@ -58,9 +57,7 @@ describe("AzulFileDownload", () => {
     test("should call the run function when the button is clicked", () => {
       render(
         <>
-          <LoginGuardProvider>
-            <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
-          </LoginGuardProvider>
+          <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
         </>
       );
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
@@ -75,9 +72,7 @@ describe("AzulFileDownload", () => {
       });
       render(
         <>
-          <LoginGuardProvider>
-            <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
-          </LoginGuardProvider>
+          <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
         </>
       );
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
