@@ -1,5 +1,13 @@
 # Changelog
 
+## [21.4.0](https://github.com/DataBiosphere/findable-ui/compare/v21.3.0...v21.4.0) (2025-02-28)
+
+
+### Features
+
+* added check login required for export/download [#283](https://github.com/DataBiosphere/findable-ui/issues/283) ([#324](https://github.com/DataBiosphere/findable-ui/issues/324)) ([badb6ab](https://github.com/DataBiosphere/findable-ui/commit/badb6abe9319625a7fdabfe290434a05115cc2a9))
+* use anchor tags for all header and footer links ([#297](https://github.com/DataBiosphere/findable-ui/issues/297)) ([#322](https://github.com/DataBiosphere/findable-ui/issues/322)) ([95effbf](https://github.com/DataBiosphere/findable-ui/commit/95effbfcdb65d71d10141c287b34043086c261e5))
+
 ## [21.3.0](https://github.com/DataBiosphere/findable-ui/compare/v21.2.0...v21.3.0) (2025-02-14)
 
 
