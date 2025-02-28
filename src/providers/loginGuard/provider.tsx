@@ -47,6 +47,13 @@ export function LoginGuardProvider({
     }
   }, [isAuthenticated]);
 
+  // Handler to close the dialog.
+  const onClose = useCallback(() => {
+    setOpen(false);
+    // Clear any stored callback.
+    callbackRef.current = undefined;
+  }, []);
+
   // Block actions that require authentication, or fire callback if already authenticated.
   const requireLogin = useCallback(
     (cb?: LoginGuardCallback) => {
@@ -63,7 +70,7 @@ export function LoginGuardProvider({
   return (
     <LoginGuardContext.Provider value={{ requireLogin }}>
       {children}
-      <LoginDialog open={open} />
+      <LoginDialog open={open} onClose={onClose} />
     </LoginGuardContext.Provider>
   );
 }

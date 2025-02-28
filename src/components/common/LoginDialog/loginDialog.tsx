@@ -5,7 +5,7 @@ import {
   DialogTitle,
   IconButton,
 } from "@mui/material";
-import React, { useCallback } from "react";
+import React from "react";
 import { useAuthenticationConfig } from "../../../hooks/authentication/config/useAuthenticationConfig";
 import { Buttons } from "../../Login/components/Buttons/buttons";
 import { Consent } from "../../Login/components/Section/components/Consent/consent";
@@ -22,11 +22,12 @@ import {
 import { StyledDialog } from "./loginDialog.styles";
 import { LoginDialogProps } from "./types";
 
-export const LoginDialog = ({ open }: LoginDialogProps): JSX.Element | null => {
+export const LoginDialog = ({
+  onClose,
+  open,
+}: LoginDialogProps): JSX.Element | null => {
   const authConfig = useAuthenticationConfig();
   const { consentState, handleConsent, handleLogin } = useUserLogin();
-
-  const onClose = useCallback((): void => {}, []);
 
   if (!authConfig) return null;
 
