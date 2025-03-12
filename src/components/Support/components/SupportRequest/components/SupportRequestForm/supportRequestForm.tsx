@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { FileRejection } from "react-dropzone";
-import validate from "validate.js";
+import { ValidationError } from "yup";
 import { TEXT_BODY_400 } from "../../../../../../theme/common/typography";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { Input } from "../../../../../common/Form/components/Input/input";
@@ -21,18 +21,17 @@ import {
 import { SupportRequest } from "../../supportRequest";
 import Dropzone from "../Dropzone/dropzone";
 import {
-  CONSTRAINTS,
   DEFAULT_FORM_STATE,
   DRAGGING_STYLE,
   MAX_ATTACHMENT_SIZE,
   OPTIONS,
+  VALIDATION_SCHEMA,
 } from "./common/constants";
 import {
   FORM_CONTROL_LABEL,
   FORM_CONTROL_NAME,
   FormState,
   RequestValue,
-  ValidateResponse,
 } from "./common/entities";
 import { createSupportRequest, uploadAttachment } from "./common/utils";
 import { Section, Title } from "./supportRequestForm.styles";
@@ -47,7 +46,23 @@ export const SupportRequestForm = ({
   supportRequest,
 }: SupportRequestFormProps): JSX.Element => {
   const [formState, setFormState] = useState<FormState>(DEFAULT_FORM_STATE);
-  const errors = validate(buildSupportRequest(formState), CONSTRAINTS); // Determine error state of form
+  const [errors, setErrors] = useState<Record<string, string>>();
+
+  // Validate form state when it changes.
+  React.useEffect(() => {
+    VALIDATION_SCHEMA.validate(buildSupportRequest(formState), {
+      abortEarly: false,
+    })
+      .then(() => setErrors(undefined))
+      .catch((aggregateError: ValidationError) => {
+        const validationErrors: Record<string, string> = {};
+        for (const error of aggregateError.inner) {
+          if (error.path) validationErrors[error.path] = error.message;
+        }
+        setErrors(validationErrors);
+      });
+  }, [formState]);
+
   const { FIELD_ID, requestURL, uploadURL } = supportRequest;
 
   // Delete attachment.
@@ -280,18 +295,16 @@ function buildSupportRequest(formState: FormState): RequestValue {
 /**
  * Returns true if the given field is touched and has an error.
  * @param formState - Form state.
- * @param error - Validate.js error object.
+ * @param error - Validation error object.
  * @param fieldName - Field name.
  * @returns true if the given field has an error.
  */
 function isFieldError(
   formState: FormState,
-  error: ValidateResponse | undefined,
+  error: Record<string, string> | undefined,
   fieldName: FORM_CONTROL_NAME
 ): boolean {
-  const hasError = Boolean(error?.[fieldName]);
-  const isTouched = Boolean(formState.touched[fieldName]);
-  return isTouched && hasError;
+  return Boolean(formState.touched[fieldName] && error?.[fieldName]);
 }
 
 /**
