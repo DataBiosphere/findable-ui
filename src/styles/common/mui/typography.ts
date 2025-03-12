@@ -9,5 +9,6 @@ export const COLOR: Record<string, TypographyOwnProps["color"]> = {
 export const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   INHERIT: "inherit",
   TEXT_BODY_400: "text-body-400",
+  TEXT_BODY_400_2_LINES: "text-body-400-2lines",
   TEXT_HEADING_SMALL: "text-heading-small",
 };
