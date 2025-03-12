@@ -1,6 +1,7 @@
-import React, { ElementType } from "react";
+import React from "react";
 import { ContactSupportIcon } from "../../../common/CustomIcon/components/ContactSupportIcon/contactSupportIcon";
-import { ANCHOR_TARGET } from "../../../Links/common/entities";
+import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../../Links/common/entities";
+import { ViewSupportProps } from "./types";
 import { Fab } from "./viewSupport.styles";
 
 /**
@@ -8,21 +9,16 @@ import { Fab } from "./viewSupport.styles";
  * Navigates to support URL provided.
  */
 
-export interface ViewSupportProps {
-  className?: string;
-  Icon?: ElementType;
-  target?: ANCHOR_TARGET;
-  url: string;
-}
-
 export const ViewSupport = ({
   className,
   Icon = ContactSupportIcon,
+  rel = REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
   target = ANCHOR_TARGET.BLANK,
   url,
+  ...props /* AnchorHTMLAttributes<HTMLAnchorElement> */
 }: ViewSupportProps): JSX.Element => {
   return (
-    <Fab className={className} href={url} target={target}>
+    <Fab className={className} href={url} rel={rel} target={target} {...props}>
       <Icon fontSize="inherit" />
     </Fab>
   );
