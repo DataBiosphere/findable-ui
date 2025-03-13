@@ -46,20 +46,20 @@ export const SupportRequestForm = ({
   supportRequest,
 }: SupportRequestFormProps): JSX.Element => {
   const [formState, setFormState] = useState<FormState>(DEFAULT_FORM_STATE);
-  const [errors, setErrors] = useState<Record<string, string>>();
+  const [errorFields, setErrorFields] = useState<Set<string>>();
 
   // Validate form state when it changes.
   React.useEffect(() => {
     VALIDATION_SCHEMA.validate(buildSupportRequest(formState), {
       abortEarly: false,
     })
-      .then(() => setErrors(undefined))
+      .then(() => setErrorFields(undefined))
       .catch((aggregateError: ValidationError) => {
-        const validationErrors: Record<string, string> = {};
+        const fields = new Set<string>();
         for (const error of aggregateError.inner) {
-          if (error.path) validationErrors[error.path] = error.message;
+          if (error.path) fields.add(error.path);
         }
-        setErrors(validationErrors);
+        setErrorFields(fields);
       });
   }, [formState]);
 
@@ -192,7 +192,11 @@ export const SupportRequestForm = ({
           </Section>
           <Section>
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.NAME)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.NAME
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.NAME])}
               label={FORM_CONTROL_LABEL.NAME}
               name={FORM_CONTROL_NAME.NAME}
@@ -200,7 +204,11 @@ export const SupportRequestForm = ({
               onChange={onInputChange}
             />
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.EMAIL)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.EMAIL
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.EMAIL])}
               label={FORM_CONTROL_LABEL.EMAIL}
               name={FORM_CONTROL_NAME.EMAIL}
@@ -209,7 +217,11 @@ export const SupportRequestForm = ({
             />
             <Select
               displayEmpty={true}
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.TYPE)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.TYPE
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.TYPE])}
               label={FORM_CONTROL_LABEL.TYPE}
               name={FORM_CONTROL_NAME.TYPE}
@@ -226,7 +238,11 @@ export const SupportRequestForm = ({
               ))}
             </Select>
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.SUBJECT)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.SUBJECT
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.SUBJECT])}
               label={FORM_CONTROL_LABEL.SUBJECT}
               name={FORM_CONTROL_NAME.SUBJECT}
@@ -236,7 +252,7 @@ export const SupportRequestForm = ({
             <Input
               error={isFieldError(
                 formState,
-                errors,
+                errorFields,
                 FORM_CONTROL_NAME.DESCRIPTION
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.DESCRIPTION])}
@@ -259,7 +275,7 @@ export const SupportRequestForm = ({
           <Section>
             <SectionActions>
               <ButtonPrimary
-                disabled={Boolean(errors) || formState.submitting}
+                disabled={Boolean(errorFields) || formState.submitting}
                 fullWidth
                 onClick={onSupportRequestSubmitted}
                 id="button-support-request"
@@ -295,16 +311,16 @@ function buildSupportRequest(formState: FormState): RequestValue {
 /**
  * Returns true if the given field is touched and has an error.
  * @param formState - Form state.
- * @param error - Validation error object.
+ * @param errorFields - Set of names of fields that have errors.
  * @param fieldName - Field name.
  * @returns true if the given field has an error.
  */
 function isFieldError(
   formState: FormState,
-  error: Record<string, string> | undefined,
+  errorFields: Set<string> | undefined,
   fieldName: FORM_CONTROL_NAME
 ): boolean {
-  return Boolean(formState.touched[fieldName] && error?.[fieldName]);
+  return Boolean(formState.touched[fieldName] && errorFields?.has(fieldName));
 }
 
 /**
