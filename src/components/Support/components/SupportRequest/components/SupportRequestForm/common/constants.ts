@@ -1,4 +1,4 @@
-import yup from "yup";
+import * as yup from "yup";
 import { FORM_CONTROL_NAME, FormOption, FormState } from "./entities";
 
 // Validation schema
