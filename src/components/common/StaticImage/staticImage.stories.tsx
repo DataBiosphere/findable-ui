@@ -1,9 +1,8 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import logo from "../../../images/logo.svg";
 import { StaticImage } from "./staticImage";
 
-export default {
+const meta = {
   argTypes: {
     alt: { control: "text" },
     height: { control: "number" },
@@ -12,15 +11,16 @@ export default {
   },
   component: StaticImage,
   title: "Components/Common/Image/StaticImage",
-} as ComponentMeta<typeof StaticImage>;
+} satisfies Meta<typeof StaticImage>;
 
-const StaticImageTemplate: ComponentStory<typeof StaticImage> = (args) => (
-  <StaticImage {...args} />
-);
+export default meta;
 
-export const StaticImageStory = StaticImageTemplate.bind({});
-StaticImageStory.args = {
-  alt: "Data Explorer",
-  height: 40,
-  src: logo,
+type Story = StoryObj<typeof meta>;
+
+export const StaticImageStory: Story = {
+  args: {
+    alt: "Data Explorer",
+    height: 40,
+    src: logo.src,
+  },
 };

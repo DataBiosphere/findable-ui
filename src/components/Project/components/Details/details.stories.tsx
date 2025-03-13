@@ -1,5 +1,4 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { KeyValues } from "../../../common/KeyValuePairs/keyValuePairs";
 import { Details } from "./details";
 
@@ -11,21 +10,22 @@ const details: KeyValues = new Map([
   ["Anatomical Entity", "eye"],
 ]);
 
-export default {
+const meta = {
   argTypes: {
     keyValuePairs: { control: "object" },
     title: { control: "text" },
   },
   component: Details,
   title: "Components/SectionContent/Content/Project",
-} as ComponentMeta<typeof Details>;
+} satisfies Meta<typeof Details>;
 
-const DetailsTemplate: ComponentStory<typeof Details> = (args) => (
-  <Details {...args} />
-);
+export default meta;
 
-export const DetailsStory = DetailsTemplate.bind({});
-DetailsStory.args = {
-  keyValuePairs: details,
-  title: "",
+type Story = StoryObj<typeof meta>;
+
+export const DetailsStory: Story = {
+  args: {
+    keyValuePairs: details,
+    title: "",
+  },
 };

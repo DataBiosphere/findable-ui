@@ -1,8 +1,7 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { ToggleButtonGroup } from "./toggleButtonGroup";
 
-export default {
+const meta = {
   argTypes: {
     toggleButtons: { table: { disable: true } },
   },
@@ -11,28 +10,29 @@ export default {
     layout: "centered",
   },
   title: "Components/Common/ButtonGroup",
-} as ComponentMeta<typeof ToggleButtonGroup>;
+} satisfies Meta<typeof ToggleButtonGroup>;
 
-const ToggleButtonGroupTemplate: ComponentStory<typeof ToggleButtonGroup> = (
-  args
-) => <ToggleButtonGroup {...args} />;
+export default meta;
 
-export const ToggleButtonGroupStory = ToggleButtonGroupTemplate.bind({});
-ToggleButtonGroupStory.args = {
-  toggleButtons: [
-    {
-      label: "Exact Match (243)",
-      onToggle: (): void => {
-        // onToggle function
+type Story = StoryObj<typeof meta>;
+
+export const ToggleButtonGroupStory: Story = {
+  args: {
+    toggleButtons: [
+      {
+        label: "Exact Match (243)",
+        onToggle: (): void => {
+          // onToggle function
+        },
+        value: "exact-match",
       },
-      value: "exact-match",
-    },
-    {
-      label: "Related (33)",
-      onToggle: (): void => {
-        // onToggle function
+      {
+        label: "Related (33)",
+        onToggle: (): void => {
+          // onToggle function
+        },
+        value: "related-match",
       },
-      value: "related-match",
-    },
-  ],
+    ],
+  },
 };

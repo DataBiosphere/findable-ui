@@ -2,10 +2,12 @@ import { Meta, StoryObj } from "@storybook/react";
 import logo from "../../../images/logo.svg";
 import { Card } from "./card";
 
-export default {
+const meta = {
   component: Card,
   title: "Components/Common/Card",
-} as Meta<typeof Card>;
+} satisfies Meta<typeof Card>;
+
+export default meta;
 
 type Story = StoryObj<typeof Card>;
 

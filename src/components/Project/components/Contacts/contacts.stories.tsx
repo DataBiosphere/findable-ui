@@ -1,31 +1,31 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { Contacts } from "./contacts";
 
-export default {
+const meta = {
   argTypes: {
-    contacts: { control: "array" },
+    contacts: { control: "object" },
   },
   component: Contacts,
   title: "Components/SectionContent/Content/Project",
-} as ComponentMeta<typeof Contacts>;
+} satisfies Meta<typeof Contacts>;
 
-const ContactsTemplate: ComponentStory<typeof Contacts> = (args) => (
-  <Contacts {...args} />
-);
+export default meta;
 
-export const ContactsStory = ContactsTemplate.bind({});
-ContactsStory.args = {
-  contacts: [
-    {
-      email: "gervaise.henry@utsouthwestern.edu",
-      institution: "UT Southwestern",
-      name: "Gervaise H Henry",
-    },
-    {
-      email: "poppy@utsouthwestern.edu",
-      institution: "UT Southwestern",
-      name: "Poppy Rose Roberts",
-    },
-  ],
+type Story = StoryObj<typeof meta>;
+
+export const ContactsStory: Story = {
+  args: {
+    contacts: [
+      {
+        email: "gervaise.henry@utsouthwestern.edu",
+        institution: "UT Southwestern",
+        name: "Gervaise H Henry",
+      },
+      {
+        email: "poppy@utsouthwestern.edu",
+        institution: "UT Southwestern",
+        name: "Poppy Rose Roberts",
+      },
+    ],
+  },
 };

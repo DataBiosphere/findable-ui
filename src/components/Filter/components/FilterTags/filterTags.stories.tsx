@@ -1,8 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { FilterTags } from "./filterTags";
 
-export default {
+const onRemove = (): void => {
+  // onRemove function
+};
+
+const meta = {
   argTypes: {
     tags: { control: { disable: true } },
   },
@@ -15,48 +19,45 @@ export default {
     ),
   ],
   title: "Components/Filter/FilterTags",
-} as ComponentMeta<typeof FilterTags>;
+} satisfies Meta<typeof FilterTags>;
 
-const FilterTagsTemplate: ComponentStory<typeof FilterTags> = (args) => (
-  <FilterTags {...args} />
-);
+export default meta;
 
-const onRemove = (): void => {
-  // onRemove function
-};
+type Story = StoryObj<typeof meta>;
 
-export const FilterTagsStory = FilterTagsTemplate.bind({});
-FilterTagsStory.args = {
-  tags: [
-    {
-      label: "Normal",
-      onRemove: onRemove,
-      superseded: false,
-    },
-    {
-      label: "abscess",
-      onRemove: onRemove,
-      superseded: true,
-    },
-    {
-      label: "acoustic neuroma",
-      onRemove: onRemove,
-      superseded: false,
-    },
-    {
-      label: "acute kidney failure",
-      onRemove: onRemove,
-      superseded: false,
-    },
-    {
-      label: "acute kidney tubular necrosis",
-      onRemove: onRemove,
-      superseded: false,
-    },
-    {
-      label: "alcohol abuse",
-      onRemove: onRemove,
-      superseded: false,
-    },
-  ],
+export const FilterTagsStory: Story = {
+  args: {
+    tags: [
+      {
+        label: "Normal",
+        onRemove: onRemove,
+        superseded: false,
+      },
+      {
+        label: "abscess",
+        onRemove: onRemove,
+        superseded: true,
+      },
+      {
+        label: "acoustic neuroma",
+        onRemove: onRemove,
+        superseded: false,
+      },
+      {
+        label: "acute kidney failure",
+        onRemove: onRemove,
+        superseded: false,
+      },
+      {
+        label: "acute kidney tubular necrosis",
+        onRemove: onRemove,
+        superseded: false,
+      },
+      {
+        label: "alcohol abuse",
+        onRemove: onRemove,
+        superseded: false,
+      },
+    ],
+  },
 };

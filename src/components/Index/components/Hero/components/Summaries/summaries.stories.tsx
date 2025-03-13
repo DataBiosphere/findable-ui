@@ -1,24 +1,24 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { Summaries } from "./summaries";
 
-export default {
+const meta = {
   argTypes: {
-    summaries: { control: "array" },
+    summaries: { control: "object" },
   },
   component: Summaries,
   title: "Components/Summary",
-} as ComponentMeta<typeof Summaries>;
+} satisfies Meta<typeof Summaries>;
 
-const SummariesTemplate: ComponentStory<typeof Summaries> = (args) => (
-  <Summaries {...args} />
-);
+export default meta;
 
-export const SummariesStory = SummariesTemplate.bind({});
-SummariesStory.args = {
-  summaries: [
-    { count: "1", label: "Species" },
-    { count: "1.1k", label: "Donors" },
-    { count: "508.5k", label: "Files" },
-  ],
+type Story = StoryObj<typeof meta>;
+
+export const SummariesStory: Story = {
+  args: {
+    summaries: [
+      { count: "1", label: "Species" },
+      { count: "1.1k", label: "Donors" },
+      { count: "508.5k", label: "Files" },
+    ],
+  },
 };

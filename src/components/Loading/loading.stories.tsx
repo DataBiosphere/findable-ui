@@ -1,11 +1,12 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { Loading } from "./loading";
 
-export default {
+const meta = {
   argTypes: {
-    className: { control: { disabled: true } },
+    appear: { control: "boolean" },
+    iconSize: { control: "select", options: ["small", "medium", "large"] },
     loading: { control: "boolean" },
     panelStyle: {
       control: "select",
@@ -29,13 +30,14 @@ export default {
     ),
   ],
   title: "Components/Communication/Loading",
-} as ComponentMeta<typeof Loading>;
+} satisfies Meta<typeof Loading>;
 
-const LoadingTemplate: ComponentStory<typeof Loading> = (args) => (
-  <Loading {...args} />
-);
+export default meta;
 
-export const LoadingStory = LoadingTemplate.bind({});
-LoadingStory.args = {
-  loading: true,
+type Story = StoryObj<typeof meta>;
+
+export const LoadingStory: Story = {
+  args: {
+    loading: true,
+  },
 };

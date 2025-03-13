@@ -31,7 +31,7 @@ const url = "/";
 export const HeaderStory: Story = {
   args: {
     authenticationEnabled: false,
-    logo: <Logo alt="Logo" height={40} link="/" src={logo} />,
+    logo: <Logo alt="Logo" height={40} link="/" src={logo.src} />,
     navigation: [
       undefined,
       [

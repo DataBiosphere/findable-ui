@@ -9,10 +9,10 @@ import { YouTubeIcon } from "../../../common/CustomIcon/components/YouTubeIcon/y
 import { Logo } from "../Header/components/Content/components/Logo/logo";
 import { Footer } from "./footer";
 
-export default {
+const meta = {
   argTypes: {
     Branding: { control: { disabled: true } },
-    navLinks: { control: "array" },
+    navLinks: { control: "object" },
     socials: { control: { disabled: true } },
   },
   component: Footer,
@@ -20,13 +20,15 @@ export default {
     layout: "fullscreen",
   },
   title: "Components/Layout/Footer",
-} as Meta<typeof Footer>;
+} satisfies Meta<typeof Footer>;
+
+export default meta;
 
 type Story = StoryObj<typeof Footer>;
 
 export const FooterStory: Story = {
   args: {
-    Branding: <Logo alt="logo" height={24} link={"/"} src={logo} />,
+    Branding: <Logo alt="logo" height={24} link={"/"} src={logo.src} />,
     navLinks: [
       {
         label: "Help",

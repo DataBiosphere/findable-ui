@@ -3,10 +3,12 @@ import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Accordion } from "./accordion";
 
-export default {
+const meta = {
   component: Accordion,
   title: "Components/Common/Accordion",
-} as Meta<typeof Accordion>;
+} satisfies Meta<typeof Accordion>;
+
+export default meta;
 
 type Story = StoryObj<typeof Accordion>;
 
