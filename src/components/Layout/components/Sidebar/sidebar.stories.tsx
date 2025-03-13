@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import React from "react";
 import { Sidebar } from "./sidebar";
 
@@ -46,5 +47,6 @@ export const TemporaryOpenSidebarStory: Story = {
   args: {
     children: <div />,
     drawerOpen: true,
+    onDrawerClose: fn(),
   },
 };
