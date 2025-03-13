@@ -2,8 +2,10 @@ import * as yup from "yup";
 import { FORM_CONTROL_NAME, FormOption, FormState } from "./entities";
 
 // Validation schema
-export const VALIDATION_SCHEMA = yup.object().shape({
-  [FORM_CONTROL_NAME.ATTACHMENT_TOKEN]: yup.string().defined(),
+export const VALIDATION_SCHEMA = yup.object({
+  [FORM_CONTROL_NAME.ATTACHMENT_TOKEN]: yup
+    .string()
+    .defined("Attachment token must be specified"),
   [FORM_CONTROL_NAME.DESCRIPTION]: yup
     .string()
     .required("Description is required"),
