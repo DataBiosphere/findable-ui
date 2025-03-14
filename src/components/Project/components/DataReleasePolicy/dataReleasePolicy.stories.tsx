@@ -1,14 +1,13 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { DataReleasePolicy } from "./dataReleasePolicy";
 
-export default {
+const meta = {
   component: DataReleasePolicy,
   title: "Components/SectionContent/Content/Project",
-} as ComponentMeta<typeof DataReleasePolicy>;
+} satisfies Meta<typeof DataReleasePolicy>;
 
-const DataReleasePolicyTemplate: ComponentStory<
-  typeof DataReleasePolicy
-> = () => <DataReleasePolicy />;
+export default meta;
 
-export const DataReleasePolicyStory = DataReleasePolicyTemplate.bind({});
+type Story = StoryObj<typeof meta>;
+
+export const DataReleasePolicyStory: Story = {};

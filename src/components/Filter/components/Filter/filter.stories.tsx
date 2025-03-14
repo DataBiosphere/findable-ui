@@ -1,8 +1,8 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { Filter } from "./filter";
 
-export default {
+const meta = {
   argTypes: {
     tags: { control: { disable: true } },
   },
@@ -15,37 +15,38 @@ export default {
     ),
   ],
   title: "Components/Filter/Filter",
-} as ComponentMeta<typeof Filter>;
+} satisfies Meta<typeof Filter>;
 
-const FilterTemplate: ComponentStory<typeof Filter> = (args) => (
-  <Filter {...args} />
-);
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const onFilter = (): void => {
   // onFilter function
 };
 
-export const FilterStory = FilterTemplate.bind({});
-FilterStory.args = {
-  categoryView: {
-    isDisabled: false,
-    key: "genusSpecies",
-    label: "Genus Species",
-    values: [
-      {
-        count: 12,
-        key: "homoSapiens",
-        label: "Homo sapiens",
-        selected: false,
-      },
-      {
-        count: 6,
-        key: "musMusculus",
-        label: "Mus musculus",
-        selected: false,
-      },
-    ],
+export const FilterStory: Story = {
+  args: {
+    categoryView: {
+      isDisabled: false,
+      key: "genusSpecies",
+      label: "Genus Species",
+      values: [
+        {
+          count: 12,
+          key: "homoSapiens",
+          label: "Homo sapiens",
+          selected: false,
+        },
+        {
+          count: 6,
+          key: "musMusculus",
+          label: "Mus musculus",
+          selected: false,
+        },
+      ],
+    },
+    isFilterDrawer: false,
+    onFilter,
   },
-  isFilterDrawer: false,
-  onFilter,
 };

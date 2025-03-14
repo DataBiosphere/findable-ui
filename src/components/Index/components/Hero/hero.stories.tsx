@@ -1,9 +1,10 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { Summaries } from "./components/Summaries/summaries";
 import { SummariesStory } from "./components/Summaries/summaries.stories";
 import { Hero } from "./hero";
 
-export default {
+const meta = {
   argTypes: {
     Summaries: { table: { disable: true } },
     title: { table: { disable: true } },
@@ -13,12 +14,15 @@ export default {
     layout: "fullscreen",
   },
   title: "Components/Hero/ExploreView",
-} as ComponentMeta<typeof Hero>;
+} satisfies Meta<typeof Hero>;
 
-const HeroTemplate: ComponentStory<typeof Hero> = (args) => <Hero {...args} />;
+export default meta;
 
-export const HeroStory = HeroTemplate.bind({});
-HeroStory.args = {
-  Summaries: <SummariesStory {...SummariesStory.args} />,
-  title: "Data Explorer",
+type Story = StoryObj<typeof meta>;
+
+export const HeroStory: Story = {
+  args: {
+    Summaries: <Summaries {...SummariesStory.args} />,
+    title: "Data Explorer",
+  },
 };

@@ -1,20 +1,20 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { SidebarLabel } from "./sidebarLabel";
 
-export default {
+const meta = {
   argTypes: {
     label: { control: "text" },
   },
   component: SidebarLabel,
   title: "Components/Label",
-} as ComponentMeta<typeof SidebarLabel>;
+} satisfies Meta<typeof SidebarLabel>;
 
-const SidebarLabelTemplate: ComponentStory<typeof SidebarLabel> = (args) => (
-  <SidebarLabel {...args} />
-);
+export default meta;
 
-export const SidebarLabelStory = SidebarLabelTemplate.bind({});
-SidebarLabelStory.args = {
-  label: "Filter",
+type Story = StoryObj<typeof meta>;
+
+export const SidebarLabelStory: Story = {
+  args: {
+    label: "Filter",
+  },
 };

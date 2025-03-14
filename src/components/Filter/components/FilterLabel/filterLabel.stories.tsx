@@ -1,8 +1,8 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { FilterLabel } from "./filterLabel";
 
-export default {
+const meta = {
   argTypes: {
     count: { control: "number" },
     disabled: { control: "boolean" },
@@ -18,16 +18,18 @@ export default {
     ),
   ],
   title: "Components/Filter/FilterLabel",
-} as ComponentMeta<typeof FilterLabel>;
+} satisfies Meta<typeof FilterLabel>;
 
-const FilterLabelTemplate: ComponentStory<typeof FilterLabel> = (args) => (
-  <FilterLabel {...args} />
-);
+export default meta;
 
-export const FilterLabelStory = FilterLabelTemplate.bind({});
-FilterLabelStory.args = {
-  count: 123,
-  disabled: false,
-  isOpen: false,
-  label: "Label",
+type Story = StoryObj<typeof meta>;
+
+export const FilterLabelStory: Story = {
+  args: {
+    count: 123,
+    disabled: false,
+    isOpen: false,
+    label: "Label",
+    onClick: () => {},
+  },
 };

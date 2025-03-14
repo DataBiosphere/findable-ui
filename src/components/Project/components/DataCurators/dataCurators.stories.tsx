@@ -1,20 +1,20 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { DataCurators } from "./dataCurators";
 
-export default {
+const meta = {
   argTypes: {
-    dataCurators: { control: "array" },
+    dataCurators: { control: "object" },
   },
   component: DataCurators,
   title: "Components/SectionContent/Content/Project",
-} as ComponentMeta<typeof DataCurators>;
+} satisfies Meta<typeof DataCurators>;
 
-const DataCuratorsTemplate: ComponentStory<typeof DataCurators> = (args) => (
-  <DataCurators {...args} />
-);
+export default meta;
 
-export const DataCuratorsStory = DataCuratorsTemplate.bind({});
-DataCuratorsStory.args = {
-  dataCurators: ["Schwartz Rachel", "William Sullivan", "Parisa Nejad"],
+type Story = StoryObj<typeof meta>;
+
+export const DataCuratorsStory: Story = {
+  args: {
+    dataCurators: ["Schwartz Rachel", "William Sullivan", "Parisa Nejad"],
+  },
 };

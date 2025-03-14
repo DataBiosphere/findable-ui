@@ -1,8 +1,7 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { Pagination } from "./pagination";
 
-export default {
+const meta = {
   argTypes: {
     canNextPage: { control: "boolean" },
     canPreviousPage: { control: "boolean" },
@@ -13,14 +12,19 @@ export default {
   },
   component: Pagination,
   title: "Components/Table",
-} as ComponentMeta<typeof Pagination>;
+} satisfies Meta<typeof Pagination>;
 
-const PaginationTemplate: ComponentStory<typeof Pagination> = (args) => (
-  <Pagination {...args} />
-);
+export default meta;
 
-export const PaginationStory = PaginationTemplate.bind({});
-PaginationStory.args = {
-  currentPage: 1,
-  totalPage: 25,
+type Story = StoryObj<typeof meta>;
+
+export const PaginationStory: Story = {
+  args: {
+    canNextPage: true,
+    canPreviousPage: false,
+    currentPage: 1,
+    onNextPage: () => {},
+    onPreviousPage: () => {},
+    totalPage: 25,
+  },
 };

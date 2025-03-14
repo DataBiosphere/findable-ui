@@ -1,34 +1,33 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { CollaboratingOrganizations } from "./collaboratingOrganizations";
 
-export default {
+const meta = {
   argTypes: {
-    collaboratingOrganizations: { control: "array" },
+    collaboratingOrganizations: { control: "object" },
   },
   component: CollaboratingOrganizations,
   title: "Components/SectionContent/Content/Project",
-} as ComponentMeta<typeof CollaboratingOrganizations>;
+} satisfies Meta<typeof CollaboratingOrganizations>;
 
-const CollaboratingOrganizationsTemplate: ComponentStory<
-  typeof CollaboratingOrganizations
-> = (args) => <CollaboratingOrganizations {...args} />;
+export default meta;
 
-export const CollaboratingOrganizationsStory =
-  CollaboratingOrganizationsTemplate.bind({});
-CollaboratingOrganizationsStory.args = {
-  collaboratingOrganizations: [
-    {
-      citation: 1,
-      name: "The Jackson Laboratory",
-    },
-    {
-      citation: 2,
-      name: "The New York Genome Center",
-    },
-    {
-      citation: 3,
-      name: "Weill Cornell Medicine",
-    },
-  ],
+type Story = StoryObj<typeof meta>;
+
+export const CollaboratingOrganizationsStory: Story = {
+  args: {
+    collaboratingOrganizations: [
+      {
+        citation: 1,
+        name: "The Jackson Laboratory",
+      },
+      {
+        citation: 2,
+        name: "The New York Genome Center",
+      },
+      {
+        citation: 3,
+        name: "Weill Cornell Medicine",
+      },
+    ],
+  },
 };

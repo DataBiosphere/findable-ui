@@ -1,14 +1,15 @@
+import * as yup from "yup";
 import { FORM_CONTROL_NAME, FormOption, FormState } from "./entities";
 
-// Validation constraints
-export const CONSTRAINTS = {
-  [FORM_CONTROL_NAME.ATTACHMENT_TOKEN]: { presence: { allowEmpty: true } },
-  [FORM_CONTROL_NAME.DESCRIPTION]: { presence: { allowEmpty: false } },
-  [FORM_CONTROL_NAME.EMAIL]: { email: true, presence: { allowEmpty: false } },
-  [FORM_CONTROL_NAME.NAME]: { presence: { allowEmpty: false } },
-  [FORM_CONTROL_NAME.SUBJECT]: { presence: { allowEmpty: false } },
-  [FORM_CONTROL_NAME.TYPE]: { presence: { allowEmpty: false } },
-};
+// Validation schema
+export const VALIDATION_SCHEMA = yup.object({
+  [FORM_CONTROL_NAME.ATTACHMENT_TOKEN]: yup.string().defined(),
+  [FORM_CONTROL_NAME.DESCRIPTION]: yup.string().required(),
+  [FORM_CONTROL_NAME.EMAIL]: yup.string().email().required(),
+  [FORM_CONTROL_NAME.NAME]: yup.string().required(),
+  [FORM_CONTROL_NAME.SUBJECT]: yup.string().required(),
+  [FORM_CONTROL_NAME.TYPE]: yup.string().required(),
+});
 
 // Default form state.
 export const DEFAULT_FORM_STATE: FormState = {

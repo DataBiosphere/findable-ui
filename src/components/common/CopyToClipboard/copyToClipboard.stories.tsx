@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { CopyToClipboard } from "./copyToClipboard";
 
-export default {
+const meta = {
   argTypes: {
     copyStr: {
       description: "String to be copied",
@@ -9,7 +9,9 @@ export default {
   },
   component: CopyToClipboard,
   title: "Components/Common/CopyToClipboard",
-} as Meta<typeof CopyToClipboard>;
+} satisfies Meta<typeof CopyToClipboard>;
+
+export default meta;
 
 type Story = StoryObj<typeof CopyToClipboard>;
 

@@ -8,13 +8,15 @@ import { XIcon } from "../CustomIcon/components/XIcon/xIcon";
 import { YouTubeIcon } from "../CustomIcon/components/YouTubeIcon/youTubeIcon";
 import { Socials } from "./socials";
 
-export default {
+const meta = {
   argTypes: {
     socials: { control: "object" },
   },
   component: Socials,
   title: "Components/Navigation/SocialLinks",
-} as Meta<typeof Socials>;
+} satisfies Meta<typeof Socials>;
+
+export default meta;
 
 type Story = StoryObj<typeof Socials>;
 

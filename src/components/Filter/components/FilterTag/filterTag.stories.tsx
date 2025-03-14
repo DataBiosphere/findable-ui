@@ -1,22 +1,23 @@
-import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { FilterTag } from "./filterTag";
 
-export default {
+const meta = {
   argTypes: {
     label: { control: "text" },
     superseded: { control: "boolean" },
   },
   component: FilterTag,
   title: "Components/Filter/FilterTag",
-} as ComponentMeta<typeof FilterTag>;
+} satisfies Meta<typeof FilterTag>;
 
-const FilterTagTemplate: ComponentStory<typeof FilterTag> = (args) => (
-  <FilterTag {...args} />
-);
+export default meta;
 
-export const FilterTagStory = FilterTagTemplate.bind({});
-FilterTagStory.args = {
-  label: "Male",
-  superseded: false,
+type Story = StoryObj<typeof meta>;
+
+export const FilterTagStory: Story = {
+  args: {
+    label: "Male",
+    onRemove: () => {},
+    superseded: false,
+  },
 };

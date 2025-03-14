@@ -1,8 +1,12 @@
+import { StorybookConfig } from "@storybook/nextjs";
 import * as path from "path";
 
 const toPath = (filePath: string) => path.join(process.cwd(), filePath);
 
-export default {
+const config: StorybookConfig = {
+  core: {
+    disableTelemetry: true,
+  },
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
@@ -44,3 +48,5 @@ export default {
     autodocs: true,
   },
 };
+
+export default config;

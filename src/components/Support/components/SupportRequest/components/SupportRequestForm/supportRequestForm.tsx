@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { FileRejection } from "react-dropzone";
-import validate from "validate.js";
+import { ValidationError } from "yup";
 import { TEXT_BODY_400 } from "../../../../../../theme/common/typography";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { Input } from "../../../../../common/Form/components/Input/input";
@@ -21,18 +21,17 @@ import {
 import { SupportRequest } from "../../supportRequest";
 import Dropzone from "../Dropzone/dropzone";
 import {
-  CONSTRAINTS,
   DEFAULT_FORM_STATE,
   DRAGGING_STYLE,
   MAX_ATTACHMENT_SIZE,
   OPTIONS,
+  VALIDATION_SCHEMA,
 } from "./common/constants";
 import {
   FORM_CONTROL_LABEL,
   FORM_CONTROL_NAME,
   FormState,
   RequestValue,
-  ValidateResponse,
 } from "./common/entities";
 import { createSupportRequest, uploadAttachment } from "./common/utils";
 import { Section, Title } from "./supportRequestForm.styles";
@@ -47,7 +46,23 @@ export const SupportRequestForm = ({
   supportRequest,
 }: SupportRequestFormProps): JSX.Element => {
   const [formState, setFormState] = useState<FormState>(DEFAULT_FORM_STATE);
-  const errors = validate(buildSupportRequest(formState), CONSTRAINTS); // Determine error state of form
+  const [errorFields, setErrorFields] = useState<Set<string>>();
+
+  // Validate form state when it changes.
+  React.useEffect(() => {
+    VALIDATION_SCHEMA.validate(buildSupportRequest(formState), {
+      abortEarly: false,
+    })
+      .then(() => setErrorFields(undefined))
+      .catch((aggregateError: ValidationError) => {
+        const fields = new Set<string>();
+        for (const error of aggregateError.inner) {
+          if (error.path) fields.add(error.path);
+        }
+        setErrorFields(fields);
+      });
+  }, [formState]);
+
   const { FIELD_ID, requestURL, uploadURL } = supportRequest;
 
   // Delete attachment.
@@ -177,7 +192,11 @@ export const SupportRequestForm = ({
           </Section>
           <Section>
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.NAME)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.NAME
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.NAME])}
               label={FORM_CONTROL_LABEL.NAME}
               name={FORM_CONTROL_NAME.NAME}
@@ -185,7 +204,11 @@ export const SupportRequestForm = ({
               onChange={onInputChange}
             />
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.EMAIL)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.EMAIL
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.EMAIL])}
               label={FORM_CONTROL_LABEL.EMAIL}
               name={FORM_CONTROL_NAME.EMAIL}
@@ -194,7 +217,11 @@ export const SupportRequestForm = ({
             />
             <Select
               displayEmpty={true}
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.TYPE)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.TYPE
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.TYPE])}
               label={FORM_CONTROL_LABEL.TYPE}
               name={FORM_CONTROL_NAME.TYPE}
@@ -211,7 +238,11 @@ export const SupportRequestForm = ({
               ))}
             </Select>
             <Input
-              error={isFieldError(formState, errors, FORM_CONTROL_NAME.SUBJECT)}
+              error={isFieldError(
+                formState,
+                errorFields,
+                FORM_CONTROL_NAME.SUBJECT
+              )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.SUBJECT])}
               label={FORM_CONTROL_LABEL.SUBJECT}
               name={FORM_CONTROL_NAME.SUBJECT}
@@ -221,7 +252,7 @@ export const SupportRequestForm = ({
             <Input
               error={isFieldError(
                 formState,
-                errors,
+                errorFields,
                 FORM_CONTROL_NAME.DESCRIPTION
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.DESCRIPTION])}
@@ -244,7 +275,7 @@ export const SupportRequestForm = ({
           <Section>
             <SectionActions>
               <ButtonPrimary
-                disabled={Boolean(errors) || formState.submitting}
+                disabled={Boolean(errorFields) || formState.submitting}
                 fullWidth
                 onClick={onSupportRequestSubmitted}
                 id="button-support-request"
@@ -280,18 +311,16 @@ function buildSupportRequest(formState: FormState): RequestValue {
 /**
  * Returns true if the given field is touched and has an error.
  * @param formState - Form state.
- * @param error - Validate.js error object.
+ * @param errorFields - Set of names of fields that have errors.
  * @param fieldName - Field name.
  * @returns true if the given field has an error.
  */
 function isFieldError(
   formState: FormState,
-  error: ValidateResponse | undefined,
+  errorFields: Set<string> | undefined,
   fieldName: FORM_CONTROL_NAME
 ): boolean {
-  const hasError = Boolean(error?.[fieldName]);
-  const isTouched = Boolean(formState.touched[fieldName]);
-  return isTouched && hasError;
+  return Boolean(formState.touched[fieldName] && errorFields?.has(fieldName));
 }
 
 /**

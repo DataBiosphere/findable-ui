@@ -2,15 +2,15 @@ import { Meta, StoryObj } from "@storybook/react";
 import { ANCHOR_TARGET } from "../../../../Links/common/entities";
 import { HelpIconButton } from "./helpIconButton";
 
-const meta: Meta<typeof HelpIconButton> = {
+const meta = {
   argTypes: {
-    size: { control: "select" },
-    target: { control: "select" },
+    size: { control: "select", options: ["small", "medium", "large"] },
+    target: { control: "select", options: Object.values(ANCHOR_TARGET) },
     url: { control: "text" },
   },
   component: HelpIconButton,
   title: "Components/Common/HelpIconButton",
-};
+} satisfies Meta<typeof HelpIconButton>;
 
 export default meta;
 
