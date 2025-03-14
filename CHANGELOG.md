@@ -1,5 +1,22 @@
 # Changelog
 
+## [22.0.0](https://github.com/DataBiosphere/findable-ui/compare/v21.4.0...v22.0.0) (2025-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade dependencies to resolve vulnerabilities ([#326](https://github.com/DataBiosphere/findable-ui/issues/326)) (#327)
+
+### Features
+
+* create data dictionary table component ([#334](https://github.com/DataBiosphere/findable-ui/issues/334)) ([#335](https://github.com/DataBiosphere/findable-ui/issues/335)) ([b5c99a6](https://github.com/DataBiosphere/findable-ui/commit/b5c99a63ce016ba7f1a26275652f1460fe022e9b))
+
+
+### Bug Fixes
+
+* add 'rel' attribute to viewsupport component props ([#328](https://github.com/DataBiosphere/findable-ui/issues/328)) ([#329](https://github.com/DataBiosphere/findable-ui/issues/329)) ([98ccf03](https://github.com/DataBiosphere/findable-ui/commit/98ccf03037e7a14f95dc290025e2ed64adcc060d))
+* upgrade dependencies to resolve vulnerabilities ([#326](https://github.com/DataBiosphere/findable-ui/issues/326)) ([#327](https://github.com/DataBiosphere/findable-ui/issues/327)) ([196ee53](https://github.com/DataBiosphere/findable-ui/commit/196ee53d40c1dd9180f8eee92951c23ed135257e))
+
 ## [21.4.0](https://github.com/DataBiosphere/findable-ui/compare/v21.3.0...v21.4.0) (2025-02-28)
 
 
