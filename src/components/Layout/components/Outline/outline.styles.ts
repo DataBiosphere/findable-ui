@@ -24,7 +24,7 @@ export const tab = css`
   }
 `;
 
-export const Tabs = styled(MTabs)`
+export const StyledTabs = styled(MTabs)`
   align-self: flex-start;
   box-shadow: inset 1px 0 ${smokeMain};
   margin: 0;
@@ -46,7 +46,7 @@ export const Tabs = styled(MTabs)`
   }
 `;
 
-export const Tab = styled(MTab, {
+export const StyledTab = styled(MTab, {
   shouldForwardProp: (prop) => prop !== "depth",
 })<Props>`
   ${tab};

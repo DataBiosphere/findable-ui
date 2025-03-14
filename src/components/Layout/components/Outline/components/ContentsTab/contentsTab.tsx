@@ -1,20 +1,15 @@
-import { TabProps as MTabProps } from "@mui/material";
 import React from "react";
 import { Segment } from "../../../../../common/CustomIcon/components/Segment/segment";
-import { Tab } from "./contentsTab.styles";
-
-export interface ContentsTabProps extends Omit<MTabProps, "value"> {
-  className?: string;
-  value: string;
-}
+import { StyledTab } from "./contentsTab.styles";
+import { ContentsTabProps } from "./types";
 
 export const ContentsTab = ({
   className,
   value,
-  ...props /* Spread props to allow for Mui Tab specific prop overrides. */
+  ...props /* MuiTabProps. */
 }: ContentsTabProps): JSX.Element => {
   return (
-    <Tab
+    <StyledTab
       className={className}
       label="Contents"
       icon={<Segment fontSize="small" />}

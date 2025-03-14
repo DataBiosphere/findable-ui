@@ -1,9 +1,11 @@
 import { Grid2, Typography } from "@mui/material";
 import React from "react";
 import { COLOR, VARIANT } from "../../../../styles/common/mui/typography";
+import { AnchorLink } from "../../../common/AnchorLink/anchorLink";
 import { useTable } from "../Table/hook";
 import { Table } from "../Table/table";
 import { GRID2_PROPS } from "./constants";
+import { StyledTypography } from "./entity.styles";
 import { EntityProps } from "./types";
 
 export const Entity = ({ class: classData }: EntityProps): JSX.Element => {
@@ -11,9 +13,13 @@ export const Entity = ({ class: classData }: EntityProps): JSX.Element => {
   return (
     <Grid2 {...GRID2_PROPS} rowGap={4}>
       <Grid2 {...GRID2_PROPS} rowGap={1}>
-        <Typography component="h3" variant={VARIANT.TEXT_HEADING_SMALL}>
-          {classData.label}
-        </Typography>
+        <StyledTypography
+          component="h3"
+          id={classData.key}
+          variant={VARIANT.TEXT_HEADING_SMALL}
+        >
+          {classData.label} <AnchorLink anchorLink={classData.key} />
+        </StyledTypography>
         <Typography
           color={COLOR.INK_LIGHT}
           component="div"

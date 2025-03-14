@@ -4,7 +4,7 @@ import { inkLight } from "../../../../../../styles/common/mixins/colors";
 import { textUppercase500 } from "../../../../../../styles/common/mixins/fonts";
 import { tab } from "../../outline.styles";
 
-export const Tab = styled(MTab)`
+export const StyledTab = styled(MTab)`
   ${tab};
 
   && {
