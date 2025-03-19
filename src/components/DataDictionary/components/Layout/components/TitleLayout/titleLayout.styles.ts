@@ -5,7 +5,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   grid-column: 1 / -1;
   grid-row: 1;
   height: fit-content;
-  padding-top: ${({ top }) => top}px;
+  padding-top: ${({ top }) => top}px; /* header height */
   position: sticky;
   top: 0;
 `;
