@@ -8,7 +8,10 @@ import { GRID2_PROPS } from "./constants";
 import { StyledTypography } from "./entity.styles";
 import { EntityProps } from "./types";
 
-export const Entity = ({ class: classData }: EntityProps): JSX.Element => {
+export const Entity = ({
+  class: classData,
+  metrics,
+}: EntityProps): JSX.Element => {
   const table = useTable(classData.attributes);
   return (
     <Grid2 {...GRID2_PROPS} rowGap={4}>
@@ -17,6 +20,7 @@ export const Entity = ({ class: classData }: EntityProps): JSX.Element => {
           component="h3"
           id={classData.key}
           variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
+          {...metrics}
         >
           {classData.label} <AnchorLink anchorLink={classData.key} />
         </StyledTypography>

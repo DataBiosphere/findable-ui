@@ -4,7 +4,10 @@ import { StyledOutline } from "./outline.styles";
 import { OutlineProps } from "./types";
 import { buildClassesOutline } from "./utils";
 
-export const Outline = ({ classes }: OutlineProps): JSX.Element => {
+export const Outline = ({
+  classes,
+  ...props /* MuiTabsProps */
+}: OutlineProps): JSX.Element => {
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
-  return <StyledOutline Contents={ContentsTab} outline={outline} />;
+  return <StyledOutline Contents={ContentsTab} outline={outline} {...props} />;
 };

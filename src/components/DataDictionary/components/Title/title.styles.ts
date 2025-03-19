@@ -8,7 +8,7 @@ export const StyledTitle = styled(Title)`
     grid-column: 1 / -1;
     letter-spacing: normal;
     line-height: 42px;
-    margin-bottom: 8px;
+    margin: 24px 0 8px;
 
     ${mediaTabletDown} {
       font-size: 26px;
