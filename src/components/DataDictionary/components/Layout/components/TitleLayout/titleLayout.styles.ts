@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
 import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 
 export const Layout = styled("div")<LayoutSpacing>`
@@ -8,4 +9,10 @@ export const Layout = styled("div")<LayoutSpacing>`
   padding-top: ${({ top }) => top}px; /* header height */
   position: sticky;
   top: 0;
+
+  ${mediaTabletDown} {
+    grid-column: 1;
+    grid-row: auto;
+    position: relative;
+  }
 `;
