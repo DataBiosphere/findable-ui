@@ -15,7 +15,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   max-height: 100vh;
   overflow: hidden;
   padding-bottom: ${({ bottom }) => bottom}px; /* footer height */
-  padding-top: ${({ top }) => top + TITLE_HEIGHT}px;
+  padding-top: ${({ top }) => top + TITLE_HEIGHT + PT}px;
   position: sticky;
   top: 0;
 
@@ -27,5 +27,5 @@ export const Layout = styled("div")<LayoutSpacing>`
 export const LayoutScroller = styled("div")`
   height: 100%;
   overflow: auto;
-  padding: ${PT}px 0 ${PB}px;
+  padding-bottom: ${PB}px;
 `;
