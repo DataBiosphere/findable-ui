@@ -1,7 +1,7 @@
 import { Class } from "../../../../common/entities";
-import { LayoutMetrics } from "../../hooks/UseLayoutMetrics/types";
+import { LayoutSpacing } from "../../hooks/UseLayoutSpacing/types";
 
 export interface EntityProps {
   class: Class;
-  metrics?: LayoutMetrics;
+  spacing?: LayoutSpacing;
 }

@@ -1,10 +1,10 @@
 import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
-import { UseLayoutMetrics } from "./types";
+import { UseLayoutSpacing } from "./types";
 
-export const useLayoutMetrics = (): UseLayoutMetrics => {
+export const useLayoutSpacing = (): UseLayoutSpacing => {
   const { dimensions } = useLayoutDimensions();
   return {
-    metrics: {
+    spacing: {
       bottom: dimensions.footer.height,
       top: dimensions.header.height,
     },

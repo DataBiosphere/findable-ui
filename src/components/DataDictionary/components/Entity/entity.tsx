@@ -10,7 +10,7 @@ import { EntityProps } from "./types";
 
 export const Entity = ({
   class: classData,
-  metrics,
+  spacing,
 }: EntityProps): JSX.Element => {
   const table = useTable(classData.attributes);
   return (
@@ -20,7 +20,7 @@ export const Entity = ({
           component="h3"
           id={classData.key}
           variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
-          {...metrics}
+          {...spacing}
         >
           {classData.label} <AnchorLink anchorLink={classData.key} />
         </StyledTypography>

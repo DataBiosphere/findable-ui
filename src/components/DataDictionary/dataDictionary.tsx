@@ -1,38 +1,38 @@
 import React, { useMemo } from "react";
-import { BaseComponentProps } from "../types";
 import { Entities } from "./components/Entities/entities";
-import { Outline } from "./components/Outline/outline";
+import { EntitiesLayout as DefaultEntitiesLayout } from "./components/Layout/components/EntitiesLayout/entitiesLayout";
+import { OutlineLayout as DefaultOutlineLayout } from "./components/Layout/components/OutlineLayout/outlineLayout";
+import { TitleLayout as DefaultTitleLayout } from "./components/Layout/components/TitleLayout/titleLayout";
+import { Outline as DefaultOutline } from "./components/Outline/outline";
 import { buildClassesOutline } from "./components/Outline/utils";
-import { StyledTitle } from "./components/Title/title.styles";
-import {
-  LeftColumn,
-  LeftColumnScroller,
-  RightColumn,
-  TitleRow,
-  View,
-} from "./dataDictionary.styles";
+import { Title as DefaultTitle } from "./components/Title/title";
+import { View } from "./dataDictionary.styles";
 import { useDataDictionary } from "./hooks/UseDataDictionary/hook";
-import { useLayoutMetrics } from "./hooks/UseLayoutMetrics/hook";
+import { useLayoutSpacing } from "./hooks/UseLayoutSpacing/hook";
+import { DataDictionaryProps } from "./types";
 
 export const DataDictionary = ({
   className,
-}: BaseComponentProps): JSX.Element => {
+  EntitiesLayout = DefaultEntitiesLayout,
+  Outline = DefaultOutline,
+  OutlineLayout = DefaultOutlineLayout,
+  Title = DefaultTitle,
+  TitleLayout = DefaultTitleLayout,
+}: DataDictionaryProps): JSX.Element => {
   const { classes } = useDataDictionary();
-  const { metrics } = useLayoutMetrics();
+  const { spacing } = useLayoutSpacing();
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (
     <View className={className}>
-      <TitleRow {...metrics}>
-        <StyledTitle title="Data Dictionary" />
-      </TitleRow>
-      <LeftColumn {...metrics}>
-        <LeftColumnScroller>
-          <Outline outline={outline} />
-        </LeftColumnScroller>
-      </LeftColumn>
-      <RightColumn {...metrics}>
-        <Entities classes={classes} metrics={metrics} />
-      </RightColumn>
+      <TitleLayout {...spacing}>
+        <Title />
+      </TitleLayout>
+      <OutlineLayout {...spacing}>
+        <Outline outline={outline} />
+      </OutlineLayout>
+      <EntitiesLayout {...spacing}>
+        <Entities classes={classes} spacing={spacing} />
+      </EntitiesLayout>
     </View>
   );
 };
