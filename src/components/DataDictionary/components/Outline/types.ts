@@ -1,6 +1,6 @@
 import { TabsProps } from "@mui/material";
-import { Class } from "../../../../common/entities";
+import { OutlineItem } from "../../../Layout/components/Outline/types";
 
 export interface OutlineProps extends TabsProps {
-  classes: Class[];
+  outline: OutlineItem[];
 }

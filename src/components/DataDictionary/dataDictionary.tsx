@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { BaseComponentProps } from "../types";
 import { Entities } from "./components/Entities/entities";
 import { Outline } from "./components/Outline/outline";
+import { buildClassesOutline } from "./components/Outline/utils";
 import { StyledTitle } from "./components/Title/title.styles";
 import {
   LeftColumn,
@@ -18,6 +19,7 @@ export const DataDictionary = ({
 }: BaseComponentProps): JSX.Element => {
   const { classes } = useDataDictionary();
   const { metrics } = useLayoutMetrics();
+  const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (
     <View className={className}>
       <TitleRow {...metrics}>
@@ -25,7 +27,7 @@ export const DataDictionary = ({
       </TitleRow>
       <LeftColumn {...metrics}>
         <LeftColumnScroller>
-          <Outline classes={classes} />
+          <Outline outline={outline} />
         </LeftColumnScroller>
       </LeftColumn>
       <RightColumn {...metrics}>
