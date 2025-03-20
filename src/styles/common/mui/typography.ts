@@ -1,14 +1,26 @@
 import { TypographyOwnProps } from "@mui/material";
 
-export const COLOR: Record<string, TypographyOwnProps["color"]> = {
+type TypographyPropsOptions = {
+  COLOR: typeof COLOR;
+  VARIANT: typeof VARIANT;
+};
+
+const COLOR: Record<string, TypographyOwnProps["color"]> = {
   INHERIT: "inherit",
   INK_LIGHT: "ink.light",
   INK_MAIN: "ink.main",
 };
 
-export const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
+const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   INHERIT: "inherit",
   TEXT_BODY_400: "text-body-400",
   TEXT_BODY_400_2_LINES: "text-body-400-2lines",
+  TEXT_BODY_SMALL_400: "text-body-small-400",
+  TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",
+};
+
+export const TYPOGRAPHY_PROPS: TypographyPropsOptions = {
+  COLOR,
+  VARIANT,
 };
