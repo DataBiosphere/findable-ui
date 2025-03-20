@@ -1,6 +1,7 @@
 import { Fade, Toolbar } from "@mui/material";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
+import { SELECTOR } from "../../../../common/selectors";
 import { ComponentsConfig } from "../../../../config/entities";
 import {
   APP_BAR_PROPS,
@@ -68,7 +69,12 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     pathname,
   };
   return (
-    <AppBar {...APP_BAR_PROPS} ref={headerRef} className={className}>
+    <AppBar
+      {...APP_BAR_PROPS}
+      ref={headerRef}
+      className={className}
+      id={SELECTOR.HEADER}
+    >
       {/* Announcements */}
       <Announcements announcements={announcements} />
       {/* Toolbar */}

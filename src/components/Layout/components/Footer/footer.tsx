@@ -1,5 +1,6 @@
 import { Toolbar } from "@mui/material";
 import React, { ReactNode } from "react";
+import { SELECTOR } from "../../../../common/selectors";
 import { Social } from "../../../common/Socials/socials";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { isNodeBoolean } from "../../../utils";
@@ -27,6 +28,7 @@ export const Footer = ({
       className={className}
       color="inherit"
       component="footer"
+      id={SELECTOR.FOOTER}
       variant="footer"
     >
       <Toolbar variant="dense">

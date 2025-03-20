@@ -11,7 +11,7 @@ import React, {
   useState,
 } from "react";
 import { SelectCategoryView } from "../../../../common/entities";
-import { BODY, SIDEBAR_POSITIONER } from "../../../../common/selectors";
+import { SELECTOR } from "../../../../common/selectors";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
@@ -89,8 +89,8 @@ export const SearchAllFilters = ({
     if (desktopSmUp) {
       setElementsOverflowStyle(
         [
-          document.querySelector(BODY),
-          document.getElementById(SIDEBAR_POSITIONER),
+          document.querySelector(SELECTOR.BODY),
+          document.getElementById(SELECTOR.SIDEBAR_POSITIONER),
         ],
         overflowStyle
       );
