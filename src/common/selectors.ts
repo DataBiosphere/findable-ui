@@ -1,3 +1,6 @@
-export const BODY = "body";
-
-export const SIDEBAR_POSITIONER = "sidebar-positioner";
+export enum SELECTOR {
+  BODY = "body",
+  FOOTER = "footer",
+  HEADER = "header",
+  SIDEBAR_POSITIONER = "sidebar-positioner",
+}
