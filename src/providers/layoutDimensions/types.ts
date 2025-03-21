@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, RefObject } from "react";
 import { ElementRect } from "../../hooks/useResizeObserver";
 
 export interface LayoutDimensions {
@@ -8,6 +8,8 @@ export interface LayoutDimensions {
 
 export interface LayoutDimensionsContextProps {
   dimensions: LayoutDimensions;
+  footerRef: RefObject<HTMLElement> | null;
+  headerRef: RefObject<HTMLElement> | null;
 }
 
 export interface LayoutDimensionsProviderProps {

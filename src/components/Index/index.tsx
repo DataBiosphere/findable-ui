@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { useLayoutState } from "../../hooks/useLayoutState";
+import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
 import { HeroTitle } from "../common/Title/title";
 import { Hero } from "./components/Hero/hero";
 import { Index as IndexLayout } from "./index.styles";
@@ -25,10 +25,9 @@ export const Index = ({
   Tabs,
   title,
 }: IndexProps): JSX.Element => {
-  const { layoutState } = useLayoutState();
-  const { headerHeight } = layoutState;
+  const { dimensions } = useLayoutDimensions();
   return (
-    <IndexLayout className={className} marginTop={headerHeight}>
+    <IndexLayout className={className} marginTop={dimensions.header.height}>
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} title={title} />
       {SubTitleHero}
       {Tabs}

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { SELECTOR } from "../../common/selectors";
+import React, { useRef } from "react";
 import {
   getBorderBoxSizeHeight,
   useResizeObserver,
@@ -10,15 +9,10 @@ import { LayoutDimensions, LayoutDimensionsProviderProps } from "./types";
 export const LayoutDimensionsProvider = ({
   children,
 }: LayoutDimensionsProviderProps): JSX.Element => {
-  const footerRef = useRef<HTMLElement | null>(null);
-  const headerRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const footerRect = useResizeObserver(footerRef, getBorderBoxSizeHeight);
   const headerRect = useResizeObserver(headerRef, getBorderBoxSizeHeight);
-
-  useEffect(() => {
-    footerRef.current = document.getElementById(SELECTOR.FOOTER);
-    headerRef.current = document.getElementById(SELECTOR.HEADER);
-  }, []);
 
   const dimensions: LayoutDimensions = {
     footer: { height: footerRect?.height ?? 0 },
@@ -26,7 +20,9 @@ export const LayoutDimensionsProvider = ({
   };
 
   return (
-    <LayoutDimensionsContext.Provider value={{ dimensions }}>
+    <LayoutDimensionsContext.Provider
+      value={{ dimensions, footerRef, headerRef }}
+    >
       {children}
     </LayoutDimensionsContext.Provider>
   );
