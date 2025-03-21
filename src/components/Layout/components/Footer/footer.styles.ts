@@ -8,6 +8,7 @@ import { Link as DXLink } from "../../../Links/components/Link/link";
 
 export const AppBar = styled(MAppBar)`
   padding: 16px 0;
+  z-index: 1; /* required for outline or navigation overflow */
 
   .MuiToolbar-root {
     align-items: flex-start;
