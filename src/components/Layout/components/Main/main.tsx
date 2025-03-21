@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { useLayoutState } from "../../../../hooks/useLayoutState";
+import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { MainWithOffset } from "./main.styles";
 
 export interface MainProps {
@@ -8,10 +8,9 @@ export interface MainProps {
 }
 
 export const Main = ({ children, className }: MainProps): JSX.Element => {
-  const { layoutState } = useLayoutState();
-  const { headerHeight } = layoutState;
+  const { dimensions } = useLayoutDimensions();
   return (
-    <MainWithOffset className={className} offset={headerHeight}>
+    <MainWithOffset className={className} offset={dimensions.header.height}>
       {children}
     </MainWithOffset>
   );

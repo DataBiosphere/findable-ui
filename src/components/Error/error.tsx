@@ -2,8 +2,8 @@ import { Divider, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { useExploreState } from "../../hooks/useExploreState";
-import { useLayoutState } from "../../hooks/useLayoutState";
 import { ExploreActionKind } from "../../providers/exploreState";
+import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
 import { ButtonPrimary } from "../common/Button/components/ButtonPrimary/buttonPrimary";
 import { AlertIcon } from "../common/CustomIcon/components/AlertIcon/alertIcon";
 import { Grid } from "../common/Grid/grid";
@@ -54,9 +54,7 @@ export const Error = ({
   rootPath,
 }: ErrorProps): JSX.Element => {
   const { exploreDispatch } = useExploreState();
-  const {
-    layoutState: { headerHeight },
-  } = useLayoutState();
+  const { dimensions } = useLayoutDimensions();
 
   const handleToHomePageClicked = (): void => {
     onReset?.();
@@ -67,7 +65,7 @@ export const Error = ({
   };
 
   return (
-    <ErrorLayout offset={headerHeight}>
+    <ErrorLayout offset={dimensions.header.height}>
       <CustomError>
         <ErrorSection>
           <StatusIcon priority={PRIORITY.HIGH} StatusIcon={AlertIcon} />

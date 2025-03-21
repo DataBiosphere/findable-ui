@@ -1,6 +1,7 @@
 import { Toolbar } from "@mui/material";
 import React, { ReactNode } from "react";
 import { SELECTOR } from "../../../../common/selectors";
+import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { Social } from "../../../common/Socials/socials";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { isNodeBoolean } from "../../../utils";
@@ -23,12 +24,14 @@ export const Footer = ({
   socials,
   versionInfo,
 }: FooterProps): JSX.Element => {
+  const { footerRef } = useLayoutDimensions();
   return (
     <AppBar
       className={className}
       color="inherit"
       component="footer"
       id={SELECTOR.FOOTER}
+      ref={footerRef}
       variant="footer"
     >
       <Toolbar variant="dense">

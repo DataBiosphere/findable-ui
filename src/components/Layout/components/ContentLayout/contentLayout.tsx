@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
-import { useLayoutState } from "../../../../hooks/useLayoutState";
+import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { BaseComponentProps } from "../../../types";
 import { LayoutStyle } from "./common/entities";
 import {
@@ -29,9 +29,7 @@ export const ContentLayout = ({
   outline,
 }: BaseComponentProps & ContentLayoutProps): JSX.Element => {
   const { asPath } = useRouter();
-  const {
-    layoutState: { headerHeight },
-  } = useLayoutState();
+  const { dimensions } = useLayoutDimensions();
   return (
     <Layout
       className={className}
@@ -40,16 +38,16 @@ export const ContentLayout = ({
     >
       {navigation && (
         <NavigationGrid
-          headerHeight={headerHeight}
+          headerHeight={dimensions.header.height}
           panelColor={layoutStyle?.navigation}
         >
-          <Positioner headerHeight={headerHeight}>
+          <Positioner headerHeight={dimensions.header.height}>
             <Navigation>{navigation}</Navigation>
           </Positioner>
         </NavigationGrid>
       )}
       <ContentGrid
-        headerHeight={headerHeight}
+        headerHeight={dimensions.header.height}
         panelColor={layoutStyle?.content}
       >
         <Content>{content}</Content>
@@ -57,10 +55,10 @@ export const ContentLayout = ({
       {outline && (
         <OutlineGrid
           key={getOutlineKey(asPath)}
-          headerHeight={headerHeight}
+          headerHeight={dimensions.header.height}
           panelColor={layoutStyle?.outline}
         >
-          <Positioner headerHeight={headerHeight}>
+          <Positioner headerHeight={dimensions.header.height}>
             <Outline>{outline}</Outline>
           </Positioner>
         </OutlineGrid>

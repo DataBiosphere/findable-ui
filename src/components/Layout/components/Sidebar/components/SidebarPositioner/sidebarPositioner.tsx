@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { SELECTOR } from "../../../../../../common/selectors";
-import { useLayoutState } from "../../../../../../hooks/useLayoutState";
+import { useLayoutDimensions } from "../../../../../../providers/layoutDimensions/hook";
 import { SidebarPositioner as Positioner } from "./sidebarPositioner.styles";
 
 export interface SidebarPositionerProps {
@@ -10,11 +10,12 @@ export interface SidebarPositionerProps {
 export const SidebarPositioner = ({
   children,
 }: SidebarPositionerProps): JSX.Element => {
-  const {
-    layoutState: { headerHeight },
-  } = useLayoutState();
+  const { dimensions } = useLayoutDimensions();
   return (
-    <Positioner headerHeight={headerHeight} id={SELECTOR.SIDEBAR_POSITIONER}>
+    <Positioner
+      headerHeight={dimensions.header.height}
+      id={SELECTOR.SIDEBAR_POSITIONER}
+    >
       {children}
     </Positioner>
   );

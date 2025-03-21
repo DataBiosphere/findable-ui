@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
 import { SELECTOR } from "../../../../common/selectors";
 import { ComponentsConfig } from "../../../../config/entities";
+import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import {
   APP_BAR_PROPS,
   FADE_TRANSITION_PROPS,
@@ -30,7 +31,6 @@ import { Socials } from "./components/Content/components/Socials/socials.styles"
 import { AppBar, Center, Left, Right } from "./header.styles";
 import { useHeaderNavigation } from "./hooks/useHeaderNavigation";
 import { useHeaderVisibility } from "./hooks/useHeaderVisibility";
-import { useMeasureHeader } from "./hooks/useMeasureHeader";
 import { useMenu } from "./hooks/useMenu";
 
 export interface HeaderProps {
@@ -49,7 +49,7 @@ export interface HeaderProps {
 export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   const { navigation } = useHeaderNavigation(headerProps);
   const { isIn } = useHeaderVisibility({ ...headerProps, navigation });
-  const { headerRef } = useMeasureHeader();
+  const { headerRef } = useLayoutDimensions();
   const { onClose, onOpen, open } = useMenu();
   const pathname = usePathname() ?? "";
   const {
@@ -71,9 +71,9 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   return (
     <AppBar
       {...APP_BAR_PROPS}
-      ref={headerRef}
       className={className}
       id={SELECTOR.HEADER}
+      ref={headerRef}
     >
       {/* Announcements */}
       <Announcements announcements={announcements} />
