@@ -1,5 +1,33 @@
 # Changelog
 
+## [23.0.0](https://github.com/DataBiosphere/findable-ui/compare/v22.0.0...v23.0.0) (2025-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* create data dictionary left-hand navigation component and add dictionary layout ([#337](https://github.com/DataBiosphere/findable-ui/issues/337)) (#338)
+* layoutdimensions provider and remove layout state provider ([#348](https://github.com/DataBiosphere/findable-ui/issues/348)) (#349)
+* refactor outline component with new hook handling state and disabled outline item ([#346](https://github.com/DataBiosphere/findable-ui/issues/346)) (#347)
+* refactor selectors into an enum and add ids to header and footer ([#341](https://github.com/DataBiosphere/findable-ui/issues/341)) (#343)
+* refactor typography constants ([#339](https://github.com/DataBiosphere/findable-ui/issues/339)) (#340)
+
+### Features
+
+* create a new provider that returns header and footer dimensions ([#344](https://github.com/DataBiosphere/findable-ui/issues/344)) ([#345](https://github.com/DataBiosphere/findable-ui/issues/345)) ([7800842](https://github.com/DataBiosphere/findable-ui/commit/7800842b43b6e2edae926dcc26c842ccb592c407))
+* create data dictionary left-hand navigation component and add dictionary layout ([#337](https://github.com/DataBiosphere/findable-ui/issues/337)) ([#338](https://github.com/DataBiosphere/findable-ui/issues/338)) ([94115b3](https://github.com/DataBiosphere/findable-ui/commit/94115b3a308f150bdeba9a9e374a9dcc510f3405))
+
+
+### Bug Fixes
+
+* layoutdimensions provider and remove layout state provider ([#348](https://github.com/DataBiosphere/findable-ui/issues/348)) ([#349](https://github.com/DataBiosphere/findable-ui/issues/349)) ([77deafe](https://github.com/DataBiosphere/findable-ui/commit/77deafe915d5a6fe42667a404d2b1f062f67cabb))
+
+
+### Code Refactoring
+
+* refactor outline component with new hook handling state and disabled outline item ([#346](https://github.com/DataBiosphere/findable-ui/issues/346)) ([#347](https://github.com/DataBiosphere/findable-ui/issues/347)) ([0d8fdba](https://github.com/DataBiosphere/findable-ui/commit/0d8fdba669c47e61d5e524274b237eed55998fd6))
+* refactor selectors into an enum and add ids to header and footer ([#341](https://github.com/DataBiosphere/findable-ui/issues/341)) ([#343](https://github.com/DataBiosphere/findable-ui/issues/343)) ([71b7444](https://github.com/DataBiosphere/findable-ui/commit/71b74449330ce507f22939d7bdaf0f92af985de8))
+* refactor typography constants ([#339](https://github.com/DataBiosphere/findable-ui/issues/339)) ([#340](https://github.com/DataBiosphere/findable-ui/issues/340)) ([a5632b5](https://github.com/DataBiosphere/findable-ui/commit/a5632b50d852323a0002eae7b0524378728ff081))
+
 ## [22.0.0](https://github.com/DataBiosphere/findable-ui/compare/v21.4.0...v22.0.0) (2025-03-14)
 
 
