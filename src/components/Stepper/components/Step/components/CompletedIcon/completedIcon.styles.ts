@@ -4,10 +4,16 @@ import {
   inkLight,
   smokeDark,
 } from "../../../../../../styles/common/mixins/colors";
-import { svgIcon } from "../../stepIcon.styles";
 
 export const StyledSvgIcon = styled(SvgIcon)`
-  ${svgIcon}
-  border: 2px solid ${smokeDark};
-  color: ${inkLight};
+  &.MuiSvgIcon-root {
+    border-radius: 50%;
+    box-sizing: content-box;
+    padding: 4px;
+
+    &.Mui-completed {
+      border: 2px solid ${smokeDark};
+      color: ${inkLight};
+    }
+  }
 `;
