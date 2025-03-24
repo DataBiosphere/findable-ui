@@ -1,4 +1,4 @@
-import SouthRoundedIcon from "@mui/icons-material/SouthRounded";
+import { SouthRounded } from "@mui/icons-material";
 import {
   TableHead as MTableHead,
   TableRow as MTableRow,
@@ -42,7 +42,7 @@ export const TableHead = <T extends RowData>({
                     >
                       {shouldSortColumn(tableInstance, column) ? (
                         <TableSortLabel
-                          IconComponent={SouthRoundedIcon}
+                          IconComponent={SouthRounded}
                           active={Boolean(getIsSorted())}
                           direction={getIsSorted() || undefined}
                           disabled={isSortDisabled(tableInstance)}

@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import React, {
   Dispatch,
   MouseEvent,
@@ -32,7 +32,7 @@ export const FormDialog = ({
   return (
     <>
       <Fab color="primary" onClick={toggleOpen} open={open} size="medium">
-        {open ? <CloseRoundedIcon /> : <FeedbackIcon fontSize="medium" />}
+        {open ? <CloseRounded /> : <FeedbackIcon fontSize="medium" />}
       </Fab>
       <Popover
         anchorEl={anchorEl}

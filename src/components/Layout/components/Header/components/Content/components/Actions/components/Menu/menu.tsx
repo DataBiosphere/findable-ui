@@ -1,4 +1,4 @@
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import { MenuRounded } from "@mui/icons-material";
 import { Fade, IconButton, Dialog as MDialog } from "@mui/material";
 import React, { CSSProperties, forwardRef, Fragment, useEffect } from "react";
 import { getMenuNavigationLinks } from "../../../../../../common/utils";
@@ -47,7 +47,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
     return (
       <Fragment>
         <IconButton color="ink" onClick={openMenu} ref={ref} style={style}>
-          <MenuRoundedIcon />
+          <MenuRounded />
         </IconButton>
         <MDialog
           {...DIALOG_PROPS}

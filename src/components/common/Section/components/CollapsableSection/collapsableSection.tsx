@@ -1,5 +1,4 @@
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import RemoveRoundedIcon from "@mui/icons-material/RemoveRounded";
+import { AddRounded, RemoveRounded } from "@mui/icons-material";
 import { Collapse, CollapseProps } from "@mui/material";
 import React, { ReactNode, useEffect, useState } from "react";
 import {
@@ -30,7 +29,7 @@ export const CollapsableSection = ({
   const [transitionDuration, setTransitionDuration] =
     useState<CollapseProps["timeout"]>(0);
   const disabled = !mobile || !collapsable;
-  const ExpandIcon = expanded ? RemoveRoundedIcon : AddRoundedIcon;
+  const ExpandIcon = expanded ? RemoveRounded : AddRounded;
   const SectionContent = (
     <SectionText component="div" variant="text-body-400-2lines">
       {children}

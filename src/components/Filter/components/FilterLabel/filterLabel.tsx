@@ -1,4 +1,4 @@
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 import React, { MouseEvent } from "react";
 import { DataDictionaryAnnotation } from "../../../../common/entities";
 import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
@@ -27,7 +27,7 @@ export const FilterLabel = ({
       <Label
         color="inherit"
         disabled={disabled}
-        endIcon={<ArrowDropDownRoundedIcon fontSize="small" />}
+        endIcon={<ArrowDropDownRounded fontSize="small" />}
         fullWidth
         isOpen={isOpen}
         onClick={onClick}
