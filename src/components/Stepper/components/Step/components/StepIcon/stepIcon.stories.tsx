@@ -2,20 +2,20 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React, { Fragment } from "react";
 import { StepIcon } from "./stepIcon";
 
-const meta = {
+const meta: Meta<typeof StepIcon> = {
   component: StepIcon,
   decorators: [
-    (Story): JSX.Element => (
+    (Story, context): JSX.Element => (
       <div style={{ display: "grid", gap: 24 }}>
-        <Story />
+        <Story {...context} />
       </div>
     ),
   ],
   parameters: {
     layout: "centered",
   },
-  title: "Components/Stepper/Step",
-} satisfies Meta<typeof StepIcon>;
+  title: "Components/Stepper/StepIcon",
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -27,6 +27,7 @@ const Template: Story = {
 };
 
 export const Active: Story = {
+  ...Template,
   args: {
     active: true,
     completed: false,
@@ -35,6 +36,7 @@ export const Active: Story = {
 };
 
 export const Completed: Story = {
+  ...Template,
   args: {
     active: false,
     completed: true,
@@ -43,6 +45,7 @@ export const Completed: Story = {
 };
 
 export const Default: Story = {
+  ...Template,
   args: {
     active: false,
     completed: false,

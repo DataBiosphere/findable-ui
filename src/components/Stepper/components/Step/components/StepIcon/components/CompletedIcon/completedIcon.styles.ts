@@ -3,7 +3,7 @@ import { SvgIcon } from "@mui/material";
 import {
   inkLight,
   smokeDark,
-} from "../../../../../../styles/common/mixins/colors";
+} from "../../../../../../../../styles/common/mixins/colors";
 
 export const StyledSvgIcon = styled(SvgIcon)`
   &.MuiSvgIcon-root {

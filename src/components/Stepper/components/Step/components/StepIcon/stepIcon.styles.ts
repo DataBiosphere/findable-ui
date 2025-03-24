@@ -4,7 +4,7 @@ import {
   inkLight,
   primaryMain,
   smokeDark,
-} from "../../../../styles/common/mixins/colors";
+} from "../../../../../../styles/common/mixins/colors";
 
 export const StyledStepIcon = styled(StepIcon)`
   &.MuiSvgIcon-root {
