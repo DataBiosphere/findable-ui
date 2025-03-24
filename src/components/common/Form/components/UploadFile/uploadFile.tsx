@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { FormHelperText, Typography } from "@mui/material";
 import React from "react";
 import { DropzoneState } from "react-dropzone";
@@ -59,7 +59,7 @@ export const UploadFile = ({
             </>
           )}
         </Typography>
-        {isAttached && <CloseRoundedIcon fontSize="small" />}
+        {isAttached && <CloseRounded fontSize="small" />}
       </Button>
       {error && (
         <FormHelperText>

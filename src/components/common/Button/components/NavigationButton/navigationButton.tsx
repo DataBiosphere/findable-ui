@@ -1,4 +1,4 @@
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 import React from "react";
 import { ButtonProps } from "../../button";
 import { Button } from "./navigationButton.styles";
@@ -15,7 +15,7 @@ export const NavigationButton = ({
 }: NavigationButtonProps): JSX.Element => {
   return (
     <Button
-      EndIcon={ArrowDropDownRoundedIcon}
+      EndIcon={ArrowDropDownRounded}
       isActive={isActive}
       variant="nav"
       {...props}

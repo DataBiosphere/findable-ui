@@ -1,4 +1,4 @@
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import { ChevronRightRounded } from "@mui/icons-material";
 import { Link, Breadcrumbs as MBreadcrumbs, Typography } from "@mui/material";
 import NLink from "next/link";
 import React, { ReactNode } from "react";
@@ -18,7 +18,7 @@ export interface BreadcrumbsProps extends BaseComponentProps {
 export const Breadcrumbs = ({
   breadcrumbs,
   className,
-  Separator = <ChevronRightRoundedIcon fontSize="xxsmall" />,
+  Separator = <ChevronRightRounded fontSize="xxsmall" />,
 }: BreadcrumbsProps): JSX.Element => {
   return (
     <>

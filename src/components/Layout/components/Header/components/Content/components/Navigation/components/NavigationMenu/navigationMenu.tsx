@@ -1,4 +1,4 @@
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 import {
   Grow,
   ClickAwayListener as MClickAwayListener,
@@ -55,7 +55,7 @@ export const NavigationMenu = ({
   return (
     <MenuItem>
       <Button
-        EndIcon={ArrowDropDownRoundedIcon}
+        EndIcon={ArrowDropDownRounded}
         isActive={open}
         onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}

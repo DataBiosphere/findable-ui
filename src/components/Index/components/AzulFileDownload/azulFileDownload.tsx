@@ -1,8 +1,8 @@
+import { FileDownload, Pending } from "@mui/icons-material";
 import { Box } from "@mui/material";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
 import { useLoginGuard } from "../../../../providers/loginGuard/hook";
-import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { IconButton } from "../../../common/IconButton/iconButton";
 import { trackFileDownloaded } from "../../../Export/common/tracking";
@@ -64,7 +64,7 @@ export const AzulFileDownload = ({
           color="primary"
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
           disabled={!url}
-          Icon={isLoading ? LoadingIcon : DownloadIcon}
+          Icon={isLoading ? Pending : FileDownload}
           onClick={() => requireLogin(handleDownloadClick)}
           size="medium"
         />

@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { IconButton, Toolbar as MToolbar } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
 import { ComponentsConfig } from "../../../../../../../../../../../../config/entities";
@@ -57,7 +57,7 @@ export const Toolbar = ({
             {actions}
             {/* Close menu */}
             <IconButton color="ink" onClick={onClose}>
-              <CloseRoundedIcon />
+              <CloseRounded />
             </IconButton>
           </Actions>
         </Right>

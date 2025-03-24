@@ -1,4 +1,4 @@
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 import React from "react";
 import { ButtonProps } from "../../button";
 import { DropdownButton as Button } from "./dropdownButton.styles";
@@ -16,7 +16,7 @@ export const DropdownButton = ({
   return (
     <Button
       disabled={disabled}
-      EndIcon={ArrowDropDownRoundedIcon}
+      EndIcon={ArrowDropDownRounded}
       open={open}
       {...props}
     >

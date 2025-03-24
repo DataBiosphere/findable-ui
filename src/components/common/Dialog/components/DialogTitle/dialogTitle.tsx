@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { IconButton, DialogTitle as MDialogTitle } from "@mui/material";
 import React, { ReactNode } from "react";
 
@@ -18,7 +18,7 @@ export const DialogTitle = ({
       {title}
       {onClose && (
         <IconButton color="ink" edge="end" onClick={onClose} size="xsmall">
-          <CloseRoundedIcon />
+          <CloseRounded />
         </IconButton>
       )}
     </MDialogTitle>

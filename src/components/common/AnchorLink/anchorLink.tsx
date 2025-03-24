@@ -1,4 +1,4 @@
-import LinkRoundedIcon from "@mui/icons-material/LinkRounded";
+import { LinkRounded } from "@mui/icons-material";
 import React from "react";
 import { AnchorLink as Link } from "./anchorLink.styles";
 
@@ -20,7 +20,7 @@ export const AnchorLink = ({
 }: AnchorLinkProps): JSX.Element => {
   return (
     <Link aria-label={anchorLink} className={className} href={`#${anchorLink}`}>
-      <LinkRoundedIcon fontSize="xsmall" />
+      <LinkRounded fontSize="xsmall" />
     </Link>
   );
 };
