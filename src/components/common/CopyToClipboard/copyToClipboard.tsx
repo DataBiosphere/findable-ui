@@ -1,4 +1,4 @@
-import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import { ContentCopyRounded } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
 import React, { useEffect } from "react";
@@ -43,7 +43,7 @@ export const CopyToClipboard = ({
         onClick={(): void => onCopyToClipboard(copyStr)}
         size="xxsmall"
       >
-        <ContentCopyRoundedIcon color="primary" fontSize="small" />
+        <ContentCopyRounded color="primary" fontSize="small" />
       </IconButton>
     </Tooltip>
   );

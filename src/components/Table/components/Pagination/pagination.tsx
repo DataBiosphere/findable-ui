@@ -1,5 +1,4 @@
-import EastRoundedIcon from "@mui/icons-material/EastRounded";
-import WestRoundedIcon from "@mui/icons-material/WestRounded";
+import { EastRounded, WestRounded } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import React from "react";
 import { IconButton } from "../../../common/IconButton/iconButton";
@@ -35,13 +34,13 @@ export const Pagination = ({
         <IconButton
           color="secondary"
           disabled={!canPreviousPage}
-          Icon={WestRoundedIcon}
+          Icon={WestRounded}
           onClick={onPreviousPage}
         />
         <IconButton
           color="secondary"
           disabled={!canNextPage}
-          Icon={EastRoundedIcon}
+          Icon={EastRounded}
           onClick={onNextPage}
         />
       </Stack>

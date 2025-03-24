@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React, { Fragment, useContext } from "react";
 import {
@@ -21,7 +21,7 @@ export const SearchCloseButton = (): JSX.Element => {
     <Fragment>
       {showButton && (
         <IconButton onClick={onClickFn} size="large">
-          <CloseRoundedIcon fontSize="small" />
+          <CloseRounded fontSize="small" />
         </IconButton>
       )}
     </Fragment>
