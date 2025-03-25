@@ -1,18 +1,15 @@
 import { Preview } from "@storybook/react";
-import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 
 export const parameters: Preview["parameters"] = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
-    exclude: ["className", "ref", "sx"],
+    exclude: ["classes", "className", "ref", "sx", "testId"],
+    expanded: true,
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+    sort: "alpha",
   },
   layout: "centered",
-  nextRouter: {
-    Provider: RouterContext.Provider,
-    basePath: "",
-  },
 };
