@@ -17,3 +17,23 @@ export function getAnchorEl(id: string): HTMLAnchorElement {
 export function getButtonById(id: string): HTMLButtonElement {
   return screen.getByTestId(id);
 }
+
+/**
+ * Returns class names of the given element.
+ * @param element - Element.
+ * @returns element class names.
+ */
+export function getClassNames(element?: Element | null): string | null {
+  if (!element) return null;
+  return element.getAttribute("class");
+}
+
+/**
+ * Returns tag name of the given element.
+ * @param element - Element.
+ * @returns element tag name.
+ */
+export function getTagName(element?: Element | null): string | null {
+  if (!element) return null;
+  return element.tagName.toLowerCase();
+}
