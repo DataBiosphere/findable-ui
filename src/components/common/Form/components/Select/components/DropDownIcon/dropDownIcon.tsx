@@ -1,9 +1,10 @@
-import { ArrowDropDownRounded } from "@mui/icons-material";
-import { SvgIconProps } from "@mui/material";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import React from "react";
 
 export const DropDownIcon = ({
-  ...props /* MuiSvgIconProps */
-}: SvgIconProps): JSX.Element => {
-  return <ArrowDropDownRounded color="inkMain" fontSize="small" {...props} />;
+  ...props /* Spread props to allow for Mui SvgIconProps specific prop overrides e.g. "htmlColor". */
+}): JSX.Element => {
+  return (
+    <ArrowDropDownRoundedIcon color="inkMain" fontSize="small" {...props} />
+  );
 };

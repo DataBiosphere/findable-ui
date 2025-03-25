@@ -20,32 +20,23 @@ const meta: Meta<typeof StepIcon> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Template: Story = {
+export const Active: Story = {
   args: {
+    active: true,
+    completed: false,
     icon: 1,
   },
 };
 
-export const Active: Story = {
-  ...Template,
-  args: {
-    active: true,
-    completed: false,
-    icon: 2,
-  },
-};
-
 export const Completed: Story = {
-  ...Template,
   args: {
     active: false,
     completed: true,
-    icon: 3,
+    icon: 1,
   },
 };
 
 export const Default: Story = {
-  ...Template,
   args: {
     active: false,
     completed: false,
@@ -54,7 +45,6 @@ export const Default: Story = {
 };
 
 export const AllStates: Story = {
-  ...Template,
   render: () => (
     <Fragment>
       <StepIcon active={false} completed={false} icon={1} />

@@ -26,7 +26,7 @@ describe("StepIcon", () => {
   it("renders active step icon", () => {
     render(<Active testId={STEP_ICON_TEST_ID} />);
     const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
-    expect(stepIconEl.textContent).toEqual("2");
+    expect(stepIconEl.textContent).toEqual("1");
     expect(getClassNames(stepIconEl)).toContain(MUI_CLASSES.ACTIVE);
     expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.COMPLETED);
   });
@@ -34,7 +34,7 @@ describe("StepIcon", () => {
   it("renders completed step icon", () => {
     render(<Completed testId={STEP_ICON_TEST_ID} />);
     const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
-    expect(stepIconEl.textContent).not.toEqual("3");
+    expect(stepIconEl.textContent).not.toEqual("1");
     expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.ACTIVE);
     expect(getClassNames(stepIconEl)).toContain(MUI_CLASSES.COMPLETED);
     expect(getTagName(stepIconEl.firstElementChild)).toBe("path");
