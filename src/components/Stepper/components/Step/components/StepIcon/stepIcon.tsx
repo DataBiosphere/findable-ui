@@ -14,7 +14,7 @@ export const StepIcon = ({
     <StyledStepIcon
       completed={completed}
       data-testid={testId}
-      icon={completed ? <CompletedIcon /> : icon}
+      icon={completed ? <CompletedIcon testId={testId} /> : icon}
       {...props}
     />
   );
