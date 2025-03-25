@@ -3,23 +3,40 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import { STEP_ICON_TEST_ID } from "../src/components/Stepper/components/Step/components/StepIcon/constants";
 import * as stories from "../src/components/Stepper/components/Step/components/StepIcon/stepIcon.stories";
-import { withTheme } from "../src/theme/tests/utils/themeProvider";
+import { MUI_CLASSES } from "../src/tests/mui/constants";
+import { getClassNames, getTagName } from "../src/utils/tests";
 
-const { Completed, Default } = composeStories(stories);
+const { Active, Completed, Default } = composeStories(stories);
 
 describe("StepIcon", () => {
   it("renders correctly", () => {
-    render(withTheme(<Default testId={STEP_ICON_TEST_ID} />));
+    render(<Default testId={STEP_ICON_TEST_ID} />);
     const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
     expect(stepIconEl).not.toBeNull();
   });
 
-  it("renders completed icon", () => {
-    render(withTheme(<Completed icon={1} testId={STEP_ICON_TEST_ID} />));
+  it("renders inactive step icon", () => {
+    render(<Default testId={STEP_ICON_TEST_ID} />);
     const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
-    expect(stepIconEl).not.toBeNull();
-    expect(stepIconEl.getAttribute("class")).toContain("Mui-completed");
-    expect(stepIconEl.textContent).not.toEqual("1");
-    expect(stepIconEl.firstElementChild?.tagName).toBe("path");
+    expect(stepIconEl.textContent).toEqual("1");
+    expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.ACTIVE);
+    expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.COMPLETED);
+  });
+
+  it("renders active step icon", () => {
+    render(<Active testId={STEP_ICON_TEST_ID} />);
+    const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
+    expect(stepIconEl.textContent).toEqual("2");
+    expect(getClassNames(stepIconEl)).toContain(MUI_CLASSES.ACTIVE);
+    expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.COMPLETED);
+  });
+
+  it("renders completed step icon", () => {
+    render(<Completed testId={STEP_ICON_TEST_ID} />);
+    const stepIconEl = screen.getByTestId(STEP_ICON_TEST_ID);
+    expect(stepIconEl.textContent).not.toEqual("3");
+    expect(getClassNames(stepIconEl)).not.toContain(MUI_CLASSES.ACTIVE);
+    expect(getClassNames(stepIconEl)).toContain(MUI_CLASSES.COMPLETED);
+    expect(getTagName(stepIconEl.firstElementChild)).toBe("path");
   });
 });
