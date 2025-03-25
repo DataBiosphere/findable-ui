@@ -5,6 +5,7 @@ import {
 } from "@mui/material";
 import React, { ReactNode } from "react";
 import { TEXT_BODY_400 } from "../../../../../theme/common/typography";
+import { DropDownIcon } from "./components/DropDownIcon/dropDownIcon";
 import { InputFormControl } from "./select.styles";
 
 /**
@@ -29,7 +30,13 @@ export const Select = ({
   return (
     <InputFormControl className={className} isFilled={isFilled}>
       {label && <Typography variant={TEXT_BODY_400}>{label}</Typography>}
-      <MSelect fullWidth inputProps={{ onBlur }} size="small" {...props}>
+      <MSelect
+        fullWidth
+        IconComponent={DropDownIcon}
+        inputProps={{ onBlur }}
+        size="small"
+        {...props}
+      >
         {children}
       </MSelect>
     </InputFormControl>
