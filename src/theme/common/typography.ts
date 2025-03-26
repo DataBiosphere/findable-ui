@@ -20,6 +20,7 @@ const TYPOGRAPHY = {
   TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",
   TEXT_HEADING_XLARGE: "text-heading-xlarge",
+  TEXT_HEADING_XSMALL: "text-heading-xsmall",
   TEXT_UPPERCASE_500: "text-uppercase-500",
 } as const;
 export const {
@@ -37,6 +38,7 @@ export const {
   TEXT_HEADING_LARGE,
   TEXT_HEADING_SMALL,
   TEXT_HEADING_XLARGE,
+  TEXT_HEADING_XSMALL,
   TEXT_UPPERCASE_500,
 } = TYPOGRAPHY;
 
@@ -187,6 +189,15 @@ export const textHeadingXLarge: CSSProperties = {
     letterSpacing: "-1.4px",
     lineHeight: "56px",
   },
+};
+
+/**
+ * Typography Option "text-heading-xsmall"
+ */
+export const textHeadingXSmall: CSSProperties = {
+  fontSize: 16,
+  fontWeight: 500,
+  lineHeight: "24px",
 };
 
 /**
