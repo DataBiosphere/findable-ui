@@ -55,6 +55,7 @@ export function createAppTheme(customOptions?: ThemeOptions): Theme {
         [T.TEXT_HEADING_LARGE]: T.textHeadingLarge,
         [T.TEXT_HEADING_SMALL]: T.textHeadingSmall,
         [T.TEXT_HEADING_XLARGE]: T.textHeadingXLarge,
+        [T.TEXT_HEADING_XSMALL]: T.textHeadingXSmall,
         [T.TEXT_UPPERCASE_500]: T.textUppercase500,
         fontFamily: T.fontFamily,
       },

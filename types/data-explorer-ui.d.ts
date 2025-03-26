@@ -203,6 +203,7 @@ declare module "@mui/material/styles" {
     "text-heading-large": TypographyStyleOptions;
     "text-heading-small": TypographyStyleOptions;
     "text-heading-xlarge": TypographyStyleOptions;
+    "text-heading-xsmall": TypographyStyleOptions;
     "text-uppercase-500": TypographyStyleOptions;
   }
 
@@ -221,6 +222,7 @@ declare module "@mui/material/styles" {
     "text-heading-large"?: TypographyStyleOptions;
     "text-heading-small"?: TypographyStyleOptions;
     "text-heading-xlarge"?: TypographyStyleOptions;
+    "text-heading-xsmall"?: TypographyStyleOptions;
     "text-uppercase-500"?: TypographyStyleOptions;
   }
 }
@@ -253,6 +255,7 @@ declare module "@mui/material/Typography" {
     "text-heading-large": true;
     "text-heading-small": true;
     "text-heading-xlarge": true;
+    "text-heading-xsmall": true;
     "text-uppercase-500": true;
   }
 }

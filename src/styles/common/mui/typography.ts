@@ -18,6 +18,7 @@ const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   TEXT_BODY_SMALL_400: "text-body-small-400",
   TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",
+  TEXT_HEADING_XSMALL: "text-heading-xsmall",
 };
 
 export const TYPOGRAPHY_PROPS: TypographyPropsOptions = {
