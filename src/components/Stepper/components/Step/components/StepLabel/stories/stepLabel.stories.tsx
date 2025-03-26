@@ -1,6 +1,7 @@
 import { Meta, StoryObj, composeStories } from "@storybook/react";
 import React, { ComponentProps } from "react";
-import { getDisabledControls } from "storybook/controls/utils";
+import { CONTROL_TYPE } from "storybook/controls/types";
+import { configureControls } from "storybook/controls/utils";
 import * as stories from "../components/Label/stories/label.stories";
 import { Optional } from "../components/Optional/optional";
 import { StepLabel } from "../stepLabel";
@@ -9,8 +10,10 @@ import { DISABLED_CONTROLS, EXCLUDED_CONTROLS } from "./contants";
 const { Default: Label, WithIcon: LabelWithIcon } = composeStories(stories);
 
 const meta: Meta<typeof StepLabel> = {
-  argTypes:
-    getDisabledControls<ComponentProps<typeof StepLabel>>(DISABLED_CONTROLS),
+  argTypes: configureControls<ComponentProps<typeof StepLabel>>(
+    DISABLED_CONTROLS,
+    CONTROL_TYPE.DISABLED
+  ),
   component: StepLabel,
   parameters: { controls: { exclude: EXCLUDED_CONTROLS } },
   title: "Components/Stepper/StepLabel",

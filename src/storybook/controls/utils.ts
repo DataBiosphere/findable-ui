@@ -1,14 +1,18 @@
 import { Args, ArgTypes } from "@storybook/react";
+import { CONTROL_CONFIG_MAP } from "./constants";
+import { CONTROL_TYPE } from "./types";
 
 /**
- * Returns an object of ArgTypes with the specified keys disabled.
- * @param keys - A list of arg keys.
- * @returns An object of ArgTypes with the specified keys disabled.
+ * Configures controls for specified keys with the given control type.
+ * @param keys - ArgType keys.
+ * @param controlType - The type of control to apply (from CONTROL_TYPE enum).
+ * @returns An object of ArgTypes with the specified control configuration.
  */
-export function getDisabledControls<TArg = Args>(
-  keys: (keyof TArg)[]
+export function configureControls<TArg = Args>(
+  keys: (keyof TArg)[],
+  controlType: CONTROL_TYPE
 ): Partial<ArgTypes<TArg>> {
   return Object.fromEntries(
-    keys.map((key) => [key, { control: false }])
+    keys.map((key) => [key, { control: CONTROL_CONFIG_MAP[controlType] }])
   ) as Partial<ArgTypes<TArg>>;
 }
