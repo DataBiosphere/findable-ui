@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { Fragment } from "react";
-import { StepIcon } from "./stepIcon";
+import { StepIcon } from "../stepIcon";
 
 const meta: Meta<typeof StepIcon> = {
   component: StepIcon,
@@ -11,9 +11,6 @@ const meta: Meta<typeof StepIcon> = {
       </div>
     ),
   ],
-  parameters: {
-    layout: "centered",
-  },
   title: "Components/Stepper/StepIcon",
 };
 
