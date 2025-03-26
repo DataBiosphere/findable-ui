@@ -1,7 +1,7 @@
 import { Meta, StoryObj, composeStories } from "@storybook/react";
 import React, { ComponentProps } from "react";
-import { CONTROL_TYPE } from "storybook/controls/types";
-import { configureControls } from "storybook/controls/utils";
+import { CONTROL_TYPE } from "../../../../../../../storybook/controls/types";
+import { configureControls } from "../../../../../../../storybook/controls/utils";
 import * as stories from "../components/Label/stories/label.stories";
 import { Optional } from "../components/Optional/optional";
 import { StepLabel } from "../stepLabel";
