@@ -11,9 +11,6 @@ const meta: Meta<typeof StepIcon> = {
       </div>
     ),
   ],
-  parameters: {
-    layout: "centered",
-  },
   title: "Components/Stepper/StepIcon",
 };
 
