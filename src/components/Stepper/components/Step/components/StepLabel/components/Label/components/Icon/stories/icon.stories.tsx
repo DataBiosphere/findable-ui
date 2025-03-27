@@ -1,12 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ComponentProps } from "react";
-import { getDisabledControls } from "../../../../../../../../../../../storybook/controls/utils";
+import { CONTROL_TYPE } from "../../../../../../../../../../../storybook/controls/types";
+import { configureControls } from "../../../../../../../../../../../storybook/controls/utils";
 import { LOREM_IPSUM } from "../../../../../../../../../../../storybook/loremIpsum";
 import { Icon } from "../icon";
 import { DISABLED_CONTROLS } from "./contants";
 
 const meta: Meta<typeof Icon> = {
-  argTypes: getDisabledControls<ComponentProps<typeof Icon>>(DISABLED_CONTROLS),
+  argTypes: configureControls<ComponentProps<typeof Icon>>(
+    DISABLED_CONTROLS,
+    CONTROL_TYPE.DISABLED
+  ),
   component: Icon,
   title: "Components/Stepper/StepLabel/Icon",
 };
