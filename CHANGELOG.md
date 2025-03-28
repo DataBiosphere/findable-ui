@@ -1,5 +1,30 @@
 # Changelog
 
+## [24.0.0](https://github.com/DataBiosphere/findable-ui/compare/v23.0.0...v24.0.0) (2025-03-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* fix keyvaluepairs component typography props ([#367](https://github.com/DataBiosphere/findable-ui/issues/367)) (#368)
+
+### Features
+
+* add 'text-heading-xsmall' to typography variants ([#361](https://github.com/DataBiosphere/findable-ui/issues/361)) ([#362](https://github.com/DataBiosphere/findable-ui/issues/362)) ([5ec4c9d](https://github.com/DataBiosphere/findable-ui/commit/5ec4c9dc42d043f8fb5f8dd13f391ac9478edac0))
+* create step component ([#364](https://github.com/DataBiosphere/findable-ui/issues/364)) ([#365](https://github.com/DataBiosphere/findable-ui/issues/365)) ([ca9fdfd](https://github.com/DataBiosphere/findable-ui/commit/ca9fdfd4dd8cb54f49e53afe75358ae3b53d6243))
+* create step indicator component ([#350](https://github.com/DataBiosphere/findable-ui/issues/350)) ([#351](https://github.com/DataBiosphere/findable-ui/issues/351)) ([dd40168](https://github.com/DataBiosphere/findable-ui/commit/dd401684a8ceaeca68961088ddb1924b3a5a6a4a))
+* create step label component ([#360](https://github.com/DataBiosphere/findable-ui/issues/360)) ([#363](https://github.com/DataBiosphere/findable-ui/issues/363)) ([cba945c](https://github.com/DataBiosphere/findable-ui/commit/cba945ccee05e040709870287cba0d34b25e981a))
+
+
+### Bug Fixes
+
+* fix keyvaluepairs component typography props ([#367](https://github.com/DataBiosphere/findable-ui/issues/367)) ([#368](https://github.com/DataBiosphere/findable-ui/issues/368)) ([7777828](https://github.com/DataBiosphere/findable-ui/commit/7777828988d4bda2f0d5932c0f2cac931df15240))
+* jest tests missing storybook annotations ([#354](https://github.com/DataBiosphere/findable-ui/issues/354)) ([#355](https://github.com/DataBiosphere/findable-ui/issues/355)) ([1ec7a72](https://github.com/DataBiosphere/findable-ui/commit/1ec7a72da225560ebbacf279a1009703d25f9e6e))
+
+
+### Code Refactoring
+
+* storybook parameters nextjs router config ([#357](https://github.com/DataBiosphere/findable-ui/issues/357)) ([#359](https://github.com/DataBiosphere/findable-ui/issues/359)) ([fc20e88](https://github.com/DataBiosphere/findable-ui/commit/fc20e886f3a14c6ed22f8f2f55b1067bfa5165f3))
+
 ## [23.0.0](https://github.com/DataBiosphere/findable-ui/compare/v22.0.0...v23.0.0) (2025-03-21)
 
 
