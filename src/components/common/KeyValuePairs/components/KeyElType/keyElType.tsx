@@ -9,11 +9,17 @@ import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 export const KeyElType = ({
   children,
   color = TYPOGRAPHY_PROPS.COLOR.INK_LIGHT,
+  component = "div",
   variant = TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2LINES,
   ...props /* MuiTypographyProps */
 }: TypographyProps): JSX.Element => {
   return (
-    <Typography color={color} variant={variant} {...props}>
+    <Typography
+      color={color}
+      component={component}
+      variant={variant}
+      {...props}
+    >
       {children}
     </Typography>
   );
