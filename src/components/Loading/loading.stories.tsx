@@ -3,7 +3,7 @@ import React from "react";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { Loading } from "./loading";
 
-const meta = {
+const meta: Meta<typeof Loading> = {
   argTypes: {
     appear: { control: "boolean" },
     iconSize: { control: "select", options: ["small", "medium", "large"] },
@@ -30,7 +30,7 @@ const meta = {
     ),
   ],
   title: "Components/Communication/Loading",
-} satisfies Meta<typeof Loading>;
+};
 
 export default meta;
 
