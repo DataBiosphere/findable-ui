@@ -1,20 +1,18 @@
-import { Typography } from "@mui/material";
-import React, { ReactNode } from "react";
+import { Typography, TypographyProps } from "@mui/material";
+import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
 /**
  * Basic KeyValuePairs "value" wrapper component.
  */
 
-export interface ValueElTypeProps {
-  children: ReactNode;
-}
-
 export const ValueElType = ({
   children,
-  ...props /* Spread props to allow for Mui TypographyProps specific prop overrides e.g. "variant". */
-}: ValueElTypeProps): JSX.Element => {
+  variant = TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2LINES,
+  ...props /* MuiTypographyProps */
+}: TypographyProps): JSX.Element => {
   return (
-    <Typography variant="text-body-400-2lines" {...props}>
+    <Typography variant={variant} {...props}>
       {children}
     </Typography>
   );
