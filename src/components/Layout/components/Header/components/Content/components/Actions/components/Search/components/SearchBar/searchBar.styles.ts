@@ -5,14 +5,19 @@ import {
   smokeMain,
 } from "../../../../../../../../../../../../styles/common/mixins/colors";
 import { IconButton } from "../../../../../../../../../../../common/IconButton/iconButton";
-import { HEADER_HEIGHT } from "../../../../../../../../common/constants";
 
-export const SearchBar = styled(Dialog)`
+interface Props {
+  yOffset: number;
+}
+
+export const SearchBar = styled(Dialog, {
+  shouldForwardProp: (prop) => prop !== "yOffset",
+})<Props>`
   .MuiDialog-container {
     width: 100%;
 
     .MuiDialog-paper {
-      margin-top: ${HEADER_HEIGHT}px;
+      margin-top: ${(props) => props.yOffset}px;
     }
   }
 `;
