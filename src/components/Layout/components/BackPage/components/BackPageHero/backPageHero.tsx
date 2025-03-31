@@ -3,6 +3,7 @@ import {
   Breadcrumb,
   Breadcrumbs,
 } from "../../../../../common/Breadcrumbs/breadcrumbs";
+import { isBreadcrumbArray } from "../../../../../common/Breadcrumbs/typeGuard";
 import { CallToAction } from "../../../../../common/Button/components/CallToActionButton/callToActionButton";
 import { Title } from "../../../../../common/Title/title";
 import {
@@ -18,7 +19,7 @@ import { SubTitle } from "./components/SubTitle/subTitle";
 
 export interface BackPageHeroProps {
   actions?: ReactNode;
-  breadcrumbs?: Breadcrumb[];
+  breadcrumbs?: Breadcrumb[] | ReactNode;
   callToAction?: CallToAction;
   children?: ReactNode;
   subTitle?: ReactNode;
@@ -36,19 +37,23 @@ export const BackPageHero = ({
   const HeroHeadline =
     actions || callToAction ? BackPageHeroHeadline : Fragment;
   return (
-    <>
-      {(breadcrumbs || title) && (
-        <HeroHeadline>
-          <HeroHeader gap={1}>
-            {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-            {title && <Title title={title} />}
-            <SubTitle subTitle={subTitle} />
-          </HeroHeader>
-          {actions}
-          {callToAction && <CallToActionButton callToAction={callToAction} />}
-        </HeroHeadline>
-      )}
+    <Fragment>
+      <HeroHeadline>
+        <HeroHeader gap={1}>
+          {breadcrumbs ? (
+            isBreadcrumbArray(breadcrumbs) ? (
+              <Breadcrumbs breadcrumbs={breadcrumbs} />
+            ) : (
+              breadcrumbs
+            )
+          ) : null}
+          {title && <Title title={title} />}
+          <SubTitle subTitle={subTitle} />
+        </HeroHeader>
+        {actions}
+        {callToAction && <CallToActionButton callToAction={callToAction} />}
+      </HeroHeadline>
       {children}
-    </>
+    </Fragment>
   );
 };
