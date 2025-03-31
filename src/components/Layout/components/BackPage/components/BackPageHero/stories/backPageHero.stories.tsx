@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { BackPageHero } from "../backPageHero";
-import { DEFAULT_ARGS } from "./constants";
 
 const meta: Meta<typeof BackPageHero> = {
   component: BackPageHero,
@@ -12,5 +11,14 @@ export default meta;
 type Story = StoryObj<typeof BackPageHero>;
 
 export const Default: Story = {
-  args: DEFAULT_ARGS,
+  args: {
+    breadcrumbs: [
+      { path: "/", text: "Explore" },
+      {
+        path: "",
+        text: "Spatial multi-omic map of human myocardial infarction",
+      },
+    ],
+    title: "Spatial multi-omic map of human myocardial infarction",
+  },
 };
