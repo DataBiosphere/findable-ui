@@ -36,7 +36,7 @@ export const StyledDialog = styled(Dialog)`
           margin: 8px 0;
         }
 
-        .MuiGrid2-root {
+        .MuiGrid-root {
           margin: 24px 0;
         }
       }

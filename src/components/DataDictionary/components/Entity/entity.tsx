@@ -1,10 +1,10 @@
-import { Grid2, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { AnchorLink } from "../../../common/AnchorLink/anchorLink";
 import { useTable } from "../Table/hook";
 import { Table } from "../Table/table";
-import { GRID2_PROPS } from "./constants";
+import { GRID_PROPS } from "./constants";
 import { StyledTypography } from "./entity.styles";
 import { EntityProps } from "./types";
 
@@ -14,8 +14,8 @@ export const Entity = ({
 }: EntityProps): JSX.Element => {
   const table = useTable(classData.attributes);
   return (
-    <Grid2 {...GRID2_PROPS} rowGap={4}>
-      <Grid2 {...GRID2_PROPS} rowGap={1}>
+    <Grid {...GRID_PROPS} rowGap={4}>
+      <Grid {...GRID_PROPS} rowGap={1}>
         <StyledTypography
           component="h3"
           id={classData.key}
@@ -31,8 +31,8 @@ export const Entity = ({
         >
           {classData.description}
         </Typography>
-      </Grid2>
+      </Grid>
       <Table table={table} />
-    </Grid2>
+    </Grid>
   );
 };

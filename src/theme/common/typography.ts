@@ -1,4 +1,4 @@
-import { CSSProperties } from "@mui/material/styles/createTypography";
+import { CSSProperties } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 /**
