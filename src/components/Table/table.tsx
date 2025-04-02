@@ -14,7 +14,7 @@ import {
   Updater,
   useReactTable,
 } from "@tanstack/react-table";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { Fragment, useCallback, useEffect, useMemo } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
   EVENT_NAME,
@@ -33,7 +33,7 @@ import { useScroll } from "../../hooks/useScroll";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializer/constants";
 import { TABLET } from "../../theme/common/breakpoints";
-import { FluidPaper, GridPaper } from "../common/Paper/paper.styles";
+import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
 import { ROW_DIRECTION } from "./common/entities";
@@ -88,7 +88,7 @@ TableProps<T>): JSX.Element => {
     entityPageState,
     filterState,
     listItems,
-    loading,
+    loading = false,
     paginationState,
     rowPreview,
     tabValue,
@@ -285,43 +285,47 @@ TableProps<T>): JSX.Element => {
   }
 
   return noResults ? (
-    <NoResults Paper={FluidPaper} title={"No Results found"} />
+    <NoResults Paper={null} title="No Results found" />
   ) : (
-    <FluidPaper variant="table">
-      <GridPaper>
-        <TableToolbar
-          listView={listView}
-          rowDirection={rowDirection}
-          tableInstance={tableInstance}
-        />
-        <TableContainer>
-          <GridTable
-            collapsable={true}
-            gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
-          >
-            <TableHead
-              rowDirection={rowDirection}
-              tableInstance={tableInstance}
-            />
-            <TableBody
-              rows={rows}
-              rowDirection={rowDirection}
-              tableInstance={tableInstance}
-            />
-          </GridTable>
-        </TableContainer>
-        {!disablePagination && (
-          <DXPagination
-            canNextPage={canNextPage()}
-            canPreviousPage={canPreviousPage()}
-            currentPage={currentPage}
-            onNextPage={handleTableNextPage}
-            onPreviousPage={handleTablePreviousPage}
-            totalPage={pages ?? 0}
+    <Fragment>
+      <TableToolbar
+        listView={listView}
+        rowDirection={rowDirection}
+        tableInstance={tableInstance}
+      />
+      <Loading
+        appear={false}
+        autoPosition={false}
+        loading={loading}
+        panelStyle={LOADING_PANEL_STYLE.INHERIT}
+      />
+      <TableContainer>
+        <GridTable
+          collapsable={true}
+          gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
+        >
+          <TableHead
+            rowDirection={rowDirection}
+            tableInstance={tableInstance}
           />
-        )}
-      </GridPaper>
-    </FluidPaper>
+          <TableBody
+            rows={rows}
+            rowDirection={rowDirection}
+            tableInstance={tableInstance}
+          />
+        </GridTable>
+      </TableContainer>
+      {!disablePagination && (
+        <DXPagination
+          canNextPage={canNextPage()}
+          canPreviousPage={canPreviousPage()}
+          currentPage={currentPage}
+          onNextPage={handleTableNextPage}
+          onPreviousPage={handleTablePreviousPage}
+          totalPage={pages ?? 0}
+        />
+      )}
+    </Fragment>
   );
 };
 

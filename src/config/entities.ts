@@ -376,6 +376,7 @@ export interface SiteConfig {
   contentThemeOptionsFn?: ThemeOptionsFn;
   dataDictionary?: DataDictionary;
   dataSource: DataSourceConfig;
+  enableEntitiesView?: boolean; // Toggle entities view - list or filter summary
   entities: EntityConfig[];
   explorerTitle: HeroTitle;
   export?: ExportConfig;
