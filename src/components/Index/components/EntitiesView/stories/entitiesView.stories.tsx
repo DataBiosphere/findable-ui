@@ -21,7 +21,14 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <Box sx={{ backgroundColor: "white", padding: 5, width: "800px" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          maxWidth: "800px",
+          padding: 5,
+          width: "100%",
+        }}
+      >
         {LOREM_IPSUM.LONG}
       </Box>
     ),
@@ -31,7 +38,14 @@ export const Default: Story = {
 export const FilterView: Story = {
   args: {
     children: (
-      <Box sx={{ backgroundColor: "white", padding: 5, width: "800px" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          maxWidth: "800px",
+          padding: 5,
+          width: "100%",
+        }}
+      >
         {LOREM_IPSUM.SHORT}
       </Box>
     ),
@@ -42,7 +56,14 @@ export const FilterView: Story = {
 export const TableView: Story = {
   args: {
     children: (
-      <Box sx={{ backgroundColor: "white", padding: 5, width: "800px" }}>
+      <Box
+        sx={{
+          backgroundColor: "white",
+          maxWidth: "800px",
+          padding: 5,
+          width: "100%",
+        }}
+      >
         {LOREM_IPSUM.SHORT}
       </Box>
     ),

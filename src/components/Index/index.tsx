@@ -9,7 +9,7 @@ import { IndexProps } from "./types";
 export const Index = ({
   className,
   filterSummary,
-  List,
+  list,
   ListHero,
   SideBarButton,
   SubTitleHero,
@@ -26,7 +26,7 @@ export const Index = ({
       {Tabs}
       {ListHero}
       <EntitiesView onChange={onChange} viewStatus={viewStatus}>
-        {viewStatus.isTableView ? List : filterSummary}
+        {viewStatus.isTableView ? list : filterSummary}
       </EntitiesView>
     </IndexLayout>
   );

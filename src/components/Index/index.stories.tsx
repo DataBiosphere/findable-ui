@@ -6,9 +6,9 @@ import { Index } from "./index";
 
 export default {
   argTypes: {
-    List: { table: { disable: true } },
     Summaries: { table: { disable: true } },
     Tabs: { table: { disable: true } },
+    list: { table: { disable: true } },
     title: { table: { disable: true } },
   },
   component: Index,
@@ -22,9 +22,9 @@ type Story = StoryObj<typeof Index>;
 
 export const IndexStory: Story = {
   args: {
-    List: undefined,
     Summaries: <Summaries {...SummariesStory.args} />,
     Tabs: undefined,
+    list: undefined,
     title: "Explore Data",
   },
 };

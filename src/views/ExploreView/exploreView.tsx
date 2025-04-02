@@ -165,7 +165,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       <IndexView
         className={props.className}
         filterSummary={<FilterSummary categoryFilters={categoryFilters} />}
-        List={<EntityList entityListType={entityListType} />}
+        list={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}
         SideBarButton={
           tabletDown ? (
