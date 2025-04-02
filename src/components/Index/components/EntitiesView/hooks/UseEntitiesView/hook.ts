@@ -10,6 +10,7 @@ export const useEntitiesView = (): UseEntitiesViewProps => {
   const isTableView = viewType === VIEW_TYPE.TABLE;
 
   const onChange = useCallback((_: MouseEvent, value: VIEW_TYPE) => {
+    if (!value) return;
     setViewType(value);
   }, []);
 
