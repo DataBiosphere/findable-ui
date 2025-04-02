@@ -17,17 +17,16 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
+import { EntityList } from "../../components/Index/components/EntitiesView/components/EntityList/entityList";
 import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
-import { TableCreator } from "../../components/TableCreator/tableCreator";
 import {
   CategoryGroup,
   ComponentsConfig,
-  EntityConfig,
   SummaryConfig,
 } from "../../config/entities";
 import {
@@ -38,7 +37,7 @@ import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
-import { ExploreActionKind, ExploreState } from "../../providers/exploreState";
+import { ExploreActionKind } from "../../providers/exploreState";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
 
@@ -164,7 +163,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       )}
       <IndexView
         className={props.className}
-        List={renderList(exploreState, entityConfig, entityListType)}
+        List={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}
         SideBarButton={
           tabletDown ? (
@@ -232,43 +231,6 @@ function renderComponent<T>(
     return;
   }
   return <ComponentCreator components={componentsConfig} response={response} />;
-}
-
-/**
- * Render either a loading view, empty result set notification or the table itself.
- * @param exploreState - ExploreView responses from Azul, such as projects (index/projects), samples (index/samples) and files (index/files).
- * @param entityConfig - Entity configuration.
- * @param entityListType - Entity list type.
- * @returns rendered Table component.
- */
-function renderList(
-  exploreState: ExploreState,
-  entityConfig: EntityConfig,
-  entityListType: string
-): JSX.Element {
-  const { listItems, loading, tabValue } = exploreState;
-  const { getId: getRowId, list, listView } = entityConfig;
-  const { columns: columnsConfig } = list;
-
-  if (!exploreState || !tabValue) {
-    return <></>; //TODO: return the loading UI component
-  }
-
-  if (entityListType !== tabValue) {
-    // required currently for client-side fetching as the pre-rendered page
-    // loads with the previous tabs data on the first render after switching tabs. (or similar)
-    return <></>;
-  }
-
-  return (
-    <TableCreator
-      columns={columnsConfig}
-      getRowId={getRowId}
-      items={listItems ?? []}
-      listView={listView}
-      loading={loading}
-    />
-  );
 }
 
 /**
