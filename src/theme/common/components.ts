@@ -1,4 +1,5 @@
 import { Components, Theme } from "@mui/material";
+import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
@@ -1179,6 +1180,9 @@ export const MuiRadio = (theme: Theme): Components["MuiRadio"] => {
  * MuiSelect Component
  */
 export const MuiSelect: Components["MuiSelect"] = {
+  defaultProps: {
+    IconComponent: DropDownIcon,
+  },
   styleOverrides: {
     select: {
       minHeight: "unset",
