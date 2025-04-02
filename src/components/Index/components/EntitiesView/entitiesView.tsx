@@ -8,10 +8,11 @@ import { EntitiesViewProps } from "./types";
 export const EntitiesView = ({
   children,
   onChange,
+  testId,
   viewStatus,
 }: EntitiesViewProps): JSX.Element => {
   return (
-    <StyledFluidPaper>
+    <StyledFluidPaper testId={testId}>
       <GridPaper>
         {viewStatus.disabled ? null : (
           <Toolbar>
