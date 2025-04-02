@@ -1,4 +1,4 @@
-import { Grid2, StepContentProps } from "@mui/material";
+import { Grid, StepContentProps } from "@mui/material";
 import React from "react";
 import { BaseComponentProps } from "../../../../../types";
 import { StyledStepContent } from "./stepContent.styles";
@@ -10,7 +10,7 @@ export const StepContent = ({
 }: BaseComponentProps & StepContentProps): JSX.Element => {
   return (
     <StyledStepContent className={className} {...props}>
-      <Grid2>{children}</Grid2>
+      <Grid>{children}</Grid>
     </StyledStepContent>
   );
 };

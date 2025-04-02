@@ -6,7 +6,7 @@ import { sectionPadding } from "../../../../../common/Section/section.styles";
 export const StyledStepContent = styled(StepContent)`
   &.MuiStepContent-root {
     .MuiCollapse-wrapperInner.MuiCollapse-vertical {
-      > .MuiGrid2-root {
+      > .MuiGrid-root {
         ${sectionPadding};
         border-top: 1px solid ${smokeMain};
         display: grid;
