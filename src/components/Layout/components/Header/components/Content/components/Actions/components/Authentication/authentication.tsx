@@ -1,4 +1,4 @@
-import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
+import { LoginRounded } from "@mui/icons-material";
 import {
   ButtonProps as MButtonProps,
   IconButton as MIconButton,
@@ -50,7 +50,7 @@ export function renderButton(
 ): JSX.Element {
   return (
     <StyledButton
-      startIcon={<LoginRoundedIcon />}
+      startIcon={<LoginRounded />}
       variant={
         isNavigationLinkSelected(pathname, [ROUTE.LOGIN]) ? "activeNav" : "nav"
       }
@@ -69,7 +69,7 @@ export function renderButton(
 export function renderIconButton(props: MIconButtonProps): JSX.Element {
   return (
     <MIconButton color="ink" {...props}>
-      <LoginRoundedIcon />
+      <LoginRounded />
     </MIconButton>
   );
 }

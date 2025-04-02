@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { useSearchParams } from "next/navigation";
 import Router from "next/router";
 import React, {
@@ -125,7 +125,7 @@ export default function SearchBar({
             searchTerm ? (
               <ClearButton
                 edge="end"
-                Icon={CloseRoundedIcon}
+                Icon={CloseRounded}
                 onClick={handleClear}
                 size="small"
               />

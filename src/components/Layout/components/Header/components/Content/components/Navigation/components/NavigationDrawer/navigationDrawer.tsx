@@ -1,4 +1,4 @@
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 import React, { ReactNode, useCallback } from "react";
 import { Button } from "../../../../../../../../../common/Button/button";
 import { BackArrowIcon } from "../../../../../../../../../common/CustomIcon/components/BackArrowIcon/backArrowIcon";
@@ -43,7 +43,7 @@ export const NavigationDrawer = ({
   return (
     <>
       <Button
-        EndIcon={ArrowDropDownRoundedIcon}
+        EndIcon={ArrowDropDownRounded}
         onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}
       >

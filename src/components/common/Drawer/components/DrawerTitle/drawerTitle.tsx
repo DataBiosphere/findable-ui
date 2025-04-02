@@ -1,4 +1,4 @@
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { CloseRounded } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React, { ReactNode } from "react";
 import { DrawerTitle as Title } from "./drawerTitle.styles";
@@ -19,7 +19,7 @@ export const DrawerTitle = ({
       {title}
       {onClose && (
         <IconButton color="ink" edge="end" onClick={onClose} size="xsmall">
-          <CloseRoundedIcon color="inkLight" fontSize="small" />
+          <CloseRounded color="inkLight" fontSize="small" />
         </IconButton>
       )}
     </Title>
