@@ -1,5 +1,36 @@
 # Changelog
 
+## [25.0.0](https://github.com/DataBiosphere/findable-ui/compare/v24.0.0...v25.0.0) (2025-04-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* update mui to latest version v7 ([#373](https://github.com/DataBiosphere/findable-ui/issues/373)) (#375)
+
+### Features
+
+* update backpagehero props to take breadcrumbs as reactnode ([#371](https://github.com/DataBiosphere/findable-ui/issues/371)) ([#372](https://github.com/DataBiosphere/findable-ui/issues/372)) ([d53947a](https://github.com/DataBiosphere/findable-ui/commit/d53947a70d7957f19e9770d3174630bc5b402ce8))
+
+
+### Bug Fixes
+
+* add dropdownicon to muiselect default props ([#356](https://github.com/DataBiosphere/findable-ui/issues/356)) ([#384](https://github.com/DataBiosphere/findable-ui/issues/384)) ([de68df4](https://github.com/DataBiosphere/findable-ui/commit/de68df4804f58deaf4d3c8caebafbdc5f88b2884))
+* fix ci test failure 'textencoder is not defined' ([#381](https://github.com/DataBiosphere/findable-ui/issues/381)) ([#382](https://github.com/DataBiosphere/findable-ui/issues/382)) ([0f301b7](https://github.com/DataBiosphere/findable-ui/commit/0f301b7176f65219d9c7484a7cb735ff8b12fdb5))
+* fix Jest ESM Transformation Issue for @mui/icons-material ([#352](https://github.com/DataBiosphere/findable-ui/issues/352)) ([#353](https://github.com/DataBiosphere/findable-ui/issues/353)) ([b812371](https://github.com/DataBiosphere/findable-ui/commit/b812371ed47ecddf32b1eeec18e8e846eee52ae4))
+* fix search bar position when a banner is displayed ([#369](https://github.com/DataBiosphere/findable-ui/issues/369)) ([#370](https://github.com/DataBiosphere/findable-ui/issues/370)) ([c7d476c](https://github.com/DataBiosphere/findable-ui/commit/c7d476cd4db90ecdcd77ad5da774c669b2c04e6b))
+* update 'renew your account' link ([#385](https://github.com/DataBiosphere/findable-ui/issues/385)) ([#386](https://github.com/DataBiosphere/findable-ui/issues/386)) ([ecf0ce3](https://github.com/DataBiosphere/findable-ui/commit/ecf0ce346811ac3a00a64863e9397ff0bf5691c4))
+
+
+### Chores
+
+* update mui to latest version v7 ([#373](https://github.com/DataBiosphere/findable-ui/issues/373)) ([#375](https://github.com/DataBiosphere/findable-ui/issues/375)) ([b395861](https://github.com/DataBiosphere/findable-ui/commit/b395861d631fa1f744ba8d6e008baa5507e249bd))
+
+
+### Code Refactoring
+
+* refactor list to a jsx element instead of an evaluated function ([#378](https://github.com/DataBiosphere/findable-ui/issues/378)) ([#379](https://github.com/DataBiosphere/findable-ui/issues/379)) ([4a13192](https://github.com/DataBiosphere/findable-ui/commit/4a131926d312a685eab828e125d375656ce56c52))
+* remove deprecated components from index component tree ([#387](https://github.com/DataBiosphere/findable-ui/issues/387)) ([#388](https://github.com/DataBiosphere/findable-ui/issues/388)) ([9725293](https://github.com/DataBiosphere/findable-ui/commit/9725293f0320964d92141c0fe8030dffece5ae03))
+
 ## [24.0.0](https://github.com/DataBiosphere/findable-ui/compare/v23.0.0...v24.0.0) (2025-03-28)
 
 
