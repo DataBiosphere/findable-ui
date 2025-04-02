@@ -23,7 +23,7 @@ export const NIHAccountExpiryWarning = (): JSX.Element | null => {
           Please{" "}
           <Link
             label="renew your account"
-            url="https://support.terra.bio/hc/en-us/articles/360038086332-Linking-authorization-accessing-controlled-data-on-external-servers#heading-4"
+            url="https://support.terra.bio/hc/en-us/articles/19124069598235"
           />{" "}
           link.
         </span>
