@@ -191,6 +191,7 @@ export function ExploreStateProvider({
       }),
     initializerArg
   );
+  console.log("exploreState", exploreState);
 
   // does this help? https://hswolff.com/blog/how-to-usecontext-with-usereducer/
   const exploreContextValue = useMemo(() => {
