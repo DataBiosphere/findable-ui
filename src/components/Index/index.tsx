@@ -1,23 +1,15 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
-import { HeroTitle } from "../common/Title/title";
+import { EntitiesView } from "./components/EntitiesView/entitiesView";
+import { useEntitiesView } from "./components/EntitiesView/hooks/UseEntitiesView/hook";
 import { Hero } from "./components/Hero/hero";
 import { Index as IndexLayout } from "./index.styles";
-
-export interface IndexProps {
-  className?: string;
-  List?: ReactNode;
-  ListHero?: ReactNode | ReactNode[];
-  SideBarButton?: ReactNode;
-  SubTitleHero?: ReactNode | ReactNode[];
-  Summaries?: ReactNode;
-  Tabs?: ReactNode;
-  title: HeroTitle;
-}
+import { IndexProps } from "./types";
 
 export const Index = ({
   className,
-  List,
+  filterSummary,
+  list,
   ListHero,
   SideBarButton,
   SubTitleHero,
@@ -25,6 +17,7 @@ export const Index = ({
   Tabs,
   title,
 }: IndexProps): JSX.Element => {
+  const { onChange, viewStatus } = useEntitiesView();
   const { dimensions } = useLayoutDimensions();
   return (
     <IndexLayout className={className} marginTop={dimensions.header.height}>
@@ -32,7 +25,9 @@ export const Index = ({
       {SubTitleHero}
       {Tabs}
       {ListHero}
-      {List}
+      <EntitiesView onChange={onChange} viewStatus={viewStatus}>
+        {viewStatus.isTableView ? list : filterSummary}
+      </EntitiesView>
     </IndexLayout>
   );
 };

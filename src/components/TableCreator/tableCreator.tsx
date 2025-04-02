@@ -6,15 +6,12 @@ import {
 } from "@tanstack/react-table";
 import React, { useMemo } from "react";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
-import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
-import { Loading } from "../Loading/loading";
 import { COLUMN_DEF } from "../Table/common/columnDef";
 import { arrIncludesSome, sortingFn } from "../Table/common/utils";
 import { Table } from "../Table/table";
 import { buildBaseColumnDef } from "./common/utils";
 import { useTableOptions } from "./options/hook";
-import { TableCreator as TableCreatorContainer } from "./tableCreator.styles";
 
 export interface TableCreatorProps<T> {
   columns: ColumnConfig<T>[];
@@ -67,20 +64,13 @@ export const TableCreator = <T extends RowData>({
     [columns]
   );
   return (
-    <TableCreatorContainer>
-      <Loading
-        appear={false}
-        loading={loading || false}
-        panelStyle={PAPER_PANEL_STYLE.FLUID}
-      />
-      <Table<T>
-        columns={columnDefs}
-        getRowId={getRowId}
-        items={items}
-        listView={listView}
-        loading={loading}
-        tableOptions={tableOptions}
-      />
-    </TableCreatorContainer>
+    <Table<T>
+      columns={columnDefs}
+      getRowId={getRowId}
+      items={items}
+      listView={listView}
+      loading={loading}
+      tableOptions={tableOptions}
+    />
   );
 };

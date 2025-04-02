@@ -1,43 +1,37 @@
 import { Typography } from "@mui/material";
-import React, { ReactNode } from "react";
+import React, { Fragment } from "react";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { SearchOffIcon } from "../common/CustomIcon/components/SearchOffIcon/searchOffIcon";
-import {
-  FlatPaper,
-  FluidPaper,
-  RoundedPaper,
-} from "../common/Paper/paper.styles";
 import { SectionTitle } from "../common/Section/components/SectionTitle/sectionTitle";
 import { SectionActions } from "../common/Section/section.styles";
 import { PRIORITY, StatusIcon } from "../common/StatusIcon/statusIcon";
-import { NoResultsSection, NoResultsSectionContent } from "./noResults.styles";
-
-export interface NoResultsProps {
-  actions?: ReactNode;
-  description?: string;
-  Paper?: typeof FlatPaper | typeof FluidPaper | typeof RoundedPaper;
-  title: string;
-}
+import { StyledSection, StyledSectionContent } from "./noResults.styles";
+import { NoResultsProps } from "./types";
 
 export const NoResults = ({
   actions,
   description,
-  Paper = RoundedPaper,
+  Paper,
   title,
 }: NoResultsProps): JSX.Element => {
+  const StyledPaper = Paper ?? Fragment;
   return (
-    <Paper>
-      <NoResultsSection>
+    <StyledPaper>
+      <StyledSection>
         <StatusIcon priority={PRIORITY.LOW} StatusIcon={SearchOffIcon} />
-        <NoResultsSectionContent>
+        <StyledSectionContent>
           <SectionTitle title={title} />
           {description && (
-            <Typography color="ink.light" variant="text-body-400-2lines">
+            <Typography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+            >
               {description}
             </Typography>
           )}
-        </NoResultsSectionContent>
+        </StyledSectionContent>
         {actions && <SectionActions>{actions}</SectionActions>}
-      </NoResultsSection>
-    </Paper>
+      </StyledSection>
+    </StyledPaper>
   );
 };
