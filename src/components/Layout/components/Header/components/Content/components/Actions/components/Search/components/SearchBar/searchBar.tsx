@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import { isValidUrl } from "../../../../../../../../../../../../common/utils";
+import { useLayoutDimensions } from "../../../../../../../../../../../../providers/layoutDimensions/hook";
 import { ButtonPrimary } from "../../../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { SearchIcon } from "../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { isClientSideNavigation } from "../../../../../../../../../../../Links/common/utils";
@@ -33,6 +34,7 @@ export default function SearchBar({
   searchOpen,
   searchURL,
 }: Props): JSX.Element {
+  const { dimensions } = useLayoutDimensions();
   const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -108,6 +110,7 @@ export default function SearchBar({
       open={searchOpen}
       PaperProps={{ variant: "searchbar" }}
       TransitionProps={{ onExited: handleExited }}
+      yOffset={dimensions.header.height - 1} // 1px border.
     >
       <SearchForm
         onSubmit={(e: FormEvent<HTMLFormElement>): void =>
