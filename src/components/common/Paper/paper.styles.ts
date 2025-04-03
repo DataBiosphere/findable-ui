@@ -51,7 +51,7 @@ const ignoreSsrWarning =
 
 /**
  * Grid paper - typically used as a parent (grid) container.
- * The background color with the grid cap property create the grid "lines" between each grid item.
+ * The background color with the grid gap property create the grid "lines" between each grid item.
  */
 export const GridPaper = styled.div(({ theme }) => ({
   backgroundColor: `${theme.palette.smoke.main}`,

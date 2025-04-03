@@ -3,7 +3,7 @@ import { useToggleButtonGroup } from "../../../../../common/ToggleButtonGroup/ho
 import { UseEntitiesViewProps, VIEW_TYPE } from "./types";
 
 export const useEntitiesView = (): UseEntitiesViewProps => {
-  const { onChange, value } = useToggleButtonGroup<VIEW_TYPE>(VIEW_TYPE.TABLE);
+  const { onChange, value } = useToggleButtonGroup<VIEW_TYPE>(VIEW_TYPE.FILTER);
   const { config } = useConfig();
   const { enableEntitiesView = false } = config;
   const disabled = !enableEntitiesView;

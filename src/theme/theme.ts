@@ -27,6 +27,7 @@ export function createAppTheme(customOptions?: ThemeOptions): Theme {
           xs: B.mobile,
         },
       },
+      cssVariables: true,
       palette: {
         alert: P.alert,
         background: P.background,

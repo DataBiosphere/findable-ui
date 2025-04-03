@@ -93,6 +93,7 @@ export interface CategoryGroup {
  */
 export interface CategoryConfig {
   annotation?: DataDictionaryAnnotation;
+  enableSummaryView?: boolean;
   key: string;
   label: string;
   mapSelectCategoryValue?: (

@@ -14,6 +14,7 @@ import type {} from "@mui/material/styles";
 import type {} from "@mui/material/SvgIcon";
 import type {} from "@mui/material/TableCell";
 import type {} from "@mui/material/Tabs";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import type {} from "@tanstack/react-table";
