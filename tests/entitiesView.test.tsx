@@ -2,6 +2,7 @@ import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { ENTITIES_VIEW_TEST_ID } from "../src/components/Index/components/EntitiesView/constants";
+import { VIEW_MODE } from "../src/components/Index/components/EntitiesView/hooks/UseEntitiesView/types";
 import * as stories from "../src/components/Index/components/EntitiesView/stories/entitiesView.stories";
 
 const { Default } = composeStories(stories);
@@ -24,7 +25,8 @@ describe("EntitiesView", () => {
     render(
       <Default
         testId={ENTITIES_VIEW_TEST_ID}
-        viewStatus={{ disabled: false, isTableView: true }}
+        viewMode={VIEW_MODE.TABLE}
+        viewStatus={{ disabled: false }}
       />
     );
     const viewEl = screen.getByTestId(ENTITIES_VIEW_TEST_ID);

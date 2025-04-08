@@ -2,13 +2,14 @@ import { ToggleButton, ToggleButtonGroup, Toolbar } from "@mui/material";
 import React from "react";
 import { GridPaper } from "../../../common/Paper/paper.styles";
 import { StyledFluidPaper } from "./entitiesView.styles";
-import { VIEW_TYPE } from "./hooks/UseEntitiesView/types";
+import { VIEW_MODE } from "./hooks/UseEntitiesView/types";
 import { EntitiesViewProps } from "./types";
 
 export const EntitiesView = ({
   children,
   onChange,
   testId,
+  viewMode,
   viewStatus,
 }: EntitiesViewProps): JSX.Element => {
   return (
@@ -16,15 +17,9 @@ export const EntitiesView = ({
       <GridPaper>
         {viewStatus.disabled ? null : (
           <Toolbar>
-            <ToggleButtonGroup
-              exclusive
-              value={
-                viewStatus.isTableView ? VIEW_TYPE.TABLE : VIEW_TYPE.FILTER
-              }
-              onChange={onChange}
-            >
-              <ToggleButton value={VIEW_TYPE.TABLE}>Table View</ToggleButton>
-              <ToggleButton value={VIEW_TYPE.FILTER}>
+            <ToggleButtonGroup exclusive value={viewMode} onChange={onChange}>
+              <ToggleButton value={VIEW_MODE.TABLE}>Table View</ToggleButton>
+              <ToggleButton value={VIEW_MODE.FILTER}>
                 Filter Summary
               </ToggleButton>
             </ToggleButtonGroup>

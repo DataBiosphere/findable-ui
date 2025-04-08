@@ -4,11 +4,13 @@ import { fn } from "@storybook/test";
 import React from "react";
 import { LOREM_IPSUM } from "../../../../../storybook/loremIpsum";
 import { EntitiesView } from "../entitiesView";
+import { VIEW_MODE } from "../hooks/UseEntitiesView/types";
 
 const meta: Meta<typeof EntitiesView> = {
   args: {
     onChange: fn(),
-    viewStatus: { disabled: true, isTableView: true },
+    viewMode: VIEW_MODE.TABLE,
+    viewStatus: { disabled: true },
   },
   component: EntitiesView,
   title: "Components/Entities/EntitiesView",
@@ -49,7 +51,8 @@ export const FilterView: Story = {
         {LOREM_IPSUM.SHORT}
       </Box>
     ),
-    viewStatus: { disabled: false, isTableView: false },
+    viewMode: VIEW_MODE.FILTER,
+    viewStatus: { disabled: false },
   },
 };
 
@@ -67,6 +70,7 @@ export const TableView: Story = {
         {LOREM_IPSUM.SHORT}
       </Box>
     ),
-    viewStatus: { disabled: false, isTableView: true },
+    viewMode: VIEW_MODE.TABLE,
+    viewStatus: { disabled: false },
   },
 };

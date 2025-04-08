@@ -1,16 +1,16 @@
 import { ToggleButtonGroupProps } from "@mui/material";
 
-export interface ViewStatus {
-  disabled: boolean;
-  isTableView: boolean;
-}
-
-export enum VIEW_TYPE {
+export enum VIEW_MODE {
   FILTER = "filter",
   TABLE = "table",
 }
 
+export interface ViewStatus {
+  disabled: boolean;
+}
+
 export interface UseEntitiesViewProps {
   onChange: ToggleButtonGroupProps["onChange"];
+  viewMode: VIEW_MODE;
   viewStatus: ViewStatus;
 }
