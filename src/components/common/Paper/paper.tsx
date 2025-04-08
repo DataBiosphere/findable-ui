@@ -1,5 +1,6 @@
 import { Paper as MPaper, PaperProps as MPaperProps } from "@mui/material";
 import React, { forwardRef, ReactNode } from "react";
+import { TestIdProps } from "../../types";
 
 /**
  * An extension of the basic Mui Paper component with custom variants e.g. "panel".
@@ -20,18 +21,23 @@ export enum PAPER_PANEL_STYLE {
   ROUNDED = "ROUNDED",
 }
 
-export interface PaperProps {
+export interface PaperProps extends TestIdProps {
   children: ReactNode | ReactNode[];
   className?: string;
   variant?: MPaperProps["variant"];
 }
 
 export const Paper = forwardRef<HTMLDivElement, PaperProps>(function Paper(
-  { children, className, variant = "panel" }: PaperProps,
+  { children, className, testId, variant = "panel" }: PaperProps,
   ref
 ): JSX.Element {
   return (
-    <MPaper className={className} ref={ref} variant={variant}>
+    <MPaper
+      className={className}
+      data-testid={testId}
+      ref={ref}
+      variant={variant}
+    >
       {children}
     </MPaper>
   );

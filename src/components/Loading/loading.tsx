@@ -21,7 +21,14 @@ export enum LOADING_PANEL_STYLE {
 }
 
 export interface LoadingProps {
-  appear?: boolean; // Note, if false, the component will not transition on the initial render and onEnter callbacks will not be called. In this instance, ensure the parent container is styled correctly with position relative.
+  /* `appear`, if false, the component will not transition on the initial render and onEnter callbacks will not be called.
+   * In this instance, ensure the parent container is styled correctly with position relative.
+   */
+  appear?: boolean;
+  /* `autoPosition`, if true, the loading component will automatically apply `position: relative` to its parent on enter and remove it on exit.
+   * False will disable this behavior, and the parent will need to be styled with `position: relative` manually.
+   */
+  autoPosition?: boolean;
   iconSize?: SvgIconProps["fontSize"];
   loading: boolean;
   panelStyle?: LoadingPanelStyle; // Enables loading to mirror parent container styles.
@@ -30,6 +37,7 @@ export interface LoadingProps {
 
 export const Loading = ({
   appear = true,
+  autoPosition = true,
   iconSize = "large",
   loading,
   panelStyle = PAPER_PANEL_STYLE.ROUNDED,
@@ -40,8 +48,8 @@ export const Loading = ({
       appear={appear}
       in={loading}
       mountOnEnter
-      onEnter={(node: HTMLElement): void => onFadeEnter(node)}
-      onExited={(node: HTMLElement): void => onFadeExited(node)}
+      onEnter={autoPosition ? onFadeEnter : undefined}
+      onExited={autoPosition ? onFadeExited : undefined}
       timeout={300}
       unmountOnExit
     >
