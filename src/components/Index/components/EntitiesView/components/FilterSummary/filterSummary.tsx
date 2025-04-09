@@ -1,22 +1,25 @@
 import { Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import React from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
-import { GridPaperSection } from "../../../../../common/Section/section.styles";
+import { Summary } from "./components/Summary/summary";
+import { StyledGrid, StyledGridPaperSection } from "./filterSummary.styles";
+import { useFilterSummary } from "./hooks/UseFilterSummary/useFilterSummary";
 import { FilterSummaryProps } from "./types";
 
 export const FilterSummary = ({
   categoryFilters,
 }: FilterSummaryProps): JSX.Element => {
-  const filters = categoryFilters.flatMap(({ categoryViews }) => categoryViews);
+  const { summaries, summariesRef, width } = useFilterSummary(categoryFilters);
   return (
-    <Fragment>
-      {filters.map((categoryView) => (
-        <GridPaperSection key={categoryView.key}>
+    <StyledGrid ref={summariesRef}>
+      {summaries.map(({ key, label, values }) => (
+        <StyledGridPaperSection key={key}>
           <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
-            {categoryView.label}
+            {label}
           </Typography>
-        </GridPaperSection>
+          <Summary data={values} width={width} />
+        </StyledGridPaperSection>
       ))}
-    </Fragment>
+    </StyledGrid>
   );
 };
