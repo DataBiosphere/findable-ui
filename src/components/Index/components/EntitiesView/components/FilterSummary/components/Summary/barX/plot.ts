@@ -2,6 +2,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotOptions } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
+import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
 import { DATA_FIELD, TEXT_PADDING, TICKS } from "./constants";
 import {
   getColorRangeValue,
@@ -79,6 +80,7 @@ export function getPlotOptions(
       grid: false,
       label: null,
       line: false,
+      tickFormat: formatCountSize,
       tickPadding: 8,
       tickSize: 0,
       ticks: {
