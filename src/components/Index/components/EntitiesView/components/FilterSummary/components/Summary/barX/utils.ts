@@ -7,7 +7,7 @@ import {
 } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
-import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING } from "./constants";
+import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING, TICKS } from "./constants";
 
 /**
  * Rounds up a number to the next "nice" stop value for axis scaling.
@@ -78,7 +78,7 @@ export function getXDomain(data: SelectCategoryValueView[]): [number, number] {
  */
 export function getXRange(start: number, stop: number): number[] {
   const ticks = [];
-  const steps = 6;
+  const steps = TICKS;
   const step = getStop(stop) / (steps - 1);
   for (let i = 0; i < steps; i++) {
     ticks.push(start + i * step);

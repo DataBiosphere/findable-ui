@@ -2,7 +2,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotOptions } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
-import { DATA_FIELD, TEXT_PADDING } from "./constants";
+import { DATA_FIELD, TEXT_PADDING, TICKS } from "./constants";
 import {
   getCategoryText,
   getPlotHeight,
@@ -30,7 +30,7 @@ export function getPlotOptions(
       Plot.gridX({
         stroke: PALETTE.SMOKE_MAIN,
         strokeOpacity: 1,
-        ticks: 6,
+        ticks: TICKS,
       }),
       Plot.barX(data, {
         fill: DATA_FIELD.SELECTED,

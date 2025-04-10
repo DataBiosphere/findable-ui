@@ -9,3 +9,5 @@ export const DATA_FIELD = {
 } as const;
 
 export const TEXT_PADDING = 8;
+
+export const TICKS = 6;

@@ -10,11 +10,16 @@ import { UseFilterSummary } from "./types";
 export const useFilterSummary = (
   categoryFilters: CategoryFilter[]
 ): UseFilterSummary => {
-  const summariesRef = useRef<HTMLDivElement>(null);
-  const summariesRect = useResizeObserver(summariesRef, getBorderBoxSize);
   const summaries = useMemo(
     () => getSummaries(categoryFilters),
     [categoryFilters]
+  );
+  const summariesRef = useRef<HTMLDivElement>(null);
+  const shouldObserve = useMemo(() => summaries.length > 0, [summaries]);
+  const summariesRect = useResizeObserver(
+    summariesRef,
+    getBorderBoxSize,
+    shouldObserve
   );
   const width = getSVGWidth(summariesRect?.width);
   return { summaries, summariesRef, width };

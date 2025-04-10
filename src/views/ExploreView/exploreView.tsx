@@ -54,7 +54,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { explorerTitle, summaryConfig, trackingConfig } = config;
   const { listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
-  const { categoryGroups, categoryViews, filterCount } = exploreState;
+  const { categoryGroups, categoryViews, filterCount, loading } = exploreState;
   const { response: summaryResponse } = useSummary(); // Fetch summary.
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
@@ -164,7 +164,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       )}
       <IndexView
         className={props.className}
-        filterSummary={<FilterSummary categoryFilters={categoryFilters} />}
+        filterSummary={
+          <FilterSummary categoryFilters={categoryFilters} loading={loading} />
+        }
         list={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}
         SideBarButton={
