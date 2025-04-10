@@ -33,6 +33,13 @@ export function getPlotOptions(
     margin: 0,
     marginBottom: 32,
     marks: [
+      Plot.axisX({
+        className: "x-axis",
+        tickFormat: formatCountSize,
+        tickPadding: 8,
+        tickSize: 0,
+        ticks: getTicks(data),
+      }),
       Plot.gridX({
         stroke: PALETTE.SMOKE_MAIN,
         strokeOpacity: 1,
@@ -80,10 +87,6 @@ export function getPlotOptions(
       grid: false,
       label: null,
       line: false,
-      tickFormat: formatCountSize,
-      tickPadding: 8,
-      tickSize: 0,
-      ticks: getTicks(data),
     },
     y: {
       label: null,
