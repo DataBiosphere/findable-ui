@@ -2,7 +2,6 @@ import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { FILTER_SUMMARY_TEST_ID } from "../src/components/Index/components/EntitiesView/components/FilterSummary/constants";
-import { FilterSummary } from "../src/components/Index/components/EntitiesView/components/FilterSummary/filterSummary";
 import * as stories from "../src/components/Index/components/EntitiesView/components/FilterSummary/stories/filterSummary.stories";
 
 const { Default } = composeStories(stories);
@@ -15,10 +14,8 @@ describe("FilterSummary", () => {
   });
 
   it("renders nothing when no summaries are available", () => {
-    const { container } = render(
-      <FilterSummary categoryFilters={[]} loading={false} />
-    );
-    expect(container.firstChild).toBeNull();
+    render(<Default categoryFilters={[]} testId={FILTER_SUMMARY_TEST_ID} />);
+    expect(screen.queryByTestId(FILTER_SUMMARY_TEST_ID)).toBeNull();
   });
 
   it("renders correct number of summary sections", () => {
