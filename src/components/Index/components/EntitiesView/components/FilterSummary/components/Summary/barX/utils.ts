@@ -98,6 +98,16 @@ export function getTermTextFill(
 }
 
 /**
+ * Returns the ticks for the x-axis.
+ * @param data - Data.
+ * @returns Ticks.
+ */
+export function getTicks(data: SelectCategoryValueView[]): number[] {
+  const domain = getXDomain(data);
+  return getXRange(domain[0], domain[1]);
+}
+
+/**
  * Returns the `x` domain.
  * @param data - Data.
  * @returns Domain.

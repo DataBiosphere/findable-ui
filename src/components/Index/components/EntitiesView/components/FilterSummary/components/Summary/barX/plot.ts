@@ -3,15 +3,15 @@ import { PlotOptions } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
 import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
-import { DATA_FIELD, TEXT_PADDING, TICKS } from "./constants";
+import { DATA_FIELD, TEXT_PADDING } from "./constants";
 import {
   getColorRangeValue,
   getCountTextFill,
   getPlotHeight,
   getTermText,
   getTermTextFill,
+  getTicks,
   getXDomain,
-  getXRange,
   getYPaddingInner,
   getYPaddingOuter,
   isAnyTermSelected,
@@ -36,7 +36,7 @@ export function getPlotOptions(
       Plot.gridX({
         stroke: PALETTE.SMOKE_MAIN,
         strokeOpacity: 1,
-        ticks: TICKS,
+        ticks: getTicks(data),
       }),
       Plot.barX(data, {
         fill: DATA_FIELD.SELECTED,
@@ -83,11 +83,7 @@ export function getPlotOptions(
       tickFormat: formatCountSize,
       tickPadding: 8,
       tickSize: 0,
-      ticks: {
-        floor: (x) => x,
-        offset: (x) => x,
-        range: getXRange,
-      },
+      ticks: getTicks(data),
     },
     y: {
       label: null,
