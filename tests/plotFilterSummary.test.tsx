@@ -4,8 +4,9 @@ import React from "react";
 import { SelectCategoryValueView } from "../src/common/entities";
 import { SUMMARY_TEST_ID } from "../src/components/Index/components/EntitiesView/components/FilterSummary/components/Summary/constants";
 import * as stories from "../src/components/Index/components/EntitiesView/components/FilterSummary/components/Summary/stories/summary.stories";
+import { PALETTE } from "../src/styles/common/mui/palette";
 
-const { Default } = composeStories(stories);
+const { Default, Selected } = composeStories(stories);
 
 const DATA = Default.args.data || [];
 
@@ -45,6 +46,30 @@ describe("PlotFilterSummary", () => {
       expect(countSet.has(textContent || "")).toBeTruthy();
     });
   });
+
+  // add test to test the color of the bars; a category set with no selected values should render all bars in #C5E3FC
+  it("renders all bars in #C5E3FC when no values are selected", () => {
+    render(<Default testId={SUMMARY_TEST_ID} />);
+    const barEls = getEls("x-bar", "path");
+    barEls.forEach((barEl) => {
+      expect(barEl.getAttribute("fill")).toEqual("#C5E3FC");
+    });
+  });
+
+  it("renders no bars in #C5E3FC when values are selected", () => {
+    render(<Selected testId={SUMMARY_TEST_ID} />);
+    const barEls = getEls("x-bar", "path");
+    barEls.forEach((barEl) => {
+      expect(barEl.getAttribute("fill")).not.toEqual("#C5E3FC");
+    });
+  });
+
+  it("renders at least one bar in PRIMARY_MAIN when values are selected", () => {
+    render(<Selected testId={SUMMARY_TEST_ID} />);
+    const barEls = getEls("x-bar", "path");
+    const hasPrimaryMain = [...barEls].some(isFillPrimaryMain);
+    expect(hasPrimaryMain).toBeTruthy();
+  });
 });
 
 /**
@@ -68,6 +93,15 @@ function getGroupEls(className: string): HTMLCollectionOf<Element> {
 function getEls(className: string, selectors: string): NodeListOf<SVGElement> {
   const gEls = getGroupEls(className);
   return gEls[0].querySelectorAll(selectors);
+}
+
+/**
+ * Check if the fill attribute of the element is PRIMARY_MAIN.
+ * @param element - Element.
+ * @returns True if the fill attribute is PRIMARY_MAIN, false otherwise.
+ */
+function isFillPrimaryMain(element: Element): boolean {
+  return element.getAttribute("fill") === PALETTE.PRIMARY_MAIN;
 }
 
 /**
