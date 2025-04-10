@@ -28,16 +28,14 @@ describe("PlotFilterSummary", () => {
   });
 
   describe("category labels and counts", () => {
-    let countSet: Set<string>;
+    const countSet = new Set(DATA.map(mapCount));
+    const labelSet = new Set(DATA.map(mapLabel));
     let countTextEls: NodeListOf<SVGElement>;
-    let labelSet: Set<string>;
     let labelTextEls: NodeListOf<SVGElement>;
 
     beforeEach(() => {
       render(<Default testId={SUMMARY_TEST_ID} />);
-      countSet = new Set(DATA.map(mapCount));
       countTextEls = getEls("text-count", "text");
-      labelSet = new Set(DATA.map(mapLabel));
       labelTextEls = getEls("text-category-label", "text");
     });
 
