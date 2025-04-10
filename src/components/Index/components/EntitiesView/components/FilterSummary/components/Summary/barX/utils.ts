@@ -10,32 +10,6 @@ import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
 import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING, TICKS } from "./constants";
 
 /**
- * Rounds up a number to the next "nice" stop value for axis scaling.
- * This function returns an upper bound based on the input value's
- * order of magnitude. It calculates axis limits or tick maximums
- * for consistent and readable chart scales.
- * The function applies standard magnitude-based steps:
- * - Rounds up to 2.5×, 5×, 7.5×, or 10× the base magnitude
- * - Ensures minimum stop of 10
- * @param n - Number.
- * @returns A rounded "nice" stop value suitable for axis ticks.
- */
-export function getStop(n: number): number {
-  if (n <= 10) return 10;
-
-  // Calculate the magnitude e.g. 10, 100, 1000
-  const magnitude = Math.pow(10, Math.floor(Math.log10(n)));
-
-  for (const multiplier of [1, 2.5, 5, 7.5, 10]) {
-    if (n <= magnitude * multiplier) {
-      return magnitude * multiplier;
-    }
-  }
-
-  return magnitude * 10;
-}
-
-/**
  * Returns the color range value for "false" (unselected).
  * @param isFacetSelected - Flag indicating if any term is selected.
  * @returns Color range value.
@@ -70,6 +44,32 @@ export function getCountTextFill(
  */
 export function getPlotHeight(numberOfBars: number): number {
   return (numberOfBars + 2) * BAR_HEIGHT + (numberOfBars - 1) * BAR_GAP + 32;
+}
+
+/**
+ * Rounds up a number to the next "nice" stop value for axis scaling.
+ * This function returns an upper bound based on the input value's
+ * order of magnitude. It calculates axis limits or tick maximums
+ * for consistent and readable chart scales.
+ * The function applies standard magnitude-based steps:
+ * - Rounds up to 2.5×, 5×, 7.5×, or 10× the base magnitude
+ * - Ensures minimum stop of 10
+ * @param n - Number.
+ * @returns A rounded "nice" stop value suitable for axis ticks.
+ */
+export function getStop(n: number): number {
+  if (n <= 10) return 10;
+
+  // Calculate the magnitude e.g. 10, 100, 1000
+  const magnitude = Math.pow(10, Math.floor(Math.log10(n)));
+
+  for (const multiplier of [1, 2.5, 5, 7.5, 10]) {
+    if (n <= magnitude * multiplier) {
+      return magnitude * multiplier;
+    }
+  }
+
+  return magnitude * 10;
 }
 
 /**
