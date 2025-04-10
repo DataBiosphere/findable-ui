@@ -26,7 +26,7 @@ export function getStop(n: number): number {
   // Calculate the magnitude e.g. 10, 100, 1000
   const magnitude = Math.pow(10, Math.floor(Math.log10(n)));
 
-  for (const multiplier of [2.5, 5, 7.5]) {
+  for (const multiplier of [1, 2.5, 5, 7.5, 10]) {
     if (n <= magnitude * multiplier) {
       return magnitude * multiplier;
     }
