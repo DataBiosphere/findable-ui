@@ -10,6 +10,7 @@ import { FilterSummaryProps } from "./types";
 export const FilterSummary = ({
   categoryFilters,
   loading,
+  testId,
 }: FilterSummaryProps): JSX.Element | null => {
   const { summaries, summariesRef, width } = useFilterSummary(categoryFilters);
   if (summaries.length === 0) return null;
@@ -21,7 +22,7 @@ export const FilterSummary = ({
         loading={loading}
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
-      <StyledGrid ref={summariesRef}>
+      <StyledGrid data-testid={testId} ref={summariesRef}>
         {summaries.map(({ key, label, values }) => (
           <StyledGridPaperSection key={key}>
             <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>

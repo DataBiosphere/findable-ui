@@ -5,16 +5,16 @@ import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
 import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
 import { DATA_FIELD, TEXT_PADDING } from "./constants";
 import {
+  getCategoryValueText,
+  getCategoryValueTextFill,
   getColorRangeValue,
   getCountTextFill,
   getPlotHeight,
-  getTermText,
-  getTermTextFill,
   getTicks,
   getXDomain,
   getYPaddingInner,
   getYPaddingOuter,
-  isAnyTermSelected,
+  isAnyValueSelected,
   renderText,
 } from "./utils";
 
@@ -22,12 +22,12 @@ export function getPlotOptions(
   data: SelectCategoryValueView[],
   width: number
 ): PlotOptions {
-  const isFacetSelected = isAnyTermSelected(data);
+  const isCategorySelected = isAnyValueSelected(data);
   return {
     color: {
       domain: [false, true], // false = unselected, true = selected.
       legend: false,
-      range: [getColorRangeValue(isFacetSelected), PALETTE.PRIMARY_MAIN],
+      range: [getColorRangeValue(isCategorySelected), PALETTE.PRIMARY_MAIN],
     },
     height: getPlotHeight(data.length),
     margin: 0,
@@ -56,9 +56,9 @@ export function getPlotOptions(
       Plot.text(data, {
         dx: 16,
         dy: -28,
-        fill: (d) => getTermTextFill(d, isFacetSelected),
+        fill: (d) => getCategoryValueTextFill(d, isCategorySelected),
         lineWidth: width / 13, // "em" unit; font-size is 13px.
-        text: getTermText,
+        text: getCategoryValueText,
         textAnchor: "start",
         textOverflow: "ellipsis",
         x: 0,
@@ -67,7 +67,7 @@ export function getPlotOptions(
       Plot.text(data, {
         dx: -TEXT_PADDING,
         dy: -2,
-        fill: (d) => getCountTextFill(d, isFacetSelected),
+        fill: (d) => getCountTextFill(d, isCategorySelected),
         fontWeight: 500,
         lineHeight: 0.8125,
         render: renderText,

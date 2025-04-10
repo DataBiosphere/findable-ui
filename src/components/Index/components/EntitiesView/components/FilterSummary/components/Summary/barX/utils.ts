@@ -10,26 +10,51 @@ import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
 import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING, TICKS } from "./constants";
 
 /**
+ * Returns the text for the category value point.
+ * @param d - Data point.
+ * @returns Formatted text string.
+ */
+export function getCategoryValueText(d: SelectCategoryValueView): string {
+  if (d.selected) return `${d.label} (selected)`;
+  return d.label;
+}
+
+/**
+ * Returns the fill color for the category value point.
+ * @param d - Data point.
+ * @param isCategorySelected - Flag indicating if any value is selected.
+ * @returns Fill color string.
+ */
+export function getCategoryValueTextFill(
+  d: SelectCategoryValueView,
+  isCategorySelected: boolean
+): string {
+  if (d.selected) return PALETTE.INK_MAIN;
+  if (isCategorySelected) return PALETTE.INK_LIGHT;
+  return PALETTE.INK_MAIN;
+}
+
+/**
  * Returns the color range value for "false" (unselected).
- * @param isFacetSelected - Flag indicating if any term is selected.
+ * @param isCategorySelected - Flag indicating if any value is selected.
  * @returns Color range value.
  */
-export function getColorRangeValue(isFacetSelected: boolean): string {
-  return isFacetSelected ? PALETTE.SMOKE_LIGHT : "#C5E3FC";
+export function getColorRangeValue(isCategorySelected: boolean): string {
+  return isCategorySelected ? PALETTE.SMOKE_LIGHT : "#C5E3FC";
 }
 
 /**
  * Returns the fill color for the count point.
  * @param d - Data point.
- * @param isFacetSelected - Flag indicating if any term is selected.
+ * @param isCategorySelected - Flag indicating if any value is selected.
  * @returns Fill color string.
  */
 export function getCountTextFill(
   d: SelectCategoryValueView,
-  isFacetSelected: boolean
+  isCategorySelected: boolean
 ): string {
   if (d.selected) return PALETTE.COMMON_WHITE;
-  if (isFacetSelected) return PALETTE.SMOKE_DARK;
+  if (isCategorySelected) return PALETTE.SMOKE_DARK;
   return PALETTE.INK_MAIN;
 }
 
@@ -70,31 +95,6 @@ export function getStop(n: number): number {
   }
 
   return magnitude * 10;
-}
-
-/**
- * Returns the text for the term point.
- * @param d - Data point.
- * @returns Formatted text string.
- */
-export function getTermText(d: SelectCategoryValueView): string {
-  if (d.selected) return `${d.label} (selected)`;
-  return d.label;
-}
-
-/**
- * Returns the fill color for the term point.
- * @param d - Data point.
- * @param isFacetSelected - Flag indicating if any term is selected.
- * @returns Fill color string.
- */
-export function getTermTextFill(
-  d: SelectCategoryValueView,
-  isFacetSelected: boolean
-): string {
-  if (d.selected) return PALETTE.INK_MAIN;
-  if (isFacetSelected) return PALETTE.INK_LIGHT;
-  return PALETTE.INK_MAIN;
 }
 
 /**
@@ -157,11 +157,11 @@ export function getYPaddingOuter(): number {
 }
 
 /**
- * Checks if any term in the data array is selected.
+ * Checks if any value in the data array is selected.
  * @param data - Data.
- * @returns True if any term is selected, false otherwise.
+ * @returns True if any value is selected, false otherwise.
  */
-export function isAnyTermSelected(data: SelectCategoryValueView[]): boolean {
+export function isAnyValueSelected(data: SelectCategoryValueView[]): boolean {
   return data.some(({ selected }) => selected);
 }
 

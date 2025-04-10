@@ -73,6 +73,25 @@ export const FILTER_SUMMARY_ARGS: ComponentProps<typeof FilterSummary> = {
             },
           ],
         },
+        {
+          enableSummaryView: false,
+          key: "pairedEnd",
+          label: "Paired End",
+          values: [
+            {
+              count: 148558,
+              key: "false",
+              label: "false",
+              selected: false,
+            },
+            {
+              count: 366376,
+              key: "true",
+              label: "true",
+              selected: false,
+            },
+          ],
+        },
       ],
     },
   ],
