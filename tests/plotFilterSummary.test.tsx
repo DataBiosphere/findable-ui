@@ -9,6 +9,7 @@ import { PALETTE } from "../src/styles/common/mui/palette";
 const { Default, Selected } = composeStories(stories);
 
 const DATA = Default.args.data || [];
+const SELECTED_DATA = Selected.args.data || [];
 
 describe("PlotFilterSummary", () => {
   describe("basic rendering", () => {
@@ -53,6 +54,24 @@ describe("PlotFilterSummary", () => {
         expect(textContent).toBeDefined();
         expect(countSet.has(textContent || "")).toBeTruthy();
       });
+    });
+  });
+
+  describe("category labels with selected values", () => {
+    it("renders selected category labels with '(selected)'", () => {
+      render(<Selected testId={SUMMARY_TEST_ID} />);
+      const textEls = getEls("text-category-label", "text");
+      for (let i = 0; i < SELECTED_DATA.length; i++) {
+        const selectedData = SELECTED_DATA[i];
+        const textEl = textEls[i];
+        if (selectedData.selected) {
+          expect(textEl.textContent).toEqual(
+            `${selectedData.label} (selected)`
+          );
+          continue;
+        }
+        expect(textEl.textContent).toEqual(selectedData.label);
+      }
     });
   });
 
