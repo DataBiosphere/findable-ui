@@ -69,9 +69,7 @@ describe("PlotFilterSummary", () => {
     });
 
     it("renders all bars in #C5E3FC", () => {
-      barEls.forEach((barEl) => {
-        expect(barEl.getAttribute("fill")).toEqual("#C5E3FC");
-      });
+      expect([...barEls].every(isFillDefault)).toBeTruthy();
     });
   });
 
@@ -84,14 +82,11 @@ describe("PlotFilterSummary", () => {
     });
 
     it("renders no bars in #C5E3FC", () => {
-      barEls.forEach((barEl) => {
-        expect(barEl.getAttribute("fill")).not.toEqual("#C5E3FC");
-      });
+      expect([...barEls].some(isFillDefault)).toBeFalsy();
     });
 
     it("renders at least one bar in PRIMARY_MAIN", () => {
-      const hasPrimaryMain = [...barEls].some(isFillPrimaryMain);
-      expect(hasPrimaryMain).toBeTruthy();
+      expect([...barEls].some(isFillPrimaryMain)).toBeTruthy();
     });
   });
 });
@@ -117,6 +112,15 @@ function getGroupEls(className: string): HTMLCollectionOf<Element> {
 function getEls(className: string, selectors: string): NodeListOf<SVGElement> {
   const gEls = getGroupEls(className);
   return gEls[0].querySelectorAll(selectors);
+}
+
+/**
+ * Check if the fill attribute of the element is #C5E3FC.
+ * @param element - Element to check.
+ * @returns True if the fill attribute is #C5E3FC, false otherwise.
+ */
+function isFillDefault(element: Element): boolean {
+  return element.getAttribute("fill") === "#C5E3FC";
 }
 
 /**
