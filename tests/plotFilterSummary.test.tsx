@@ -11,64 +11,90 @@ const { Default, Selected } = composeStories(stories);
 const DATA = Default.args.data || [];
 
 describe("PlotFilterSummary", () => {
-  it("renders correctly with default data", () => {
-    render(<Default testId={SUMMARY_TEST_ID} />);
-    const summaryEl = screen.getByTestId(SUMMARY_TEST_ID);
-    expect(summaryEl).toBeDefined();
-    const svgEl = summaryEl.querySelector("svg");
-    expect(svgEl).toBeDefined();
-  });
+  describe("basic rendering", () => {
+    let summaryEl: HTMLElement;
+    let svgEl: Element | null;
 
-  it("renders correct number of bars", () => {
-    render(<Default testId={SUMMARY_TEST_ID} />);
-    const barEls = getEls("x-bar", "path");
-    expect(barEls.length).toEqual(DATA.length);
-  });
+    beforeEach(() => {
+      render(<Default testId={SUMMARY_TEST_ID} />);
+      summaryEl = screen.getByTestId(SUMMARY_TEST_ID);
+      svgEl = summaryEl.querySelector("svg");
+    });
 
-  it("renders category labels", () => {
-    render(<Default testId={SUMMARY_TEST_ID} />);
-    const textEls = getEls("text-category-label", "text");
-    const labelSet = new Set(DATA.map(mapLabel));
-    expect(textEls.length).toEqual(labelSet.size);
-    textEls.forEach(({ textContent }) => {
-      expect(textContent).toBeDefined();
-      expect(labelSet.has(textContent || "")).toBeTruthy();
+    it("renders correctly with default data", () => {
+      expect(summaryEl).toBeDefined();
+      expect(svgEl).toBeDefined();
     });
   });
 
-  it("renders category counts", () => {
-    render(<Default testId={SUMMARY_TEST_ID} />);
-    const textEls = getEls("text-count", "text");
-    const countSet = new Set(DATA.map(mapCount));
-    expect(textEls.length).toEqual(countSet.size);
-    textEls.forEach(({ textContent }) => {
-      expect(textContent).toBeDefined();
-      expect(countSet.has(textContent || "")).toBeTruthy();
+  describe("category labels and counts", () => {
+    let countSet: Set<string>;
+    let countTextEls: NodeListOf<SVGElement>;
+    let labelSet: Set<string>;
+    let labelTextEls: NodeListOf<SVGElement>;
+
+    beforeEach(() => {
+      render(<Default testId={SUMMARY_TEST_ID} />);
+      countSet = new Set(DATA.map(mapCount));
+      countTextEls = getEls("text-count", "text");
+      labelSet = new Set(DATA.map(mapLabel));
+      labelTextEls = getEls("text-category-label", "text");
+    });
+
+    it("renders category labels", () => {
+      expect(labelTextEls.length).toEqual(labelSet.size);
+      labelTextEls.forEach(({ textContent }) => {
+        expect(textContent).toBeDefined();
+        expect(labelSet.has(textContent || "")).toBeTruthy();
+      });
+    });
+
+    it("renders category counts", () => {
+      expect(countTextEls.length).toEqual(countSet.size);
+      countTextEls.forEach(({ textContent }) => {
+        expect(textContent).toBeDefined();
+        expect(countSet.has(textContent || "")).toBeTruthy();
+      });
     });
   });
 
-  // add test to test the color of the bars; a category set with no selected values should render all bars in #C5E3FC
-  it("renders all bars in #C5E3FC when no values are selected", () => {
-    render(<Default testId={SUMMARY_TEST_ID} />);
-    const barEls = getEls("x-bar", "path");
-    barEls.forEach((barEl) => {
-      expect(barEl.getAttribute("fill")).toEqual("#C5E3FC");
+  describe("bars with unselected values", () => {
+    let barEls: NodeListOf<SVGElement>;
+
+    beforeEach(() => {
+      render(<Default testId={SUMMARY_TEST_ID} />);
+      barEls = getEls("x-bar", "path");
+    });
+
+    it("renders correct number of bars", () => {
+      expect(barEls.length).toEqual(DATA.length);
+    });
+
+    it("renders all bars in #C5E3FC", () => {
+      barEls.forEach((barEl) => {
+        expect(barEl.getAttribute("fill")).toEqual("#C5E3FC");
+      });
     });
   });
 
-  it("renders no bars in #C5E3FC when values are selected", () => {
-    render(<Selected testId={SUMMARY_TEST_ID} />);
-    const barEls = getEls("x-bar", "path");
-    barEls.forEach((barEl) => {
-      expect(barEl.getAttribute("fill")).not.toEqual("#C5E3FC");
-    });
-  });
+  describe("bars with selected values", () => {
+    let barEls: NodeListOf<SVGElement>;
 
-  it("renders at least one bar in PRIMARY_MAIN when values are selected", () => {
-    render(<Selected testId={SUMMARY_TEST_ID} />);
-    const barEls = getEls("x-bar", "path");
-    const hasPrimaryMain = [...barEls].some(isFillPrimaryMain);
-    expect(hasPrimaryMain).toBeTruthy();
+    beforeEach(() => {
+      render(<Selected testId={SUMMARY_TEST_ID} />);
+      barEls = getEls("x-bar", "path");
+    });
+
+    it("renders no bars in #C5E3FC", () => {
+      barEls.forEach((barEl) => {
+        expect(barEl.getAttribute("fill")).not.toEqual("#C5E3FC");
+      });
+    });
+
+    it("renders at least one bar in PRIMARY_MAIN", () => {
+      const hasPrimaryMain = [...barEls].some(isFillPrimaryMain);
+      expect(hasPrimaryMain).toBeTruthy();
+    });
   });
 });
 
