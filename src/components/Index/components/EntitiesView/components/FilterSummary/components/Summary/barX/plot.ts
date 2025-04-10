@@ -46,6 +46,7 @@ export function getPlotOptions(
         ticks: getTicks(data),
       }),
       Plot.barX(data, {
+        className: "x-bar",
         fill: DATA_FIELD.SELECTED,
         rx1: 0,
         rx2: 4,
@@ -54,6 +55,7 @@ export function getPlotOptions(
         y: DATA_FIELD.LABEL,
       }),
       Plot.text(data, {
+        className: "text-category-label",
         dx: 16,
         dy: -28,
         fill: (d) => getCategoryValueTextFill(d, isCategorySelected),
@@ -65,6 +67,7 @@ export function getPlotOptions(
         y: DATA_FIELD.LABEL,
       }),
       Plot.text(data, {
+        className: "text-count",
         dx: -TEXT_PADDING,
         dy: -2,
         fill: (d) => getCountTextFill(d, isCategorySelected),

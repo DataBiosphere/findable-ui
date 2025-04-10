@@ -2,7 +2,11 @@ import * as Plot from "@observablehq/plot";
 import React, { useEffect, useRef } from "react";
 import { BarXProps } from "./types";
 
-export const BarX = ({ className, options }: BarXProps): JSX.Element => {
+export const BarX = ({
+  className,
+  options,
+  testId,
+}: BarXProps): JSX.Element => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -12,5 +16,5 @@ export const BarX = ({ className, options }: BarXProps): JSX.Element => {
     return (): void => chart.remove();
   }, [options]);
 
-  return <div className={className} ref={chartRef} />;
+  return <div className={className} data-testid={testId} ref={chartRef} />;
 };
