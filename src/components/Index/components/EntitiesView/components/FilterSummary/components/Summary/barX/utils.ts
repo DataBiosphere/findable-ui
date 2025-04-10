@@ -36,12 +36,27 @@ export function getStop(n: number): number {
 }
 
 /**
- * Returns the text for the category point.
- * @param d - Data point.
- * @returns Formatted text string.
+ * Returns the color range value for "false" (unselected).
+ * @param isFacetSelected - Flag indicating if any term is selected.
+ * @returns Color range value.
  */
-export function getCategoryText(d: SelectCategoryValueView): string {
-  return `${d.label} ${d.selected ? "(selected)" : ""}`;
+export function getColorRangeValue(isFacetSelected: boolean): string {
+  return isFacetSelected ? PALETTE.SMOKE_LIGHT : "#C5E3FC";
+}
+
+/**
+ * Returns the fill color for the count point.
+ * @param d - Data point.
+ * @param isFacetSelected - Flag indicating if any term is selected.
+ * @returns Fill color string.
+ */
+export function getCountTextFill(
+  d: SelectCategoryValueView,
+  isFacetSelected: boolean
+): string {
+  if (d.selected) return PALETTE.COMMON_WHITE;
+  if (isFacetSelected) return PALETTE.SMOKE_DARK;
+  return PALETTE.INK_MAIN;
 }
 
 /**
@@ -55,6 +70,31 @@ export function getCategoryText(d: SelectCategoryValueView): string {
  */
 export function getPlotHeight(numberOfBars: number): number {
   return (numberOfBars + 2) * BAR_HEIGHT + (numberOfBars - 1) * BAR_GAP + 32;
+}
+
+/**
+ * Returns the text for the term point.
+ * @param d - Data point.
+ * @returns Formatted text string.
+ */
+export function getTermText(d: SelectCategoryValueView): string {
+  if (d.selected) return `${d.label} (selected)`;
+  return d.label;
+}
+
+/**
+ * Returns the fill color for the term point.
+ * @param d - Data point.
+ * @param isFacetSelected - Flag indicating if any term is selected.
+ * @returns Fill color string.
+ */
+export function getTermTextFill(
+  d: SelectCategoryValueView,
+  isFacetSelected: boolean
+): string {
+  if (d.selected) return PALETTE.INK_MAIN;
+  if (isFacetSelected) return PALETTE.INK_LIGHT;
+  return PALETTE.INK_MAIN;
 }
 
 /**
@@ -104,6 +144,15 @@ export function getYPaddingInner(): number {
  */
 export function getYPaddingOuter(): number {
   return BAR_HEIGHT / (BAR_HEIGHT + BAR_GAP);
+}
+
+/**
+ * Checks if any term in the data array is selected.
+ * @param data - Data.
+ * @returns True if any term is selected, false otherwise.
+ */
+export function isAnyTermSelected(data: SelectCategoryValueView[]): boolean {
+  return data.some(({ selected }) => selected);
 }
 
 /**

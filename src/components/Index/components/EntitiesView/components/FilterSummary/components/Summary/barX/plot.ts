@@ -4,12 +4,16 @@ import { SelectCategoryValueView } from "../../../../../../../../../common/entit
 import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
 import { DATA_FIELD, TEXT_PADDING, TICKS } from "./constants";
 import {
-  getCategoryText,
+  getColorRangeValue,
+  getCountTextFill,
   getPlotHeight,
+  getTermText,
+  getTermTextFill,
   getXDomain,
   getXRange,
   getYPaddingInner,
   getYPaddingOuter,
+  isAnyTermSelected,
   renderText,
 } from "./utils";
 
@@ -17,11 +21,12 @@ export function getPlotOptions(
   data: SelectCategoryValueView[],
   width: number
 ): PlotOptions {
+  const isFacetSelected = isAnyTermSelected(data);
   return {
     color: {
       domain: [false, true], // false = unselected, true = selected.
       legend: false,
-      range: [PALETTE.SMOKE_DARK, PALETTE.PRIMARY_MAIN],
+      range: [getColorRangeValue(isFacetSelected), PALETTE.PRIMARY_MAIN],
     },
     height: getPlotHeight(data.length),
     margin: 0,
@@ -42,8 +47,8 @@ export function getPlotOptions(
       Plot.text(data, {
         dx: 16,
         dy: -28,
-        fill: (d) => (d.selected ? PALETTE.INK_MAIN : PALETTE.INK_LIGHT),
-        text: getCategoryText,
+        fill: (d) => getTermTextFill(d, isFacetSelected),
+        text: getTermText,
         textAnchor: "start",
         x: 0,
         y: DATA_FIELD.LABEL,
@@ -51,7 +56,7 @@ export function getPlotOptions(
       Plot.text(data, {
         dx: -TEXT_PADDING,
         dy: -2,
-        fill: (d) => (d.selected ? PALETTE.COMMON_WHITE : PALETTE.INK_LIGHT),
+        fill: (d) => getCountTextFill(d, isFacetSelected),
         fontWeight: 500,
         lineHeight: 0.8125,
         render: renderText,
