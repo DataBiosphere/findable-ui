@@ -48,8 +48,10 @@ export function getPlotOptions(
         dx: 16,
         dy: -28,
         fill: (d) => getTermTextFill(d, isFacetSelected),
+        lineWidth: width / 13, // "em" unit; font-size is 13px.
         text: getTermText,
         textAnchor: "start",
+        textOverflow: "ellipsis",
         x: 0,
         y: DATA_FIELD.LABEL,
       }),
