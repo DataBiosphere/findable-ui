@@ -109,6 +109,7 @@ export interface SelectCategoryValueView {
  */
 export interface SelectCategoryView {
   annotation?: DataDictionaryAnnotation;
+  enableSummaryView?: boolean;
   isDisabled?: boolean;
   key: CategoryKey;
   label: string;

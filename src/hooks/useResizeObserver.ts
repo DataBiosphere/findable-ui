@@ -15,11 +15,13 @@ export type ElementRect = {
  * Element resizing and repositioning observer.
  * @param ref - element to be observed for changes to its size or position.
  * @param onResizeFn - action to be performed when the observed element is resized or repositioned.
+ * @param shouldObserve - boolean flag to determine if the observer should be active.
  * @returns Element size and position properties for the given element.
  */
 export function useResizeObserver(
   ref: RefObject<HTMLElement>,
-  onResizeFn: (entries: ResizeObserverEntry[]) => Partial<ElementRect>
+  onResizeFn: (entries: ResizeObserverEntry[]) => Partial<ElementRect>,
+  shouldObserve: boolean = true
 ): Partial<ElementRect> | undefined {
   const [elementRect, setElementRect] = useState<Partial<ElementRect>>();
   const observerRef = useRef<ResizeObserver>();
@@ -38,6 +40,7 @@ export function useResizeObserver(
   // Creates a new ResizeObserver object which can be used to report changes to an "observed" element's dimensions or position.
   useEffect(() => {
     if (!ref.current) return;
+    if (!shouldObserve) return;
     observerRef.current = new ResizeObserver(onResize);
     const observer = observerRef.current;
     const observedEl = ref.current;
@@ -45,7 +48,7 @@ export function useResizeObserver(
     return (): void => {
       observer.unobserve(observedEl);
     };
-  }, [onResize, ref]);
+  }, [onResize, ref, shouldObserve]);
 
   return elementRect;
 }
