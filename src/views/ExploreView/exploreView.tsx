@@ -17,8 +17,8 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
+import { ChartView } from "../../components/Index/components/EntitiesView/components/ChartView/chartView";
 import { EntityList } from "../../components/Index/components/EntitiesView/components/EntityList/entityList";
-import { FilterSummary } from "../../components/Index/components/EntitiesView/components/FilterSummary/filterSummary";
 import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
@@ -164,8 +164,8 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       )}
       <IndexView
         className={props.className}
-        filterSummary={
-          <FilterSummary categoryFilters={categoryFilters} loading={loading} />
+        chart={
+          <ChartView categoryFilters={categoryFilters} loading={loading} />
         }
         list={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}

@@ -19,9 +19,7 @@ export const EntitiesView = ({
           <Toolbar>
             <ToggleButtonGroup exclusive value={viewMode} onChange={onChange}>
               <ToggleButton value={VIEW_MODE.TABLE}>Table View</ToggleButton>
-              <ToggleButton value={VIEW_MODE.FILTER}>
-                Filter Summary
-              </ToggleButton>
+              <ToggleButton value={VIEW_MODE.CHART}>Chart View</ToggleButton>
             </ToggleButtonGroup>
           </Toolbar>
         )}

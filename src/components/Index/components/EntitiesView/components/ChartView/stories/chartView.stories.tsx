@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { GridPaper } from "../../../../../../common/Paper/paper.styles";
-import { FilterSummary } from "../filterSummary";
-import { FILTER_SUMMARY_ARGS } from "./args";
+import { ChartView } from "../chartView";
+import { CHART_VIEW_ARGS } from "./args";
 
-const meta: Meta<typeof FilterSummary> = {
-  args: FILTER_SUMMARY_ARGS,
-  component: FilterSummary,
+const meta: Meta<typeof ChartView> = {
+  args: CHART_VIEW_ARGS,
+  component: ChartView,
   decorators: [
     (Story, context): JSX.Element => (
       <GridPaper>
@@ -15,7 +15,7 @@ const meta: Meta<typeof FilterSummary> = {
     ),
   ],
   parameters: { layout: "fullscreen" },
-  title: "Components/Entities/EntitiesView/FilterSummary",
+  title: "Components/Entities/EntitiesView/ChartView",
 };
 
 export default meta;

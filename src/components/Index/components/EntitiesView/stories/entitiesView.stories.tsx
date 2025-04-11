@@ -37,7 +37,7 @@ export const Default: Story = {
   },
 };
 
-export const FilterView: Story = {
+export const ChartView: Story = {
   args: {
     children: (
       <Box
@@ -51,7 +51,7 @@ export const FilterView: Story = {
         {LOREM_IPSUM.SHORT}
       </Box>
     ),
-    viewMode: VIEW_MODE.FILTER,
+    viewMode: VIEW_MODE.CHART,
     viewStatus: { disabled: false },
   },
 };

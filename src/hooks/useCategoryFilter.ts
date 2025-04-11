@@ -78,7 +78,7 @@ function buildCategoryView(
     categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
   return {
     annotation: categoryConfig?.annotation,
-    enableSummaryView: categoryConfig?.enableSummaryView,
+    enableChartView: categoryConfig?.enableChartView,
     isDisabled: false,
     key: category.key,
     label: getCategoryLabel(category.key, categoryConfig),

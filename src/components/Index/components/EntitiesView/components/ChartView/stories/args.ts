@@ -1,12 +1,12 @@
 import { ComponentProps } from "react";
-import { FilterSummary } from "../filterSummary";
+import { ChartView } from "../chartView";
 
-export const FILTER_SUMMARY_ARGS: ComponentProps<typeof FilterSummary> = {
+export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
   categoryFilters: [
     {
       categoryViews: [
         {
-          enableSummaryView: true,
+          enableChartView: true,
           key: "biological-sex",
           label: "Biological Sex",
           values: [
@@ -43,7 +43,7 @@ export const FILTER_SUMMARY_ARGS: ComponentProps<typeof FilterSummary> = {
           ],
         },
         {
-          enableSummaryView: true,
+          enableChartView: true,
           key: "genusSpecies",
           label: "Genus Species",
           values: [
@@ -74,7 +74,7 @@ export const FILTER_SUMMARY_ARGS: ComponentProps<typeof FilterSummary> = {
           ],
         },
         {
-          enableSummaryView: false,
+          enableChartView: false,
           key: "pairedEnd",
           label: "Paired End",
           values: [

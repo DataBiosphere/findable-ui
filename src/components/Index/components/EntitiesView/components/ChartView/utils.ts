@@ -2,16 +2,16 @@ import { SelectCategoryView } from "../../../../../../common/entities";
 import { CategoryFilter } from "../../../../../Filter/components/Filters/filters";
 
 /**
- * Returns the set of category views that have summary view enabled.
+ * Returns the set of select category views that have chart view enabled.
  * @param categoryFilters - Category filters.
- * @returns Set of category views with summary view enabled.
+ * @returns Set of category views with chart view enabled.
  */
-export function getSummaries(
+export function getSelectCategoryViews(
   categoryFilters: CategoryFilter[]
 ): SelectCategoryView[] {
   return categoryFilters
     .flatMap(({ categoryViews }) => categoryViews)
-    .filter(({ enableSummaryView = true }) => enableSummaryView)
+    .filter(({ enableChartView = true }) => enableChartView)
     .filter(({ values }) => values.length > 0);
 }
 

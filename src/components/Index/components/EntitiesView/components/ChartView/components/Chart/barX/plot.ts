@@ -19,17 +19,17 @@ import {
 } from "./utils";
 
 export function getPlotOptions(
-  data: SelectCategoryValueView[],
+  selectCategoryValueViews: SelectCategoryValueView[],
   width: number
 ): PlotOptions {
-  const isCategorySelected = isAnyValueSelected(data);
+  const isCategorySelected = isAnyValueSelected(selectCategoryValueViews);
   return {
     color: {
       domain: [false, true], // false = unselected, true = selected.
       legend: false,
       range: [getColorRangeValue(isCategorySelected), PALETTE.PRIMARY_MAIN],
     },
-    height: getPlotHeight(data.length),
+    height: getPlotHeight(selectCategoryValueViews.length),
     margin: 0,
     marginBottom: 32,
     marks: [
@@ -38,14 +38,14 @@ export function getPlotOptions(
         tickFormat: formatCountSize,
         tickPadding: 8,
         tickSize: 0,
-        ticks: getTicks(data),
+        ticks: getTicks(selectCategoryValueViews),
       }),
       Plot.gridX({
         stroke: PALETTE.SMOKE_MAIN,
         strokeOpacity: 1,
-        ticks: getTicks(data),
+        ticks: getTicks(selectCategoryValueViews),
       }),
-      Plot.barX(data, {
+      Plot.barX(selectCategoryValueViews, {
         className: "x-bar",
         fill: DATA_FIELD.SELECTED,
         rx1: 0,
@@ -54,7 +54,7 @@ export function getPlotOptions(
         x: DATA_FIELD.COUNT,
         y: DATA_FIELD.LABEL,
       }),
-      Plot.text(data, {
+      Plot.text(selectCategoryValueViews, {
         className: "text-category-label",
         dx: 16,
         dy: -28,
@@ -66,7 +66,7 @@ export function getPlotOptions(
         x: 0,
         y: DATA_FIELD.LABEL,
       }),
-      Plot.text(data, {
+      Plot.text(selectCategoryValueViews, {
         className: "text-count",
         dx: -TEXT_PADDING,
         dy: -2,
@@ -87,7 +87,7 @@ export function getPlotOptions(
     },
     width,
     x: {
-      domain: getXDomain(data),
+      domain: getXDomain(selectCategoryValueViews),
       grid: false,
       label: null,
       line: false,
