@@ -24,6 +24,7 @@ export const IndexStory: Story = {
   args: {
     Summaries: <Summaries {...SummariesStory.args} />,
     Tabs: undefined,
+    chart: undefined,
     list: undefined,
     title: "Explore Data",
   },

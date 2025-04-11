@@ -2,28 +2,28 @@ import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { SelectCategoryValueView } from "../src/common/entities";
-import { SUMMARY_TEST_ID } from "../src/components/Index/components/EntitiesView/components/FilterSummary/components/Summary/constants";
-import * as stories from "../src/components/Index/components/EntitiesView/components/FilterSummary/components/Summary/stories/summary.stories";
+import { CHART_TEST_ID } from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/constants";
+import * as stories from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/stories/chart.stories";
 import { PALETTE } from "../src/styles/common/mui/palette";
 
 const { Default, Selected } = composeStories(stories);
 
-const DATA = Default.args.data || [];
-const SELECTED_DATA = Selected.args.data || [];
+const DATA = Default.args.selectCategoryValueViews || [];
+const SELECTED_DATA = Selected.args.selectCategoryValueViews || [];
 
-describe("PlotFilterSummary", () => {
+describe("Chart", () => {
   describe("basic rendering", () => {
-    let summaryEl: HTMLElement;
+    let chartEl: HTMLElement;
     let svgEl: Element | null;
 
     beforeEach(() => {
-      render(<Default testId={SUMMARY_TEST_ID} />);
-      summaryEl = screen.getByTestId(SUMMARY_TEST_ID);
-      svgEl = summaryEl.querySelector("svg");
+      render(<Default testId={CHART_TEST_ID} />);
+      chartEl = screen.getByTestId(CHART_TEST_ID);
+      svgEl = chartEl.querySelector("svg");
     });
 
     it("renders correctly with default data", () => {
-      expect(summaryEl).toBeDefined();
+      expect(chartEl).toBeDefined();
       expect(svgEl).toBeDefined();
     });
   });
@@ -35,7 +35,7 @@ describe("PlotFilterSummary", () => {
     let labelTextEls: NodeListOf<SVGElement>;
 
     beforeEach(() => {
-      render(<Default testId={SUMMARY_TEST_ID} />);
+      render(<Default testId={CHART_TEST_ID} />);
       countTextEls = getEls("text-count", "text");
       labelTextEls = getEls("text-category-label", "text");
     });
@@ -59,7 +59,7 @@ describe("PlotFilterSummary", () => {
 
   describe("category labels with selected values", () => {
     it("renders selected category labels with '(selected)'", () => {
-      render(<Selected testId={SUMMARY_TEST_ID} />);
+      render(<Selected testId={CHART_TEST_ID} />);
       const textEls = getEls("text-category-label", "text");
       for (let i = 0; i < SELECTED_DATA.length; i++) {
         const selectedData = SELECTED_DATA[i];
@@ -79,7 +79,7 @@ describe("PlotFilterSummary", () => {
     let barEls: NodeListOf<SVGElement>;
 
     beforeEach(() => {
-      render(<Default testId={SUMMARY_TEST_ID} />);
+      render(<Default testId={CHART_TEST_ID} />);
       barEls = getEls("x-bar", "path");
     });
 
@@ -96,7 +96,7 @@ describe("PlotFilterSummary", () => {
     let barEls: NodeListOf<SVGElement>;
 
     beforeEach(() => {
-      render(<Selected testId={SUMMARY_TEST_ID} />);
+      render(<Selected testId={CHART_TEST_ID} />);
       barEls = getEls("x-bar", "path");
     });
 
@@ -116,8 +116,8 @@ describe("PlotFilterSummary", () => {
  * @returns SVG group element.
  */
 function getGroupEls(className: string): HTMLCollectionOf<Element> {
-  const summaryEl = screen.getByTestId(SUMMARY_TEST_ID);
-  const gEls = summaryEl.getElementsByClassName(className);
+  const chartEl = screen.getByTestId(CHART_TEST_ID);
+  const gEls = chartEl.getElementsByClassName(className);
   expect(gEls.length).toEqual(1);
   return gEls;
 }

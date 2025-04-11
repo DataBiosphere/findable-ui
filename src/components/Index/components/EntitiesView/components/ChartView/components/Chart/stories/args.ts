@@ -1,8 +1,8 @@
 import { ComponentProps } from "react";
-import { Summary } from "../summary";
+import { Chart } from "../chart";
 
-export const SUMMARY_ARGS: ComponentProps<typeof Summary> = {
-  data: [
+export const CHART_ARGS: ComponentProps<typeof Chart> = {
+  selectCategoryValueViews: [
     {
       count: 248890,
       key: "female",
@@ -37,8 +37,8 @@ export const SUMMARY_ARGS: ComponentProps<typeof Summary> = {
   width: 800,
 };
 
-export const SELECT_SUMMARY_ARGS: ComponentProps<typeof Summary> = {
-  data: [
+export const SELECT_CHART_ARGS: ComponentProps<typeof Chart> = {
+  selectCategoryValueViews: [
     {
       count: 248890,
       key: "female",

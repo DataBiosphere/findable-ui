@@ -2,7 +2,7 @@ import { BaseComponentProps } from "components/types";
 import { ReactNode } from "react";
 
 export interface IndexProps extends BaseComponentProps {
-  filterSummary?: ReactNode;
+  chart?: ReactNode;
   list?: ReactNode;
   ListHero?: ReactNode | ReactNode[];
   SideBarButton?: ReactNode;

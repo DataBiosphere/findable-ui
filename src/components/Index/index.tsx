@@ -8,8 +8,8 @@ import { Index as IndexLayout } from "./index.styles";
 import { IndexProps } from "./types";
 
 export const Index = ({
+  chart,
   className,
-  filterSummary,
   list,
   ListHero,
   SideBarButton,
@@ -31,7 +31,7 @@ export const Index = ({
         viewMode={viewMode}
         viewStatus={viewStatus}
       >
-        {viewMode === VIEW_MODE.TABLE ? list : filterSummary}
+        {viewMode === VIEW_MODE.TABLE ? list : chart}
       </EntitiesView>
     </IndexLayout>
   );

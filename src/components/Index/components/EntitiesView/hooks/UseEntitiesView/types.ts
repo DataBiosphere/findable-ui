@@ -1,7 +1,7 @@
 import { ToggleButtonGroupProps } from "@mui/material";
 
 export enum VIEW_MODE {
-  FILTER = "filter",
+  CHART = "chart",
   TABLE = "table",
 }
 
