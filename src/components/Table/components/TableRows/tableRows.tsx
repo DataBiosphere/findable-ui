@@ -22,12 +22,13 @@ export const TableRows = <T extends RowData>({
   return (
     <Fragment>
       {virtualItems.map((virtualRow) => {
-        const row = rows[virtualRow.index] as Row<T>;
+        const rowIndex = virtualRow.index;
+        const row = rows[rowIndex] as Row<T>;
         const { getIsGrouped, getIsPreview } = row;
         return (
           <TableRow
             key={row.id}
-            data-index={virtualRow.index}
+            data-index={rowIndex}
             isGrouped={getIsGrouped()}
             isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
@@ -38,7 +39,7 @@ export const TableRows = <T extends RowData>({
               return (
                 <TableCell
                   data-testid={
-                    virtualRow.index === 0 && i === 0
+                    rowIndex === 0 && i === 0
                       ? TEST_IDS.TABLE_FIRST_CELL
                       : undefined
                   }
