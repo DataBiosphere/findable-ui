@@ -1,5 +1,17 @@
 # Changelog
 
+## [25.1.0](https://github.com/DataBiosphere/findable-ui/compare/v25.0.0...v25.1.0) (2025-04-14)
+
+
+### Features
+
+* add test ids to key testable components ([#401](https://github.com/DataBiosphere/findable-ui/issues/401)) ([#403](https://github.com/DataBiosphere/findable-ui/issues/403)) ([99a41f8](https://github.com/DataBiosphere/findable-ui/commit/99a41f8661d0794d20b4e610a24c9fe1b8fbc4f1))
+
+
+### Bug Fixes
+
+* fix theme with deepmerge ([#399](https://github.com/DataBiosphere/findable-ui/issues/399)) ([#400](https://github.com/DataBiosphere/findable-ui/issues/400)) ([981d8f9](https://github.com/DataBiosphere/findable-ui/commit/981d8f9fb2a1acce20707d558c9880dc63af7485))
+
 ## [25.0.0](https://github.com/DataBiosphere/findable-ui/compare/v24.0.0...v25.0.0) (2025-04-11)
 
 
