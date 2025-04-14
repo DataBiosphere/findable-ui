@@ -4,7 +4,13 @@ import { UseDataDictionary } from "./types";
 
 export const useDataDictionary = (): UseDataDictionary => {
   const {
-    config: { dataDictionary: { classes = [] } = {} },
+    config: { dataDictionaries: dataDictionaryConfigs },
   } = useConfig();
-  return useMemo(() => ({ classes }), [classes]);
+
+  const dataDictionaryConfig = dataDictionaryConfigs?.[0]; // TODO: Handle multiple data dictionaries
+  return useMemo(() => {
+    const classes = dataDictionaryConfig?.dataDictionary?.classes || [];
+    const columnDefs = dataDictionaryConfig?.columnDefs || [];
+    return { classes, columnDefs };
+  }, [dataDictionaryConfig]);
 };

@@ -10,9 +10,10 @@ import { EntityProps } from "./types";
 
 export const Entity = ({
   class: classData,
+  columnDefs,
   spacing,
 }: EntityProps): JSX.Element => {
-  const table = useTable(classData.attributes);
+  const table = useTable(classData.attributes, columnDefs);
   return (
     <Grid {...GRID_PROPS} rowGap={4}>
       <Grid {...GRID_PROPS} rowGap={1}>

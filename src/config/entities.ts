@@ -11,8 +11,8 @@ import {
 } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
 import {
-  DataDictionary,
   DataDictionaryAnnotation,
+  DataDictionaryConfig,
   SelectCategoryValueView,
   SelectedFilter,
 } from "../common/entities";
@@ -375,7 +375,7 @@ export interface SiteConfig {
   categoryGroupConfig?: CategoryGroupConfig;
   contentDir?: string;
   contentThemeOptionsFn?: ThemeOptionsFn;
-  dataDictionary?: DataDictionary;
+  dataDictionaries?: DataDictionaryConfig[];
   dataSource: DataSourceConfig;
   enableEntitiesView?: boolean; // Toggle entities view - list or filter summary
   entities: EntityConfig[];

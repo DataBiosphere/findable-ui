@@ -19,7 +19,7 @@ export const DataDictionary = ({
   Title = DefaultTitle,
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
-  const { classes } = useDataDictionary();
+  const { classes, columnDefs } = useDataDictionary();
   const { spacing } = useLayoutSpacing();
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (
@@ -31,7 +31,7 @@ export const DataDictionary = ({
         <Outline outline={outline} />
       </OutlineLayout>
       <EntitiesLayout {...spacing}>
-        <Entities classes={classes} spacing={spacing} />
+        <Entities classes={classes} columnDefs={columnDefs} spacing={spacing} />
       </EntitiesLayout>
     </View>
   );
