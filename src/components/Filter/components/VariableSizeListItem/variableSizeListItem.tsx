@@ -8,6 +8,7 @@ import React, { CSSProperties, useEffect, useRef } from "react";
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { SELECT_CATEGORY_KEY } from "../../../../providers/exploreState/constants";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { TEXT_BODY_SMALL_400 } from "../../../../theme/common/typography";
 import { CheckedIcon } from "../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
@@ -49,6 +50,7 @@ export default function VariableSizeListItem({
 
   return (
     <ListItemButton
+      data-testid={TEST_IDS.FILTER_ITEM}
       ref={listItemRef}
       onClick={handleItemClicked}
       selected={selected}
@@ -61,10 +63,20 @@ export default function VariableSizeListItem({
       />
       <ListItemText
         disableTypography
-        primary={<HighlightedLabel label={label} ranges={labelRanges} />}
+        primary={
+          <HighlightedLabel
+            label={label}
+            ranges={labelRanges}
+            testId={TEST_IDS.FILTER_TERM}
+          />
+        }
         secondary={
           categoryKey !== SELECT_CATEGORY_KEY.SAVED_FILTERS && (
-            <Typography color="ink.light" variant={TEXT_BODY_SMALL_400}>
+            <Typography
+              color="ink.light"
+              data-testid={TEST_IDS.FILTER_COUNT}
+              variant={TEXT_BODY_SMALL_400}
+            >
               {count}
             </Typography>
           )

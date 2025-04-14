@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
+import { TEST_IDS } from "../../../../../../tests/testIds";
 import { TEXT_BODY_SMALL_400 } from "../../../../../../theme/common/typography";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
@@ -49,6 +50,7 @@ export default function VariableSizeListItem({
     } = item;
     return (
       <ListItemButton
+        data-testid={TEST_IDS.FILTER_ITEM}
         ref={setRef}
         key={key}
         onClick={(): void =>
@@ -64,9 +66,19 @@ export default function VariableSizeListItem({
         />
         <ListItemText
           disableTypography
-          primary={<HighlightedLabel label={label} ranges={matchRanges} />}
+          primary={
+            <HighlightedLabel
+              label={label}
+              ranges={matchRanges}
+              testId={TEST_IDS.FILTER_TERM}
+            />
+          }
           secondary={
-            <Typography color="ink.light" variant={TEXT_BODY_SMALL_400}>
+            <Typography
+              color="ink.light"
+              data-testid={TEST_IDS.FILTER_COUNT}
+              variant={TEXT_BODY_SMALL_400}
+            >
               {count}
             </Typography>
           }

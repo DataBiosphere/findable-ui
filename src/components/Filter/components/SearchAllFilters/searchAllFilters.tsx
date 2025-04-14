@@ -17,6 +17,7 @@ import {
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { SearchCloseButton } from "../SearchAllFiltersSearch/components/SearchCloseButton/searchCloseButton";
 import { SearchAllFiltersSearch } from "../SearchAllFiltersSearch/searchAllFiltersSearch";
@@ -154,6 +155,7 @@ export const SearchAllFilters = ({
     >
       <Autocomplete
         clearOnBlur={desktopSmUp}
+        data-testid={TEST_IDS.SEARCH_ALL_FILTERS}
         filterOptions={(options): string[] => options}
         freeSolo
         ListboxComponent={Listbox}

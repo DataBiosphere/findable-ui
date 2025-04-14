@@ -1,8 +1,9 @@
 import React from "react";
+import { TestIdProps } from "../../../types";
 import { FilterMenuSearchMatchRange } from "../../common/entities";
 import { MatchHighlight } from "./highlightedLabel.styles";
 
-interface HighlightedLabelProps {
+interface HighlightedLabelProps extends TestIdProps {
   label: string;
   ranges?: FilterMenuSearchMatchRange[];
 }
@@ -10,6 +11,7 @@ interface HighlightedLabelProps {
 export const HighlightedLabel = ({
   label,
   ranges,
+  testId,
 }: HighlightedLabelProps): JSX.Element => {
   const items = [];
   if (ranges) {
@@ -40,5 +42,5 @@ export const HighlightedLabel = ({
   } else {
     items.push(label);
   }
-  return <span>{items}</span>;
+  return <span data-testid={testId}>{items}</span>;
 };
