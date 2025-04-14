@@ -1,6 +1,7 @@
 import { CloseRounded } from "@mui/icons-material";
 import { PopoverPosition, PopoverProps } from "@mui/material";
 import React, { ReactNode } from "react";
+import { TEST_IDS } from "../../../../../../tests/testIds";
 import { DrawerTransition } from "../../../../../Filter/components/Filter/components/DrawerTransition/drawerTransition";
 import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";
 
@@ -25,6 +26,7 @@ export const SidebarDrawer = ({
     <TemporarySidebar
       anchorPosition={DEFAULT_POSITION}
       anchorReference="anchorPosition"
+      data-testid={TEST_IDS.SIDEBAR_DRAWER}
       hideBackdrop={false}
       marginThreshold={0}
       onClose={onDrawerClose}

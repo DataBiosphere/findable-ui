@@ -4,6 +4,7 @@ import React, { MouseEvent, ReactNode, useState } from "react";
 import { SelectCategoryView } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { FilterLabel } from "../FilterLabel/filterLabel";
 import { FilterMenu } from "../FilterMenu/filterMenu";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
@@ -87,6 +88,7 @@ export const Filter = ({
       <FilterPopover
         anchorPosition={anchorPosition}
         anchorReference="anchorPosition"
+        data-testid={TEST_IDS.FILTER_POPOVER}
         marginThreshold={0}
         onClose={onCloseFilters}
         open={isOpen}

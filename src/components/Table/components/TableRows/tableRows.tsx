@@ -2,6 +2,7 @@ import { TableCell } from "@mui/material";
 import { flexRender, Row, RowData } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
+import { TEST_IDS } from "../../../../tests/testIds";
 import {
   getTableCellAlign,
   getTableCellPadding,
@@ -31,11 +32,16 @@ export const TableRows = <T extends RowData>({
             isPreview={getIsPreview()}
             ref={virtualizer.measureElement}
           >
-            {row.getVisibleCells().map((cell) => {
+            {row.getVisibleCells().map((cell, i) => {
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
               if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
               return (
                 <TableCell
+                  data-testid={
+                    virtualRow.index === 0 && i === 0
+                      ? TEST_IDS.TABLE_FIRST_CELL
+                      : undefined
+                  }
                   key={cell.id}
                   align={getTableCellAlign(cell.column)}
                   padding={getTableCellPadding(cell.column.id)}

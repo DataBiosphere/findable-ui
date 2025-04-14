@@ -8,6 +8,7 @@ import {
 } from "../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../hooks/useWindowResize";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { Filter } from "../Filter/filter";
 import { FilterTags } from "../FilterTags/filterTags";
@@ -82,7 +83,12 @@ export const Filters = ({
   }, [windowHeight]);
 
   return (
-    <FilterList disabled={disabled} height={height} ref={filterListRef}>
+    <FilterList
+      data-testid={TEST_IDS.FILTERS}
+      disabled={disabled}
+      height={height}
+      ref={filterListRef}
+    >
       {categoryFilters.map(({ categoryViews, label }, i) => (
         <Fragment key={i}>
           {i !== 0 && <Divider />}

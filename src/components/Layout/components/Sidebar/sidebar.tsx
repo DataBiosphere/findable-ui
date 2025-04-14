@@ -3,6 +3,7 @@ import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { SidebarDrawer } from "./components/SidebarDrawer/sidebarDrawer";
 import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositioner";
@@ -26,7 +27,9 @@ export const Sidebar = ({
   const controlledSidebar = typeof drawerOpen === "boolean";
   const drawerSidebar = controlledSidebar && desktopSmDown; // Sidebar is "temporary" drawer when drawerOpen is defined and breakpoint is smaller than the breakpoint.
   const Bar = drawerSidebar ? SidebarDrawer : PermanentSidebar;
-  const barProps = drawerSidebar ? { drawerOpen, onDrawerClose } : {};
+  const barProps = drawerSidebar
+    ? { drawerOpen, onDrawerClose }
+    : { "data-testid": TEST_IDS.SIDEBAR };
 
   // Closes an open, controlled drawer sidebar with a change of breakpoint.
   useEffect(() => {

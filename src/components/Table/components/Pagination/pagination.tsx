@@ -1,6 +1,7 @@
 import { EastRounded, WestRounded } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import React from "react";
+import { TEST_IDS } from "../../../../tests/testIds";
 import { IconButton } from "../../../common/IconButton/iconButton";
 import { Stack } from "../../../common/Stack/stack";
 import { Pagination as TablePagination } from "./pagination.styles";
@@ -23,8 +24,8 @@ export const Pagination = ({
   totalPage,
 }: PaginationProps): JSX.Element => {
   return (
-    <TablePagination>
-      <div>
+    <TablePagination data-testid={TEST_IDS.TABLE_PAGINATION}>
+      <div data-testid={TEST_IDS.TABLE_PAGINATION_PAGE}>
         <Typography variant="text-body-400">Page </Typography>
         <Typography variant="text-body-500">
           {currentPage} of {totalPage}
