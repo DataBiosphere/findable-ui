@@ -1,3 +1,6 @@
+import { ColumnDef } from "@tanstack/react-table";
+import { GridTrackSize } from "config/entities";
+
 /**
  * Model of a value of a metadata class.
  */
@@ -6,6 +9,11 @@ export interface Attribute {
   key: string;
   label: string;
 }
+
+/**
+ * Model of attribute keys; used mostly when building data dictionary column definitions.
+ */
+export type AttributeValue = Attribute[keyof Attribute];
 
 /**
  * Filterable metadata keys.
@@ -42,6 +50,28 @@ export type CategoryValueKey = unknown;
  */
 export interface DataDictionary {
   classes: Class[];
+}
+
+/**
+ * Display model of a data dictionary column.
+ */
+export interface DataDictionaryColumnDef {
+  attributeDisplayName: string;
+  attributeSlotName: string;
+  // Adding width here for now; possibly revisit separating column def and UI.
+  width: {
+    max: GridTrackSize;
+    min: GridTrackSize;
+  };
+}
+
+/**
+ * Configuration of data dictionary; contains schema definition (that is, the actual data
+ * dictionary) as well as column def for displaying the data dictionary.
+ */
+export interface DataDictionaryConfig {
+  columnDefs: ColumnDef<Attribute, Attribute[keyof Attribute]>[];
+  dataDictionary: DataDictionary;
 }
 
 /**

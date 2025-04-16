@@ -42,17 +42,21 @@ export function annotateColumnConfig(
  */
 export function annotateSiteConfig(siteConfig: SiteConfig): void {
   // Build and map data dictionary annotations by key.
-  const { dataDictionary } = siteConfig;
-  if (!dataDictionary) {
+  const { dataDictionaries: dataDictionaryConfigs } = siteConfig;
+  if (!dataDictionaryConfigs || !dataDictionaryConfigs.length) {
     return;
   }
-  const annotationsByKey = keyAnnotationsByKey(dataDictionary);
+  for (const dataDictionaryConfig of dataDictionaryConfigs) {
+    const annotationsByKey = keyAnnotationsByKey(
+      dataDictionaryConfig.dataDictionary
+    );
 
-  // Annotate elements of site config.
-  annotateEntityConfig(siteConfig, annotationsByKey);
-  annotateDefaultCategoryConfig(siteConfig, annotationsByKey);
-  annotateEntityCategoryConfig(siteConfig, annotationsByKey);
-  annotateColumnConfig(siteConfig, annotationsByKey);
+    // Annotate elements of site config.
+    annotateEntityConfig(siteConfig, annotationsByKey);
+    annotateDefaultCategoryConfig(siteConfig, annotationsByKey);
+    annotateEntityCategoryConfig(siteConfig, annotationsByKey);
+    annotateColumnConfig(siteConfig, annotationsByKey);
+  }
 }
 
 /**
