@@ -15,7 +15,6 @@ const meta: Meta<typeof ChartView> = {
     ),
   ],
   parameters: { layout: "fullscreen" },
-  title: "Components/Entities/EntitiesView/ChartView",
 };
 
 export default meta;

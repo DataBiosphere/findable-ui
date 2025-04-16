@@ -50,7 +50,7 @@ export function getPlotOptions(
         fill: DATA_FIELD.SELECTED,
         rx1: 0,
         rx2: 4,
-        sort: { y: null },
+        sort: { order: "descending", y: "x" },
         x: DATA_FIELD.COUNT,
         y: DATA_FIELD.LABEL,
       }),
