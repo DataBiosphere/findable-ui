@@ -43,7 +43,7 @@ describe("FilterRange", () => {
     });
 
     it("renders filter button", () => {
-      expect(screen.findByText("Filter")).toBeDefined();
+      expect(screen.getByText("Filter")).toBeDefined();
     });
   });
 
