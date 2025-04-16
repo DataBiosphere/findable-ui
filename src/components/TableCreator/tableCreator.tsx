@@ -8,7 +8,7 @@ import React, { useMemo } from "react";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { COLUMN_DEF } from "../Table/common/columnDef";
-import { arrIncludesSome, sortingFn } from "../Table/common/utils";
+import { sortingFn } from "../Table/common/utils";
 import { Table } from "../Table/table";
 import { buildBaseColumnDef } from "./common/utils";
 import { useTableOptions } from "./options/hook";
@@ -45,11 +45,25 @@ export const TableCreator = <T extends RowData>({
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
       columns.reduce(
-        (acc, columnConfig) => {
+        (
+          acc,
+          {
+            /**
+             * Selects `arrIncludesSome` as the default filter function.
+             * Although the type of `ColumnFilter["value"]` is declared as `unknown`, in the context of entity lists,
+             * the filter value is consistently an array.
+             * This facilitates selection of multiple values for filtering, even when the individual cell value is a single string.
+             * The same approach applies to column definitions using "inNumberRange", where the filter value is expected to be an array
+             * representing a range of numbers.
+             */
+            filterFn = "arrIncludesSome",
+            ...columnConfig
+          }
+        ) => {
           acc.push({
             ...buildBaseColumnDef(columnConfig),
             cell: createCell(columnConfig),
-            filterFn: arrIncludesSome,
+            filterFn,
             sortingFn: sortingFn,
           });
           return acc;
