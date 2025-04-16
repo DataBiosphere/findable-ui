@@ -9,6 +9,7 @@ import {
   ToggleButtonGroup,
 } from "@mui/material";
 import React, { Fragment } from "react";
+import { TEST_IDS } from "../../../../tests/testIds";
 import {
   BUTTON_PROPS,
   DIVIDER_PROPS,
@@ -24,7 +25,11 @@ import { FilterRangeProps, RANGE_OPERATOR } from "./types";
 export const FilterRange = ({ className }: FilterRangeProps): JSX.Element => {
   const { onChange, onSubmit, value } = useFilterRange();
   return (
-    <StyledForm className={className} onSubmit={onSubmit}>
+    <StyledForm
+      className={className}
+      data-testid={TEST_IDS.FILTER_RANGE}
+      onSubmit={onSubmit}
+    >
       <ToggleButtonGroup
         {...TOGGLE_BUTTON_GROUP_PROPS}
         onChange={onChange}

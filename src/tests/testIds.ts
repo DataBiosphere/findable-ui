@@ -7,6 +7,7 @@ export const TEST_IDS = {
   FILTER_COUNT: "filter-count",
   FILTER_ITEM: "filter-item",
   FILTER_POPOVER: "filter-popover",
+  FILTER_RANGE: "filter-range",
   FILTER_TERM: "filter-term",
   SEARCH_ALL_FILTERS: "search-all-filters",
   SIDEBAR: "sidebar",
