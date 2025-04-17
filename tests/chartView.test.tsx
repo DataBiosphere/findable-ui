@@ -30,12 +30,14 @@ describe("ChartView", () => {
 
   it("renders chart titles correctly", () => {
     render(<Default />);
-    const titles = screen.getAllByText(
-      new RegExp(
-        `${Default.args.entityName} per Biological Sex|${Default.args.entityName} per Genus Species`
-      )
-    );
-    expect(titles.length).toBe(2);
+    const {
+      args: { entityName },
+    } = Default;
+    ["Biological Sex", "Genus Species"].forEach((category) => {
+      expect(
+        screen.getByText(new RegExp(`${entityName} per ${category}`))
+      ).toBeDefined();
+    });
   });
 
   it("renders charts for each category", () => {
