@@ -9,6 +9,7 @@ import { ChartViewProps } from "./types";
 
 export const ChartView = ({
   categoryFilters,
+  entityName,
   loading,
   testId,
 }: ChartViewProps): JSX.Element | null => {
@@ -27,7 +28,7 @@ export const ChartView = ({
         {selectCategoryViews.map(({ key, label, values }) => (
           <StyledGridPaperSection key={key}>
             <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
-              {label}
+              {entityName} per {label}
             </Typography>
             <Chart selectCategoryValueViews={values} width={width} />
           </StyledGridPaperSection>

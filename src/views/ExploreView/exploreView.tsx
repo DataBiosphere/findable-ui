@@ -53,7 +53,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { explorerTitle, summaryConfig, trackingConfig } = config;
-  const { listView } = entityConfig;
+  const { label, listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
   const { categoryGroups, categoryViews, filterCount, loading } = exploreState;
   const { response: summaryResponse } = useSummary(); // Fetch summary.
@@ -166,7 +166,11 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       <IndexView
         className={props.className}
         chart={
-          <ChartView categoryFilters={categoryFilters} loading={loading} />
+          <ChartView
+            categoryFilters={categoryFilters}
+            entityName={label}
+            loading={loading}
+          />
         }
         list={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}
