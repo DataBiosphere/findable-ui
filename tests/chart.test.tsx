@@ -114,7 +114,7 @@ describe("Chart", () => {
     it("renders bars in descending order of count", () => {
       render(<Default testId={CHART_TEST_ID} />);
       // Order data by count in descending order.
-      const counts = DATA.sort(sortByCount).map(mapCount);
+      const counts = [...DATA].sort(sortByCount).map(mapCount);
       const countTextEls = getEls("text-count", "text");
       // Sort count <text> elements by their transform’s translate‑Y (vertical) value, since they’re rendered in data order.
       const textContents = [...countTextEls]
