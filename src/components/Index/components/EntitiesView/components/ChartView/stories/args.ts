@@ -95,5 +95,6 @@ export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
       ],
     },
   ],
+  entityName: "Projects",
   loading: false,
 };

@@ -28,6 +28,18 @@ describe("ChartView", () => {
     expect(categoryLabels.length).toBe(2);
   });
 
+  it("renders chart titles correctly", () => {
+    render(<Default />);
+    const {
+      args: { entityName },
+    } = Default;
+    ["Biological Sex", "Genus Species"].forEach((category) => {
+      expect(
+        screen.getByText(new RegExp(`${entityName} per ${category}`))
+      ).toBeDefined();
+    });
+  });
+
   it("renders charts for each category", () => {
     render(<Default />);
     const svgEls = document.querySelectorAll("svg");
