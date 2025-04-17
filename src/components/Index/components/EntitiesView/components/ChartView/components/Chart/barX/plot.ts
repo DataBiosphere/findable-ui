@@ -1,7 +1,7 @@
 import * as Plot from "@observablehq/plot";
 import { PlotOptions } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
-import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
+import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
 import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
 import { DATA_FIELD, TEXT_PADDING } from "./constants";
 import {

@@ -1,12 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Tab as MTab, Tabs as MTabs, TabProps } from "@mui/material";
-import { smokeMain } from "../../../../styles/common/mixins/colors";
+import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
 import {
   textBody500,
   textBodySmall400,
 } from "../../../../styles/common/mixins/fonts";
-import { inkMain } from "../../../../theme/common/palette";
 
 interface Props extends TabProps {
   depth: number;

@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
-import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
+import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
 import { Chart } from "../chart";
 import { CHART_ARGS, SELECT_CHART_ARGS } from "./args";
 

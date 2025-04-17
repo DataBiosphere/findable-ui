@@ -1,16 +1,9 @@
 import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
+import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
-import {
-  alpha32,
-  alpha60,
-  alpha64,
-  alpha80,
-  black04,
-  black08,
-  white,
-} from "./palette";
 import { strokeBottom, strokeTop } from "./shadows";
 import {
   TEXT_BODY_400,
@@ -92,27 +85,24 @@ export const MuiAppBar: Components["MuiAppBar"] = {
   },
   styleOverrides: {
     colorDefault: {
-      backgroundColor: white,
+      backgroundColor: PALETTE.COMMON_WHITE,
     },
   },
 };
 
 /**
  * MuiBackdrop Component
- * @param theme - Theme.
  * @returns MuiBackdrop component theme styles.
  */
-export const MuiBackdrop = (theme: Theme): Components["MuiBackdrop"] => {
-  return {
-    styleOverrides: {
-      invisible: {
-        backgroundColor: "transparent",
-      },
-      root: {
-        backgroundColor: `${theme.palette.ink.main}${alpha80}`,
-      },
+export const MuiBackdrop: Components["MuiBackdrop"] = {
+  styleOverrides: {
+    invisible: {
+      backgroundColor: "transparent",
     },
-  };
+    root: {
+      backgroundColor: COLOR_MIXES.INK_MAIN_80,
+    },
+  },
 };
 
 /**
@@ -184,17 +174,17 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
       },
       containedSecondary: {
         backgroundColor: theme.palette.common.white,
-        boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${black08}`,
+        boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
         color: theme.palette.ink.main,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-focusVisible": {
           backgroundColor: theme.palette.common.white,
-          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${black08}`,
+          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:hover": {
           backgroundColor: theme.palette.smoke.lightest,
-          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${black08}`,
+          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:active": {
@@ -203,7 +193,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         },
         "&:disabled": {
           backgroundColor: theme.palette.common.white,
-          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${black08}`,
+          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
           color: theme.palette.ink.main,
           opacity: 0.5,
         },
@@ -214,19 +204,19 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
       outlinedSecondary: {
         backgroundColor: "transparent",
         border: "none",
-        boxShadow: `inset 0 0 0 1px ${theme.palette.ink.main}${alpha32}`,
+        boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_32}`,
         color: theme.palette.ink.main,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:hover": {
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: `inset 0 0 0 1px ${theme.palette.ink.main}${alpha64}`,
+          boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_64}`,
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:disabled": {
           backgroundColor: "transparent",
           border: "none",
-          boxShadow: `inset 0 0 0 1px ${theme.palette.ink.main}${alpha32}`,
+          boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_32}`,
           color: theme.palette.ink.main,
           opacity: 0.5,
         },
@@ -490,7 +480,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         style: {
           ...theme.typography[TEXT_BODY_SMALL_400],
           backgroundColor: theme.palette.smoke.main,
-          boxShadow: `0 0 0 2px ${white}`,
+          boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 24,
           justifySelf: FLEX_START,
           minWidth: 0,
@@ -500,7 +490,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         props: { variant: "status" },
         style: {
           ...theme.typography[TEXT_BODY_SMALL_500],
-          boxShadow: `0 0 0 2px ${white}`,
+          boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 20,
           maxWidth: "fit-content",
           minWidth: 0,
@@ -597,7 +587,7 @@ export const MuiDialog = (theme: Theme): Components["MuiDialog"] => {
       root: {
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "& .MuiBackdrop-root": {
-          backgroundColor: `${theme.palette.ink.main}${alpha60}`,
+          backgroundColor: COLOR_MIXES.INK_MAIN_60,
         },
       },
     },
@@ -771,7 +761,7 @@ export const MuiIconButton = (theme: Theme): Components["MuiIconButton"] => {
       },
       colorSecondary: {
         backgroundColor: theme.palette.common.white,
-        boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${black08}`,
+        boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
         color: theme.palette.ink.main,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-disabled": {
@@ -1019,8 +1009,8 @@ export const MuiOutlinedInput = (
         borderColor: theme.palette.smoke.dark,
       },
       root: {
-        backgroundColor: white,
-        boxShadow: `inset 0 2px 0 0 ${black04}`,
+        backgroundColor: PALETTE.COMMON_WHITE,
+        boxShadow: `inset 0 2px 0 0 ${COLOR_MIXES.COMMON_BLACK_04}`,
         paddingLeft: 12,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "& .MuiSvgIcon-root": {
@@ -1424,10 +1414,10 @@ export const MuiToggleButton = (
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-selected": {
-          backgroundColor: white,
+          backgroundColor: PALETTE.COMMON_WHITE,
           // eslint-disable-next-line sort-keys -- disabling key order for readability
           "&:hover": {
-            backgroundColor: white,
+            backgroundColor: PALETTE.COMMON_WHITE,
           },
         },
       },

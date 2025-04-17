@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Paper, PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { LOADING_PANEL_STYLE, LoadingPanelStyle } from "./loading";
@@ -26,7 +27,7 @@ export const LoadingPositioner = styled.div<Props>`
 `;
 
 export const LoadingPaper = styled(Paper)<Props>`
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: ${COLOR_MIXES.COMMON_WHITE_80};
   display: grid;
   gap: 16px;
   justify-items: center;
