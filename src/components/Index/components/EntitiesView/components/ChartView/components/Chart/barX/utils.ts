@@ -170,7 +170,7 @@ export function isAnyValueSelected(data: SelectCategoryValueView[]): boolean {
  * @param translate - The transform `translate` string.
  * @returns A tuple of the x and y coordinates.
  */
-function parseTranslate(translate: string | null): [number, number] {
+export function parseTranslate(translate: string | null): [number, number] {
   const match = translate?.match(/translate\(\s*([-\d.]+)[,\s]+([-\d.]+)\s*\)/);
   let tx = 0;
   let ty = 0;
