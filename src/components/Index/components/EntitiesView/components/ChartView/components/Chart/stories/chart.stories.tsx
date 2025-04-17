@@ -15,7 +15,6 @@ const meta: Meta<typeof Chart> = {
       </Box>
     ),
   ],
-  title: "Components/Entities/EntitiesView/ChartView/Chart",
 };
 
 export default meta;
