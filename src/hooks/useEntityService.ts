@@ -4,7 +4,7 @@ import { createEntityService } from "../entity/service/factory";
 import { ENTITY_SERVICE_TYPE, EntityService } from "../entity/service/model";
 import { useCatalog } from "./useCatalog";
 import { useConfig } from "./useConfig";
-import { EXPLORE_MODE } from "./useExploreMode";
+import { EXPLORE_MODE } from "./useExploreMode/types";
 import { useExploreState } from "./useExploreState";
 
 interface FetcherResponse<T, I> extends EntityService {

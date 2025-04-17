@@ -27,7 +27,7 @@ import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
 } from "../../hooks/useBreakpointHelper";
-import { useExploreMode } from "../../hooks/useExploreMode";
+import { useExploreMode } from "../../hooks/useExploreMode/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useScroll } from "../../hooks/useScroll";
 import { ExploreActionKind } from "../../providers/exploreState";

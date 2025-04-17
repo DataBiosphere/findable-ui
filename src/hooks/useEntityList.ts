@@ -17,7 +17,8 @@ import { useToken } from "./authentication/token/useToken";
 import { useAsync } from "./useAsync";
 import { useConfig } from "./useConfig";
 import { useEntityService } from "./useEntityService";
-import { EXPLORE_MODE, ExploreMode, useExploreMode } from "./useExploreMode";
+import { EXPLORE_MODE, ExploreMode } from "./useExploreMode/types";
+import { useExploreMode } from "./useExploreMode/useExploreMode";
 import { useExploreState } from "./useExploreState";
 import { useURLFilterParams } from "./useURLFilterParams";
 

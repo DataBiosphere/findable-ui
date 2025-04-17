@@ -1,13 +1,6 @@
 import { useMemo } from "react";
-import { useConfig } from "./useConfig";
-
-export type ExploreMode = EXPLORE_MODE;
-
-export enum EXPLORE_MODE {
-  CS_FETCH_CS_FILTERING = "CS_FETCH_CS_FILTERING",
-  SS_FETCH_CS_FILTERING = "SS_FETCH_CS_FILTERING",
-  SS_FETCH_SS_FILTERING = "SS_FETCH_SS_FILTERING",
-}
+import { useConfig } from "../useConfig";
+import { ExploreMode } from "./types";
 
 /**
  * Returns configured explore mode:
