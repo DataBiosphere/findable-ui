@@ -3,10 +3,10 @@ import { ErrorIcon } from "../../components/common/CustomIcon/components/ErrorIc
 import { InfoIcon } from "../../components/common/CustomIcon/components/InfoIcon/infoIcon";
 import { SuccessIcon } from "../../components/common/CustomIcon/components/SuccessIcon/successIcon";
 import { WarningIcon } from "../../components/common/CustomIcon/components/WarningIcon/warningIcon";
+import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { SIZE } from "../../styles/common/constants/size";
 import { COLOR, SEVERITY, VARIANT } from "../../styles/common/mui/alert";
 import { FONT_SIZE } from "../../styles/common/mui/icon";
-import { alpha32 } from "../common/palette";
 import { TEXT_BODY_500 } from "../common/typography";
 
 export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
@@ -42,7 +42,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
             props: { severity: SEVERITY.ERROR },
             style: {
               backgroundColor: theme.palette.alert.lightest,
-              border: `1px solid ${theme.palette.alert.main}${alpha32}`,
+              border: `1px solid ${COLOR_MIXES.ALERT_MAIN_32}`,
               // eslint-disable-next-line sort-keys -- disabling key order for readability
               "& .MuiAlert-icon": {
                 color: theme.palette.alert.main,
@@ -53,7 +53,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
             props: { severity: SEVERITY.INFO },
             style: {
               backgroundColor: theme.palette.info.lightest,
-              border: `1px solid ${theme.palette.info.main}${alpha32}`,
+              border: `1px solid ${COLOR_MIXES.INFO_MAIN_32}`,
               // eslint-disable-next-line sort-keys -- disabling key order for readability
               "& .MuiAlert-icon": {
                 color: theme.palette.info.main,
@@ -64,7 +64,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
             props: { severity: SEVERITY.SUCCESS },
             style: {
               backgroundColor: theme.palette.success.lightest,
-              border: `1px solid ${theme.palette.success.main}${alpha32}`,
+              border: `1px solid ${COLOR_MIXES.SUCCESS_MAIN_32}`,
               // eslint-disable-next-line sort-keys -- disabling key order for readability
               "& .MuiAlert-icon": {
                 color: theme.palette.success.main,
@@ -75,7 +75,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
             props: { severity: SEVERITY.WARNING },
             style: {
               backgroundColor: theme.palette.warning.lightest,
-              border: `1px solid ${theme.palette.warning.main}${alpha32}`,
+              border: `1px solid ${COLOR_MIXES.WARNING_MAIN_32}`,
               // eslint-disable-next-line sort-keys -- disabling key order for readability
               "& .MuiAlert-icon": {
                 color: theme.palette.warning.main,

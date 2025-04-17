@@ -6,7 +6,7 @@ import {
   ScaleFunctions,
 } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
-import { PALETTE } from "../../../../../../../../../styles/common/mui/palette";
+import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
 import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING, TICKS } from "./constants";
 
 /**

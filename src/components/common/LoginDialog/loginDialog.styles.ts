@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { Dialog } from "@mui/material";
-import { inkMain } from "../../../styles/common/mixins/colors";
-import { alpha80 } from "../../../theme/common/palette";
+import { COLOR_MIXES } from "../../../styles/common/constants/colorMixes";
 
 export const StyledDialog = styled(Dialog)`
   &.MuiDialog-root {
     .MuiBackdrop-root {
-      background-color: ${inkMain}${alpha80};
+      background-color: ${COLOR_MIXES.INK_MAIN_80};
     }
 
     .MuiDialog-paper {

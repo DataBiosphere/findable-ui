@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { TextField } from "@mui/material";
-import { inkMain } from "../../../../styles/common/mixins/colors";
-import { inkLight } from "../../../../theme/common/palette";
+import { inkLight, inkMain } from "../../../../styles/common/mixins/colors";
 
 export const InputField = styled(TextField)`
   && {
