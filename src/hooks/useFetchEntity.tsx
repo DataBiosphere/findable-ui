@@ -5,7 +5,8 @@ import { EntityDetailViewProps } from "../views/EntityDetailView/entityDetailVie
 import { useToken } from "./authentication/token/useToken";
 import { useAsync } from "./useAsync";
 import { useEntityService } from "./useEntityService";
-import { EXPLORE_MODE, useExploreMode } from "./useExploreMode";
+import { EXPLORE_MODE } from "./useExploreMode/types";
+import { useExploreMode } from "./useExploreMode/useExploreMode";
 import { useExploreState } from "./useExploreState";
 
 interface UseEntityDetailResponse<T> {

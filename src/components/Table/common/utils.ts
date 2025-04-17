@@ -10,7 +10,7 @@ import {
   Table,
 } from "@tanstack/react-table";
 import { SelectCategory } from "../../../common/entities";
-import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode";
+import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode/types";
 import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 
 /**

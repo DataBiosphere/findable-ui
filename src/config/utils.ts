@@ -1,4 +1,4 @@
-import { EXPLORE_MODE } from "../hooks/useExploreMode";
+import { EXPLORE_MODE } from "../hooks/useExploreMode/types";
 import { getConfig } from "./config";
 import { EntityConfig, SiteConfig } from "./entities";
 
