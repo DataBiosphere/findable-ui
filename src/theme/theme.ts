@@ -1,4 +1,4 @@
-import { createTheme, Shadows, Theme, ThemeOptions } from "@mui/material";
+import { createTheme, Theme, ThemeOptions } from "@mui/material";
 import { deepmerge } from "@mui/utils";
 import * as B from "./common/breakpoints";
 import * as C from "./common/components";
@@ -42,6 +42,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
           text: P.text,
           warning: P.warning,
         },
+        shadows,
         spacing: 4,
         typography: {
           [T.TEXT_BODY_400]: T.textBody400,
@@ -67,11 +68,6 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
     )
   );
 
-  // Default shadow overrides.
-  theme.shadows = [...theme.shadows].map(
-    (shadow, s) => shadows[s] || shadow
-  ) as Shadows;
-
   // Theme components.
   theme.components = {
     MuiAccordion: C.MuiAccordion(theme),
@@ -90,7 +86,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
     MuiChip: C.MuiChip(theme),
     MuiCircularProgress: C.MuiCircularProgress(theme),
     MuiCssBaseline: C.MuiCssBaseline(theme),
-    MuiDialog: C.MuiDialog(theme),
+    MuiDialog: C.MuiDialog,
     MuiDialogActions: C.MuiDialogActions,
     MuiDialogContent: C.MuiDialogContent(theme),
     MuiDialogTitle: C.MuiDialogTitle(theme),
