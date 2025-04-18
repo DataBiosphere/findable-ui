@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
+import { SHADOWS } from "../../../../styles/common/constants/shadows";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
 import {
   primaryDark,
   primaryMain,
   white,
 } from "../../../../styles/common/mixins/colors";
-import { shadows02 } from "../../../../styles/common/mixins/shadows";
 
 export const Fab = styled("a")`
   align-items: center;
@@ -13,7 +13,7 @@ export const Fab = styled("a")`
   border: none;
   border-radius: 50%;
   bottom: 16px;
-  box-shadow: ${shadows02};
+  box-shadow: ${SHADOWS["02"]};
   color: ${white};
   cursor: pointer;
   display: flex;

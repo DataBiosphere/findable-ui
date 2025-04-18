@@ -2,9 +2,9 @@ import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { PALETTE } from "../../styles/common/constants/palette";
+import { SHADOWS } from "../../styles/common/constants/shadows";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
-import { strokeBottom, strokeTop } from "./shadows";
 import {
   TEXT_BODY_400,
   TEXT_BODY_400_2_LINES,
@@ -33,13 +33,13 @@ export const MuiAccordion = (theme: Theme): Components["MuiAccordion"] => {
     styleOverrides: {
       root: {
         backgroundColor: "transparent",
-        boxShadow: `${strokeTop} ${theme.palette.smoke.main}, ${strokeBottom} ${theme.palette.smoke.main}`,
+        boxShadow: `inset 0 1px 0 0 ${theme.palette.smoke.main}, inset 0 -1px 0 0 ${theme.palette.smoke.main}`,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:before": {
           display: "none",
         },
         "&:nth-of-type(n+2)": {
-          boxShadow: `${strokeBottom} ${theme.palette.smoke.main}`,
+          boxShadow: `inset 0 -1px 0 0 ${theme.palette.smoke.main}`,
         },
       },
     },
@@ -578,20 +578,18 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
  * @param theme - Theme.
  * @returns MuiDialog component theme styles.
  */
-export const MuiDialog = (theme: Theme): Components["MuiDialog"] => {
-  return {
-    styleOverrides: {
-      paper: {
-        boxShadow: theme.shadows[2], // elevation02
-      },
-      root: {
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiBackdrop-root": {
-          backgroundColor: COLOR_MIXES.INK_MAIN_60,
-        },
+export const MuiDialog: Components["MuiDialog"] = {
+  styleOverrides: {
+    paper: {
+      boxShadow: SHADOWS["02"],
+    },
+    root: {
+      // eslint-disable-next-line sort-keys -- disabling key order for readability
+      "& .MuiBackdrop-root": {
+        backgroundColor: COLOR_MIXES.INK_MAIN_60,
       },
     },
-  };
+  },
 };
 
 /**
@@ -1065,20 +1063,20 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
       {
         props: { elevation: 1 },
         style: {
-          boxShadow: theme.shadows[1], // elevation01
+          boxShadow: SHADOWS["01"],
         },
       },
       {
         props: { elevation: 2 },
         style: {
-          boxShadow: theme.shadows[2], // elevation02
+          boxShadow: SHADOWS["02"],
         },
       },
       {
         props: { variant: "footer" },
         style: {
           backgroundColor: theme.palette.smoke.light,
-          boxShadow: `${strokeTop} ${theme.palette.smoke.main}, ${strokeBottom} ${theme.palette.smoke.main}`,
+          boxShadow: `inset 0 1px 0 0 ${theme.palette.smoke.main}, inset 0 -1px 0 0 ${theme.palette.smoke.main}`,
         },
       },
       {
@@ -1088,7 +1086,7 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
           borderRadius: 8,
           borderStyle: "solid",
           borderWidth: 1,
-          boxShadow: theme.shadows[2], // elevation02
+          boxShadow: SHADOWS["02"],
         },
       },
       {
@@ -1097,7 +1095,7 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
           borderColor: theme.palette.smoke.main,
           borderStyle: "solid",
           borderWidth: 1,
-          boxShadow: theme.shadows[1], // elevation01
+          boxShadow: SHADOWS["01"],
         },
       },
       {
@@ -1108,7 +1106,7 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
           borderRadius: 0,
           borderStyle: "solid",
           borderWidth: "0 0 1px 0",
-          boxShadow: theme.shadows[1], // elevation01,
+          boxShadow: SHADOWS["01"],
           // eslint-disable-next-line sort-keys -- disabling key order for readability
           "&.MuiDialog-paper": {
             marginLeft: 0,
@@ -1124,7 +1122,7 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
           borderColor: theme.palette.smoke.main,
           borderStyle: "solid",
           borderWidth: 1,
-          boxShadow: theme.shadows[1], // elevation01
+          boxShadow: SHADOWS["01"],
         },
       },
     ],
@@ -1374,7 +1372,7 @@ export const MuiTabs = (theme: Theme): Components["MuiTabs"] => {
         height: 3,
       },
       root: {
-        boxShadow: `${strokeBottom} ${theme.palette.smoke.main}`,
+        boxShadow: `inset 0 -1px 0 0 ${theme.palette.smoke.main}`,
         minHeight: "unset",
         position: "relative", // Positions scroll fuzz.
       },
@@ -1495,7 +1493,7 @@ export const MuiTooltip = (theme: Theme): Components["MuiTooltip"] => {
       tooltip: {
         ...theme.typography[TEXT_BODY_SMALL_400],
         backgroundColor: theme.palette.ink.main,
-        boxShadow: theme.shadows[2], // elevation02
+        boxShadow: SHADOWS["02"],
         boxSizing: "content-box",
         padding: "8px 12px",
       },
