@@ -9,15 +9,16 @@ import {
   SectionActions,
   SectionContent,
 } from "../../../common/Section/section.styles";
+import { TrackingProps } from "../../../types";
 import { ExportButton, SectionFootnote } from "./exportMethod.styles";
-export interface ExportMethodProps {
+
+export interface ExportMethodProps extends TrackingProps {
   buttonLabel: string;
   description: ReactNode;
   footnote?: ReactNode;
   isAccessible?: boolean;
   route: string;
   title: string;
-  trackingId?: string;
 }
 
 export const ExportMethod = ({
