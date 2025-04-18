@@ -8,7 +8,7 @@ import React, { useMemo } from "react";
 import { ColumnConfig, ListViewConfig } from "../../config/entities";
 import { ComponentCreator } from "../ComponentCreator/ComponentCreator";
 import { COLUMN_DEF } from "../Table/common/columnDef";
-import { arrIncludesSome, sortingFn } from "../Table/common/utils";
+import { sortingFn } from "../Table/common/utils";
 import { Table } from "../Table/table";
 import { buildBaseColumnDef } from "./common/utils";
 import { useTableOptions } from "./options/hook";
@@ -45,11 +45,25 @@ export const TableCreator = <T extends RowData>({
   const columnDefs: ColumnDef<T>[] = useMemo(
     () =>
       columns.reduce(
-        (acc, columnConfig) => {
+        (
+          acc,
+          {
+            /**
+             * Applies the custom `arrIncludesSome` filter function as the default for multi-value filtering.
+             * Although `ColumnFilter["value"]` is typed as `unknown`, in practice it's consistently an array (`unknown[]`) in entity lists.
+             * This custom filter function supports multi-select filtering, even when individual cell values are single strings.
+             * This override of TanStack's default `arrIncludesSome` resolves a limitation where the base implementation
+             * does not support matching an array of filter values against a single string cell value.
+             * For range filtering, specify TanStack's `inNumberRange` filter function on the column definition.
+             */
+            filterFn = "arrIncludesSome",
+            ...columnConfig
+          }
+        ) => {
           acc.push({
             ...buildBaseColumnDef(columnConfig),
             cell: createCell(columnConfig),
-            filterFn: arrIncludesSome,
+            filterFn,
             sortingFn: sortingFn,
           });
           return acc;

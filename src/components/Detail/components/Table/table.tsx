@@ -17,6 +17,7 @@ import {
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
 import { TABLET } from "../../../../theme/common/breakpoints";
+import { arrIncludesSome } from "../../../Table/columnDef/columnFilters/filterFn";
 import { COLUMN_DEF } from "../../../Table/common/columnDef";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
 import { TableHead } from "../../../Table/components/TableHead/tableHead";
@@ -65,6 +66,7 @@ export const Table = <T extends RowData>({
     ]),
     data: items,
     enableSorting: false,
+    filterFns: { arrIncludesSome },
     getCoreRowModel: getCoreRowModel(),
     ...tableOptions,
   });

@@ -8,6 +8,7 @@ import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_POSITION: {
     cell: RowPositionCell,
+    enableColumnFilter: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
@@ -22,6 +23,7 @@ export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   },
   ROW_SELECTION: {
     cell: RowSelectionCell,
+    enableColumnFilter: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
