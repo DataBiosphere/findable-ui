@@ -1,4 +1,4 @@
 import { ButtonProps } from "@mui/material";
-import { BaseComponentProps } from "../../../../theme/common/entities";
+import { BaseComponentProps } from "../../../types";
 
 export type Props = BaseComponentProps & ButtonProps;
