@@ -12,6 +12,10 @@ export interface ContentProps {
   content?: ReactNode;
 }
 
+export interface TrackingProps {
+  trackingId?: string;
+}
+
 export interface TestIdProps {
   testId?: string;
 }
