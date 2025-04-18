@@ -34,7 +34,7 @@ export const COLUMN_FILTERS_STATE: Record<string, ColumnFiltersState> = {
       id: "studyName",
       value: [
         DEFAULT_DATA.STUDY_NAME.CORONARY_ARTERY_DISEASE_STUDY,
-        DEFAULT_DATA.STUDY_NAME.EPIGENETIC_STUDY,
+        DEFAULT_DATA.STUDY_NAME.MYOCARDIAL_INFARCTION_STUDY,
       ],
     },
   ],

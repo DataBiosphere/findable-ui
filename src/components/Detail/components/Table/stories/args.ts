@@ -22,6 +22,7 @@ export const DEFAULT_DATA = {
     EPILEPSY_STUDY: "Epilepsy Study",
     GENOMIC_STUDY: "Genomic Study",
     MYOCARDIAL_INFARCTION_STUDY: "Myocardial Infarction Study",
+    MYOCARDIAL_INFARCTION_STUDY_X: "Myocardial Infarction Study X",
   },
 };
 
@@ -92,6 +93,12 @@ export const DEFAULT_TABLE_ARGS: ComponentProps<typeof Table> = {
       disease: DEFAULT_DATA.DISEASES.EPIGENETIC_VARIATION,
       participantCount: 1,
       studyName: DEFAULT_DATA.STUDY_NAME.EPIGENETIC_STUDY,
+    },
+    {
+      dataType: [DEFAULT_DATA.DATA_TYPES.WHOLE_GENOME],
+      disease: DEFAULT_DATA.DISEASES.MYOCARDIAL_INFARCTION,
+      participantCount: 1000,
+      studyName: DEFAULT_DATA.STUDY_NAME.MYOCARDIAL_INFARCTION_STUDY_X,
     },
   ],
 };

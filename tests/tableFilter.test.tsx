@@ -33,7 +33,10 @@ describe("Table - Filtering", () => {
       rows.forEach((row) => {
         const cell = row.querySelectorAll("td")[COLUMN_INDEX.STRING];
         const text = cell.textContent;
-        expect(text).toMatch(/Coronary Artery Disease Study|Epigenetic Study/);
+        expect(text).toMatch(
+          /Coronary Artery Disease Study|Myocardial Infarction Study/
+        );
+        expect(text).not.toMatch(/Myocardial Infarction Study X/);
       });
     });
 
@@ -65,7 +68,7 @@ describe("Table - Filtering", () => {
     test("FilterByRangeGreaterThanValue shows rows matching filters greater than a number value", () => {
       const { container } = render(<FilterByRangeGreaterThanValue />);
       const rows = container.querySelectorAll("tbody tr");
-      expect(rows).toHaveLength(3);
+      expect(rows).toHaveLength(4);
       rows.forEach((row) => {
         const cell = row.querySelectorAll("td")[COLUMN_INDEX.NUMBER];
         const value = Number(cell.textContent);

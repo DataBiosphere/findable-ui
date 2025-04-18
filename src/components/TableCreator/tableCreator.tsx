@@ -49,12 +49,12 @@ export const TableCreator = <T extends RowData>({
           acc,
           {
             /**
-             * Selects `arrIncludesSome` as the default filter function.
-             * Although the type of `ColumnFilter["value"]` is declared as `unknown`, in the context of entity lists,
-             * the filter value is consistently an array.
-             * This facilitates selection of multiple values for filtering, even when the individual cell value is a single string.
-             * The same approach applies to column definitions using "inNumberRange", where the filter value is expected to be an array
-             * representing a range of numbers.
+             * Applies the custom `arrIncludesSome` filter function as the default for multi-value filtering.
+             * Although `ColumnFilter["value"]` is typed as `unknown`, in practice it's consistently an array (`unknown[]`) in entity lists.
+             * This custom filter function supports multi-select filtering, even when individual cell values are single strings.
+             * This override of TanStack's default `arrIncludesSome` resolves a limitation where the base implementation
+             * does not support matching an array of filter values against a single string cell value.
+             * For range filtering, specify TanStack's `inNumberRange` filter function on the column definition.
              */
             filterFn = "arrIncludesSome",
             ...columnConfig

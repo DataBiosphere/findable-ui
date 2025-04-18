@@ -36,6 +36,7 @@ import { TABLET } from "../../theme/common/breakpoints";
 import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
+import { arrIncludesSome } from "./columnDef/columnFilters/filterFn";
 import { ROW_DIRECTION } from "./common/entities";
 import {
   buildCategoryViews,
@@ -168,6 +169,7 @@ TableProps<T>): JSX.Element => {
     enableColumnFilters: true, // client-side filtering.
     enableFilters: true, // client-side filtering.
     enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
+    filterFns: { arrIncludesSome },
     getCoreRowModel: getCoreRowModel(),
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
