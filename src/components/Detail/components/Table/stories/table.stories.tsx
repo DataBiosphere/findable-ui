@@ -4,7 +4,7 @@ import { CONTROL_TYPE } from "../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../storybook/controls/utils";
 import { Table } from "../table";
 import { DEFAULT_TABLE_ARGS } from "./args";
-import { BOOLEAN_CONTROLS, DISABLED_CONTROLS } from "./contants";
+import { BOOLEAN_CONTROLS, DISABLED_CONTROLS } from "./constants";
 
 const meta: Meta<typeof Table> = {
   argTypes: {
