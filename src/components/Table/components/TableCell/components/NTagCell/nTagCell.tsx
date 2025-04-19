@@ -4,7 +4,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { forwardRef } from "react";
-import { TEXT_BODY_SMALL_400 } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";
 import { NTag } from "./components/NTag/nTag";
 
@@ -49,7 +49,10 @@ export const NTagCell = ({
         <NTag
           Tag={<Tag label={`${metadataCount} ${label}`} variant="ntag" />}
           TooltipTitle={
-            <Typography display="block" variant={TEXT_BODY_SMALL_400}>
+            <Typography
+              display="block"
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+            >
               {stringifyMetadataValues(values)}
             </Typography>
           }

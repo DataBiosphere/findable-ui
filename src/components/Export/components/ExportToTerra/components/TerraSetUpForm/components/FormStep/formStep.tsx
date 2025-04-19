@@ -1,9 +1,6 @@
 import { StepIcon, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
-import {
-  TEXT_BODY_400_2_LINES,
-  TEXT_BODY_500,
-} from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { FormStatusCompletedIcon } from "../../../../../../../common/CustomIcon/components/FormStatusCompletedIcon/formStatusCompletedIcon";
 import {
   Section,
@@ -44,7 +41,7 @@ export const FormStep = ({
         <Typography
           color={active ? "ink.main" : "ink.light"}
           component="h4"
-          variant={TEXT_BODY_500}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}
         >
           {title}
         </Typography>
@@ -52,7 +49,7 @@ export const FormStep = ({
           <Typography
             color="ink.light"
             component="div"
-            variant={TEXT_BODY_400_2_LINES}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
           >
             {text}
           </Typography>
