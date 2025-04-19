@@ -1,6 +1,7 @@
 import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
+import { CSS } from "../../styles/common/constants/css";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
@@ -299,7 +300,7 @@ export const MuiButtonBase: Components["MuiButtonBase"] = {
   styleOverrides: {
     root: {
       flex: "none",
-      fontFamily: `var(--mui-css-fontFamily)`,
+      fontFamily: CSS.FONT_FAMILY,
     },
   },
 };
@@ -531,7 +532,7 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
         },
       },
       body: {
-        fontFamily: `var(--mui-css-fontFamily)`,
+        fontFamily: CSS.FONT_FAMILY,
       },
       code: {
         font: FONT.BODY_400_2_LINES,
