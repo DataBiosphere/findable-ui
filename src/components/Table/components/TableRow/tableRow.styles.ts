@@ -2,10 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { TableRow as MTableRow } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
-import {
-  primaryLightest,
-  smokeLightest,
-} from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 interface Props {
   isGrouped?: boolean;
@@ -18,10 +15,10 @@ export const TableRow = styled(MTableRow, {
   && {
     transition: background-color 300ms ease-in;
 
-    ${(props) =>
-      props.isGrouped &&
+    ${({ isGrouped }) =>
+      isGrouped &&
       css`
-        background-color: ${smokeLightest(props)};
+        background-color: ${PALETTE.SMOKE_LIGHTEST};
 
         td {
           background-color: inherit;
@@ -30,10 +27,10 @@ export const TableRow = styled(MTableRow, {
         }
       `}
 
-    ${(props) =>
-      props.isPreview &&
+    ${({ isPreview }) =>
+      isPreview &&
       css`
-        background-color: ${primaryLightest(props)};
+        background-color: ${PALETTE.PRIMARY_LIGHTEST};
       `}
   }
 `;

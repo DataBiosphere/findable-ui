@@ -1,15 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import {
-  alertLightest,
-  alertMain,
-  infoLightest,
-  infoMain,
-  successLightest,
-  successMain,
-  warningLightest,
-  warningMain,
-} from "../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { ICON_BADGE_COLOR, IconBadgeColor } from "./iconBadge";
 
 interface Props {
@@ -25,34 +16,34 @@ export const Circle = styled.div<Props>`
   width: 72px;
 
   // Alert.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.ALERT &&
     css`
-      background-color: ${alertLightest(props)};
-      color: ${alertMain(props)};
+      background-color: ${PALETTE.ALERT_LIGHTEST};
+      color: ${PALETTE.ALERT_MAIN};
     `};
 
   // Info.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.INFO &&
     css`
-      background-color: ${infoLightest(props)};
-      color: ${infoMain(props)};
+      background-color: ${PALETTE.INFO_LIGHTEST};
+      color: ${PALETTE.INFO_MAIN};
     `};
 
   // Success.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.SUCCESS &&
     css`
-      background-color: ${successLightest(props)};
-      color: ${successMain(props)};
+      background-color: ${PALETTE.SUCCESS_LIGHTEST};
+      color: ${PALETTE.SUCCESS_MAIN};
     `};
 
   // Warning.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.WARNING &&
     css`
-      background-color: ${warningLightest(props)};
-      color: ${warningMain(props)};
+      background-color: ${PALETTE.WARNING_LIGHTEST};
+      color: ${PALETTE.WARNING_MAIN};
     `};
 `;

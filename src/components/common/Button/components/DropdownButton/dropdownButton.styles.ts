@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { smokeLightest } from "../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../styles/common/constants/palette";
 import { ButtonSecondary } from "../ButtonSecondary/buttonSecondary";
 
 interface Props {
@@ -17,9 +17,9 @@ export const DropdownButton = styled(ButtonSecondary, {
     margin-left: -6px;
   }
 
-  ${({ open, ...props }) =>
+  ${({ open }) =>
     open &&
     css`
-      background-color: ${smokeLightest(props)};
+      background-color: ${PALETTE.SMOKE_LIGHTEST};
     `}
 `;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { white } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { FluidPaper } from "../../../common/Paper/paper.styles";
 
 export const StyledFluidPaper = styled(FluidPaper)`
@@ -7,7 +7,7 @@ export const StyledFluidPaper = styled(FluidPaper)`
     position: relative; /* required; positions table loading indicator */
 
     .MuiToolbar-root {
-      background-color: ${white};
+      background-color: ${PALETTE.COMMON_WHITE};
       padding: 20px;
 
       .MuiToggleButtonGroup-root {
