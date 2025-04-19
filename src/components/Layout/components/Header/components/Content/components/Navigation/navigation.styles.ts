@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { textBody500 } from "../../../../../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../../../../../styles/common/constants/font";
 
 interface Props {
   isMenuIn: boolean;
@@ -22,7 +22,7 @@ export const Navigation = styled("div")<Props>`
 
   .MuiButton-activeNav,
   .MuiButton-nav {
-    ${textBody500};
+    font: ${FONT.BODY_500};
     padding: 6px 12px;
 
     .MuiButton-endIcon {

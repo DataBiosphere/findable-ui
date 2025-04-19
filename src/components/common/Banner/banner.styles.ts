@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Alert } from "@mui/material";
+import { FONT } from "../../../styles/common/constants/font";
 import { mediaDesktopUp } from "../../../styles/common/mixins/breakpoints";
-import { textBodySmall400 } from "../../../styles/common/mixins/fonts";
 
 export const StyledAlert = styled(Alert)`
   justify-content: center;
@@ -9,9 +9,9 @@ export const StyledAlert = styled(Alert)`
   text-align: center;
 
   .MuiAlert-message {
-    ${textBodySmall400};
     align-self: center;
     flex: 1;
+    font: ${FONT.BODY_SMALL_400};
 
     .MuiLink-root {
       color: inherit;

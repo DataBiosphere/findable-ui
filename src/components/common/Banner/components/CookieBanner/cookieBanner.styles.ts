@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Alert } from "@mui/material";
+import { FONT } from "../../../../../styles/common/constants/font";
 import { mediaTabletUp } from "../../../../../styles/common/mixins/breakpoints";
-import { textBody400 } from "../../../../../styles/common/mixins/fonts";
 
 export const StyledAlert = styled(Alert)`
   bottom: 0;
@@ -14,7 +14,7 @@ export const StyledAlert = styled(Alert)`
   z-index: 1100; // Above support fab, below support form.
 
   .MuiAlert-message {
-    ${textBody400};
+    font: ${FONT.BODY_400};
   }
 
   .MuiAlert-action {

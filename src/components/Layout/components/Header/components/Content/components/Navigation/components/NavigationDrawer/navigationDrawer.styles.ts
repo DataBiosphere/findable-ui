@@ -1,22 +1,19 @@
 import styled from "@emotion/styled";
 import { Dialog as MDialog } from "@mui/material";
+import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import { inkLight } from "../../../../../../../../../../styles/common/mixins/colors";
-import {
-  textBody400,
-  textUppercase500,
-} from "../../../../../../../../../../styles/common/mixins/fonts";
 import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 
 export const Dialog = styled(MDialog)`
   + .MuiDialog-root {
     .MuiButton-activeNav,
     .MuiButton-nav {
-      ${textBody400};
+      font: ${FONT.BODY_400};
       padding: 6px 48px;
 
       &.Mui-disabled {
-        ${textUppercase500};
         color: ${inkLight};
+        font: ${FONT.UPPERCASE_500};
         margin-top: 20px;
         opacity: 1;
       }
