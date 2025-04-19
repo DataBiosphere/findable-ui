@@ -47,7 +47,7 @@ export const Button = styled(ButtonBase, {
       border: 1px dashed ${errorMain({ theme })};
     `};
 
-  .MuiTypography-text-body-400 {
+  .MuiTypography-body-400 {
     color: ${inkMain};
     opacity: 0.8;
     overflow: hidden;

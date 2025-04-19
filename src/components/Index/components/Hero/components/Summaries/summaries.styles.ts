@@ -11,7 +11,7 @@ export const Summary = styled.div`
   flex-direction: column;
   gap: 4px;
 
-  .MuiTypography-text-body-small-400 {
+  .MuiTypography-body-small-400 {
     -webkit-box-orient: vertical;
     display: -webkit-box;
     -webkit-line-clamp: 1;
