@@ -2,7 +2,7 @@ import { createTheme, Theme, ThemeOptions } from "@mui/material";
 import { deepmerge } from "@mui/utils";
 import * as B from "./common/breakpoints";
 import * as C from "./common/components";
-import * as P from "./common/palette";
+import { palette } from "./common/palette";
 import { shadows } from "./common/shadows";
 import { typography } from "./common/typography";
 import * as M from "./components";
@@ -31,18 +31,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
         },
         css: { fontFamily: typography.fontFamily },
         cssVariables: true,
-        palette: {
-          alert: P.alert,
-          background: P.background,
-          common: P.common,
-          info: P.info,
-          ink: P.ink,
-          primary: P.primary,
-          smoke: P.smoke,
-          success: P.success,
-          text: P.text,
-          warning: P.warning,
-        },
+        palette,
         shadows,
         spacing: 4,
         typography,

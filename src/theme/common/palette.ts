@@ -1,5 +1,6 @@
 import { PaletteColorOptions } from "@mui/material";
 import { CommonColors, TypeBackground, TypeText } from "@mui/material/styles";
+import { PaletteOptions } from "@mui/material/styles/createPalette";
 
 /**
  * Palette "Alert"
@@ -97,7 +98,7 @@ const WHITE = {
 /**
  * Palette Option "Alert"
  */
-export const alert: PaletteColorOptions = {
+const alert: PaletteColorOptions = {
   light: ALERT.LIGHT,
   lightest: ALERT.LIGHTEST,
   main: ALERT.MAIN,
@@ -106,14 +107,14 @@ export const alert: PaletteColorOptions = {
 /**
  * Palette Option "Background"
  */
-export const background: Pick<TypeBackground, "default"> = {
+const background: Pick<TypeBackground, "default"> = {
   default: BACKGROUND.DEFAULT,
 };
 
 /**
  * Palette Option "Common"
  */
-export const common: CommonColors = {
+const common: CommonColors = {
   black: BLACK.DEFAULT,
   white: WHITE.DEFAULT,
 };
@@ -121,7 +122,7 @@ export const common: CommonColors = {
 /**
  * Palette Option "Info"
  */
-export const info: PaletteColorOptions = {
+const info: PaletteColorOptions = {
   contrastText: INFO.CONTRAST_TEXT,
   light: INFO.LIGHT,
   lightest: INFO.LIGHTEST,
@@ -131,7 +132,7 @@ export const info: PaletteColorOptions = {
 /**
  * Palette Option "Ink"
  */
-export const ink: PaletteColorOptions = {
+const ink: PaletteColorOptions = {
   light: INK.LIGHT,
   main: INK.MAIN,
 };
@@ -139,7 +140,7 @@ export const ink: PaletteColorOptions = {
 /**
  * Palette Option "Primary"
  */
-export const primary: PaletteColorOptions = {
+const primary: PaletteColorOptions = {
   dark: PRIMARY.DARK,
   lightest: PRIMARY.LIGHTEST,
   main: PRIMARY.MAIN,
@@ -148,7 +149,7 @@ export const primary: PaletteColorOptions = {
 /**
  * Palette Option "Smoke"
  */
-export const smoke: PaletteColorOptions = {
+const smoke: PaletteColorOptions = {
   dark: SMOKE.DARK,
   light: SMOKE.LIGHT,
   lightest: SMOKE.LIGHTEST,
@@ -158,7 +159,7 @@ export const smoke: PaletteColorOptions = {
 /**
  * Palette Option "Success"
  */
-export const success: PaletteColorOptions = {
+const success: PaletteColorOptions = {
   light: SUCCESS.LIGHT,
   lightest: SUCCESS.LIGHTEST,
   main: SUCCESS.MAIN,
@@ -167,16 +168,29 @@ export const success: PaletteColorOptions = {
 /**
  * Palette Option "Text"
  */
-export const text: Pick<TypeText, "primary"> = {
+const text: Pick<TypeText, "primary"> = {
   primary: TEXT.PRIMARY,
 };
 
 /**
  * Palette Option "Warning"
  */
-export const warning: PaletteColorOptions = {
+const warning: PaletteColorOptions = {
   contrastText: WARNING.CONTRAST_TEXT,
   light: WARNING.LIGHT,
   lightest: WARNING.LIGHTEST,
   main: WARNING.MAIN,
+};
+
+export const palette: PaletteOptions = {
+  alert,
+  background,
+  common,
+  info,
+  ink,
+  primary,
+  smoke,
+  success,
+  text,
+  warning,
 };
