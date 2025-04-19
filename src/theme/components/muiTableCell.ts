@@ -1,10 +1,9 @@
 import { Components, Theme } from "@mui/material";
+import { FONT } from "../../styles/common/constants/font";
 import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
-import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 
 export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
   const paletteSmoke = theme.palette.smoke;
-  const typography = theme.typography;
   return {
     defaultProps: {},
     styleOverrides: {
@@ -33,14 +32,14 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.BODY },
             style: {
-              ...typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400],
+              font: FONT.BODY_400,
             },
           },
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.HEAD },
             style: {
-              ...typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500],
               backgroundColor: paletteSmoke.lightest,
+              font: FONT.BODY_SMALL_500,
             },
           },
         ],

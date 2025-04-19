@@ -4,10 +4,10 @@ import { InfoIcon } from "../../components/common/CustomIcon/components/InfoIcon
 import { SuccessIcon } from "../../components/common/CustomIcon/components/SuccessIcon/successIcon";
 import { WarningIcon } from "../../components/common/CustomIcon/components/WarningIcon/warningIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
+import { FONT } from "../../styles/common/constants/font";
 import { SIZE } from "../../styles/common/constants/size";
 import { COLOR, SEVERITY, VARIANT } from "../../styles/common/mui/alert";
 import { FONT_SIZE } from "../../styles/common/mui/icon";
-import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 
 export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
   return {
@@ -27,8 +27,8 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
         padding: 0,
       },
       message: {
-        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500], // default size - "medium"
         display: "grid",
+        font: FONT.BODY_500,
         gap: 4,
         padding: 0,
       },
