@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormControl as MFormControl } from "@mui/material";
+import { FONT } from "../../../../styles/common/constants/font";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
 import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
-import { textBodyLarge500 } from "../../../../styles/common/mixins/fonts";
 import { ThemeProps } from "../../../../theme/theme";
 import {
   sectionMargin,
@@ -24,9 +24,9 @@ export const FormControl = styled(MFormControl)`
     gap: 16px;
 
     .MuiFormLabel-root {
-      ${textBodyLarge500};
       color: ${inkMain};
       display: block;
+      font: ${FONT.BODY_LARGE_500};
     }
 
     .MuiFormHelperText-root {

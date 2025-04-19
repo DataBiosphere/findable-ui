@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { TableCell as MTableCell } from "@mui/material";
+import { FONT } from "../../../../../../styles/common/constants/font";
 import { smokeLightest } from "../../../../../../styles/common/mixins/colors";
-import { textBody4002Lines } from "../../../../../../styles/common/mixins/fonts";
 
 interface Props {
   isExpanded: boolean;
@@ -42,8 +42,8 @@ export const PinnedCell = styled.div`
 `;
 
 export const CollapsedContents = styled.div`
-  ${textBody4002Lines};
   display: grid;
+  font: ${FONT.BODY_400_2_LINES};
   gap: 12px;
   justify-items: flex-start;
   padding: 0 16px 12px;
