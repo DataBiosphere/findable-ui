@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../styles/common/constants/font";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
@@ -48,6 +49,6 @@ export const TermsOfService = styled.div`
 `;
 
 export const LoginWarning = styled.div`
-  color: ${({ theme }) => theme.palette.ink.light};
+  color: ${PALETTE.INK_LIGHT};
   font: ${FONT.BODY_SMALL_400};
 `;
