@@ -1,21 +1,5 @@
 import { css, SerializedStyles } from "@emotion/react";
-import {
-  TEXT_BODY_400,
-  TEXT_BODY_400_2_LINES,
-  TEXT_BODY_500,
-  TEXT_BODY_500_2_LINES,
-  TEXT_BODY_LARGE_400,
-  TEXT_BODY_LARGE_400_2_LINES,
-  TEXT_BODY_LARGE_500,
-  TEXT_BODY_SMALL_400,
-  TEXT_BODY_SMALL_400_2_LINES,
-  TEXT_BODY_SMALL_500,
-  TEXT_HEADING,
-  TEXT_HEADING_LARGE,
-  TEXT_HEADING_SMALL,
-  TEXT_HEADING_XLARGE,
-  TEXT_UPPERCASE_500,
-} from "../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../mui/typography";
 
 /**
  * Returns typography style for the specified typography variant.
@@ -31,22 +15,42 @@ function typographyToCSS(TYPOGRAPHY: string) {
   };
 }
 
-export const textBody400 = typographyToCSS(TEXT_BODY_400);
-export const textBody4002Lines = typographyToCSS(TEXT_BODY_400_2_LINES);
-export const textBody500 = typographyToCSS(TEXT_BODY_500);
-export const textBody5002Lines = typographyToCSS(TEXT_BODY_500_2_LINES);
-export const textBodyLarge400 = typographyToCSS(TEXT_BODY_LARGE_400);
+export const textBody400 = typographyToCSS(TYPOGRAPHY_PROPS.VARIANT.BODY_400);
+export const textBody4002Lines = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES
+);
+export const textBody500 = typographyToCSS(TYPOGRAPHY_PROPS.VARIANT.BODY_500);
+export const textBody5002Lines = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_500_2_LINES
+);
+export const textBodyLarge400 = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400
+);
 export const textBodyLarge4002Lines = typographyToCSS(
-  TEXT_BODY_LARGE_400_2_LINES
+  TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400_2_LINES
 );
-export const textBodyLarge500 = typographyToCSS(TEXT_BODY_LARGE_500);
-export const textBodySmall400 = typographyToCSS(TEXT_BODY_SMALL_400);
+export const textBodyLarge500 = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500
+);
+export const textBodySmall400 = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400
+);
 export const textBodySmall4002Lines = typographyToCSS(
-  TEXT_BODY_SMALL_400_2_LINES
+  TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES
 );
-export const textBodySmall500 = typographyToCSS(TEXT_BODY_SMALL_500);
-export const textHeading = typographyToCSS(TEXT_HEADING);
-export const textHeadingLarge = typographyToCSS(TEXT_HEADING_LARGE);
-export const textHeadingSmall = typographyToCSS(TEXT_HEADING_SMALL);
-export const textHeadingXLarge = typographyToCSS(TEXT_HEADING_XLARGE);
-export const textUppercase500 = typographyToCSS(TEXT_UPPERCASE_500);
+export const textBodySmall500 = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500
+);
+export const textHeading = typographyToCSS(TYPOGRAPHY_PROPS.VARIANT.HEADING);
+export const textHeadingLarge = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.HEADING_LARGE
+);
+export const textHeadingSmall = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL
+);
+export const textHeadingXLarge = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.HEADING_XLARGE
+);
+export const textUppercase500 = typographyToCSS(
+  TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500
+);

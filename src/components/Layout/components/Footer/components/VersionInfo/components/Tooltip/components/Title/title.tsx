@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
-import { TEXT_BODY_SMALL_400_2_LINES } from "../../../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import { Link } from "../../../../../../../../../Links/components/Link/link";
 import { VersionInfoProps } from "../../../../types";
 import { getGitHash, getVersion } from "../../../../utils";
@@ -17,7 +17,10 @@ export const Title = ({
   if (!versionInfo) return null;
   const { buildDate, catalog, gitHash, version } = versionInfo;
   return (
-    <Typography component="div" variant={TEXT_BODY_SMALL_400_2_LINES}>
+    <Typography
+      component="div"
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
+    >
       {buildDate && (
         <div>
           <span>Build Date: </span>
