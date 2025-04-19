@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
   mediaDesktopSmallUp,
   mediaTabletUp,
@@ -39,7 +40,7 @@ export const Widgets = styled.div`
 
 export const SummaryWidget = styled.div<Props>`
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.palette.smoke.main};
+  border: 1px solid ${PALETTE.SMOKE_MAIN};
   border-radius: 4px;
   display: flex;
   gap: 0 8px;
