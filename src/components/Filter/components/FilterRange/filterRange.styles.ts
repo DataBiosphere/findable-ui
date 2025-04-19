@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../styles/common/constants/font";
-import {
-  inkLight,
-  inkMain,
-  smokeDark,
-} from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export const StyledForm = styled("form")`
   padding: 16px;
@@ -15,16 +11,16 @@ export const StyledForm = styled("form")`
     width: 100%;
 
     .MuiToggleButton-root {
-      color: ${inkLight};
+      color: ${PALETTE.INK_LIGHT};
       text-transform: capitalize;
 
       &.Mui-selected {
-        color: ${inkMain};
+        color: ${PALETTE.INK_MAIN};
       }
     }
 
     .MuiDivider-root {
-      border-color: ${smokeDark};
+      border-color: ${PALETTE.SMOKE_DARK};
       border-radius: 4px;
       margin: 6px 0;
     }
@@ -44,7 +40,7 @@ export const StyledForm = styled("form")`
       grid-template-rows: subgrid;
 
       .MuiInputLabel-root {
-        color: ${inkMain};
+        color: ${PALETTE.INK_MAIN};
         font: ${FONT.BODY_400};
         max-width: unset;
         position: relative;
@@ -58,7 +54,7 @@ export const StyledForm = styled("form")`
 
     .MuiDivider-root {
       align-self: center;
-      border-color: ${inkLight};
+      border-color: ${PALETTE.INK_LIGHT};
       grid-row: 2;
       margin: 0 4px;
       width: 8px;

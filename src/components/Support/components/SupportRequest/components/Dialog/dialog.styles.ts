@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { Fab as MFab, Popover as MPopover } from "@mui/material";
 import { COLOR_MIXES } from "../../../../../../styles/common/constants/colorMixes";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { SHADOWS } from "../../../../../../styles/common/constants/shadows";
 import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
-import { smokeMain } from "../../../../../../styles/common/mixins/colors";
 import { tabletUp } from "../../../../../../theme/common/breakpoints";
 
 interface Props {
@@ -27,7 +27,7 @@ export const Popover = styled(MPopover)`
     background-color: ${COLOR_MIXES.INK_MAIN_80};
 
     > .MuiPaper-root {
-      border: 1px solid ${smokeMain};
+      border: 1px solid ${PALETTE.SMOKE_MAIN};
       border-radius: 8px;
       width: 100%;
 

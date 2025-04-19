@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
-import { inkLight, inkMain } from "../../../../styles/common/mixins/colors";
 
 interface Props {
   disabled: boolean;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Filters = styled("div")<Props>`
-  color: ${inkMain};
+  color: ${PALETTE.INK_MAIN};
   font: ${FONT.BODY_500};
   height: ${({ height }) => height}px;
   margin: 8px 0;
@@ -36,7 +36,7 @@ export const Filters = styled("div")<Props>`
 `;
 
 export const CategoryViewsLabel = styled("div")`
-  color: ${inkLight};
+  color: ${PALETTE.INK_LIGHT};
   font: ${FONT.UPPERCASE_500};
   padding: 8px;
 `;

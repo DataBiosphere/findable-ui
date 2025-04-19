@@ -1,15 +1,10 @@
 import styled from "@emotion/styled";
-import {
-  inkLight,
-  smokeMain,
-  successMain,
-  white,
-} from "../../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { sectionPadding } from "../../../../../common/Section/section.styles";
 
 export const Section = styled("div")`
   ${sectionPadding};
-  background-color: ${white};
+  background-color: ${PALETTE.COMMON_WHITE};
   display: grid;
   gap: 16px;
   grid-template-columns: auto 1fr;
@@ -34,27 +29,27 @@ export const SectionStatus = styled("div")`
   line-height: 0;
 
   .MuiSvgIcon-fontSizeMedium {
-    color: ${successMain};
+    color: ${PALETTE.SUCCESS_MAIN};
   }
 
   .MuiStepIcon-root {
-    border: 2px solid ${smokeMain};
+    border: 2px solid ${PALETTE.SMOKE_MAIN};
     border-radius: 50%;
-    color: ${white};
+    color: ${PALETTE.COMMON_WHITE};
 
     .MuiStepIcon-text {
-      fill: ${smokeMain};
+      fill: ${PALETTE.SMOKE_MAIN};
       font-size: 14px;
       font-weight: 700;
       line-height: 20px;
     }
 
     &.Mui-active {
-      border: 2px solid ${inkLight};
-      color: ${white};
+      border: 2px solid ${PALETTE.INK_LIGHT};
+      color: ${PALETTE.COMMON_WHITE};
 
       .MuiStepIcon-text {
-        fill: ${inkLight};
+        fill: ${PALETTE.INK_LIGHT};
       }
     }
   }

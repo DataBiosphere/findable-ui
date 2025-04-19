@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { white } from "../../styles/common/mixins/colors";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { Section, SectionContent } from "../common/Section/section.styles";
 
 export const StyledSection = styled(Section)`
   align-items: center;
-  background-color: ${white};
+  background-color: ${PALETTE.COMMON_WHITE};
   padding: 40px !important; /* Overrides section padding. */
 `;
 

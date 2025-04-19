@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { StepContent } from "@mui/material";
-import { smokeMain } from "../../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { sectionPadding } from "../../../../../common/Section/section.styles";
 
 export const StyledStepContent = styled(StepContent)`
@@ -8,7 +8,7 @@ export const StyledStepContent = styled(StepContent)`
     .MuiCollapse-wrapperInner.MuiCollapse-vertical {
       > .MuiGrid-root {
         ${sectionPadding};
-        border-top: 1px solid ${smokeMain};
+        border-top: 1px solid ${PALETTE.SMOKE_MAIN};
         display: grid;
         gap: 24px;
         justify-items: flex-start;

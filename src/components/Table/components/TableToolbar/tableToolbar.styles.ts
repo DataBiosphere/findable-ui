@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import { Toolbar as MToolbar } from "@mui/material";
-import { white } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { Grid } from "../../../common/Grid/grid";
 
 export const Toolbar = styled(MToolbar)`
   &.MuiToolbar-table {
     align-items: center;
-    background-color: ${white};
+    background-color: ${PALETTE.COMMON_WHITE};
     display: flex;
     justify-content: space-between;
     padding: 20px;

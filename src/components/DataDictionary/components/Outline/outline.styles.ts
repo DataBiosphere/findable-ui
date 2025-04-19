@@ -1,22 +1,18 @@
 import styled from "@emotion/styled";
-import {
-  inkLight,
-  inkMain,
-  smokeDark,
-} from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { Outline } from "../../../Layout/components/Outline/outline";
 
 export const StyledOutline = styled(Outline)`
   &.MuiTabs-root {
     .MuiTab-root {
-      color: ${inkLight};
+      color: ${PALETTE.INK_LIGHT};
 
       &.Mui-selected {
-        color: ${inkMain};
+        color: ${PALETTE.INK_MAIN};
       }
 
       &.Mui-disabled {
-        color: ${smokeDark};
+        color: ${PALETTE.SMOKE_DARK};
         opacity: 1;
       }
     }

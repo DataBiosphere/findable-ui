@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
   mediaDesktopSmallUp,
   mediaTabletUp,
 } from "../../../../../../styles/common/mixins/breakpoints";
-import {
-  primaryMain,
-  white,
-} from "../../../../../../styles/common/mixins/colors";
 import { ButtonSecondary } from "../../../../../common/Button/components/ButtonSecondary/buttonSecondary";
 
 export const SidebarButton = styled(ButtonSecondary)`
@@ -25,9 +22,9 @@ export const SidebarButton = styled(ButtonSecondary)`
 
 export const Badge = styled.div`
   align-items: center;
-  background-color: ${primaryMain};
+  background-color: ${PALETTE.PRIMARY_MAIN};
   border-radius: 10px;
-  color: ${white};
+  color: ${PALETTE.COMMON_WHITE};
   display: flex;
   flex: none;
   font-size: 12px;

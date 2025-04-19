@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { TextField } from "@mui/material";
-import { inkLight, inkMain } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export const InputField = styled(TextField)`
   && {
@@ -10,7 +10,7 @@ export const InputField = styled(TextField)`
 
     .MuiInputBase-root {
       & ::placeholder {
-        color: ${inkLight};
+        color: ${PALETTE.INK_LIGHT};
         opacity: 0.8;
       }
 
@@ -26,7 +26,7 @@ export const InputField = styled(TextField)`
         padding: 0 0 0 12px;
 
         .MuiAutocomplete-input {
-          color: ${inkMain};
+          color: ${PALETTE.INK_MAIN};
           padding: 10px 14px 10px 0;
         }
       }
