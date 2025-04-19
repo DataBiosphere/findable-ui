@@ -36,6 +36,7 @@ export const List = styled(MList)`
 
         .MuiListItemText-root {
           font: ${FONT.UPPERCASE_500};
+          text-transform: uppercase;
         }
       }
 
