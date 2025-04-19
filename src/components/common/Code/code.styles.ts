@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { CSS } from "../../../styles/common/constants/css";
 import { textBody500 } from "../../../styles/common/mixins/fonts";
 import { ThemeProps } from "../../../theme/theme";
 
@@ -14,7 +15,7 @@ const copy = (props: ThemeProps) => css`
   color: ${props.theme.palette.common.white};
   content: "";
   display: flex;
-  font-family: ${props.theme.typography.fontFamily};
+  font-family: ${CSS.FONT_FAMILY};
   height: 100%;
   justify-content: center;
   left: 0;
