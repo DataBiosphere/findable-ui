@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../styles/common/constants/font";
 import { inkLight } from "../../../../styles/common/mixins/colors";
-import { textBodySmall4002Lines } from "../../../../styles/common/mixins/fonts";
 import { ButtonPrimary } from "../../../common/Button/components/ButtonPrimary/buttonPrimary";
 
 export const ExportButton = styled(ButtonPrimary)`
@@ -8,6 +8,6 @@ export const ExportButton = styled(ButtonPrimary)`
 `;
 
 export const SectionFootnote = styled.div`
-  ${textBodySmall4002Lines}
   color: ${inkLight};
+  font: ${FONT.BODY_SMALL_400_2_LINES};
 `;

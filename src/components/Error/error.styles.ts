@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { textBody4002Lines } from "../../styles/common/mixins/fonts";
+import { FONT } from "../../styles/common/constants/font";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Section, sectionMarginXsm } from "../common/Section/section.styles";
 
@@ -39,8 +39,8 @@ export const SectionContent = styled.div`
 `;
 
 export const ErrorCode = styled.div`
-  ${sectionMarginXsm}
-  ${textBody4002Lines}
+  ${sectionMarginXsm};
+  font: ${FONT.BODY_400_2_LINES};
   font-family: "Roboto Mono", monospace;
   font-size: 12px;
   overflow-wrap: anywhere;

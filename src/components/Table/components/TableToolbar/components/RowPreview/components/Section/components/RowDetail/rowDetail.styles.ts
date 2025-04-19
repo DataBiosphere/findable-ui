@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import {
   mediaDesktopSmallUp,
   mediaTabletUp,
 } from "../../../../../../../../../../styles/common/mixins/breakpoints";
-import { textBody400 } from "../../../../../../../../../../styles/common/mixins/fonts";
 
 export const Section = styled.div`
-  ${textBody400};
   display: grid;
   gap: 16px;
+  font: ${FONT.BODY_400};
   grid-auto-rows: minmax(40px, auto);
   grid-template-columns: minmax(0, 1fr);
   overflow-wrap: break-word;
