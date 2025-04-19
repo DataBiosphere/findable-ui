@@ -16,6 +16,7 @@ export const Dialog = styled(MDialog)`
         font: ${FONT.UPPERCASE_500};
         margin-top: 20px;
         opacity: 1;
+        text-transform: uppercase;
       }
 
       &:first-of-type {

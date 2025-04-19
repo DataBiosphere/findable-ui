@@ -13,5 +13,6 @@ export const StyledTab = styled(Tab)`
     color: ${inkLight};
     font: ${FONT.UPPERCASE_500};
     pointer-events: none;
+    text-transform: uppercase;
   }
 `;

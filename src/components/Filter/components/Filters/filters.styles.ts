@@ -39,4 +39,5 @@ export const CategoryViewsLabel = styled("div")`
   color: ${inkLight};
   font: ${FONT.UPPERCASE_500};
   padding: 8px;
+  text-transform: uppercase;
 `;
