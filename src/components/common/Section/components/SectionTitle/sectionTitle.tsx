@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
 export interface SectionTitleProps {
   className?: string;
@@ -16,7 +17,7 @@ export const SectionTitle = ({
       className={className}
       color="ink.main"
       component="h3"
-      variant="text-body-large-500"
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
     >
       {title}
     </Typography>

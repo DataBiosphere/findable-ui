@@ -1,6 +1,7 @@
 import { EastRounded, WestRounded } from "@mui/icons-material";
 import { Typography } from "@mui/material";
 import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { IconButton } from "../../../common/IconButton/iconButton";
 import { Stack } from "../../../common/Stack/stack";
@@ -26,8 +27,10 @@ export const Pagination = ({
   return (
     <TablePagination data-testid={TEST_IDS.TABLE_PAGINATION}>
       <div data-testid={TEST_IDS.TABLE_PAGINATION_PAGE}>
-        <Typography variant="text-body-400">Page </Typography>
-        <Typography variant="text-body-500">
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+          Page{" "}
+        </Typography>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}>
           {currentPage} of {totalPage}
         </Typography>
       </div>
