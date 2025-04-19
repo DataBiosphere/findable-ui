@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { TEXT_BODY_SMALL_400_2_LINES } from "../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { CardSecondaryTitle as SecondaryTitle } from "./cardSecondaryTitle.styles";
 
 export interface CardSecondaryTitleProps {
@@ -13,7 +13,7 @@ export const CardSecondaryTitle = ({
   return (
     <SecondaryTitle
       color="ink.light"
-      variant={TEXT_BODY_SMALL_400_2_LINES}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
       {...props}
     >
       {children}

@@ -4,16 +4,8 @@ import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
-import {
-  TEXT_BODY_400,
-  TEXT_BODY_400_2_LINES,
-  TEXT_BODY_500,
-  TEXT_BODY_SMALL_400,
-  TEXT_BODY_SMALL_500,
-  TEXT_HEADING,
-  TEXT_HEADING_SMALL,
-} from "./typography";
 
 // Constants
 const FLEX_START = "flex-start";
@@ -114,7 +106,7 @@ export const MuiBreadcrumbs = (theme: Theme): Components["MuiBreadcrumbs"] => {
   return {
     styleOverrides: {
       li: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400],
         margin: 0,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "& .MuiLink-root": {
@@ -222,7 +214,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         },
       },
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
         gap: 4,
         letterSpacing: "normal",
         padding: "10px 16px",
@@ -249,7 +241,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "activeNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[TEXT_BODY_500],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
           backgroundColor: theme.palette.smoke.light,
           color: theme.palette.ink.main,
           minWidth: 0,
@@ -266,7 +258,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "backNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[TEXT_HEADING_SMALL],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL],
           color: theme.palette.ink.main,
           minWidth: 0,
           textTransform: "capitalize",
@@ -282,7 +274,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "nav",
         },
         style: {
-          ...theme.typography[TEXT_BODY_500],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
           color: theme.palette.ink.main,
           minWidth: 0,
           textTransform: "capitalize",
@@ -409,7 +401,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         margin: "0 -2px 0 0",
       },
       label: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400],
       },
     },
     variants: [
@@ -463,7 +455,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "filterTag" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_500],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500],
           cursor: "pointer", // "pointer" cursor required to restore "clickable" ui
           gap: 2,
           height: 24,
@@ -478,7 +470,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "ntag" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_400],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400],
           backgroundColor: theme.palette.smoke.main,
           boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 24,
@@ -489,7 +481,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "status" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_500],
+          ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500],
           boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 20,
           maxWidth: "fit-content",
@@ -547,7 +539,7 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
         fontFamily: theme.typography.fontFamily,
       },
       code: {
-        ...theme.typography[TEXT_BODY_400_2_LINES],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES],
         fontFamily: "Roboto Mono, monospace",
         fontSize: 12,
       },
@@ -630,7 +622,7 @@ export const MuiDialogTitle = (theme: Theme): Components["MuiDialogTitle"] => {
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_HEADING],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.HEADING],
         alignItems: "center",
         display: "grid",
         gridAutoFlow: "column",
@@ -683,7 +675,7 @@ export const MuiFormControlLabel = (
   return {
     styleOverrides: {
       label: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400],
       },
       root: {
         gap: 8,
@@ -716,7 +708,7 @@ export const MuiFormHelperText = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400],
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-error": {
           color: theme.palette.alert.main,
@@ -875,13 +867,14 @@ export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
         height: "unset",
       },
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400],
         fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
         height: 40,
         letterSpacing: "normal",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         [tabletUp]: {
-          fontSize: theme.typography[TEXT_BODY_400].fontSize,
+          fontSize:
+            theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400].fontSize,
         },
       },
     },
@@ -916,7 +909,7 @@ export const MuiListItemButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400],
         minHeight: "unset",
         padding: "10px 16px",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
@@ -959,7 +952,7 @@ export const MuiListSubheader = (
     defaultProps: { disableSticky: true },
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
         color: theme.palette.ink.main,
       },
     },
@@ -976,7 +969,7 @@ export const MuiMenuItem = (theme: Theme): Components["MuiMenuItem"] => {
     defaultProps: { disableRipple: true },
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_400],
         minHeight: "unset",
         padding: "10px 16px",
       },
@@ -1269,7 +1262,7 @@ export const MuiTab = (theme: Theme): Components["MuiTab"] => {
         },
       },
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
         color: theme.palette.ink.light,
         marginBottom: 3,
         minHeight: "unset",
@@ -1399,7 +1392,7 @@ export const MuiToggleButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500],
         backgroundColor: theme.palette.smoke.main,
         border: "none",
         borderRadius: 4,
@@ -1491,7 +1484,7 @@ export const MuiTooltip = (theme: Theme): Components["MuiTooltip"] => {
         },
       },
       tooltip: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400],
         backgroundColor: theme.palette.ink.main,
         boxShadow: SHADOWS["02"],
         boxSizing: "content-box",

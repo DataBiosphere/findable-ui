@@ -4,7 +4,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { ReactNode } from "react";
-import { TEXT_BODY_400 } from "../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { InputFormControl } from "./select.styles";
 
 /**
@@ -28,7 +28,11 @@ export const Select = ({
 }: SelectProps): JSX.Element => {
   return (
     <InputFormControl className={className} isFilled={isFilled}>
-      {label && <Typography variant={TEXT_BODY_400}>{label}</Typography>}
+      {label && (
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+          {label}
+        </Typography>
+      )}
       <MSelect fullWidth inputProps={{ onBlur }} size="small" {...props}>
         {children}
       </MSelect>

@@ -7,12 +7,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React, { Fragment, ReactNode } from "react";
-import {
-  TEXT_BODY_400,
-  TEXT_BODY_500,
-  TEXT_BODY_SMALL_400_2_LINES,
-  TEXT_UPPERCASE_500,
-} from "../../../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -88,13 +83,13 @@ export const NavigationMenuItems = ({
                   primaryTypographyProps={{
                     variant: url
                       ? description
-                        ? TEXT_BODY_500
-                        : TEXT_BODY_400
-                      : TEXT_UPPERCASE_500,
+                        ? TYPOGRAPHY_PROPS.VARIANT.BODY_500
+                        : TYPOGRAPHY_PROPS.VARIANT.BODY_400
+                      : TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500,
                   }}
                   secondary={description}
                   secondaryTypographyProps={{
-                    variant: TEXT_BODY_SMALL_400_2_LINES,
+                    variant: TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES,
                   }}
                 />
               </MMenuItem>

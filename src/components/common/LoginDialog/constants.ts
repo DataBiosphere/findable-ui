@@ -11,7 +11,7 @@ import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 export const DIALOG_CONTENT_TEXT_PROPS: DialogContentTextProps = {
   color: TYPOGRAPHY_PROPS.COLOR.INK_LIGHT,
   component: "div",
-  variant: TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400,
+  variant: TYPOGRAPHY_PROPS.VARIANT.BODY_400,
 };
 
 export const DIALOG_PROPS: Partial<DialogProps> = {
@@ -19,7 +19,7 @@ export const DIALOG_PROPS: Partial<DialogProps> = {
 };
 
 export const DIALOG_TITLE_PROPS: DialogTitleProps = {
-  variant: TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL,
+  variant: TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL,
 };
 
 export const ICON_BUTTON_PROPS: IconButtonProps = {

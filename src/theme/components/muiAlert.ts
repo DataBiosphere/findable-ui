@@ -7,7 +7,7 @@ import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { SIZE } from "../../styles/common/constants/size";
 import { COLOR, SEVERITY, VARIANT } from "../../styles/common/mui/alert";
 import { FONT_SIZE } from "../../styles/common/mui/icon";
-import { TEXT_BODY_500 } from "../common/typography";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 
 export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
   return {
@@ -27,7 +27,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
         padding: 0,
       },
       message: {
-        ...theme.typography[TEXT_BODY_500], // default size - "medium"
+        ...theme.typography[TYPOGRAPHY_PROPS.VARIANT.BODY_500], // default size - "medium"
         display: "grid",
         gap: 4,
         padding: 0,
