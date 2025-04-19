@@ -2,6 +2,7 @@ import { Checkbox, Typography } from "@mui/material";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAuth } from "../../providers/authentication/auth/hook";
 import { ProviderId } from "../../providers/authentication/common/types";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { CheckedIcon } from "../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedErrorIcon } from "../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
 import { UncheckedIcon } from "../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
@@ -55,7 +56,11 @@ export const Login = <P,>({
       <RoundedPaper>
         <LoginSection>
           <SectionContent>
-            <Typography color="ink.main" component="h3" variant="text-heading">
+            <Typography
+              color="ink.main"
+              component="h3"
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING}
+            >
               {title}
             </Typography>
             {text && <LoginText>{text}</LoginText>}

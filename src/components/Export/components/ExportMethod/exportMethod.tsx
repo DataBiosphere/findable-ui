@@ -2,6 +2,7 @@ import { Tooltip, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import { useDownloadStatus } from "../../../../hooks/useDownloadStatus";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { FluidPaper } from "../../../common/Paper/paper.styles";
 import { SectionTitle } from "../../../common/Section/components/SectionTitle/sectionTitle";
 import {
@@ -36,7 +37,9 @@ export const ExportMethod = ({
       <Section>
         <SectionContent>
           <SectionTitle title={title} />
-          <Typography variant="text-body-400-2lines">{description}</Typography>
+          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}>
+            {description}
+          </Typography>
         </SectionContent>
         <SectionActions>
           <Tooltip arrow title={message}>
