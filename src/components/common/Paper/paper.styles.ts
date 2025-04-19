@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { TABLET } from "../../../theme/common/breakpoints";
 import { Paper } from "./paper";
 
@@ -53,8 +54,8 @@ const ignoreSsrWarning =
  * Grid paper - typically used as a parent (grid) container.
  * The background color with the grid cap property create the grid "lines" between each grid item.
  */
-export const GridPaper = styled.div(({ theme }) => ({
-  backgroundColor: `${theme.palette.smoke.main}`,
+export const GridPaper = styled.div(() => ({
+  backgroundColor: `${PALETTE.SMOKE_MAIN}`,
   borderRadius: "inherit", // Inherit parent container border radius.
   display: "grid",
   gap: "1px",

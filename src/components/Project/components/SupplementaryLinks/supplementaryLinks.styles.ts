@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export const SupplementaryList = styled.div`
   display: grid;
@@ -7,7 +8,7 @@ export const SupplementaryList = styled.div`
 `;
 
 export const Marker = styled.span`
-  color: ${({ theme }) => theme.palette.primary.main};
+  color: ${PALETTE.PRIMARY_MAIN};
   text-align: right;
 `;
 
