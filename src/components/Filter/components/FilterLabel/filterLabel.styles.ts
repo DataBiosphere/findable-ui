@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
-import { inkLight, smokeMain } from "../../../../styles/common/mixins/colors";
 
 interface Props {
   isOpen: boolean;
@@ -19,7 +19,7 @@ export const FilterLabel = styled(Button, {
   text-align: left;
 
   :hover {
-    background-color: ${smokeMain};
+    background-color: ${PALETTE.SMOKE_MAIN};
   }
 
   &.Mui-disabled {
@@ -27,7 +27,7 @@ export const FilterLabel = styled(Button, {
   }
 
   & .MuiButton-endIcon {
-    color: ${inkLight};
+    color: ${PALETTE.INK_LIGHT};
     margin-right: -4px;
     transform: rotate(-90deg);
   }
@@ -43,7 +43,7 @@ export const FilterLabel = styled(Button, {
   ${(props) =>
     props.isOpen &&
     css`
-      background-color: ${smokeMain(props)};
+      background-color: ${PALETTE.SMOKE_MAIN};
 
       ${mediaDesktopSmallUp(props)} {
         & .MuiButton-endIcon {

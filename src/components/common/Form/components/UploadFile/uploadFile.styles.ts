@@ -1,14 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
-import {
-  errorMain,
-  infoLightest,
-  infoMain,
-  inkMain,
-  smokeDark,
-  smokeLight,
-} from "../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../styles/common/constants/palette";
 
 interface Props {
   isAttached: boolean;
@@ -21,8 +14,8 @@ export const Button = styled(ButtonBase, {
     prop !== "isAttached" && prop !== "isDragActive" && prop !== "isError",
 })<Props>`
   align-items: center;
-  background-color: ${smokeLight};
-  border: 1px dashed ${smokeDark};
+  background-color: ${PALETTE.SMOKE_LIGHT};
+  border: 1px dashed ${PALETTE.SMOKE_DARK};
   border-radius: 4px;
   display: flex;
   gap: 8px;
@@ -32,23 +25,23 @@ export const Button = styled(ButtonBase, {
   padding: 10px 12px;
 
   // Drag active.
-  ${({ isDragActive, theme }) =>
+  ${({ isDragActive }) =>
     isDragActive &&
     css`
-      background-color: ${infoLightest({ theme })};
-      border: 1px dashed ${infoMain({ theme })};
+      background-color: ${PALETTE.INFO_LIGHTEST};
+      border: 1px dashed ${PALETTE.INFO_MAIN};
     `};
 
   // Error.
-  ${({ isDragActive, isError, theme }) =>
+  ${({ isDragActive, isError }) =>
     isError &&
     !isDragActive &&
     css`
-      border: 1px dashed ${errorMain({ theme })};
+      border: 1px dashed ${PALETTE.ERROR_MAIN};
     `};
 
   .MuiTypography-body-400 {
-    color: ${inkMain};
+    color: ${PALETTE.INK_MAIN};
     opacity: 0.8;
     overflow: hidden;
     text-overflow: ellipsis;
