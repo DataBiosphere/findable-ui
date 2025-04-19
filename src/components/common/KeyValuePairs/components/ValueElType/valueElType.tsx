@@ -9,7 +9,7 @@ import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 export const ValueElType = ({
   children,
   component = "div",
-  variant = TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES,
+  variant = TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES,
   ...props /* MuiTypographyProps */
 }: TypographyProps): JSX.Element => {
   return (

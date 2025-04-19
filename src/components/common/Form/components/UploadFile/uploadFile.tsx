@@ -2,7 +2,7 @@ import { CloseRounded } from "@mui/icons-material";
 import { FormHelperText, Typography } from "@mui/material";
 import React from "react";
 import { DropzoneState } from "react-dropzone";
-import { TEXT_BODY_400 } from "../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../Loading/loading";
 import { FormState } from "../../../../Support/components/SupportRequest/components/SupportRequestForm/common/entities";
 import { ErrorIcon } from "../../../CustomIcon/components/ErrorIcon/errorIcon";
@@ -38,7 +38,11 @@ export const UploadFile = ({
   const isAttached = Boolean(attachmentToken);
   return (
     <InputFormControl className={className} error={error}>
-      {label && <Typography variant={TEXT_BODY_400}>{label}</Typography>}
+      {label && (
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+          {label}
+        </Typography>
+      )}
       <Button
         isAttached={isAttached}
         isDragActive={isDragActive}
@@ -50,7 +54,7 @@ export const UploadFile = ({
           loading={attachmentUploading}
           panelStyle={LOADING_PANEL_STYLE.INHERIT}
         />
-        <Typography variant={TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           {isAttached ? (
             attachmentName
           ) : (

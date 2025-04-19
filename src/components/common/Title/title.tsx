@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { TEXT_HEADING_LARGE } from "../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { HeroTitle as Typography } from "./title.styles";
 
 export type HeroTitle = ReactNode;
@@ -21,7 +21,7 @@ export const Title = ({
           className={className}
           color="ink.main"
           component="h1"
-          variant={TEXT_HEADING_LARGE}
+          variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_LARGE}
           {...props}
         >
           {title}

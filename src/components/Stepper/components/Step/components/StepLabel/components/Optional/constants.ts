@@ -3,5 +3,5 @@ import { TYPOGRAPHY_PROPS as MUI_TYPOGRAPHY_PROPS } from "../../../../../../../.
 
 export const TYPOGRAPHY_PROPS: TypographyProps = {
   color: MUI_TYPOGRAPHY_PROPS.COLOR.INK_LIGHT,
-  variant: MUI_TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400,
+  variant: MUI_TYPOGRAPHY_PROPS.VARIANT.BODY_400,
 };

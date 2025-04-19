@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React from "react";
-import { TEXT_BODY_LARGE_500 } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 
 export interface SidebarLabelProps {
   label: string;
@@ -8,7 +8,10 @@ export interface SidebarLabelProps {
 
 export const SidebarLabel = ({ label }: SidebarLabelProps): JSX.Element => {
   return (
-    <Typography component="div" variant={TEXT_BODY_LARGE_500}>
+    <Typography
+      component="div"
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
+    >
       {label}
     </Typography>
   );

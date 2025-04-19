@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { ChangeEvent, ElementType } from "react";
-import { TEXT_BODY_400 } from "../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { SetSearchTermFn } from "../../Filter/common/entities";
 import { InputField, InputFormControl } from "./input.styles";
 
@@ -42,7 +42,11 @@ export const Input = ({
 }: InputProps): JSX.Element => {
   return (
     <InputFormControl className={className}>
-      {label && <Typography variant={TEXT_BODY_400}>{label}</Typography>}
+      {label && (
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+          {label}
+        </Typography>
+      )}
       <InputField
         autoFocus
         fullWidth

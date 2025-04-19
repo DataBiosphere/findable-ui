@@ -2,7 +2,7 @@ import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import React from "react";
-import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";
 import {
@@ -57,7 +57,7 @@ export const CollapsableCell = <T extends RowData>({
                     <Typography
                       component="div"
                       color="ink.light"
-                      variant={TEXT_BODY_400_2_LINES}
+                      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
                     >
                       {header}
                     </Typography>

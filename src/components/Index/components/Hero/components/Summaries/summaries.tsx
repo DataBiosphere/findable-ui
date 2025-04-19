@@ -1,9 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
-import {
-  TEXT_BODY_SMALL_400,
-  TEXT_BODY_SMALL_500,
-} from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { Dot, Summary } from "./summaries.styles";
 
 export interface Summary {
@@ -23,8 +20,13 @@ export const Summaries = ({ summaries }: SummariesProps): JSX.Element => {
           <Fragment key={`${label}${c}`}>
             {c !== 0 && <Dot />}
             <Summary>
-              <Typography variant={TEXT_BODY_SMALL_500}>{count}</Typography>
-              <Typography color="ink.light" variant={TEXT_BODY_SMALL_400}>
+              <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
+                {count}
+              </Typography>
+              <Typography
+                color="ink.light"
+                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+              >
                 {label}
               </Typography>
             </Summary>

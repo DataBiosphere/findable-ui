@@ -20,7 +20,7 @@ export const Entity = ({
         <StyledTypography
           component="h3"
           id={classData.key}
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
+          variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
           {...spacing}
         >
           {classData.label} <AnchorLink anchorLink={classData.key} />
@@ -28,7 +28,7 @@ export const Entity = ({
         <Typography
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
           component="div"
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
         >
           {classData.description}
         </Typography>

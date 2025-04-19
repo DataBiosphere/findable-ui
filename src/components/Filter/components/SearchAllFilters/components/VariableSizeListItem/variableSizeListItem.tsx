@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import React, { useEffect, useRef } from "react";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../../../tests/testIds";
-import { TEXT_BODY_SMALL_400 } from "../../../../../../theme/common/typography";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FilterNoResultsFound } from "../../../FilterNoResultsFound/filterNoResultsFound";
@@ -77,7 +77,7 @@ export default function VariableSizeListItem({
             <Typography
               color="ink.light"
               data-testid={TEST_IDS.FILTER_COUNT}
-              variant={TEXT_BODY_SMALL_400}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
             >
               {count}
             </Typography>

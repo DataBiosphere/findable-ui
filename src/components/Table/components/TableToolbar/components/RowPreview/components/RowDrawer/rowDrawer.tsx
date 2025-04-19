@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { RowData, Table } from "@tanstack/react-table";
 import React, { ReactNode } from "react";
-import { TEXT_HEADING_SMALL } from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { DrawerContent } from "../../../../../../../common/Drawer/components/drawer.styles";
 import { DEFAULT_DRAWER_PROPS } from "./common/constants";
 import { Drawer, DrawerTitle } from "./rowDrawer.styles";
@@ -38,7 +38,11 @@ export const RowDrawer = <T extends RowData>({
         onClose={(): void => toggleRowPreview?.()}
         title={
           typeof title === "string" ? (
-            <MTypography component="div" noWrap variant={TEXT_HEADING_SMALL}>
+            <MTypography
+              component="div"
+              noWrap
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
+            >
               {title}
             </MTypography>
           ) : (
