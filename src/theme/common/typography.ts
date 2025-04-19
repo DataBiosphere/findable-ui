@@ -1,4 +1,4 @@
-import { CSSProperties, ThemeOptions } from "@mui/material";
+import { CSSProperties, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 /**
@@ -185,7 +185,7 @@ const uppercase500: CSSProperties = {
   textTransform: "uppercase",
 };
 
-export const typography: ThemeOptions["typography"] = {
+export const typography: TypographyVariantsOptions = {
   "body-400": body400,
   "body-400-2lines": body4002Lines,
   "body-500": body500,
