@@ -7,6 +7,11 @@ import { CHART_TEST_ID } from "../src/components/Index/components/EntitiesView/c
 import * as stories from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/stories/chart.stories";
 import { PALETTE } from "../src/styles/common/constants/palette";
 
+const CLASSNAMES = {
+  TEXT_CATEGORY_LABEL: "text-category-label",
+  TEXT_COUNT: "text-count",
+};
+
 const { Default, Selected } = composeStories(stories);
 
 const DATA = Default.args.selectCategoryValueViews || [];
@@ -31,21 +36,26 @@ describe("Chart", () => {
 
   describe("category labels and counts", () => {
     const counts = DATA.map(mapCount);
-    const labelSet = new Set(DATA.map(mapLabel));
+    const labels = DATA.map(mapLabel);
     let countTextEls: NodeListOf<SVGElement>;
     let labelTextEls: NodeListOf<SVGElement>;
+    let titleTextEls: NodeListOf<SVGElement>;
 
     beforeEach(() => {
       render(<Default testId={CHART_TEST_ID} />);
-      countTextEls = getEls("text-count", "text");
-      labelTextEls = getEls("text-category-label", "text");
+      countTextEls = getEls(CLASSNAMES.TEXT_COUNT, "text");
+      labelTextEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "text");
+      titleTextEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "title");
     });
 
-    it("renders category labels", () => {
-      expect(labelTextEls.length).toEqual(labelSet.size);
-      labelTextEls.forEach(({ textContent }) => {
-        expect(textContent).toBeDefined();
-        expect(labelSet.has(textContent || "")).toBeTruthy();
+    it("renders category labels and matching titles", () => {
+      expect(labelTextEls.length).toEqual(labels.length);
+      expect(titleTextEls.length).toEqual(labels.length);
+      labelTextEls.forEach((el, i) => {
+        const labelText = stripTrailingEllipsis(findTextNode(el)?.textContent);
+        const titleText = titleTextEls[i].textContent || "";
+        expect(labels.some((l) => l.includes(labelText))).toBeTruthy();
+        expect(labels.includes(titleText)).toBeTruthy();
       });
     });
 
@@ -61,18 +71,23 @@ describe("Chart", () => {
   describe("category labels with selected values", () => {
     it("renders selected category labels with '(selected)'", () => {
       render(<Selected testId={CHART_TEST_ID} />);
-      const textEls = getEls("text-category-label", "text");
-      for (let i = 0; i < SELECTED_DATA.length; i++) {
-        const selectedData = SELECTED_DATA[i];
-        const textEl = textEls[i];
+      const textEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "text");
+      const titleEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "title");
+      SELECTED_DATA.forEach((selectedData, i) => {
+        const labelText = stripTrailingEllipsis(
+          findTextNode(textEls[i])?.textContent
+        );
+        const titleText = titleEls[i].textContent || "";
         if (selectedData.selected) {
-          expect(textEl.textContent).toEqual(
-            `${selectedData.label} (selected)`
-          );
-          continue;
+          const expected = `${selectedData.label} (selected)`;
+          expect(titleText).toEqual(expected);
+          expect(expected.includes(labelText)).toBeTruthy();
+          return;
         }
-        expect(textEl.textContent).toEqual(selectedData.label);
-      }
+        const expected = selectedData.label;
+        expect(titleText).toEqual(expected);
+        expect(expected.includes(labelText)).toBeTruthy();
+      });
     });
   });
 
@@ -116,7 +131,7 @@ describe("Chart", () => {
       // Order data by count in descending order.
       const counts = [...DATA].sort(sortByCount).map(mapCount);
       // Sort count <text> elements by their transform’s translate‑Y (vertical) value, since they’re rendered in data order.
-      const countTextEls = getEls("text-count", "text");
+      const countTextEls = getEls(CLASSNAMES.TEXT_COUNT, "text");
       const textContents = [...countTextEls]
         .sort(sortByTransform)
         .map(mapTextContent);
@@ -124,6 +139,15 @@ describe("Chart", () => {
     });
   });
 });
+
+/**
+ * Finds the first text node within the given SVGElement.
+ * @param el - The SVG element to search for a text node.
+ * @returns The first text node found within the element.
+ */
+function findTextNode(el: SVGElement): Node | undefined {
+  return [...el.childNodes].find(({ nodeType }) => nodeType === Node.TEXT_NODE);
+}
 
 /**
  * Get the SVG group element for a given class name.
@@ -216,4 +240,13 @@ function sortByTransform(a: SVGElement, b: SVGElement): number {
   const aTransform = parseTranslate(a.getAttribute("transform"));
   const bTransform = parseTranslate(b.getAttribute("transform"));
   return aTransform[1] - bTransform[1];
+}
+
+/**
+ * Strips trailing ellipsis from a string.
+ * @param text - The input string.
+ * @returns The string without trailing ellipsis.
+ */
+function stripTrailingEllipsis(text?: string | null): string {
+  return (text || "").replace(/…{1,3}$/, "");
 }

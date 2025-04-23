@@ -7,7 +7,13 @@ import {
 } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
-import { BAR_GAP, BAR_HEIGHT, TEXT_PADDING, TICKS } from "./constants";
+import {
+  BAR_GAP,
+  BAR_HEIGHT,
+  MARGIN_LEFT,
+  TEXT_PADDING,
+  TICKS,
+} from "./constants";
 
 /**
  * Returns the text for the category value point.
@@ -210,7 +216,7 @@ export function renderText(
       const bBox = textEl.getBBox();
       if (!ctm || !bBox) continue;
       // If the text doesn't fit inside the bar, reposition it outside.
-      if (ctm.e - bBox.width - TEXT_PADDING < 0) {
+      if (ctm.e - bBox.width - TEXT_PADDING < MARGIN_LEFT) {
         const [tx, ty] = parseTranslate(textEl.getAttribute("transform"));
         // Translate by the width of the bar plus padding on each side.
         textEl.setAttribute(
