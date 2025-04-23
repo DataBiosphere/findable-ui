@@ -3,7 +3,7 @@ import { PlotOptions } from "@observablehq/plot";
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
 import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
 import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
-import { DATA_FIELD, TEXT_PADDING } from "./constants";
+import { DATA_FIELD, MARGIN_LEFT, TEXT_PADDING } from "./constants";
 import {
   getCategoryValueText,
   getCategoryValueTextFill,
@@ -32,6 +32,7 @@ export function getPlotOptions(
     height: getPlotHeight(selectCategoryValueViews.length),
     margin: 0,
     marginBottom: 32,
+    marginLeft: MARGIN_LEFT,
     marks: [
       Plot.axisX({
         className: "x-axis",
@@ -56,13 +57,15 @@ export function getPlotOptions(
       }),
       Plot.text(selectCategoryValueViews, {
         className: "text-category-label",
-        dx: 16,
-        dy: -28,
+        dx: -TEXT_PADDING,
+        dy: -2,
         fill: (d) => getCategoryValueTextFill(d, isCategorySelected),
-        lineWidth: width / 13, // "em" unit; font-size is 13px.
+        lineHeight: 0.8125,
+        lineWidth: (MARGIN_LEFT - TEXT_PADDING) / 13, // "em" unit; font-size is 13px.
         text: getCategoryValueText,
-        textAnchor: "start",
+        textAnchor: "end",
         textOverflow: "ellipsis",
+        title: getCategoryValueText,
         x: 0,
         y: DATA_FIELD.LABEL,
       }),
