@@ -52,7 +52,7 @@ describe("Chart", () => {
       expect(labelTextEls.length).toEqual(labels.length);
       expect(titleTextEls.length).toEqual(labels.length);
       labelTextEls.forEach((el, i) => {
-        const labelText = stripTrailingEllipsis(findTextNode(el)?.textContent);
+        const labelText = getLabelText(el);
         const titleText = titleTextEls[i].textContent || "";
         expect(labels.some((l) => l.includes(labelText))).toBeTruthy();
         expect(labels.includes(titleText)).toBeTruthy();
@@ -74,9 +74,7 @@ describe("Chart", () => {
       const textEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "text");
       const titleEls = getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "title");
       SELECTED_DATA.forEach((selectedData, i) => {
-        const labelText = stripTrailingEllipsis(
-          findTextNode(textEls[i])?.textContent
-        );
+        const labelText = getLabelText(textEls[i]);
         const titleText = titleEls[i].textContent || "";
         if (selectedData.selected) {
           const expected = `${selectedData.label} (selected)`;
@@ -170,6 +168,17 @@ function getGroupEls(className: string): HTMLCollectionOf<Element> {
 function getEls(className: string, selectors: string): NodeListOf<SVGElement> {
   const gEls = getGroupEls(className);
   return gEls[0].querySelectorAll(selectors);
+}
+
+/**
+ * Retrieves the label text from a given SVGElement by extracting and processing its text content.
+ * @param el - The SVGElement from which the label text is to be retrieved.
+ * @returns The processed label text derived from the SVGElement.
+ */
+function getLabelText(el: SVGElement): string {
+  const labelText = stripTrailingEllipsis(findTextNode(el)?.textContent);
+  expect(labelText).toBeDefined();
+  return labelText || "";
 }
 
 /**
