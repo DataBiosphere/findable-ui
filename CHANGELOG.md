@@ -1,5 +1,49 @@
 # Changelog
 
+## [26.0.0](https://github.com/DataBiosphere/findable-ui/compare/v25.1.0...v26.0.0) (2025-04-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* bump nextjs version to latest in the 14 branch at least to 14.2.15 ([#431](https://github.com/DataBiosphere/findable-ui/issues/431)) (#436)
+* fix duplication of component type basecomponentprops ([#420](https://github.com/DataBiosphere/findable-ui/issues/420)) (#421)
+* add css shadow variables to theme ([#417](https://github.com/DataBiosphere/findable-ui/issues/417)) (#419)
+* add update catalog mode filters to support a range filter ([#398](https://github.com/DataBiosphere/findable-ui/issues/398)) (#418)
+* separate type exports from useexploremode hook to avoid test import issues ([#414](https://github.com/DataBiosphere/findable-ui/issues/414)) (#415)
+* refactor palette.ts - limit public surface area ([#394](https://github.com/DataBiosphere/findable-ui/issues/394)) (#416)
+* externalized data dictionary config #366 ([#404](https://github.com/DataBiosphere/findable-ui/issues/404))
+* refactor button constants ([#405](https://github.com/DataBiosphere/findable-ui/issues/405)) (#406)
+
+### Features
+
+* add update catalog mode filters to support a range filter ([#398](https://github.com/DataBiosphere/findable-ui/issues/398)) ([#418](https://github.com/DataBiosphere/findable-ui/issues/418)) ([4794b91](https://github.com/DataBiosphere/findable-ui/commit/4794b91d265b679393ba19d794cfd342a4d915ec))
+* chart view - sort bars by size - largest first ([#409](https://github.com/DataBiosphere/findable-ui/issues/409)) ([#411](https://github.com/DataBiosphere/findable-ui/issues/411)) ([768d068](https://github.com/DataBiosphere/findable-ui/commit/768d068924df7a120cd79f82cbb3138f64c028cb))
+* chart view - update titles to show the entity type ([#412](https://github.com/DataBiosphere/findable-ui/issues/412)) ([#413](https://github.com/DataBiosphere/findable-ui/issues/413)) ([e0d9038](https://github.com/DataBiosphere/findable-ui/commit/e0d9038160ef109ce87f417fb729a6c16d0de537))
+* externalized data dictionary config [#366](https://github.com/DataBiosphere/findable-ui/issues/366) ([2b986bb](https://github.com/DataBiosphere/findable-ui/commit/2b986bb0a647019f19653cb0ba758b4778f74267))
+* externalized data dictionary config [#366](https://github.com/DataBiosphere/findable-ui/issues/366) ([#404](https://github.com/DataBiosphere/findable-ui/issues/404)) ([2b986bb](https://github.com/DataBiosphere/findable-ui/commit/2b986bb0a647019f19653cb0ba758b4778f74267))
+* range filter component ([#397](https://github.com/DataBiosphere/findable-ui/issues/397)) ([#408](https://github.com/DataBiosphere/findable-ui/issues/408)) ([56fbc75](https://github.com/DataBiosphere/findable-ui/commit/56fbc756e4175a6c1ccdac325ecfd0603e71b0b6))
+* update chart ui to make charts more compact ([#429](https://github.com/DataBiosphere/findable-ui/issues/429)) ([#430](https://github.com/DataBiosphere/findable-ui/issues/430)) ([916f004](https://github.com/DataBiosphere/findable-ui/commit/916f004fa0e78be356ac0e12edb6f4e256f51092))
+
+
+### Bug Fixes
+
+* make gridtracksize import relative ([#434](https://github.com/DataBiosphere/findable-ui/issues/434)) ([#435](https://github.com/DataBiosphere/findable-ui/issues/435)) ([8da5c47](https://github.com/DataBiosphere/findable-ui/commit/8da5c4729ea2fa4986dacf0ce07d07bdbbbc69fc))
+
+
+### Chores
+
+* bump nextjs version to latest in the 14 branch at least to 14.2.15 ([#431](https://github.com/DataBiosphere/findable-ui/issues/431)) ([#436](https://github.com/DataBiosphere/findable-ui/issues/436)) ([c60b3e8](https://github.com/DataBiosphere/findable-ui/commit/c60b3e82dc2cea513cfda6bff3de44310125fc27))
+
+
+### Code Refactoring
+
+* add css shadow variables to theme ([#417](https://github.com/DataBiosphere/findable-ui/issues/417)) ([#419](https://github.com/DataBiosphere/findable-ui/issues/419)) ([55fcfb4](https://github.com/DataBiosphere/findable-ui/commit/55fcfb4d2f7ecdcbbc9328da585a3026d42ee0b6))
+* chart test ([#432](https://github.com/DataBiosphere/findable-ui/issues/432)) ([#433](https://github.com/DataBiosphere/findable-ui/issues/433)) ([8cabd60](https://github.com/DataBiosphere/findable-ui/commit/8cabd60a9fcfa679b10018d17404270b589eb091))
+* fix duplication of component type basecomponentprops ([#420](https://github.com/DataBiosphere/findable-ui/issues/420)) ([#421](https://github.com/DataBiosphere/findable-ui/issues/421)) ([1096940](https://github.com/DataBiosphere/findable-ui/commit/1096940bdfbabfa0c71bc69cb22f3e1c8883844a))
+* refactor button constants ([#405](https://github.com/DataBiosphere/findable-ui/issues/405)) ([#406](https://github.com/DataBiosphere/findable-ui/issues/406)) ([65681b5](https://github.com/DataBiosphere/findable-ui/commit/65681b5220bf7b9f9d9d29cbc0fd4e5447f98a70))
+* refactor palette.ts - limit public surface area ([#394](https://github.com/DataBiosphere/findable-ui/issues/394)) ([#416](https://github.com/DataBiosphere/findable-ui/issues/416)) ([f2762f5](https://github.com/DataBiosphere/findable-ui/commit/f2762f58c188bbf21c17a73c00f2a7e1ed235fbd))
+* separate type exports from useexploremode hook to avoid test import issues ([#414](https://github.com/DataBiosphere/findable-ui/issues/414)) ([#415](https://github.com/DataBiosphere/findable-ui/issues/415)) ([9981962](https://github.com/DataBiosphere/findable-ui/commit/9981962c614f9e064156d892903c6e2d131215d4))
+
 ## [25.1.0](https://github.com/DataBiosphere/findable-ui/compare/v25.0.0...v25.1.0) (2025-04-14)
 
 
