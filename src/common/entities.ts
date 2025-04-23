@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { GridTrackSize } from "config/entities";
+import { GridTrackSize } from "../config/entities";
 
 /**
  * Model of a value of a metadata class.
