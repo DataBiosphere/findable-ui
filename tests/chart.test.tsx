@@ -176,7 +176,9 @@ function getEls(className: string, selectors: string): NodeListOf<SVGElement> {
  * @returns The processed label text derived from the SVGElement.
  */
 function getLabelText(el: SVGElement): string {
-  return stripTrailingEllipsis(findTextNode(el)?.textContent);
+  const labelText = stripTrailingEllipsis(findTextNode(el)?.textContent);
+  expect(labelText).toBeDefined();
+  return labelText || "";
 }
 
 /**
