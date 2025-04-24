@@ -1,10 +1,14 @@
-import { CSSProperties, Theme, TypographyVariantsOptions } from "@mui/material";
+import {
+  Theme,
+  TypographyStyle,
+  TypographyVariantsOptions,
+} from "@mui/material";
 import { mediaUpSmall } from "../../styles/common/mixins/breakpoints";
 
 /**
  * Typography Option "body-400"
  */
-const body400: CSSProperties = {
+const body400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 400,
@@ -14,7 +18,7 @@ const body400: CSSProperties = {
 /**
  * Typography Option "body-400-2lines"
  */
-const body4002Lines: CSSProperties = {
+const body4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 400,
@@ -24,7 +28,7 @@ const body4002Lines: CSSProperties = {
 /**
  * Typography Option "body-500"
  */
-const body500: CSSProperties = {
+const body500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 500,
@@ -34,7 +38,7 @@ const body500: CSSProperties = {
 /**
  * Typography Option "body-500-2lines"
  */
-const body5002Lines: CSSProperties = {
+const body5002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 500,
@@ -44,7 +48,7 @@ const body5002Lines: CSSProperties = {
 /**
  * Typography Option "body-large-400"
  */
-const bodyLarge400: CSSProperties = {
+const bodyLarge400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 400,
@@ -54,7 +58,7 @@ const bodyLarge400: CSSProperties = {
 /**
  * Typography Option "body-large-400-2lines"
  */
-const bodyLarge4002Lines: CSSProperties = {
+const bodyLarge4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 400,
@@ -64,7 +68,7 @@ const bodyLarge4002Lines: CSSProperties = {
 /**
  * Typography Option "body-large-500"
  */
-const bodyLarge500: CSSProperties = {
+const bodyLarge500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 500,
@@ -74,7 +78,7 @@ const bodyLarge500: CSSProperties = {
 /**
  * Typography Option "body-small-400"
  */
-const bodySmall400: CSSProperties = {
+const bodySmall400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 400,
@@ -84,7 +88,7 @@ const bodySmall400: CSSProperties = {
 /**
  * Typography Option "body-small-400-2lines"
  */
-const bodySmall4002Lines: CSSProperties = {
+const bodySmall4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 400,
@@ -94,7 +98,7 @@ const bodySmall4002Lines: CSSProperties = {
 /**
  * Typography Option "body-small-500"
  */
-const bodySmall500: CSSProperties = {
+const bodySmall500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 500,
@@ -104,9 +108,9 @@ const bodySmall500: CSSProperties = {
 /**
  * Typography Option "heading"
  * @param theme - Base Theme
- * @returns CSSProperties
+ * @returns TypographyStyle
  */
-const heading = (theme: Theme): CSSProperties => ({
+const heading = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "20px",
   fontWeight: 500,
@@ -122,9 +126,9 @@ const heading = (theme: Theme): CSSProperties => ({
 /**
  * Typography Option "heading-large"
  * @param theme - Base Theme.
- * @returns CSSProperties.
+ * @returns TypographyStyle.
  */
-const headingLarge = (theme: Theme): CSSProperties => ({
+const headingLarge = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
@@ -140,9 +144,9 @@ const headingLarge = (theme: Theme): CSSProperties => ({
 /**
  * Typography Option "heading-small"
  * @param theme - Base Theme.
- * @returns CSSProperties.
+ * @returns TypographyStyle.
  */
-const headingSmall = (theme: Theme): CSSProperties => ({
+const headingSmall = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "18px",
   fontWeight: 500,
@@ -157,9 +161,9 @@ const headingSmall = (theme: Theme): CSSProperties => ({
 /**
  * Typography Option "heading-xlarge"
  * @param theme - Base Theme.
- * @returns CSSProperties.
+ * @returns TypographyStyle.
  */
-const headingXLarge = (theme: Theme): CSSProperties => ({
+const headingXLarge = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "30px",
   fontWeight: 500,
@@ -175,7 +179,7 @@ const headingXLarge = (theme: Theme): CSSProperties => ({
 /**
  * Typography Option "heading-xsmall"
  */
-const headingXSmall: CSSProperties = {
+const headingXSmall: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 500,
@@ -185,7 +189,7 @@ const headingXSmall: CSSProperties = {
 /**
  * Typography Option "uppercase-500"
  */
-const uppercase500: CSSProperties = {
+const uppercase500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "12px",
   fontWeight: 500,

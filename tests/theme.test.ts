@@ -1,6 +1,15 @@
-import { PaletteColor, Theme, ThemeOptions } from "@mui/material";
-import { CssVarsTheme } from "@mui/material/styles/createThemeWithVars";
+import {
+  CssVarsTheme,
+  PaletteColor,
+  Theme,
+  ThemeOptions,
+  TypographyStyle,
+} from "@mui/material";
+import { palette } from "../src/theme/common/palette";
+import { typography } from "../src/theme/common/typography";
 import { createAppTheme } from "../src/theme/theme";
+
+type GenericRecord<T = unknown> = Record<string, T>;
 
 const CUSTOM_BREAKPOINT_VALUES = {
   lg: 1280,
@@ -106,16 +115,6 @@ describe("Theme Configuration", () => {
     });
   });
 
-  describe("CSS Variables", () => {
-    it("should have css variables enabled", () => {
-      expect(isVars(theme)).toBe(true);
-    });
-
-    it("should have css variables enabled in custom theme", () => {
-      // expect(customTheme.var).toBe(true);
-    });
-  });
-
   describe("Palette Configuration", () => {
     it("should initialize with default palette settings", () => {
       expect(theme.palette).toBeDefined();
@@ -123,7 +122,7 @@ describe("Theme Configuration", () => {
 
     it("should apply default alert colors", () => {
       expect("alert" in theme.palette).toBe(true);
-      const alert = (theme.palette as unknown as Record<string, unknown>).alert;
+      const alert = (theme.palette as unknown as GenericRecord).alert;
       validatePaletteColor(alert, DEFAULT_PALETTE_ALERT);
     });
 
@@ -135,13 +134,13 @@ describe("Theme Configuration", () => {
 
     it("should apply default info colors", () => {
       expect("info" in theme.palette).toBe(true);
-      const info = (theme.palette as unknown as Record<string, unknown>).info;
+      const info = (theme.palette as unknown as GenericRecord).info;
       validatePaletteColor(info, DEFAULT_PALETTE_INFO);
     });
 
     it("should apply default ink colors", () => {
       expect("ink" in theme.palette).toBe(true);
-      const ink = (theme.palette as unknown as Record<string, unknown>).ink;
+      const ink = (theme.palette as unknown as GenericRecord).ink;
       validatePaletteColor(ink, DEFAULT_PALETTE_INK);
     });
 
@@ -151,7 +150,7 @@ describe("Theme Configuration", () => {
 
     it("should apply default smoke colors", () => {
       expect("smoke" in theme.palette).toBe(true);
-      const smoke = (theme.palette as unknown as Record<string, unknown>).smoke;
+      const smoke = (theme.palette as unknown as GenericRecord).smoke;
       validatePaletteColor(smoke, DEFAULT_PALETTE_SMOKE);
     });
 
@@ -194,7 +193,117 @@ describe("Theme Configuration", () => {
       expect(theme.shadows[2]).toBe(DEFAULT_SHADOWS[2]);
     });
   });
+
+  describe("CSS Variables", () => {
+    it("should have css variables enabled", () => {
+      expect(isVars(theme)).toBe(true);
+    });
+  });
+
+  describe("CSS Variables Configuration", () => {
+    let vars: CssVarsTheme["vars"];
+
+    beforeEach(() => {
+      vars = (theme as Theme & Pick<CssVarsTheme, "vars">).vars;
+      expect(vars).toBeDefined();
+    });
+
+    it("should have css exposed as CSS variables", () => {
+      console.log(vars);
+      expect("css" in vars).toBe(true);
+
+      const css = vars.css as unknown as GenericRecord;
+      // expect(vars.css).toBeDefined();
+      // expect(vars.css.fontFamily).toBeDefined();
+      // expect(vars.css.fontFamily).toEqual(
+      //   `var(--mui-font-family, ${theme.typography.fontFamily})`
+    });
+
+    it("should have fonts exposed as CSS variables", () => {
+      expect(vars.font).toBeDefined();
+
+      Object.keys(typography(theme))
+        .filter(filterTypographyVariants)
+        .forEach((variant) => {
+          // Test the variant exists in both theme and vars.
+          expect(variant in theme.typography).toBe(true);
+          expect(variant in vars.font).toBe(true);
+
+          const typography = theme.typography as unknown as GenericRecord;
+          const font = vars.font as unknown as GenericRecord;
+
+          // Get the font and typography variable value.
+          const fontValue = font[variant];
+          const typographyValue = typography[variant] as TypographyStyle;
+
+          // Ensure the font family is defined.
+          expect(typographyValue.fontFamily).toBeDefined();
+
+          // Check variable pattern.
+          expect(fontValue).toMatch(new RegExp(`^var\\(--mui-font-${variant}`));
+
+          // Check font size and line height format.
+          expect(fontValue).toMatch(/\d+px\/\d+px/);
+
+          // Check ends with font-family.
+          expect(fontValue).toMatch(
+            new RegExp(`${typographyValue.fontFamily}\\)$`)
+          );
+
+          // Full pattern test.
+          expect(fontValue).toMatch(
+            new RegExp(
+              `^var\\(--mui-font-${variant},\\s+\\d+\\s+\\d+px\\/\\d+px\\s+${typographyValue.fontFamily}\\)$`
+            )
+          );
+        });
+    });
+
+    it("should have palette colors exposed as CSS variables", () => {
+      expect(vars.palette).toBeDefined();
+
+      Object.keys(palette).forEach((color) => {
+        // Test the color exists in both theme and vars.
+        expect(color in theme.palette).toBe(true);
+        expect(color in vars.palette).toBe(true);
+
+        const palette = theme.palette as unknown as GenericRecord;
+        const paletteColor = palette[color] as unknown as GenericRecord;
+        const varsPalette = vars.palette as unknown as GenericRecord;
+        const varsColor = varsPalette[color] as unknown as GenericRecord;
+
+        Object.entries(paletteColor).forEach(([shade, value]) => {
+          // Test the shade exists in the vars.
+          expect(shade in varsColor).toBe(true);
+
+          // Full pattern test.
+          expect((vars.palette as any)[color][shade]).toEqual(
+            `var(--mui-palette-${color}-${shade}, ${value})`
+          );
+        });
+      });
+    });
+
+    it("should have shadow values exposed as CSS variables", () => {
+      expect(vars.shadows).toBeDefined();
+      vars.shadows.forEach((shadow, i) => {
+        // Full pattern test.
+        expect(shadow).toEqual(`var(--mui-shadows-${i}, ${theme.shadows[i]})`);
+      });
+    });
+  });
 });
+
+/**
+ * Filters typography variant keys to exclude specific predefined variant types.
+ * @param value - The typography variant key to be evaluated.
+ * @returns Returns true if the variant key is not among the excluded keys; otherwise false.
+ */
+function filterTypographyVariants(value: string): boolean {
+  return !/fontFamily|fontSize|fontWeightLight|fontWeightRegular|fontWeightMedium|fontWeightBold|htmlFontSize|allVariants/.test(
+    value
+  );
+}
 
 /**
  * Type guard to check if a value is a PaletteColor.
