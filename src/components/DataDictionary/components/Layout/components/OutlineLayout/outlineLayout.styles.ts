@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
+import { mediaDownSmall } from "../../../../../../styles/common/mixins/breakpoints";
 import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 import { LAYOUT_SPACING } from "../../constants";
 
@@ -19,7 +19,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   position: sticky;
   top: 0;
 
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     display: none;
   }
 `;

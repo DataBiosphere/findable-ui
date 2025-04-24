@@ -154,12 +154,12 @@ function isLinkVisible(
  * @returns true.
  */
 export function isSocialsVisible(
-  bp: Pick<UseBreakpoint, "breakpoint" | "lgUp">,
+  bp: Pick<UseBreakpoint, "breakpoint" | "xlUp">,
   socialMedia?: SocialMedia
 ): boolean {
   if (!socialMedia) return false;
   if (!bp.breakpoint) return false;
-  if (!socialMedia.visible) return bp.lgUp;
+  if (!socialMedia.visible) return bp.xlUp;
   return socialMedia.visible[bp.breakpoint] !== false;
 }
 

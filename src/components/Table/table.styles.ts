@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
+import { mediaDownSmall } from "../../styles/common/mixins/breakpoints";
 import { GridTable as Table } from "./common/gridTable.styles";
 
 interface Props {
@@ -11,7 +11,7 @@ export const GridTable = styled(Table, {
   shouldForwardProp: (prop) => prop !== "collapsable",
 })<Props>`
   // Collapsable.
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     ${({ collapsable }) =>
       collapsable &&
       css`

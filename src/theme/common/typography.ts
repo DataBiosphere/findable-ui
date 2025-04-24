@@ -1,5 +1,5 @@
-import { CSSProperties, TypographyVariantsOptions } from "@mui/material";
-import { tabletUp } from "./breakpoints";
+import { CSSProperties, Theme, TypographyVariantsOptions } from "@mui/material";
+import { mediaUpSmall } from "../../styles/common/mixins/breakpoints";
 
 /**
  * Typography Option "body-400"
@@ -103,66 +103,74 @@ const bodySmall500: CSSProperties = {
 
 /**
  * Typography Option "heading"
+ * @param theme - Base Theme
+ * @returns CSSProperties
  */
-const heading: CSSProperties = {
+const heading = (theme: Theme): CSSProperties => ({
   fontFamily: "Inter",
   fontSize: "20px",
   fontWeight: 500,
   letterSpacing: "-0.2px",
   lineHeight: "28px",
-  [tabletUp]: {
+  [mediaUpSmall({ theme })]: {
     fontSize: "24px",
     letterSpacing: "-0.4px",
     lineHeight: "32px",
   },
-};
+});
 
 /**
  * Typography Option "heading-large"
+ * @param theme - Base Theme.
+ * @returns CSSProperties.
  */
-const headingLarge: CSSProperties = {
+const headingLarge = (theme: Theme): CSSProperties => ({
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
   letterSpacing: "-0.4px",
   lineHeight: "32px",
-  [tabletUp]: {
+  [mediaUpSmall({ theme })]: {
     fontSize: "30px",
     letterSpacing: "-0.8px",
     lineHeight: "40px",
   },
-};
+});
 
 /**
  * Typography Option "heading-small"
+ * @param theme - Base Theme.
+ * @returns CSSProperties.
  */
-const headingSmall: CSSProperties = {
+const headingSmall = (theme: Theme): CSSProperties => ({
   fontFamily: "Inter",
   fontSize: "18px",
   fontWeight: 500,
   lineHeight: "26px",
-  [tabletUp]: {
+  [mediaUpSmall({ theme })]: {
     fontSize: "20px",
     letterSpacing: "-0.2px",
     lineHeight: "28px",
   },
-};
+});
 
 /**
  * Typography Option "heading-xlarge"
+ * @param theme - Base Theme.
+ * @returns CSSProperties.
  */
-const headingXLarge: CSSProperties = {
+const headingXLarge = (theme: Theme): CSSProperties => ({
   fontFamily: "Inter",
   fontSize: "30px",
   fontWeight: 500,
   letterSpacing: "-0.8px",
   lineHeight: "40px",
-  [tabletUp]: {
+  [mediaUpSmall({ theme })]: {
     fontSize: "40px",
     letterSpacing: "-1.4px",
     lineHeight: "56px",
   },
-};
+});
 
 /**
  * Typography Option "heading-xsmall"
@@ -185,7 +193,7 @@ const uppercase500: CSSProperties = {
   textTransform: "uppercase",
 };
 
-export const typography: TypographyVariantsOptions = {
+export const typography = (theme: Theme): TypographyVariantsOptions => ({
   "body-400": body400,
   "body-400-2lines": body4002Lines,
   "body-500": body500,
@@ -197,10 +205,10 @@ export const typography: TypographyVariantsOptions = {
   "body-small-400-2lines": bodySmall4002Lines,
   "body-small-500": bodySmall500,
   fontFamily: "Inter",
-  heading: heading,
-  "heading-large": headingLarge,
-  "heading-small": headingSmall,
-  "heading-xlarge": headingXLarge,
+  heading: heading(theme),
+  "heading-large": headingLarge(theme),
+  "heading-small": headingSmall(theme),
+  "heading-xlarge": headingXLarge(theme),
   "heading-xsmall": headingXSmall,
   "uppercase-500": uppercase500,
-};
+});

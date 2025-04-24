@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
-import { TABLET } from "../../theme/common/breakpoints";
+import { mediaDownSmall } from "../../styles/common/mixins/breakpoints";
 import { Paper, PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { LOADING_PANEL_STYLE, LoadingPanelStyle } from "./loading";
 
@@ -44,12 +44,12 @@ export const LoadingPaper = styled(Paper)<Props>`
     `};
 
   // Style "Fluid" paper.
-  ${({ panelStyle, theme }) =>
+  ${({ panelStyle, ...props }) =>
     panelStyle === PAPER_PANEL_STYLE.FLUID &&
     css`
       border-radius: 8px;
 
-      ${theme.breakpoints.down(TABLET)} {
+      ${mediaDownSmall(props)} {
         border-left: none;
         border-radius: 0;
         border-right: none;

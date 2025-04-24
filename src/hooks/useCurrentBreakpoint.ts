@@ -15,9 +15,10 @@ export const useCurrentBreakpoint = (): UseCurrentBreakpoint => {
   const sm = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "sm");
   const md = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "md");
   const lg = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "lg");
+  const xl = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "xl");
   const breakpoints: Record<Breakpoint, boolean> = useMemo(
-    () => ({ lg, md, sm, xs }),
-    [lg, md, sm, xs]
+    () => ({ lg, md, sm, xl, xs }),
+    [lg, md, sm, xl, xs]
   );
   return breakpointKeys.find((key) => breakpoints[key]);
 };

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Divider as MDivider } from "@mui/material";
-import { mediaDesktopSmallUp } from "../../../../../../../../styles/common/mixins/breakpoints";
+import { mediaUpMedium } from "../../../../../../../../styles/common/mixins/breakpoints";
 
 export const Slogan = styled.div`
   padding: 8px 24px;
@@ -9,7 +9,7 @@ export const Slogan = styled.div`
     display: block;
   }
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     flex: none;
     padding: 0;
 

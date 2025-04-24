@@ -1,4 +1,4 @@
-import { Components, ThemeOptions } from "@mui/material";
+import { Components, Theme, ThemeOptions } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { CSS } from "../../styles/common/constants/css";
@@ -6,8 +6,8 @@ import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import * as C from "../components";
-import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
@@ -558,8 +558,6 @@ const MuiDialogActions: Components["MuiDialogActions"] = {
 
 /**
  * MuiDialogContent Component
- * @param theme - Theme.
- * @returns MuiDialogContent component theme styles.
  */
 const MuiDialogContent: Components["MuiDialogContent"] = {
   styleOverrides: {
@@ -576,17 +574,23 @@ const MuiDialogContent: Components["MuiDialogContent"] = {
 const MuiDialogTitle: Components["MuiDialogTitle"] = {
   styleOverrides: {
     root: {
-      alignItems: "center",
-      display: "grid",
-      font: FONT.HEADING,
-      gridAutoFlow: "column",
-      padding: 20,
-      [tabletUp]: {},
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
-      "& .MuiIconButton-edgeEnd": {
-        alignSelf: FLEX_START,
-        justifySelf: "flex-end",
-      },
+      variants: [
+        {
+          style: ({ theme }: { theme: Theme }) => ({
+            alignItems: "center",
+            display: "grid",
+            font: FONT.HEADING,
+            gridAutoFlow: "column",
+            padding: 20,
+            [theme.breakpoints.up("sm")]: {},
+            // eslint-disable-next-line sort-keys -- disabling key order for readability
+            "& .MuiIconButton-edgeEnd": {
+              alignSelf: FLEX_START,
+              justifySelf: "flex-end",
+            },
+          }),
+        },
+      ],
     },
   },
 };
@@ -797,14 +801,20 @@ const MuiInputBase: Components["MuiInputBase"] = {
       height: "unset",
     },
     root: {
-      font: FONT.BODY_LARGE_400,
-      height: 40,
-      letterSpacing: "normal",
-      lineHeight: "20px",
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [tabletUp]: {
-        font: FONT.BODY_400,
-      },
+      variants: [
+        {
+          style: ({ theme }: { theme: Theme }) => ({
+            font: FONT.BODY_LARGE_400,
+            height: 40,
+            letterSpacing: "normal",
+            lineHeight: "20px",
+            // eslint-disable-next-line sort-keys -- disabling key order for readability
+            [theme.breakpoints.up("sm")]: {
+              font: FONT.BODY_400,
+            },
+          }),
+        },
+      ],
     },
   },
 };
@@ -1257,12 +1267,18 @@ const MuiTabs: Components["MuiTabs"] = {
       position: "relative", // Positions scroll fuzz.
     },
     scroller: {
-      margin: 0,
-      padding: "0 8px",
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [tabletUp]: {
-        padding: 0,
-      },
+      variants: [
+        {
+          style: ({ theme }: { theme: Theme }) => ({
+            margin: 0,
+            padding: "0 8px",
+            // eslint-disable-next-line sort-keys -- disabling key order for readability
+            [theme.breakpoints.up("sm")]: {
+              padding: 0,
+            },
+          }),
+        },
+      ],
     },
   },
 };
@@ -1324,15 +1340,20 @@ const MuiToggleButtonGroup: Components["MuiToggleButtonGroup"] = {
 const MuiToolbar: Components["MuiToolbar"] = {
   styleOverrides: {
     root: {
-      [mobileUp]: {
-        paddingLeft: 12,
-        paddingRight: 12,
-      },
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [desktopUp]: {
-        paddingLeft: 16,
-        paddingRight: 16,
-      },
+      variants: [
+        {
+          style: ({ theme }: { theme: Theme }) => ({
+            [theme.breakpoints.up("xs")]: {
+              paddingLeft: 12,
+              paddingRight: 12,
+            },
+            [theme.breakpoints.up("md")]: {
+              paddingLeft: 16,
+              paddingRight: 16,
+            },
+          }),
+        },
+      ],
     },
   },
 };
@@ -1374,6 +1395,14 @@ const MuiTypography: Components["MuiTypography"] = {
   styleOverrides: {
     gutterBottom: {
       marginBottom: 8,
+    },
+    root: {
+      variants: [
+        {
+          props: { variant: TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500 },
+          style: { textTransform: "uppercase" },
+        },
+      ],
     },
   },
 };

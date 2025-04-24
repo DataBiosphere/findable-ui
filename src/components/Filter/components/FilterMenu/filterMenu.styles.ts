@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
+import { mediaUpMedium } from "../../../../styles/common/mixins/breakpoints";
 
 interface Props {
   menuWidth: number;
@@ -14,7 +14,7 @@ export const FilterView = styled.div<Props>`
 export const FilterViewTools = styled.div`
   margin: 24px 0 8px;
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     margin: 0;
   }
 }

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../../../../../styles/common/constants/font";
-import { mediaTabletDown } from "../../../../../../../../styles/common/mixins/breakpoints";
+import { mediaDownSmall } from "../../../../../../../../styles/common/mixins/breakpoints";
 import { BarX } from "../../../../../../../Plot/components/BarX/barX";
 
 export const StyledBarX = styled(BarX)`
@@ -17,7 +17,7 @@ export const StyledBarX = styled(BarX)`
           text-anchor: end;
         }
 
-        ${mediaTabletDown} {
+        ${mediaDownSmall} {
           display: none;
           &:nth-of-type(1),
           &:nth-last-of-type(1) {

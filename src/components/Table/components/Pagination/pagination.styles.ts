@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { TABLET } from "../../../../theme/common/breakpoints";
+import { mediaUpSmall } from "../../../../styles/common/mixins/breakpoints";
 
 export const Pagination = styled.div`
   align-items: center;
@@ -11,7 +11,7 @@ export const Pagination = styled.div`
   justify-content: space-between;
   padding: 20px;
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${mediaUpSmall} {
     justify-content: flex-start;
   }
 `;

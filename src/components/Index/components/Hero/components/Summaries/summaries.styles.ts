@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import {
-  mediaTabletDown,
-  mediaTabletUp,
+  mediaDownSmall,
+  mediaUpSmall,
 } from "../../../../../../styles/common/mixins/breakpoints";
 import { Dot as DXDot } from "../../../../../common/Dot/dot";
 
@@ -18,14 +18,14 @@ export const Summary = styled.div`
     overflow: hidden;
   }
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     flex: none;
     flex-direction: row;
   }
 `;
 
 export const Dot = styled(DXDot)`
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     display: none;
   }
 `;

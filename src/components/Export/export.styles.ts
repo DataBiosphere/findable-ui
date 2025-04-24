@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../styles/common/mixins/breakpoints";
+import { mediaUpSmall } from "../../styles/common/mixins/breakpoints";
 import { ThemeProps } from "../../theme/theme";
 import { SectionContent as MDXSectionContent } from "../common/MDXMarkdown/components/Section/mdxSection.styles";
 import {
@@ -12,7 +12,7 @@ import {
 
 export const sectionMargin = ({ theme }: ThemeProps) => css`
   ${sectionMarginXsm}
-  ${mediaTabletUp({ theme })} {
+  ${mediaUpSmall({ theme })} {
     margin: 16px 20px;
   }
 `;

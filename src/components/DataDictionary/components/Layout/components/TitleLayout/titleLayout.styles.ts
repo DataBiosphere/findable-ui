@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
+import { mediaDownSmall } from "../../../../../../styles/common/mixins/breakpoints";
 import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 
 export const Layout = styled("div")<LayoutSpacing>`
@@ -10,7 +10,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   position: sticky;
   top: 0;
 
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     grid-column: 1;
     grid-row: auto;
     position: relative;

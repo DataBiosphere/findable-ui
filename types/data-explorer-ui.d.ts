@@ -122,14 +122,6 @@ declare module "@mui/material/Tabs" {
 /* eslint-disable sonarjs/no-duplicate-string  -- ignoring duplicate strings here */
 
 declare module "@mui/material/styles" {
-  interface BreakpointOverrides {
-    lg: true;
-    md: true;
-    sm: true;
-    xl: false;
-    xs: true;
-  }
-
   interface Palette {
     alert: PaletteColor;
     ink: PaletteColor;

@@ -9,7 +9,6 @@ import {
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../hooks/useWindowResize";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { Filter } from "../Filter/filter";
 import { FilterTags } from "../FilterTags/filterTags";
 import { CategoryViewsLabel, Filters as FilterList } from "./filters.styles";
@@ -70,10 +69,7 @@ export const Filters = ({
   onFilter,
   trackFilterOpened,
 }: FiltersProps): JSX.Element => {
-  const isFilterDrawer = useBreakpointHelper(
-    BREAKPOINT_FN_NAME.DOWN,
-    DESKTOP_SM
-  );
+  const lgDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "lg");
   const { height: windowHeight } = useWindowResize();
   const filterListRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(0);
@@ -99,7 +95,7 @@ export const Filters = ({
               categorySection={label}
               categoryView={categoryView}
               closeAncestor={closeAncestor}
-              isFilterDrawer={isFilterDrawer}
+              isFilterDrawer={lgDown}
               onFilter={onFilter}
               trackFilterOpened={trackFilterOpened}
               tags={renderFilterTags(categoryView, onFilter)}

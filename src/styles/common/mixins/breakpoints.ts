@@ -1,20 +1,34 @@
-import { DESKTOP, DESKTOP_SM, TABLET } from "../../../theme/common/breakpoints";
 import { ThemeProps } from "../../../theme/theme";
 
-export const mediaDesktopSmallDown = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.down(DESKTOP_SM);
+export const mediaDown = ({ theme }: ThemeProps, px: number): string =>
+  theme.breakpoints.down(px);
 
-export const mediaDesktopSmallUp = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(DESKTOP_SM);
+export const mediaDownSmall = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down("sm");
 
-export const mediaDesktopUp = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(DESKTOP);
+export const mediaDownMedium = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down("md");
 
-export const mediaTabletDown = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.down(TABLET);
+export const mediaDownLarge = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down("lg");
 
-export const mediaTabletUp = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(TABLET);
+export const mediaDownXLarge = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down("xl");
 
-export const media1366Up = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(1366);
+export const mediaUp = ({ theme }: ThemeProps, px: number): string =>
+  theme.breakpoints.up(px);
+
+export const mediaUpXSmall = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("xs");
+
+export const mediaUpSmall = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("sm");
+
+export const mediaUpMedium = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("md");
+
+export const mediaUpLarge = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("lg");
+
+export const mediaUpXLarge = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("xl");

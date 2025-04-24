@@ -21,7 +21,6 @@ import {
 } from "../../../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../../../hooks/useWindowResize";
-import { DESKTOP_SM } from "../../../../../../theme/common/breakpoints";
 import {
   LIST_ITEM_HEIGHT,
   LIST_MARGIN,
@@ -132,10 +131,7 @@ export const VariableSizeList = forwardRef<
 ): JSX.Element {
   const filteredItems = applyMenuFilter(categoryViews, searchTerm);
   let resizeRequired = true;
-  const desktopSmDown = useBreakpointHelper(
-    BREAKPOINT_FN_NAME.DOWN,
-    DESKTOP_SM
-  );
+  const lgDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "lg");
   const { height: windowHeight } = useWindowResize();
   const [height, setHeight] = useState<number>(initHeight);
   const itemSizeByItemKeyRef = useRef<ItemSizeByItemKey>(new Map());
@@ -157,10 +153,10 @@ export const VariableSizeList = forwardRef<
           outerRef.current,
           innerRef.current,
           windowHeight,
-          desktopSmDown
+          lgDown
         )
       );
-  }, [desktopSmDown, windowHeight]);
+  }, [lgDown, windowHeight]);
 
   // Clears VariableSizeList cache (offsets and measurements) when values are updated (filtered).
   // Facilitates correct positioning of list items when list is updated.
@@ -202,7 +198,7 @@ export const VariableSizeList = forwardRef<
                   outerRef.current,
                   innerRef.current,
                   windowHeight,
-                  desktopSmDown
+                  lgDown
                 )
               );
             }
@@ -267,18 +263,18 @@ function applyMenuFilter(
  * @param outerListElem - Outer list element to reference list position from.
  * @param innerListElem - Element containing list items.
  * @param windowHeight - Window height.
- * @param desktopSmDown - True if viewport is small desktop or smaller.
+ * @param lgDown - True if viewport is "lg" or smaller.
  * @returns calculated height.
  */
 function calculateListHeight(
   outerListElem: HTMLDivElement,
   innerListElem: HTMLUListElement,
   windowHeight: number,
-  desktopSmDown: boolean
+  lgDown: boolean
 ): number {
   // Calculate max possible list height, based on window height and top position of the list element.
   const maxHeight = windowHeight - outerListElem.getBoundingClientRect().top;
-  if (desktopSmDown) {
+  if (lgDown) {
     return maxHeight;
   }
   // Grab the first and last element in the list.

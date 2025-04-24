@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
+import { mediaUpMedium } from "../../../../styles/common/mixins/breakpoints";
 import { Input } from "../../../common/Input/input";
 
 export const FilterMenuSearch = styled(Input)`
@@ -10,7 +10,7 @@ export const FilterMenuSearch = styled(Input)`
     color: ${PALETTE.INK_LIGHT};
   }
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     margin-top: 16px;
   }
 `;

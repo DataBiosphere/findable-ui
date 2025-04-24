@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
+import { mediaDownSmall } from "../../styles/common/mixins/breakpoints";
 
 export const grid = css`
   column-gap: 24px;
@@ -15,7 +15,7 @@ export const View = styled("div")`
   max-width: min(calc(100vw - 48px), 1392px);
   position: relative;
 
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     grid-template-columns: 1fr;
     max-width: calc(100vw - 32px);
   }

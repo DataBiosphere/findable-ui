@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
+import { mediaUpSmall } from "../../../../../../styles/common/mixins/breakpoints";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 
 export const Button = styled(ButtonPrimary)`
@@ -8,7 +8,7 @@ export const Button = styled(ButtonPrimary)`
   display: none;
   margin-left: -1px;
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     display: block;
   }
 `;

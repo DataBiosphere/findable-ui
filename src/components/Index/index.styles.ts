@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletUp } from "../../styles/common/mixins/breakpoints";
+import { mediaUpSmall } from "../../styles/common/mixins/breakpoints";
 
 interface Props {
   marginTop: number;
@@ -13,7 +13,7 @@ export const Index = styled("div")<Props>`
   padding: 24px 0;
   place-content: flex-start stretch;
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     padding: 24px;
   }
 `;

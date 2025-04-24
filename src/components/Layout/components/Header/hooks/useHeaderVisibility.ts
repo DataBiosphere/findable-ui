@@ -25,7 +25,7 @@ export interface UseHeaderVisibility {
 export const useHeaderVisibility = (
   headerProps: HeaderProps
 ): UseHeaderVisibility => {
-  const { breakpoint, lgUp, mdUp, smDown, smUp } = useBreakpoint();
+  const { breakpoint, lgUp, smDown, smUp, xlUp } = useBreakpoint();
   // Header configuration.
   const {
     actions,
@@ -53,9 +53,9 @@ export const useHeaderVisibility = (
     hasBreakpoint;
   const isNavigationIn = smUp;
   const isMenuIn = hasMenu;
-  const isSloganIn = hasSlogan && mdUp;
+  const isSloganIn = hasSlogan && lgUp;
   const isSocialsIn =
-    hasSocials && isSocialsVisible({ breakpoint, lgUp }, socialMedia);
+    hasSocials && isSocialsVisible({ breakpoint, xlUp }, socialMedia);
   // Determines navigation visibility.
   const isCenterNavigationIn = isNavigationIn && hasNavItemsC;
   const isLeftNavigationIn = isNavigationIn && hasNavItemsL;

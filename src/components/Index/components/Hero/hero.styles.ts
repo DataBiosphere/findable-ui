@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
-  mediaDesktopSmallUp,
-  mediaTabletUp,
+  mediaUpMedium,
+  mediaUpSmall,
 } from "../../../../styles/common/mixins/breakpoints";
 
 interface Props {
@@ -16,7 +16,7 @@ export const HeroLayout = styled.div`
   grid-template-columns: 1fr;
   padding: 0 16px;
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     grid-template-columns: 1fr auto;
     padding: 0;
   }
@@ -27,12 +27,12 @@ export const Widgets = styled.div`
   display: flex;
   height: 60px;
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     height: 40px;
     justify-self: flex-start;
   }
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     grid-column: 2;
     justify-self: flex-end;
   }
@@ -48,7 +48,7 @@ export const SummaryWidget = styled.div<Props>`
   height: inherit;
   padding: 12px 16px;
 
-  ${mediaTabletUp} {
+  ${mediaUpSmall} {
     border-radius: ${({ buttonWidget }) =>
       buttonWidget ? "4px 0 0 4px" : "4px"};
     flex: none;

@@ -41,7 +41,6 @@ import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
-import { DESKTOP_SM } from "../../theme/common/breakpoints";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -49,7 +48,7 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
+  const lgDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "lg");
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { explorerTitle, summaryConfig, trackingConfig } = config;
@@ -175,7 +174,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         list={<EntityList entityListType={entityListType} />}
         ListHero={renderComponent(listHero)}
         SideBarButton={
-          tabletDown ? (
+          lgDown ? (
             <SidebarButton
               count={filterCount}
               label="Filter"

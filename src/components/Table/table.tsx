@@ -32,7 +32,6 @@ import { useExploreState } from "../../hooks/useExploreState";
 import { useScroll } from "../../hooks/useScroll";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../../providers/exploreState/initializer/constants";
-import { TABLET } from "../../theme/common/breakpoints";
 import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
@@ -82,7 +81,7 @@ export const TableComponent = <T extends RowData>({
   tableOptions,
 }: // eslint-disable-next-line sonarjs/cognitive-complexity -- TODO fix component length / complexity
 TableProps<T>): JSX.Element => {
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
+  const smDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
   const exploreMode = useExploreMode();
   const { exploreDispatch, exploreState } = useExploreState();
   const {
@@ -99,9 +98,7 @@ TableProps<T>): JSX.Element => {
   const { currentPage, pages, pageSize, rows: pageCount } = paginationState;
   const { disablePagination = false } = listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
-  const rowDirection = tabletDown
-    ? ROW_DIRECTION.VERTICAL
-    : ROW_DIRECTION.DEFAULT;
+  const rowDirection = smDown ? ROW_DIRECTION.VERTICAL : ROW_DIRECTION.DEFAULT;
   const pagination = useMemo(
     () => getTableStatePagination(currentPage - 1, pageSize),
     [currentPage, pageSize]

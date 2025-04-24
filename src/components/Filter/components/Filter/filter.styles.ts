@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Popover } from "@mui/material";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaDesktopSmallDown } from "../../../../styles/common/mixins/breakpoints";
+import { mediaDownMedium } from "../../../../styles/common/mixins/breakpoints";
 import { IconButton as DXIconButton } from "../../../common/IconButton/iconButton";
 
 export const FilterPopover = styled(Popover)`
@@ -9,7 +9,7 @@ export const FilterPopover = styled(Popover)`
     margin: 4px 0;
   }
 
-  ${mediaDesktopSmallDown} {
+  ${mediaDownMedium} {
     .MuiPaper-root {
       background-color: ${PALETTE.SMOKE_LIGHT};
       height: 100%;

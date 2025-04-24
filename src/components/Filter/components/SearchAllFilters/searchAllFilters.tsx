@@ -18,7 +18,6 @@ import {
 } from "../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { SearchCloseButton } from "../SearchAllFiltersSearch/components/SearchCloseButton/searchCloseButton";
 import { SearchAllFiltersSearch } from "../SearchAllFiltersSearch/searchAllFiltersSearch";
 import { DEFAULT_SLOT_PROPS, DRAWER_SLOT_PROPS } from "./common/constants";
@@ -80,14 +79,14 @@ export const SearchAllFilters = ({
   drawerOpen = false,
   onFilter,
 }: SearchAllFiltersProps): JSX.Element => {
-  const desktopSmUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, DESKTOP_SM);
+  const lgUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "lg");
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Handles background scroll action (desktop only).
+  // Handles background scroll action ("lg" up only).
   const handleBackgroundScroll = (overflowStyle: OVERFLOW_STYLE): void => {
-    if (desktopSmUp) {
+    if (lgUp) {
       setElementsOverflowStyle(
         [
           document.querySelector(SELECTOR.BODY),
@@ -154,13 +153,13 @@ export const SearchAllFilters = ({
       }}
     >
       <Autocomplete
-        clearOnBlur={desktopSmUp}
+        clearOnBlur={lgUp}
         data-testid={TEST_IDS.SEARCH_ALL_FILTERS}
         filterOptions={(options): string[] => options}
         freeSolo
         ListboxComponent={Listbox}
-        onBlur={desktopSmUp ? onCloseSearch : undefined}
-        onClose={desktopSmUp ? onCloseSearch : undefined}
+        onBlur={lgUp ? onCloseSearch : undefined}
+        onClose={lgUp ? onCloseSearch : undefined}
         onFocus={onOpenSearch}
         onOpen={onOpen}
         open={open}
@@ -180,7 +179,7 @@ export const SearchAllFilters = ({
             },
           })
         }
-        slotProps={desktopSmUp ? DEFAULT_SLOT_PROPS : DRAWER_SLOT_PROPS}
+        slotProps={lgUp ? DEFAULT_SLOT_PROPS : DRAWER_SLOT_PROPS}
       />
     </ListboxContext.Provider>
   );

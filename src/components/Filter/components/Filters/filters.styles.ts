@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
+import { mediaUpMedium } from "../../../../styles/common/mixins/breakpoints";
 
 interface Props {
   disabled: boolean;
@@ -28,7 +28,7 @@ export const Filters = styled("div")<Props>`
     margin: 8px;
   }
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     height: unset;
     overflow: unset;
     padding: 0 8px;
@@ -38,6 +38,7 @@ export const Filters = styled("div")<Props>`
 export const CategoryViewsLabel = styled("div")`
   color: ${PALETTE.INK_LIGHT};
   font: ${FONT.UPPERCASE_500};
+  text-transform: uppercase;
   padding: 8px;
   text-transform: uppercase;
 `;

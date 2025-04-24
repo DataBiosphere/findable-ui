@@ -2,9 +2,9 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
-  media1366Up,
-  mediaDesktopSmallUp,
-  mediaTabletDown,
+  mediaDownSmall,
+  mediaUp,
+  mediaUpMedium,
 } from "../../../../styles/common/mixins/breakpoints";
 import { ThemeProps } from "../../../../theme/theme";
 import { PanelBackgroundColor } from "./common/entities";
@@ -40,7 +40,7 @@ export const ContentLayout = styled.div<LayoutProps>`
   height: 100%;
   margin: 0 auto;
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     ${({ hasNavigation }) =>
       hasNavigation
         ? css`
@@ -55,7 +55,7 @@ export const ContentLayout = styled.div<LayoutProps>`
           `};
   }
 
-  ${media1366Up} {
+  ${({ theme }) => mediaUp({ theme }, 1366)} {
     grid-template-areas: "navigation content outline";
     grid-template-columns:
       ${NAV_GRID_WIDTH}px
@@ -87,7 +87,7 @@ export const NavigationGrid = styled.div<GridProps>`
   display: none;
   grid-area: navigation;
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     display: block;
   }
 `;
@@ -103,7 +103,7 @@ export const OutlineGrid = styled("div")<GridProps>`
   display: none;
   grid-area: outline;
 
-  ${media1366Up} {
+  ${({ theme }) => mediaUp({ theme }, 1366)} {
     display: block;
   }
 `;
@@ -126,7 +126,7 @@ export const Content = styled.div`
   max-width: ${CONTENT_MAX_WIDTH}px;
   padding: ${PADDING_Y}px 40px;
 
-  ${mediaTabletDown} {
+  ${mediaDownSmall} {
     padding: ${PADDING_Y}px 16px;
   }
 `;

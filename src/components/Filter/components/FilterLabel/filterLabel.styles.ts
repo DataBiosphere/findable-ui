@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
+import { mediaUpMedium } from "../../../../styles/common/mixins/breakpoints";
 
 interface Props {
   isOpen: boolean;
@@ -32,7 +32,7 @@ export const FilterLabel = styled(Button, {
     transform: rotate(-90deg);
   }
 
-  ${mediaDesktopSmallUp} {
+  ${mediaUpMedium} {
     padding: 6px 8px;
 
     & .MuiButton-endIcon {
@@ -45,7 +45,7 @@ export const FilterLabel = styled(Button, {
     css`
       background-color: ${PALETTE.SMOKE_MAIN};
 
-      ${mediaDesktopSmallUp(props)} {
+      ${mediaUpMedium(props)} {
         & .MuiButton-endIcon {
           transform: rotate(180deg);
         }
