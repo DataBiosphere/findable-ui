@@ -1,5 +1,17 @@
 # Changelog
 
+## [27.0.0](https://github.com/DataBiosphere/findable-ui/compare/v26.0.0...v27.0.0) (2025-04-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated column def width type #437 ([#438](https://github.com/DataBiosphere/findable-ui/issues/438))
+
+### Bug Fixes
+
+* updated column def width type [#437](https://github.com/DataBiosphere/findable-ui/issues/437) ([6e9bd24](https://github.com/DataBiosphere/findable-ui/commit/6e9bd247ddded8e169f68a09e3c4553692d6a979))
+* updated column def width type [#437](https://github.com/DataBiosphere/findable-ui/issues/437) ([#438](https://github.com/DataBiosphere/findable-ui/issues/438)) ([6e9bd24](https://github.com/DataBiosphere/findable-ui/commit/6e9bd247ddded8e169f68a09e3c4553692d6a979))
+
 ## [26.0.0](https://github.com/DataBiosphere/findable-ui/compare/v25.1.0...v26.0.0) (2025-04-23)
 
 
