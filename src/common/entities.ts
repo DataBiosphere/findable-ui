@@ -69,7 +69,7 @@ export interface DataDictionaryColumnDef {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig {
-  columnDefs: ColumnDef<Attribute, Attribute[keyof Attribute]>[];
+  columnDefs: ColumnDef<Attribute, AttributeValue>[];
   dataDictionary: DataDictionary;
 }
 
