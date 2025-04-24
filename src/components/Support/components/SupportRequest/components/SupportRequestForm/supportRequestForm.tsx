@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { FileRejection } from "react-dropzone";
 import { ValidationError } from "yup";
-import { TEXT_BODY_400 } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { Input } from "../../../../../common/Form/components/Input/input";
 import { Select } from "../../../../../common/Form/components/Select/select";
@@ -184,7 +184,10 @@ export const SupportRequestForm = ({
           <Section>
             <SectionContent>
               <Title>Contact Us</Title>
-              <Typography color="ink.light" variant={TEXT_BODY_400}>
+              <Typography
+                color="ink.light"
+                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+              >
                 We’re here to help and answer any questions you might have. We
                 look forward to hearing from you!
               </Typography>

@@ -8,8 +8,8 @@ import React, { CSSProperties, useEffect, useRef } from "react";
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { SELECT_CATEGORY_KEY } from "../../../../providers/exploreState/constants";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { TEXT_BODY_SMALL_400 } from "../../../../theme/common/typography";
 import { CheckedIcon } from "../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FilterMenuSearchMatch } from "../../common/entities";
@@ -75,7 +75,7 @@ export default function VariableSizeListItem({
             <Typography
               color="ink.light"
               data-testid={TEST_IDS.FILTER_COUNT}
-              variant={TEXT_BODY_SMALL_400}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
             >
               {count}
             </Typography>

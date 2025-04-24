@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  textBody400,
-  textBodySmall400,
-} from "../../styles/common/mixins/fonts";
+import { FONT } from "../../styles/common/constants/font";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
@@ -38,11 +35,11 @@ export const LoginSectionActions = styled(SectionActions)`
 `;
 
 export const LoginText = styled.div`
-  ${textBody400};
+  font: ${FONT.BODY_400};
 `;
 
 export const TermsOfService = styled.div`
-  ${textBody400};
+  font: ${FONT.BODY_400};
 
   a {
     color: inherit;
@@ -51,6 +48,6 @@ export const TermsOfService = styled.div`
 `;
 
 export const LoginWarning = styled.div`
-  ${textBodySmall400};
   color: ${({ theme }) => theme.palette.ink.light};
+  font: ${FONT.BODY_SMALL_400};
 `;

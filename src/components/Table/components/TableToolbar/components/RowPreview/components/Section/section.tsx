@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { ReactNode } from "react";
-import { TEXT_HEADING_SMALL } from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { Section as PreviewSection } from "./section.styles";
 
 export interface SectionProps {
@@ -16,7 +16,10 @@ export const Section = ({
 }: SectionProps): JSX.Element => {
   return (
     <PreviewSection className={className}>
-      <Typography component="div" variant={TEXT_HEADING_SMALL}>
+      <Typography
+        component="div"
+        variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
+      >
         {title}
       </Typography>
       {children}

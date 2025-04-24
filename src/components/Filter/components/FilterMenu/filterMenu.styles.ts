@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
+import { FONT } from "../../../../styles/common/constants/font";
 import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
-import { textBodyLarge500 } from "../../../../styles/common/mixins/fonts";
 
 interface Props {
   menuWidth: number;
@@ -21,9 +21,9 @@ export const FilterViewTools = styled.div`
 `;
 
 export const Button = styled(ButtonBase)`
-  ${textBodyLarge500};
   align-items: center;
   display: flex;
+  font: ${FONT.BODY_LARGE_500};
   gap: 8px;
   justify-content: flex-start;
   padding: 12px 16px;

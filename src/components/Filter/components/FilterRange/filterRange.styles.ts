@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../styles/common/constants/font";
 import {
   inkLight,
   inkMain,
   smokeDark,
 } from "../../../../styles/common/mixins/colors";
-import { textBody400 } from "../../../../styles/common/mixins/fonts";
 
 export const StyledForm = styled("form")`
   padding: 16px;
@@ -44,8 +44,8 @@ export const StyledForm = styled("form")`
       grid-template-rows: subgrid;
 
       .MuiInputLabel-root {
-        ${textBody400};
         color: ${inkMain};
+        font: ${FONT.BODY_400};
         max-width: unset;
         position: relative;
         transform: unset;

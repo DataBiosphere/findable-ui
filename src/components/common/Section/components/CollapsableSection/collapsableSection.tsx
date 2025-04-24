@@ -5,6 +5,7 @@ import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
 } from "../../../../../hooks/useBreakpointHelper";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { TABLET } from "../../../../../theme/common/breakpoints";
 import { SectionTitle } from "../SectionTitle/sectionTitle";
 import {
@@ -31,7 +32,10 @@ export const CollapsableSection = ({
   const disabled = !mobile || !collapsable;
   const ExpandIcon = expanded ? RemoveRounded : AddRounded;
   const SectionContent = (
-    <SectionText component="div" variant="text-body-400-2lines">
+    <SectionText
+      component="div"
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+    >
       {children}
     </SectionText>
   );
