@@ -1,10 +1,10 @@
-import { CSSProperties, TypographyVariantsOptions } from "@mui/material";
+import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 /**
  * Typography Option "body-400"
  */
-const body400: CSSProperties = {
+const body400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 400,
@@ -14,7 +14,7 @@ const body400: CSSProperties = {
 /**
  * Typography Option "body-400-2lines"
  */
-const body4002Lines: CSSProperties = {
+const body4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 400,
@@ -24,7 +24,7 @@ const body4002Lines: CSSProperties = {
 /**
  * Typography Option "body-500"
  */
-const body500: CSSProperties = {
+const body500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 500,
@@ -34,7 +34,7 @@ const body500: CSSProperties = {
 /**
  * Typography Option "body-500-2lines"
  */
-const body5002Lines: CSSProperties = {
+const body5002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
   fontWeight: 500,
@@ -44,7 +44,7 @@ const body5002Lines: CSSProperties = {
 /**
  * Typography Option "body-large-400"
  */
-const bodyLarge400: CSSProperties = {
+const bodyLarge400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 400,
@@ -54,7 +54,7 @@ const bodyLarge400: CSSProperties = {
 /**
  * Typography Option "body-large-400-2lines"
  */
-const bodyLarge4002Lines: CSSProperties = {
+const bodyLarge4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 400,
@@ -64,7 +64,7 @@ const bodyLarge4002Lines: CSSProperties = {
 /**
  * Typography Option "body-large-500"
  */
-const bodyLarge500: CSSProperties = {
+const bodyLarge500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 500,
@@ -74,7 +74,7 @@ const bodyLarge500: CSSProperties = {
 /**
  * Typography Option "body-small-400"
  */
-const bodySmall400: CSSProperties = {
+const bodySmall400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 400,
@@ -84,7 +84,7 @@ const bodySmall400: CSSProperties = {
 /**
  * Typography Option "body-small-400-2lines"
  */
-const bodySmall4002Lines: CSSProperties = {
+const bodySmall4002Lines: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 400,
@@ -94,7 +94,7 @@ const bodySmall4002Lines: CSSProperties = {
 /**
  * Typography Option "body-small-500"
  */
-const bodySmall500: CSSProperties = {
+const bodySmall500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "13px",
   fontWeight: 500,
@@ -104,7 +104,7 @@ const bodySmall500: CSSProperties = {
 /**
  * Typography Option "heading"
  */
-const heading: CSSProperties = {
+const heading: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "20px",
   fontWeight: 500,
@@ -120,7 +120,7 @@ const heading: CSSProperties = {
 /**
  * Typography Option "heading-large"
  */
-const headingLarge: CSSProperties = {
+const headingLarge: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
@@ -136,7 +136,7 @@ const headingLarge: CSSProperties = {
 /**
  * Typography Option "heading-small"
  */
-const headingSmall: CSSProperties = {
+const headingSmall: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "18px",
   fontWeight: 500,
@@ -151,7 +151,7 @@ const headingSmall: CSSProperties = {
 /**
  * Typography Option "heading-xlarge"
  */
-const headingXLarge: CSSProperties = {
+const headingXLarge: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "30px",
   fontWeight: 500,
@@ -167,7 +167,7 @@ const headingXLarge: CSSProperties = {
 /**
  * Typography Option "heading-xsmall"
  */
-const headingXSmall: CSSProperties = {
+const headingXSmall: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "16px",
   fontWeight: 500,
@@ -177,7 +177,7 @@ const headingXSmall: CSSProperties = {
 /**
  * Typography Option "uppercase-500"
  */
-const uppercase500: CSSProperties = {
+const uppercase500: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "12px",
   fontWeight: 500,
