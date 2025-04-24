@@ -1,5 +1,4 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { GridTrackSize } from "../config/entities";
 
 /**
  * Model of a value of a metadata class.
@@ -60,8 +59,8 @@ export interface DataDictionaryColumnDef {
   attributeSlotName: string;
   // Adding width here for now; possibly revisit separating column def and UI.
   width: {
-    max: GridTrackSize;
-    min: GridTrackSize;
+    max: string;
+    min: string;
   };
 }
 
