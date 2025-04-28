@@ -2,7 +2,11 @@ import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { SelectCategoryValueView } from "../src/common/entities";
-import { parseTranslate } from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/barX/utils";
+import {
+  getCategoryTotalCount,
+  getCountText,
+  parseTranslate,
+} from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/barX/utils";
 import { CHART_TEST_ID } from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/constants";
 import * as stories from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/stories/chart.stories";
 import { PALETTE } from "../src/styles/common/constants/palette";
@@ -16,6 +20,7 @@ const { Default, Selected } = composeStories(stories);
 
 const DATA = Default.args.selectCategoryValueViews || [];
 const SELECTED_DATA = Selected.args.selectCategoryValueViews || [];
+const TOTAL_COUNT = getCategoryTotalCount(DATA);
 
 describe("Chart", () => {
   describe("basic rendering", () => {
@@ -35,7 +40,7 @@ describe("Chart", () => {
   });
 
   describe("category labels and counts", () => {
-    const counts = DATA.map(mapCount);
+    const counts = DATA.map((d) => mapCount(d, TOTAL_COUNT));
     const labels = DATA.map(mapLabel);
     let countTextEls: NodeListOf<SVGElement>;
     let labelTextEls: NodeListOf<SVGElement>;
@@ -127,7 +132,9 @@ describe("Chart", () => {
     it("renders bars in descending order of count", () => {
       render(<Default testId={CHART_TEST_ID} />);
       // Order data by count in descending order.
-      const counts = [...DATA].sort(sortByCount).map(mapCount);
+      const counts = [...DATA]
+        .sort(sortByCount)
+        .map((d) => mapCount(d, TOTAL_COUNT));
       // Sort count <text> elements by their transform’s translate‑Y (vertical) value, since they’re rendered in data order.
       const countTextEls = getEls(CLASSNAMES.TEXT_COUNT, "text");
       const textContents = [...countTextEls]
@@ -200,12 +207,16 @@ function isFillPrimaryMain(element: Element): boolean {
 }
 
 /**
- * Maps the count of a category value view to a string.
- * @param categoryValueView - Category value view.
- * @returns Count as a string.
+ * Maps the count of a category value to a string representation.
+ * @param categoryValueView - The category value view to be processed.
+ * @param total - The total count associated with the category value.
+ * @returns The formatted count text for the category value.
  */
-function mapCount(categoryValueView: SelectCategoryValueView): string {
-  return categoryValueView.count.toLocaleString();
+function mapCount(
+  categoryValueView: SelectCategoryValueView,
+  total: number
+): string {
+  return getCountText(categoryValueView, total);
 }
 
 /**

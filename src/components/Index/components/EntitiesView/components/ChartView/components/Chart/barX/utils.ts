@@ -16,6 +16,17 @@ import {
 } from "./constants";
 
 /**
+ * Calculates the total count of all category values from the provided array of category value views.
+ * @param selectCategoryValueViews - An array of objects representing category values, where each object contains a count property.
+ * @returns The total sum of the count property from all category value objects in the array.
+ */
+export function getCategoryTotalCount(
+  selectCategoryValueViews: SelectCategoryValueView[]
+): number {
+  return selectCategoryValueViews.reduce((acc, { count }) => acc + count, 0);
+}
+
+/**
  * Returns the text for the category value point.
  * @param d - Data point.
  * @returns Formatted text string.
@@ -47,6 +58,38 @@ export function getCategoryValueTextFill(
  */
 export function getColorRangeValue(isCategorySelected: boolean): string {
   return isCategorySelected ? PALETTE.SMOKE_LIGHT : "#C5E3FC";
+}
+
+/**
+ * Calculates the percentage representation of a count value relative to a total.
+ * @param d - Data point containing the count value to calculate the percentage for.
+ * @param total - The total value used as the denominator to compute the percentage.
+ * @returns The calculated percentage value, rounded to one decimal place.
+ */
+export function getCountPercentage(
+  d: SelectCategoryValueView,
+  total: number
+): string {
+  if (total === 0) return "0";
+  const percentage = (d.count / total) * 100;
+  const roundedPercentage = Math.round(percentage * 10) / 10;
+  if (roundedPercentage < 0.1) return "< 0.1";
+  // Round to one decimal place.
+  return roundedPercentage.toFixed(1);
+}
+
+/**
+ * Returns the text for the count point.
+ * Includes the count and its percentage of the total.
+ * @param d - Data point.
+ * @param total - Total count.
+ * @returns Text string.
+ */
+export function getCountText(
+  d: SelectCategoryValueView,
+  total: number
+): string {
+  return `${d.count.toLocaleString()} (${getCountPercentage(d, total)}%)`;
 }
 
 /**
