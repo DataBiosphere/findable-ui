@@ -70,6 +70,7 @@ export function getCountPercentage(
   d: SelectCategoryValueView,
   total: number
 ): number {
+  if (total === 0) return 0;
   return Number((Math.round((d.count / total) * 1000) / 10).toFixed(1));
 }
 
