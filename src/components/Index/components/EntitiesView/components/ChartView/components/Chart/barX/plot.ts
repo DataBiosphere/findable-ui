@@ -5,9 +5,11 @@ import { PALETTE } from "../../../../../../../../../styles/common/constants/pale
 import { formatCountSize } from "../../../../../../../../../utils/formatCountSize";
 import { DATA_FIELD, MARGIN_LEFT, TEXT_PADDING } from "./constants";
 import {
+  getCategoryTotalCount,
   getCategoryValueText,
   getCategoryValueTextFill,
   getColorRangeValue,
+  getCountText,
   getCountTextFill,
   getPlotHeight,
   getTicks,
@@ -23,6 +25,7 @@ export function getPlotOptions(
   width: number
 ): PlotOptions {
   const isCategorySelected = isAnyValueSelected(selectCategoryValueViews);
+  const totalCount = getCategoryTotalCount(selectCategoryValueViews);
   return {
     color: {
       domain: [false, true], // false = unselected, true = selected.
@@ -77,7 +80,7 @@ export function getPlotOptions(
         fontWeight: 500,
         lineHeight: 0.8125,
         render: renderText,
-        text: DATA_FIELD.COUNT,
+        text: (d) => getCountText(d, totalCount),
         textAnchor: "end",
         x: DATA_FIELD.COUNT,
         y: DATA_FIELD.LABEL,
