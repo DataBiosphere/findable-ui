@@ -35,7 +35,7 @@ describe("ChartView", () => {
     } = Default;
     ["Biological Sex", "Genus Species"].forEach((category) => {
       expect(
-        screen.getByText(new RegExp(`${entityName} per ${category}`))
+        screen.getByText(new RegExp(`${entityName} by ${category}`))
       ).toBeDefined();
     });
   });
