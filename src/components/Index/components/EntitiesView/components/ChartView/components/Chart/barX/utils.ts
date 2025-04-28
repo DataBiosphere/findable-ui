@@ -69,9 +69,13 @@ export function getColorRangeValue(isCategorySelected: boolean): string {
 export function getCountPercentage(
   d: SelectCategoryValueView,
   total: number
-): number {
-  if (total === 0) return 0;
-  return Number((Math.round((d.count / total) * 1000) / 10).toFixed(1));
+): string {
+  if (total === 0) return "0";
+  const percentage = (d.count / total) * 100;
+  const roundedPercentage = Math.round(percentage * 10) / 10;
+  if (roundedPercentage < 0.1) return "< 0.1";
+  // Round to one decimal place.
+  return roundedPercentage.toFixed(1);
 }
 
 /**
