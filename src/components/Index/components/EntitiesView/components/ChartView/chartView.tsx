@@ -28,7 +28,7 @@ export const ChartView = ({
         {selectCategoryViews.map(({ key, label, values }) => (
           <StyledGridPaperSection key={key}>
             <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
-              {entityName} per {label}
+              {entityName} by {label}
             </Typography>
             <Chart selectCategoryValueViews={values} width={width} />
           </StyledGridPaperSection>
