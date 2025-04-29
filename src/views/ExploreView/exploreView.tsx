@@ -42,6 +42,7 @@ import { ExploreActionKind } from "../../providers/exploreState";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
+import { useTable } from "./table/hook";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -63,6 +64,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
+  const table = useTable();
 
   /**
    * Closes filter drawer.
@@ -172,7 +174,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
             loading={loading}
           />
         }
-        list={<EntityList entityListType={entityListType} />}
+        list={<EntityList entityListType={entityListType} table={table} />}
         ListHero={renderComponent(listHero)}
         SideBarButton={
           tabletDown ? (

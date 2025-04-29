@@ -276,7 +276,6 @@ export interface ListConfig<T extends RowData> {
  * List view configuration.
  */
 export interface ListViewConfig {
-  disablePagination?: boolean;
   enableDownload?: boolean;
   enableTab?: boolean;
   listHero?: ComponentsConfig;

@@ -4,7 +4,6 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
-import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryConfig,
   CategoryGroup,
@@ -152,7 +151,7 @@ function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
     list: { tableOptions = {} },
   } = entityConfig;
-  return getInitialColumnVisibilityState(tableOptions);
+  return tableOptions.initialState?.columnVisibility || {};
 }
 
 /**

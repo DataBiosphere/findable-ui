@@ -21,6 +21,12 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
+import { updateRowPreviewAction } from "./exploreState/actions/updateRowPreview/action";
+import { UpdateRowPreviewAction } from "./exploreState/actions/updateRowPreview/types";
+import { updateRowSelectionAction } from "./exploreState/actions/updateRowSelection/action";
+import { UpdateRowSelectionAction } from "./exploreState/actions/updateRowSelection/types";
+import { updateSortingAction } from "./exploreState/actions/updateSorting/action";
+import { UpdateSortingAction } from "./exploreState/actions/updateSorting/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
 import { UpdateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/types";
 import {
@@ -42,9 +48,6 @@ import {
   UpdateEntityFiltersPayload,
   UpdateEntityViewAccessPayload,
   UpdateFilterPayload,
-  UpdateRowPreviewPayload,
-  UpdateRowSelectionPayload,
-  UpdateSortingPayload,
 } from "./exploreState/payloads/entities";
 import {
   buildEntityStateSavedFilterState,
@@ -341,30 +344,6 @@ type UpdateEntityViewAccessAction = {
 type UpdateFilterAction = {
   payload: UpdateFilterPayload;
   type: ExploreActionKind.UpdateFilter;
-};
-
-/**
- * Update row preview action.
- */
-export type UpdateRowPreviewAction = {
-  payload: UpdateRowPreviewPayload;
-  type: ExploreActionKind.UpdateRowPreview;
-};
-
-/**
- * Update row selection action.
- */
-type UpdateRowSelectionAction = {
-  payload: UpdateRowSelectionPayload;
-  type: ExploreActionKind.UpdateRowSelection;
-};
-
-/**
- * Update sorting action.
- */
-export type UpdateSortingAction = {
-  payload: UpdateSortingPayload;
-  type: ExploreActionKind.UpdateSorting;
 };
 
 /**
@@ -669,47 +648,19 @@ function exploreReducer(
      * Update row preview
      */
     case ExploreActionKind.UpdateRowPreview: {
-      const rowPreview = payload;
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { rowPreview }
-        ),
-        rowPreview,
-      };
+      return updateRowPreviewAction(state, payload);
     }
     /**
      * Update row selection
      */
     case ExploreActionKind.UpdateRowSelection: {
-      const rowSelection = payload;
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { rowSelection }
-        ),
-      };
+      return updateRowSelectionAction(state, payload);
     }
     /**
      * Update sorting
      **/
     case ExploreActionKind.UpdateSorting: {
-      const rowPreview = closeRowPreview(state.rowPreview);
-      const sorting = payload;
-      return {
-        ...state,
-        entityPageState: updateEntityPageState(
-          state.tabValue,
-          state.entityPageState,
-          { rowPreview, sorting }
-        ),
-        paginationState: resetPage(state.paginationState),
-        rowPreview,
-      };
+      return updateSortingAction(state, payload);
     }
 
     default:

@@ -1,8 +1,4 @@
-import {
-  ColumnSort,
-  GroupingState,
-  RowSelectionState,
-} from "@tanstack/react-table";
+import { ColumnSort, GroupingState } from "@tanstack/react-table";
 import {
   CategoryKey,
   CategoryValueKey,
@@ -10,7 +6,6 @@ import {
   SelectCategory,
   SelectedFilter,
 } from "../../../common/entities";
-import { RowPreviewState } from "../../../components/Table/features/RowPreview/entities";
 import { ListItems, PaginationResponse } from "../../exploreState";
 import { ListItem } from "../entities";
 
@@ -75,18 +70,3 @@ export interface UpdateFilterPayload {
   selected: boolean;
   selectedValue: CategoryValueKey;
 }
-
-/**
- * Update row preview payload.
- */
-export type UpdateRowPreviewPayload = RowPreviewState;
-
-/**
- * Update row selection payload.
- */
-export type UpdateRowSelectionPayload = RowSelectionState;
-
-/**
- * Update sorting payload.
- */
-export type UpdateSortingPayload = ColumnSort[];
