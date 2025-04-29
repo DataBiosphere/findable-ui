@@ -34,6 +34,8 @@ export function useTable<T extends RowData>(): Table<T> {
   // Custom options i.e. initial state or other overrides.
   const tableOptions = useTableOptions<T>();
 
+  console.log(rowSelectionOptions, tableOptions);
+
   // Table instance.
   return useReactTable({
     ...tableCoreOptions,

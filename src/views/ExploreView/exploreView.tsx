@@ -64,7 +64,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
-  const table = useTable();
+  const tableInstance = useTable();
 
   /**
    * Closes filter drawer.
@@ -174,7 +174,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
             loading={loading}
           />
         }
-        list={<EntityList entityListType={entityListType} table={table} />}
+        list={
+          <EntityList entityListType={entityListType} table={tableInstance} />
+        }
         ListHero={renderComponent(listHero)}
         SideBarButton={
           tabletDown ? (

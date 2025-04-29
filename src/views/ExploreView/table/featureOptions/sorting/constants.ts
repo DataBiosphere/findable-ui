@@ -41,6 +41,6 @@ export const SORTING_OPTIONS: Record<
     enableSortingRemoval: false, // false i.e. toggling the sorting on a column will not remove sorting on the column.
     getSortedRowModel: undefined,
     manualSorting: true,
-    onSortingChange: undefined,
+    // onSortingChange: undefined,
   },
 };
