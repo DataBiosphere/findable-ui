@@ -1,17 +1,22 @@
 import React from "react";
 import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
+import { ChartView } from "./components/EntitiesView/components/ChartView/chartView";
+import { EntityList } from "./components/EntitiesView/components/EntityList/entityList";
 import { EntitiesView } from "./components/EntitiesView/entitiesView";
 import { useEntitiesView } from "./components/EntitiesView/hooks/UseEntitiesView/hook";
 import { VIEW_MODE } from "./components/EntitiesView/hooks/UseEntitiesView/types";
 import { Hero } from "./components/Hero/hero";
 import { Index as IndexLayout } from "./index.styles";
+import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
 
 export const Index = ({
-  chart,
+  categoryFilters,
   className,
-  list,
+  entityListType,
+  entityName,
   ListHero,
+  loading,
   SideBarButton,
   SubTitleHero,
   Summaries,
@@ -20,6 +25,7 @@ export const Index = ({
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useEntitiesView();
   const { dimensions } = useLayoutDimensions();
+  const { table } = useTable();
   return (
     <IndexLayout className={className} marginTop={dimensions.header.height}>
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} title={title} />
@@ -31,7 +37,19 @@ export const Index = ({
         viewMode={viewMode}
         viewStatus={viewStatus}
       >
-        {viewMode === VIEW_MODE.TABLE ? list : chart}
+        {viewMode === VIEW_MODE.TABLE ? (
+          <EntityList
+            entityListType={entityListType}
+            loading={loading}
+            table={table}
+          />
+        ) : (
+          <ChartView
+            categoryFilters={categoryFilters}
+            entityName={entityName}
+            loading={loading}
+          />
+        )}
       </EntitiesView>
     </IndexLayout>
   );
