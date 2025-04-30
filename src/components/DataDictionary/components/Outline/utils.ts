@@ -7,12 +7,12 @@ import { OutlineItem } from "../../../Layout/components/Outline/types";
  * @returns Outline items.
  */
 export function buildClassesOutline(classes: Class[]): OutlineItem[] {
-  return classes.map(({ key, name }) => {
+  return classes.map(({ name, title }) => {
     return {
       depth: 2,
       disabled: false,
-      hash: key,
-      value: name,
+      hash: name,
+      value: title,
     };
   });
 }

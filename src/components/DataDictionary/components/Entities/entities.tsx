@@ -13,7 +13,7 @@ export const Entities = ({
     <Grid {...GRID_PROPS}>
       {classes.map((classData) => (
         <Entity
-          key={classData.key}
+          key={classData.name}
           class={classData}
           columnDefs={columnDefs}
           spacing={spacing}

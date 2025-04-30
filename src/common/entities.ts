@@ -4,15 +4,25 @@ import { ColumnDef } from "@tanstack/react-table";
  * Model of a value of a metadata class.
  */
 export interface Attribute {
+  annotations?: {
+    sourceFragment?: string; // E.g. "title" for https://github.com/chanzuckerberg/.../schema.md#title
+  };
   description: string;
-  key: string;
-  label: string;
+  example?: string; // Free text example of attribute
+  multivalue: boolean; // True if attribute can have multiple values
+  name: string; // Programmatic slot name or key (e.g. cell, sample)
+  rationale?: string; // Free text rationale for attribute
+  required?: boolean;
+  source?: string; // Source of attribute; must be one of sources specified at dictionary level
+  title: string; // Display name
+  type?: string;
+  value?: string; // Possibly contains type (e.g. "str" or "int") and/or enum values and/or description of values
 }
 
 /**
- * Model of attribute keys; used mostly when building data dictionary column definitions.
+ * Model of attribute key types; used mostly when building data dictionary column definitions.
  */
-export type AttributeValue = Attribute[keyof Attribute];
+export type AttributeValueTypes = string | boolean;
 
 /**
  * Filterable metadata keys.
@@ -34,9 +44,8 @@ export interface CategoryTag {
 export interface Class {
   attributes: Attribute[];
   description: string;
-  key: string;
-  label: string;
-  name: string;
+  name: string; // Programmatic name or key (e.g. cell, sample)
+  title: string; // Display name
 }
 
 /**
@@ -48,7 +57,17 @@ export type CategoryValueKey = unknown;
  * Model of a metadata dictionary containing a set of classes and their definitions.
  */
 export interface DataDictionary {
+  annotations: {
+    sources: {
+      prefix: DataDictionarySource;
+    };
+  };
   classes: Class[];
+  description: string; // Free text description of data dictionary
+  name: string; // Programmatic name or key (e.g. tier1, hca)
+  prefixes: Record<string, string>;
+  sources: DataDictionarySource[];
+  title: string; // Display name
 }
 
 /**
@@ -69,7 +88,7 @@ export interface DataDictionaryColumnDef {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig {
-  columnDefs: ColumnDef<Attribute, AttributeValue>[];
+  columnDefs: ColumnDef<Attribute>[];
   dataDictionary: DataDictionary;
 }
 
@@ -80,6 +99,16 @@ export interface DataDictionaryConfig {
 export interface DataDictionaryAnnotation {
   description: string;
   label: string;
+}
+
+/**
+ * Model of a data dictionary source, which is a source of metadata (e.g. CELLxGENE or CAP).
+ */
+export interface DataDictionarySource {
+  // name: string; // Programmatic name or key (e.g. cellxgene, cap) use PREFIX instead
+  title: string; // Display name
+  url: string; // Schema docs URL
+  version?: string;
 }
 
 /**

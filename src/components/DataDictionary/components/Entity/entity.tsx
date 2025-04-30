@@ -19,11 +19,11 @@ export const Entity = ({
       <Grid {...GRID_PROPS} rowGap={1}>
         <StyledTypography
           component="h3"
-          id={classData.key}
+          id={classData.name}
           variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
           {...spacing}
         >
-          {classData.label} <AnchorLink anchorLink={classData.key} />
+          {classData.title} <AnchorLink anchorLink={classData.name} />
         </StyledTypography>
         <Typography
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
