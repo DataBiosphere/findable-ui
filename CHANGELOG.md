@@ -1,5 +1,22 @@
 # Changelog
 
+## [28.0.0](https://github.com/DataBiosphere/findable-ui/compare/v27.0.0...v28.0.0) (2025-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* chart view - for client side filtering ([#447](https://github.com/DataBiosphere/findable-ui/issues/447)) (#448)
+
+### Features
+
+* chart view - change 'per' to 'by' in chart titles ([#442](https://github.com/DataBiosphere/findable-ui/issues/442)) ([#445](https://github.com/DataBiosphere/findable-ui/issues/445)) ([52d2cc9](https://github.com/DataBiosphere/findable-ui/commit/52d2cc94129d0c3883b2f6c6c3b6b6eeb36d995c))
+* chart view add percentage to counts ([#441](https://github.com/DataBiosphere/findable-ui/issues/441)) ([#443](https://github.com/DataBiosphere/findable-ui/issues/443)) ([ca609bb](https://github.com/DataBiosphere/findable-ui/commit/ca609bba7fb6d55a2b4112ac989bed1726c72872))
+
+
+### Bug Fixes
+
+* chart view - for client side filtering ([#447](https://github.com/DataBiosphere/findable-ui/issues/447)) ([#448](https://github.com/DataBiosphere/findable-ui/issues/448)) ([d35ffb1](https://github.com/DataBiosphere/findable-ui/commit/d35ffb16aaf8fca967430f1abf1293927c6873f2))
+
 ## [27.0.0](https://github.com/DataBiosphere/findable-ui/compare/v26.0.0...v27.0.0) (2025-04-24)
 
 
