@@ -10,13 +10,13 @@ export interface Attribute {
   description: string;
   example?: string; // Free text example of attribute
   multivalue: boolean; // True if attribute can have multiple values
-  name: string; // Programmatic slot name or key (e.g. cell, sample)
+  name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
   rationale?: string; // Free text rationale for attribute
   required?: boolean;
   source?: string; // Source of attribute; must be one of sources specified at dictionary level
   title: string; // Display name
   type?: string;
-  value?: string; // Possibly contains type (e.g. "str" or "int") and/or enum values and/or description of values
+  value?: string; // Contains attribute value type (e.g. "string" or "int") and/or enum values and/or description of values
 }
 
 /**
