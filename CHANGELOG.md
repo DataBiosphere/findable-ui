@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.0.1](https://github.com/DataBiosphere/findable-ui/compare/v28.0.0...v28.0.1) (2025-04-30)
+
+
+### Bug Fixes
+
+* fix observable plot y-scale warning caused by numeric strings ([#449](https://github.com/DataBiosphere/findable-ui/issues/449)) ([#450](https://github.com/DataBiosphere/findable-ui/issues/450)) ([53df97a](https://github.com/DataBiosphere/findable-ui/commit/53df97a8508c822aef48aac4c71646cfddc0b605))
+
 ## [28.0.0](https://github.com/DataBiosphere/findable-ui/compare/v27.0.0...v28.0.0) (2025-04-30)
 
 
