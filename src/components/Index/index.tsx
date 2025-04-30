@@ -7,6 +7,7 @@ import { useEntitiesView } from "./components/EntitiesView/hooks/UseEntitiesView
 import { VIEW_MODE } from "./components/EntitiesView/hooks/UseEntitiesView/types";
 import { Hero } from "./components/Hero/hero";
 import { Index as IndexLayout } from "./index.styles";
+import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
 
 export const Index = ({
@@ -24,6 +25,7 @@ export const Index = ({
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useEntitiesView();
   const { dimensions } = useLayoutDimensions();
+  const { table } = useTable();
   return (
     <IndexLayout className={className} marginTop={dimensions.header.height}>
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} title={title} />
@@ -36,7 +38,11 @@ export const Index = ({
         viewStatus={viewStatus}
       >
         {viewMode === VIEW_MODE.TABLE ? (
-          <EntityList entityListType={entityListType} />
+          <EntityList
+            entityListType={entityListType}
+            loading={loading}
+            table={table}
+          />
         ) : (
           <ChartView
             categoryFilters={categoryFilters}
