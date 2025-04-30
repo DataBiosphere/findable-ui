@@ -17,8 +17,6 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
-import { ChartView } from "../../components/Index/components/EntitiesView/components/ChartView/chartView";
-import { EntityList } from "../../components/Index/components/EntitiesView/components/EntityList/entityList";
 import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
@@ -165,14 +163,10 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       )}
       <IndexView
         className={props.className}
-        chart={
-          <ChartView
-            categoryFilters={categoryFilters}
-            entityName={label}
-            loading={loading}
-          />
-        }
-        list={<EntityList entityListType={entityListType} />}
+        categoryFilters={categoryFilters}
+        entityListType={entityListType}
+        entityName={label}
+        loading={loading}
         ListHero={renderComponent(listHero)}
         SideBarButton={
           tabletDown ? (
