@@ -105,7 +105,7 @@ export function getPlotOptions(
       paddingOuter: getYPaddingOuter(),
       tickFormat: () => "",
       tickSize: 0,
-      type: "band",
+      type: "band", // Treats number-like strings as categorical labels to prevent numeric scale warnings.
     },
   };
 }
