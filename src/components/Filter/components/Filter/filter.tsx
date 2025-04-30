@@ -93,7 +93,7 @@ export const Filter = ({
         onClose={onCloseFilters}
         open={isOpen}
         slotProps={slotProps}
-        TransitionComponent={TransitionComponent}
+        slots={{ transition: TransitionComponent }}
         transitionDuration={TransitionDuration}
       >
         {isOpen && isFilterDrawer && (
