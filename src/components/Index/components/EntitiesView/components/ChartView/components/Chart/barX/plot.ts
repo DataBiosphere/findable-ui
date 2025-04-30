@@ -105,6 +105,7 @@ export function getPlotOptions(
       paddingOuter: getYPaddingOuter(),
       tickFormat: () => "",
       tickSize: 0,
+      type: "band",
     },
   };
 }
