@@ -54,6 +54,12 @@ export interface Class {
 export type CategoryValueKey = unknown;
 
 /**
+ * Key value pair where the key is an identifier for a schema and the value is
+ * a URL to the schema definition.
+ */
+export type DataDictionaryPrefix = Record<string, string>;
+
+/**
  * Model of a metadata dictionary containing a set of classes and their definitions.
  */
 export interface DataDictionary {
@@ -65,7 +71,7 @@ export interface DataDictionary {
   classes: Class[];
   description: string; // Free text description of data dictionary
   name: string; // Programmatic name or key (e.g. tier1, hca)
-  prefixes: Record<string, string>;
+  prefixes: DataDictionaryPrefix;
   sources: DataDictionarySource[];
   title: string; // Display name
 }
@@ -105,10 +111,8 @@ export interface DataDictionaryAnnotation {
  * Model of a data dictionary source, which is a source of metadata (e.g. CELLxGENE or CAP).
  */
 export interface DataDictionarySource {
-  // name: string; // Programmatic name or key (e.g. cellxgene, cap) use PREFIX instead
+  name: keyof DataDictionaryPrefix;
   title: string; // Display name
-  url: string; // Schema docs URL
-  version?: string;
 }
 
 /**
