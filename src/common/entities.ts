@@ -4,15 +4,24 @@ import { ColumnDef } from "@tanstack/react-table";
  * Model of a value of a metadata class.
  */
 export interface Attribute {
+  annotations?: {
+    [key in keyof DataDictionaryPrefix]: string; // Prefix to fragment mapping, e.g. cxg: "batch_condition".
+  };
   description: string;
-  key: string;
-  label: string;
+  example?: string; // Free text example of attribute
+  multivalued: boolean; // True if attribute can have multiple values
+  name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
+  range: string; // Type of attribute value e.g. "string"
+  rationale?: string; // Free text rationale for attribute
+  required: boolean;
+  title: string; // Display name
+  values?: string; // Free text description of attribute values
 }
 
 /**
- * Model of attribute keys; used mostly when building data dictionary column definitions.
+ * Model of attribute key types; used mostly when building data dictionary column definitions.
  */
-export type AttributeValue = Attribute[keyof Attribute];
+export type AttributeValueTypes = string | boolean;
 
 /**
  * Filterable metadata keys.
@@ -34,9 +43,8 @@ export interface CategoryTag {
 export interface Class {
   attributes: Attribute[];
   description: string;
-  key: string;
-  label: string;
-  name: string;
+  name: string; // Programmatic name or key (e.g. cell, sample)
+  title: string; // Display name
 }
 
 /**
@@ -45,10 +53,23 @@ export interface Class {
 export type CategoryValueKey = unknown;
 
 /**
+ * Key value pair where the key is an identifier for a schema and the value is
+ * a URL to the schema definition.
+ */
+export type DataDictionaryPrefix = Record<string, string>;
+
+/**
  * Model of a metadata dictionary containing a set of classes and their definitions.
  */
 export interface DataDictionary {
+  annotations: {
+    [key in keyof DataDictionaryPrefix]: string; // Prefix to title e.g. "cxg": "CELLxGENE"
+  };
   classes: Class[];
+  description: string; // Free text description of data dictionary
+  name: string; // Programmatic name or key (e.g. tier1, hca)
+  prefixes: DataDictionaryPrefix;
+  title: string; // Display name
 }
 
 /**
@@ -69,7 +90,7 @@ export interface DataDictionaryColumnDef {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig {
-  columnDefs: ColumnDef<Attribute, Attribute[keyof Attribute]>[];
+  columnDefs: ColumnDef<Attribute>[];
   dataDictionary: DataDictionary;
 }
 

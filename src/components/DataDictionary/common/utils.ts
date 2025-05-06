@@ -145,16 +145,16 @@ function keyAnnotationsByKey(
   return dataDictionary.classes.reduce(
     (acc: Record<string, DataDictionaryAnnotation>, cls: Class) => {
       // Add class to map.
-      acc[cls.key] = {
+      acc[cls.name] = {
         description: cls.description,
-        label: cls.label,
+        label: cls.title,
       };
 
       // Add each class attribute to the map.
       cls.attributes.forEach((attribute: Attribute) => {
-        acc[attribute.key] = {
+        acc[attribute.name] = {
           description: attribute.description,
-          label: attribute.label,
+          label: attribute.title,
         };
       });
       return acc;

@@ -1,4 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
-import { Attribute, AttributeValue } from "../../../../../../common/entities";
+import {
+  Attribute,
+  AttributeValueTypes,
+} from "../../../../../../common/entities";
 
-export type BasicCellProps = CellContext<Attribute, AttributeValue>;
+export type BasicCellProps = CellContext<Attribute, AttributeValueTypes>;

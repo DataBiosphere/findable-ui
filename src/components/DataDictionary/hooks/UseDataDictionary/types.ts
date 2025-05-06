@@ -1,7 +1,11 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Attribute, AttributeValue, Class } from "../../../../common/entities";
+import {
+  Attribute,
+  AttributeValueTypes,
+  Class,
+} from "../../../../common/entities";
 
 export interface UseDataDictionary {
   classes: Class[];
-  columnDefs: ColumnDef<Attribute, AttributeValue>[];
+  columnDefs: ColumnDef<Attribute, AttributeValueTypes>[];
 }
