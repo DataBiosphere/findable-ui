@@ -5,18 +5,17 @@ import { ColumnDef } from "@tanstack/react-table";
  */
 export interface Attribute {
   annotations?: {
-    sourceFragment?: string; // E.g. "title" for https://github.com/chanzuckerberg/.../schema.md#title
+    [key in keyof DataDictionaryPrefix]: string; // Prefix to fragment mapping, e.g. cxg: "batch_condition".
   };
   description: string;
   example?: string; // Free text example of attribute
-  multivalue: boolean; // True if attribute can have multiple values
+  multivalued: boolean; // True if attribute can have multiple values
   name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
+  range: string; // Type of attribute value e.g. "string"
   rationale?: string; // Free text rationale for attribute
-  required?: boolean;
-  source?: string; // Source of attribute; must be one of sources specified at dictionary level
+  required: boolean;
   title: string; // Display name
-  type?: string;
-  value?: string; // Contains attribute value type (e.g. "string" or "int") and/or enum values and/or description of values
+  values?: string; // Free text description of attribute values
 }
 
 /**
@@ -64,15 +63,12 @@ export type DataDictionaryPrefix = Record<string, string>;
  */
 export interface DataDictionary {
   annotations: {
-    sources: {
-      prefix: DataDictionarySource;
-    };
+    [key in keyof DataDictionaryPrefix]: string; // Prefix to title e.g. "cxg": "CELLxGENE"
   };
   classes: Class[];
   description: string; // Free text description of data dictionary
   name: string; // Programmatic name or key (e.g. tier1, hca)
   prefixes: DataDictionaryPrefix;
-  sources: DataDictionarySource[];
   title: string; // Display name
 }
 
@@ -105,14 +101,6 @@ export interface DataDictionaryConfig {
 export interface DataDictionaryAnnotation {
   description: string;
   label: string;
-}
-
-/**
- * Model of a data dictionary source, which is a source of metadata (e.g. CELLxGENE or CAP).
- */
-export interface DataDictionarySource {
-  name: keyof DataDictionaryPrefix;
-  title: string; // Display name
 }
 
 /**
