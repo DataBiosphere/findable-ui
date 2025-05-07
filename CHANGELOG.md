@@ -1,5 +1,12 @@
 # Changelog
 
+## [29.0.2](https://github.com/DataBiosphere/findable-ui/compare/v29.0.1...v29.0.2) (2025-05-07)
+
+
+### Bug Fixes
+
+* updated ColumnDef typing [#423](https://github.com/DataBiosphere/findable-ui/issues/423) ([#461](https://github.com/DataBiosphere/findable-ui/issues/461)) ([0b56ce8](https://github.com/DataBiosphere/findable-ui/commit/0b56ce82cb9c1247a32226e8e659ae760c7a140a))
+
 ## [29.0.1](https://github.com/DataBiosphere/findable-ui/compare/v29.0.0...v29.0.1) (2025-05-07)
 
 
