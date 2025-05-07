@@ -90,7 +90,7 @@ export interface DataDictionaryColumnDef {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig {
-  columnDefs: ColumnDef<Attribute>[];
+  columnDefs: ColumnDef<Attribute, AttributeValueTypes>[];
   dataDictionary: DataDictionary;
 }
 
