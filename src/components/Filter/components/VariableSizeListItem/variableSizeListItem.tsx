@@ -5,6 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { CSSProperties, useEffect, useRef } from "react";
+import { VIEW_KIND } from "../../../../common/categories/views/types";
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { SELECT_CATEGORY_KEY } from "../../../../providers/exploreState/constants";
@@ -45,7 +46,7 @@ export default function VariableSizeListItem({
   }, [key, onUpdateItemSizeByItemKey]);
 
   const handleItemClicked = (): void => {
-    onFilter(categoryKey, key, !selected, categorySection);
+    onFilter(categoryKey, key, !selected, categorySection, VIEW_KIND.SELECT);
   };
 
   return (

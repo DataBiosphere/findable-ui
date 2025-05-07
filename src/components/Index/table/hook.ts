@@ -2,6 +2,7 @@ import {
   ColumnDef,
   ColumnSort,
   getCoreRowModel,
+  getFacetedMinMaxValues,
   getFacetedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -167,6 +168,9 @@ export const useTable = <T extends RowData>(): UseTable<T> => {
     enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
     filterFns: { arrIncludesSome },
     getCoreRowModel: getCoreRowModel(),
+    getFacetedMinMaxValues: clientFiltering
+      ? getFacetedMinMaxValues()
+      : undefined,
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
       ? getFacetedUniqueValuesWithArrayValues()

@@ -3,10 +3,10 @@ import {
   GroupingState,
   VisibilityState,
 } from "@tanstack/react-table";
+import { CategoryConfig } from "../../../common/categories/config/types";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
-  CategoryConfig,
   CategoryGroup,
   CategoryGroupConfig,
   EntityConfig,

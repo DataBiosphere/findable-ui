@@ -3,11 +3,12 @@ import {
   GroupingState,
   RowSelectionState,
 } from "@tanstack/react-table";
+import { Category } from "../../../common/categories/models/types";
+import { VIEW_KIND } from "../../../common/categories/views/types";
 import {
   CategoryKey,
   CategoryValueKey,
   PaginationDirectionType,
-  SelectCategory,
   SelectedFilter,
 } from "../../../common/entities";
 import { RowPreviewState } from "../../../components/Table/features/RowPreview/entities";
@@ -21,6 +22,7 @@ export interface ApplySavedFilterPayload {
   categoryKey: CategoryKey;
   selected: boolean;
   selectedValue: CategoryValueKey;
+  viewKind?: VIEW_KIND; // viewKind is included here because this payload shares a dispatch with UpdateFilter.
 }
 
 /**
@@ -43,7 +45,7 @@ export interface ProcessExploreResponsePayload {
   listItems: ListItems;
   loading: boolean;
   paginationResponse: PaginationResponse;
-  selectCategories?: SelectCategory[];
+  selectCategories?: Category[];
 }
 
 /**
@@ -74,6 +76,7 @@ export interface UpdateFilterPayload {
   categoryKey: CategoryKey;
   selected: boolean;
   selectedValue: CategoryValueKey;
+  viewKind?: VIEW_KIND;
 }
 
 /**

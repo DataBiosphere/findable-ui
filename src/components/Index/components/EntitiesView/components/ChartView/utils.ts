@@ -1,3 +1,4 @@
+import { isSelectCategoryView } from "../../../../../../common/categories/views/select/typeGuards";
 import { SelectCategoryView } from "../../../../../../common/entities";
 import { CategoryFilter } from "../../../../../Filter/components/Filters/filters";
 
@@ -11,6 +12,7 @@ export function getSelectCategoryViews(
 ): SelectCategoryView[] {
   return categoryFilters
     .flatMap(({ categoryViews }) => categoryViews)
+    .filter(isSelectCategoryView)
     .filter(({ enableChartView = true }) => enableChartView)
     .filter(({ values }) => values.length > 0);
 }

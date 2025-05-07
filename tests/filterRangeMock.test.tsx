@@ -2,19 +2,37 @@ import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React, { FormEvent } from "react";
-import { RANGE_OPERATOR } from "../src/components/Filter/components/FilterRange/types";
+import { VIEW_KIND } from "../src/common/categories/views/types";
+import {
+  OnSubmitFn,
+  RANGE_OPERATOR,
+  SubmitParams,
+} from "../src/components/Filter/components/FilterRange/hooks/UseFilterRange/types";
 
 const ON_SUBMIT = jest.fn();
+
+const HANDLE_SUBMIT = jest.fn(
+  (_: OnSubmitFn, parameters: SubmitParams) =>
+    (e: FormEvent): void => {
+      e.preventDefault();
+      ON_SUBMIT(
+        parameters.categoryKey,
+        [0, 2100],
+        true,
+        parameters.categorySection,
+        VIEW_KIND.RANGE
+      );
+    }
+);
 
 jest.unstable_mockModule(
   "../src/components/Filter/components/FilterRange/hooks/UseFilterRange/hook",
   () => ({
     useFilterRange: jest.fn(() => ({
+      clearErrors: jest.fn(),
+      formState: { errors: {} },
+      handleSubmit: HANDLE_SUBMIT,
       onChange: jest.fn(),
-      onSubmit: (e: FormEvent): void => {
-        e.preventDefault();
-        ON_SUBMIT(e);
-      },
       value: RANGE_OPERATOR.BETWEEN,
     })),
   })
@@ -23,6 +41,7 @@ jest.unstable_mockModule(
 const stories = await import(
   "../src/components/Filter/components/FilterRange/stories/filterRange.stories"
 );
+
 const { Default } = composeStories(stories);
 
 describe("FilterRangeWithMockedHook", () => {
