@@ -1,7 +1,8 @@
 import { CategoryConfig } from "../common/categories/config/types";
 import { findSelectCategoryConfig } from "../common/categories/config/utils";
 import { isRangeCategory } from "../common/categories/models/range/typeGuards";
-import { assertIsRange } from "../common/categories/models/range/utils";
+import { buildNextRangeFilterState } from "../common/categories/models/range/utils";
+import { buildNextSelectFilterState } from "../common/categories/models/select/utils";
 import { Category } from "../common/categories/models/types";
 import { buildRangeCategoryView } from "../common/categories/views/range/utils";
 import { CategoryView, VIEW_KIND } from "../common/categories/views/types";
@@ -174,28 +175,21 @@ export function buildNextFilterState(
     value: categorySelectedFilter ? [...categorySelectedFilter.value] : [],
   };
 
-  // Handle case where category value is selected.
-  if (selected) {
-    if (viewKind === VIEW_KIND.RANGE) {
-      // Assert that the selected value is a range.
-      assertIsRange(selectedValue);
-      // Set the selected range.
-      nextCategorySelectedFilter.value = selectedValue;
-    } else {
-      // Set the selected value.
-      nextCategorySelectedFilter.value.push(selectedValue);
-    }
-  }
-  // Otherwise, category value has been de-selected; remove the selected value from the selected set of values.
-  else {
-    if (viewKind === VIEW_KIND.RANGE) {
-      nextCategorySelectedFilter.value = [];
-    } else {
-      nextCategorySelectedFilter.value =
-        nextCategorySelectedFilter.value.filter(
-          (value: CategoryValueKey) => value !== selectedValue
-        );
-    }
+  // Build next filter state for category.
+  if (viewKind === VIEW_KIND.RANGE) {
+    // Handle range category.
+    buildNextRangeFilterState(
+      nextCategorySelectedFilter,
+      selectedValue,
+      selected
+    );
+  } else {
+    // Handle select category.
+    buildNextSelectFilterState(
+      nextCategorySelectedFilter,
+      selectedValue,
+      selected
+    );
   }
 
   // Add the new selected filter for this category to the set of selected filters, if there are selected values for it.

@@ -1,4 +1,4 @@
-import { SelectedFilter } from "../../../entities";
+import { CategoryValueKey, SelectedFilter } from "../../../entities";
 import { isSelectedRange } from "./typeGuards";
 import { SelectedRange } from "./types";
 
@@ -10,6 +10,28 @@ import { SelectedRange } from "./types";
 export function assertIsRange(value: unknown): asserts value is SelectedRange {
   if (!isSelectedRange(value)) {
     throw new Error("Value is not a selected range");
+  }
+}
+
+/**
+ * Build the next filter state for the given range category.
+ * @param nextCategorySelectedFilter - Next filter state for the range category.
+ * @param selectedValue - Selected value for the range category.
+ * @param selected - Whether the category value is selected.
+ */
+export function buildNextRangeFilterState(
+  nextCategorySelectedFilter: SelectedFilter,
+  selectedValue: CategoryValueKey,
+  selected: boolean
+): void {
+  if (selected) {
+    // Assert that the selected value is a range.
+    assertIsRange(selectedValue);
+    // Set the selected range.
+    nextCategorySelectedFilter.value = selectedValue;
+  } else {
+    // Remove the selected range.
+    nextCategorySelectedFilter.value = [];
   }
 }
 
