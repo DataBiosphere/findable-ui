@@ -1,4 +1,3 @@
-import { FIELD_NAME } from "./constants";
 import { FieldValues, RANGE_OPERATOR } from "./types";
 
 /**
@@ -30,6 +29,6 @@ export function getFormValues(
   formData.forEach((value: FormDataEntryValue, key: string) => {
     Object.assign(fieldValues, { [key]: formatFormDataValue(value) });
   });
-  fieldValues[FIELD_NAME.RANGE_OPERATOR] = rangeOperator;
+  fieldValues.rangeOperator = rangeOperator;
   return fieldValues;
 }

@@ -7,10 +7,11 @@ export type FieldErrors = Partial<Record<FieldName, string>>;
 
 export type FieldName = (typeof FIELD_NAME)[keyof typeof FIELD_NAME];
 
-export type FieldValues = Record<
-  FieldName,
-  number | RANGE_OPERATOR | undefined
->;
+export interface FieldValues {
+  max: number | undefined;
+  min: number | undefined;
+  rangeOperator: RANGE_OPERATOR;
+}
 
 export type OnSubmitFn = OnFilterFn;
 
