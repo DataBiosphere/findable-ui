@@ -2,7 +2,6 @@ import {
   ColumnDef,
   ColumnSort,
   getCoreRowModel,
-  getFacetedMinMaxValues,
   getFacetedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -34,6 +33,7 @@ import {
   isClientFilteringEnabled,
   sortingFn,
 } from "../../Table/common/utils";
+import { getFacetedMinMaxValues } from "../../Table/featureOptions/facetedColumn/getFacetedMinMaxValues";
 import { ROW_POSITION } from "../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../Table/features/RowPreview/constants";
 import { RowPreviewState } from "../../Table/features/RowPreview/entities";

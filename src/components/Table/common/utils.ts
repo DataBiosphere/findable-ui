@@ -9,6 +9,7 @@ import {
   sortingFns,
   Table,
 } from "@tanstack/react-table";
+import { assertIsRange } from "../../../common/categories/models/range/utils";
 import { Category } from "../../../common/categories/models/types";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode/types";
 import { COLUMN_IDENTIFIER } from "./columnIdentifier";
@@ -54,12 +55,15 @@ export function buildCategoryViews<T extends RowData>(
       const label = columnHeader as string;
       // Handle range categories.
       if (columnDef.filterFn === "inNumberRange") {
-        const [min, max] = getFacetedMinMaxValues() || [];
+        const minMax = getFacetedMinMaxValues();
+        // Assert for the column that the minMax values are a range.
+        assertIsRange(minMax);
+        const [min, max] = minMax;
         categoryViews.push({
           key,
           label,
-          max: max ?? Infinity,
-          min: min ?? -Infinity,
+          max,
+          min,
           selectedMax: null, // Selected state updated in reducer.
           selectedMin: null, // Selected state updated in reducer.
         });
