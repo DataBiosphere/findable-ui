@@ -62,13 +62,13 @@ export type DataDictionaryPrefix = Record<string, string>;
  * Model of a metadata dictionary containing a set of classes and their definitions.
  */
 export interface DataDictionary {
-  annotations: {
+  annotations?: {
     [key in keyof DataDictionaryPrefix]: string; // Prefix to title e.g. "cxg": "CELLxGENE"
   };
   classes: Class[];
-  description: string; // Free text description of data dictionary
+  description?: string; // Free text description of data dictionary
   name: string; // Programmatic name or key (e.g. tier1, hca)
-  prefixes: DataDictionaryPrefix;
+  prefixes?: DataDictionaryPrefix;
   title: string; // Display name
 }
 
