@@ -1,5 +1,12 @@
 # Changelog
 
+## [29.0.1](https://github.com/DataBiosphere/findable-ui/compare/v29.0.0...v29.0.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* updated optional dictionary values [#423](https://github.com/DataBiosphere/findable-ui/issues/423) ([#459](https://github.com/DataBiosphere/findable-ui/issues/459)) ([f6dbfb5](https://github.com/DataBiosphere/findable-ui/commit/f6dbfb5461541166a6f8b82ae4f5d07761e447d4))
+
 ## [29.0.0](https://github.com/DataBiosphere/findable-ui/compare/v28.0.1...v29.0.0) (2025-05-06)
 
 
