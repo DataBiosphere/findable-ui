@@ -10,7 +10,7 @@ export const DEFAULT_ARGS: ComponentProps<typeof FilterRange> = {
   min: 100,
   onCloseFilter: fn(),
   onFilter: fn(),
-  selectedMax: undefined,
-  selectedMin: undefined,
+  selectedMax: null,
+  selectedMin: null,
   unit: "kg",
 };

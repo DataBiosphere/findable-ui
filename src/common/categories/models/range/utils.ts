@@ -47,5 +47,5 @@ export function getRangeSelectedValue(
 ): SelectedRange {
   return isSelectedRange(categorySelectedFilter?.value)
     ? categorySelectedFilter?.value
-    : [];
+    : [null, null];
 }

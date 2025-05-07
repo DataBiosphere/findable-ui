@@ -5,8 +5,8 @@ import { CategoryKey } from "../../../entities";
  */
 export interface RangeCategory {
   key: CategoryKey;
-  max: number | undefined;
-  min: number | undefined;
+  max: number;
+  min: number;
   selectedMax: SelectedRange[1];
   selectedMin: SelectedRange[0];
 }
@@ -14,4 +14,4 @@ export interface RangeCategory {
 /**
  * Min and max values selected in range category.
  */
-export type SelectedRange = [number?, number?];
+export type SelectedRange = [number | null, number | null];

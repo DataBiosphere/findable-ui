@@ -19,6 +19,6 @@ export function isSelectedRange(value: unknown): value is SelectedRange {
   return (
     Array.isArray(value) &&
     value.length === 2 &&
-    value.every((v) => v === undefined || typeof v === "number")
+    value.every((v) => v === null || typeof v === "number")
   );
 }

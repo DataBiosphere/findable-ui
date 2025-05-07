@@ -54,14 +54,15 @@ export function buildCategoryViews<T extends RowData>(
       const label = columnHeader as string;
       // Handle range categories.
       if (columnDef.filterFn === "inNumberRange") {
-        const [min, max] = getFacetedMinMaxValues() || [];
+        const [min = -Infinity, max = Infinity] =
+          getFacetedMinMaxValues() || [];
         categoryViews.push({
           key,
           label,
           max,
           min,
-          selectedMax: undefined, // Selected state updated in reducer.
-          selectedMin: undefined, // Selected state updated in reducer.
+          selectedMax: null, // Selected state updated in reducer.
+          selectedMin: null, // Selected state updated in reducer.
         });
       }
       // Handle select categories.

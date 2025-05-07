@@ -1,16 +1,15 @@
 import { FieldValues, RANGE_OPERATOR } from "./types";
 
 /**
- * Formats the value from a form.
+ * Formats the range form min and max values.
  * @param value - The value to format.
- * @returns The formatted value, or undefined if the value is not a number.
+ * @returns Formatted min or max value, or null if the value is not a number.
  */
-export function formatFormDataValue(
-  value: FormDataEntryValue
-): number | string | undefined {
-  if (!value || typeof value !== "string") return undefined; // The form only supports string values.
+export function formatMinMaxValue(
+  value: FormDataEntryValue | null
+): number | null {
   const numericValue = Number(value);
-  if (isNaN(numericValue)) return value;
+  if (value === null || isNaN(numericValue)) return null;
   return numericValue;
 }
 
@@ -26,9 +25,8 @@ export function getFormValues(
 ): FieldValues {
   const formData = new FormData(e);
   const fieldValues = {} as FieldValues;
-  formData.forEach((value: FormDataEntryValue, key: string) => {
-    Object.assign(fieldValues, { [key]: formatFormDataValue(value) });
-  });
+  fieldValues.max = formatMinMaxValue(formData.get("max")) || null;
+  fieldValues.min = formatMinMaxValue(formData.get("min")) || null;
   fieldValues.rangeOperator = rangeOperator;
   return fieldValues;
 }

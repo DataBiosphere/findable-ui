@@ -8,8 +8,8 @@ export type FieldErrors = Partial<Record<FieldName, string>>;
 export type FieldName = (typeof FIELD_NAME)[keyof typeof FIELD_NAME];
 
 export interface FieldValues {
-  max: number | undefined;
-  min: number | undefined;
+  max: number | null;
+  min: number | null;
   rangeOperator: RANGE_OPERATOR;
 }
 

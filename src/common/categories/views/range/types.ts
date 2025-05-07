@@ -6,8 +6,8 @@ import { VIEW_KIND } from "../types";
  * View model of range category.
  */
 export interface RangeCategoryView extends BaseCategoryView {
-  max: number | undefined;
-  min: number | undefined;
+  max: number;
+  min: number;
   selectedMax: SelectedRange[1];
   selectedMin: SelectedRange[0];
   unit?: string;
