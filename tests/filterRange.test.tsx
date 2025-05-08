@@ -45,6 +45,12 @@ const ERROR_TEXTS = {
   TYPE_ERROR: "Value must be a number",
 };
 
+const DESCRIBE_TITLES = {
+  BETWEEN: "Operator BETWEEN",
+  GREATER_THAN: "Operator GREATER THAN",
+  LESS_THAN: "Operator LESS THAN",
+};
+
 /**
  * Tests for the FilterRange component.
  * Excludes tests for min/max values outside of allowed range; the allowed range is not currently validated.
@@ -64,7 +70,7 @@ describe("FilterRange", () => {
       expect(filterEl).toBeDefined();
     });
 
-    describe("Operator BETWEEN", () => {
+    describe(DESCRIBE_TITLES.BETWEEN, () => {
       it("renders the toggle buttons with correct text", () => {
         expect(getButton(BETWEEN)).toBeDefined();
         expect(getButton(LESS_THAN)).toBeDefined();
@@ -96,7 +102,7 @@ describe("FilterRange", () => {
       });
     });
 
-    describe("Operator LESS THAN", () => {
+    describe(DESCRIBE_TITLES.LESS_THAN, () => {
       beforeEach(() => {
         fireEvent.click(getButton(LESS_THAN));
       });
@@ -119,7 +125,7 @@ describe("FilterRange", () => {
       });
     });
 
-    describe("Operator GREATER THAN", () => {
+    describe(DESCRIBE_TITLES.GREATER_THAN, () => {
       beforeEach(() => {
         fireEvent.click(getButton(GREATER_THAN));
       });
@@ -186,167 +192,172 @@ describe("FilterRange", () => {
   });
 
   describe("Filter button interaction", () => {
-    it("calls onFilter with correct values when min and max are selected", async () => {
-      render(
-        <Default
-          selectedMin={TEST_VALUES.SELECTED_MIN}
-          selectedMax={TEST_VALUES.SELECTED_MAX}
-          onFilter={TEST_VALUES.ON_FILTER}
-        />
-      );
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(1);
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
-          TEST_VALUES.CATEGORY_KEY,
-          [TEST_VALUES.SELECTED_MIN, TEST_VALUES.SELECTED_MAX],
-          true,
-          undefined,
-          VIEW_KIND.RANGE
+    describe(DESCRIBE_TITLES.BETWEEN, () => {
+      it("calls onFilter with correct values when min and max are selected", async () => {
+        render(
+          <Default
+            selectedMin={TEST_VALUES.SELECTED_MIN}
+            selectedMax={TEST_VALUES.SELECTED_MAX}
+            onFilter={TEST_VALUES.ON_FILTER}
+          />
         );
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(1);
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
+            TEST_VALUES.CATEGORY_KEY,
+            [TEST_VALUES.SELECTED_MIN, TEST_VALUES.SELECTED_MAX],
+            true,
+            undefined,
+            VIEW_KIND.RANGE
+          );
+        });
       });
-    });
 
-    it("calls onFilter with correct values when only min is selected", async () => {
-      render(
-        <Default
-          selectedMin={TEST_VALUES.SELECTED_MIN}
-          selectedMax={null}
-          onFilter={TEST_VALUES.ON_FILTER}
-        />
-      );
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
-          TEST_VALUES.CATEGORY_KEY,
-          [TEST_VALUES.SELECTED_MIN, null],
-          true,
-          undefined,
-          VIEW_KIND.RANGE
+      it("calls onFilter with correct values when only min is selected", async () => {
+        render(
+          <Default
+            selectedMin={TEST_VALUES.SELECTED_MIN}
+            selectedMax={null}
+            onFilter={TEST_VALUES.ON_FILTER}
+          />
         );
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
+            TEST_VALUES.CATEGORY_KEY,
+            [TEST_VALUES.SELECTED_MIN, null],
+            true,
+            undefined,
+            VIEW_KIND.RANGE
+          );
+        });
       });
-    });
 
-    it("calls onFilter with correct values when only max is selected", async () => {
-      render(
-        <Default
-          selectedMin={null}
-          selectedMax={TEST_VALUES.SELECTED_MAX}
-          onFilter={TEST_VALUES.ON_FILTER}
-        />
-      );
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
-          TEST_VALUES.CATEGORY_KEY,
-          [null, TEST_VALUES.SELECTED_MAX],
-          true,
-          undefined,
-          VIEW_KIND.RANGE
+      it("calls onFilter with correct values when only max is selected", async () => {
+        render(
+          <Default
+            selectedMin={null}
+            selectedMax={TEST_VALUES.SELECTED_MAX}
+            onFilter={TEST_VALUES.ON_FILTER}
+          />
         );
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledWith(
+            TEST_VALUES.CATEGORY_KEY,
+            [null, TEST_VALUES.SELECTED_MAX],
+            true,
+            undefined,
+            VIEW_KIND.RANGE
+          );
+        });
       });
     });
   });
 
   describe("Error states", () => {
-    const STRING_VALUE = { target: { value: "test" } }; // Updates value to string value "test".
+    const STRING_VALUE = { target: { value: "test" } }; // Updater of input value from number to string value "test".
 
-    it("shows error when min and max are missing", async () => {
-      render(<Default selectedMin={null} selectedMax={null} />);
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText("Min or Max is required")).toBeDefined();
+    describe(DESCRIBE_TITLES.BETWEEN, () => {
+      it("shows error when min and max are missing", async () => {
+        render(<Default selectedMin={null} selectedMax={null} />);
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText("Min or Max is required")).toBeDefined();
+        });
+      });
+
+      it("shows error when min is not a number", async () => {
+        render(
+          <Default
+            selectedMin={TEST_VALUES.SELECTED_MIN}
+            selectedMax={TEST_VALUES.SELECTED_MAX}
+          />
+        );
+        fireEvent.change(getLabelText(LABEL_TEXTS.MIN), STRING_VALUE);
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+        });
+      });
+
+      it("shows error when max is not a number", async () => {
+        render(
+          <Default
+            selectedMin={TEST_VALUES.SELECTED_MIN}
+            selectedMax={TEST_VALUES.SELECTED_MAX}
+          />
+        );
+        fireEvent.change(getLabelText(LABEL_TEXTS.MAX), STRING_VALUE);
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+        });
+      });
+
+      it("shows error when min is greater than max", async () => {
+        render(
+          <Default
+            selectedMin={TEST_VALUES.SELECTED_MAX}
+            selectedMax={TEST_VALUES.SELECTED_MIN}
+          />
+        );
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.MIN_MAX_ERROR)).toBeDefined();
+        });
       });
     });
 
-    it("shows error when min is not a number", async () => {
-      render(
-        <Default
-          selectedMin={TEST_VALUES.SELECTED_MIN}
-          selectedMax={TEST_VALUES.SELECTED_MAX}
-        />
-      );
-      fireEvent.change(getLabelText(LABEL_TEXTS.MIN), {
-        target: { value: "test" },
+    describe(DESCRIBE_TITLES.LESS_THAN, () => {
+      beforeEach(() => {
+        render(<Default selectedMin={null} selectedMax={null} />);
+        fireEvent.click(getButton(LESS_THAN));
       });
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+      it("shows error when required max is missing", async () => {
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.REQUIRED_ERROR)).toBeDefined();
+        });
+      });
+
+      it("shows error when required max is not a number", async () => {
+        fireEvent.change(getLabelText(LABEL_TEXTS.LESS_THAN), STRING_VALUE);
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+        });
       });
     });
 
-    it("shows error when max is not a number", async () => {
-      render(
-        <Default
-          selectedMin={TEST_VALUES.SELECTED_MIN}
-          selectedMax={TEST_VALUES.SELECTED_MAX}
-        />
-      );
-      fireEvent.change(getLabelText(LABEL_TEXTS.MAX), {
-        target: { value: "test" },
+    describe(DESCRIBE_TITLES.GREATER_THAN, () => {
+      beforeEach(() => {
+        render(<Default selectedMin={null} selectedMax={null} />);
+        fireEvent.click(getButton(GREATER_THAN));
       });
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
-      });
-    });
 
-    it("shows error when min is greater than max", async () => {
-      render(
-        <Default
-          selectedMin={TEST_VALUES.SELECTED_MAX}
-          selectedMax={TEST_VALUES.SELECTED_MIN}
-        />
-      );
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.MIN_MAX_ERROR)).toBeDefined();
+      it("shows error when required min is missing", async () => {
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.REQUIRED_ERROR)).toBeDefined();
+        });
       });
-    });
 
-    it("shows error when required max is missing", async () => {
-      render(<Default selectedMin={null} selectedMax={null} />);
-      fireEvent.click(getButton(LESS_THAN));
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.REQUIRED_ERROR)).toBeDefined();
-      });
-    });
-
-    it("shows error when required max is not a number", async () => {
-      render(<Default selectedMin={null} selectedMax={null} />);
-      fireEvent.click(getButton(LESS_THAN));
-      fireEvent.change(getLabelText(LABEL_TEXTS.LESS_THAN), STRING_VALUE);
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
-      });
-    });
-
-    it("shows error when required min is missing", async () => {
-      render(<Default selectedMin={null} selectedMax={null} />);
-      fireEvent.click(getButton(GREATER_THAN));
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.REQUIRED_ERROR)).toBeDefined();
-      });
-    });
-
-    it("shows error when required min is not a number", async () => {
-      render(<Default selectedMin={null} selectedMax={null} />);
-      fireEvent.click(getButton(GREATER_THAN));
-      fireEvent.change(getLabelText(LABEL_TEXTS.GREATER_THAN), STRING_VALUE);
-      fireEvent.click(getFilterButton());
-      await waitFor(() => {
-        expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
-        expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+      it("shows error when required min is not a number", async () => {
+        fireEvent.change(getLabelText(LABEL_TEXTS.GREATER_THAN), STRING_VALUE);
+        fireEvent.click(getFilterButton());
+        await waitFor(() => {
+          expect(TEST_VALUES.ON_FILTER).toHaveBeenCalledTimes(0);
+          expect(getText(ERROR_TEXTS.TYPE_ERROR)).toBeDefined();
+        });
       });
     });
   });
