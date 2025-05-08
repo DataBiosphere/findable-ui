@@ -12,12 +12,35 @@ const LESS_THAN = "Less Than";
 
 const { Default } = composeStories(stories);
 
+const MAX = Default.args.max;
+const MIN = Default.args.min;
+const UNIT = Default.args.unit;
+
 describe("FilterRange", () => {
   let filterEl: HTMLFormElement;
+  let maxInputEl: HTMLInputElement | null;
+  let minInputEl: HTMLInputElement | null;
+  let maxLabelEl: HTMLLabelElement | null;
+  let minLabelEl: HTMLLabelElement | null;
+  let helperEls: HTMLCollectionOf<Element>;
 
   beforeEach(() => {
     render(<Default />);
     filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
+    expect(filterEl).toBeDefined();
+    maxInputEl = filterEl.querySelector(
+      'input[name="max"]'
+    ) as HTMLInputElement | null;
+    minInputEl = filterEl.querySelector(
+      'input[name="min"]'
+    ) as HTMLInputElement | null;
+    maxLabelEl = filterEl.querySelector(
+      'label[for="max"]'
+    ) as HTMLLabelElement | null;
+    minLabelEl = filterEl.querySelector(
+      'label[for="min"]'
+    ) as HTMLLabelElement | null;
+    helperEls = filterEl.getElementsByClassName(MUI_CLASSES.FORM_HELPER_TEXT);
   });
 
   describe("Operator BETWEEN", () => {
@@ -36,10 +59,18 @@ describe("FilterRange", () => {
     it("renders BETWEEN input fields with correct labels", () => {
       expect(filterEl.querySelectorAll("label")).toHaveLength(2);
       expect(filterEl.querySelectorAll("input")).toHaveLength(2);
-      expect(filterEl.querySelector('label[for="between"]')).toBeDefined();
-      expect(filterEl.querySelector('label[for="between-to"]')).toBeDefined();
-      expect(filterEl.querySelector('input[name="between"]')).toBeDefined();
-      expect(filterEl.querySelector('input[name="between-to"]')).toBeDefined();
+      expect(minInputEl).not.toBeNull();
+      expect(maxInputEl).not.toBeNull();
+      expect(minLabelEl).not.toBeNull();
+      expect(minLabelEl?.textContent).toEqual(`Min (${UNIT})`);
+      expect(maxLabelEl).not.toBeNull();
+      expect(maxLabelEl?.textContent).toEqual(`Max (${UNIT})`);
+    });
+
+    it("renders helper text for each input", () => {
+      expect(helperEls).toHaveLength(2);
+      expect(helperEls[0].textContent).toEqual(`Min allowed: ${MIN}`);
+      expect(helperEls[1].textContent).toEqual(`Max allowed: ${MAX}`);
     });
 
     it("renders filter button", () => {
@@ -61,8 +92,16 @@ describe("FilterRange", () => {
     it("renders LESS THAN input field with correct label", () => {
       expect(filterEl.querySelectorAll("label")).toHaveLength(1);
       expect(filterEl.querySelectorAll("input")).toHaveLength(1);
-      expect(filterEl.querySelector('label[for="lessThan"]')).toBeDefined();
-      expect(filterEl.querySelector('input[name="lessThan"]')).toBeDefined();
+      expect(maxInputEl).not.toBeNull();
+      expect(maxLabelEl).not.toBeNull();
+      expect(maxLabelEl?.textContent).toEqual(`Less Than (${UNIT})`);
+    });
+
+    it("renders helper text", () => {
+      expect(helperEls).toHaveLength(1);
+      expect(helperEls[0].textContent).toEqual(
+        `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
+      );
     });
   });
 
@@ -80,8 +119,16 @@ describe("FilterRange", () => {
     it("renders GREATER THAN input field with correct label", () => {
       expect(filterEl.querySelectorAll("label")).toHaveLength(1);
       expect(filterEl.querySelectorAll("input")).toHaveLength(1);
-      expect(filterEl.querySelector('label[for="greaterThan"]')).toBeDefined();
-      expect(filterEl.querySelector('input[name="greaterThan"]')).toBeDefined();
+      expect(minInputEl).not.toBeNull();
+      expect(minLabelEl).not.toBeNull();
+      expect(minLabelEl?.textContent).toEqual(`Greater Than (${UNIT})`);
+    });
+
+    it("renders helper text", () => {
+      expect(helperEls).toHaveLength(1);
+      expect(helperEls[0].textContent).toEqual(
+        `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
+      );
     });
   });
 });
