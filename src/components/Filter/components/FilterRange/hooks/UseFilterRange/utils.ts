@@ -1,19 +1,6 @@
 import { FieldValues, RANGE_OPERATOR } from "./types";
 
 /**
- * Formats the range form min and max values.
- * @param value - The value to format.
- * @returns Formatted min or max value, or null if the value is not a number.
- */
-export function formatMinMaxValue(
-  value: FormDataEntryValue | null
-): number | null {
-  const numericValue = Number(value);
-  if (value === null || isNaN(numericValue)) return null;
-  return numericValue;
-}
-
-/**
  * Retrieves the min and max field values from a form.
  * @param e - The form element to retrieve values from.
  * @param rangeOperator - The range operator value in use.
@@ -25,8 +12,21 @@ export function getFormValues(
 ): FieldValues {
   const formData = new FormData(e);
   const fieldValues = {} as FieldValues;
-  fieldValues.max = formatMinMaxValue(formData.get("max")) || null;
-  fieldValues.min = formatMinMaxValue(formData.get("min")) || null;
+  fieldValues.max = parseMinMaxValue(formData.get("max"));
+  fieldValues.min = parseMinMaxValue(formData.get("min"));
   fieldValues.rangeOperator = rangeOperator;
   return fieldValues;
+}
+
+/**
+ * Parses a form data value null or empty string to null.
+ * Schema validation will handle the rest.
+ * @param value - The value to parse.
+ * @returns The parsed value, or null if the value is null or empty string.
+ */
+export function parseMinMaxValue(
+  value: FormDataEntryValue | null
+): FormDataEntryValue | null {
+  if (value === null || value === "") return null;
+  return value;
 }

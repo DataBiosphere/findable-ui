@@ -97,6 +97,7 @@ export const FilterRange = ({
               <OutlinedInput
                 {...INPUT_PROPS}
                 defaultValue={selectedMin}
+                id={FIELD_NAME.MIN}
                 name={FIELD_NAME.MIN}
                 onFocus={clearErrors}
                 placeholder="eg. 1"
@@ -120,6 +121,7 @@ export const FilterRange = ({
               <OutlinedInput
                 {...INPUT_PROPS}
                 defaultValue={selectedMax}
+                id={FIELD_NAME.MAX}
                 name={FIELD_NAME.MAX}
                 onFocus={clearErrors}
                 placeholder="eg. 20"

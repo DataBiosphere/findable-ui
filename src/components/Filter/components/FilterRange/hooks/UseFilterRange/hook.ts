@@ -29,11 +29,11 @@ export const useFilterRange = (
         e.preventDefault();
         const fieldValues = getFormValues(e.currentTarget, value); // `value` is current range operator.
         SCHEMA.validate(fieldValues, { abortEarly: false })
-          .then(() => {
+          .then((result) => {
             setErrors({});
             onSubmit(
               parameters.categoryKey,
-              [fieldValues.min, fieldValues.max],
+              [result.min, result.max],
               true,
               parameters.categorySection,
               VIEW_KIND.RANGE
