@@ -158,10 +158,10 @@ describe("FilterRange", () => {
         />
       );
       expect(getClassNames(getButton(BETWEEN))).toContain(MUI_CLASSES.SELECTED);
-      expect(getLabelText(LABEL_TEXTS.MIN).value).toEqual(
+      expect(getLabelText<HTMLInputElement>(LABEL_TEXTS.MIN).value).toEqual(
         TEST_VALUES.SELECTED_MIN.toString()
       );
-      expect(getLabelText(LABEL_TEXTS.MAX).value).toEqual(
+      expect(getLabelText<HTMLInputElement>(LABEL_TEXTS.MAX).value).toEqual(
         TEST_VALUES.SELECTED_MAX.toString()
       );
     });
@@ -173,9 +173,9 @@ describe("FilterRange", () => {
       expect(getClassNames(getButton(GREATER_THAN))).toContain(
         MUI_CLASSES.SELECTED
       );
-      expect(getLabelText(LABEL_TEXTS.GREATER_THAN).value).toEqual(
-        TEST_VALUES.SELECTED_MIN.toString()
-      );
+      expect(
+        getLabelText<HTMLInputElement>(LABEL_TEXTS.GREATER_THAN).value
+      ).toEqual(TEST_VALUES.SELECTED_MIN.toString());
     });
 
     it("renders max input with selected value when only selectedMax is defined", () => {
@@ -185,9 +185,9 @@ describe("FilterRange", () => {
       expect(getClassNames(getButton(LESS_THAN))).toContain(
         MUI_CLASSES.SELECTED
       );
-      expect(getLabelText(LABEL_TEXTS.LESS_THAN).value).toEqual(
-        TEST_VALUES.SELECTED_MAX.toString()
-      );
+      expect(
+        getLabelText<HTMLInputElement>(LABEL_TEXTS.LESS_THAN).value
+      ).toEqual(TEST_VALUES.SELECTED_MAX.toString());
     });
   });
 

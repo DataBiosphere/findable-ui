@@ -1,11 +1,14 @@
 import { screen } from "@testing-library/react";
+import { escapeRegExp } from "../common/utils";
 
 /**
  * Retrieves a button by its name.
  * @param name - The name of the button.
  * @returns The button element.
  */
-export function getButton(name: string): HTMLElement {
+export function getButton<T extends HTMLElement = HTMLElement>(
+  name: string | RegExp
+): T {
   return screen.getByRole("button", { name });
 }
 
@@ -14,8 +17,19 @@ export function getButton(name: string): HTMLElement {
  * @param text - The label text of the input element.
  * @returns The input element.
  */
-export function getLabelText(text: string): HTMLInputElement {
+export function getLabelText<T extends HTMLElement = HTMLElement>(
+  text: string
+): T {
   return screen.getByLabelText(text);
+}
+
+/**
+ * Returns regex that matches the start of the given text.
+ * @param text - Text to match.
+ * @returns RegExp.
+ */
+export function getStartsWithRegex(text: string): RegExp {
+  return new RegExp(`^${escapeRegExp(text)}`);
 }
 
 /**
@@ -23,6 +37,8 @@ export function getLabelText(text: string): HTMLInputElement {
  * @param text - The text content of the element.
  * @returns The element.
  */
-export function getText(text: string): HTMLElement {
+export function getText<T extends HTMLElement = HTMLElement>(
+  text: string | RegExp
+): T {
   return screen.getByText(text);
 }
