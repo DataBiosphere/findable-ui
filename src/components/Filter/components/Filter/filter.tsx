@@ -12,6 +12,12 @@ import { FilterRange } from "../FilterRange/filterRange";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
 import { FilterPopover, IconButton } from "./filter.styles";
 
+/**
+ * Filter component.
+ * TODO(cc) refactor: build tags from categoryView for selected values.
+ * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
+ */
+
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 const DEFAULT_SLOT_PROPS: PopoverProps["slotProps"] = {
   paper: { variant: "menu" },
