@@ -14,7 +14,16 @@ const { Default } = composeStories(stories);
 
 const MAX = Default.args.max;
 const MIN = Default.args.min;
+const SELECTED_MAX = 226;
+const SELECTED_MIN = 112;
 const UNIT = Default.args.unit;
+
+const SELECTOR = {
+  MAX_INPUT: 'input[name="max"]',
+  MAX_LABEL: 'label[for="max"]',
+  MIN_INPUT: 'input[name="min"]',
+  MIN_LABEL: 'label[for="min"]',
+};
 
 describe("FilterRange", () => {
   let filterEl: HTMLFormElement;
@@ -24,111 +33,153 @@ describe("FilterRange", () => {
   let minLabelEl: HTMLLabelElement | null;
   let helperEls: HTMLCollectionOf<Element>;
 
-  beforeEach(() => {
-    render(<Default />);
-    filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
-    expect(filterEl).toBeDefined();
-    maxInputEl = filterEl.querySelector(
-      'input[name="max"]'
-    ) as HTMLInputElement | null;
-    minInputEl = filterEl.querySelector(
-      'input[name="min"]'
-    ) as HTMLInputElement | null;
-    maxLabelEl = filterEl.querySelector(
-      'label[for="max"]'
-    ) as HTMLLabelElement | null;
-    minLabelEl = filterEl.querySelector(
-      'label[for="min"]'
-    ) as HTMLLabelElement | null;
-    helperEls = filterEl.getElementsByClassName(MUI_CLASSES.FORM_HELPER_TEXT);
-  });
-
-  describe("Operator BETWEEN", () => {
-    it("renders the toggle buttons with correct text", () => {
-      expect(screen.getByRole("button", { name: BETWEEN })).toBeDefined();
-      expect(screen.getByRole("button", { name: LESS_THAN })).toBeDefined();
-      expect(screen.getByRole("button", { name: GREATER_THAN })).toBeDefined();
+  describe("UI rendering for operator modes", () => {
+    beforeEach(() => {
+      render(<Default />);
+      filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
+      expect(filterEl).toBeDefined();
+      maxInputEl = filterEl.querySelector(
+        SELECTOR.MAX_INPUT
+      ) as HTMLInputElement | null;
+      minInputEl = filterEl.querySelector(
+        SELECTOR.MIN_INPUT
+      ) as HTMLInputElement | null;
+      maxLabelEl = filterEl.querySelector(
+        SELECTOR.MAX_LABEL
+      ) as HTMLLabelElement | null;
+      minLabelEl = filterEl.querySelector(
+        SELECTOR.MIN_LABEL
+      ) as HTMLLabelElement | null;
+      helperEls = filterEl.getElementsByClassName(MUI_CLASSES.FORM_HELPER_TEXT);
     });
 
-    it("renders BETWEEN toggle button as selected", () => {
+    describe("Operator BETWEEN", () => {
+      it("renders the toggle buttons with correct text", () => {
+        expect(screen.getByRole("button", { name: BETWEEN })).toBeDefined();
+        expect(screen.getByRole("button", { name: LESS_THAN })).toBeDefined();
+        expect(
+          screen.getByRole("button", { name: GREATER_THAN })
+        ).toBeDefined();
+      });
+
+      it("renders BETWEEN toggle button as selected", () => {
+        expect(
+          getClassNames(screen.getByRole("button", { name: BETWEEN }))
+        ).toContain(MUI_CLASSES.SELECTED);
+      });
+
+      it("renders BETWEEN input fields with correct labels", () => {
+        expect(filterEl.querySelectorAll("label")).toHaveLength(2);
+        expect(filterEl.querySelectorAll("input")).toHaveLength(2);
+        expect(minInputEl).not.toBeNull();
+        expect(maxInputEl).not.toBeNull();
+        expect(minLabelEl).not.toBeNull();
+        expect(minLabelEl?.textContent).toEqual(`Min (${UNIT})`);
+        expect(maxLabelEl).not.toBeNull();
+        expect(maxLabelEl?.textContent).toEqual(`Max (${UNIT})`);
+      });
+
+      it("renders helper text for each input", () => {
+        expect(helperEls).toHaveLength(2);
+        expect(helperEls[0].textContent).toEqual(`Min allowed: ${MIN}`);
+        expect(helperEls[1].textContent).toEqual(`Max allowed: ${MAX}`);
+      });
+
+      it("renders filter button", () => {
+        expect(screen.getByText("Filter")).toBeDefined();
+      });
+    });
+
+    describe("Operator LESS THAN", () => {
+      beforeEach(() => {
+        fireEvent.click(screen.getByRole("button", { name: LESS_THAN }));
+      });
+
+      it("renders LESS THAN toggle button as selected", () => {
+        expect(
+          getClassNames(screen.getByRole("button", { name: LESS_THAN }))
+        ).toContain(MUI_CLASSES.SELECTED);
+      });
+
+      it("renders LESS THAN input field with correct label", () => {
+        expect(filterEl.querySelectorAll("label")).toHaveLength(1);
+        expect(filterEl.querySelectorAll("input")).toHaveLength(1);
+        expect(maxInputEl).not.toBeNull();
+        expect(maxLabelEl).not.toBeNull();
+        expect(maxLabelEl?.textContent).toEqual(`Less Than (${UNIT})`);
+      });
+
+      it("renders helper text", () => {
+        expect(helperEls).toHaveLength(1);
+        expect(helperEls[0].textContent).toEqual(
+          `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
+        );
+      });
+    });
+
+    describe("Operator GREATER THAN", () => {
+      beforeEach(() => {
+        fireEvent.click(screen.getByRole("button", { name: GREATER_THAN }));
+      });
+
+      it("renders GREATER THAN toggle button as selected", () => {
+        expect(
+          getClassNames(screen.getByRole("button", { name: GREATER_THAN }))
+        ).toContain(MUI_CLASSES.SELECTED);
+      });
+
+      it("renders GREATER THAN input field with correct label", () => {
+        expect(filterEl.querySelectorAll("label")).toHaveLength(1);
+        expect(filterEl.querySelectorAll("input")).toHaveLength(1);
+        expect(minInputEl).not.toBeNull();
+        expect(minLabelEl).not.toBeNull();
+        expect(minLabelEl?.textContent).toEqual(`Greater Than (${UNIT})`);
+      });
+
+      it("renders helper text", () => {
+        expect(helperEls).toHaveLength(1);
+        expect(helperEls[0].textContent).toEqual(
+          `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
+        );
+      });
+    });
+  });
+
+  describe("Input rendering for selectedMin and selectedMax combinations", () => {
+    it("renders both min and max inputs with selected values when both selectedMin and selectedMax are defined", () => {
+      render(<Default selectedMax={SELECTED_MAX} selectedMin={SELECTED_MIN} />);
+      const filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
       expect(
         getClassNames(screen.getByRole("button", { name: BETWEEN }))
       ).toContain(MUI_CLASSES.SELECTED);
-    });
-
-    it("renders BETWEEN input fields with correct labels", () => {
-      expect(filterEl.querySelectorAll("label")).toHaveLength(2);
-      expect(filterEl.querySelectorAll("input")).toHaveLength(2);
-      expect(minInputEl).not.toBeNull();
-      expect(maxInputEl).not.toBeNull();
-      expect(minLabelEl).not.toBeNull();
-      expect(minLabelEl?.textContent).toEqual(`Min (${UNIT})`);
-      expect(maxLabelEl).not.toBeNull();
-      expect(maxLabelEl?.textContent).toEqual(`Max (${UNIT})`);
-    });
-
-    it("renders helper text for each input", () => {
-      expect(helperEls).toHaveLength(2);
-      expect(helperEls[0].textContent).toEqual(`Min allowed: ${MIN}`);
-      expect(helperEls[1].textContent).toEqual(`Max allowed: ${MAX}`);
-    });
-
-    it("renders filter button", () => {
-      expect(screen.getByText("Filter")).toBeDefined();
-    });
-  });
-
-  describe("Operator LESS THAN", () => {
-    beforeEach(() => {
-      fireEvent.click(screen.getByRole("button", { name: LESS_THAN }));
-    });
-
-    it("renders LESS THAN toggle button as selected", () => {
       expect(
-        getClassNames(screen.getByRole("button", { name: LESS_THAN }))
-      ).toContain(MUI_CLASSES.SELECTED);
+        (filterEl.querySelector(SELECTOR.MIN_INPUT) as HTMLInputElement).value
+      ).toEqual(SELECTED_MIN.toString());
+      expect(
+        (filterEl.querySelector(SELECTOR.MAX_INPUT) as HTMLInputElement).value
+      ).toEqual(SELECTED_MAX.toString());
     });
 
-    it("renders LESS THAN input field with correct label", () => {
-      expect(filterEl.querySelectorAll("label")).toHaveLength(1);
-      expect(filterEl.querySelectorAll("input")).toHaveLength(1);
-      expect(maxInputEl).not.toBeNull();
-      expect(maxLabelEl).not.toBeNull();
-      expect(maxLabelEl?.textContent).toEqual(`Less Than (${UNIT})`);
-    });
-
-    it("renders helper text", () => {
-      expect(helperEls).toHaveLength(1);
-      expect(helperEls[0].textContent).toEqual(
-        `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
-      );
-    });
-  });
-
-  describe("Operator GREATER THAN", () => {
-    beforeEach(() => {
-      fireEvent.click(screen.getByRole("button", { name: GREATER_THAN }));
-    });
-
-    it("renders GREATER THAN toggle button as selected", () => {
+    it("renders only min input with selected value when only selectedMin is defined", () => {
+      render(<Default selectedMax={null} selectedMin={SELECTED_MIN} />);
+      const filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
       expect(
         getClassNames(screen.getByRole("button", { name: GREATER_THAN }))
       ).toContain(MUI_CLASSES.SELECTED);
+      expect(
+        (filterEl.querySelector(SELECTOR.MIN_INPUT) as HTMLInputElement).value
+      ).toEqual(SELECTED_MIN.toString());
     });
 
-    it("renders GREATER THAN input field with correct label", () => {
-      expect(filterEl.querySelectorAll("label")).toHaveLength(1);
-      expect(filterEl.querySelectorAll("input")).toHaveLength(1);
-      expect(minInputEl).not.toBeNull();
-      expect(minLabelEl).not.toBeNull();
-      expect(minLabelEl?.textContent).toEqual(`Greater Than (${UNIT})`);
-    });
-
-    it("renders helper text", () => {
-      expect(helperEls).toHaveLength(1);
-      expect(helperEls[0].textContent).toEqual(
-        `Allowed values: \u2265 ${MIN} and \u2264 ${MAX}`
-      );
+    it("renders only max input with selected value when only selectedMax is defined", () => {
+      render(<Default selectedMax={SELECTED_MAX} selectedMin={null} />);
+      const filterEl = screen.getByTestId(TEST_IDS.FILTER_RANGE);
+      expect(
+        getClassNames(screen.getByRole("button", { name: LESS_THAN }))
+      ).toContain(MUI_CLASSES.SELECTED);
+      expect(
+        (filterEl.querySelector(SELECTOR.MAX_INPUT) as HTMLInputElement).value
+      ).toEqual(SELECTED_MAX.toString());
     });
   });
 });
