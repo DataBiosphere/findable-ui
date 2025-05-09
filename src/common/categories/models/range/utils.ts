@@ -9,7 +9,7 @@ import { SelectedRange } from "./types";
  */
 export function assertIsRange(value: unknown): asserts value is SelectedRange {
   if (!isSelectedRange(value)) {
-    throw new Error("Value is not a selected range");
+    throw new Error("Value is not SelectedRange");
   }
 }
 

@@ -34,10 +34,27 @@ export function getFacetedMinMaxValues<TData extends RowData>(): (
 
             if (numericValue < facetedMinMaxValues[0]) {
               facetedMinMaxValues[0] = numericValue;
-            } else if (numericValue > facetedMinMaxValues[1]) {
+            }
+            if (numericValue > facetedMinMaxValues[1]) {
               facetedMinMaxValues[1] = numericValue;
             }
           }
+        }
+
+        // Return undefined if all values are null or NaN.
+        if (
+          facetedMinMaxValues[0] === Infinity &&
+          facetedMinMaxValues[1] === -Infinity
+        ) {
+          return undefined;
+        }
+
+        // Normalize -0 to 0.
+        if (Object.is(facetedMinMaxValues[0], -0)) {
+          facetedMinMaxValues[0] = 0;
+        }
+        if (Object.is(facetedMinMaxValues[1], -0)) {
+          facetedMinMaxValues[1] = 0;
         }
 
         return facetedMinMaxValues;
