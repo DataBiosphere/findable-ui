@@ -5,11 +5,8 @@ import {
 } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
-import {
-  CategoryKey,
-  CategoryValueKey,
-  SelectCategoryView,
-} from "../../common/entities";
+import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
+import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
@@ -76,6 +73,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
    * @param selectedCategoryValue - The value to set or clear.
    * @param selected - Indication of whether the selected value is being set or cleared.
    * @param categorySection - Name of group the category is in.
+   * @param viewKind - View kind.
    * @param searchTerm - Search term used to find the value.
    */
   const onFilterChange = (
@@ -84,6 +82,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     selectedCategoryValue: CategoryValueKey,
     selected: boolean,
     categorySection?: string,
+    viewKind?: VIEW_KIND,
     searchTerm?: string
   ): void => {
     const dispatchType =
@@ -96,6 +95,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         categoryKey,
         selected,
         selectedValue: selectedCategoryValue,
+        viewKind,
       },
       type: dispatchType,
     });
@@ -188,33 +188,28 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 
 /**
  * Builds the category views into category views grouped by the given category group configuration.
- * @param selectCategoryViews - View models of categories to display.
+ * @param categoryViews - View models of categories to display.
  * @param categoryGroups - Category groups.
  * @returns category filters.
  */
 function buildCategoryFilters(
-  selectCategoryViews: SelectCategoryView[],
+  categoryViews: CategoryView[],
   categoryGroups?: CategoryGroup[]
 ): CategoryFilter[] {
   if (!categoryGroups) {
-    return [{ categoryViews: selectCategoryViews }];
+    return [{ categoryViews }];
   }
   return categoryGroups.reduce((accGroups, { categoryConfigs, label }) => {
     // Grab the category views for the configured grouped categories.
-    const categoryViews = categoryConfigs.reduce(
-      (accViews, { key: categoryKey }) => {
-        const categoryView = selectCategoryViews.find(
-          ({ key }) => key === categoryKey
-        );
-        if (categoryView) {
-          accViews.push(categoryView);
-        }
-        return accViews;
-      },
-      [] as SelectCategoryView[]
-    );
-    if (categoryViews.length > 0) {
-      accGroups.push({ categoryViews, label });
+    const views = categoryConfigs.reduce((accViews, { key: categoryKey }) => {
+      const categoryView = categoryViews.find(({ key }) => key === categoryKey);
+      if (categoryView) {
+        accViews.push(categoryView);
+      }
+      return accViews;
+    }, [] as CategoryView[]);
+    if (views.length > 0) {
+      accGroups.push({ categoryViews: views, label });
     }
     return accGroups;
   }, [] as CategoryFilter[]);

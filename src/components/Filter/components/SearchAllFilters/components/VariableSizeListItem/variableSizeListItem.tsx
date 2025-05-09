@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useRef } from "react";
+import { VIEW_KIND } from "../../../../../../common/categories/views/types";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { TEXT_BODY_SMALL_400 } from "../../../../../../theme/common/typography";
@@ -54,7 +55,14 @@ export default function VariableSizeListItem({
         ref={setRef}
         key={key}
         onClick={(): void =>
-          onFilter(categoryKey, valueKey, !selected, undefined, searchTerm)
+          onFilter(
+            categoryKey,
+            valueKey,
+            !selected,
+            undefined,
+            VIEW_KIND.SELECT,
+            searchTerm
+          )
         }
         selected={selected}
         style={style}

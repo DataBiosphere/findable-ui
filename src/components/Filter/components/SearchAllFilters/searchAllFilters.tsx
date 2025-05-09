@@ -10,6 +10,8 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { isSelectCategoryView } from "../../../../common/categories/views/select/typeGuards";
+import { CategoryView } from "../../../../common/categories/views/types";
 import { SelectCategoryView } from "../../../../common/entities";
 import { SELECTOR } from "../../../../common/selectors";
 import {
@@ -29,18 +31,18 @@ import { VariableSizeList } from "./components/VariableSizeList/VariableSizeList
 import { Autocomplete } from "./searchAllFilters.styles";
 
 export interface SearchAllFiltersProps {
-  categoryViews: SelectCategoryView[];
+  categoryViews: CategoryView[];
   drawerOpen?: boolean;
   onFilter: OnFilterFn;
 }
 
 interface ListboxContextValue {
-  categoryViews: SelectCategoryView[];
   onClearSearch: () => void;
   onCloseSearch: () => void;
   onFilter: OnFilterFn;
   open: boolean;
   searchTerm: string;
+  selectCategoryViews: SelectCategoryView[];
 }
 
 const renderInput = (params: AutocompleteRenderInputParams): JSX.Element => (
@@ -48,12 +50,12 @@ const renderInput = (params: AutocompleteRenderInputParams): JSX.Element => (
 );
 
 export const ListboxContext = createContext<ListboxContextValue>({
-  categoryViews: [],
   onClearSearch: (): void => undefined,
   onCloseSearch: (): void => undefined,
   onFilter: (): void => undefined,
   open: false,
   searchTerm: "",
+  selectCategoryViews: [],
 });
 
 const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
@@ -63,14 +65,15 @@ const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
   props = Object.assign({}, props, {
     children: undefined, // Content is controlled by VariableSizeList
   });
-  const { categoryViews, onFilter, searchTerm } = useContext(ListboxContext);
+  const { onFilter, searchTerm, selectCategoryViews } =
+    useContext(ListboxContext);
   return (
     <VariableSizeList
       autocompleteListProps={props}
-      categoryViews={categoryViews}
       onFilter={onFilter}
       ref={ref}
       searchTerm={searchTerm}
+      selectCategoryViews={selectCategoryViews}
     />
   );
 });
@@ -84,6 +87,9 @@ export const SearchAllFilters = ({
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const selectCategoryViews = categoryViews.filter((view) =>
+    isSelectCategoryView(view)
+  );
 
   // Handles background scroll action (desktop only).
   const handleBackgroundScroll = (overflowStyle: OVERFLOW_STYLE): void => {
@@ -145,12 +151,12 @@ export const SearchAllFilters = ({
   return (
     <ListboxContext.Provider
       value={{
-        categoryViews,
         onClearSearch,
         onCloseSearch,
         onFilter,
         open,
         searchTerm,
+        selectCategoryViews,
       }}
     >
       <Autocomplete

@@ -33,6 +33,7 @@ import {
   isClientFilteringEnabled,
   sortingFn,
 } from "../../Table/common/utils";
+import { getFacetedMinMaxValues } from "../../Table/featureOptions/facetedColumn/getFacetedMinMaxValues";
 import { ROW_POSITION } from "../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../Table/features/RowPreview/constants";
 import { RowPreviewState } from "../../Table/features/RowPreview/entities";
@@ -167,6 +168,9 @@ export const useTable = <T extends RowData>(): UseTable<T> => {
     enableMultiSort: clientFiltering, // TODO(cc) move to sorting options; default to false and let the table options in config flag this value.
     filterFns: { arrIncludesSome },
     getCoreRowModel: getCoreRowModel(),
+    getFacetedMinMaxValues: clientFiltering
+      ? getFacetedMinMaxValues()
+      : undefined,
     getFacetedRowModel: clientFiltering ? getFacetedRowModel() : undefined,
     getFacetedUniqueValues: clientFiltering
       ? getFacetedUniqueValuesWithArrayValues()

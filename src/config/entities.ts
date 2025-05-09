@@ -10,10 +10,10 @@ import {
   TableOptions,
 } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
+import { CategoryConfig } from "../common/categories/config/types";
 import {
   DataDictionaryAnnotation,
   DataDictionaryConfig,
-  SelectCategoryValueView,
   SelectedFilter,
 } from "../common/entities";
 import { HeroTitle } from "../components/common/Title/title";
@@ -86,19 +86,6 @@ export interface CategoryGroupConfig {
 export interface CategoryGroup {
   categoryConfigs: CategoryConfig[];
   label?: string;
-}
-
-/**
- * Model of category configured in site config.
- */
-export interface CategoryConfig {
-  annotation?: DataDictionaryAnnotation;
-  enableChartView?: boolean;
-  key: string;
-  label: string;
-  mapSelectCategoryValue?: (
-    selectCategoryValue: SelectCategoryValueView
-  ) => SelectCategoryValueView;
 }
 
 /**

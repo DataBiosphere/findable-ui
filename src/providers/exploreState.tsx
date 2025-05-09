@@ -9,7 +9,8 @@ import React, {
   useState,
 } from "react";
 import { AzulSearchIndex } from "../apis/azul/common/entities";
-import { SelectCategoryView, SelectedFilter } from "../common/entities";
+import { CategoryView } from "../common/categories/views/types";
+import { SelectedFilter } from "../common/entities";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useToken } from "../hooks/authentication/token/useToken";
@@ -78,7 +79,7 @@ export interface ExploreContext {
 export type ExploreState = {
   catalogState: CatalogState;
   categoryGroups?: CategoryGroup[];
-  categoryViews: SelectCategoryView[];
+  categoryViews: CategoryView[];
   entityPageState: EntityPageStateMapper;
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
@@ -638,7 +639,8 @@ function exploreReducer(
         state.filterState,
         payload.categoryKey,
         payload.selectedValue,
-        payload.selected
+        payload.selected,
+        payload.viewKind
       );
       const rowPreview = closeRowPreview(state.rowPreview);
       const rowSelection: RowSelectionState = {};

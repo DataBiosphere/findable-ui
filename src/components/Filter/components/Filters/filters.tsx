@@ -1,6 +1,8 @@
 import { Divider } from "@mui/material";
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { CategoryTag, SelectCategoryView } from "../../../../common/entities";
+import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
+import { CategoryView } from "../../../../common/categories/views/types";
+import { CategoryTag } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import {
   BREAKPOINT_FN_NAME,
@@ -11,11 +13,12 @@ import { useWindowResize } from "../../../../hooks/useWindowResize";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { Filter } from "../Filter/filter";
+import { buildRangeTag } from "../FilterTag/utils";
 import { FilterTags } from "../FilterTags/filterTags";
 import { CategoryViewsLabel, Filters as FilterList } from "./filters.styles";
 
 export interface CategoryFilter {
-  categoryViews: SelectCategoryView[];
+  categoryViews: CategoryView[];
   label?: string;
 }
 
@@ -28,15 +31,21 @@ export interface FiltersProps {
 }
 
 /**
- * Returns set of selected category tags with tag label (the selected metadata label) and corresponding Tag onRemove function.
+ * Returns filter tags for the given category view.
  * @param categoryView - View model of category to display.
- * @param onFilter - Function to execute on select of category value or remove of selected category value.
- * @returns Array of selected category tags.
+ * @param onFilter - Function to execute on selection or removal of category value.
+ * @returns Array of filter tags.
  */
-function buildSelectCategoryTags(
-  categoryView: SelectCategoryView,
+function buildFilterTags(
+  categoryView: CategoryView,
   onFilter: OnFilterFn
 ): CategoryTag[] {
+  // Handle range category views
+  if (isRangeCategoryView(categoryView)) {
+    return buildRangeTag(categoryView, onFilter);
+  }
+
+  // Handle select category views.
   const { key: categoryKey, values } = categoryView;
   return values
     .filter(({ selected }) => selected)
@@ -50,16 +59,16 @@ function buildSelectCategoryTags(
 }
 
 /**
- * Build selected filter tags element for the given category type.
+ * Returns filter tags element for the given category view.
  * @param categoryView - View model of category to display.
- * @param onFilter - Function to execute on select of category value or remove of selected category value.
- * @returns Filter tags element displaying selected category values.
+ * @param onFilter - Function to execute on selection or removal of category value.
+ * @returns Filter tags element.
  */
 function renderFilterTags(
-  categoryView: SelectCategoryView,
+  categoryView: CategoryView,
   onFilter: OnFilterFn
 ): JSX.Element {
-  const tags = buildSelectCategoryTags(categoryView, onFilter);
+  const tags = buildFilterTags(categoryView, onFilter);
   return <FilterTags tags={tags} />;
 }
 

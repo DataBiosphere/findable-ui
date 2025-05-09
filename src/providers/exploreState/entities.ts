@@ -4,15 +4,15 @@ import {
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
+import { CategoryConfig } from "../../common/categories/config/types";
+import { CategoryView } from "../../common/categories/views/types";
 import {
   CategoryValueKey,
   SelectCategory,
-  SelectCategoryView,
   SelectedFilter,
 } from "../../common/entities";
 import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
 import {
-  CategoryConfig,
   CategoryGroup,
   CategoryGroupConfig,
   EntityPath,
@@ -36,7 +36,7 @@ export interface EntityPageStateMapper {
 export interface EntityState {
   categoryConfigs?: CategoryConfig[];
   categoryGroups?: CategoryGroup[];
-  categoryViews: SelectCategoryView[];
+  categoryViews: CategoryView[];
   filterState: SelectedFilter[];
   savedFilterByCategoryValueKey?: SavedFilterByCategoryValueKey;
   savedFilterState: SelectedFilter[];
