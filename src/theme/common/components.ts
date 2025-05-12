@@ -410,6 +410,14 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       },
       label: {
         ...theme.typography[TEXT_BODY_SMALL_400],
+        variants: [
+          {
+            props: { variant: "status" },
+            style: {
+              ...theme.typography[TEXT_BODY_SMALL_500],
+            },
+          },
+        ],
       },
     },
     variants: [
@@ -489,11 +497,16 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "status" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_500],
           boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 20,
           maxWidth: "fit-content",
           minWidth: 0,
+        },
+      },
+      {
+        props: { color: "default", variant: "status" },
+        style: {
+          color: PALETTE.INK_LIGHT,
         },
       },
     ],

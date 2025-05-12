@@ -1,12 +1,16 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import { CellContext, RowData } from "@tanstack/react-table";
+import React, { ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
-import { BasicCellProps } from "./types";
 
-export const BasicCell = ({ getValue }: BasicCellProps): JSX.Element => {
+export const BasicCell = <T extends RowData, TValue>({
+  getValue,
+}: CellContext<T, TValue>): JSX.Element | null => {
+  const value = getValue();
+  if (value === undefined || value === null) return null;
   return (
     <Typography variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}>
-      {getValue()}
+      {value as ReactNode}
     </Typography>
   );
 };
