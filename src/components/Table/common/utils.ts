@@ -9,7 +9,7 @@ import {
   sortingFns,
   Table,
 } from "@tanstack/react-table";
-import { SelectCategory } from "../../../common/entities";
+import { Category } from "../../../common/categories/models/types";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode/types";
 import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 
@@ -38,26 +38,47 @@ type TableData = number | string | string[];
 export function buildCategoryViews<T extends RowData>(
   columns: Column<T>[],
   columnFilters: ColumnFiltersState
-): SelectCategory[] {
-  const categoryViews: SelectCategory[] = [];
+): Category[] {
+  const categoryViews: Category[] = [];
   for (const column of columns) {
-    const { columnDef, getCanFilter, getFacetedUniqueValues, id } = column;
+    const {
+      columnDef,
+      getCanFilter,
+      getFacetedMinMaxValues,
+      getFacetedUniqueValues,
+      id,
+    } = column;
     const { header: columnHeader } = columnDef;
     if (getCanFilter()) {
-      updateFacetedUniqueValues(getFacetedUniqueValues(), columnFilters, id);
       const key = id;
       const label = columnHeader as string;
-      const values = [...getFacetedUniqueValues()].map(([value, count]) => ({
-        count,
-        key: value,
-        label: String(value ?? ""),
-        selected: false, // Selected state updated in reducer.
-      }));
-      categoryViews.push({
-        key,
-        label,
-        values: values,
-      });
+      // Handle range categories.
+      if (columnDef.filterFn === "inNumberRange") {
+        const minMax = getFacetedMinMaxValues();
+        categoryViews.push({
+          key,
+          label,
+          max: minMax?.[1] || Infinity,
+          min: minMax?.[0] || -Infinity,
+          selectedMax: null, // Selected state updated in reducer.
+          selectedMin: null, // Selected state updated in reducer.
+        });
+      }
+      // Handle select categories.
+      if (columnDef.filterFn === "arrIncludesSome") {
+        updateFacetedUniqueValues(getFacetedUniqueValues(), columnFilters, id);
+        const values = [...getFacetedUniqueValues()].map(([value, count]) => ({
+          count,
+          key: value,
+          label: String(value ?? ""),
+          selected: false, // Selected state updated in reducer.
+        }));
+        categoryViews.push({
+          key,
+          label,
+          values: values,
+        });
+      }
     }
   }
   return categoryViews;

@@ -1,3 +1,11 @@
+import { CategoryConfig } from "../common/categories/config/types";
+import { findSelectCategoryConfig } from "../common/categories/config/utils";
+import { isRangeCategory } from "../common/categories/models/range/typeGuards";
+import { buildNextRangeFilterState } from "../common/categories/models/range/utils";
+import { buildNextSelectFilterState } from "../common/categories/models/select/utils";
+import { Category } from "../common/categories/models/types";
+import { buildRangeCategoryView } from "../common/categories/views/range/utils";
+import { CategoryView, VIEW_KIND } from "../common/categories/views/types";
 import { COLLATOR_CASE_INSENSITIVE } from "../common/constants";
 import {
   CategoryKey,
@@ -9,21 +17,11 @@ import {
   SelectCategoryView,
   SelectedFilter,
 } from "../common/entities";
-import { CategoryConfig } from "../config/entities";
 
 /**
  * State backing filter functionality and calculations. Converted to view model for display.
  */
 export type FilterState = Filters;
-
-/**
- * Shape of return value from this useCategoryFilter hook.
- */
-export interface FilterInstance {
-  categories: SelectCategoryView[];
-  filter: FilterState;
-  onFilter: OnFilterFn;
-}
 
 /**
  * Function invoked when selected state of a category value is toggled or range is selected.
@@ -33,6 +31,7 @@ export type OnFilterFn = (
   selectedCategoryValue: CategoryValueKey,
   selected: boolean,
   categorySection?: string,
+  viewKind?: VIEW_KIND,
   searchTerm?: string
 ) => void;
 
@@ -62,27 +61,30 @@ function buildCategoryValueView(
 }
 
 /**
- * Build the view-specific model of the given category, including the category label pulled from the config.
- * @param category - The category to build a view model of.
- * @param categoryValueViews - Set of category value view models for the given category.
+ * Build the view-specific model of the given select category, including the category label pulled from the config.
+ * @param selectCategory - The select category to build a view model of.
+ * @param selectCategoryValueViews - Set of select category value view models for the given category.
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
- * @returns Full built category value view, ready for display.
+ * @returns Full built select category view, ready for display.
  */
 function buildCategoryView(
-  category: SelectCategory,
-  categoryValueViews: SelectCategoryValueView[],
+  selectCategory: SelectCategory,
+  selectCategoryValueViews: SelectCategoryValueView[],
   categoryConfigs: CategoryConfig[]
 ): SelectCategoryView {
-  const categoryConfig = findCategoryConfig(category.key, categoryConfigs);
+  const selectCategoryConfig = findSelectCategoryConfig(
+    selectCategory.key,
+    categoryConfigs
+  );
   const mapSelectCategoryValue =
-    categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
+    selectCategoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
   return {
-    annotation: categoryConfig?.annotation,
-    enableChartView: categoryConfig?.enableChartView,
+    annotation: selectCategoryConfig?.annotation,
+    enableChartView: selectCategoryConfig?.enableChartView,
     isDisabled: false,
-    key: category.key,
-    label: getCategoryLabel(category.key, categoryConfig),
-    values: categoryValueViews.map(mapSelectCategoryValue),
+    key: selectCategory.key,
+    label: getCategoryLabel(selectCategory.key, selectCategoryConfig),
+    values: selectCategoryValueViews.map(mapSelectCategoryValue),
   };
 }
 
@@ -94,10 +96,10 @@ function buildCategoryView(
  * @returns Array of category view objects.
  */
 export function buildCategoryViews(
-  categories: SelectCategory[],
+  categories: Category[],
   categoryConfigs: CategoryConfig[] | undefined,
   filterState: FilterState
-): SelectCategoryView[] {
+): CategoryView[] {
   if (!categories || !categoryConfigs) {
     return [];
   }
@@ -115,7 +117,16 @@ export function buildCategoryViews(
       filterState
     );
 
-    // Build view models for each category value in this category and sort alpha.
+    // Build view model for range categories.
+    if (isRangeCategory(category)) {
+      return buildRangeCategoryView(
+        category,
+        categoryConfigs,
+        categorySelectedFilter
+      );
+    }
+
+    // Build view model for single or multiselect categories.
     const categoryValueViews = category.values.map((categoryValue) =>
       buildCategoryValueView(categoryValue, categorySelectedFilter)
     );
@@ -136,13 +147,15 @@ export function buildCategoryViews(
  * @param categoryKey - Key of category that has been de/selected.
  * @param selectedValue - Key of category value that has been de/selected
  * @param selected - True if value is selected, false if de-selected.
+ * @param viewKind - View kind.
  * @returns New filter state generated from the current set of selected values and the newly selected value.
  */
 export function buildNextFilterState(
   filterState: FilterState,
   categoryKey: CategoryKey,
   selectedValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
+  viewKind?: VIEW_KIND
 ): FilterState {
   // Check if the selected category already has selected values.
   const categorySelectedFilter = getCategorySelectedFilter(
@@ -162,14 +175,20 @@ export function buildNextFilterState(
     value: categorySelectedFilter ? [...categorySelectedFilter.value] : [],
   };
 
-  // Handle case where category value is selected.
-  if (selected) {
-    nextCategorySelectedFilter.value.push(selectedValue);
-  }
-  // Otherwise, category value has been de-selected; remove the selected value from the selected set of values.
-  else {
-    nextCategorySelectedFilter.value = nextCategorySelectedFilter.value.filter(
-      (value: CategoryValueKey) => value !== selectedValue
+  // Build next filter state for category.
+  if (viewKind === VIEW_KIND.RANGE) {
+    // Handle range category.
+    buildNextRangeFilterState(
+      nextCategorySelectedFilter,
+      selectedValue,
+      selected
+    );
+  } else {
+    // Handle select category.
+    buildNextSelectFilterState(
+      nextCategorySelectedFilter,
+      selectedValue,
+      selected
     );
   }
 
@@ -222,19 +241,6 @@ export function getSelectCategoryValue(
 }
 
 /**
- * Returns the category config for the given category config key.
- * @param key - Category config key.
- * @param categoryConfigs - Category configs.
- * @returns category config.
- */
-function findCategoryConfig(
-  key: string,
-  categoryConfigs: CategoryConfig[]
-): CategoryConfig | undefined {
-  return categoryConfigs.find((categoryConfig) => categoryConfig.key === key);
-}
-
-/**
  * Determine if given category value is selected.
  * @param categoryValueKey - The key of the category value to check if selected in the filter state.
  * @param categorySelectedFilter - Current filter state for a category.
@@ -257,7 +263,7 @@ function isCategoryValueSelected(
  * @returns true if category is to be included in filter.
  */
 function isCategoryAcceptListed(
-  category: SelectCategory,
+  category: Category,
   categoryConfigs: CategoryConfig[]
 ): boolean {
   return categoryConfigs.some(
@@ -288,9 +294,6 @@ function sortCategoryValueViews(
  * @param c1 - Second category view to compare.
  * @returns Number indicating sort precedence of c0 vs c1.
  */
-function sortCategoryViews(
-  c0: SelectCategoryView,
-  c1: SelectCategoryView
-): number {
+function sortCategoryViews(c0: CategoryView, c1: CategoryView): number {
   return COLLATOR_CASE_INSENSITIVE.compare(c0.label, c1.label);
 }

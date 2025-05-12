@@ -46,12 +46,12 @@ export type ItemSizeByItemKey = Map<string, number>;
 
 export interface VariableSizeListProps {
   autocompleteListProps: Omit<MListProps, "children">;
-  categoryViews: SelectCategoryView[];
   height?: number; // Height of list; vertical list must be a number.
   itemSize?: number; // Default item size.
   onFilter: OnFilterFn;
   overscanCount?: ListProps["overscanCount"];
   searchTerm: string;
+  selectCategoryViews: SelectCategoryView[];
   width?: ListProps["width"]; // Width of list; default to 100% width of parent element.
 }
 
@@ -120,17 +120,17 @@ export const VariableSizeList = forwardRef<
 >(function VariableSizeList(
   {
     autocompleteListProps,
-    categoryViews,
     height: initHeight = MAX_LIST_HEIGHT_PX,
     itemSize = LIST_ITEM_HEIGHT,
     onFilter,
     overscanCount = MAX_DISPLAYABLE_LIST_ITEMS * 2,
     searchTerm,
+    selectCategoryViews,
     width = "100%",
   }: VariableSizeListProps,
   autocompleteListRef
 ): JSX.Element {
-  const filteredItems = applyMenuFilter(categoryViews, searchTerm);
+  const filteredItems = applyMenuFilter(selectCategoryViews, searchTerm);
   let resizeRequired = true;
   const desktopSmDown = useBreakpointHelper(
     BREAKPOINT_FN_NAME.DOWN,
@@ -223,40 +223,43 @@ export const VariableSizeList = forwardRef<
 
 /**
  * Filter categories' values by a search term and return model of list items
- * @param categoryViews - Select category views
+ * @param selectCategoryViews - Select category views
  * @param inputValue - Search term
  * @returns array of objects representing list items to be rendered
  */
 function applyMenuFilter(
-  categoryViews: SelectCategoryView[],
+  selectCategoryViews: SelectCategoryView[],
   inputValue: string
 ): SearchAllFiltersItem[] {
   const sortMatches = getSortMatchesFn(inputValue);
-  const filteredItems = categoryViews.reduce((filteredItems, category) => {
-    if (!category.isDisabled) {
-      const categoryValueKeyPrefix =
-        "value_" + category.key.replaceAll(";", ";;") + ";_"; // Terminating the category key with a semicolon (and escaping preceding semicolons) ensures a unique prefix
-      const filteredCategoryValues = sortMatches(category.values).map(
-        (match): ValueItem => ({
-          categoryKey: category.key,
-          key: categoryValueKeyPrefix + match.value.key,
-          matchRanges: match.labelRanges,
-          type: ITEM_TYPE.VALUE,
-          value: match.value,
-        })
-      );
-      if (filteredCategoryValues.length) {
-        if (filteredItems.length) filteredItems.push(DIVIDER_ITEM);
-        filteredItems.push({
-          categoryLabel: category.label,
-          key: "category_" + category.key,
-          type: ITEM_TYPE.CATEGORY,
-        });
-        filteredItems.push(...filteredCategoryValues);
+  const filteredItems = selectCategoryViews.reduce(
+    (filteredItems, category) => {
+      if (!category.isDisabled) {
+        const categoryValueKeyPrefix =
+          "value_" + category.key.replaceAll(";", ";;") + ";_"; // Terminating the category key with a semicolon (and escaping preceding semicolons) ensures a unique prefix
+        const filteredCategoryValues = sortMatches(category.values).map(
+          (match): ValueItem => ({
+            categoryKey: category.key,
+            key: categoryValueKeyPrefix + match.value.key,
+            matchRanges: match.labelRanges,
+            type: ITEM_TYPE.VALUE,
+            value: match.value,
+          })
+        );
+        if (filteredCategoryValues.length) {
+          if (filteredItems.length) filteredItems.push(DIVIDER_ITEM);
+          filteredItems.push({
+            categoryLabel: category.label,
+            key: "category_" + category.key,
+            type: ITEM_TYPE.CATEGORY,
+          });
+          filteredItems.push(...filteredCategoryValues);
+        }
       }
-    }
-    return filteredItems;
-  }, [] as SearchAllFiltersItem[]);
+      return filteredItems;
+    },
+    [] as SearchAllFiltersItem[]
+  );
   if (filteredItems.length === 0) filteredItems.push(NO_RESULTS_ITEM);
   return filteredItems;
 }

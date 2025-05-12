@@ -20,7 +20,7 @@ export const FilterViewTools = styled.div`
 }
 `;
 
-export const Button = styled(ButtonBase)`
+export const StyledButtonBase = styled(ButtonBase)`
   ${textBodyLarge500};
   align-items: center;
   display: flex;

@@ -12,7 +12,11 @@ import { List } from "../FilterList/filterList.styles";
 import { FilterMenuSearch } from "../FilterMenuSearch/filterMenuSearch";
 import { FilterNoResultsFound } from "../FilterNoResultsFound/filterNoResultsFound";
 import { VariableSizeList } from "../VariableSizeList/VariableSizeList";
-import { Button, FilterView, FilterViewTools } from "./filterMenu.styles";
+import {
+  FilterView,
+  FilterViewTools,
+  StyledButtonBase,
+} from "./filterMenu.styles";
 
 export interface FilterMenuProps {
   categoryKey: CategoryKey;
@@ -43,10 +47,10 @@ export const FilterMenu = ({
     <FilterView menuWidth={menuWidth}>
       <FilterViewTools>
         {isFilterDrawer && (
-          <Button onClick={onCloseFilter}>
+          <StyledButtonBase onClick={onCloseFilter}>
             <SouthIcon fontSize="small" />
             {categoryLabel}
-          </Button>
+          </StyledButtonBase>
         )}
         {isSearchable && (
           <FilterMenuSearch

@@ -1,14 +1,22 @@
 import { CloseRounded } from "@mui/icons-material";
 import { Grow, PopoverPosition, PopoverProps } from "@mui/material";
 import React, { MouseEvent, ReactNode, useState } from "react";
-import { SelectCategoryView } from "../../../../common/entities";
+import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
+import { CategoryView } from "../../../../common/categories/views/types";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { FilterLabel } from "../FilterLabel/filterLabel";
 import { FilterMenu } from "../FilterMenu/filterMenu";
+import { FilterRange } from "../FilterRange/filterRange";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
 import { FilterPopover, IconButton } from "./filter.styles";
+
+/**
+ * Filter component.
+ * TODO(cc) refactor: build tags from categoryView for selected values.
+ * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
+ */
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 const DEFAULT_SLOT_PROPS: PopoverProps["slotProps"] = {
@@ -20,7 +28,7 @@ const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
 
 export interface FilterProps {
   categorySection?: string;
-  categoryView: SelectCategoryView;
+  categoryView: CategoryView;
   closeAncestor?: () => void;
   isFilterDrawer: boolean;
   onFilter: OnFilterFn;
@@ -44,6 +52,7 @@ export const Filter = ({
   const TransitionComponent = isFilterDrawer ? DrawerTransition : Grow;
   const transitionDuration = isOpen ? 250 : 300;
   const TransitionDuration = isFilterDrawer ? transitionDuration : undefined;
+  const isRangeView = isRangeCategoryView(categoryView);
 
   /**
    * Closes filter popover.
@@ -79,7 +88,7 @@ export const Filter = ({
     <>
       <FilterLabel
         annotation={categoryView.annotation}
-        count={categoryView.values.length}
+        count={isRangeView ? undefined : categoryView.values.length}
         disabled={categoryView.isDisabled}
         isOpen={isOpen}
         label={categoryView.label}
@@ -93,7 +102,7 @@ export const Filter = ({
         onClose={onCloseFilters}
         open={isOpen}
         slotProps={slotProps}
-        TransitionComponent={TransitionComponent}
+        slots={{ transition: TransitionComponent }}
         transitionDuration={TransitionDuration}
       >
         {isOpen && isFilterDrawer && (
@@ -103,15 +112,31 @@ export const Filter = ({
             size="medium"
           />
         )}
-        <FilterMenu
-          categorySection={categorySection}
-          categoryKey={categoryView.key}
-          categoryLabel={categoryView.label}
-          isFilterDrawer={isFilterDrawer}
-          onFilter={onFilter}
-          onCloseFilter={onCloseFilter}
-          values={categoryView.values}
-        />
+        {isRangeView ? (
+          <FilterRange
+            categoryKey={categoryView.key}
+            categoryLabel={categoryView.label}
+            categorySection={categorySection}
+            isFilterDrawer={isFilterDrawer}
+            max={categoryView.max}
+            min={categoryView.min}
+            selectedMax={categoryView.selectedMax}
+            selectedMin={categoryView.selectedMin}
+            onCloseFilter={onCloseFilter}
+            onFilter={onFilter}
+            unit={categoryView.unit}
+          />
+        ) : (
+          <FilterMenu
+            categoryKey={categoryView.key}
+            categoryLabel={categoryView.label}
+            categorySection={categorySection}
+            isFilterDrawer={isFilterDrawer}
+            onCloseFilter={onCloseFilter}
+            onFilter={onFilter}
+            values={categoryView.values}
+          />
+        )}
       </FilterPopover>
       {tags}
     </>
