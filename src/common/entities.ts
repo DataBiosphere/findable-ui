@@ -1,4 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
+import { GridTrackSize } from "../config/entities";
 
 /**
  * Model of a value of a metadata class.
@@ -21,7 +22,7 @@ export interface Attribute {
 /**
  * Model of attribute key types; used mostly when building data dictionary column definitions.
  */
-export type AttributeValueTypes = string | boolean;
+export type AttributeValueTypes<TValue = unknown> = TValue;
 
 /**
  * Filterable metadata keys.
@@ -76,13 +77,17 @@ export interface DataDictionary {
  * Display model of a data dictionary column.
  */
 export interface DataDictionaryColumnDef {
+  attributeAccessorFnName?: string; // Name of accessor function to map to.
+  attributeCellName?: string; // Name of cell renderer component to map to.
   attributeDisplayName: string;
   attributeSlotName: string;
   // Adding width here for now; possibly revisit separating column def and UI.
-  width: {
-    max: string;
-    min: string;
-  };
+  width:
+    | Omit<GridTrackSize, "GridTrackMinMax">
+    | {
+        max: string;
+        min: string;
+      };
 }
 
 /**
