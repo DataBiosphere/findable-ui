@@ -11,12 +11,11 @@ export const grid = css`
 export const View = styled("div")`
   ${grid};
   flex: 1;
-  margin: 0 auto;
-  max-width: min(calc(100vw - 48px), 1392px);
+  margin: 0 24px;
   position: relative;
 
   ${mediaTabletDown} {
     grid-template-columns: 1fr;
-    max-width: calc(100vw - 32px);
+    margin: 0 16px;
   }
 `;
