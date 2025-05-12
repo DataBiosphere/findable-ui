@@ -97,10 +97,6 @@ export const StyledForm = styled("form")`
     padding: 0 16px;
     width: 312px;
 
-    .MuiToggleButtonGroup-root {
-      display: none;
-    }
-
     .MuiGrid-root {
       gap: 16px 0;
       grid-template-rows: auto auto;
