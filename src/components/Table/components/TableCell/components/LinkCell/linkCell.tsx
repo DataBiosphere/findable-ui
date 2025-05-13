@@ -14,6 +14,7 @@ export const LinkCell = <
   getValue,
 }: BaseComponentProps & CellContext<T, TValue>): JSX.Element | null => {
   const props = getValue();
+  if (!props) return null;
   const {
     children,
     className,
