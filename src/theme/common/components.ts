@@ -915,6 +915,11 @@ export const MuiLink: Components["MuiLink"] = {
       textDecorationSkipInk: "none",
       textUnderlinePosition: "from-font",
     },
+    underlineNone: {
+      "&:hover": {
+        textDecoration: "none",
+      },
+    },
   },
 };
 
