@@ -1,5 +1,27 @@
 # Changelog
 
+## [30.0.0](https://github.com/DataBiosphere/findable-ui/compare/v29.0.2...v30.0.0) (2025-05-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* create table cell for displaying links ([#468](https://github.com/DataBiosphere/findable-ui/issues/468)) (#473)
+* create data dictionary chip ([#451](https://github.com/DataBiosphere/findable-ui/issues/451)) (#467)
+* implement filter range in category filters ([#440](https://github.com/DataBiosphere/findable-ui/issues/440)) (#458)
+
+### Features
+
+* create data dictionary chip ([#451](https://github.com/DataBiosphere/findable-ui/issues/451)) ([#467](https://github.com/DataBiosphere/findable-ui/issues/467)) ([f3fa731](https://github.com/DataBiosphere/findable-ui/commit/f3fa7315c4266e00f323a466a9d49ab2a8759697))
+* create table cell for displaying links ([#468](https://github.com/DataBiosphere/findable-ui/issues/468)) ([#473](https://github.com/DataBiosphere/findable-ui/issues/473)) ([ac13085](https://github.com/DataBiosphere/findable-ui/commit/ac130852f8dc8200407b2d4c640f6d2d8a871f1b))
+* implement filter range in category filters ([#440](https://github.com/DataBiosphere/findable-ui/issues/440)) ([#458](https://github.com/DataBiosphere/findable-ui/issues/458)) ([70644d1](https://github.com/DataBiosphere/findable-ui/commit/70644d12609e05551ec0d276630b9b8cd686edcf))
+* update data dictionary view to be full width ([#456](https://github.com/DataBiosphere/findable-ui/issues/456)) ([#465](https://github.com/DataBiosphere/findable-ui/issues/465)) ([16e98bd](https://github.com/DataBiosphere/findable-ui/commit/16e98bd9b9e9680bad532126cb760cc117d5690f))
+
+
+### Bug Fixes
+
+* fix data dictionary basiccell component to render boolean values as string ([#474](https://github.com/DataBiosphere/findable-ui/issues/474)) ([#475](https://github.com/DataBiosphere/findable-ui/issues/475)) ([d754d31](https://github.com/DataBiosphere/findable-ui/commit/d754d31929b09509e30e624edb9aae44b8114876))
+* update table chipcell component interface ([#471](https://github.com/DataBiosphere/findable-ui/issues/471)) ([#472](https://github.com/DataBiosphere/findable-ui/issues/472)) ([992a0f2](https://github.com/DataBiosphere/findable-ui/commit/992a0f24d6f08dcf3fbfab545bad47816f791e11))
+
 ## [29.0.2](https://github.com/DataBiosphere/findable-ui/compare/v29.0.1...v29.0.2) (2025-05-07)
 
 
