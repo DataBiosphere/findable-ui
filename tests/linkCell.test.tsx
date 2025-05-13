@@ -24,8 +24,6 @@ const STYLE_RULE_VALUES = {
 };
 
 describe("TableCell, LinkCell", () => {
-  afterEach(() => {});
-
   it("renders client-side link", async () => {
     render(<ClientSide />);
     const anchorEl = screen.getByText("Explore");
