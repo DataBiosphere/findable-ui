@@ -1,9 +1,5 @@
-import { SortingOptions } from "@tanstack/react-table";
-import { Attribute } from "../../../../../../common/entities";
+import { RowData, SortingOptions } from "@tanstack/react-table";
 
-export const SORTING_OPTIONS: Pick<
-  SortingOptions<Attribute>,
-  "enableSorting"
-> = {
+export const SORTING_OPTIONS: Pick<SortingOptions<RowData>, "enableSorting"> = {
   enableSorting: false,
 };

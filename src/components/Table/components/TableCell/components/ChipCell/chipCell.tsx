@@ -1,14 +1,16 @@
 import { Chip, ChipProps } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
 import React from "react";
+import { BaseComponentProps } from "../../../../../types";
 
 export const ChipCell = <
   T extends RowData,
   TValue extends ChipProps = ChipProps
 >({
+  className,
   getValue,
-}: CellContext<T, TValue>): JSX.Element | null => {
+}: BaseComponentProps & CellContext<T, TValue>): JSX.Element | null => {
   const props = getValue();
   if (!props) return null;
-  return <Chip {...props} />;
+  return <Chip className={className} {...props} />;
 };

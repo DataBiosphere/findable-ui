@@ -1,5 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
-import { GridTrackSize } from "../config/entities";
+import { ColumnDef, RowData } from "@tanstack/react-table";
 
 /**
  * Model of a value of a metadata class.
@@ -20,11 +19,6 @@ export interface Attribute {
 }
 
 /**
- * Model of attribute key types; used mostly when building data dictionary column definitions.
- */
-export type AttributeValueTypes<TValue = unknown> = TValue;
-
-/**
  * Filterable metadata keys.
  */
 export type CategoryKey = string;
@@ -41,8 +35,8 @@ export interface CategoryTag {
 /**
  * Model of a metadata class, to be specified manually or built from LinkML schema.
  */
-export interface Class {
-  attributes: Attribute[];
+export interface Class<T extends RowData = Attribute> {
+  attributes: T[];
   description: string;
   name: string; // Programmatic name or key (e.g. cell, sample)
   title: string; // Display name
@@ -62,11 +56,11 @@ export type DataDictionaryPrefix = Record<string, string>;
 /**
  * Model of a metadata dictionary containing a set of classes and their definitions.
  */
-export interface DataDictionary {
+export interface DataDictionary<T extends RowData = Attribute> {
   annotations?: {
     [key in keyof DataDictionaryPrefix]: string; // Prefix to title e.g. "cxg": "CELLxGENE"
   };
-  classes: Class[];
+  classes: Class<T>[];
   description?: string; // Free text description of data dictionary
   name: string; // Programmatic name or key (e.g. tier1, hca)
   prefixes?: DataDictionaryPrefix;
@@ -74,29 +68,12 @@ export interface DataDictionary {
 }
 
 /**
- * Display model of a data dictionary column.
- */
-export interface DataDictionaryColumnDef {
-  attributeAccessorFnName?: string; // Name of accessor function to map to.
-  attributeCellName?: string; // Name of cell renderer component to map to.
-  attributeDisplayName: string;
-  attributeSlotName: string;
-  // Adding width here for now; possibly revisit separating column def and UI.
-  width:
-    | Omit<GridTrackSize, "GridTrackMinMax">
-    | {
-        max: string;
-        min: string;
-      };
-}
-
-/**
  * Configuration of data dictionary; contains schema definition (that is, the actual data
  * dictionary) as well as column def for displaying the data dictionary.
  */
-export interface DataDictionaryConfig {
-  columnDefs: ColumnDef<Attribute, AttributeValueTypes>[];
-  dataDictionary: DataDictionary;
+export interface DataDictionaryConfig<T extends RowData = Attribute> {
+  columnDefs: ColumnDef<T, T[keyof T]>[];
+  dataDictionary: DataDictionary<T>;
 }
 
 /**
