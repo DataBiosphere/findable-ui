@@ -11,13 +11,13 @@ export const LinkCell = <
   T extends RowData,
   TValue extends LinkProps = LinkProps
 >({
+  className,
   getValue,
 }: BaseComponentProps & CellContext<T, TValue>): JSX.Element | null => {
   const props = getValue();
   if (!props) return null;
   const {
     children,
-    className,
     color,
     href = "",
     rel,

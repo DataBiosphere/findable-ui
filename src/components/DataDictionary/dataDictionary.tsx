@@ -1,4 +1,6 @@
+import { RowData } from "@tanstack/react-table";
 import React, { useMemo } from "react";
+import { Attribute } from "../../common/entities";
 import { Entities } from "./components/Entities/entities";
 import { EntitiesLayout as DefaultEntitiesLayout } from "./components/Layout/components/EntitiesLayout/entitiesLayout";
 import { OutlineLayout as DefaultOutlineLayout } from "./components/Layout/components/OutlineLayout/outlineLayout";
@@ -11,7 +13,7 @@ import { useDataDictionary } from "./hooks/UseDataDictionary/hook";
 import { useLayoutSpacing } from "./hooks/UseLayoutSpacing/hook";
 import { DataDictionaryProps } from "./types";
 
-export const DataDictionary = ({
+export const DataDictionary = <T extends RowData = Attribute>({
   className,
   EntitiesLayout = DefaultEntitiesLayout,
   Outline = DefaultOutline,
@@ -19,7 +21,7 @@ export const DataDictionary = ({
   Title = DefaultTitle,
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
-  const { classes, columnDefs } = useDataDictionary();
+  const { classes, columnDefs } = useDataDictionary<T>();
   const { spacing } = useLayoutSpacing();
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (

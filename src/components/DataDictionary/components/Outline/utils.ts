@@ -1,4 +1,5 @@
-import { Class } from "../../../../common/entities";
+import { RowData } from "@tanstack/react-table";
+import { Attribute, Class } from "../../../../common/entities";
 import { OutlineItem } from "../../../Layout/components/Outline/types";
 
 /**
@@ -6,7 +7,9 @@ import { OutlineItem } from "../../../Layout/components/Outline/types";
  * @param classes - Class entities.
  * @returns Outline items.
  */
-export function buildClassesOutline(classes: Class[]): OutlineItem[] {
+export function buildClassesOutline<T extends RowData = Attribute>(
+  classes: Class<T>[]
+): OutlineItem[] {
   return classes.map(({ name, title }) => {
     return {
       depth: 2,

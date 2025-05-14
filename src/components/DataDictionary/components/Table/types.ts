@@ -1,6 +1,5 @@
-import { Table } from "@tanstack/react-table";
-import { Attribute } from "../../../../common/entities";
+import { RowData, Table } from "@tanstack/react-table";
 
-export interface TableProps {
-  table: Table<Attribute>;
+export interface TableProps<T extends RowData> {
+  table: Table<T>;
 }

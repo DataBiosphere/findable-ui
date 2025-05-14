@@ -1,4 +1,5 @@
 import { TableContainer } from "@mui/material";
+import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { TableBody } from "../../../Detail/components/Table/components/TableBody/tableBody";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
@@ -9,7 +10,9 @@ import { GridPaper } from "../../../common/Paper/paper.styles";
 import { StyledRoundedPaper } from "./table.styles";
 import { TableProps } from "./types";
 
-export const Table = ({ table }: TableProps): JSX.Element => {
+export const Table = <T extends RowData>({
+  table,
+}: TableProps<T>): JSX.Element => {
   return (
     <StyledRoundedPaper variant="table">
       <GridPaper>
