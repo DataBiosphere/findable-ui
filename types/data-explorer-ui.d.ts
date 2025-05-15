@@ -19,6 +19,7 @@ import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import type {} from "@tanstack/react-table";
 import { RowData } from "@tanstack/react-table";
+import { Components } from "rehype-react";
 import { DataLayer } from "../src/common/analytics/entities";
 import { DataDictionaryAnnotation } from "../src/common/entities";
 import {
@@ -230,6 +231,7 @@ declare module "@tanstack/react-table" {
     align?: TableCellProps["align"];
     annotation?: DataDictionaryAnnotation;
     columnPinned?: boolean;
+    components?: Partial<Components>; // For `MarkdownRendererCell` component.
     header?: string;
     width?: GridTrackSize;
   }
