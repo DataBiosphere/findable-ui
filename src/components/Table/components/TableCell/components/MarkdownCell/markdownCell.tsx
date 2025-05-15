@@ -1,7 +1,7 @@
 import { CellContext, RowData } from "@tanstack/react-table";
 import { BaseComponentProps } from "components/types";
 import React from "react";
-import { COMPONENTS } from "../../../../../MarkdownRenderer/contants";
+import { COMPONENTS } from "../../../../../MarkdownRenderer/constants";
 import { StyledMarkdownRenderer } from "./markdownCell.styles";
 import { MarkdownCellProps } from "./types";
 

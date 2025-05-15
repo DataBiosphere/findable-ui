@@ -9,7 +9,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
-import { COMPONENTS } from "./contants";
+import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
 import { MarkdownRendererProps } from "./types";
 
