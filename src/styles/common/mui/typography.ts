@@ -6,6 +6,7 @@ type TypographyPropsOptions = {
 };
 
 const COLOR: Record<string, TypographyOwnProps["color"]> = {
+  ERROR: "error",
   INHERIT: "inherit",
   INK_LIGHT: "ink.light",
   INK_MAIN: "ink.main",
