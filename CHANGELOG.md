@@ -1,5 +1,18 @@
 # Changelog
 
+## [31.0.0](https://github.com/DataBiosphere/findable-ui/compare/v30.0.0...v31.0.0) (2025-05-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* create data dictionary table cell for displaying markdown ([#453](https://github.com/DataBiosphere/findable-ui/issues/453)) (#480)
+* make data dictionary config generic with attribute as default ([#476](https://github.com/DataBiosphere/findable-ui/issues/476)) (#477)
+
+### Features
+
+* create data dictionary table cell for displaying markdown ([#453](https://github.com/DataBiosphere/findable-ui/issues/453)) ([#480](https://github.com/DataBiosphere/findable-ui/issues/480)) ([4ee16e7](https://github.com/DataBiosphere/findable-ui/commit/4ee16e75e66dd56d126ed01773364d6fe5a32ab7))
+* make data dictionary config generic with attribute as default ([#476](https://github.com/DataBiosphere/findable-ui/issues/476)) ([#477](https://github.com/DataBiosphere/findable-ui/issues/477)) ([723585d](https://github.com/DataBiosphere/findable-ui/commit/723585de6e6380eccd5d39f72cbc0aa6db1fc398))
+
 ## [30.0.0](https://github.com/DataBiosphere/findable-ui/compare/v29.0.2...v30.0.0) (2025-05-13)
 
 
