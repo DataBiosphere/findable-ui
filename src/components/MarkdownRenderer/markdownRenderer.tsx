@@ -1,9 +1,8 @@
 import { Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import * as production from "react/jsx-runtime";
+import React, { Fragment, createElement, useEffect, useState } from "react";
 import rehypeRaw from "rehype-raw";
-import rehypeReact, { Components } from "rehype-react";
-import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
+import rehypeReact from "rehype-react";
+import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
@@ -11,16 +10,29 @@ import { unified } from "unified";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
-import { MarkdownRendererProps } from "./types";
+import { MarkdownRendererComponents, MarkdownRendererProps } from "./types";
+
+/**
+ * Markdown Rendering - Pipeline Version Constraints
+ *
+ * next-mdx-remote and @next/mdx currently embed MDX v3. MDX v3 is compiled
+ * for the "Unified 10" tool-chain and therefore only functions with unified
+ * 10.x, remark-parse 10.x, remark-rehype 10.x and, critically, remark-gfm 3.x.
+ *
+ * Because remark-gfm 3.x is required, migrating to Unified 11 is not yet possible.
+ *
+ * rehype plug-ins are chosen from versions that still target Unified 10:
+ * rehype-raw 7.x, rehype-sanitize 5.x and rehype-react 7.x.
+ */
 
 export const MarkdownRenderer = ({
   className,
-  components = COMPONENTS,
+  components: componentOptions = COMPONENTS,
   value,
 }: MarkdownRendererProps): JSX.Element => {
   const [element, setElement] = useState<JSX.Element | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [componentOptions] = useState<Partial<Components>>(components);
+  const [components] = useState<MarkdownRendererComponents>(componentOptions);
 
   useEffect(() => {
     let cancelled = false;
@@ -31,13 +43,13 @@ export const MarkdownRenderer = ({
       .use(remarkGfm)
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)
-      .use(rehypeSanitize, defaultSchema)
-      .use(rehypeReact, { ...production, components: componentOptions });
+      .use(rehypeSanitize)
+      .use(rehypeReact, { Fragment, components, createElement });
 
     processor
       .process(value)
-      .then((file) => {
-        if (!cancelled) setElement(file?.result);
+      .then(({ result }) => {
+        if (!cancelled) setElement(result);
       })
       .catch((err) => {
         if (!cancelled) setError(err.message);
@@ -46,7 +58,7 @@ export const MarkdownRenderer = ({
     return (): void => {
       cancelled = true;
     };
-  }, [componentOptions, value]);
+  }, [components, value]);
 
   if (error)
     return (
