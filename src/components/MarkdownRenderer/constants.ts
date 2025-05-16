@@ -1,8 +1,8 @@
-import { Components } from "rehype-react";
 import { Anchor } from "./components/Anchor/anchor";
 import { Table } from "./components/Table/table";
+import { MarkdownRendererComponents } from "./types";
 
-export const COMPONENTS: Partial<Components> = {
+export const COMPONENTS: MarkdownRendererComponents = {
   a: Anchor,
   table: Table,
 };

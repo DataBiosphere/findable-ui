@@ -63,9 +63,9 @@ export const VariableSizeList = ({
   height: initHeight = MAX_LIST_HEIGHT_PX,
   isFilterDrawer,
   itemSize = LIST_ITEM_HEIGHT,
+  matchedItems,
   onFilter,
   overscanCount = MAX_DISPLAYABLE_LIST_ITEMS * 2,
-  matchedItems,
   width = "100%",
 }: VariableSizeListProps): JSX.Element => {
   const { height: windowHeight } = useWindowResize();

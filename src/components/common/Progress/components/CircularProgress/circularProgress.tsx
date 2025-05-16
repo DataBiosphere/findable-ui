@@ -13,8 +13,8 @@ export interface CircularProgressProps extends MCircularProgressProps {
 
 export const CircularProgress = ({
   className,
-  value,
   Track = CircularProgressTrack,
+  value,
   ...props /* Spread props to allow for CircularProgress specific props e.g. "disableShrink". */
 }: CircularProgressProps): JSX.Element => {
   return (

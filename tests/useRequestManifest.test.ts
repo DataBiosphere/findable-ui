@@ -172,9 +172,9 @@ describe("useRequestManifest", () => {
  * @param testObject.formFacet - Form facet.
  */
 function testRequestManifest({
+  expectedMethod = METHOD.PUT,
   expectedParams = undefined,
   expectedUrl = undefined,
-  expectedMethod = METHOD.PUT,
   fileManifestFormat,
   formFacet = FORM_FACET.COMPLETE_SET,
 }: {
