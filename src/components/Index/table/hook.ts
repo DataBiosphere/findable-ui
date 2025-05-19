@@ -40,10 +40,12 @@ import { RowPreviewState } from "../../Table/features/RowPreview/entities";
 import { buildBaseColumnDef } from "../../TableCreator/common/utils";
 import { useTableOptions } from "../../TableCreator/options/hook";
 import { createCell } from "./coreOptions/columns/cellFactory";
-import { UseTable } from "./types";
+import { UseTable, UseTableProps } from "./types";
 
-// eslint-disable-next-line sonarjs/cognitive-complexity -- TODO fix component length / complexity
-export const useTable = <T extends RowData>(): UseTable<T> => {
+export const useTable = <T extends RowData>({
+  entityListType,
+}: // eslint-disable-next-line sonarjs/cognitive-complexity -- TODO fix complexity
+UseTableProps): UseTable<T> => {
   const { entityConfig } = useConfig();
   const exploreMode = useExploreMode();
   const { exploreDispatch, exploreState } = useExploreState();
@@ -209,6 +211,7 @@ export const useTable = <T extends RowData>(): UseTable<T> => {
 
   // Process explore response - client-side filtering only.
   useEffect(() => {
+    if (entityListType !== tabValue) return;
     if (!listItems || listItems.length === 0) return;
     if (clientFiltering) {
       exploreDispatch({
@@ -229,9 +232,11 @@ export const useTable = <T extends RowData>(): UseTable<T> => {
     allColumns,
     clientFiltering,
     columnFilters,
+    entityListType,
     exploreDispatch,
     listItems,
     rows,
+    tabValue,
   ]);
 
   return { table };

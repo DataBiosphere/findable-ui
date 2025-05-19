@@ -25,7 +25,7 @@ export const Index = ({
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useEntitiesView();
   const { dimensions } = useLayoutDimensions();
-  const { table } = useTable();
+  const { table } = useTable({ entityListType });
   return (
     <IndexLayout className={className} marginTop={dimensions.header.height}>
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} title={title} />
