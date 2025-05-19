@@ -19,13 +19,13 @@ export interface StackProps {
 }
 
 export const Stack = ({
+  alignItems,
   children,
   className,
   direction = "column",
   divider = undefined,
-  justifyContent,
-  alignItems,
   gap = 0,
+  justifyContent,
   spacing = 0,
 }: StackProps): JSX.Element => {
   return (
