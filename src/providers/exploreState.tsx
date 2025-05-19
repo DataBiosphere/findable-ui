@@ -620,6 +620,13 @@ function exploreReducer(
           categoryGroupConfigKey
         ),
         rowPreview: closeRowPreview(state.rowPreview),
+        ...(payload.entityListType === state.tabValue
+          ? {
+              filterCount: getFilterCount(filterState),
+              filterState,
+              paginationState: { ...resetPage(state.paginationState), rows: 0 },
+            }
+          : {}),
       };
     }
     /**
