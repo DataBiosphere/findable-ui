@@ -1,5 +1,16 @@
 # Changelog
 
+## [32.0.0](https://github.com/DataBiosphere/findable-ui/compare/v31.0.0...v32.0.0) (2025-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* ove rehype-raw, rehype-react, rehype-sanitize, remark-gfm, remark-rehype from dev-dependency to peer ([#481](https://github.com/DataBiosphere/findable-ui/issues/481)) (#482)
+
+### Bug Fixes
+
+* ove rehype-raw, rehype-react, rehype-sanitize, remark-gfm, remark-rehype from dev-dependency to peer ([#481](https://github.com/DataBiosphere/findable-ui/issues/481)) ([#482](https://github.com/DataBiosphere/findable-ui/issues/482)) ([a6dfd0f](https://github.com/DataBiosphere/findable-ui/commit/a6dfd0fa5ac9fe5e8da2bf8e83ae06868f962f95))
+
 ## [31.0.0](https://github.com/DataBiosphere/findable-ui/compare/v30.0.0...v31.0.0) (2025-05-15)
 
 
