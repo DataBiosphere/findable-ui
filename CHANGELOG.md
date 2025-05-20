@@ -1,5 +1,14 @@
 # Changelog
 
+## [32.0.1](https://github.com/DataBiosphere/findable-ui/compare/v32.0.0...v32.0.1) (2025-05-20)
+
+
+### Bug Fixes
+
+* prevent table column def and data mismatch for client side filtering ([#484](https://github.com/DataBiosphere/findable-ui/issues/484)) ([#485](https://github.com/DataBiosphere/findable-ui/issues/485)) ([04f0ec8](https://github.com/DataBiosphere/findable-ui/commit/04f0ec8d1ac13e91c8f97d5becb58a0662f54939))
+* update explorestate provider updateentityfilters action ([#486](https://github.com/DataBiosphere/findable-ui/issues/486)) ([ae16e1c](https://github.com/DataBiosphere/findable-ui/commit/ae16e1c810d629e533f287e229d783315fa37e29))
+* update explorestate provider updateentityfilters action: update filters when tabvalue matches entitylisttype ([#486](https://github.com/DataBiosphere/findable-ui/issues/486)) ([#487](https://github.com/DataBiosphere/findable-ui/issues/487)) ([ae16e1c](https://github.com/DataBiosphere/findable-ui/commit/ae16e1c810d629e533f287e229d783315fa37e29))
+
 ## [32.0.0](https://github.com/DataBiosphere/findable-ui/compare/v31.0.0...v32.0.0) (2025-05-19)
 
 
