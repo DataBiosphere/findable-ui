@@ -20,7 +20,6 @@ import { useEntityService } from "./useEntityService";
 import { EXPLORE_MODE, ExploreMode } from "./useExploreMode/types";
 import { useExploreMode } from "./useExploreMode/useExploreMode";
 import { useExploreState } from "./useExploreState";
-import { useURLFilterParams } from "./useURLFilterParams";
 
 /**
  * Hook handling the load and transformation of the values used by index pages. If the current entity loaded statically,
@@ -45,15 +44,8 @@ export const useEntityList = (
   } = useEntityService();
   const { exploreDispatch, exploreState } = useExploreState();
   const { data, isIdle, isLoading, run } = useAsync<AzulEntitiesResponse>();
-  const {
-    catalogState,
-    entityPageState,
-    featureFlagState,
-    filterState,
-    tabValue,
-  } = exploreState;
+  const { entityPageState, filterState, tabValue } = exploreState;
   const { pagination, termFacets } = data || {};
-  const { updateFilterQueryString } = useURLFilterParams();
   const { sorting } = entityPageState[tabValue];
   const entities = getEntities(staticData, data);
   const shouldDispatchResponse = isDispatchable(
@@ -62,11 +54,6 @@ export const useEntityList = (
     entityListType === tabValue
   );
   const isFetching = isIdle || isLoading;
-
-  // Update the filter query string when the filter state changes.
-  useEffect(() => {
-    updateFilterQueryString(catalogState, featureFlagState, filterState);
-  }, [catalogState, featureFlagState, filterState, updateFilterQueryString]);
 
   // Fetch entities - on change of filter state - server-side fetching and server-side filtering.
   useEffect(() => {

@@ -20,6 +20,8 @@ import {
 } from "../hooks/useCategoryFilter";
 import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
+import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
+import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
@@ -28,7 +30,10 @@ import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
   ListItem,
+  Meta,
 } from "./exploreState/entities";
+import { META_COMMAND } from "./exploreState/hooks/UseMetaCommands/types";
+import { useMetaCommands } from "./exploreState/hooks/UseMetaCommands/useMetaCommands";
 import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
@@ -87,6 +92,7 @@ export type ExploreState = {
   filterState: SelectedFilter[];
   listItems: ListItems;
   loading: boolean;
+  meta: Meta | null;
   paginationState: PaginationState;
   rowPreview: RowPreviewState;
   tabValue: string;
@@ -206,6 +212,9 @@ export function ExploreStateProvider({
     });
   }, [exploreDispatch, token]);
 
+  // Meta-command related side effects.
+  useMetaCommands({ exploreDispatch, exploreState });
+
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>
       {children}
@@ -219,6 +228,7 @@ export function ExploreStateProvider({
 export enum ExploreActionKind {
   ApplySavedFilter = "APPLY_SAVED_FILTER",
   ClearFilters = "CLEAR_FILTERS",
+  ClearMeta = "CLEAR_META",
   PaginateTable = "PAGINATE_TABLE",
   PatchExploreResponse = "PATCH_EXPLORE_RESPONSE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
@@ -241,6 +251,7 @@ export enum ExploreActionKind {
 export type ExploreAction =
   | ApplySavedFilterAction
   | ClearFiltersAction
+  | ClearMetaAction
   | PaginateTableAction
   | PatchExploreResponseAction
   | ProcessExploreResponseAction
@@ -456,6 +467,12 @@ function exploreReducer(
       };
     }
     /**
+     * Clear meta
+     */
+    case ExploreActionKind.ClearMeta: {
+      return clearMetaAction(state, payload);
+    }
+    /**
      * Paginate table
      **/
     case ExploreActionKind.PaginateTable: {
@@ -619,6 +636,7 @@ function exploreReducer(
           { grouping, rowPreview, rowSelection, sorting },
           categoryGroupConfigKey
         ),
+        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
         rowPreview: closeRowPreview(state.rowPreview),
         ...(payload.entityListType === state.tabValue
           ? {
@@ -664,6 +682,7 @@ function exploreReducer(
         ),
         filterCount: getFilterCount(filterState),
         filterState,
+        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };

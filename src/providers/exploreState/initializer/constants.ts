@@ -36,6 +36,7 @@ export const INITIAL_STATE: ExploreState = {
   filterState: [],
   listItems: [],
   loading: true,
+  meta: null,
   paginationState: DEFAULT_PAGINATION_STATE,
   rowPreview: undefined,
   tabValue: "",
