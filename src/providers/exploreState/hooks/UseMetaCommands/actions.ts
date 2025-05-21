@@ -4,6 +4,7 @@ import { buildQuery } from "./utils";
 
 /**
  * Updates the URL query parameters based on the current explore state.
+ * Pushes the query to the router.
  * @param exploreState - The current explore state.
  */
 export function navigateToFilters(exploreState: ExploreState): void {
@@ -16,6 +17,7 @@ export function navigateToFilters(exploreState: ExploreState): void {
 
 /**
  * Updates the URL query parameters based on the current explore state.
+ * Replaces the query to the router.
  * @param exploreState - The current explore state.
  */
 export function replaceToFilters(exploreState: ExploreState): void {
