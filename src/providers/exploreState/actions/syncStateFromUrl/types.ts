@@ -7,7 +7,7 @@ export type SyncStateFromUrlAction = {
 
 export type SyncStateFromUrlPayload = Pick<
   ExploreState,
-  "catalogState" | "filterState" | "featureFlagState"
+  "catalogState" | "featureFlagState" | "filterState"
 > & {
   entityListType: string;
 };
