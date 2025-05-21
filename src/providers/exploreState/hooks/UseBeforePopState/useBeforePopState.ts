@@ -29,7 +29,7 @@ export const useBeforePopState = ({
   useEffect(() => {
     router.beforePopState(({ as, options, url }) => {
       // Grab the expected state from URL.
-      const payload = getSyncStateFromUrl(url, url);
+      const payload = getSyncStateFromUrl(url, as);
       // Only dispatch if the url contains the dynamic segment `[entityListType]`.
       if (payload.entityListType) {
         // Sync state from URL.
