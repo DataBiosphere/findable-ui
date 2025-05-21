@@ -23,7 +23,6 @@ import { getSyncStateFromUrl } from "./utils";
 
 export const useBeforePopState = ({
   exploreDispatch,
-  exploreState,
 }: ExploreStateContextProps): void => {
   const router = useRouter();
   useEffect(() => {
@@ -43,5 +42,5 @@ export const useBeforePopState = ({
     });
     // No cleanup handler: see the JSDoc above for why we do not reset beforePopState here.
     // Resetting would remove any handler registered by other parts of the app after this hook mounted.
-  }, [exploreDispatch, exploreState, router]);
+  }, [exploreDispatch, router]);
 };
