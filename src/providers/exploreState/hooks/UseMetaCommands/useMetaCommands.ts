@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { ExploreStateContextProps } from "../../../exploreState";
 import { clearMeta } from "../../actions/clearMeta/dispatch";
-import { navigateToFilters } from "./actions";
+import { navigateToFilters, replaceToFilters } from "./actions";
 import { META_COMMAND } from "./types";
 
 export const useMetaCommands = ({
@@ -11,10 +11,13 @@ export const useMetaCommands = ({
   useEffect(() => {
     const command = exploreState.meta?.command;
 
-    // eslint-disable-next-line sonarjs/no-small-switch -- switch statement currently has 1 case.
     switch (command) {
       case META_COMMAND.NAVIGATE_TO_FILTERS:
         navigateToFilters(exploreState);
+        exploreDispatch(clearMeta());
+        break;
+      case META_COMMAND.REPLACE_TO_FILTERS:
+        replaceToFilters(exploreState);
         exploreDispatch(clearMeta());
         break;
       default:
