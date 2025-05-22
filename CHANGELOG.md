@@ -1,5 +1,12 @@
 # Changelog
 
+## [32.1.0](https://github.com/DataBiosphere/findable-ui/compare/v32.0.1...v32.1.0) (2025-05-22)
+
+
+### Features
+
+* create controlled two-way sync of filter state ([#491](https://github.com/DataBiosphere/findable-ui/issues/491)) ([#492](https://github.com/DataBiosphere/findable-ui/issues/492)) ([094c051](https://github.com/DataBiosphere/findable-ui/commit/094c051e51463289ce647cf869cba28bce5837b5))
+
 ## [32.0.1](https://github.com/DataBiosphere/findable-ui/compare/v32.0.0...v32.0.1) (2025-05-20)
 
 
