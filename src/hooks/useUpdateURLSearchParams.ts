@@ -4,6 +4,7 @@ import { useURLFilterParams } from "./useURLFilterParams";
 
 /**
  * Updates URL search params when the filter state changes.
+ * @deprecated - Avoid using this hook if possible; we intend on using ExploreState actions to manage URL state.
  */
 export const useUpdateURLSearchParams = (): void => {
   const { exploreState } = useExploreState();
