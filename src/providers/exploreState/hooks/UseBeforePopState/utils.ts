@@ -1,5 +1,5 @@
-import { SelectedFilter } from "common/entities";
-import { SyncStateFromUrlPayload } from "providers/exploreState/actions/syncStateFromUrl/types";
+import { SelectedFilter } from "../../../../common/entities";
+import { SyncStateFromUrlPayload } from "../../../exploreState/actions/syncStateFromUrl/types";
 import { EXPLORE_URL_PARAMS } from "../../../exploreState/constants";
 
 /**
