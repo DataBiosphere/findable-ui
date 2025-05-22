@@ -29,6 +29,10 @@ function getDynamicSegment(
   const patternPath = pattern.split("?")[0];
   const resolvedPath = resolved.split("?")[0];
 
+  // Check if the pattern ends with the dynamic segment e.g. /data/[entityListType].
+  // We are not interested in a pattern the suggests we are on an entity page e.g. /data/[entityListType]/[entityId].
+  if (!patternPath.endsWith(`/${dynamicSegment}`)) return "";
+
   // Split into segments.
   const patternSegments = patternPath.split("/");
   const resolvedSegments = resolvedPath.split("/");
@@ -63,6 +67,7 @@ export function getParamValue(
 
 /**
  * Returns the entity list type, filters, and feature flag state from the URL.
+ * A dynamic segment that is not exactly `[entityListType]` is not supported will return entityListType as an empty string.
  * @param url - The URL to extract from.
  * @param as - The resolved URL.
  * @returns An object containing the entity list type, filters, and feature flag state.
