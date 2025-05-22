@@ -18,6 +18,7 @@ interface UseURLFilterParamsResult {
 /**
  * useURLFilterParams hook is used to keep track of the url search params, and update them,
  * if needed
+ * @deprecated - Avoid using this hook if possible; we intend on using ExploreState actions to manage URL state.
  * @returns an object containing a update function and the current filter
  */
 export const useURLFilterParams = (): UseURLFilterParamsResult => {

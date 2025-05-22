@@ -18,6 +18,7 @@ import {
   EntityPath,
   SavedFilter,
 } from "../../config/entities";
+import { META_COMMAND } from "./hooks/UseMetaCommands/types";
 
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
@@ -54,6 +55,10 @@ export type EntityStateSavedFilter = SavedFilter;
 
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
 export type ListItem = any;
+
+export interface Meta {
+  command: META_COMMAND;
+}
 
 export type SavedFilterByCategoryValueKey = Map<
   CategoryValueKey,

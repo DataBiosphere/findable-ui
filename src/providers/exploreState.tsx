@@ -20,6 +20,10 @@ import {
 } from "../hooks/useCategoryFilter";
 import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
+import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
+import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
+import { syncStateFromUrlAction } from "./exploreState/actions/syncStateFromUrl/action";
+import { SyncStateFromUrlAction } from "./exploreState/actions/syncStateFromUrl/types";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
@@ -28,7 +32,11 @@ import {
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
   ListItem,
+  Meta,
 } from "./exploreState/entities";
+import { useBeforePopState } from "./exploreState/hooks/UseBeforePopState/useBeforePopState";
+import { META_COMMAND } from "./exploreState/hooks/UseMetaCommands/types";
+import { useMetaCommands } from "./exploreState/hooks/UseMetaCommands/useMetaCommands";
 import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
@@ -87,6 +95,7 @@ export type ExploreState = {
   filterState: SelectedFilter[];
   listItems: ListItems;
   loading: boolean;
+  meta: Meta | null;
   paginationState: PaginationState;
   rowPreview: RowPreviewState;
   tabValue: string;
@@ -206,6 +215,12 @@ export function ExploreStateProvider({
     });
   }, [exploreDispatch, token]);
 
+  // Meta-command related side effects.
+  useMetaCommands({ exploreDispatch, exploreState });
+
+  // Before pop state related side effects (forward / backward navigation by browser buttons).
+  useBeforePopState({ exploreDispatch, exploreState });
+
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>
       {children}
@@ -219,12 +234,14 @@ export function ExploreStateProvider({
 export enum ExploreActionKind {
   ApplySavedFilter = "APPLY_SAVED_FILTER",
   ClearFilters = "CLEAR_FILTERS",
+  ClearMeta = "CLEAR_META",
   PaginateTable = "PAGINATE_TABLE",
   PatchExploreResponse = "PATCH_EXPLORE_RESPONSE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
   ResetState = "RESET_STATE",
   SelectEntityType = "SELECT_ENTITY_TYPE",
+  SyncStateFromUrl = "SYNC_STATE_FROM_URL",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
@@ -241,12 +258,14 @@ export enum ExploreActionKind {
 export type ExploreAction =
   | ApplySavedFilterAction
   | ClearFiltersAction
+  | ClearMetaAction
   | PaginateTableAction
   | PatchExploreResponseAction
   | ProcessExploreResponseAction
   | ResetExploreResponseAction
   | ResetStateAction
   | SelectEntityTypeAction
+  | SyncStateFromUrlAction
   | UpdateColumnVisibilityAction
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
@@ -426,6 +445,7 @@ function exploreReducer(
         ),
         filterCount: getFilterCount(filterState),
         filterState,
+        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
@@ -451,9 +471,16 @@ function exploreReducer(
         ),
         filterCount,
         filterState,
+        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
+    }
+    /**
+     * Clear meta
+     */
+    case ExploreActionKind.ClearMeta: {
+      return clearMetaAction(state, payload);
     }
     /**
      * Paginate table
@@ -551,7 +578,8 @@ function exploreReducer(
      **/
     case ExploreActionKind.SelectEntityType: {
       if (payload === state.tabValue) {
-        return state;
+        // Update meta to match command "REPLACE_TO_FILTERS" - facilitates navigation to filters on return back to entity from elsewhere.
+        return { ...state, meta: { command: META_COMMAND.REPLACE_TO_FILTERS } };
       }
       const entityState = getEntityState(
         state,
@@ -566,10 +594,17 @@ function exploreReducer(
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
+        meta: { command: META_COMMAND.REPLACE_TO_FILTERS },
         paginationState: { ...resetPage(state.paginationState), rows: 0 },
         rowPreview,
         tabValue: payload,
       };
+    }
+    /**
+     * Sync state from URL.
+     */
+    case ExploreActionKind.SyncStateFromUrl: {
+      return syncStateFromUrlAction(state, payload);
     }
     /**
      * Update column visibility
@@ -664,6 +699,7 @@ function exploreReducer(
         ),
         filterCount: getFilterCount(filterState),
         filterState,
+        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
