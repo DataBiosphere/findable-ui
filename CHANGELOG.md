@@ -1,5 +1,12 @@
 # Changelog
 
+## [32.1.1](https://github.com/DataBiosphere/findable-ui/compare/v32.1.0...v32.1.1) (2025-05-22)
+
+
+### Bug Fixes
+
+* imports in usebeforepopstate utils ([#491](https://github.com/DataBiosphere/findable-ui/issues/491)) ([#495](https://github.com/DataBiosphere/findable-ui/issues/495)) ([b18f1e8](https://github.com/DataBiosphere/findable-ui/commit/b18f1e866709fa447483b6f8366194ede588b9c1))
+
 ## [32.1.0](https://github.com/DataBiosphere/findable-ui/compare/v32.0.1...v32.1.0) (2025-05-22)
 
 
