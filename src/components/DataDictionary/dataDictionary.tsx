@@ -21,13 +21,13 @@ export const DataDictionary = <T extends RowData = Attribute>({
   Title = DefaultTitle,
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
-  const { classes, columnDefs } = useDataDictionary<T>();
+  const { classes, columnDefs, title } = useDataDictionary<T>();
   const { spacing } = useLayoutSpacing();
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (
     <View className={className}>
       <TitleLayout {...spacing}>
-        <Title />
+        <Title title={title} />
       </TitleLayout>
       <OutlineLayout {...spacing}>
         <Outline outline={outline} />

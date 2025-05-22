@@ -34,7 +34,7 @@ export const Left = styled.div`
   justify-content: flex-start;
 
   .MuiButton-navPrimary {
-    &:first-of-type {
+    &:first-child {
       margin-left: 24px;
     }
   }

@@ -18,6 +18,7 @@ export const useDataDictionary = <
   return useMemo(() => {
     const classes = dataDictionaryConfig?.dataDictionary?.classes || [];
     const columnDefs = dataDictionaryConfig?.columnDefs || [];
-    return { classes, columnDefs };
+    const title = dataDictionaryConfig?.dataDictionary?.title || "";
+    return { classes, columnDefs, title };
   }, [dataDictionaryConfig]);
 };
