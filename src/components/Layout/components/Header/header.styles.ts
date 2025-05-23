@@ -4,6 +4,11 @@ import { AppBar as MAppBar } from "@mui/material";
 import { smokeMain } from "../../../../styles/common/mixins/colors";
 import { HEADER_HEIGHT } from "./common/constants";
 
+// See https://github.com/emotion-js/emotion/issues/1105.
+// See https://github.com/emotion-js/emotion/releases/tag/%40emotion%2Fcache%4011.10.2.
+const ignoreSsrWarning =
+  "/* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */";
+
 export const AppBar = styled(MAppBar)`
   border-bottom: 1px solid ${smokeMain};
 
@@ -34,7 +39,7 @@ export const Left = styled.div`
   justify-content: flex-start;
 
   .MuiButton-navPrimary {
-    &:first-child {
+    &:first-child:not(style)${ignoreSsrWarning} { {
       margin-left: 24px;
     }
   }
