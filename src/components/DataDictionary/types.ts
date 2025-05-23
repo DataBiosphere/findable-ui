@@ -3,6 +3,7 @@ import { BaseComponentProps } from "../types";
 
 export interface DataDictionaryProps extends BaseComponentProps {
   EntitiesLayout?: ElementType;
+  FiltersLayout?: ElementType;
   Outline?: ElementType;
   OutlineLayout?: ElementType;
   Title?: ElementType;

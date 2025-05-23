@@ -10,6 +10,7 @@ export const Entities = <T extends RowData = Attribute>({
   classes,
   columnDefs,
   spacing,
+  tableOptions,
 }: ClassesProps<T>): JSX.Element => {
   return (
     <Grid {...GRID_PROPS}>
@@ -19,6 +20,7 @@ export const Entities = <T extends RowData = Attribute>({
           class={cls}
           columnDefs={columnDefs}
           spacing={spacing}
+          tableOptions={tableOptions}
         />
       ))}
     </Grid>

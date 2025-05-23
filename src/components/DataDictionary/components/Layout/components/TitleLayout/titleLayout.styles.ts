@@ -9,6 +9,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   padding-top: ${({ top }) => top}px; /* header height */
   position: sticky;
   top: 0;
+  z-index: 4;
 
   ${mediaTabletDown} {
     grid-column: 1;
