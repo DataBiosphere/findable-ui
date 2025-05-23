@@ -14,8 +14,9 @@ export const Entity = <T extends RowData = Attribute>({
   class: cls,
   columnDefs,
   spacing,
+  tableOptions,
 }: EntityProps<T>): JSX.Element => {
-  const table = useTable<T>(cls.attributes, columnDefs);
+  const table = useTable<T>(cls.attributes, columnDefs, tableOptions);
   return (
     <Grid {...GRID_PROPS} rowGap={4}>
       <Grid {...GRID_PROPS} rowGap={1}>

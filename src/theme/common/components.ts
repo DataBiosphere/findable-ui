@@ -3,6 +3,7 @@ import { DropDownIcon } from "../../components/common/Form/components/Select/com
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
+import { BUTTON_PROPS } from "../../styles/common/mui/button";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
@@ -200,6 +201,22 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
       },
       endIcon: {
         margin: 0,
+        variants: [
+          {
+            props: { size: BUTTON_PROPS.SIZE.MEDIUM },
+            style: {
+              marginLeft: -6,
+              marginRight: -6,
+            },
+          },
+          {
+            props: { size: BUTTON_PROPS.SIZE.SMALL },
+            style: {
+              marginLeft: -6,
+              marginRight: -6,
+            },
+          },
+        ],
       },
       outlinedSecondary: {
         backgroundColor: "transparent",
@@ -312,38 +329,6 @@ export const MuiButtonBase = (theme: Theme): Components["MuiButtonBase"] => {
       root: {
         flex: "none",
         fontFamily: theme.typography.fontFamily,
-      },
-    },
-  };
-};
-
-/**
- * MuiButtonGroup Component
- * @param theme - Theme.
- * @returns MuiButtonGroup component theme styles.
- */
-export const MuiButtonGroup = (theme: Theme): Components["MuiButtonGroup"] => {
-  return {
-    defaultProps: {
-      disableElevation: true,
-      disableRipple: true,
-    },
-    styleOverrides: {
-      grouped: {
-        minWidth: 0,
-        padding: "6px 8px",
-      },
-      groupedContainedPrimary: {
-        borderColor: theme.palette.primary.dark,
-        boxShadow: `0 1px 0 0 ${theme.palette.primary.dark}`,
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:hover": {
-          boxShadow: `0 1px 0 0 ${theme.palette.primary.dark}`,
-        },
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:active": {
-          boxShadow: "none",
-        },
       },
     },
   };

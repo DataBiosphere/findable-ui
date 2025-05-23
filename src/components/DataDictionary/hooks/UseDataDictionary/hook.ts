@@ -19,6 +19,7 @@ export const useDataDictionary = <
     const classes = dataDictionaryConfig?.dataDictionary?.classes || [];
     const columnDefs = dataDictionaryConfig?.columnDefs || [];
     const title = dataDictionaryConfig?.dataDictionary?.title || "";
-    return { classes, columnDefs, title };
+    const tableOptions = dataDictionaryConfig?.tableOptions || {};
+    return { classes, columnDefs, tableOptions, title };
   }, [dataDictionaryConfig]);
 };
