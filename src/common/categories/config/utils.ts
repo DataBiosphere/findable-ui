@@ -13,10 +13,13 @@ export function findCategoryConfig<V extends VIEW_KIND>(
   viewKind: V,
   key: Category["key"],
   configs: CategoryConfig[]
-): Extract<CategoryConfig, { viewKind: V }> | undefined {
+): Extract<CategoryConfig, { viewKind?: V }> | undefined {
   return configs.find(
-    (c): c is Extract<CategoryConfig, { viewKind: V }> =>
-      c.viewKind === viewKind && c.key === key
+    (c): c is Extract<CategoryConfig, { viewKind?: V }> =>
+      // When `viewKind` is undefined, it corresponds to a `SelectCategoryConfig`.
+      // This predicate ensures that `viewKind` is either explicitly matched or treated as undefined
+      // for compatibility with `SelectCategoryConfig` and other explicitly defined view kinds.
+      (c.viewKind === undefined || c.viewKind === viewKind) && c.key === key
   );
 }
 
