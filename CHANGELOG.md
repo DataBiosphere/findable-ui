@@ -1,5 +1,21 @@
 # Changelog
 
+## [33.0.0](https://github.com/DataBiosphere/findable-ui/compare/v32.1.1...v33.0.0) (2025-05-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated allowed annotation values #489 ([#498](https://github.com/DataBiosphere/findable-ui/issues/498))
+
+### Features
+
+* updated allowed annotation values [#489](https://github.com/DataBiosphere/findable-ui/issues/489) ([#498](https://github.com/DataBiosphere/findable-ui/issues/498)) ([78a6d4c](https://github.com/DataBiosphere/findable-ui/commit/78a6d4ca3bd798079ae1596078eb91ae2a1b9ab2))
+
+
+### Bug Fixes
+
+* fix incorrect labels on filters ([#499](https://github.com/DataBiosphere/findable-ui/issues/499)) ([#500](https://github.com/DataBiosphere/findable-ui/issues/500)) ([d6d85e4](https://github.com/DataBiosphere/findable-ui/commit/d6d85e4d04e2d9b6f441a9a2105a1bd31baf560f))
+
 ## [32.1.1](https://github.com/DataBiosphere/findable-ui/compare/v32.1.0...v32.1.1) (2025-05-22)
 
 
