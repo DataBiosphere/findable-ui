@@ -4,9 +4,8 @@ import { ColumnDef, RowData } from "@tanstack/react-table";
  * Model of a value of a metadata class.
  */
 export interface Attribute {
-  annotations?: {
-    [key in keyof DataDictionaryPrefix]: string; // Prefix to fragment mapping, e.g. cxg: "batch_condition".
-  };
+  // Prefix to fragment mapping, e.g. cxg: "batch_condition", or, general tags e.g. tier: "Tier 1" and bionetwork: ["gut"]
+  annotations?: Record<string, string | string[] | undefined>; // 'undefined' allows for mix of keys across attributes e.g. tier, or tier and cxg, or cxg
   description: string;
   example?: string; // Free text example of attribute
   multivalued: boolean; // True if attribute can have multiple values
