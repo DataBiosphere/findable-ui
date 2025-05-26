@@ -4,7 +4,7 @@ import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoi
 import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 import { LAYOUT_SPACING } from "../../constants";
 
-const PB = LAYOUT_SPACING.CONTENT_PADDING_TOP; /* bottom padding */
+const PB = LAYOUT_SPACING.FILTERS_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.FILTERS_PADDING_TOP; /* top padding */
 const TITLE_HEIGHT = LAYOUT_SPACING.TITLE_HEIGHT; /* title height */
 
