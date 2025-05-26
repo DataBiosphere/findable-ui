@@ -2,6 +2,7 @@ import { RowData } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Attribute, DataDictionaryConfig } from "../../../../common/entities";
 import { useConfig } from "../../../../hooks/useConfig";
+import { buildClassesOutline } from "../../components/Outline/utils";
 import { useTable } from "../../components/Table/hook";
 import { UseDataDictionary } from "./types";
 
@@ -30,5 +31,8 @@ export const useDataDictionary = <
   // Build table instance.
   const table = useTable<T>(classes, columnDefs, tableOptions);
 
-  return { classes, table, title };
+  // Build outline.
+  const outline = buildClassesOutline<T>(table);
+
+  return { outline, table, title };
 };
