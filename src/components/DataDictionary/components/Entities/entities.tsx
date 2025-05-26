@@ -14,8 +14,8 @@ export const Entities = <T extends RowData = Attribute>({
   return (
     <Grid {...GRID_PROPS}>
       {/* Render grouped rows where each "group" is a class e.g. "donor" */}
-      {getGroupedRowModel().rows.map((row, i) => (
-        <Entity key={i} row={row} spacing={spacing} table={table} />
+      {getGroupedRowModel().rows.map((row) => (
+        <Entity key={row.id} row={row} spacing={spacing} table={table} />
       ))}
     </Grid>
   );
