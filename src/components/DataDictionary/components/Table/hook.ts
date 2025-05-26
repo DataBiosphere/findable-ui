@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Attribute, Class } from "../../../../common/entities";
-import { useTableOptions } from "./options/hook";
+import { useTableOptions } from "./options/hooks/hook";
 import { buildClassMeta, buildTableData } from "./utils";
 
 export const useTable = <T extends RowData = Attribute>(

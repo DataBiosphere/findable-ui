@@ -1,12 +1,12 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { Attribute } from "../../../../../common/entities";
-import { COLUMN_FILTERS_OPTIONS } from "./columnFilters/constants";
-import { CORE_OPTIONS } from "./core/constants";
-import { EXPANDED_OPTIONS } from "./expanded/constants";
-import { GROUPING_OPTIONS } from "./grouping/constants";
-import { SORTING_OPTIONS } from "./sorting/constants";
-import { VISIBILITY_OPTIONS } from "./visibility/constants";
+import { Attribute } from "../../../../../../common/entities";
+import { COLUMN_FILTERS_OPTIONS } from "../columnFilters";
+import { CORE_OPTIONS } from "../core";
+import { EXPANDED_OPTIONS } from "../expanded";
+import { GROUPING_OPTIONS } from "../grouping";
+import { SORTING_OPTIONS } from "../sorting";
+import { VISIBILITY_OPTIONS } from "../visibility";
 
 export const useTableOptions = <T extends RowData = Attribute>(): Omit<
   TableOptions<T>,
