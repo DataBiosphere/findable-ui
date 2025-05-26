@@ -4,7 +4,7 @@ import { OutlineItem } from "../../../Layout/components/Outline/types";
 import { ClassMeta } from "../Table/types";
 
 /**
- * Returns outline items from classes.
+ * Returns outline items from class metadata.
  * @param table - Table instance.
  * @returns Outline items.
  */
