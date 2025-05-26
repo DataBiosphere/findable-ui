@@ -24,7 +24,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
   Title = DefaultTitle,
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
-  const { classes, columnDefs, tableOptions, title } = useDataDictionary<T>();
+  const { classes, table, title } = useDataDictionary<T>();
   const { spacing } = useLayoutSpacing();
   const outline = useMemo(() => buildClassesOutline(classes), [classes]);
   return (
@@ -39,12 +39,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
         <Filters />
       </FiltersLayout>
       <EntitiesLayout {...spacing}>
-        <Entities
-          classes={classes}
-          columnDefs={columnDefs}
-          spacing={spacing}
-          tableOptions={tableOptions}
-        />
+        <Entities spacing={spacing} table={table} />
       </EntitiesLayout>
     </View>
   );

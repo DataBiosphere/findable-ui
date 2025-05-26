@@ -7,21 +7,15 @@ import { GRID_PROPS } from "./constants";
 import { ClassesProps } from "./types";
 
 export const Entities = <T extends RowData = Attribute>({
-  classes,
-  columnDefs,
   spacing,
-  tableOptions,
+  table,
 }: ClassesProps<T>): JSX.Element => {
+  const { getGroupedRowModel } = table;
   return (
     <Grid {...GRID_PROPS}>
-      {classes.map((cls) => (
-        <Entity
-          key={cls.name}
-          class={cls}
-          columnDefs={columnDefs}
-          spacing={spacing}
-          tableOptions={tableOptions}
-        />
+      {/* Render grouped rows where each "group" is a class e.g. "donor" */}
+      {getGroupedRowModel().rows.map((row, i) => (
+        <Entity key={i} row={row} spacing={spacing} table={table} />
       ))}
     </Grid>
   );

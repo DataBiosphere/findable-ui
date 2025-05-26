@@ -6,6 +6,7 @@ import { ColumnDef, RowData, TableOptions } from "@tanstack/react-table";
 export interface Attribute {
   // Prefix to fragment mapping, e.g. cxg: "batch_condition", or, general tags e.g. tier: "Tier 1" and bionetwork: ["gut"]
   annotations?: Record<string, string | string[] | undefined>; // 'undefined' allows for mix of keys across attributes e.g. tier, or tier and cxg, or cxg
+  classKey?: string; // Programmatic class name or key (e.g. cell, sample) the attribute belongs to.
   description: string;
   example?: string; // Free text example of attribute
   multivalued: boolean; // True if attribute can have multiple values
