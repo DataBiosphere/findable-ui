@@ -2,7 +2,7 @@ import { MenuProps } from "@mui/material";
 
 export const MENU_PROPS: Omit<MenuProps, "anchorEl" | "onClose" | "open"> = {
   anchorOrigin: {
-    horizontal: "left",
+    horizontal: "right",
     vertical: "bottom",
   },
   marginThreshold: 8,
@@ -10,7 +10,7 @@ export const MENU_PROPS: Omit<MenuProps, "anchorEl" | "onClose" | "open"> = {
     paper: { variant: "menu" },
   },
   transformOrigin: {
-    horizontal: "left",
+    horizontal: "right",
     vertical: "top",
   },
 };
