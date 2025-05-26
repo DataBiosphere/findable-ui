@@ -85,6 +85,22 @@ export function buildCategoryViews<T extends RowData>(
 }
 
 /**
+ * Returns the header for a column as a string.
+ * @param column - Column.
+ * @returns column header.
+ */
+export function getColumnHeader<T extends RowData>(column: Column<T>): string {
+  const { columnDef, id = "" } = column;
+  const { header, meta } = columnDef;
+
+  // Return header if it is a string.
+  if (typeof header === "string") return header;
+
+  // Return header from meta or id.
+  return meta?.header || id;
+}
+
+/**
  * Format data to TSV string.
  * @param data - Table data.
  * @returns table data formatted into a TSV string.

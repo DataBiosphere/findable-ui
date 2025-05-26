@@ -36,7 +36,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
         <Outline outline={outline} />
       </OutlineLayout>
       <FiltersLayout {...spacing}>
-        <Filters />
+        <Filters table={table} />
       </FiltersLayout>
       <EntitiesLayout {...spacing}>
         <Entities spacing={spacing} table={table} />

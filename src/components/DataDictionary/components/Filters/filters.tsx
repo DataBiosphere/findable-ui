@@ -1,20 +1,16 @@
-import { Button, ButtonGroup } from "@mui/material";
+import { RowData } from "@tanstack/react-table";
 import React from "react";
-import { SVG_ICON_PROPS } from "../../../../styles/common/mui/svgIcon";
-import { BUTTON_GROUP_PROPS } from "../../../common/ButtonGroup/constants";
-import { DropDownIcon } from "../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
+import { Attribute } from "../../../../common/entities";
+import { ColumnFilters } from "./components/ColumnFilters/columnFilters";
 import { StyledGrid } from "./filters.styles";
+import { FiltersProps } from "./types";
 
-export const Filters = (): JSX.Element => {
+export const Filters = <T extends RowData = Attribute>({
+  table,
+}: FiltersProps<T>): JSX.Element => {
   return (
     <StyledGrid>
-      <ButtonGroup {...BUTTON_GROUP_PROPS.SECONDARY_OUTLINED}>
-        <Button
-          endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
-        >
-          Required
-        </Button>
-      </ButtonGroup>
+      <ColumnFilters table={table} />
     </StyledGrid>
   );
 };

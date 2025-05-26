@@ -3,7 +3,7 @@ import {
   RowData,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { arrIncludesSome } from "../../../../Table/columnDef/columnFilters/filterFn";
+import { arrIncludesSome } from "../../../../../Table/columnDef/columnFilters/filterFn";
 
 export const COLUMN_FILTERS_OPTIONS: Pick<
   ColumnFiltersOptions<RowData>,
