@@ -9,10 +9,10 @@ import {
 export const StyledMenu = styled(Menu)`
   .${paperClasses.root} {
     margin: 4px 0;
+    max-height: ${MAX_LIST_HEIGHT_PX}px;
     width: 288px;
 
     .${menuClasses.list} {
-      max-height: ${MAX_LIST_HEIGHT_PX}px;
       overflow-wrap: break-word;
 
       ${MuiListItemButtonRoot}
