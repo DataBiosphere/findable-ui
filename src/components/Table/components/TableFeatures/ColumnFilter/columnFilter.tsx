@@ -14,6 +14,7 @@ import { UncheckedIcon } from "../../../../common/CustomIcon/components/Unchecke
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { useMenu } from "../../../../common/Menu/hooks/useMenu";
 import { getColumnHeader } from "../../../common/utils";
+import { getSortedFacetedValues } from "../../../featureOptions/facetedColumn/utils";
 import { StyledMenu } from "./columnFilter.styles";
 import { MENU_PROPS } from "./constants";
 import { ColumnFilterProps } from "./types";
@@ -32,6 +33,7 @@ export const ColumnFilter = <T extends RowData>({
 }: ColumnFilterProps<T>): JSX.Element => {
   const { anchorEl, onClose, onOpen, open } = useMenu();
   const facetedUniqueValues = column.getFacetedUniqueValues();
+  const sortedValues = getSortedFacetedValues(facetedUniqueValues);
   const filterValue = (column.getFilterValue() || []) as unknown[];
   return (
     <Fragment>
@@ -50,9 +52,9 @@ export const ColumnFilter = <T extends RowData>({
         onClose={onClose}
         open={open}
       >
-        {[...facetedUniqueValues].map(([value, occurrence]) => (
+        {sortedValues.map(([value, occurrence]) => (
           <ListItemButton
-            key={value}
+            key={String(value)}
             onClick={() => column.setFilterValue(updater(value))}
           >
             <Checkbox
@@ -62,7 +64,7 @@ export const ColumnFilter = <T extends RowData>({
             />
             <ListItemText
               disableTypography
-              primary={value}
+              primary={<span>{String(value)}</span>}
               secondary={
                 <Typography
                   color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
