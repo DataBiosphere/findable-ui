@@ -7,7 +7,7 @@ import {
 import { useCallback } from "react";
 import { Attribute } from "../../../../../../common/entities";
 import { updateColumnFilters } from "../../../../../../providers/dataDictionary/actions/updateColumnFilters/dispatch";
-import { useDataDictionaryState } from "../../../../../../providers/dataDictionary/hooks/useDataDictionaryState";
+import { useDataDictionaryState } from "../../../../../../providers/dataDictionary/hooks/UseDataDictionaryState/hook";
 import { COLUMN_FILTERS_OPTIONS } from "./constants";
 
 export const useColumnFiltersOptions = <
