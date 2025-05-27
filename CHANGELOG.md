@@ -1,5 +1,16 @@
 # Changelog
 
+## [34.0.0](https://github.com/DataBiosphere/findable-ui/compare/v33.0.0...v34.0.0) (2025-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* implement required filter on data dictionary ([#497](https://github.com/DataBiosphere/findable-ui/issues/497)) (#503)
+
+### Features
+
+* implement required filter on data dictionary ([#497](https://github.com/DataBiosphere/findable-ui/issues/497)) ([#503](https://github.com/DataBiosphere/findable-ui/issues/503)) ([5087d0c](https://github.com/DataBiosphere/findable-ui/commit/5087d0cd0f0bab0071dc87a7e9d7894735b69512))
+
 ## [33.0.0](https://github.com/DataBiosphere/findable-ui/compare/v32.1.1...v33.0.0) (2025-05-23)
 
 
