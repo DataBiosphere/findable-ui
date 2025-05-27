@@ -20,8 +20,8 @@ const DefaultStory = (): JSX.Element => {
 
   const makeColumn = (column: PartialColumn): PartialColumn => ({
     ...column,
-    getFilterValue: (): unknown => filterStore[column.id],
-    getIsFiltered: (): boolean => !!filterStore[column.id],
+    getFilterValue: () => filterStore[column.id],
+    getIsFiltered: () => !!filterStore[column.id],
     setFilterValue: (updaterOrValue: unknown): unknown => {
       const next = functionalUpdate(updaterOrValue, filterStore[column.id]);
       setFilterStore({ ...filterStore, [column.id]: next });
