@@ -33,6 +33,15 @@ export function getStartsWithRegex(text: string): RegExp {
 }
 
 /**
+ * Retrieves an element by its role.
+ * @param role - The role of the element.
+ * @returns The element.
+ */
+export function getRole<T extends HTMLElement = HTMLElement>(role: string): T {
+  return screen.getByRole(role);
+}
+
+/**
  * Retrieves an element by its text content.
  * @param text - The text content of the element.
  * @returns The element.

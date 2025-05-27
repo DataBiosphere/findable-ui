@@ -55,6 +55,7 @@ export const ColumnFilter = <T extends RowData>({
         {sortedValues.map(([value, occurrence]) => (
           <ListItemButton
             key={String(value)}
+            selected={filterValue.includes(value)}
             onClick={() => column.setFilterValue(updater(value))}
           >
             <Checkbox

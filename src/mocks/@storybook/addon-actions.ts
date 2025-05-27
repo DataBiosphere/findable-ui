@@ -1,3 +1,5 @@
+import { jest } from "@jest/globals";
+
 /**
  * Mock for Storybook's @storybook/addon-actions function.
  * The mock keeps the same function signature as the real Storybook action,
