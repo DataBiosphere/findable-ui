@@ -1,10 +1,6 @@
-import {
-  ColumnFiltersState,
-  RowData,
-  TableOptions,
-} from "@tanstack/react-table";
-import { useState } from "react";
+import { RowData, TableOptions } from "@tanstack/react-table";
 import { Attribute } from "../../../../../common/entities";
+import { useDataDictionaryState } from "../../../../../providers/dataDictionary/hooks/useDataDictionaryState";
 import { useColumnFiltersOptions } from "./columnFilters/hook";
 import { CORE_OPTIONS } from "./core/constants";
 import { EXPANDED_OPTIONS } from "./expanded/constants";
@@ -17,11 +13,12 @@ export const useTableOptions = <T extends RowData = Attribute>(): Omit<
   TableOptions<T>,
   "columns" | "data" | "initialState"
 > => {
-  // Column filters state - to be moved to a provider with a reducer.
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  // Table state.
+  const { dataDictionaryState } = useDataDictionaryState();
+  const { columnFilters } = dataDictionaryState;
 
   // Column filters options.
-  const columnFiltersOptions = useColumnFiltersOptions<T>({ setColumnFilters });
+  const columnFiltersOptions = useColumnFiltersOptions<T>();
 
   // Table options.
   return {
