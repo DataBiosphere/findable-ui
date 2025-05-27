@@ -5,8 +5,9 @@ export const BIONETWORK: PartialColumn = {
   getCanFilter: () => true,
   getFacetedUniqueValues: () =>
     new Map([
-      ["Lung", 1],
+      ["Nervous System", 3],
       ["Brain", 2],
+      ["Lung", 1],
     ]),
   id: "bioNetwork",
 };
