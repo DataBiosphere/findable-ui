@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { DataDictionaryStateContext } from "./context";
-import { useDataDictionaryReducer } from "./hooks/useDataDictionaryReducer";
+import { useDataDictionaryReducer } from "./hooks/UseDataDictionaryReducer/hook";
 
 export function DataDictionaryStateProvider({
   children,

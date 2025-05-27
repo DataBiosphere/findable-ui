@@ -1,6 +1,6 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
 import { Attribute } from "../../../../../common/entities";
-import { useDataDictionaryState } from "../../../../../providers/dataDictionary/hooks/useDataDictionaryState";
+import { useDataDictionaryState } from "../../../../../providers/dataDictionary/hooks/UseDataDictionaryState/hook";
 import { useColumnFiltersOptions } from "./columnFilters/hook";
 import { CORE_OPTIONS } from "./core/constants";
 import { EXPANDED_OPTIONS } from "./expanded/constants";
