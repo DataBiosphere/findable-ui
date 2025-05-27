@@ -1,8 +1,9 @@
-import { ColumnDef, RowData } from "@tanstack/react-table";
-import { Attribute, Class } from "../../../../common/entities";
+import { RowData, Table } from "@tanstack/react-table";
+import { Attribute } from "../../../../common/entities";
+import { OutlineItem } from "../../../Layout/components/Outline/types";
 
 export interface UseDataDictionary<T extends RowData = Attribute> {
-  classes: Class<T>[];
-  columnDefs: ColumnDef<T, T[keyof T]>[];
+  outline: OutlineItem[];
+  table: Table<T>;
   title: string;
 }

@@ -2,6 +2,8 @@ import { RowData } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Attribute, DataDictionaryConfig } from "../../../../common/entities";
 import { useConfig } from "../../../../hooks/useConfig";
+import { buildClassesOutline } from "../../components/Outline/utils";
+import { useTable } from "../../components/Table/hook";
 import { UseDataDictionary } from "./types";
 
 export const useDataDictionary = <
@@ -11,14 +13,26 @@ export const useDataDictionary = <
     config: { dataDictionaries: dataDictionaryConfigs },
   } = useConfig();
 
+  // Get dictionary config.
   const dataDictionaryConfig = dataDictionaryConfigs?.[0] as
     | DataDictionaryConfig<T>
     | undefined; // TODO: Handle multiple data dictionaries
 
-  return useMemo(() => {
-    const classes = dataDictionaryConfig?.dataDictionary?.classes || [];
-    const columnDefs = dataDictionaryConfig?.columnDefs || [];
-    const title = dataDictionaryConfig?.dataDictionary?.title || "";
-    return { classes, columnDefs, title };
+  // Get configured dictionary classes, column definitions and table options.
+  const { classes, columnDefs, tableOptions, title } = useMemo(() => {
+    return {
+      classes: dataDictionaryConfig?.dataDictionary?.classes || [],
+      columnDefs: dataDictionaryConfig?.columnDefs || [],
+      tableOptions: dataDictionaryConfig?.tableOptions || {},
+      title: dataDictionaryConfig?.dataDictionary?.title || "",
+    };
   }, [dataDictionaryConfig]);
+
+  // Build table instance.
+  const table = useTable<T>(classes, columnDefs, tableOptions);
+
+  // Build outline.
+  const outline = buildClassesOutline<T>(table);
+
+  return { outline, table, title };
 };

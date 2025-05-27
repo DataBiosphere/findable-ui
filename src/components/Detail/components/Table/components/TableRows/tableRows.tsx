@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import { flexRender, RowData, Table } from "@tanstack/react-table";
+import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import {
   getTableCellAlign,
@@ -9,11 +9,18 @@ import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styl
 import { TableView } from "../../table";
 
 export interface TableRowsProps<T extends RowData> {
+  /**
+   * Optional override for the rows rendered by <TableRows>.
+   * - Omit to show the table’s full leaf-level row model.
+   * - Pass `group.subRows` (or any other subset) to display a “mini-table” for a single group e.g. the rows that belong to one Data-Dictionary entity.
+   */
+  rows?: Row<T>[];
   tableInstance: Table<T>;
   tableView?: TableView;
 }
 
 export const TableRows = <T extends RowData>({
+  rows: leafOrSubRows,
   tableInstance,
   tableView,
 }: TableRowsProps<T>): JSX.Element => {
@@ -23,7 +30,7 @@ export const TableRows = <T extends RowData>({
   const { size: tableCellSize = "medium" } = tableCell || {};
   return (
     <Fragment>
-      {rows.map((row) => {
+      {(leafOrSubRows || rows).map((row) => {
         return (
           <TableRow
             key={row.id}

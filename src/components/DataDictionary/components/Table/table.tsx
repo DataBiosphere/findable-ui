@@ -11,6 +11,7 @@ import { StyledRoundedPaper } from "./table.styles";
 import { TableProps } from "./types";
 
 export const Table = <T extends RowData>({
+  row,
   table,
 }: TableProps<T>): JSX.Element => {
   return (
@@ -28,6 +29,7 @@ export const Table = <T extends RowData>({
             />
             <TableBody
               rowDirection={ROW_DIRECTION.DEFAULT}
+              rows={row.getLeafRows()}
               tableInstance={table}
             />
           </GridTable>
