@@ -91,4 +91,11 @@ describe("DataDictionaryColumnFilters", () => {
       )
     );
   });
+
+  it("disables Clear All when nothing selected", async () => {
+    const buttonEl = getButton("BioNetwork");
+    fireEvent.click(buttonEl);
+    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
+    expect(getButton("Clear All")).toHaveClass(MUI_CLASSES.DISABLED);
+  });
 });
