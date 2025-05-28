@@ -72,7 +72,7 @@ export interface DataDictionary<T extends RowData = Attribute> {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig<T extends RowData = Attribute> {
-  columnDefs: ColumnDef<T, T[keyof T]>[];
+  columnDefs: ColumnDef<T>[];
   dataDictionary: DataDictionary<T>;
   tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">;
 }

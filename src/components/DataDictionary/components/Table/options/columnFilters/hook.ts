@@ -16,8 +16,9 @@ export const useColumnFiltersOptions = <
   const { dataDictionaryDispatch } = useDataDictionaryState();
 
   const onColumnFiltersChange = useCallback(
-    (updaterOrValue: Updater<ColumnFiltersState>): void =>
-      dataDictionaryDispatch?.(updateColumnFilters({ updaterOrValue })),
+    (updaterOrValue: Updater<ColumnFiltersState>): void => {
+      dataDictionaryDispatch?.(updateColumnFilters({ updaterOrValue }));
+    },
     [dataDictionaryDispatch]
   );
 

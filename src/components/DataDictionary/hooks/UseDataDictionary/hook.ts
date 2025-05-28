@@ -32,7 +32,7 @@ export const useDataDictionary = <
   const table = useTable<T>(classes, columnDefs, tableOptions);
 
   // Build outline.
-  const outline = buildClassesOutline<T>(table);
+  const outline = useMemo(() => buildClassesOutline<T>(table), [table]);
 
   return { outline, table, title };
 };

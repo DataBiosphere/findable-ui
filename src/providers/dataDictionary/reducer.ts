@@ -1,3 +1,5 @@
+import { clearMetaAction } from "./actions/clearMeta/action";
+import { syncStateAndUrlAction } from "./actions/syncStateAndUrl/action";
 import {
   DataDictionaryAction,
   DataDictionaryActionKind,
@@ -16,8 +18,13 @@ export function dataDictionaryReducer(
   action: DataDictionaryAction
 ): DataDictionaryState {
   const { payload, type } = action;
-  // eslint-disable-next-line sonarjs/no-small-switch -- expect additional cases.
   switch (type) {
+    case DataDictionaryActionKind.ClearMeta: {
+      return clearMetaAction(state, payload);
+    }
+    case DataDictionaryActionKind.SyncStateAndUrl: {
+      return syncStateAndUrlAction(state, payload);
+    }
     case DataDictionaryActionKind.UpdateColumnFilters: {
       return updateColumnFiltersAction(state, payload);
     }

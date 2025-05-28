@@ -1,0 +1,8 @@
+export enum META_COMMAND {
+  STATE_TO_URL_PUSH = "STATE_TO_URL_PUSH",
+  STATE_TO_URL_REPLACE = "STATE_TO_URL_REPLACE",
+}
+
+export interface Meta {
+  command: META_COMMAND;
+}

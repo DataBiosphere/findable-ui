@@ -1,4 +1,5 @@
 import { resolveUpdater } from "../../../../components/Table/options/updater";
+import { META_COMMAND } from "../../../dataDictionaryMeta/types";
 import { DataDictionaryState } from "../../types";
 import { UpdateColumnFiltersPayload } from "./types";
 
@@ -19,5 +20,6 @@ export function updateColumnFiltersAction(
   return {
     ...state,
     columnFilters: nextColumnFilters,
+    meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
   };
 }

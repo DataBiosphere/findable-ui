@@ -5,18 +5,27 @@ import {
   TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Attribute, Class } from "../../../../common/entities";
+import { useDataDictionaryState } from "../../../../providers/dataDictionary/hooks/UseDataDictionaryState/hook";
 import { useTableOptions } from "./options/hook";
 import { buildClassMeta, buildTableData } from "./utils";
 
 export const useTable = <T extends RowData = Attribute>(
   classes: Class<T>[],
-  columnDefs: ColumnDef<T, T[keyof T]>[],
+  columnDefs: ColumnDef<T>[],
   tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">
 ): Table<T> => {
-  // Build table data.
-  const data = useMemo(() => buildTableData(classes), [classes]);
+  // Table data.
+  const [data] = useState<T[]>(() => buildTableData(classes));
+
+  // Table columns.
+  const [columns] = useState<ColumnDef<T>[]>(() => columnDefs);
+
+  // Table state.
+  const { dataDictionaryState } = useDataDictionaryState();
+  const { columnFilters } = dataDictionaryState;
+  const state = { columnFilters };
 
   // Default table options.
   const defaultTableOptions = useTableOptions<T>();
@@ -28,8 +37,9 @@ export const useTable = <T extends RowData = Attribute>(
   return useReactTable<T>({
     ...defaultTableOptions,
     ...tableOptions,
-    columns: columnDefs,
+    columns,
     data,
     meta: { classMeta },
+    state,
   });
 };
