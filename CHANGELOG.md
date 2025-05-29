@@ -1,5 +1,12 @@
 # Changelog
 
+## [34.1.0](https://github.com/DataBiosphere/findable-ui/compare/v34.0.0...v34.1.0) (2025-05-29)
+
+
+### Features
+
+* entity lists do not load when page refreshes ([#506](https://github.com/DataBiosphere/findable-ui/issues/506)) ([#507](https://github.com/DataBiosphere/findable-ui/issues/507)) ([05ba8a1](https://github.com/DataBiosphere/findable-ui/commit/05ba8a17d5c94b35e35056a51d06066f337a276a))
+
 ## [34.0.0](https://github.com/DataBiosphere/findable-ui/compare/v33.0.0...v34.0.0) (2025-05-27)
 
 
