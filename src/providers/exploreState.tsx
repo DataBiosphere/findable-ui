@@ -34,7 +34,6 @@ import {
   ListItem,
   Meta,
 } from "./exploreState/entities";
-import { useBeforePopState } from "./exploreState/hooks/UseBeforePopState/useBeforePopState";
 import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
@@ -215,7 +214,7 @@ export function ExploreStateProvider({
   }, [exploreDispatch, token]);
 
   // Before pop state related side effects (forward / backward navigation by browser buttons).
-  useBeforePopState({ exploreDispatch, exploreState });
+  // useBeforePopState({ exploreDispatch, exploreState });
 
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>

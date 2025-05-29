@@ -1,5 +1,5 @@
 import { resolveUpdater } from "../../../../components/Table/options/updater";
-import { META_COMMAND } from "../../../dataDictionaryMeta/types";
+import { META_COMMAND } from "../../../dataDictionarySync/types";
 import { DataDictionaryState } from "../../types";
 import { UpdateColumnFiltersPayload } from "./types";
 
