@@ -43,3 +43,16 @@ export function getQueryState(exploreState: ExploreState): ExploreQueryState {
     filter: exploreState.filterState,
   };
 }
+
+/**
+ * Returns a sorted string representation of a query object.
+ * @param query - Query object.
+ * @returns Sorted string representation of the query object.
+ */
+export function stringifyQuery(query: NextRouter["query"]): string {
+  return JSON.stringify(
+    Object.keys(query)
+      .sort()
+      .reduce((acc, key) => ({ ...acc, [key]: query[key] }), {})
+  );
+}

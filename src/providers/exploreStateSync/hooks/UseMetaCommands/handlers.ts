@@ -1,6 +1,6 @@
 import Router, { NextRouter } from "next/router";
 import { ExploreQueryState } from "./types";
-import { buildQuery } from "./utils";
+import { buildQuery, stringifyQuery } from "./utils";
 
 /**
  * Updates the URL query parameters based on state.
@@ -18,9 +18,7 @@ export function updateUrlFromState(
   const query = buildQuery(state);
 
   // Do nothing if the next query is the same as the current query.
-  for (const key of Object.keys(query)) {
-    if (query[key] !== currentQuery[key]) return;
-  }
+  if (stringifyQuery(query) === stringifyQuery(currentQuery)) return;
 
   // Push or replace the query to the router.
   Router[method]({ query }, undefined, { shallow: true });
