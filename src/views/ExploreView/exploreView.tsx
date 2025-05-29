@@ -35,6 +35,7 @@ import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
+import { ExploreStateSyncProvider } from "../../providers/exploreStateSync/provider";
 import { TEST_IDS } from "../../tests/testIds";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
 
@@ -141,7 +142,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <>
+    <ExploreStateSyncProvider>
       {categoryViews && !!categoryViews.length && (
         <Sidebar drawerOpen={isDrawerOpen} onDrawerClose={onCloseDrawer}>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
@@ -182,7 +183,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         Tabs={<Tabs />}
         title={entityConfig.explorerTitle || explorerTitle}
       />
-    </>
+    </ExploreStateSyncProvider>
   );
 };
 

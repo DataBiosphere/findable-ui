@@ -35,8 +35,6 @@ import {
   Meta,
 } from "./exploreState/entities";
 import { useBeforePopState } from "./exploreState/hooks/UseBeforePopState/useBeforePopState";
-import { META_COMMAND } from "./exploreState/hooks/UseMetaCommands/types";
-import { useMetaCommands } from "./exploreState/hooks/UseMetaCommands/useMetaCommands";
 import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
@@ -70,6 +68,7 @@ import {
   updateEntityStateByCategoryGroupConfigKey,
   updateSelectColumnVisibility,
 } from "./exploreState/utils";
+import { META_COMMAND } from "./exploreStateSync/hooks/UseMetaCommands/types";
 
 export type CatalogState = string | undefined;
 
@@ -214,9 +213,6 @@ export function ExploreStateProvider({
       type: ExploreActionKind.ResetExploreResponse,
     });
   }, [exploreDispatch, token]);
-
-  // Meta-command related side effects.
-  useMetaCommands({ exploreDispatch, exploreState });
 
   // Before pop state related side effects (forward / backward navigation by browser buttons).
   useBeforePopState({ exploreDispatch, exploreState });
@@ -445,7 +441,7 @@ function exploreReducer(
         ),
         filterCount: getFilterCount(filterState),
         filterState,
-        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
+        meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
@@ -471,7 +467,7 @@ function exploreReducer(
         ),
         filterCount,
         filterState,
-        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
+        meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
@@ -578,8 +574,11 @@ function exploreReducer(
      **/
     case ExploreActionKind.SelectEntityType: {
       if (payload === state.tabValue) {
-        // Update meta to match command "REPLACE_TO_FILTERS" - facilitates navigation to filters on return back to entity from elsewhere.
-        return { ...state, meta: { command: META_COMMAND.REPLACE_TO_FILTERS } };
+        // Update meta to match command "STATE_TO_URL_REPLACE" - facilitates navigation to filters on return back to entity from elsewhere.
+        return {
+          ...state,
+          meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
+        };
       }
       const entityState = getEntityState(
         state,
@@ -594,7 +593,7 @@ function exploreReducer(
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
-        meta: { command: META_COMMAND.REPLACE_TO_FILTERS },
+        meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
         paginationState: { ...resetPage(state.paginationState), rows: 0 },
         rowPreview,
         tabValue: payload,
@@ -699,7 +698,7 @@ function exploreReducer(
         ),
         filterCount: getFilterCount(filterState),
         filterState,
-        meta: { command: META_COMMAND.NAVIGATE_TO_FILTERS },
+        meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
