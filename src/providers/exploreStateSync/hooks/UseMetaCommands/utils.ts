@@ -31,9 +31,20 @@ export function buildQuery(state: ExploreQueryState): NextRouter["query"] {
 }
 
 /**
- * Returns query related values from explore state.
- * @param exploreState - State.
- * @returns Query values from explore state.
+ * Extracts URL-relevant values from the ExploreState for query parameter synchronization.
+ *
+ * This function maps specific properties from the full ExploreState to the
+ * ExploreQueryState interface, which contains only the subset of state that
+ * should be synchronized with the URL.
+ *
+ * The extracted properties are:
+ * - catalog: Current catalog selection (string | undefined)
+ * - entityListType: Current active tab value (string)
+ * - ff: Feature flag state (string | undefined)
+ * - filter: Applied filters (SelectedFilter[])
+ *
+ * @param exploreState - Explore state.
+ * @returns Subset of state used for URL query parameters.
  */
 export function getQueryState(exploreState: ExploreState): ExploreQueryState {
   return {
