@@ -29,6 +29,7 @@ const listeners = new Set<PopListener>();
  */
 export function addPopListener(fn: PopListener): void {
   listeners.add(fn);
+  console.log("ADDING LISTENER", listeners.size);
 }
 
 /**
@@ -37,6 +38,7 @@ export function addPopListener(fn: PopListener): void {
  */
 export function removePopListener(fn: PopListener): void {
   listeners.delete(fn);
+  console.log("REMOVING LISTENER", listeners.size);
 }
 
 /**

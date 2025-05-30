@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { useBeforePopState } from "./hooks/UseBeforePopState/hook";
 import { useMetaCommands } from "./hooks/UseMetaCommands/hook";
 
 /**
@@ -24,6 +25,9 @@ export function ExploreStateSyncProvider({
 }): JSX.Element {
   // Meta-command related side effects.
   useMetaCommands();
+
+  // Before pop state related side effects (forward / backward navigation by browser buttons).
+  useBeforePopState();
 
   return <>{children}</>;
 }

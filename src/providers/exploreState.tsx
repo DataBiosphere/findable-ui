@@ -22,10 +22,10 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
 import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
-import { syncStateFromUrlAction } from "./exploreState/actions/syncStateFromUrl/action";
-import { SyncStateFromUrlAction } from "./exploreState/actions/syncStateFromUrl/types";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
+import { updateStateFromUrlAction } from "./exploreState/actions/updateStateFromUrl/action";
+import { UpdateStateFromUrlAction } from "./exploreState/actions/updateStateFromUrl/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
 import { UpdateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/types";
 import {
@@ -213,9 +213,6 @@ export function ExploreStateProvider({
     });
   }, [exploreDispatch, token]);
 
-  // Before pop state related side effects (forward / backward navigation by browser buttons).
-  // useBeforePopState({ exploreDispatch, exploreState });
-
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>
       {children}
@@ -236,7 +233,6 @@ export enum ExploreActionKind {
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
   ResetState = "RESET_STATE",
   SelectEntityType = "SELECT_ENTITY_TYPE",
-  SyncStateFromUrl = "SYNC_STATE_FROM_URL",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
@@ -245,6 +241,7 @@ export enum ExploreActionKind {
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
+  UpdateStateFromUrl = "UPDATE_STATE_FROM_URL",
 }
 
 /**
@@ -260,7 +257,6 @@ export type ExploreAction =
   | ResetExploreResponseAction
   | ResetStateAction
   | SelectEntityTypeAction
-  | SyncStateFromUrlAction
   | UpdateColumnVisibilityAction
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
@@ -268,7 +264,8 @@ export type ExploreAction =
   | UpdateGroupingAction
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
-  | UpdateSortingAction;
+  | UpdateSortingAction
+  | UpdateStateFromUrlAction;
 
 /**
  * Apply saved filter action.
@@ -599,12 +596,6 @@ function exploreReducer(
       };
     }
     /**
-     * Sync state from URL.
-     */
-    case ExploreActionKind.SyncStateFromUrl: {
-      return syncStateFromUrlAction(state, payload);
-    }
-    /**
      * Update column visibility
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
@@ -753,6 +744,12 @@ function exploreReducer(
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
+    }
+    /**
+     * Update state from URL.
+     */
+    case ExploreActionKind.UpdateStateFromUrl: {
+      return updateStateFromUrlAction(state, payload);
     }
 
     default:

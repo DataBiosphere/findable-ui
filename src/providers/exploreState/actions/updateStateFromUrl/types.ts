@@ -1,11 +1,11 @@
 import { ExploreActionKind, ExploreState } from "../../../exploreState";
 
-export type SyncStateFromUrlAction = {
-  payload: SyncStateFromUrlPayload;
-  type: ExploreActionKind.SyncStateFromUrl;
+export type UpdateStateFromUrlAction = {
+  payload: UpdateStateFromUrlPayload;
+  type: ExploreActionKind.UpdateStateFromUrl;
 };
 
-export type SyncStateFromUrlPayload = Pick<
+export type UpdateStateFromUrlPayload = Pick<
   ExploreState,
   "catalogState" | "featureFlagState" | "filterState"
 > & {

@@ -3,22 +3,23 @@ import {
   getEntityCategoryGroupConfigKey,
   updateEntityStateByCategoryGroupConfigKey,
 } from "../../utils";
-import { SyncStateFromUrlPayload } from "./types";
+import { UpdateStateFromUrlPayload } from "./types";
 import { buildNextState } from "./utils";
 
 /**
- * Reducer function to handle the "sync state from URL" action.
- * Updates the catalog state, feature flag state, and the payload entity's filter state.
- * @param state - Explore State.
+ * Reducer function to handle the "update state from URL" action.
+ * @param state - State.
  * @param payload - Payload.
- * @returns explore state.
+ * @returns state.
  */
-export function syncStateFromUrlAction(
+export function updateStateFromUrlAction(
   state: ExploreState,
-  payload: SyncStateFromUrlPayload
+  payload: UpdateStateFromUrlPayload
 ): ExploreState {
   // Build the next state.
   const nextState = buildNextState(state, payload);
+
+  console.log("REQUEST UPDATE", "payload", payload, "nextState", nextState);
 
   // Grab the category group config key for the payload entityListType.
   const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(

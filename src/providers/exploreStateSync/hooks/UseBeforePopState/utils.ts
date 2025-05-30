@@ -1,5 +1,5 @@
 import { SelectedFilter } from "../../../../common/entities";
-import { SyncStateFromUrlPayload } from "../../../exploreState/actions/syncStateFromUrl/types";
+import { UpdateStateFromUrlPayload } from "../../../exploreState/actions/updateStateFromUrl/types";
 import { EXPLORE_URL_PARAMS } from "../../../exploreState/constants";
 
 /**
@@ -72,10 +72,10 @@ export function getParamValue(
  * @param as - The resolved URL.
  * @returns An object containing the entity list type, filters, and feature flag state.
  */
-export function getSyncStateFromUrl(
+export function getStateFromUrl(
   url: string,
   as: string
-): SyncStateFromUrlPayload {
+): UpdateStateFromUrlPayload {
   // Get the entity list type from the url.
   const entityListType = getDynamicSegment(url, as);
 

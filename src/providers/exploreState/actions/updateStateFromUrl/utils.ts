@@ -1,16 +1,16 @@
 import { ExploreState } from "../../../exploreState";
-import { getFilterCount } from "../../../exploreState/utils";
-import { SyncStateFromUrlPayload } from "./types";
+import { getFilterCount } from "../../utils";
+import { UpdateStateFromUrlPayload } from "./types";
 
 /**
- * Builds the next state, syncing the catalog state, feature flag state, and filter state.
- * @param state - Explore state.
+ * Builds the next state, syncing the catalog state, feature flag state, and filter state with URL parameters.
+ * @param state - State.
  * @param payload - Payload.
  * @returns state.
  */
 export function buildNextState(
   state: ExploreState,
-  payload: SyncStateFromUrlPayload
+  payload: UpdateStateFromUrlPayload
 ): Partial<ExploreState> {
   // Initialize filter count and filter state from current state.
   let filterCount = state.filterCount;
