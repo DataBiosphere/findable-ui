@@ -1,68 +1,62 @@
 import Router from "next/router";
+import { BeforePopStateCallback, NextHistoryState } from "./types";
 
 /**
- * Pop state event bus that allows components to register handlers for browser back/forward navigation.
- * This module provides a centralized way to intercept and potentially prevent navigation events.
+ * Pop‐State Event Bus
+ *
+ * Provides a centralized mechanism for components to intercept
+ * and optionally prevent Back/Forward navigation (Next.js beforePopState).
  */
 
 /**
- * Type representing the argument passed to pop state listeners.
- * Extracted from the Next.js Router.beforePopState API.
+ * A set of callback functions that will run before Next.js performs a pop.
+ * Each callback returns `true` to allow navigation or `false` to block.
  */
-type PopStateArg = Parameters<Parameters<typeof Router.beforePopState>[0]>[0];
+const beforePopCallbacks = new Set<BeforePopStateCallback>();
 
 /**
- * Function signature for pop state event listeners.
- * @param arg - The pop state event argument from Next.js Router.
- * @returns A boolean indicating whether to allow (true) or prevent (false) navigation.
+ * Register a callback to be invoked immediately before any Next.js pop navigation.
+ * Return `false` from your callback to prevent the pop; otherwise return `true`.
  */
-export type PopListener = (arg: PopStateArg) => boolean;
-
-/**
- * Set of registered pop state listeners.
- */
-const listeners = new Set<PopListener>();
-
-/**
- * Registers a listener function to be called before navigation occurs.
- * @param fn - Callback function that returns boolean (true to allow navigation, false to prevent).
- */
-export function addPopListener(fn: PopListener): void {
-  listeners.add(fn);
-  console.log("ADDING LISTENER", listeners.size);
+export function registerBeforePopCallback(cb: BeforePopStateCallback): void {
+  beforePopCallbacks.add(cb);
 }
 
 /**
- * Unregisters a listener function.
- * @param fn - Callback function to unregister.
+ * Unregister a previously registered “before pop” callback.
  */
-export function removePopListener(fn: PopListener): void {
-  listeners.delete(fn);
-  console.log("REMOVING LISTENER", listeners.size);
+export function unregisterBeforePopCallback(cb: BeforePopStateCallback): void {
+  beforePopCallbacks.delete(cb);
 }
 
 /**
- * Flag to track whether the global handler has been installed.
+ * Ensures that we only hook into Next.js once. After install, any pop event
+ * will first invoke all registered callbacks and only proceed if all return true.
  */
-let installed = false;
+let hasInstalledInterceptor = false;
 
 /**
- * Registers the global pop state handler with Next.js router.
- * Only needs to be called once - subsequent calls have no effect.
+ * Install the global “before pop” interceptor into Next.js’s router.
+ * Subsequent calls to this function will be no‐ops.
+ *
+ * This method must be called once (e.g. in your app’s top‐level code)
+ * to enable the pop‐state bus.
  */
 export function registerPopStateHandler(): void {
-  if (installed) return;
-  installed = true;
+  if (hasInstalledInterceptor) return;
+  hasInstalledInterceptor = true;
 
-  Router.beforePopState((arg) => {
-    let allow = true;
-    listeners.forEach((cb) => {
+  Router.beforePopState((state: NextHistoryState) => {
+    // Iteratively call every callback. If any returns false, block navigation.
+    let allAllow = true;
+    beforePopCallbacks.forEach((cb) => {
       try {
-        if (cb(arg) === false) allow = false;
+        if (cb(state) === false) allAllow = false;
       } catch (e: unknown) {
         console.error("Pop listener failed:", e);
       }
     });
-    return allow;
+
+    return allAllow;
   });
 }

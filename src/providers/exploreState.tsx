@@ -14,6 +14,7 @@ import { SelectedFilter } from "../common/entities";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useToken } from "../hooks/authentication/token/useToken";
+import { META_COMMAND } from "../hooks/stateSyncManager/hooks/UseMetaCommands/types";
 import {
   buildCategoryViews,
   buildNextFilterState,
@@ -22,13 +23,16 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
 import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
+import { stateToUrlAction } from "./exploreState/actions/stateToUrl/action";
+import { StateToUrlAction } from "./exploreState/actions/stateToUrl/types";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
-import { updateStateFromUrlAction } from "./exploreState/actions/updateStateFromUrl/action";
-import { UpdateStateFromUrlAction } from "./exploreState/actions/updateStateFromUrl/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
 import { UpdateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/types";
+import { urlToStateAction } from "./exploreState/actions/urlToState/action";
+import { UrlToStateAction } from "./exploreState/actions/urlToState/types";
 import {
+  EntitiesContext,
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
   ListItem,
@@ -67,7 +71,7 @@ import {
   updateEntityStateByCategoryGroupConfigKey,
   updateSelectColumnVisibility,
 } from "./exploreState/utils";
-import { META_COMMAND } from "./exploreStateSync/hooks/UseMetaCommands/types";
+import { buildQuery } from "./exploreStateSync/hooks/UseMetaCommands/utils";
 
 export type CatalogState = string | undefined;
 
@@ -86,6 +90,7 @@ export type ExploreState = {
   catalogState: CatalogState;
   categoryGroups?: CategoryGroup[];
   categoryViews: CategoryView[];
+  entities: EntitiesContext;
   entityPageState: EntityPageStateMapper;
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
@@ -233,6 +238,7 @@ export enum ExploreActionKind {
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
   ResetState = "RESET_STATE",
   SelectEntityType = "SELECT_ENTITY_TYPE",
+  StateToUrl = "STATE_TO_URL",
   UpdateColumnVisibility = "UPDATE_COLUMN_VISIBILITY",
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
@@ -241,7 +247,7 @@ export enum ExploreActionKind {
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
   UpdateSorting = "UPDATE_SORTING",
-  UpdateStateFromUrl = "UPDATE_STATE_FROM_URL",
+  UrlToState = "URL_TO_STATE",
 }
 
 /**
@@ -257,6 +263,7 @@ export type ExploreAction =
   | ResetExploreResponseAction
   | ResetStateAction
   | SelectEntityTypeAction
+  | StateToUrlAction
   | UpdateColumnVisibilityAction
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
@@ -265,7 +272,7 @@ export type ExploreAction =
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
   | UpdateSortingAction
-  | UpdateStateFromUrlAction;
+  | UrlToStateAction;
 
 /**
  * Apply saved filter action.
@@ -571,9 +578,10 @@ function exploreReducer(
     case ExploreActionKind.SelectEntityType: {
       if (payload === state.tabValue) {
         // Update meta to match command "STATE_TO_URL_REPLACE" - facilitates navigation to filters on return back to entity from elsewhere.
+        // console.log("SAME ENTITY - META COMMAND TO REPLACE URL");
         return {
           ...state,
-          meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
+          // meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
         };
       }
       const entityState = getEntityState(
@@ -581,6 +589,7 @@ function exploreReducer(
         getEntityCategoryGroupConfigKey(payload, state.entityPageState)
       );
       const rowPreview = closeRowPreview(state.rowPreview); // Close row preview, without updating the entity page state row preview.
+      // console.log("NEW ENTITY - META COMMAND TO REPLACE URL");
       return {
         ...state,
         categoryGroups: entityState.categoryGroups,
@@ -589,11 +598,17 @@ function exploreReducer(
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
-        meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
+        // meta: { command: META_COMMAND.STATE_TO_URL_REPLACE },
         paginationState: { ...resetPage(state.paginationState), rows: 0 },
         rowPreview,
         tabValue: payload,
       };
+    }
+    /**
+     * State >> URL sync
+     */
+    case ExploreActionKind.StateToUrl: {
+      return stateToUrlAction(state, payload);
     }
     /**
      * Update column visibility
@@ -682,6 +697,17 @@ function exploreReducer(
       });
       return {
         ...state,
+        entities: {
+          ...state.entities,
+          [state.tabValue]: {
+            query: buildQuery({
+              catalog: state.catalogState,
+              entityListType: state.tabValue,
+              ff: state.featureFlagState,
+              filter: filterState,
+            }),
+          },
+        },
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { rowPreview, rowSelection }
@@ -746,12 +772,11 @@ function exploreReducer(
       };
     }
     /**
-     * Update state from URL.
+     * URL >> state sync.
      */
-    case ExploreActionKind.UpdateStateFromUrl: {
-      return updateStateFromUrlAction(state, payload);
+    case ExploreActionKind.UrlToState: {
+      return urlToStateAction(state, payload);
     }
-
     default:
       return state;
   }

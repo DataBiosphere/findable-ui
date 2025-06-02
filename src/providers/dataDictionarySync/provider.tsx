@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useRef } from "react";
 import {
-  addPopListener,
-  removePopListener,
+  registerBeforePopCallback,
+  unregisterBeforePopCallback,
 } from "../../services/beforePopState/popStateBus";
 import { syncStateAndUrl } from "../dataDictionary/actions/syncStateAndUrl/dispatch";
 import { updateStateFromUrl } from "../dataDictionary/actions/updateStateFromUrl/dispatch";
@@ -41,8 +41,8 @@ export function DataDictionarySyncProvider({
       return true;
     };
 
-    addPopListener(syncFilters);
-    return () => removePopListener(syncFilters);
+    registerBeforePopCallback(syncFilters);
+    return () => unregisterBeforePopCallback(syncFilters);
   }, [dataDictionaryDispatch]);
 
   return <>{children}</>;
