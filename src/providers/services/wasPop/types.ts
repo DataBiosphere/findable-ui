@@ -1,3 +1,7 @@
+import { MutableRefObject } from "react";
+import { NextHistoryState } from "../../../services/beforePopState/types";
+
 export interface WasPopContextProps {
-  wasPop: boolean;
+  onClearPopRef: () => void;
+  popRef: MutableRefObject<NextHistoryState | undefined>;
 }

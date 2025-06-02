@@ -1,5 +1,5 @@
-import { Router } from "next/router";
-import React, { ReactNode, useCallback, useEffect, useRef } from "react";
+import React, { ReactNode, useCallback, useRef } from "react";
+import { NextHistoryState } from "../../../services/beforePopState/types";
 import { useOnPopState } from "../../../services/beforePopState/useOnPopState";
 import { WasPopContext } from "./context";
 
@@ -21,30 +21,24 @@ export function WasPopProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const wasPopRef = useRef<boolean>(false);
+  const popRef = useRef<NextHistoryState | undefined>();
 
-  const onBeforePopState = useCallback(() => {
-    wasPopRef.current = true;
+  // Pop callback.
+  const onBeforePopState = useCallback((state: NextHistoryState) => {
+    popRef.current = state;
     return true;
   }, []);
 
-  const onRouteChangeComplete = useCallback(() => {
-    wasPopRef.current = false;
+  // Clear pop ref.
+  const onClearPopRef = useCallback(() => {
+    popRef.current = undefined;
   }, []);
 
   // Register the callback to be invoked before pop.
   useOnPopState(onBeforePopState);
 
-  useEffect(() => {
-    Router.events.on("routeChangeComplete", onRouteChangeComplete);
-
-    return (): void => {
-      Router.events.off("routeChangeComplete", onRouteChangeComplete);
-    };
-  }, [onRouteChangeComplete]);
-
   return (
-    <WasPopContext.Provider value={{ wasPop: wasPopRef.current }}>
+    <WasPopContext.Provider value={{ onClearPopRef, popRef }}>
       {children}
     </WasPopContext.Provider>
   );
