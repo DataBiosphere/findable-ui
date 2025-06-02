@@ -32,23 +32,16 @@ export function WasPopProvider({
     wasPopRef.current = false;
   }, []);
 
-  const onRouteChangeStart = useCallback(() => {
-    if (wasPopRef.current) return;
-    wasPopRef.current = false;
-  }, []);
-
   // Register the callback to be invoked before pop.
   useOnPopState(onBeforePopState);
 
   useEffect(() => {
-    Router.events.on("routeChangeStart", onRouteChangeStart);
     Router.events.on("routeChangeComplete", onRouteChangeComplete);
 
     return (): void => {
-      Router.events.off("routeChangeStart", onRouteChangeStart);
       Router.events.off("routeChangeComplete", onRouteChangeComplete);
     };
-  }, [onRouteChangeComplete, onRouteChangeStart]);
+  }, [onRouteChangeComplete]);
 
   return (
     <WasPopContext.Provider value={{ wasPop: wasPopRef.current }}>
