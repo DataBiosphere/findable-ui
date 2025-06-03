@@ -18,7 +18,7 @@ import {
   EntityPath,
   SavedFilter,
 } from "../../config/entities";
-import { META_COMMAND } from "../exploreStateSync/hooks/UseMetaCommands/types";
+import { META_COMMAND } from "../../hooks/stateSyncManager/hooks/UseMetaCommands/types";
 
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;

@@ -25,6 +25,7 @@ import {
   ComponentsConfig,
   SummaryConfig,
 } from "../../config/entities";
+import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
@@ -34,10 +35,13 @@ import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind } from "../../providers/exploreState";
+import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
+import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
+import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
-import { ExploreStateSyncProvider } from "../../providers/exploreStateSync/provider";
 import { TEST_IDS } from "../../tests/testIds";
 import { DESKTOP_SM } from "../../theme/common/breakpoints";
+import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -59,6 +63,16 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
+
+  /**
+   * State sync manager.
+   * Handles state synchronization between the explore state and the URL.
+   */
+  useStateSyncManager({
+    actions: { clearMeta, stateToUrl, urlToState },
+    dispatch: exploreDispatch,
+    state: buildStateSyncManagerContext(exploreState, props),
+  });
 
   /**
    * Closes filter drawer.
@@ -142,7 +156,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <ExploreStateSyncProvider>
+    <>
       {categoryViews && !!categoryViews.length && (
         <Sidebar drawerOpen={isDrawerOpen} onDrawerClose={onCloseDrawer}>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
@@ -183,7 +197,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         Tabs={<Tabs />}
         title={entityConfig.explorerTitle || explorerTitle}
       />
-    </ExploreStateSyncProvider>
+    </>
   );
 };
 

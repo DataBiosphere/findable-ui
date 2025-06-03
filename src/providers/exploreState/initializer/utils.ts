@@ -21,6 +21,8 @@ import {
   EntityStateByCategoryGroupConfigKey,
   SavedFilterByCategoryValueKey,
 } from "../entities";
+import { buildNextEntities } from "../entities/state";
+import { EntitiesContext } from "../entities/types";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import {
   DEFAULT_CATEGORY_GROUP_SAVED_FILTERS,
@@ -187,6 +189,23 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
 }
 
 /**
+ * Initializes entities context.
+ * @param entityPageState - Entity page state.
+ * @returns Entities context.
+ */
+function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
+  return Object.keys(entityPageState).reduce((acc, entityPath) => {
+    return {
+      ...acc,
+      [entityPath]: {
+        entityKey: entityPageState[entityPath].categoryGroupConfigKey,
+        query: {},
+      },
+    };
+  }, {} as EntitiesContext);
+}
+
+/**
  * Initializes entity state by category group config key.
  * @param config - Site config.
  * @param categoryGroupConfigKey - Category group config key.
@@ -294,15 +313,25 @@ export function initReducerArguments(
     entityStateByCategoryGroupConfigKey,
     categoryGroupConfigKey
   );
-  return {
+  const entities = initEntities(entityPageState);
+
+  // Initialize state.
+  const state = {
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
     categoryGroups,
+    entities,
     entityPageState,
     entityStateByCategoryGroupConfigKey,
     featureFlagState: decodedFeatureFlagParam,
     filterCount: getFilterCount(filterState),
     filterState,
     tabValue: entityListType,
+  };
+
+  // Return state with entities (updated by initial state).
+  return {
+    ...state,
+    entities: buildNextEntities(state, entityListType, { filterState }),
   };
 }

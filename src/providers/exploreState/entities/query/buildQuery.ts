@@ -1,18 +1,24 @@
 import { NextRouter } from "next/router";
-import { ExploreState } from "../../../exploreState";
-import { ExploreQueryState } from "./types";
+import { SelectedFilter } from "../../../../common/entities";
+import { EntityState } from "../types";
 
 /**
- * Builds a query object from state.
+ * Builds a query object from entity related state.
  * State values are expected to be undefined, string, or an array.
  * Undefined values and empty arrays are not included in the query.
- * @param state - State -- partial explore state.
+ * @param entityListType - Entity list type.
+ * @param state - Entity related state.
  * @returns A query object.
  */
-export function buildQuery(state: ExploreQueryState): NextRouter["query"] {
+export function buildQuery(
+  entityListType: string,
+  state: EntityState
+): NextRouter["query"] {
   const query: NextRouter["query"] = {};
 
-  for (const [key, value] of Object.entries(state)) {
+  for (const [key, value] of Object.entries(
+    getQueryState(entityListType, state)
+  )) {
     // Handle the undefined case.
     if (value === undefined) continue;
 
@@ -39,31 +45,22 @@ export function buildQuery(state: ExploreQueryState): NextRouter["query"] {
  *
  * The extracted properties are:
  * - catalog: Current catalog selection (string | undefined)
- * - entityListType: Current active tab value (string)
+ * - entityListType: Entity list type (string)
  * - ff: Feature flag state (string | undefined)
  * - filter: Applied filters (SelectedFilter[])
  *
- * @param exploreState - Explore state.
+ * @param entityListType - Entity list type.
+ * @param state - Entity related state.
  * @returns Subset of state used for URL query parameters.
  */
-export function getQueryState(exploreState: ExploreState): ExploreQueryState {
+export function getQueryState(
+  entityListType: string,
+  state: EntityState
+): Record<string, string | SelectedFilter[] | undefined> {
   return {
-    catalog: exploreState.catalogState,
-    entityListType: exploreState.tabValue,
-    ff: exploreState.featureFlagState,
-    filter: exploreState.filterState,
+    catalog: state.catalogState,
+    entityListType,
+    ff: state.featureFlagState,
+    filter: state.filterState,
   };
-}
-
-/**
- * Returns a sorted string representation of a query object.
- * @param query - Query object.
- * @returns Sorted string representation of the query object.
- */
-export function stringifyQuery(query: NextRouter["query"]): string {
-  return JSON.stringify(
-    Object.keys(query)
-      .sort()
-      .reduce((acc, key) => ({ ...acc, [key]: query[key] }), {})
-  );
 }
