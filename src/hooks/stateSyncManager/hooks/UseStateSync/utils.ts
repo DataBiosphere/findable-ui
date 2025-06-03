@@ -42,15 +42,17 @@ export function stringifyQuery(query: NextRouter["query"]): string {
 
 /**
  * Returns true if the URL was navigated to using the back/forward buttons.
+ * @param basePath - Base path.
  * @param pathname - Pathname.
  * @param nextHistoryState - Next history state.
  * @returns True if the URL was navigated to using the back/forward buttons.
  */
 export function wasPop(
+  basePath = "",
   pathname: string,
   nextHistoryState: NextHistoryState | undefined
 ): boolean {
   if (!nextHistoryState) return false;
   const [path] = nextHistoryState.url.split("?");
-  return path === pathname;
+  return path === `${basePath}${pathname}`;
 }

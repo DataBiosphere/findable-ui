@@ -10,8 +10,16 @@ export const useBeforePopState = (): void => {
   // Callback to handle beforePopState.
   const onBeforePopState = useCallback<BeforePopStateCallback>(
     (state: NextHistoryState) => {
+      const basePath = Router.basePath ?? "";
+      // Use regex to remove the base path from the beginning of the URL.
+      const as = basePath
+        ? state.as.replace(new RegExp(`^${basePath}`), "") || "/"
+        : state.as;
       // Force a full route transition to ensure page props are refreshed.
-      Router.replace(state.url, state.as, { ...state.options, shallow: false });
+      Router.replace(as, undefined, {
+        ...state.options,
+        shallow: false,
+      });
       return false;
     },
     []
