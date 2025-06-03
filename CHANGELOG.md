@@ -1,5 +1,12 @@
 # Changelog
 
+## [35.0.1](https://github.com/DataBiosphere/findable-ui/compare/v35.0.0...v35.0.1) (2025-06-03)
+
+
+### Code Refactoring
+
+* linting ([#510](https://github.com/DataBiosphere/findable-ui/issues/510)) ([#515](https://github.com/DataBiosphere/findable-ui/issues/515)) ([52d69d7](https://github.com/DataBiosphere/findable-ui/commit/52d69d791358e822e29268b6f0c31555fc296608))
+
 ## [35.0.0](https://github.com/DataBiosphere/findable-ui/compare/v34.1.0...v35.0.0) (2025-06-03)
 
 
