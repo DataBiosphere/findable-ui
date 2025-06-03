@@ -1,5 +1,12 @@
 # Changelog
 
+## [35.0.2](https://github.com/DataBiosphere/findable-ui/compare/v35.0.1...v35.0.2) (2025-06-03)
+
+
+### Bug Fixes
+
+* fix explore state entity list type error ([#517](https://github.com/DataBiosphere/findable-ui/issues/517)) ([#518](https://github.com/DataBiosphere/findable-ui/issues/518)) ([bffe1cf](https://github.com/DataBiosphere/findable-ui/commit/bffe1cf876304e848a59353c726da889c1d59f97))
+
 ## [35.0.1](https://github.com/DataBiosphere/findable-ui/compare/v35.0.0...v35.0.1) (2025-06-03)
 
 
