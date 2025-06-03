@@ -1,6 +1,6 @@
-import { SelectedFilter } from "common/entities";
 import { NextRouter } from "next/router";
-import { ExploreState } from "providers/exploreState";
+import { SelectedFilter } from "../../../common/entities";
+import { ExploreState } from "../../exploreState";
 
 /**
  * Builds a query object from state.
