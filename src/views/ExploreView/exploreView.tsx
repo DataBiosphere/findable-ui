@@ -34,7 +34,7 @@ import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useSummary } from "../../hooks/useSummary";
-import { ExploreAction, ExploreActionKind } from "../../providers/exploreState";
+import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
@@ -68,7 +68,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
    * State sync manager.
    * Handles state synchronization between the explore state and the URL.
    */
-  useStateSyncManager<ExploreAction>({
+  useStateSyncManager({
     actions: { clearMeta, stateToUrl, urlToState },
     dispatch: exploreDispatch,
     state: buildStateSyncManagerContext(exploreState, props),

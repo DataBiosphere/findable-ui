@@ -1,31 +1,23 @@
 import { NextRouter } from "next/router";
 import { Dispatch } from "react";
+import { ROUTER_METHOD } from "../../providers/exploreState/actions/stateToUrl/types";
 import { META_COMMAND } from "./hooks/UseMetaCommands/types";
 
-export type ActionCreator<P, DispatchType> = (payload: P) => DispatchType;
+export type ActionCreator<P, DispatchType> = [P] extends [void]
+  ? () => DispatchType
+  : (payload: P) => DispatchType;
 
-export type ExtractActionByType<A, T extends string> = A extends { type: T }
-  ? A
-  : never;
+export interface StateToUrlPayload {
+  method: ROUTER_METHOD;
+}
 
-export type ExtractPayloadFromAction<A> = A extends { payload: infer P }
-  ? P
-  : never;
-
-export type PayloadForActionType<
-  A,
-  T extends string
-> = ExtractPayloadFromAction<ExtractActionByType<A, T>>;
-
-export type StateToUrlPayload<DispatchType> = PayloadForActionType<
-  DispatchType,
-  "STATE_TO_URL"
->;
-
-export interface StateSyncManagerActions<DispatchType> {
-  clearMeta: ActionCreator<void, DispatchType>;
-  stateToUrl: ActionCreator<StateToUrlPayload<DispatchType>, DispatchType>;
-  urlToState: ActionCreator<UrlToStatePayload<DispatchType>, DispatchType>;
+export interface UrlToStatePayload {
+  query: NextRouter["query"];
+}
+export interface StateSyncManagerActions<Action> {
+  clearMeta: ActionCreator<void, Action>;
+  stateToUrl: ActionCreator<StateToUrlPayload, Action>;
+  urlToState: ActionCreator<UrlToStatePayload, Action>;
 }
 
 export interface StateSyncManagerContext {
@@ -34,13 +26,8 @@ export interface StateSyncManagerContext {
   query: NextRouter["query"];
 }
 
-export type UrlToStatePayload<DispatchType> = PayloadForActionType<
-  DispatchType,
-  "URL_TO_STATE"
->;
-
-export interface UseStateSyncManagerProps<DispatchType> {
-  actions: StateSyncManagerActions<DispatchType>;
-  dispatch: Dispatch<DispatchType>;
+export interface UseStateSyncManagerProps<Action> {
+  actions: StateSyncManagerActions<Action>;
+  dispatch: Dispatch<Action>;
   state: StateSyncManagerContext;
 }

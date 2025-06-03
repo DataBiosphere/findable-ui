@@ -1,13 +1,13 @@
-import { UseStateSyncManagerProps } from "hooks/stateSyncManager/types";
 import Router, { useRouter } from "next/router";
 import { useEffect } from "react";
+import { UseStateSyncManagerProps } from "../../types";
 import { META_COMMAND } from "./types";
 
-export const useMetaCommands = <DispatchType>({
+export const useMetaCommands = <Action>({
   actions,
   dispatch,
   state,
-}: UseStateSyncManagerProps<DispatchType>): void => {
+}: UseStateSyncManagerProps<Action>): void => {
   const { isReady } = useRouter();
 
   useEffect(() => {
