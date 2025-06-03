@@ -4,7 +4,6 @@ import {
   RowSelectionState,
   VisibilityState,
 } from "@tanstack/react-table";
-import { NextRouter } from "next/router";
 import { CategoryConfig } from "../../common/categories/config/types";
 import { CategoryView } from "../../common/categories/views/types";
 import {
@@ -20,14 +19,6 @@ import {
   SavedFilter,
 } from "../../config/entities";
 import { META_COMMAND } from "../../hooks/stateSyncManager/hooks/UseMetaCommands/types";
-
-export interface EntitiesContext {
-  [key: EntityPath]: EntityContext;
-}
-
-export interface EntityContext {
-  query: NextRouter["query"];
-}
 
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;

@@ -14,15 +14,15 @@ import {
   SiteConfig,
 } from "../../../config/entities";
 import { ExploreState } from "../../exploreState";
-import { buildQuery } from "../actions/utils";
 import { SELECT_CATEGORY_KEY } from "../constants";
 import {
   CategoryGroupConfigKey,
-  EntitiesContext,
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
   SavedFilterByCategoryValueKey,
 } from "../entities";
+import { buildNextEntities } from "../entities/state";
+import { EntitiesContext } from "../entities/types";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import {
   DEFAULT_CATEGORY_GROUP_SAVED_FILTERS,
@@ -191,29 +191,15 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
 /**
  * Initializes entities context.
  * @param entityPageState - Entity page state.
- * @param entityListType - Entity list type (from decoded entity list type parameter).
- * @param filterState - Filter state (from decoded filter parameter).
- * @param decodedCatalogParam - Decoded catalog parameter.
- * @param decodedFeatureFlagParam - Decoded feature flag parameter.
  * @returns Entities context.
  */
-function initEntities(
-  entityPageState: EntityPageStateMapper,
-  entityListType: string,
-  filterState: SelectedFilter[],
-  decodedCatalogParam?: string,
-  decodedFeatureFlagParam?: string
-): EntitiesContext {
+function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
   return Object.keys(entityPageState).reduce((acc, entityPath) => {
     return {
       ...acc,
       [entityPath]: {
-        query: buildQuery({
-          catalogState: decodedCatalogParam,
-          featureFlagState: decodedFeatureFlagParam,
-          filterState: entityListType === entityPath ? filterState : [],
-          tabValue: entityPath,
-        }),
+        entityKey: entityPageState[entityPath].categoryGroupConfigKey,
+        query: {},
       },
     };
   }, {} as EntitiesContext);
@@ -327,14 +313,10 @@ export function initReducerArguments(
     entityStateByCategoryGroupConfigKey,
     categoryGroupConfigKey
   );
-  const entities = initEntities(
-    entityPageState,
-    entityListType,
-    filterState,
-    decodedCatalogParam,
-    decodedFeatureFlagParam
-  );
-  return {
+  const entities = initEntities(entityPageState);
+
+  // Initialize state.
+  const state = {
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
     categoryGroups,
@@ -345,5 +327,11 @@ export function initReducerArguments(
     filterCount: getFilterCount(filterState),
     filterState,
     tabValue: entityListType,
+  };
+
+  // Return state with entities (updated by initial state).
+  return {
+    ...state,
+    entities: buildNextEntities(state, entityListType, { filterState }),
   };
 }

@@ -4,6 +4,7 @@ import {
   FeatureFlagState,
 } from "../../../exploreState";
 import { EXPLORE_URL_PARAMS } from "../../../exploreState/constants";
+import { buildNextEntities } from "../../entities/state";
 import {
   getEntityCategoryGroupConfigKey,
   getFilterCount,
@@ -57,13 +58,11 @@ export function urlToStateAction(
   return {
     ...state,
     catalogState,
-    entities: {
-      ...state.entities,
-      [entityListType]: {
-        ...state.entities[entityListType],
-        query: payload.query,
-      },
-    },
+    entities: buildNextEntities(
+      { ...state, catalogState, featureFlagState },
+      entityListType,
+      { filterState }
+    ),
     featureFlagState,
     filterCount:
       entityListType === state.tabValue

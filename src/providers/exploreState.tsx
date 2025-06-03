@@ -31,14 +31,14 @@ import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisib
 import { UpdateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/types";
 import { urlToStateAction } from "./exploreState/actions/urlToState/action";
 import { UrlToStateAction } from "./exploreState/actions/urlToState/types";
-import { buildQuery } from "./exploreState/actions/utils";
 import {
-  EntitiesContext,
   EntityPageStateMapper,
   EntityStateByCategoryGroupConfigKey,
   ListItem,
   Meta,
 } from "./exploreState/entities";
+import { buildNextEntities } from "./exploreState/entities/state";
+import { EntitiesContext } from "./exploreState/entities/types";
 import {
   DEFAULT_PAGINATION_STATE,
   INITIAL_STATE,
@@ -438,13 +438,7 @@ function exploreReducer(
       });
       return {
         ...state,
-        entities: {
-          ...state.entities,
-          [state.tabValue]: {
-            ...state.entities[state.tabValue],
-            query: buildQuery({ ...state, filterState }),
-          },
-        },
+        entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { grouping, rowPreview, rowSelection, sorting }
@@ -471,6 +465,7 @@ function exploreReducer(
       });
       return {
         ...state,
+        entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { rowPreview, rowSelection }
@@ -653,6 +648,7 @@ function exploreReducer(
       );
       return {
         ...state,
+        entities: buildNextEntities(state, entityListType, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { grouping, rowPreview, rowSelection, sorting },
@@ -697,13 +693,7 @@ function exploreReducer(
       });
       return {
         ...state,
-        entities: {
-          ...state.entities,
-          [state.tabValue]: {
-            ...state.entities[state.tabValue],
-            query: buildQuery({ ...state, filterState }),
-          },
-        },
+        entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { rowPreview, rowSelection }
