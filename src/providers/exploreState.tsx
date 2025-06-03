@@ -438,6 +438,13 @@ function exploreReducer(
       });
       return {
         ...state,
+        entities: {
+          ...state.entities,
+          [state.tabValue]: {
+            ...state.entities[state.tabValue],
+            query: buildQuery({ ...state, filterState }),
+          },
+        },
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { grouping, rowPreview, rowSelection, sorting }
