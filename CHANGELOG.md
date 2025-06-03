@@ -1,5 +1,17 @@
 # Changelog
 
+## [35.0.0](https://github.com/DataBiosphere/findable-ui/compare/v34.1.0...v35.0.0) (2025-06-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* integrate beforepopstatebus with generic state sync for url ↔ state e.g. explore ([#510](https://github.com/DataBiosphere/findable-ui/issues/510)) (#514)
+
+### Features
+
+* add global 'beforepopstate' bus to intercept browser back/forward navigation ([#509](https://github.com/DataBiosphere/findable-ui/issues/509)) ([#511](https://github.com/DataBiosphere/findable-ui/issues/511)) ([0b851fd](https://github.com/DataBiosphere/findable-ui/commit/0b851fd55e29568bd498cdd3184107e4f0eea880))
+* integrate beforepopstatebus with generic state sync for url ↔ state e.g. explore ([#510](https://github.com/DataBiosphere/findable-ui/issues/510)) ([#514](https://github.com/DataBiosphere/findable-ui/issues/514)) ([91f7731](https://github.com/DataBiosphere/findable-ui/commit/91f77318c5197ee43c9e690566a1032bb2301b18))
+
 ## [34.1.0](https://github.com/DataBiosphere/findable-ui/compare/v34.0.0...v34.1.0) (2025-05-29)
 
 
