@@ -199,7 +199,7 @@ function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
       ...acc,
       [entityPath]: {
         entityKey: entityPageState[entityPath].categoryGroupConfigKey,
-        query: {},
+        query: { entityListType: entityPath },
       },
     };
   }, {} as EntitiesContext);
