@@ -14,6 +14,7 @@ export interface StateToUrlPayload {
 export interface UrlToStatePayload {
   query: NextRouter["query"];
 }
+
 export interface StateSyncManagerActions<Action> {
   clearMeta: ActionCreator<void, Action>;
   stateToUrl: ActionCreator<StateToUrlPayload, Action>;
