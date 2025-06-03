@@ -47,6 +47,6 @@ export const useStateSync = <Action>({
 
     // Otherwise, dispatch action sync URL << state.
     dispatch(actions.stateToUrl({ method: ROUTER_METHOD.REPLACE }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- deliberate omission of `state.query` and `state.paramKeys` from dependencies, hook is only expected to run when the Next.js router changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- deliberate omission of `state.query`, `state.paramKeys`, `actions` and `dispatch` from dependencies, hook is only expected to run when the Next.js router changes.
   }, [isReady, pathname, query]);
 };
