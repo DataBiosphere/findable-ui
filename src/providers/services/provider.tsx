@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { usePopStateBus } from "../../services/beforePopState/usePopStateBus";
-import { WasPopProvider } from "../services/wasPop/provider";
+import { WasPopProvider } from "./wasPop/provider";
 
 /**
  * ServicesProvider is a component that initializes and provides access to various service-related
