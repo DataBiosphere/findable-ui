@@ -24,25 +24,28 @@ export function buildNextEntities(
     // Grab the entity key for the entity.
     const entityKey = entity.entityKey;
 
-    if (entityKey !== key) {
-      // For entities that do not share the same key, leave the context unchanged.
-      entities[entityPath] = entity;
-      continue;
-    }
-
     // Clone the entity context.
     const entityContext = { ...entity };
 
-    // Update entity context with "shared" context (e.g. filterState).
-    entityContext.query = buildQuery(entityPath, {
-      ...nextEntityState,
+    // Build the params object.
+    // All entities share the same catalog and feature flag state.
+    // Filter state is default to an empty array and updated below,
+    // if the entity key matches the current entity key.
+    const params: EntityState = {
       catalogState: state.catalogState,
       featureFlagState: state.featureFlagState,
-    });
+      filterState: [],
+    };
+
+    // Update entity context with "shared" context (e.g. filterState).
+    if (entityKey === key) {
+      Object.assign(params, nextEntityState);
+    }
 
     // At some point, we may need to update the entity context with additional properties that
     // are not "shared" (e.g. column grouping).
     // For now, this is not needed and so we update entities with the updated entity context and continue.
+    entityContext.query = buildQuery(entityPath, params);
     entities[entityPath] = entityContext;
   }
 
