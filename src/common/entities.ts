@@ -74,6 +74,7 @@ export interface DataDictionary<T extends RowData = Attribute> {
 export interface DataDictionaryConfig<T extends RowData = Attribute> {
   columnDefs: ColumnDef<T, T[keyof T]>[];
   dataDictionary: DataDictionary<T>;
+  path: string; // Used as a key to find the dictionary to display
   tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">;
 }
 

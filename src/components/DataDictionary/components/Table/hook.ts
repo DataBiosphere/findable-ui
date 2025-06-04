@@ -30,6 +30,7 @@ export const useTable = <T extends RowData = Attribute>(
     ...tableOptions,
     columns: columnDefs,
     data,
+    manualPagination: true,
     meta: { classMeta },
   });
 };
