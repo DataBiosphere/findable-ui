@@ -13,7 +13,7 @@ export const useDataDictionary = <
   const {
     config: { dataDictionaries: dataDictionaryConfigs },
   } = useConfig();
-  // Dynamic paths must be resolved at this point otherwise the inital settings
+  // Dynamic paths must be resolved at this point otherwise the initial settings
   // passed to useTable on subsequent renders will be ignored (as the table will have
   // already been initialized).
   const router = useRouter();
