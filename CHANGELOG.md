@@ -1,5 +1,12 @@
 # Changelog
 
+## [35.0.3](https://github.com/DataBiosphere/findable-ui/compare/v35.0.2...v35.0.3) (2025-06-04)
+
+
+### Bug Fixes
+
+* fix catalog and feature flag state in url on page refresh ([#520](https://github.com/DataBiosphere/findable-ui/issues/520)) ([#521](https://github.com/DataBiosphere/findable-ui/issues/521)) ([4f08211](https://github.com/DataBiosphere/findable-ui/commit/4f082111837530d8f045329867b276aaeb66d389))
+
 ## [35.0.2](https://github.com/DataBiosphere/findable-ui/compare/v35.0.1...v35.0.2) (2025-06-03)
 
 
