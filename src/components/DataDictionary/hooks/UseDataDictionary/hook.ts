@@ -17,7 +17,8 @@ export const useDataDictionary = <
   // passed to useTable on subsequent renders will be ignored (as the table will have
   // already been initialized).
   const router = useRouter();
-  const currentPath = router.asPath;
+  const query = router.query;
+  const { dictionary } = query;
 
   // Get dictionary config by matching the current path with the data dictionary path
   const dataDictionaryConfig = useMemo(() => {
@@ -25,10 +26,10 @@ export const useDataDictionary = <
 
     // Find the data dictionary with a path that matches the current route
     // We check if the current path starts with the dictionary path to handle nested routes
-    return dataDictionaryConfigs.find((config) =>
-      currentPath.startsWith(config.path)
+    return dataDictionaryConfigs.find(
+      (config) => config.path === dictionary
     ) as DataDictionaryConfig<T> | undefined;
-  }, [dataDictionaryConfigs, currentPath]);
+  }, [dataDictionaryConfigs, dictionary]);
 
   // Get configured dictionary classes, column definitions and table options.
   const { classes, columnDefs, tableOptions, title } = useMemo(() => {
