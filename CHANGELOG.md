@@ -1,5 +1,12 @@
 # Changelog
 
+## [35.1.0](https://github.com/DataBiosphere/findable-ui/compare/v35.0.3...v35.1.0) (2025-06-05)
+
+
+### Features
+
+* added handling of multiple dictionaries [#423](https://github.com/DataBiosphere/findable-ui/issues/423) ([#523](https://github.com/DataBiosphere/findable-ui/issues/523)) ([212d09a](https://github.com/DataBiosphere/findable-ui/commit/212d09a55f0699a19f5a9dd9c5f917bd46de7a14))
+
 ## [35.0.3](https://github.com/DataBiosphere/findable-ui/compare/v35.0.2...v35.0.3) (2025-06-04)
 
 
