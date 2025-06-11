@@ -29,6 +29,6 @@ export interface StateSyncManagerContext {
 
 export interface UseStateSyncManagerProps<Action> {
   actions: StateSyncManagerActions<Action>;
-  dispatch: Dispatch<Action>;
+  dispatch: Dispatch<Action> | null;
   state: StateSyncManagerContext;
 }

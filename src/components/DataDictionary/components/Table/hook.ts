@@ -1,5 +1,4 @@
 import {
-  ColumnDef,
   RowData,
   Table,
   TableOptions,
@@ -7,15 +6,16 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { Attribute, Class } from "../../../../common/entities";
+import { useDataDictionaryState } from "../../../../providers/dataDictionaryState/hooks/UseDataDictionaryState/hook";
 import { useTableOptions } from "./options/hook";
 import { buildClassMeta, buildTableData } from "./utils";
 
 export const useTable = <T extends RowData = Attribute>(
+  dictionary: string,
   classes: Class<T>[],
-  columnDefs: ColumnDef<T, T[keyof T]>[],
-  tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">
+  tableOptions: Omit<TableOptions<T>, "data" | "getCoreRowModel">
 ): Table<T> => {
-  // Build table data.
+  // Table data.
   const data = useMemo(() => buildTableData(classes), [classes]);
 
   // Default table options.
@@ -24,13 +24,17 @@ export const useTable = <T extends RowData = Attribute>(
   // Build class meta.
   const classMeta = useMemo(() => buildClassMeta(classes), [classes]);
 
+  // Table state.
+  const { dataDictionaryState } = useDataDictionaryState();
+  const { dictionaries } = dataDictionaryState;
+  const { state = {} } = dictionaries?.[dictionary] || {};
+
   // Table instance.
   return useReactTable<T>({
     ...defaultTableOptions,
     ...tableOptions,
-    columns: columnDefs,
     data,
-    manualPagination: true,
     meta: { classMeta },
+    state,
   });
 };
