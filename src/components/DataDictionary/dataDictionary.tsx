@@ -8,14 +8,17 @@ import { FiltersLayout as DefaultFiltersLayout } from "./components/Layout/compo
 import { OutlineLayout as DefaultOutlineLayout } from "./components/Layout/components/OutlineLayout/outlineLayout";
 import { TitleLayout as DefaultTitleLayout } from "./components/Layout/components/TitleLayout/titleLayout";
 import { Outline as DefaultOutline } from "./components/Outline/outline";
+import { buildClassesOutline } from "./components/Outline/utils";
+import { useTable } from "./components/Table/hook";
 import { Title as DefaultTitle } from "./components/Title/title";
 import { View } from "./dataDictionary.styles";
-import { useDataDictionary } from "./hooks/UseDataDictionary/hook";
+import { useDataDictionaryConfig } from "./hooks/UseDataDictionaryConfig/hook";
 import { useLayoutSpacing } from "./hooks/UseLayoutSpacing/hook";
 import { DataDictionaryProps } from "./types";
 
 export const DataDictionary = <T extends RowData = Attribute>({
   className,
+  dictionary,
   EntitiesLayout = DefaultEntitiesLayout,
   FiltersLayout = DefaultFiltersLayout,
   Outline = DefaultOutline,
@@ -23,15 +26,26 @@ export const DataDictionary = <T extends RowData = Attribute>({
   Title = DefaultTitle,
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
-  const { outline, table, title } = useDataDictionary<T>();
+  // Get dictionary configuration.
+  const { classes, tableOptions, title } =
+    useDataDictionaryConfig<T>(dictionary);
+
   const { spacing } = useLayoutSpacing();
+
+  // Table instance.
+  const table = useTable<T>(dictionary, classes, tableOptions);
+
+  // Dictionary outline.
+  const outline = buildClassesOutline<T>(table);
+
   return (
     <View className={className}>
       <TitleLayout {...spacing}>
         <Title title={title} />
       </TitleLayout>
       <OutlineLayout {...spacing}>
-        <Outline outline={outline} />
+        {/* Force re-render on dictionary change to prevent stale outline */}
+        <Outline key={dictionary} outline={outline} />
       </OutlineLayout>
       <FiltersLayout {...spacing}>
         <Filters table={table} />

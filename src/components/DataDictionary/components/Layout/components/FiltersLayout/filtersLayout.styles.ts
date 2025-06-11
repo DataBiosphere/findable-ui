@@ -13,7 +13,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   background-color: ${PALETTE.BACKGROUND_DEFAULT};
   grid-column: 2;
   grid-row: 1;
-  margin-bottom: ${PB}px;
+  padding-bottom: ${PB}px;
   padding-top: ${({ top }) => top + TITLE_HEIGHT + PT}px;
   position: sticky;
   top: 0;

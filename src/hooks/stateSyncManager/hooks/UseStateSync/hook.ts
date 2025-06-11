@@ -33,7 +33,7 @@ export const useStateSync = <Action>({
     // Dispatch action sync URL >> state.
     if (wasPop(basePath, pathname, popRef.current)) {
       // When the user navigates with the back/forward buttons.
-      dispatch(actions.urlToState({ query }));
+      dispatch?.(actions.urlToState({ query }));
       onClearPopRef();
       return;
     }
@@ -41,12 +41,12 @@ export const useStateSync = <Action>({
     // Dispatch action sync URL >> state.
     if (hasParams(query, paramKeys)) {
       // When the URL has parameters.
-      dispatch(actions.urlToState({ query }));
+      dispatch?.(actions.urlToState({ query }));
       return;
     }
 
     // Otherwise, dispatch action sync URL << state.
-    dispatch(actions.stateToUrl({ method: ROUTER_METHOD.REPLACE }));
+    dispatch?.(actions.stateToUrl({ method: ROUTER_METHOD.REPLACE }));
     // eslint-disable-next-line react-hooks/exhaustive-deps -- deliberate omission of `state.query`, `state.paramKeys`, `actions` and `dispatch` from dependencies, hook is only expected to run when the Next.js router changes.
   }, [basePath, isReady, pathname, query]);
 };

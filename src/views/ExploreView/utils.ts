@@ -5,7 +5,7 @@ import { EXPLORE_URL_PARAMS } from "../../providers/exploreState/constants";
 import { ExploreView } from "./exploreView";
 
 /**
- *Builds the state sync manager context object for URL-state synchronization.
+ * Builds the state sync manager context object for URL-state synchronization.
  * - Command: The meta command that signals a URL update operation is needed e.g. "STATE_TO_URL_PUSH" or "STATE_TO_URL_REPLACE".
  * - ParamKeys: Expected list of URL parameter keys that should be synchronized with state e.g. "filter", "catalog".
  * - Query: Entity related query object from state that should be synchronized with the URL.
