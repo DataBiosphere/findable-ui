@@ -23,5 +23,6 @@ export const Layout = styled("div")<LayoutSpacing>`
     grid-column: 1;
     grid-row: auto;
     padding-top: ${PT}px;
+    position: relative;
   }
 `;

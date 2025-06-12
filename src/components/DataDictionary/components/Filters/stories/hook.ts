@@ -7,3 +7,11 @@ export function useFilterStore(): {
   const [filterStore, setFilterStore] = useState<Record<string, unknown>>({});
   return { filterStore, setFilterStore };
 }
+
+export function useGlobalFilterStore(): {
+  globalFilter: string | undefined;
+  setGlobalFilter: Dispatch<SetStateAction<string | undefined>>;
+} {
+  const [globalFilter, setGlobalFilter] = useState<string | undefined>();
+  return { globalFilter, setGlobalFilter };
+}

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
-import { BUTTON_GROUP_PROPS } from "../../../../styles/common/mui/buttonGroup";
+import { mediaTabletDown } from "../../../../styles/common/mixins/breakpoints";
 
 export const StyledGrid = styled(Grid)`
   align-items: center;
@@ -8,7 +8,7 @@ export const StyledGrid = styled(Grid)`
   gap: 16px;
   grid-template-columns: 1fr auto;
 
-  .${BUTTON_GROUP_PROPS.CLASSES.ROOT} {
-    grid-column: 2;
+  ${mediaTabletDown} {
+    grid-template-columns: 1fr;
   }
 `;

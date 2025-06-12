@@ -5,6 +5,7 @@ import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
 import { BUTTON_PROPS } from "../../styles/common/mui/button";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
+import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
   TEXT_BODY_400,
@@ -866,9 +867,6 @@ export const MuiIconButton = (theme: Theme): Components["MuiIconButton"] => {
 export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
   return {
     styleOverrides: {
-      adornedStart: {
-        gap: 8,
-      },
       multiline: {
         height: "unset",
       },
@@ -881,6 +879,17 @@ export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
         [tabletUp]: {
           fontSize: theme.typography[TEXT_BODY_400].fontSize,
         },
+        variants: [
+          /* PRIMARY */ /* TODO: remove `adornedStart` when all input components are refactored to color: secondary */
+          {
+            props: { color: "primary" },
+            style: {
+              adornedStart: {
+                gap: 8,
+              },
+            },
+          },
+        ],
       },
     },
   };
@@ -1012,11 +1021,8 @@ export const MuiOutlinedInput = (
       root: {
         backgroundColor: PALETTE.COMMON_WHITE,
         boxShadow: `inset 0 2px 0 0 ${COLOR_MIXES.COMMON_BLACK_04}`,
-        paddingLeft: 12,
+        paddingLeft: 12, // TODO: remove when all input components are refactored to color: secondary.
         // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiSvgIcon-root": {
-          color: theme.palette.ink.light, // Adornment e.g. "SearchIcon".
-        },
         "&:hover": {
           "& .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.smoke.dark,
@@ -1028,18 +1034,12 @@ export const MuiOutlinedInput = (
             borderColor: theme.palette.ink.main,
             borderWidth: 1,
           },
-          "& .MuiSvgIcon-root": {
-            color: theme.palette.ink.main, // Adornment e.g. "SearchIcon".
-          },
         },
         // eslint-disable-next-line sort-keys -- disabling key order for specificity
         "&.Mui-disabled": {
           "& .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.smoke.dark,
             borderWidth: 1,
-          },
-          "& .MuiSvgIcon-root": {
-            color: theme.palette.ink.light,
           },
         },
         "&.Mui-error": {
@@ -1050,6 +1050,88 @@ export const MuiOutlinedInput = (
             borderWidth: 1,
           },
         },
+        variants: [
+          /* PRIMARY */
+          {
+            props: { color: OUTLINED_INPUT_PROPS.COLOR.PRIMARY },
+            style: {
+              "& .MuiSvgIcon-root": {
+                color: theme.palette.ink.light, // Adornment e.g. "SearchIcon". TODO: remove when all input components are refactored to color: secondary.
+              },
+              // eslint-disable-next-line sort-keys -- disabling key order for specificity
+              "&.Mui-focused": {
+                "& .MuiSvgIcon-root": {
+                  color: theme.palette.ink.main, // Adornment e.g. "SearchIcon". TODO: remove when all input components are refactored to color: secondary.
+                },
+              },
+              // eslint-disable-next-line sort-keys -- disabling key order for specificity
+              "&.Mui-disabled": {
+                "& .MuiSvgIcon-root": {
+                  color: theme.palette.ink.light, // TODO: remove when all input components are refactored to color: secondary.
+                },
+              },
+            },
+          },
+          /* SECONDARY */
+          {
+            props: { color: OUTLINED_INPUT_PROPS.COLOR.SECONDARY },
+            style: {
+              backgroundColor: PALETTE.COMMON_WHITE,
+              boxShadow: `inset 0 2px 0 0 ${COLOR_MIXES.COMMON_BLACK_04}`,
+              color: PALETTE.INK_LIGHT,
+              padding: "0 12px",
+              // eslint-disable-next-line sort-keys -- disabling key order for specificity
+              ".MuiOutlinedInput-input": {
+                color: "inherit",
+                height: 20,
+                padding: "10px 0",
+                // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                "&::placeholder": {
+                  color: "inherit",
+                  opacity: 0.8,
+                },
+              },
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: PALETTE.SMOKE_DARK,
+                borderWidth: 1,
+              },
+              // eslint-disable-next-line sort-keys -- disabling key order for specificity
+              "&.Mui-focused": {
+                color: PALETTE.INK_MAIN,
+                // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                ".MuiOutlinedInput-input": {
+                  "&::placeholder": {
+                    opacity: 0,
+                  },
+                },
+                // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                ".MuiOutlinedInput-notchedOutline": {
+                  borderColor: PALETTE.INK_MAIN,
+                  borderWidth: 1,
+                },
+              },
+              // eslint-disable-next-line sort-keys -- disabling key order for specificity
+              "&.Mui-disabled": {
+                backgroundColor: PALETTE.SMOKE_LIGHT,
+                color: PALETTE.INK_LIGHT,
+                // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                ".MuiOutlinedInput-input": {
+                  WebkitTextFillColor: "unset",
+                  // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                  "&::placeholder": {
+                    color: "inherit",
+                    opacity: 1,
+                  },
+                },
+                // eslint-disable-next-line sort-keys -- disabling key order for specificity
+                ".MuiOutlinedInput-notchedOutline": {
+                  borderColor: PALETTE.SMOKE_DARK,
+                  borderWidth: 1,
+                },
+              },
+            },
+          },
+        ],
       },
     },
   };

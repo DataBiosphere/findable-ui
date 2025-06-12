@@ -39,6 +39,7 @@ export const ColumnFilter = <T extends RowData>({
     <Fragment>
       <Button
         key={column.id}
+        disabled={sortedValues.length === 0}
         endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
         onClick={onOpen}
       >

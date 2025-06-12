@@ -44,8 +44,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
         <Title title={title} />
       </TitleLayout>
       <OutlineLayout {...spacing}>
-        {/* Force re-render on dictionary change to prevent stale outline */}
-        <Outline key={dictionary} outline={outline} />
+        <Outline outline={outline} />
       </OutlineLayout>
       <FiltersLayout {...spacing}>
         <Filters table={table} />

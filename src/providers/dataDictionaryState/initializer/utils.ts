@@ -32,6 +32,7 @@ function initState(
 
   return {
     columnFilters: [],
+    globalFilter: undefined,
     ...initialState,
     ...initPaginationState(initialState),
   };
