@@ -5,6 +5,7 @@ import {
   DataDictionaryActionKind,
 } from "./actions/types";
 import { updateColumnFiltersAction } from "./actions/updateColumnFilters/action";
+import { updateGlobalFilterAction } from "./actions/updateGlobalFilter/action";
 import { urlToStateAction } from "./actions/urlToState/action";
 import { DataDictionaryState } from "./types";
 
@@ -28,6 +29,9 @@ export function dataDictionaryReducer(
     }
     case DataDictionaryActionKind.UpdateColumnFilters: {
       return updateColumnFiltersAction(state, payload);
+    }
+    case DataDictionaryActionKind.UpdateGlobalFilter: {
+      return updateGlobalFilterAction(state, payload);
     }
     case DataDictionaryActionKind.UrlToState: {
       return urlToStateAction(state, payload);
