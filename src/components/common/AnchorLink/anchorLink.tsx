@@ -1,6 +1,6 @@
 import { LinkRounded } from "@mui/icons-material";
 import React from "react";
-import { AnchorLink as Link } from "./anchorLink.styles";
+import { StyledNextLink } from "./anchorLink.styles";
 
 /**
  * An anchor link component that provides deep linking functionality.
@@ -19,8 +19,12 @@ export const AnchorLink = ({
   className,
 }: AnchorLinkProps): JSX.Element => {
   return (
-    <Link aria-label={anchorLink} className={className} href={`#${anchorLink}`}>
+    <StyledNextLink
+      aria-label={anchorLink}
+      className={className}
+      href={`/#${anchorLink}`}
+    >
       <LinkRounded fontSize="xsmall" />
-    </Link>
+    </StyledNextLink>
   );
 };
