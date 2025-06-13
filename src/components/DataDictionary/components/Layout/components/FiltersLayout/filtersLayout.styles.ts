@@ -11,6 +11,8 @@ const TITLE_HEIGHT = LAYOUT_SPACING.TITLE_HEIGHT; /* title height */
 export const Layout = styled("div")<LayoutSpacing>`
   align-self: flex-start;
   background-color: ${PALETTE.BACKGROUND_DEFAULT};
+  display: grid;
+  gap: 12px;
   grid-column: 2;
   grid-row: 1;
   padding-bottom: ${PB}px;

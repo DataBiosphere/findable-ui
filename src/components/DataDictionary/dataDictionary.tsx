@@ -2,6 +2,7 @@ import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { Attribute } from "../../common/entities";
 import { Entities } from "./components/Entities/entities";
+import { ColumnFilterTags } from "./components/Filters/components/ColumnFilterTags/columnFilterTags";
 import { Filters } from "./components/Filters/filters";
 import { EntitiesLayout as DefaultEntitiesLayout } from "./components/Layout/components/EntitiesLayout/entitiesLayout";
 import { FiltersLayout as DefaultFiltersLayout } from "./components/Layout/components/FiltersLayout/filtersLayout";
@@ -48,6 +49,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
       </OutlineLayout>
       <FiltersLayout {...spacing}>
         <Filters table={table} />
+        <ColumnFilterTags table={table} />
       </FiltersLayout>
       <EntitiesLayout {...spacing}>
         <Entities spacing={spacing} table={table} />
