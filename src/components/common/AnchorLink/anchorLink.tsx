@@ -22,7 +22,7 @@ export const AnchorLink = ({
     <StyledNextLink
       aria-label={anchorLink}
       className={className}
-      href={`/#${anchorLink}`}
+      href={{ hash: anchorLink }}
     >
       <LinkRounded fontSize="xsmall" />
     </StyledNextLink>
