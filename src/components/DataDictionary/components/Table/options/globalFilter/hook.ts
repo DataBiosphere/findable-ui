@@ -13,7 +13,7 @@ export const useGlobalFilterOptions = <
   const { dataDictionaryDispatch } = useDataDictionaryState();
 
   const onGlobalFilterChange = useCallback(
-    (updaterOrValue: Updater<string>): void => {
+    (updaterOrValue: Updater<string | undefined>): void => {
       dataDictionaryDispatch?.(
         updateGlobalFilter({ dictionary, updaterOrValue })
       );

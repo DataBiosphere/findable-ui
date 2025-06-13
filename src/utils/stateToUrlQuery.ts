@@ -7,7 +7,7 @@ import { NextRouter } from "next/router";
  * It handles different value types appropriately:
  *
  * - Undefined values are excluded.
- * - Strings are used as-is.
+ * - Strings are used as-is (empty strings are excluded).
  * - Arrays are JSON stringified (empty arrays are excluded).
  *
  * @param state - State object containing values to convert to URL parameters.
@@ -24,6 +24,7 @@ export function stateToUrlQuery<
 
     // Handle the string case.
     if (typeof value === "string") {
+      if (!value) continue;
       query[key] = value;
       continue;
     }

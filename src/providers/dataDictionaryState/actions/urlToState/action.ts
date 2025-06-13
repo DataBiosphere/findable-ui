@@ -22,6 +22,7 @@ export function urlToStateAction(
         payload.query[DATA_DICTIONARY_URL_PARAMS.FILTER],
         []
       ),
+      globalFilter: payload.query[DATA_DICTIONARY_URL_PARAMS.GLOBAL_FILTER],
     }),
   };
 }
