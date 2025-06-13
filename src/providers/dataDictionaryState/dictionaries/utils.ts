@@ -7,6 +7,7 @@ import { ColumnFiltersState, TableState } from "@tanstack/react-table";
  * The extracted properties are:
  * - dictionary: Dictionary key (string).
  * - filter: Applied column filters (ColumnFiltersState).
+ * - globalFilter: Applied global filter (GlobalFilterTableState) - typed as string or undefined.
  * @param dictionary - Dictionary key.
  * @param state - Dictionary table state.
  * @returns Object with properties ready for URL query serialization.
@@ -14,9 +15,10 @@ import { ColumnFiltersState, TableState } from "@tanstack/react-table";
 export function extractDictionaryUrlState(
   dictionary: string,
   state: Partial<TableState>
-): Record<string, string | ColumnFiltersState> {
+): Record<string, string | ColumnFiltersState | undefined> {
   return {
     dictionary,
     filter: state.columnFilters || [],
+    globalFilter: state.globalFilter,
   };
 }

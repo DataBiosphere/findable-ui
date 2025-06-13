@@ -1,8 +1,7 @@
-import { META_COMMAND } from "../../../../hooks/stateSyncManager/hooks/UseMetaCommands/types";
 import { buildNextDictionaries } from "../../dictionaries/state";
 import { DataDictionaryState } from "../../types";
 import { UpdateGlobalFilterPayload } from "./types";
-import { buildNextGlobalFilter } from "./utils";
+import { buildNextGlobalFilter, buildNextMeta } from "./utils";
 
 /**
  * Reducer function to handle the "update global filter" action.
@@ -14,11 +13,13 @@ export function updateGlobalFilterAction(
   state: DataDictionaryState,
   payload: UpdateGlobalFilterPayload
 ): DataDictionaryState {
+  const globalFilter = buildNextGlobalFilter(payload);
+  const meta = buildNextMeta(state, payload, globalFilter);
   return {
     ...state,
     dictionaries: buildNextDictionaries(state, payload.dictionary, {
-      globalFilter: buildNextGlobalFilter(payload),
+      globalFilter,
     }),
-    meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
+    meta,
   };
 }

@@ -29,11 +29,11 @@ export function buildNextDictionaries(
       dictionaryContext.state = { ...dictionary.state, ...nextDictionaryState };
 
       // Grab param values from the updated dictionary state.
-      const { columnFilters } = dictionaryContext.state;
+      const { columnFilters, globalFilter } = dictionaryContext.state;
 
       // Update the dictionary query.
       dictionaryContext.query = stateToUrlQuery(
-        extractUrlState(key, { columnFilters })
+        extractUrlState(key, { columnFilters, globalFilter })
       );
     }
 

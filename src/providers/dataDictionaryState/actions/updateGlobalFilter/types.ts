@@ -8,5 +8,5 @@ export type UpdateGlobalFilterAction = {
 
 export interface UpdateGlobalFilterPayload {
   dictionary: string;
-  updaterOrValue: Updater<string>;
+  updaterOrValue: Updater<string | undefined>;
 }
