@@ -1,4 +1,5 @@
 import { ColumnFiltersState, TableState } from "@tanstack/react-table";
+import { DATA_DICTIONARY_URL_PARAMS } from "./constants";
 
 /**
  * Extracts dictionary state properties that should be synchronized with URL parameters.
@@ -7,7 +8,7 @@ import { ColumnFiltersState, TableState } from "@tanstack/react-table";
  * The extracted properties are:
  * - dictionary: Dictionary key (string).
  * - filter: Applied column filters (ColumnFiltersState).
- * - globalFilter: Applied global filter (GlobalFilterTableState) - typed as string or undefined.
+ * - search: Applied global filter (GlobalFilterTableState) - typed as string or undefined.
  * @param dictionary - Dictionary key.
  * @param state - Dictionary table state.
  * @returns Object with properties ready for URL query serialization.
@@ -18,7 +19,7 @@ export function extractDictionaryUrlState(
 ): Record<string, string | ColumnFiltersState | undefined> {
   return {
     dictionary,
-    filter: state.columnFilters || [],
-    globalFilter: state.globalFilter,
+    [DATA_DICTIONARY_URL_PARAMS.COLUMN_FILTERS]: state.columnFilters || [],
+    [DATA_DICTIONARY_URL_PARAMS.GLOBAL_FILTER]: state.globalFilter,
   };
 }
