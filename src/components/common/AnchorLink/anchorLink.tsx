@@ -1,4 +1,5 @@
 import { LinkRounded } from "@mui/icons-material";
+import { useRouter } from "next/router";
 import React from "react";
 import { StyledNextLink } from "./anchorLink.styles";
 
@@ -18,11 +19,12 @@ export const AnchorLink = ({
   anchorLink,
   className,
 }: AnchorLinkProps): JSX.Element => {
+  const { query } = useRouter();
   return (
     <StyledNextLink
       aria-label={anchorLink}
       className={className}
-      href={{ hash: anchorLink }}
+      href={{ hash: anchorLink, query }}
     >
       <LinkRounded fontSize="xsmall" />
     </StyledNextLink>
