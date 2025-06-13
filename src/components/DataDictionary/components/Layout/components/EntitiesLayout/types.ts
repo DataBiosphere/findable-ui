@@ -1,6 +1,8 @@
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 
-export interface EntitiesLayoutProps extends LayoutSpacing {
+export interface EntitiesLayoutProps {
   children: ReactNode;
+  spacing: LayoutSpacing;
+  style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
