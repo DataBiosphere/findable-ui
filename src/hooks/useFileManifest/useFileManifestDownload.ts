@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../apis/azul/common/entities";
 import { Filters } from "../../common/entities";
 import { BULK_DOWNLOAD_EXECUTION_ENVIRONMENT } from "../../components/Export/common/entities";
@@ -15,18 +14,15 @@ export interface ManifestDownload {
   isIdle: boolean;
   isLoading: boolean;
   manifestURL?: string;
+  requestManifest: () => void;
 }
 
 /**
  * Returns file manifest download url and file name.
  * @param filters - Filters.
- * @param disabled - Disabled.
  * @returns file manifest download url and file name.
  */
-export const useFileManifestDownload = (
-  filters: Filters,
-  disabled: boolean
-): ManifestDownload => {
+export const useFileManifestDownload = (filters: Filters): ManifestDownload => {
   // Retrieve the endpoint URL from configured data source.
   const config = useConfig();
   const endpointUrl = config.config.dataSource.url;
@@ -39,24 +35,21 @@ export const useFileManifestDownload = (
     filters,
     MANIFEST_DOWNLOAD_FORMAT.COMPACT
   );
-  const { data, isIdle, isLoading, run } = useRequestFileLocation(
-    requestUrl,
-    requestMethod
-  );
+  const {
+    data,
+    isIdle,
+    isLoading,
+    run: requestManifest,
+  } = useRequestFileLocation(requestUrl, requestMethod);
   const manifestURL = getManifestDownloadURL(data);
   const fileName = getManifestDownloadFileName(data);
-
-  // Requests file manifest.
-  useEffect(() => {
-    if (disabled) return;
-    run();
-  }, [disabled, requestUrl, run]);
 
   return {
     fileName,
     isIdle,
     isLoading,
     manifestURL,
+    requestManifest,
   };
 };
 

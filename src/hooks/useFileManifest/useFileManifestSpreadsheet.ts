@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   APIEndpoints,
   AzulEntitiesResponse,
@@ -9,24 +9,25 @@ import { fetchQueryParams } from "../../utils/fetchQueryParams";
 import { useAsync } from "../useAsync";
 import { useCatalog } from "../useCatalog";
 import { useFetchRequestURL } from "../useFetchRequestURL";
+import { useRequestFileLocation } from "../useRequestFileLocation";
 
 export interface ManifestSpreadsheet {
-  exists?: boolean;
-  fileFormat?: string;
   fileName?: string;
   fileUrl?: string;
+  isIdle?: boolean;
+  isLoading?: boolean;
+  requestManifest?: () => void;
+  spreadsheetUrl?: string;
 }
 
 /**
  * Returns file manifest spreadsheet.
  * @param filters - Filters.
- * @param disabled - Disabled.
  * @returns file manifest spreadsheet.
  */
 export const useFileManifestSpreadsheet = (
-  filters: Filters,
-  disabled: boolean
-): ManifestSpreadsheet | undefined => {
+  filters: Filters
+): Omit<ManifestSpreadsheet, "fileUrl"> => {
   // Determine catalog.
   const catalog = useCatalog() as string; // catalog should be defined.
   // Build request params.
@@ -34,20 +35,39 @@ export const useFileManifestSpreadsheet = (
   // Build request URL.
   const requestURL = useFetchRequestURL(APIEndpoints.FILES, requestParams);
   // Fetch files to determine if file exists.
-  const { data, run } = useAsync<AzulEntitiesResponse>();
+  const {
+    data: files,
+    isIdle,
+    isLoading: isFilesLoading,
+    run: requestFiles,
+  } = useAsync<AzulEntitiesResponse>();
+
   // Grab manifest spreadsheet.
-  const manifestSpreadsheet = useMemo(
-    () => getManifestSpreadsheet(data?.hits),
-    [data]
+  const { fileName, fileUrl } = useMemo(
+    () => getManifestSpreadsheet(files?.hits),
+    [files]
   );
 
-  // Fetch response from files endpoint.
-  useEffect(() => {
-    if (disabled) return;
-    run(fetchEntitiesFromURL(requestURL, undefined));
-  }, [disabled, requestURL, run]);
+  // Fetch file manifest.
+  const { data, isLoading, run } = useRequestFileLocation(fileUrl);
 
-  return manifestSpreadsheet;
+  // Fetch response from files endpoint.
+  const requestManifest = useCallback(() => {
+    requestFiles(fetchEntitiesFromURL(requestURL, undefined));
+  }, [requestFiles, requestURL]);
+
+  // Fetch file manifest.
+  useEffect(() => {
+    run();
+  }, [fileUrl, run]);
+
+  return {
+    fileName,
+    isIdle,
+    isLoading: isFilesLoading || isLoading,
+    requestManifest,
+    spreadsheetUrl: data?.location,
+  };
 };
 
 /**
@@ -74,21 +94,16 @@ function buildFetchFileUrl(fileUrl?: string): string | undefined {
  */
 function getManifestSpreadsheet(
   files?: AzulEntitiesResponse["hits"]
-): ManifestSpreadsheet | undefined {
-  if (!files) {
-    return;
-  }
+): ManifestSpreadsheet {
+  if (!files) return {};
+
   // Handle case where file does not exist.
-  if (files.length === 0) {
-    return {
-      exists: false,
-    };
-  }
+  if (files.length === 0) return {};
+
   // Project manifest spreadsheet exists.
   const file = files[0];
+
   return {
-    exists: true,
-    fileFormat: file.files[0]?.format,
     fileName: file.files[0]?.name,
     fileUrl: buildFetchFileUrl(file.files[0]?.url),
   };
