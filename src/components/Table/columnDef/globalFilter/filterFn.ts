@@ -20,7 +20,7 @@ export function fuzzy<T extends RowData>(
     .filter(Boolean);
 
   // Check if each term matches the column value.
-  // Ranking from CASE_SENSITIVE_EQUAL to ACRONYM (excludes `MATCHES` threshold).
+  // Ranking from CASE_SENSITIVE_EQUAL to CONTAINS (excludes `ACRONYM` and `MATCHES` thresholds).
   return terms.every((term) => {
     const itemRank = rankItem(String(columnValue), term, RANK_ITEM_OPTIONS);
     return itemRank.passed;
