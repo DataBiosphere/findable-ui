@@ -94,11 +94,11 @@ function buildFetchFileUrl(fileUrl?: string): string | undefined {
  */
 function getManifestSpreadsheet(
   files?: AzulEntitiesResponse["hits"]
-): ManifestSpreadsheet {
-  if (!files) return {};
+): Pick<ManifestSpreadsheet, "fileName" | "fileUrl"> {
+  if (!files) return { fileName: undefined, fileUrl: undefined };
 
   // Handle case where file does not exist.
-  if (files.length === 0) return {};
+  if (files.length === 0) return { fileName: undefined, fileUrl: undefined };
 
   // Project manifest spreadsheet exists.
   const file = files[0];
