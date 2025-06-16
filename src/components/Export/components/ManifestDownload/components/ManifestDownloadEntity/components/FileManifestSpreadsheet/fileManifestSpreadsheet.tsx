@@ -1,18 +1,11 @@
-import {
-  ButtonBase,
-  TableBody,
-  TableCell,
-  TableRow,
-  Tooltip,
-} from "@mui/material";
+import { Button, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestSpreadsheet } from "../../../../../../../../hooks/useFileManifest/useFileManifestSpreadsheet";
-import { useRequestFileLocation } from "../../../../../../../../hooks/useRequestFileLocation";
+import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
-import { ButtonGroupButton } from "../../../../../../../common/ButtonGroup/components/ButtonGroupButton/buttonGroupButton";
 import {
   ContentCopyIconSmall,
   DownloadIconSmall,
@@ -26,6 +19,7 @@ import {
   LOADING_PANEL_STYLE,
 } from "../../../../../../../Loading/loading";
 import { GridTable } from "../../../../../../../Table/common/gridTable.styles";
+import { TOOLTIP_PROPS } from "../../constants";
 import {
   SectionTitle,
   TableContainer,
@@ -38,30 +32,14 @@ export interface FileManifestSpreadsheetProps {
 export const FileManifestSpreadsheet = ({
   filters,
 }: FileManifestSpreadsheetProps): JSX.Element => {
-  const downloadRef = useRef<HTMLAnchorElement>(null);
   const { disabled, message } = useDownloadStatus();
-  const { exists, fileName, fileUrl } =
-    useFileManifestSpreadsheet(filters, disabled) || {};
-  const { data, isLoading, run } = useRequestFileLocation(fileUrl);
-  const spreadsheetURL = data?.location;
-  const isInProgress = (exists === undefined || isLoading) && !disabled;
-  const isReady = Boolean(spreadsheetURL) || disabled;
-
-  // Copies metadata spreadsheet.
-  const copyMetadataURL = (url?: string): void => {
-    if (!url) return;
-    copy(url);
-  };
-
-  // Downloads metadata spreadsheet.
-  const downloadMetadataURL = (): void => {
-    downloadRef.current?.click();
-  };
-
-  // Requests metadata spreadsheet.
-  useEffect(() => {
-    run();
-  }, [fileUrl, run]);
+  const {
+    fileName,
+    isIdle = false,
+    isLoading = false,
+    requestManifest,
+    spreadsheetUrl,
+  } = useFileManifestSpreadsheet(filters) || {};
 
   return (
     <FluidPaper>
@@ -69,55 +47,55 @@ export const FileManifestSpreadsheet = ({
         <SectionTitle>Metadata</SectionTitle>
         <TableContainer>
           <Loading
-            loading={isInProgress}
+            loading={isLoading}
             panelStyle={LOADING_PANEL_STYLE.INHERIT}
           />
-          <GridTable gridTemplateColumns={isReady ? "auto 1fr" : "1fr"}>
+          <GridTable gridTemplateColumns="auto 1fr">
             <TableBody>
               <TableRow>
-                {isInProgress ? (
-                  <TableCell />
-                ) : isReady ? (
-                  <>
-                    <TableCell>
-                      <ButtonBase
-                        disabled={disabled}
-                        download
-                        href={spreadsheetURL ?? ""}
-                        ref={downloadRef}
-                        sx={{ display: "none" }}
-                      />
-                      <Tooltip arrow title={message}>
-                        <span>
-                          <ButtonGroup
-                            Buttons={[
-                              <ButtonGroupButton
-                                key="download"
-                                action="Download metadata spreadsheet"
-                                disabled={disabled}
-                                label={<DownloadIconSmall />}
-                                onClick={downloadMetadataURL}
-                              />,
-                              <ButtonGroupButton
-                                key="copy"
-                                action="Copy metadata spreadsheet"
-                                disabled={disabled}
-                                label={<ContentCopyIconSmall />}
-                                onClick={(): void =>
-                                  copyMetadataURL(spreadsheetURL)
-                                }
-                              />,
-                            ]}
-                          />
-                        </span>
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell>{fileName}</TableCell>
-                  </>
-                ) : (
+                {isIdle || isLoading ? (
                   <TableCell>
-                    The metadata is not available for this project.
+                    <Tooltip {...TOOLTIP_PROPS} title={message}>
+                      <span>
+                        <Button
+                          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+                          disabled={disabled || isLoading}
+                          onClick={() => requestManifest?.()}
+                        >
+                          Request link
+                        </Button>
+                      </span>
+                    </Tooltip>
                   </TableCell>
+                ) : (
+                  <>
+                    {spreadsheetUrl && (
+                      <TableCell>
+                        <ButtonGroup
+                          Buttons={[
+                            <Button
+                              key="download"
+                              download
+                              href={spreadsheetUrl}
+                            >
+                              <DownloadIconSmall />
+                            </Button>,
+                            <Button
+                              key="copy"
+                              onClick={() => copy(spreadsheetUrl)}
+                            >
+                              <ContentCopyIconSmall />
+                            </Button>,
+                          ]}
+                        />
+                      </TableCell>
+                    )}
+                    <TableCell>
+                      {spreadsheetUrl
+                        ? fileName
+                        : "The metadata is not available for this project."}
+                    </TableCell>
+                  </>
                 )}
               </TableRow>
             </TableBody>
