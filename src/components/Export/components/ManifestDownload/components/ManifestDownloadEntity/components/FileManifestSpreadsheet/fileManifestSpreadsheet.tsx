@@ -55,13 +55,15 @@ export const FileManifestSpreadsheet = ({
                 {isIdle || isLoading ? (
                   <TableCell>
                     <Tooltip arrow title={message}>
-                      <Button
-                        {...BUTTON_PROPS.PRIMARY_CONTAINED}
-                        disabled={disabled || isLoading}
-                        onClick={() => requestManifest?.()}
-                      >
-                        Request link
-                      </Button>
+                      <span>
+                        <Button
+                          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+                          disabled={disabled || isLoading}
+                          onClick={() => requestManifest?.()}
+                        >
+                          Request link
+                        </Button>
+                      </span>
                     </Tooltip>
                   </TableCell>
                 ) : (
