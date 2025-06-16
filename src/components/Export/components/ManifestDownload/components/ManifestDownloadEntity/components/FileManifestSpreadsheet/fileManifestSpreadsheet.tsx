@@ -19,6 +19,7 @@ import {
   LOADING_PANEL_STYLE,
 } from "../../../../../../../Loading/loading";
 import { GridTable } from "../../../../../../../Table/common/gridTable.styles";
+import { TOOLTIP_PROPS } from "../../constants";
 import {
   SectionTitle,
   TableContainer,
@@ -54,7 +55,7 @@ export const FileManifestSpreadsheet = ({
               <TableRow>
                 {isIdle || isLoading ? (
                   <TableCell>
-                    <Tooltip arrow title={message}>
+                    <Tooltip {...TOOLTIP_PROPS} title={message}>
                       <span>
                         <Button
                           {...BUTTON_PROPS.PRIMARY_CONTAINED}
