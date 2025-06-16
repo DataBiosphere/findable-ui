@@ -4,7 +4,7 @@ import React from "react";
 import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestSpreadsheet } from "../../../../../../../../hooks/useFileManifest/useFileManifestSpreadsheet";
-import { BUTTON_PROPS } from "../../../../../../../../styles/common/mui/button";
+import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
   ContentCopyIconSmall,
@@ -37,7 +37,7 @@ export const FileManifestSpreadsheet = ({
     isIdle = false,
     isLoading = false,
     requestManifest,
-    spreadsheetUrl = "",
+    spreadsheetUrl,
   } = useFileManifestSpreadsheet(filters) || {};
 
   return (
@@ -52,47 +52,41 @@ export const FileManifestSpreadsheet = ({
           <GridTable gridTemplateColumns="auto 1fr">
             <TableBody>
               <TableRow>
-                <TableCell>
-                  <Tooltip arrow title={message}>
-                    <span>
-                      <ButtonGroup
-                        Buttons={[
-                          <Button
-                            key="download"
-                            disabled={disabled || !spreadsheetUrl}
-                            download
-                            href={spreadsheetUrl}
-                          >
-                            <DownloadIconSmall />
-                          </Button>,
-                          <Button
-                            key="copy"
-                            disabled={disabled || !spreadsheetUrl}
-                            onClick={() => copy(spreadsheetUrl)}
-                          >
-                            <ContentCopyIconSmall />
-                          </Button>,
-                        ]}
-                      />
-                    </span>
-                  </Tooltip>
-                </TableCell>
                 {isIdle || isLoading ? (
-                  <>
-                    {/* IDLE OR LOADING */}
-                    <TableCell>
+                  <TableCell>
+                    <Tooltip arrow title={message}>
                       <Button
+                        {...BUTTON_PROPS.PRIMARY_CONTAINED}
                         disabled={disabled || isLoading}
                         onClick={() => requestManifest?.()}
-                        variant={BUTTON_PROPS.VARIANT.TEXT}
                       >
-                        Request metadata
+                        Request link
                       </Button>
-                    </TableCell>
-                  </>
+                    </Tooltip>
+                  </TableCell>
                 ) : (
                   <>
-                    {/* SUCCESS OR NOT AVAILABLE */}
+                    {spreadsheetUrl && (
+                      <TableCell>
+                        <ButtonGroup
+                          Buttons={[
+                            <Button
+                              key="download"
+                              download
+                              href={spreadsheetUrl}
+                            >
+                              <DownloadIconSmall />
+                            </Button>,
+                            <Button
+                              key="copy"
+                              onClick={() => copy(spreadsheetUrl)}
+                            >
+                              <ContentCopyIconSmall />
+                            </Button>,
+                          ]}
+                        />
+                      </TableCell>
+                    )}
                     <TableCell>
                       {spreadsheetUrl
                         ? fileName

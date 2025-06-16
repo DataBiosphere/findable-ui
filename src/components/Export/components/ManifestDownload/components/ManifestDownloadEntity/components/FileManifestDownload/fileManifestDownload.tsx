@@ -5,7 +5,7 @@ import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestDownload } from "../../../../../../../../hooks/useFileManifest/useFileManifestDownload";
 import { useLoginGuard } from "../../../../../../../../providers/loginGuard/hook";
-import { BUTTON_PROPS } from "../../../../../../../../styles/common/mui/button";
+import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
   ContentCopyIconSmall,
@@ -51,47 +51,37 @@ export const FileManifestDownload = ({
           <GridTable gridTemplateColumns="auto 1fr">
             <TableBody>
               <TableRow>
-                <TableCell>
-                  <Tooltip arrow title={message}>
-                    <span>
-                      <ButtonGroup
-                        Buttons={[
-                          <Button
-                            key="download"
-                            disabled={disabled || !manifestURL}
-                            download
-                            href={manifestURL || ""}
-                          >
-                            <DownloadIconSmall />
-                          </Button>,
-                          <Button
-                            key="copy"
-                            disabled={disabled || !manifestURL}
-                            onClick={() => copy(manifestURL || "")}
-                          >
-                            <ContentCopyIconSmall />
-                          </Button>,
-                        ]}
-                      />
-                    </span>
-                  </Tooltip>
-                </TableCell>
                 {isIdle || isLoading ? (
-                  <>
-                    {/* IDLE OR LOADING */}
-                    <TableCell>
+                  <TableCell>
+                    <Tooltip arrow title={message}>
                       <Button
+                        {...BUTTON_PROPS.PRIMARY_CONTAINED}
                         disabled={disabled || isLoading}
                         onClick={() => requireLogin(requestManifest)}
-                        variant={BUTTON_PROPS.VARIANT.TEXT}
                       >
-                        Request manifest
+                        Request link
                       </Button>
-                    </TableCell>
-                  </>
+                    </Tooltip>
+                  </TableCell>
                 ) : (
                   <>
-                    {/* SUCCESS OR NOT AVAILABLE */}
+                    {manifestURL && (
+                      <TableCell>
+                        <ButtonGroup
+                          Buttons={[
+                            <Button key="download" download href={manifestURL}>
+                              <DownloadIconSmall />
+                            </Button>,
+                            <Button
+                              key="copy"
+                              onClick={() => copy(manifestURL)}
+                            >
+                              <ContentCopyIconSmall />
+                            </Button>,
+                          ]}
+                        />
+                      </TableCell>
+                    )}
                     <TableCell>
                       {manifestURL
                         ? fileName
