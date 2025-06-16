@@ -1,5 +1,17 @@
 # Changelog
 
+## [35.2.0](https://github.com/DataBiosphere/findable-ui/compare/v35.1.0...v35.2.0) (2025-06-16)
+
+
+### Features
+
+* add table &lt;code&gt; element ([#525](https://github.com/DataBiosphere/findable-ui/issues/525)) ([#527](https://github.com/DataBiosphere/findable-ui/issues/527)) ([02cb3b6](https://github.com/DataBiosphere/findable-ui/commit/02cb3b698b25a4295fc5ea2048541869301b918f))
+
+
+### Bug Fixes
+
+* make user request project metadata by clicking the request link button ([#530](https://github.com/DataBiosphere/findable-ui/issues/530)) ([#531](https://github.com/DataBiosphere/findable-ui/issues/531)) ([b645e0f](https://github.com/DataBiosphere/findable-ui/commit/b645e0fe5604dfc7fc195f91747d4a7985b39e4d))
+
 ## [35.1.0](https://github.com/DataBiosphere/findable-ui/compare/v35.0.3...v35.1.0) (2025-06-05)
 
 
