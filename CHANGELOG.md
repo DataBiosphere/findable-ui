@@ -1,5 +1,20 @@
 # Changelog
 
+## [36.0.0](https://github.com/DataBiosphere/findable-ui/compare/v35.2.0...v36.0.0) (2025-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* add global search to data dictionary ([#528](https://github.com/DataBiosphere/findable-ui/issues/528)) (#535)
+* add provider with reducer for data dictionary state ([#505](https://github.com/DataBiosphere/findable-ui/issues/505)) (#526)
+
+### Features
+
+* add filter tags to data dictionary ([#529](https://github.com/DataBiosphere/findable-ui/issues/529)) ([#536](https://github.com/DataBiosphere/findable-ui/issues/536)) ([30c368d](https://github.com/DataBiosphere/findable-ui/commit/30c368d97f9dfee89f82d108e0a4622a058da53e))
+* add global search to data dictionary ([#528](https://github.com/DataBiosphere/findable-ui/issues/528)) ([#535](https://github.com/DataBiosphere/findable-ui/issues/535)) ([d189f5f](https://github.com/DataBiosphere/findable-ui/commit/d189f5fe632f6949d76ac52c631ad0ea93070d56))
+* add provider with reducer for data dictionary state ([#505](https://github.com/DataBiosphere/findable-ui/issues/505)) ([#526](https://github.com/DataBiosphere/findable-ui/issues/526)) ([b17f412](https://github.com/DataBiosphere/findable-ui/commit/b17f412ab0358a43fd0e5faf5d009d253bd3c5a6))
+* highlight global search text in table results ([#533](https://github.com/DataBiosphere/findable-ui/issues/533)) ([#537](https://github.com/DataBiosphere/findable-ui/issues/537)) ([f9b8d24](https://github.com/DataBiosphere/findable-ui/commit/f9b8d2444ab34ad0a9aa5d4806eb0a88c7bc6d17))
+
 ## [35.2.0](https://github.com/DataBiosphere/findable-ui/compare/v35.1.0...v35.2.0) (2025-06-16)
 
 
