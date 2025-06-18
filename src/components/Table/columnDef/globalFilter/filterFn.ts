@@ -1,28 +1,22 @@
-import { rankItem } from "@tanstack/match-sorter-utils";
 import { Row, RowData } from "@tanstack/react-table";
-import { RANK_ITEM_OPTIONS } from "./constants";
+import { parseSearchTerms, rankColumnValue } from "./utils";
 
+/**
+ * Fuzzy matches a column against search terms.
+ * A true value is returned if the column's value passes the ranking threshold.
+ * @param row - Row.
+ * @param columnId - Column identifier.
+ * @param value - Search term.
+ * @returns Whether the row passed the filter.
+ */
 export function fuzzy<T extends RowData>(
   row: Row<T>,
   columnId: string,
   value: unknown
 ): boolean {
-  // Get the column value.
-  const columnValue = row.getValue(columnId);
-
-  // Return false if the column value is undefined or null.
-  if (columnValue === undefined || columnValue === null) return false;
-
   // Split the search term into terms.
-  const terms = String(value ?? "")
-    .toLowerCase()
-    .split(/\s+/)
-    .filter(Boolean);
+  const terms = parseSearchTerms(value);
 
-  // Check if each term matches the column value.
-  // Ranking from CASE_SENSITIVE_EQUAL to CONTAINS (excludes `ACRONYM` and `MATCHES` thresholds).
-  return terms.every((term) => {
-    const itemRank = rankItem(String(columnValue), term, RANK_ITEM_OPTIONS);
-    return itemRank.passed;
-  });
+  // Rank the column value.
+  return rankColumnValue(row, columnId, terms);
 }
