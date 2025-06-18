@@ -1,4 +1,11 @@
-import { MenuProps } from "@mui/material";
+import { GridProps, MenuProps } from "@mui/material";
+
+export const GRID_PROPS: GridProps = {
+  alignItems: "center",
+  container: true,
+  direction: "row",
+  gap: 1,
+};
 
 export const MENU_PROPS: Omit<MenuProps, "anchorEl" | "onClose" | "open"> = {
   anchorOrigin: {

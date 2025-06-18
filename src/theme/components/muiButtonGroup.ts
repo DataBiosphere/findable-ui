@@ -59,6 +59,10 @@ export const MuiButtonGroup: Components["MuiButtonGroup"] = {
                 backgroundColor: PALETTE.SMOKE_LIGHTEST,
                 boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
               },
+              // eslint-disable-next-line sort-keys -- disabling key order for readability
+              "&.Mui-focusVisible": {
+                boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
+              },
             },
           },
         },

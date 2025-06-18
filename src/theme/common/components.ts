@@ -257,11 +257,25 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         minWidth: 0,
         padding: 0,
       },
-      textPrimary: {
-        color: theme.palette.primary.main,
-      },
     },
     variants: [
+      {
+        props: {
+          color: BUTTON_PROPS.COLOR.PRIMARY,
+          variant: BUTTON_PROPS.VARIANT.TEXT,
+        },
+        style: {
+          color: PALETTE.PRIMARY_MAIN,
+          // eslint-disable-next-line sort-keys -- disabling key order for readability
+          "&:hover": {
+            backgroundColor: "transparent",
+            textDecoration: "underline",
+            textDecorationColor: "currentColor",
+            textDecorationSkipInk: "none",
+            textUnderlinePosition: "from-font",
+          },
+        },
+      },
       {
         props: {
           variant: "activeNav", // associated with "nav" variant.
@@ -438,6 +452,16 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         style: {
           backgroundColor: theme.palette.info.light,
           color: theme.palette.info.main,
+        },
+      },
+      {
+        props: {
+          color: CHIP_PROPS.COLOR.PRIMARY,
+          variant: CHIP_PROPS.VARIANT.FILLED,
+        },
+        style: {
+          backgroundColor: PALETTE.PRIMARY_MAIN,
+          color: PALETTE.COMMON_WHITE,
         },
       },
       {

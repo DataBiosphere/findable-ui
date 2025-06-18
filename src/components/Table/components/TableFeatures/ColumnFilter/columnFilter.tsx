@@ -1,8 +1,8 @@
 import {
   Checkbox,
+  Grid,
   ListItemButton,
   ListItemText,
-  Button as MButton,
   Typography,
 } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
@@ -13,10 +13,11 @@ import { CheckedIcon } from "../../../../common/CustomIcon/components/CheckedIco
 import { UncheckedIcon } from "../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { useMenu } from "../../../../common/Menu/hooks/useMenu";
+import { FilterCountChip } from "../../../../Filter/components/FilterCountChip/filterCountChip";
 import { getColumnHeader } from "../../../common/utils";
 import { getSortedFacetedValues } from "../../../featureOptions/facetedColumn/utils";
-import { StyledMenu } from "./columnFilter.styles";
-import { MENU_PROPS } from "./constants";
+import { StyledButton, StyledMenu } from "./columnFilter.styles";
+import { GRID_PROPS, MENU_PROPS } from "./constants";
 import { ColumnFilterProps } from "./types";
 import { updater } from "./utils";
 
@@ -26,7 +27,7 @@ import { updater } from "./utils";
  */
 
 export const ColumnFilter = <T extends RowData>({
-  Button = MButton,
+  Button = StyledButton,
   className,
   column,
   ...props /* MuiMenuProps */
@@ -42,8 +43,12 @@ export const ColumnFilter = <T extends RowData>({
         disabled={sortedValues.length === 0}
         endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
         onClick={onOpen}
+        open={open}
       >
-        {getColumnHeader(column)}
+        <Grid {...GRID_PROPS}>
+          {getColumnHeader(column)}
+          <FilterCountChip count={filterValue.length} />
+        </Grid>
       </Button>
       <StyledMenu
         {...MENU_PROPS}

@@ -1,3 +1,4 @@
+import { fn } from "@storybook/test";
 import { PartialColumn } from "./types";
 
 export const BIONETWORK: PartialColumn = {
@@ -10,7 +11,9 @@ export const BIONETWORK: PartialColumn = {
       ["Brain", 2],
       ["Lung", 1],
     ]),
+  getFilterValue: () => ["Nervous System", "Brain"],
   id: "bioNetwork",
+  setFilterValue: fn(),
 };
 
 export const DESCRIPTION: PartialColumn = {
