@@ -3,19 +3,17 @@ import { BaseComponentProps } from "components/types";
 import React from "react";
 import { COMPONENTS } from "../../../../../MarkdownRenderer/constants";
 import { StyledMarkdownRenderer } from "./markdownCell.styles";
-import { MarkdownCellProps } from "./types";
 
 export const MarkdownCell = <
   T extends RowData,
-  TValue extends MarkdownCellProps = MarkdownCellProps
+  TValue extends string = string
 >({
   className,
   column,
   getValue,
 }: BaseComponentProps & CellContext<T, TValue>): JSX.Element | null => {
-  const props = getValue();
-  if (!props) return null;
-  const { values } = props;
+  const value = getValue();
+  if (!value) return null;
   const columnDef = column?.columnDef;
   const columnMeta = columnDef?.meta;
   const components = columnMeta?.components;
@@ -23,7 +21,7 @@ export const MarkdownCell = <
     <StyledMarkdownRenderer
       className={className}
       components={{ ...COMPONENTS, ...components }}
-      value={values}
+      value={value}
     />
   );
 };
