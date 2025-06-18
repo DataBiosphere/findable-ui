@@ -1,4 +1,5 @@
 import { Components, Theme } from "@mui/material";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
 import { TEXT_BODY_400, TEXT_BODY_SMALL_500 } from "../common/typography";
 
@@ -34,6 +35,11 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
             props: { variant: TABLE_CELL_PROPS.VARIANT.BODY },
             style: {
               ...typography[TEXT_BODY_400],
+              "& mark": {
+                backgroundColor: PALETTE.WARNING_LIGHT,
+                color: "inherit",
+                padding: "2px 0",
+              },
             },
           },
           {
