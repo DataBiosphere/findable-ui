@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import Link from "next/link";
 import { inkLight } from "../../../styles/common/mixins/colors";
 
-export const AnchorLink = styled(Link)`
+export const StyledNextLink = styled(Link)`
   color: ${inkLight};
   margin-left: 4px;
   opacity: 0;

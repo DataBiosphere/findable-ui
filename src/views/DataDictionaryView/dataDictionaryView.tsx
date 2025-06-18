@@ -24,7 +24,12 @@ export const DataDictionaryView = ({
 
   return (
     <DataDictionaryContext.Provider value={{ dictionary }}>
-      <DataDictionary className={className} dictionary={dictionary} />
+      {/* Using dictionary as `key` to force component mount when dictionary changes to prevent stale outline, global filter value. */}
+      <DataDictionary
+        key={dictionary}
+        className={className}
+        dictionary={dictionary}
+      />
     </DataDictionaryContext.Provider>
   );
 };

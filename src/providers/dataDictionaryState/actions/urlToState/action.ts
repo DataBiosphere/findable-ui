@@ -19,9 +19,10 @@ export function urlToStateAction(
     ...state,
     dictionaries: buildNextDictionaries(state, payload.query.dictionary, {
       columnFilters: parseJsonQueryParam(
-        payload.query[DATA_DICTIONARY_URL_PARAMS.FILTER],
+        payload.query[DATA_DICTIONARY_URL_PARAMS.COLUMN_FILTERS],
         []
       ),
+      globalFilter: payload.query[DATA_DICTIONARY_URL_PARAMS.GLOBAL_FILTER],
     }),
   };
 }
