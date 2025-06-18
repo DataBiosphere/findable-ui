@@ -35,7 +35,7 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
             props: { variant: TABLE_CELL_PROPS.VARIANT.BODY },
             style: {
               ...typography[TEXT_BODY_400],
-              mark: {
+              "& mark": {
                 backgroundColor: PALETTE.WARNING_LIGHT,
                 color: "inherit",
                 padding: "2px 0",
