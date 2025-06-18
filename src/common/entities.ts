@@ -1,4 +1,4 @@
-import { ColumnDef, RowData, TableOptions } from "@tanstack/react-table";
+import { RowData, TableOptions } from "@tanstack/react-table";
 
 /**
  * Model of a value of a metadata class.
@@ -72,10 +72,9 @@ export interface DataDictionary<T extends RowData = Attribute> {
  * dictionary) as well as column def for displaying the data dictionary.
  */
 export interface DataDictionaryConfig<T extends RowData = Attribute> {
-  columnDefs: ColumnDef<T, T[keyof T]>[];
   dataDictionary: DataDictionary<T>;
   path: string; // Used as a key to find the dictionary to display
-  tableOptions?: Omit<TableOptions<T>, "columns" | "data" | "getCoreRowModel">;
+  tableOptions: Omit<TableOptions<T>, "data" | "getCoreRowModel">;
 }
 
 /**

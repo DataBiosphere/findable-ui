@@ -17,11 +17,11 @@ export const useMetaCommands = <Action>({
     switch (command) {
       case META_COMMAND.STATE_TO_URL_PUSH:
         Router.push({ query }, undefined, { shallow: true });
-        dispatch(actions.clearMeta());
+        dispatch?.(actions.clearMeta());
         break;
       case META_COMMAND.STATE_TO_URL_REPLACE:
         Router.replace({ query }, undefined, { shallow: true });
-        dispatch(actions.clearMeta());
+        dispatch?.(actions.clearMeta());
         break;
       default:
         break;
