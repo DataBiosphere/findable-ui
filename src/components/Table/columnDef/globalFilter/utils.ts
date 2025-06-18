@@ -41,3 +41,34 @@ export function rankColumnValue<T extends RowData>(
 
   return rankings.every(({ passed }) => passed);
 }
+
+/**
+ * Ranks a row's columns against search terms.
+ * Processes columns that are searchable and have not already been processed.
+ * @param row - Row to rank.
+ * @param columnId - Column identifier.
+ * @param terms - Search terms to match against.
+ */
+export function rankRowColumns<T extends RowData>(
+  row: Row<T>,
+  columnId: string,
+  terms: string[]
+): void {
+  const columnFiltersMeta = row.columnFiltersMeta;
+
+  // Process other columns.
+  for (const { column } of row.getAllCells()) {
+    // Column is not searchable.
+    if (!column.getCanGlobalFilter()) continue;
+
+    // Column has already been processed.
+    if (column.id === columnId) continue;
+    if (column.id in columnFiltersMeta) continue;
+
+    // Rank the column value.
+    const passed = rankColumnValue(row, column.id, terms);
+
+    // Add the filter metadata.
+    row.columnFiltersMeta[column.id] = { passed };
+  }
+}
