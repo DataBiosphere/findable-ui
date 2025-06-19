@@ -1,5 +1,12 @@
 # Changelog
 
+## [37.1.0](https://github.com/DataBiosphere/findable-ui/compare/v37.0.0...v37.1.0) (2025-06-19)
+
+
+### Features
+
+* hide global filtering search bar when global filters are disabled ([#547](https://github.com/DataBiosphere/findable-ui/issues/547)) ([#548](https://github.com/DataBiosphere/findable-ui/issues/548)) ([1a392ba](https://github.com/DataBiosphere/findable-ui/commit/1a392bac3707451404365989dc3187f59c181998))
+
 ## [37.0.0](https://github.com/DataBiosphere/findable-ui/compare/v36.0.0...v37.0.0) (2025-06-19)
 
 
