@@ -1,6 +1,7 @@
 import { FileManifestState } from "../fileManifestState";
 
 export const FILE_MANIFEST_STATE: FileManifestState = {
+  fileCount: undefined,
   fileSummary: undefined,
   fileSummaryFacetName: undefined,
   fileSummaryFilters: [],

@@ -24,6 +24,7 @@ import { FILE_MANIFEST_STATE } from "./fileManifestState/constants";
  * File manifest state.
  */
 export type FileManifestState = {
+  fileCount: number | undefined;
   filesFacets: FileFacet[];
   fileSummary?: AzulSummaryResponse;
   fileSummaryFacetName?: string;
@@ -133,6 +134,7 @@ export function FileManifestStateProvider({
 export enum FileManifestActionKind {
   ClearFileManifest = "CLEAR_FILE_MANIFEST",
   FetchFileManifest = "FETCH_FILE_MANIFEST",
+  UpdateFileCount = "UPDATE_FILE_COUNT",
   UpdateFileManifest = "UPDATE_FILE_MANIFEST",
   UpdateFilter = "UPDATE_FILTER",
   UpdateFiltersCategory = "UPDATE_FILTERS_CATEGORY",
@@ -144,6 +146,7 @@ export enum FileManifestActionKind {
 export type FileManifestAction =
   | ClearFileManifestAction
   | FetchFileManifestAction
+  | UpdateFileCountAction
   | UpdateFileManifestAction
   | UpdateFilterAction
   | UpdateFiltersCategoryAction;
@@ -173,6 +176,14 @@ type UpdateFileManifestAction = {
 };
 
 /**
+ * Update file count action.
+ */
+type UpdateFileCountAction = {
+  payload: UpdateFileCountPayload;
+  type: FileManifestActionKind.UpdateFileCount;
+};
+
+/**
  * Update filter action.
  */
 type UpdateFilterAction = {
@@ -194,6 +205,13 @@ type UpdateFiltersCategoryAction = {
 type FetchFileManifestPayload = {
   fileSummaryFacetName?: string;
   filters: Filters;
+};
+
+/**
+ * Update file count payload.
+ */
+export type UpdateFileCountPayload = {
+  fileCount: number | undefined;
 };
 
 /**
@@ -235,6 +253,7 @@ function fileManifestReducer(
     case FileManifestActionKind.ClearFileManifest: {
       return {
         ...state,
+        fileCount: undefined,
         isEnabled: false,
       };
     }
@@ -251,6 +270,10 @@ function fileManifestReducer(
         fileSummaryFilters,
         isEnabled: true,
       };
+    }
+    // Updates file count.
+    case FileManifestActionKind.UpdateFileCount: {
+      return { ...state, ...payload };
     }
     // Updates file manifest.
     case FileManifestActionKind.UpdateFileManifest: {

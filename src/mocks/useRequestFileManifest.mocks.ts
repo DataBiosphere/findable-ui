@@ -79,9 +79,11 @@ export const FILTERS: Record<string, Filters> = {
 };
 
 export const FILE_MANIFEST_STATE = {
+  fileCount: 10,
   filters: FILTERS.FORM_INITIAL_SET,
   isEnabled: true,
   isLoading: false,
+  summary: { fileCount: 10 },
 } as FileManifestState;
 
 export const FORM_FACET: Record<string, FormFacet> = {

@@ -109,6 +109,16 @@ describe("useRequestManifest", () => {
       });
     });
 
+    test("when fileManifestState fileCount is undefined", () => {
+      MOCK_USE_FILE_MANIFEST_STATE.mockReturnValue({
+        fileManifestDispatch: jest.fn(),
+        fileManifestState: { ...FILE_MANIFEST_STATE, fileCount: undefined },
+      });
+      testRequestManifest({
+        fileManifestFormat: MANIFEST_DOWNLOAD_FORMAT.VERBATIM_PFB,
+      });
+    });
+
     describe("form selection is not ready", () => {
       test("when a form facet is undefined", () => {
         testRequestManifest({
