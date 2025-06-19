@@ -10,9 +10,13 @@ export const GlobalFilter = <T extends RowData>({
   className,
   table,
   ...props /* MuiOutlinedInputProps */
-}: GlobalFilterProps<T>): JSX.Element => {
-  const { getState, setGlobalFilter } = table;
+}: GlobalFilterProps<T>): JSX.Element | null => {
+  const { getState, options, setGlobalFilter } = table;
   const { globalFilter } = getState();
+  const { enableGlobalFilter } = options;
+
+  if (!enableGlobalFilter) return null;
+
   return (
     <StyledOutlinedInput
       {...OUTLINED_INPUT_PROPS}

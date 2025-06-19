@@ -43,6 +43,7 @@ const DefaultStory = (): JSX.Element => {
     getAllColumns: () =>
       [DESCRIPTION, REQUIRED, BIONETWORK, EXAMPLE].map(makeColumn),
     getState: () => ({ globalFilter }),
+    options: { enableColumnFilters: true, enableGlobalFilter: true },
     setGlobalFilter,
   } as Table<unknown>;
 
