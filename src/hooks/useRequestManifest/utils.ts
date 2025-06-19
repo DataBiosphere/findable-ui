@@ -21,7 +21,7 @@ export function areAllFilesSelected(state: FileManifestState): boolean {
   const { fileCount, summary } = state;
 
   // Return false if file count or summary file count is undefined.
-  if (!fileCount || !summary?.fileCount) return false;
+  if (fileCount === undefined || summary?.fileCount === undefined) return false;
 
   // Return true if file count equals summary file count.
   return fileCount === summary.fileCount;
