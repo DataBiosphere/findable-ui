@@ -8,9 +8,13 @@ import { ColumnFiltersProps } from "./types";
 
 export const ColumnFilters = <T extends RowData = Attribute>({
   table,
-}: ColumnFiltersProps<T>): JSX.Element => {
+}: ColumnFiltersProps<T>): JSX.Element | null => {
   const columns = table.getAllColumns();
   const columnFilters = columns.filter((column) => column.getCanFilter());
+  const enableColumnFilters = table.options.enableColumnFilters;
+
+  if (!enableColumnFilters) return null;
+
   return (
     <ButtonGroup {...BUTTON_GROUP_PROPS.SECONDARY_OUTLINED}>
       {columnFilters.map((column) => (
