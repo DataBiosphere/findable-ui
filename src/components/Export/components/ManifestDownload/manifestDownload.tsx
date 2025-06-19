@@ -25,6 +25,7 @@ export interface ManifestDownloadProps {
   manifestDownloadFormat?: ManifestDownloadFormat;
   ManifestDownloadStart: ElementType;
   ManifestDownloadSuccess: ElementType;
+  speciesFacetName: string;
 }
 
 export const ManifestDownload = ({
@@ -36,8 +37,9 @@ export const ManifestDownload = ({
   manifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT.COMPACT,
   ManifestDownloadStart,
   ManifestDownloadSuccess,
+  speciesFacetName,
 }: ManifestDownloadProps): JSX.Element => {
-  useFileManifest(filters, fileSummaryFacetName);
+  useFileManifest(filters, fileSummaryFacetName, speciesFacetName);
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();

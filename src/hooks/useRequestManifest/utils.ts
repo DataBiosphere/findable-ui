@@ -12,36 +12,41 @@ import { REQUEST_MANIFEST } from "./constants";
 import { UseRequestManifest } from "./types";
 
 /**
- * Returns true if all form facets have all their terms selected.
- * @param formFacet - Form related file facets.
- * @returns true if all form facets have all their terms selected.
+ * Determines whether all files are selected by comparing the file count to the summary file count.
+ *
+ * @param state - The file manifest state object.
+ * @returns True if all files are selected; otherwise, false.
  */
-export function areAllFormFilterTermsSelected(formFacet: FormFacet): boolean {
-  return Object.values(formFacet)
-    .filter(Boolean)
-    .every(
-      ({ selectedTermCount, termCount }: FileFacet) =>
-        selectedTermCount === termCount
-    );
+export function areAllFilesSelected(state: FileManifestState): boolean {
+  const { fileCount, summary } = state;
+
+  // Return false if file count or summary file count is undefined.
+  if (!fileCount || !summary?.fileCount) return false;
+
+  // Return true if file count equals summary file count.
+  return fileCount === summary.fileCount;
 }
 
 /**
- * Generates the filters for a request URL based on the file manifest state.
- * - **all form facets have all their terms selected** - returns filters from state without form filters.
- * - **at least one form facet has an unselected term** - returns filters from state.
- * @param state - File manifest state.
- * @param formFacet - Form related file facets.
- * @returns filters for the request URL.
+ * Builds the filters object for a request URL based on the file manifest state and form facets.
+ *
+ * - If all files are selected, returns filters from state excluding fully selected form filters.
+ * - If only some files are selected, returns the current filters from state.
+ *
+ * @param state - The file manifest state object.
+ * @param formFacet - The form-related file facets.
+ * @returns The filters to use for the request URL.
  */
 export function buildRequestFilters(
   state: FileManifestState,
   formFacet: FormFacet
 ): Filters {
-  // Form terms are fully selected; return filters excluding form filters.
-  if (areAllFormFilterTermsSelected(formFacet)) {
+  // Return filters from state excluding form filters if all files are selected.
+  if (areAllFilesSelected(state)) {
     return excludeFullySelectedFormFilters(state, formFacet);
   }
-  // Form terms are partially selected; return filters.
+
+  // Return current filters from state.
   return state.filters;
 }
 
@@ -115,16 +120,24 @@ export function isCatalogReady(catalog: string | undefined): boolean {
 }
 
 /**
- * Returns true if the file manifest state is ready for a request.
- * A file manifest state is considered ready if it is both enabled (`isEnabled` is `true`)
- * and not currently loading (`isLoading` is `false`).
+ * Determines if the file manifest state is ready to be used in a request.
+ *
+ * The state is considered ready when:
+ * - isEnabled is true
+ * - fileCount is defined
+ * - isLoading is false
+ *
  * @param fileManifestState - File manifest state.
- * @returns true if the file manifest state is ready for a request.
+ * @returns true if the file manifest state is ready.
  */
 export function isFileManifestStateReady(
   fileManifestState: FileManifestState
 ): boolean {
-  return fileManifestState.isEnabled && !fileManifestState.isLoading;
+  return (
+    fileManifestState.isEnabled &&
+    fileManifestState.fileCount !== undefined &&
+    !fileManifestState.isLoading
+  );
 }
 
 /**

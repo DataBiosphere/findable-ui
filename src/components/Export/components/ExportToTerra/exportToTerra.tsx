@@ -24,6 +24,7 @@ export interface ExportToTerraProps {
   formFacet: FormFacet;
   manifestDownloadFormat?: ManifestDownloadFormat;
   manifestDownloadFormats: ManifestDownloadFormat[];
+  speciesFacetName: string;
 }
 
 export const ExportToTerra = ({
@@ -36,11 +37,12 @@ export const ExportToTerra = ({
   formFacet,
   manifestDownloadFormat,
   manifestDownloadFormats,
+  speciesFacetName,
 }: ExportToTerraProps): JSX.Element => {
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
-  useFileManifest(filters, fileSummaryFacetName);
+  useFileManifest(filters, fileSummaryFacetName, speciesFacetName);
   const fileManifestFormatState = useFileManifestFormat(manifestDownloadFormat);
   const { requestMethod, requestParams, requestUrl } = useRequestManifest(
     fileManifestFormatState.fileManifestFormat,

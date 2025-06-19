@@ -24,26 +24,18 @@ describe("buildRequestFilters", () => {
       expect(result).toEqual(fileManifestState.filters);
     });
 
-    test("when at least one form facet has no terms selected", () => {
-      const fileManifestState = getFileManifestState(
-        FILTERS.FORM_INCOMPLETE_SET
-      );
+    test("when summary file count is not equal to initial file count", () => {
+      const fileManifestState = getFileManifestState(FILTERS.FORM_COMPLETE_SET);
       const result = buildRequestFilters(
-        fileManifestState,
-        FORM_FACET.INCOMPLETE_SET
+        { ...fileManifestState, summary: { fileCount: 9 } },
+        FORM_FACET.COMPLETE_SET
       );
-      expect(result).toEqual(fileManifestState.filters);
-    });
-
-    test("when at least one form facet has an unselected term", () => {
-      const fileManifestState = getFileManifestState(FILTERS.FORM_SUBSET);
-      const result = buildRequestFilters(fileManifestState, FORM_FACET.SUBSET);
       expect(result).toEqual(fileManifestState.filters);
     });
   });
 
   describe("should return filters excluding form related filters", () => {
-    test("when all form facets have all their terms selected", () => {
+    test("when summary file count is equal to initial file count", () => {
       const fileManifestState = getFileManifestState(FILTERS.FORM_COMPLETE_SET);
       const result = buildRequestFilters(
         fileManifestState,

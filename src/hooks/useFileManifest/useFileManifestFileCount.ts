@@ -54,9 +54,9 @@ function getFileCountFilters(
   // Filter out undefined facets.
   const filteredFacets = facetNames.filter(Boolean);
 
-  // Return undefined if no facets to exclude; we don't want to fetch the summary until we have facet names to exclude
-  // from the filters.
-  if (filteredFacets.length === 0) return;
+  // Do not fetch the summary until both required facet names (species and file type) are available.
+  // If fewer than two facets are provided, return undefined.
+  if (filteredFacets.length < 2) return;
 
   // Return filters with facets excluded.
   return filters.filter(
