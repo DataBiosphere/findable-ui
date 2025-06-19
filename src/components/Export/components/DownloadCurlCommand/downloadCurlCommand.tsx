@@ -30,6 +30,7 @@ interface DownloadCurlCommandProps {
   filters: Filters; // Initializes bulk download filters.
   formFacet: FormFacet;
   manifestDownloadFormat?: ManifestDownloadFormat;
+  speciesFacetName: string;
 }
 
 export const DownloadCurlCommand = ({
@@ -41,8 +42,9 @@ export const DownloadCurlCommand = ({
   filters,
   formFacet,
   manifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT.CURL,
+  speciesFacetName,
 }: DownloadCurlCommandProps): JSX.Element => {
-  useFileManifest(filters, fileSummaryFacetName);
+  useFileManifest(filters, fileSummaryFacetName, speciesFacetName);
   const [executionEnvironment, setExecutionEnvironment] =
     useState<ExecutionEnvironment>(BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH);
   const {
