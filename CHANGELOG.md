@@ -1,5 +1,17 @@
 # Changelog
 
+## [37.0.0](https://github.com/DataBiosphere/findable-ui/compare/v36.0.0...v37.0.0) (2025-06-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* file format filter dropped from curl manifest request ([#543](https://github.com/DataBiosphere/findable-ui/issues/543)) (#544)
+
+### Bug Fixes
+
+* file format filter dropped from curl manifest request ([#543](https://github.com/DataBiosphere/findable-ui/issues/543)) ([#544](https://github.com/DataBiosphere/findable-ui/issues/544)) ([3169f5c](https://github.com/DataBiosphere/findable-ui/commit/3169f5ca961d1ca518b9820dc8878ad3d224a2f4))
+* refactor CodeCell to use node prop instead of value string ([#540](https://github.com/DataBiosphere/findable-ui/issues/540)) ([#542](https://github.com/DataBiosphere/findable-ui/issues/542)) ([28b7fb8](https://github.com/DataBiosphere/findable-ui/commit/28b7fb8e8646ede29098f6a612b66d3ccef34bf3))
+
 ## [36.0.0](https://github.com/DataBiosphere/findable-ui/compare/v35.2.0...v36.0.0) (2025-06-18)
 
 
