@@ -26,14 +26,14 @@ export const useFileManifestFileCount = (
   const catalog = useCatalog() as string; // catalog should be defined.
 
   // Get filters required for fetching the summary.
-  const fileCountFilters = filterSpeciesAndFileTypeFromFilters(initFilters, [
+  const filters = filterSpeciesAndFileTypeFromFilters(initFilters, [
     speciesFacetName,
     fileFacetName,
   ]);
 
   // Fetch file count from summary.
   const { summary: { fileCount } = {} } = useFetchSummary(
-    fileCountFilters,
+    filters,
     catalog,
     true
   );
