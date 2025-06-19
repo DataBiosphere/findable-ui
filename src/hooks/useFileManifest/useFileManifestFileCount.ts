@@ -6,10 +6,12 @@ import { useFileManifestState } from "../useFileManifestState";
 import { useFetchSummary } from "./useFetchSummary";
 
 /**
- * Fetches the file summary count from the summary endpoint and dispatches the file count to the file manifest state.
- * @param initialFilters - Initial Filters.
- * @param speciesFacetName - Species facet name.
- * @param fileFacetName - File facet name.
+ * Fetches the latest file count from the summary endpoint, excluding filters
+ * that match the provided species and file facet names, and updates the file manifest state.
+ *
+ * @param initialFilters - The initial set of filters to apply.
+ * @param speciesFacetName - The facet name representing species to exclude from the summary request.
+ * @param fileFacetName - The facet name representing file type to exclude from the summary request.
  */
 export const useFileManifestFileCount = (
   initialFilters: Filters | undefined,
@@ -26,7 +28,7 @@ export const useFileManifestFileCount = (
   const catalog = useCatalog() as string; // catalog should be defined.
 
   // Get filters required for fetching the summary.
-  const filters = filterSpeciesAndFileTypeFromFilters(initFilters, [
+  const filters = excludeFacetsFromFilters(initFilters, [
     speciesFacetName,
     fileFacetName,
   ]);
@@ -47,12 +49,13 @@ export const useFileManifestFileCount = (
 };
 
 /**
- * Filters species and file type facets from the initial filters.
- * @param filters - Filters.
- * @param facetNames - Facet names.
- * @returns Filters with facets excluded.
+ * Returns a new filters array with the specified facet names excluded.
+ *
+ * @param filters - The list of filters to process.
+ * @param facetNames - The facet names to exclude from the filters.
+ * @returns The filters array excluding any filters matching the provided facet names.
  */
-function filterSpeciesAndFileTypeFromFilters(
+function excludeFacetsFromFilters(
   filters: Filters | undefined,
   facetNames: string[]
 ): Filters {
