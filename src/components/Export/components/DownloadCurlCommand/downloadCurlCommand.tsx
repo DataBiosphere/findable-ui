@@ -4,6 +4,7 @@ import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
+import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
   FileLocation,
   useRequestFileLocation,
@@ -44,7 +45,8 @@ export const DownloadCurlCommand = ({
   manifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT.CURL,
   speciesFacetName,
 }: DownloadCurlCommandProps): JSX.Element => {
-  useFileManifest(filters, fileSummaryFacetName, speciesFacetName);
+  useFileManifest(filters, fileSummaryFacetName);
+  useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
   const [executionEnvironment, setExecutionEnvironment] =
     useState<ExecutionEnvironment>(BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH);
   const {

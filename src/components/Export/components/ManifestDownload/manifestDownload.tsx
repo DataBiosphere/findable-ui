@@ -4,6 +4,7 @@ import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
+import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
   FileLocation,
   useRequestFileLocation,
@@ -39,7 +40,8 @@ export const ManifestDownload = ({
   ManifestDownloadSuccess,
   speciesFacetName,
 }: ManifestDownloadProps): JSX.Element => {
-  useFileManifest(filters, fileSummaryFacetName, speciesFacetName);
+  useFileManifest(filters, fileSummaryFacetName);
+  useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
   const {
     exploreState: { tabValue: entityList },
   } = useExploreState();
