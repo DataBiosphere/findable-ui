@@ -14,7 +14,6 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
-import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
@@ -194,7 +193,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         }
         SubTitleHero={renderComponent(subTitleHero)}
         Summaries={renderSummary(summaryConfig, summaryResponse)}
-        Tabs={<Tabs />}
         title={entityConfig.explorerTitle || explorerTitle}
       />
     </>

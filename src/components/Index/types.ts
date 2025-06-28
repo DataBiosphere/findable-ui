@@ -12,6 +12,5 @@ export interface IndexProps extends BaseComponentProps {
   SideBarButton?: ReactNode;
   SubTitleHero?: ReactNode | ReactNode[];
   Summaries?: ReactNode;
-  Tabs?: ReactNode;
   title: ReactNode;
 }

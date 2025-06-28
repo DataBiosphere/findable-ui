@@ -2,8 +2,9 @@ import Router from "next/router";
 import React, { useCallback, useMemo } from "react";
 import { useConfig } from "../../../../hooks/useConfig";
 import { useExploreState } from "../../../../hooks/useExploreState";
-import { Tabs as DXTabs, TabValue } from "../../../common/Tabs/tabs";
+import { TabValue } from "../../../common/Tabs/tabs";
 import { getEntityListTabs } from "./common/utils";
+import { StyledTabs } from "./tabs.styles";
 
 export const Tabs = (): JSX.Element | null => {
   const { config } = useConfig();
@@ -19,5 +20,5 @@ export const Tabs = (): JSX.Element | null => {
 
   if (tabs.length <= 1) return null;
 
-  return <DXTabs onTabChange={onTabChange} tabs={tabs} value={tabValue} />;
+  return <StyledTabs onTabChange={onTabChange} tabs={tabs} value={tabValue} />;
 };
