@@ -16,7 +16,6 @@ import {
   DataDictionaryConfig,
   SelectedFilter,
 } from "../common/entities";
-import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
 import { ExploreMode } from "../hooks/useExploreMode/types";
@@ -170,7 +169,6 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;
-  explorerTitle?: SiteConfig["explorerTitle"];
   export?: ExportConfig;
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
@@ -270,6 +268,7 @@ export interface ListViewConfig {
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
   subTitleHero?: ComponentsConfig;
+  title?: ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
@@ -366,7 +365,6 @@ export interface SiteConfig {
   dataSource: DataSourceConfig;
   enableEntitiesView?: boolean; // Toggle entities view - list or filter summary
   entities: EntityConfig[];
-  explorerTitle: HeroTitle;
   export?: ExportConfig;
   exportsRequireAuth?: boolean;
   exportToTerraUrl?: string; // TODO(cc) revist location; possibly nest inside "export"?

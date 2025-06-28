@@ -17,6 +17,5 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     Summaries: <Summaries />,
-    title: "Data Explorer",
   },
 };

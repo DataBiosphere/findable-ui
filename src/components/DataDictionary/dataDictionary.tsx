@@ -52,7 +52,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
       {/* Fade in when header is measured. */}
       <View className={className}>
         <TitleLayout {...spacing}>
-          <Title title={title} />
+          <Title>{title}</Title>
         </TitleLayout>
         <OutlineLayout {...spacing}>
           <Outline outline={outline} />

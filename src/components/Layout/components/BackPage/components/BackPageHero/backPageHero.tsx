@@ -47,7 +47,7 @@ export const BackPageHero = ({
               breadcrumbs
             )
           ) : null}
-          {title && <Title title={title} />}
+          <Title>{title}</Title>
           <SubTitle subTitle={subTitle} />
         </HeroHeader>
         {actions}

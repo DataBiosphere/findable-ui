@@ -1,8 +1,10 @@
+import { TypographyProps } from "@mui/material";
 import React from "react";
-import { TitleProps } from "../../../common/Title/title";
 import { StyledTitle } from "./title.styles";
 
 export const Title = ({
-  title = "Data Dictionary",
+  children = "Data Dictionary",
   ...props
-}: TitleProps): JSX.Element => <StyledTitle title={title} {...props} />;
+}: TypographyProps): JSX.Element => (
+  <StyledTitle {...props}>{children}</StyledTitle>
+);

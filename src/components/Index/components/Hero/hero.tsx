@@ -1,28 +1,21 @@
 import React, { ReactNode } from "react";
-import { HeroTitle, Title } from "../../../common/Title/title";
 import { ExportButton } from "./components/ExportButton/exportButton";
 import { HeroLayout, SummaryWidget, Widgets } from "./hero.styles";
 
 /**
- * ExploreView page hero component comprising title, summary counts, and export button.
+ * ExploreView page hero component comprising summary counts, and export button.
  */
 
 export interface HeroProps {
   SideBarButton?: ReactNode;
   Summaries?: ReactNode;
-  title: HeroTitle;
 }
 
-export const Hero = ({
-  SideBarButton,
-  Summaries,
-  title,
-}: HeroProps): JSX.Element => {
+export const Hero = ({ SideBarButton, Summaries }: HeroProps): JSX.Element => {
   return (
     <>
-      {(title || SideBarButton || Summaries) && (
+      {(SideBarButton || Summaries) && (
         <HeroLayout>
-          <Title title={title} />
           {SideBarButton}
           {Summaries && (
             <Widgets>

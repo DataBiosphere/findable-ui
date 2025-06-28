@@ -1,34 +1,26 @@
-import React, { ReactNode } from "react";
-import { TEXT_HEADING_LARGE } from "../../../theme/common/typography";
-import { HeroTitle as Typography } from "./title.styles";
-
-export type HeroTitle = ReactNode;
-
-export interface TitleProps {
-  className?: string;
-  title: HeroTitle;
-}
+import { TypographyProps } from "@mui/material";
+import React, { Fragment } from "react";
+import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
+import { StyledTypography } from "./title.styles";
 
 export const Title = ({
+  children,
   className,
-  title,
-  ...props /* Spread props to allow for Typography specific props TypographyProps e.g. "gutterBottom" or "noWrap". */
-}: TitleProps): JSX.Element => {
+  ...props /* Mui Typography props */
+}: TypographyProps): JSX.Element | null => {
+  if (!children) return null;
+
+  if (typeof children !== "string") return <Fragment>{children}</Fragment>;
+
   return (
-    <>
-      {typeof title === "string" ? (
-        <Typography
-          className={className}
-          color="ink.main"
-          component="h1"
-          variant={TEXT_HEADING_LARGE}
-          {...props}
-        >
-          {title}
-        </Typography>
-      ) : (
-        title
-      )}
-    </>
+    <StyledTypography
+      className={className}
+      color={TYPOGRAPHY_PROPS.COLOR.INK_MAIN}
+      component="h1"
+      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_LARGE}
+      {...props}
+    >
+      {children}
+    </StyledTypography>
   );
 };
