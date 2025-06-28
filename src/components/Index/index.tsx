@@ -5,6 +5,7 @@ import { EntityList } from "./components/EntitiesView/components/EntityList/enti
 import { EntitiesView } from "./components/EntitiesView/entitiesView";
 import { useEntitiesView } from "./components/EntitiesView/hooks/UseEntitiesView/hook";
 import { VIEW_MODE } from "./components/EntitiesView/hooks/UseEntitiesView/types";
+import { ExportButton } from "./components/ExportButton/exportButton";
 import { Hero } from "./components/Hero/hero";
 import { Tabs } from "./components/Tabs/tabs";
 import { Title } from "./components/Title/title";
@@ -29,6 +30,7 @@ export const Index = ({
   return (
     <IndexLayout className={className} marginTop={dimensions.header.height}>
       <Title />
+      <ExportButton />
       <Hero SideBarButton={SideBarButton} Summaries={Summaries} />
       {SubTitleHero}
       <Tabs />

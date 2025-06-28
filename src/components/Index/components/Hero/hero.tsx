@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { ExportButton } from "./components/ExportButton/exportButton";
 import { HeroLayout, SummaryWidget, Widgets } from "./hero.styles";
 
 /**
@@ -23,7 +22,6 @@ export const Hero = ({ SideBarButton, Summaries }: HeroProps): JSX.Element => {
                 {/* TODO +n link widget, and accompanying Dot separator */}
                 {Summaries}
               </SummaryWidget>
-              <ExportButton />
             </Widgets>
           )}
         </HeroLayout>
