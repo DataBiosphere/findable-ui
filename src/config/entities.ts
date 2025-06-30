@@ -10,6 +10,7 @@ import {
   TableOptions,
 } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
+import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { CategoryConfig } from "../common/categories/config/types";
 import {
   DataDictionaryAnnotation,
@@ -394,7 +395,7 @@ export const SORT_DIRECTION = {
  */
 export interface SummaryConfig {
   apiPath: string;
-  components: ComponentsConfig;
+  mapResponse: (response: AzulSummaryResponse) => [string, string][];
 }
 
 /**

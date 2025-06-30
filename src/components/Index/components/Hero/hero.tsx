@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { HeroLayout, SummaryWidget, Widgets } from "./hero.styles";
+import { HeroLayout } from "./hero.styles";
 
 /**
  * ExploreView page hero component comprising summary counts, and export button.
@@ -7,25 +7,8 @@ import { HeroLayout, SummaryWidget, Widgets } from "./hero.styles";
 
 export interface HeroProps {
   SideBarButton?: ReactNode;
-  Summaries?: ReactNode;
 }
 
-export const Hero = ({ SideBarButton, Summaries }: HeroProps): JSX.Element => {
-  return (
-    <>
-      {(SideBarButton || Summaries) && (
-        <HeroLayout>
-          {SideBarButton}
-          {Summaries && (
-            <Widgets>
-              <SummaryWidget buttonWidget={true}>
-                {/* TODO +n link widget, and accompanying Dot separator */}
-                {Summaries}
-              </SummaryWidget>
-            </Widgets>
-          )}
-        </HeroLayout>
-      )}
-    </>
-  );
+export const Hero = ({ SideBarButton }: HeroProps): JSX.Element => {
+  return <>{SideBarButton && <HeroLayout>{SideBarButton}</HeroLayout>}</>;
 };

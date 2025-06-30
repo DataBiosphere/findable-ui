@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  AzulEntitiesStaticResponse,
-  AzulSummaryResponse,
-} from "../../apis/azul/common/entities";
+import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
@@ -19,11 +16,7 @@ import { SidebarButton } from "../../components/Layout/components/Sidebar/compon
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
-import {
-  CategoryGroup,
-  ComponentsConfig,
-  SummaryConfig,
-} from "../../config/entities";
+import { CategoryGroup, ComponentsConfig } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import {
   BREAKPOINT_FN_NAME,
@@ -32,7 +25,6 @@ import {
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
-import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
@@ -51,11 +43,10 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
-  const { summaryConfig, trackingConfig } = config;
+  const { trackingConfig } = config;
   const { label, listView } = entityConfig;
   const { listHero, subTitleHero } = listView || {};
   const { categoryGroups, categoryViews, filterCount, loading } = exploreState;
-  const { response: summaryResponse } = useSummary(); // Fetch summary.
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
@@ -192,7 +183,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
           ) : undefined
         }
         SubTitleHero={renderComponent(subTitleHero)}
-        Summaries={renderSummary(summaryConfig, summaryResponse)}
       />
     </>
   );
@@ -241,29 +231,4 @@ function renderComponent<T>(
     return;
   }
   return <ComponentCreator components={componentsConfig} response={response} />;
-}
-
-/**
- * Renders Summaries component when all the following requirements are fulfilled:
- * - defined summary config,
- * - valid summary response, and
- * - defined summaries transformed from the given summary response.
- * @param summaryConfig - Summary config.
- * @param summaryResponse - Response model return from summary API.
- * @returns rendered Summaries component.
- */
-function renderSummary(
-  summaryConfig?: SummaryConfig,
-  summaryResponse?: AzulSummaryResponse
-): JSX.Element | undefined {
-  if (!summaryConfig || !summaryResponse) {
-    return;
-  }
-  /* Render the Summaries component. */
-  return (
-    <ComponentCreator
-      components={summaryConfig.components}
-      response={summaryResponse}
-    />
-  );
 }
