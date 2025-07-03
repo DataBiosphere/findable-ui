@@ -21,6 +21,7 @@ import {
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
+import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { SearchCloseButton } from "../SearchAllFiltersSearch/components/SearchCloseButton/searchCloseButton";
 import { SearchAllFiltersSearch } from "../SearchAllFiltersSearch/searchAllFiltersSearch";
 import { DEFAULT_SLOT_PROPS, DRAWER_SLOT_PROPS } from "./common/constants";
@@ -32,7 +33,6 @@ import { Autocomplete } from "./searchAllFilters.styles";
 
 export interface SearchAllFiltersProps {
   categoryViews: CategoryView[];
-  drawerOpen?: boolean;
   onFilter: OnFilterFn;
 }
 
@@ -80,9 +80,9 @@ const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
 
 export const SearchAllFilters = ({
   categoryViews,
-  drawerOpen = false,
   onFilter,
 }: SearchAllFiltersProps): JSX.Element => {
+  const { open: isDrawerOpen } = useDrawer();
   const desktopSmUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, DESKTOP_SM);
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -142,11 +142,11 @@ export const SearchAllFilters = ({
 
   // Close search when filter drawer is closed.
   useEffect(() => {
-    if (!drawerOpen) {
+    if (!isDrawerOpen) {
       setSearchTerm("");
       setOpen(false);
     }
-  }, [drawerOpen]);
+  }, [isDrawerOpen]);
 
   return (
     <ListboxContext.Provider

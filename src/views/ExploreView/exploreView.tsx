@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
+import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
   CategoryFilter,
@@ -32,7 +33,6 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
 }
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
@@ -54,13 +54,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     dispatch: exploreDispatch,
     state: buildStateSyncManagerContext(exploreState, props),
   });
-
-  /**
-   * Closes filter drawer.
-   */
-  const onCloseDrawer = (): void => {
-    setIsDrawerOpen(false);
-  };
 
   /**
    * Callback fired when selected state of a category value is toggled.
@@ -130,21 +123,19 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <>
+    <DrawerProvider>
       {categoryViews && !!categoryViews.length && (
-        <Sidebar drawerOpen={isDrawerOpen} onDrawerClose={onCloseDrawer}>
+        <Sidebar>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
             <SidebarLabel label={"Filters"} />
             <ClearAllFilters />
             <SearchAllFilters
               categoryViews={categoryViews}
-              drawerOpen={isDrawerOpen}
               onFilter={onFilterChange.bind(null, true)}
             />
           </SidebarTools>
           <Filters
             categoryFilters={categoryFilters}
-            closeAncestor={onCloseDrawer}
             onFilter={onFilterChange.bind(null, false)}
             trackFilterOpened={trackingConfig?.trackFilterOpened}
           />
@@ -157,7 +148,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         entityName={label}
         loading={loading}
       />
-    </>
+    </DrawerProvider>
   );
 };
 

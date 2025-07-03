@@ -13,14 +13,14 @@ const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
 
 export interface SidebarDrawerProps {
   children: ReactNode | ReactNode[];
-  drawerOpen?: boolean;
-  onDrawerClose?: () => void;
+  onClose?: () => void;
+  open?: boolean;
 }
 
 export const SidebarDrawer = ({
   children,
-  drawerOpen = false,
-  onDrawerClose,
+  onClose,
+  open = false,
 }: SidebarDrawerProps): JSX.Element => {
   return (
     <TemporarySidebar
@@ -29,13 +29,13 @@ export const SidebarDrawer = ({
       data-testid={TEST_IDS.SIDEBAR_DRAWER}
       hideBackdrop={false}
       marginThreshold={0}
-      onClose={onDrawerClose}
-      open={drawerOpen}
+      onClose={onClose}
+      open={open}
       slotProps={DRAWER_SLOT_PROPS}
       TransitionComponent={DrawerTransition}
-      transitionDuration={drawerOpen ? 250 : 300}
+      transitionDuration={open ? 250 : 300}
     >
-      <IconButton Icon={CloseRounded} onClick={onDrawerClose} size="medium" />
+      <IconButton Icon={CloseRounded} onClick={onClose} size="medium" />
       {children}
     </TemporarySidebar>
   );
