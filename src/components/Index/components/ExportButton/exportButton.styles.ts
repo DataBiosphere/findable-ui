@@ -1,13 +1,14 @@
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
-import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
+import { Box, Button } from "@mui/material";
+import { mediaTabletDown } from "../../../../styles/common/mixins/breakpoints";
+
+export const StyledBox = styled(Box)`
+  ${mediaTabletDown} {
+    display: none;
+  }
+`;
 
 export const StyledButton = styled(Button)`
-  display: none;
   max-width: fit-content;
   padding: 8px 16px;
-
-  ${mediaTabletUp} {
-    display: inline-flex;
-  }
 ` as typeof Button;
