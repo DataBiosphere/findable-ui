@@ -18,8 +18,8 @@ export const EntitiesView = ({
         {viewStatus.disabled ? null : (
           <Toolbar>
             <ToggleButtonGroup exclusive value={viewMode} onChange={onChange}>
-              <ToggleButton value={VIEW_MODE.TABLE}>Table View</ToggleButton>
-              <ToggleButton value={VIEW_MODE.CHART}>Chart View</ToggleButton>
+              <ToggleButton value={VIEW_MODE.TABLE}>Table</ToggleButton>
+              <ToggleButton value={VIEW_MODE.CHART}>Graph</ToggleButton>
             </ToggleButtonGroup>
           </Toolbar>
         )}
