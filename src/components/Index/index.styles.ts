@@ -1,19 +1,11 @@
 import styled from "@emotion/styled";
-import { mediaTabletUp } from "../../styles/common/mixins/breakpoints";
+import { Grid } from "@mui/material";
 
 interface Props {
-  marginTop: number;
+  top: number;
 }
 
-export const Index = styled("div")<Props>`
-  display: grid;
+export const StyledGrid = styled(Grid)<Props>`
   flex: 1;
-  gap: 16px;
-  margin-top: ${({ marginTop }) => marginTop}px;
-  padding: 24px 0;
-  place-content: flex-start stretch;
-
-  ${mediaTabletUp} {
-    padding: 24px;
-  }
+  padding-top: ${({ top }) => top}px;
 `;

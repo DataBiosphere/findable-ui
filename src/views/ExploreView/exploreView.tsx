@@ -4,7 +4,6 @@ import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
-import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
   CategoryFilter,
@@ -12,16 +11,11 @@ import {
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
 import { Index as IndexView } from "../../components/Index/index";
-import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
-import { CategoryGroup, ComponentsConfig } from "../../config/entities";
+import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../hooks/useBreakpointHelper";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
@@ -31,7 +25,6 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
-import { DESKTOP_SM } from "../../theme/common/breakpoints";
 import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
@@ -40,13 +33,11 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
-  const { label, listView } = entityConfig;
-  const { listHero, subTitleHero } = listView || {};
-  const { categoryGroups, categoryViews, filterCount, loading } = exploreState;
+  const { label } = entityConfig;
+  const { categoryGroups, categoryViews, loading } = exploreState;
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
@@ -124,13 +115,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   };
 
   /**
-   * Opens filter drawer.
-   */
-  const onOpenDrawer = (): void => {
-    setIsDrawerOpen(true);
-  };
-
-  /**
    * Dispatch a SelectedEntityType action when entityListType changes.
    */
   useEffect(() => {
@@ -172,17 +156,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         entityListType={entityListType}
         entityName={label}
         loading={loading}
-        ListHero={renderComponent(listHero)}
-        SideBarButton={
-          tabletDown ? (
-            <SidebarButton
-              count={filterCount}
-              label="Filter"
-              onClick={onOpenDrawer}
-            />
-          ) : undefined
-        }
-        SubTitleHero={renderComponent(subTitleHero)}
       />
     </>
   );
@@ -215,20 +188,4 @@ function buildCategoryFilters(
     }
     return accGroups;
   }, [] as CategoryFilter[]);
-}
-
-/**
- * Optionally renders component config.
- * @param componentsConfig - SubHero config.
- * @param response - Response data.
- * @returns components.
- */
-function renderComponent<T>(
-  componentsConfig?: ComponentsConfig | undefined,
-  response?: T
-): JSX.Element | undefined {
-  if (!componentsConfig) {
-    return;
-  }
-  return <ComponentCreator components={componentsConfig} response={response} />;
 }

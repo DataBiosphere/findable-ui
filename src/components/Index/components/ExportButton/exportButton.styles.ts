@@ -5,8 +5,9 @@ import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
 export const StyledButton = styled(Button)`
   display: none;
   max-width: fit-content;
+  padding: 8px 16px;
 
   ${mediaTabletUp} {
-    display: block;
+    display: inline-flex;
   }
 ` as typeof Button;

@@ -3,9 +3,10 @@ import { Tabs } from "../../../common/Tabs/tabs";
 
 export const StyledTabs = styled(Tabs)`
   box-shadow: none;
-  max-width: fit-content;
+  flex: 1;
 
   .MuiTab-root {
     line-height: 32px;
+    margin: 0;
   }
 `;

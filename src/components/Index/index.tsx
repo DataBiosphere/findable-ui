@@ -5,12 +5,11 @@ import { EntityList } from "./components/EntitiesView/components/EntityList/enti
 import { EntitiesView } from "./components/EntitiesView/entitiesView";
 import { useEntitiesView } from "./components/EntitiesView/hooks/UseEntitiesView/hook";
 import { VIEW_MODE } from "./components/EntitiesView/hooks/UseEntitiesView/types";
-import { ExportButton } from "./components/ExportButton/exportButton";
-import { Hero } from "./components/Hero/hero";
-import { Summary } from "./components/Summary/summary";
-import { Tabs } from "./components/Tabs/tabs";
+import { ListHero } from "./components/ListViews/components/ListHero/listHero";
+import { ListViewHero } from "./components/ListViews/components/ListViewHero/listViewHero";
+import { SubTitleHero } from "./components/ListViews/components/SubTitleHero/subTitleHero";
 import { Title } from "./components/Title/title";
-import { Index as IndexLayout } from "./index.styles";
+import { StyledGrid } from "./index.styles";
 import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
 
@@ -19,23 +18,22 @@ export const Index = ({
   className,
   entityListType,
   entityName,
-  ListHero,
   loading,
-  SideBarButton,
-  SubTitleHero,
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useEntitiesView();
   const { dimensions } = useLayoutDimensions();
   const { table } = useTable({ entityListType });
   return (
-    <IndexLayout className={className} marginTop={dimensions.header.height}>
+    <StyledGrid className={className} top={dimensions.header.height}>
+      {/* Title */}
       <Title />
-      <Summary />
-      <ExportButton />
-      <Hero SideBarButton={SideBarButton} />
-      {SubTitleHero}
-      <Tabs />
-      {ListHero}
+      {/* Subtitle or Alerts */}
+      <SubTitleHero />
+      {/* Tabs, Summary, Export, Filter */}
+      <ListViewHero />
+      {/* Alerts */}
+      <ListHero />
+      {/* Table or Graph */}
       <EntitiesView
         onChange={onChange}
         viewMode={viewMode}
@@ -55,6 +53,6 @@ export const Index = ({
           />
         )}
       </EntitiesView>
-    </IndexLayout>
+    </StyledGrid>
   );
 };
