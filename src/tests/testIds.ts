@@ -1,6 +1,5 @@
 export const TEST_IDS = {
   CLEAR_ALL_FILTERS: "clear-all-filters",
-  ENTITIES_VIEW: "entities-view",
   EXPORT_BUTTON: "export-button",
   FILTERS: "filters",
   FILTER_CONTROLS: "filter-controls",
@@ -16,4 +15,5 @@ export const TEST_IDS = {
   TABLE_PAGINATION: "table-pagination",
   TABLE_PAGINATION_PAGE: "table-pagination-page",
   TABLE_PAGINATION_RESULTS: "table-pagination-results",
+  VIEW_TOGGLE: "view-toggle",
 };

@@ -6,9 +6,9 @@ import {
   getCategoryTotalCount,
   getCountText,
   parseTranslate,
-} from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/barX/utils";
-import { CHART_TEST_ID } from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/constants";
-import * as stories from "../src/components/Index/components/EntitiesView/components/ChartView/components/Chart/stories/chart.stories";
+} from "../src/components/Index/components/EntityView/components/ChartView/components/Chart/barX/utils";
+import { CHART_TEST_ID } from "../src/components/Index/components/EntityView/components/ChartView/components/Chart/constants";
+import * as stories from "../src/components/Index/components/EntityView/components/ChartView/components/Chart/stories/chart.stories";
 import { PALETTE } from "../src/styles/common/constants/palette";
 
 const CLASSNAMES = {
