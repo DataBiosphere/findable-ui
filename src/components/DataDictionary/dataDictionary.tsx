@@ -2,6 +2,7 @@ import { Fade } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { Attribute } from "../../common/entities";
+import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
 import { Entities } from "./components/Entities/entities";
 import { ColumnFilterTags } from "./components/Filters/components/ColumnFilterTags/columnFilterTags";
 import { Filters } from "./components/Filters/filters";
@@ -15,7 +16,6 @@ import { useTable } from "./components/Table/hook";
 import { Title as DefaultTitle } from "./components/Title/title";
 import { View } from "./dataDictionary.styles";
 import { useDataDictionaryConfig } from "./hooks/UseDataDictionaryConfig/hook";
-import { useLayoutSpacing } from "./hooks/UseLayoutSpacing/hook";
 import { useMeasureFilters } from "./hooks/UseMeasureFilters/hook";
 import { DataDictionaryProps } from "./types";
 

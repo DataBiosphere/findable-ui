@@ -1,4 +1,4 @@
-import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
+import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
 import { UseLayoutSpacing } from "./types";
 
 export const useLayoutSpacing = (): UseLayoutSpacing => {

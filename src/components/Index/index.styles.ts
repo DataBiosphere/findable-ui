@@ -1,25 +1,30 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
+import { LayoutSpacing } from "../../hooks/UseLayoutSpacing/types";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 
-interface Props {
-  top: number;
-}
-
-export const StyledGrid = styled(Grid)<Props>`
+export const StyledGrid = styled(Grid)<LayoutSpacing>`
+  align-content: flex-start;
+  display: grid;
   flex: 1;
+  gap: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding-bottom: ${({ bottom }) => bottom}px;
   padding-top: ${({ top }) => top}px;
 `;
 
 export const StyledFluidPaper = styled(FluidPaper)`
-  &.MuiPaper-root {
-    margin: 16px;
-    position: relative; /* required; positions table loading indicator */
+  background-color: ${PALETTE.SMOKE_MAIN};
+  display: grid;
+  gap: 1px;
+  margin: 16px;
+  overflow: hidden;
+  position: relative; /* required; positions table loading indicator */
 
   ${mediaTabletDown} {
-    &.MuiPaper-root {
-      margin: 16px 0;
-    }
+    margin: 16px 0;
   }
 `;

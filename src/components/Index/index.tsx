@@ -1,6 +1,5 @@
 import React from "react";
-import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
-import { GridPaper } from "../common/Paper/paper.styles";
+import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
 import { ListHero } from "./components/EntityControls/components/ListHero/listHero";
 import { ListViewHero } from "./components/EntityControls/components/ListViewHero/listViewHero";
 import { SubTitleHero } from "./components/EntityControls/components/SubTitleHero/subTitleHero";
@@ -22,10 +21,10 @@ export const Index = ({
   loading,
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useViewToggle();
-  const { dimensions } = useLayoutDimensions();
+  const { spacing } = useLayoutSpacing();
   const { table } = useTable({ entityListType });
   return (
-    <StyledGrid className={className} top={dimensions.header.height}>
+    <StyledGrid className={className} {...spacing}>
       {/* Title */}
       <Title />
       {/* Subtitle or Alerts */}
@@ -37,21 +36,19 @@ export const Index = ({
       {/* Table or Graph */}
       <EntityViewContext.Provider value={{ onChange, viewMode, viewStatus }}>
         <StyledFluidPaper elevation={0}>
-          <GridPaper>
-            {viewMode === VIEW_MODE.TABLE ? (
-              <TableView
-                entityListType={entityListType}
-                loading={loading}
-                table={table}
-              />
-            ) : (
-              <ChartView
-                categoryFilters={categoryFilters}
-                entityName={entityName}
-                loading={loading}
-              />
-            )}
-          </GridPaper>
+          {viewMode === VIEW_MODE.TABLE ? (
+            <TableView
+              entityListType={entityListType}
+              loading={loading}
+              table={table}
+            />
+          ) : (
+            <ChartView
+              categoryFilters={categoryFilters}
+              entityName={entityName}
+              loading={loading}
+            />
+          )}
         </StyledFluidPaper>
       </EntityViewContext.Provider>
     </StyledGrid>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
-import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 import { LAYOUT_SPACING } from "../../constants";
 
 const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */

@@ -121,6 +121,7 @@ export const TableComponent = <T extends RowData>({
         <GridTable
           collapsable={true}
           gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
+          stickyHeader
         >
           <TableHead rowDirection={rowDirection} tableInstance={table} />
           <TableBody
