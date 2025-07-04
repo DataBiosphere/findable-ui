@@ -10,9 +10,9 @@ export const StyledGrid = styled(Grid)<LayoutSpacing>`
   display: grid;
   flex: 1;
   gap: 0;
-  height: 100vh;
+  height: 100%;
+  max-height: 100vh;
   overflow: hidden;
-  padding-bottom: ${({ bottom }) => bottom}px;
   padding-top: ${({ top }) => top}px;
 `;
 
