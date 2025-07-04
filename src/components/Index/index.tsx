@@ -7,8 +7,9 @@ import { SubTitleHero } from "./components/EntityControls/components/SubTitleHer
 import { Title } from "./components/EntityControls/components/Title/title";
 import { ChartView } from "./components/EntityView/components/ChartView/chartView";
 import { TableView } from "./components/EntityView/components/TableView/tableView";
-import { useEntityView } from "./components/EntityView/hooks/UseEntityView/hook";
-import { VIEW_MODE } from "./components/EntityView/hooks/UseEntityView/types";
+import { useViewToggle } from "./components/EntityView/components/common/ViewToggle/hooks/UseViewToggle/hook";
+import { VIEW_MODE } from "./components/EntityView/components/common/ViewToggle/hooks/UseViewToggle/types";
+import { EntityViewContext } from "./components/EntityView/context/context";
 import { StyledFluidPaper, StyledGrid } from "./index.styles";
 import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
@@ -20,7 +21,7 @@ export const Index = ({
   entityName,
   loading,
 }: IndexProps): JSX.Element => {
-  const entityViewState = useEntityView();
+  const { onChange, viewMode, viewStatus } = useViewToggle();
   const { dimensions } = useLayoutDimensions();
   const { table } = useTable({ entityListType });
   return (
@@ -34,23 +35,25 @@ export const Index = ({
       {/* Alerts */}
       <ListHero />
       {/* Table or Graph */}
-      <StyledFluidPaper>
-        <GridPaper>
-          {entityViewState.viewMode === VIEW_MODE.TABLE ? (
-            <TableView
-              entityListType={entityListType}
-              loading={loading}
-              table={table}
-            />
-          ) : (
-            <ChartView
-              categoryFilters={categoryFilters}
-              entityName={entityName}
-              loading={loading}
-            />
-          )}
-        </GridPaper>
-      </StyledFluidPaper>
+      <EntityViewContext.Provider value={{ onChange, viewMode, viewStatus }}>
+        <StyledFluidPaper elevation={0}>
+          <GridPaper>
+            {viewMode === VIEW_MODE.TABLE ? (
+              <TableView
+                entityListType={entityListType}
+                loading={loading}
+                table={table}
+              />
+            ) : (
+              <ChartView
+                categoryFilters={categoryFilters}
+                entityName={entityName}
+                loading={loading}
+              />
+            )}
+          </GridPaper>
+        </StyledFluidPaper>
+      </EntityViewContext.Provider>
     </StyledGrid>
   );
 };

@@ -110,11 +110,7 @@ export const TableComponent = <T extends RowData>({
     <NoResults Paper={null} title="No Results found" />
   ) : (
     <Fragment>
-      <TableToolbar
-        listView={listView}
-        rowDirection={rowDirection}
-        tableInstance={table}
-      />
+      <TableToolbar listView={listView} tableInstance={table} />
       <Loading
         appear={false}
         autoPosition={false}

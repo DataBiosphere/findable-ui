@@ -2,6 +2,8 @@ import { Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../../Loading/loading";
+import { StyledToolbar } from "../../../../../Table/components/TableToolbar/tableToolbar.styles";
+import { ViewToggle } from "../common/ViewToggle/viewToggle";
 import { StyledGrid, StyledGridPaperSection } from "./chartView.styles";
 import { Chart } from "./components/Chart/chart";
 import { useChartView } from "./hooks/UseChartView/useChartView";
@@ -18,6 +20,9 @@ export const ChartView = ({
   if (selectCategoryViews.length === 0) return null;
   return (
     <Fragment>
+      <StyledToolbar>
+        <ViewToggle />
+      </StyledToolbar>
       <Loading
         appear={false}
         autoPosition={false}

@@ -7,5 +7,4 @@ export const VARIANT: Record<string, PaperProps["variant"]> = {
   OUTLINED: "outlined",
   PANEL: "panel",
   SEARCH_BAR: "searchbar",
-  TABLE: "table",
 };

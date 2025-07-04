@@ -6,8 +6,8 @@ import { ROW_DIRECTION } from "../../../Table/common/entities";
 import { TableHead } from "../../../Table/components/TableHead/tableHead";
 import { GridTable } from "../../../Table/table.styles";
 import { getColumnTrackSizing } from "../../../TableCreator/options/columnTrackSizing/utils";
+import { RoundedPaper } from "../../../common/Paper/components/RoundedPaper/roundedPaper";
 import { GridPaper } from "../../../common/Paper/paper.styles";
-import { StyledRoundedPaper } from "./table.styles";
 import { TableProps } from "./types";
 
 export const Table = <T extends RowData>({
@@ -15,7 +15,7 @@ export const Table = <T extends RowData>({
   table,
 }: TableProps<T>): JSX.Element => {
   return (
-    <StyledRoundedPaper variant="table">
+    <RoundedPaper elevation={0}>
       <GridPaper>
         <TableContainer>
           <GridTable
@@ -35,6 +35,6 @@ export const Table = <T extends RowData>({
           </GridTable>
         </TableContainer>
       </GridPaper>
-    </StyledRoundedPaper>
+    </RoundedPaper>
   );
 };

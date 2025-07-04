@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
-import { FluidPaper } from "../common/Paper/paper.styles";
+import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 
 interface Props {
   top: number;

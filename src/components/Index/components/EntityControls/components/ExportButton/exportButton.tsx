@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 import { useConfig } from "../../../../../../hooks/useConfig";
@@ -7,7 +7,7 @@ import { ROUTE } from "../../../../../../routes/constants";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { BUTTON_PROPS } from "../../../../../common/Button/constants";
 import { BaseComponentProps } from "../../../../../types";
-import { StyledBox, StyledButton } from "./exportButton.styles";
+import { StyledBox } from "./exportButton.styles";
 
 export const ExportButton = ({
   className,
@@ -21,7 +21,7 @@ export const ExportButton = ({
   return (
     <Tooltip arrow title={message}>
       <StyledBox>
-        <StyledButton
+        <Button
           {...BUTTON_PROPS.PRIMARY_CONTAINED}
           className={className}
           component={Link}
@@ -31,7 +31,7 @@ export const ExportButton = ({
           id="button-cohort-export"
         >
           Export
-        </StyledButton>
+        </Button>
       </StyledBox>
     </Tooltip>
   );

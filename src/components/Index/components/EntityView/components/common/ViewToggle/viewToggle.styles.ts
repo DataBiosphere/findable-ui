@@ -3,7 +3,7 @@ import { ToggleButtonGroup } from "@mui/material";
 
 export const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   .MuiToggleButton-root {
-    padding: 8px 16px;
+    max-height: 32px;
     text-transform: none;
   }
 `;

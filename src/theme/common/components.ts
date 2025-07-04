@@ -6,6 +6,7 @@ import { SHADOWS } from "../../styles/common/constants/shadows";
 import { BUTTON_PROPS } from "../../styles/common/mui/button";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
+import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
   TEXT_BODY_400,
@@ -204,18 +205,12 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         margin: 0,
         variants: [
           {
-            props: { size: BUTTON_PROPS.SIZE.MEDIUM },
-            style: {
-              marginLeft: -6,
-              marginRight: -6,
-            },
+            props: { size: BUTTON_PROPS.SIZE.LARGE },
+            style: { marginRight: -4 },
           },
           {
-            props: { size: BUTTON_PROPS.SIZE.SMALL },
-            style: {
-              marginLeft: -6,
-              marginRight: -6,
-            },
+            props: { size: BUTTON_PROPS.SIZE.MEDIUM },
+            style: { marginRight: -4 },
           },
         ],
       },
@@ -246,11 +241,18 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         padding: "10px 16px",
         textTransform: "capitalize",
       },
-      sizeSmall: {
-        padding: "6px 12px",
-      },
       startIcon: {
-        marginRight: 0,
+        margin: 0,
+        variants: [
+          {
+            props: { size: BUTTON_PROPS.SIZE.LARGE },
+            style: { marginLeft: -4 },
+          },
+          {
+            props: { size: BUTTON_PROPS.SIZE.MEDIUM },
+            style: { marginLeft: -4 },
+          },
+        ],
       },
       text: {
         alignSelf: "center",
@@ -259,6 +261,14 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
       },
     },
     variants: [
+      {
+        props: { size: BUTTON_PROPS.SIZE.LARGE },
+        style: { padding: "10px 16px" },
+      },
+      {
+        props: { size: BUTTON_PROPS.SIZE.MEDIUM },
+        style: { padding: "8px 16px" },
+      },
       {
         props: {
           color: BUTTON_PROPS.COLOR.PRIMARY,
@@ -1225,15 +1235,6 @@ export const MuiPaper = (theme: Theme): Components["MuiPaper"] => {
           },
         },
       },
-      {
-        props: { variant: "table" }, // Copy of "panel" variant.
-        style: {
-          borderColor: theme.palette.smoke.main,
-          borderStyle: "solid",
-          borderWidth: 1,
-          boxShadow: SHADOWS["01"],
-        },
-      },
     ],
   };
 };
@@ -1514,7 +1515,6 @@ export const MuiToggleButton = (
         borderRadius: 4,
         color: theme.palette.ink.main,
         flex: 1,
-        padding: "8px 12px",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:hover": {
           backgroundColor: theme.palette.smoke.lightest,
@@ -1527,6 +1527,12 @@ export const MuiToggleButton = (
             backgroundColor: PALETTE.COMMON_WHITE,
           },
         },
+        variants: [
+          {
+            props: { size: TOGGLE_BUTTON_PROPS.SIZE.MEDIUM },
+            style: { padding: "8px 16px" },
+          },
+        ],
       },
     },
   };

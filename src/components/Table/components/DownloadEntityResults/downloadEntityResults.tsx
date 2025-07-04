@@ -1,7 +1,8 @@
+import { Button } from "@mui/material";
 import { Row, RowData } from "@tanstack/react-table";
 import React from "react";
-import { ButtonSecondary } from "../../../common/Button/components/ButtonSecondary/buttonSecondary";
 import { FileDownloadButton } from "../../../common/Button/components/FileDownloadButton/fileDownloadButton";
+import { BUTTON_PROPS } from "../../../common/Button/constants";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { generateDownloadBlob } from "../../common/utils";
 
@@ -25,12 +26,13 @@ export const DownloadEntityResults = <T extends RowData>({
 
   return (
     <>
-      <ButtonSecondary
+      <Button
+        {...BUTTON_PROPS.SECONDARY_CONTAINED}
         onClick={(): void => onDownload()}
-        StartIcon={DownloadIcon}
+        startIcon={<DownloadIcon />}
       >
         Download TSV
-      </ButtonSecondary>
+      </Button>
       <FileDownloadButton fileName={`${entityName}.tsv`} fileUrl={fileUrl} />
     </>
   );

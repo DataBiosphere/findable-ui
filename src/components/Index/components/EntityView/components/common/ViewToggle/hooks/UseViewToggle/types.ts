@@ -9,7 +9,7 @@ export interface ViewStatus {
   disabled: boolean;
 }
 
-export interface UseEntityViewProps {
+export interface UseViewToggleProps {
   onChange: ToggleButtonGroupProps["onChange"];
   viewMode: VIEW_MODE;
   viewStatus: ViewStatus;

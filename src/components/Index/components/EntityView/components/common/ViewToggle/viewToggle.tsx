@@ -1,17 +1,15 @@
 import { ToggleButton } from "@mui/material";
 import React from "react";
 import { TestIdProps } from "../../../../../../types";
-import { VIEW_MODE } from "../../../hooks/UseEntityView/types";
-import { ViewToggleProps } from "./types";
+import { useEntityView } from "../../../context/hook";
+import { VIEW_MODE } from "./hooks/UseViewToggle/types";
 import { StyledToggleButtonGroup } from "./viewToggle.styles";
 
-export const ViewToggle = ({
-  onChange,
-  testId,
-  viewMode,
-  viewStatus,
-}: TestIdProps & ViewToggleProps): JSX.Element | null => {
+export const ViewToggle = ({ testId }: TestIdProps): JSX.Element | null => {
+  const { onChange, viewMode, viewStatus } = useEntityView();
+
   if (viewStatus.disabled) return null;
+
   return (
     <StyledToggleButtonGroup
       data-testid={testId}

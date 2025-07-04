@@ -1,25 +1,25 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { smokeLightest } from "../../../../../styles/common/mixins/colors";
-import { ButtonSecondary } from "../ButtonSecondary/buttonSecondary";
+import { Button, ButtonProps } from "@mui/material";
+import { PALETTE } from "../../../../../styles/common/constants/palette";
 
-interface Props {
-  open: boolean;
+interface Props extends ButtonProps {
+  open?: boolean;
 }
 
-// Dropdown button with "secondary" styles.
-export const DropdownButton = styled(ButtonSecondary, {
+export const StyledButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== "open",
 })<Props>`
-  padding-right: 8px;
+  gap: 0;
 
   .MuiButton-endIcon {
-    margin-left: -6px;
+    margin-left: -2px;
+    margin-right: -8px;
   }
 
-  ${({ open, ...props }) =>
+  ${({ open }) =>
     open &&
     css`
-      background-color: ${smokeLightest(props)};
+      background-color: ${PALETTE.SMOKE_LIGHTEST};
     `}
 `;
