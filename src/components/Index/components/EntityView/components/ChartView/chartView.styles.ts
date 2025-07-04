@@ -5,6 +5,7 @@ import { GridPaperSection } from "../../../../../common/Section/section.styles";
 export const StyledGrid = styled(Grid)`
   display: grid;
   gap: inherit;
+  overflow-y: auto;
 `;
 
 export const StyledGridPaperSection = styled(GridPaperSection)`
