@@ -7,11 +7,11 @@ import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../TableCell/common/utils";
-import { TableRow } from "../TableRow/tableRow.styles";
+import { StyledTableRow } from "../TableRow/tableRow.styles";
 
 export interface TableRowsProps<T extends RowData> {
   rows: Row<T>[];
-  virtualizer: Virtualizer<Window, Element>;
+  virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
 export const TableRows = <T extends RowData>({
@@ -26,7 +26,7 @@ export const TableRows = <T extends RowData>({
         const row = rows[rowIndex] as Row<T>;
         const { getIsGrouped, getIsPreview } = row;
         return (
-          <TableRow
+          <StyledTableRow
             key={row.id}
             data-index={rowIndex}
             isGrouped={getIsGrouped()}
@@ -51,7 +51,7 @@ export const TableRows = <T extends RowData>({
                 </TableCell>
               );
             })}
-          </TableRow>
+          </StyledTableRow>
         );
       })}
     </Fragment>

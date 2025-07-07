@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 
 export interface VirtualizedRowProps {
   isUpperRow: boolean;
-  virtualizer: Virtualizer<Window, Element>;
+  virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
 export const VirtualizedRow = ({

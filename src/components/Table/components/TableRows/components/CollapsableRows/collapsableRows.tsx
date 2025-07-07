@@ -3,13 +3,13 @@ import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
-import { TableRow } from "../../../TableRow/tableRow.styles";
+import { StyledTableRow } from "../../../TableRow/tableRow.styles";
 import { useCollapsableRows } from "./hook";
 
 export interface CollapsableRowsProps<T extends RowData> {
   rows: Row<T>[];
   tableInstance: Table<T>;
-  virtualizer: Virtualizer<Window, Element>;
+  virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
 export const CollapsableRows = <T extends RowData>({
@@ -28,7 +28,7 @@ export const CollapsableRows = <T extends RowData>({
         const { getIsPreview } = row;
         if (grouping.length > 0 && row.depth > 0) return null; // TODO(cc) hide sub rows -- sub-rows are within collapsed content -- UI TBD.
         return (
-          <TableRow
+          <StyledTableRow
             key={row.id}
             data-index={virtualRow.index}
             isPreview={getIsPreview()}
@@ -39,7 +39,7 @@ export const CollapsableRows = <T extends RowData>({
               row={row}
               virtualizer={virtualizer}
             />
-          </TableRow>
+          </StyledTableRow>
         );
       })}
     </Fragment>

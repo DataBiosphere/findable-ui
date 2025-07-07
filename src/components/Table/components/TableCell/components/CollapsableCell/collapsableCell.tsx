@@ -15,7 +15,7 @@ import {
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
   row: Row<T>;
-  virtualizer?: Virtualizer<Window, Element>;
+  virtualizer?: Virtualizer<HTMLDivElement, Element>;
 }
 
 export const CollapsableCell = <T extends RowData>({

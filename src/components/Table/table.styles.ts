@@ -10,7 +10,6 @@ interface Props {
 export const GridTable = styled(Table, {
   shouldForwardProp: (prop) => prop !== "collapsable",
 })<Props>`
-  // Collapsable.
   ${mediaTabletDown} {
     ${({ collapsable }) =>
       collapsable &&

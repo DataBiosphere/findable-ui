@@ -12,7 +12,7 @@ interface Props {
   isPreview?: boolean;
 }
 
-export const TableRow = styled(MTableRow, {
+export const StyledTableRow = styled(MTableRow, {
   shouldForwardProp: (prop) => prop !== "isPreview" && prop !== "isGrouped",
 })<Props>`
   && {
