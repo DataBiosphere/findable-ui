@@ -12,20 +12,25 @@ interface UseSummaryResponse {
 
 export const useSummary = (): UseSummaryResponse | undefined => {
   const { token } = useToken();
-  const { config } = useConfig();
+  const { config, entityConfig } = useConfig();
   const { exploreState } = useExploreState();
   const { filterState } = exploreState;
   const { summaryConfig } = config;
+  const { ui } = entityConfig;
+  const { enableSummary } = ui || {};
   const { data: response, run } = useAsync<AzulSummaryResponse>();
   const { catalog, fetchSummary } = useEntityService();
 
-  useEffect(() => {
-    if (!summaryConfig) return;
-    run(fetchSummary(filterState, catalog, token));
-  }, [catalog, fetchSummary, filterState, run, summaryConfig, token]);
+  // Summary is enabled and summary config is defined.
+  const shouldFetch = !!(enableSummary && summaryConfig);
 
-  // Summary config is not defined.
-  if (!summaryConfig) return;
+  useEffect(() => {
+    if (!shouldFetch) return;
+    run(fetchSummary(filterState, catalog, token));
+  }, [catalog, fetchSummary, filterState, run, shouldFetch, token]);
+
+  // Summary is disabled or summary config is not defined.
+  if (!enableSummary || !summaryConfig) return;
 
   // Summary response is not defined.
   if (!response) return;

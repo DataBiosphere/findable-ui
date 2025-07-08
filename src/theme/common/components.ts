@@ -254,11 +254,6 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           },
         ],
       },
-      text: {
-        alignSelf: "center",
-        minWidth: 0,
-        padding: 0,
-      },
     },
     variants: [
       {
@@ -275,7 +270,10 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: BUTTON_PROPS.VARIANT.TEXT,
         },
         style: {
+          alignSelf: "center",
           color: PALETTE.PRIMARY_MAIN,
+          minWidth: 0,
+          padding: 0,
           // eslint-disable-next-line sort-keys -- disabling key order for readability
           "&:hover": {
             backgroundColor: "transparent",
@@ -791,22 +789,23 @@ export const MuiIconButton = (theme: Theme): Components["MuiIconButton"] => {
         },
       },
       colorSecondary: {
-        backgroundColor: theme.palette.common.white,
-        boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
-        color: theme.palette.ink.main,
+        backgroundColor: PALETTE.COMMON_WHITE,
+        boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
+        color: PALETTE.INK_MAIN,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-disabled": {
-          color: "inherit",
+          boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
+          color: PALETTE.INK_LIGHT,
           opacity: 0.5,
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:hover": {
-          backgroundColor: theme.palette.smoke.lightest,
+          backgroundColor: PALETTE.SMOKE_LIGHTEST,
         },
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:active": {
-          backgroundColor: theme.palette.smoke.lightest,
-          boxShadow: `inset 0 0 0 1px ${theme.palette.smoke.dark}`,
+          backgroundColor: PALETTE.SMOKE_LIGHTEST,
+          boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
         },
       },
       root: {
@@ -816,7 +815,7 @@ export const MuiIconButton = (theme: Theme): Components["MuiIconButton"] => {
         padding: 10,
       },
       sizeMedium: {
-        padding: "6px 8px",
+        padding: 8,
       },
       sizeSmall: {
         padding: 6,

@@ -14,7 +14,7 @@ export const PaginationSummary = ({
   totalResult,
 }: PaginationSummaryProps): JSX.Element => {
   return (
-    <Fade in={totalResult > 0}>
+    <Fade in={totalResult > 0} unmountOnExit>
       <div data-testid={TEST_IDS.TABLE_PAGINATION_RESULTS}>
         <Typography variant="text-body-400">Results </Typography>
         <Typography variant="text-body-small-500">

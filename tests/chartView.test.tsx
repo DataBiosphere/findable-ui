@@ -1,8 +1,8 @@
 import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { CHART_VIEW_TEST_ID } from "../src/components/Index/components/EntityView/components/ChartView/constants";
-import * as stories from "../src/components/Index/components/EntityView/components/ChartView/stories/chartView.stories";
+import { CHART_VIEW_TEST_ID } from "../src/components/Index/components/EntityView/components/views/ChartView/constants";
+import * as stories from "../src/components/Index/components/EntityView/components/views/ChartView/stories/chartView.stories";
 
 const { Default } = composeStories(stories);
 

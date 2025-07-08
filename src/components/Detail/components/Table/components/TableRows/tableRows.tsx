@@ -5,7 +5,7 @@ import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../../../../../Table/components/TableCell/common/utils";
-import { TableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
+import { StyledTableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
 import { TableView } from "../../table";
 
 export interface TableRowsProps<T extends RowData> {
@@ -32,7 +32,7 @@ export const TableRows = <T extends RowData>({
     <Fragment>
       {(leafOrSubRows || rows).map((row) => {
         return (
-          <TableRow
+          <StyledTableRow
             key={row.id}
             isGrouped={row.getIsGrouped()}
             isPreview={row.getIsPreview()}
@@ -51,7 +51,7 @@ export const TableRows = <T extends RowData>({
                 </TableCell>
               );
             })}
-          </TableRow>
+          </StyledTableRow>
         );
       })}
     </Fragment>

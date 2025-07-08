@@ -49,6 +49,7 @@ export const GridTable = styled(MTable, {
       box-shadow: 0px 1px ${PALETTE.SMOKE_MAIN};
       position: sticky;
       top: 0;
+      z-index: 2;
     }
   }
 `;

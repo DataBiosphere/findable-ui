@@ -2,7 +2,7 @@ import { ToggleButtonGroupProps } from "@mui/material";
 import {
   VIEW_MODE,
   ViewStatus,
-} from "../components/common/ViewToggle/hooks/UseViewToggle/types";
+} from "../components/controls/ViewToggle/hooks/UseViewToggle/types";
 
 export interface EntityViewContextProps {
   onChange: ToggleButtonGroupProps["onChange"];

@@ -180,12 +180,25 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   options?: Options;
   overrides?: Override[];
   staticLoadFile?: string;
+  ui?: EntityUIConfig;
 }
 
 /**
  * Entity mapper function.
  */
 export type EntityMapper<T, I> = (input: I) => T;
+
+export interface EntityUIConfig {
+  actionButton?: ReactNode; // Action button.
+  enableExportButton?: boolean; // Flag to show/hide the export button.
+  enableSummary?: boolean; // Flag to show/hide the summary.
+  enableTabs?: boolean; // Flag to show/hide the tabs.
+  slots?: {
+    entityListSlot?: ComponentsConfig; // Slot above the entity list.
+    entityViewSlot?: ComponentsConfig; // Slot above the entity view (e.g. top of the page).
+  };
+  title?: ReactNode; // Title component (optional).
+}
 
 /**
  * Interface to define the export configuration for a given site.
@@ -264,12 +277,8 @@ export interface ListConfig<T extends RowData> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
-  enableTab?: boolean;
-  listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
-  subTitleHero?: ComponentsConfig;
-  title?: ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.

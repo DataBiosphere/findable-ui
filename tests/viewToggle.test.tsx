@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { VIEW_MODE } from "../src/components/Index/components/EntityView/components/common/ViewToggle/hooks/UseViewToggle/types";
+import { VIEW_MODE } from "../src/components/Index/components/EntityView/components/controls/ViewToggle/hooks/UseViewToggle/types";
 import { TEST_IDS } from "../src/tests/testIds";
 
 jest.unstable_mockModule(
@@ -16,7 +16,7 @@ const { useEntityView } = await import(
 );
 const { composeStories } = await import("@storybook/react");
 const stories = await import(
-  "../src/components/Index/components/EntityView/components/common/ViewToggle/stories/viewToggle.stories"
+  "../src/components/Index/components/EntityView/components/controls/ViewToggle/stories/viewToggle.stories"
 );
 
 const { Default } = composeStories(stories);

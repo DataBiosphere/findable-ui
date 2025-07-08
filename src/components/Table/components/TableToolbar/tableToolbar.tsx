@@ -3,7 +3,7 @@ import { RowData, Table } from "@tanstack/react-table";
 import React, { Fragment } from "react";
 import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
-import { ViewToggle } from "../../../Index/components/EntityView/components/common/ViewToggle/viewToggle";
+import { ViewToggle } from "../../../Index/components/EntityView/components/controls/ViewToggle/viewToggle";
 import { isAnyRowSelected } from "../../common/utils";
 import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";

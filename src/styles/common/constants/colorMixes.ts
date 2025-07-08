@@ -5,6 +5,7 @@ export const COLOR_MIXES = {
   ALERT_MAIN_32: `color-mix(in srgb, ${PALETTE.ALERT_MAIN} 32%, transparent)`,
   ALERT_MAIN_64: `color-mix(in srgb, ${PALETTE.ALERT_MAIN} 64%, transparent)`,
   COMMON_BLACK_04: `color-mix(in srgb, ${PALETTE.COMMON_BLACK} 4%, transparent)`,
+  COMMON_BLACK_05: `color-mix(in srgb, ${PALETTE.COMMON_BLACK} 5%, transparent)`,
   COMMON_BLACK_08: `color-mix(in srgb, ${PALETTE.COMMON_BLACK} 8%, transparent)`,
   COMMON_WHITE_32: `color-mix(in srgb, ${PALETTE.COMMON_WHITE} 32%, transparent)`,
   COMMON_WHITE_64: `color-mix(in srgb, ${PALETTE.COMMON_WHITE} 64%, transparent)`,

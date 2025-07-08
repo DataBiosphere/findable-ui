@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { VIEW_MODE } from "../components/common/ViewToggle/hooks/UseViewToggle/types";
+import { VIEW_MODE } from "../components/controls/ViewToggle/hooks/UseViewToggle/types";
 import { EntityViewContextProps } from "./types";
 
 export const EntityViewContext = createContext<EntityViewContextProps>({
