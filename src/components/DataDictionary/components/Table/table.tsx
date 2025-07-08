@@ -23,10 +23,7 @@ export const Table = <T extends RowData>({
               table.getVisibleFlatColumns()
             )}
           >
-            <TableHead
-              rowDirection={ROW_DIRECTION.DEFAULT}
-              tableInstance={table}
-            />
+            <TableHead tableInstance={table} />
             <TableBody
               rowDirection={ROW_DIRECTION.DEFAULT}
               rows={row.getLeafRows()}

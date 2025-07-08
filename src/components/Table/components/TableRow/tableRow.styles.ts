@@ -7,14 +7,14 @@ import {
 } from "../../../../styles/common/mixins/colors";
 import { textBodySmall500 } from "../../../../styles/common/mixins/fonts";
 
-interface Props {
+export interface StyledTableRowProps {
   isGrouped?: boolean;
   isPreview?: boolean;
 }
 
 export const StyledTableRow = styled(MTableRow, {
   shouldForwardProp: (prop) => prop !== "isPreview" && prop !== "isGrouped",
-})<Props>`
+})<StyledTableRowProps>`
   && {
     transition: background-color 300ms ease-in;
 

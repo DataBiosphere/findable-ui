@@ -124,7 +124,7 @@ export const TableComponent = <T extends RowData>({
           gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
           stickyHeader
         >
-          <TableHead rowDirection={rowDirection} tableInstance={table} />
+          <TableHead tableInstance={table} />
           <TableBody
             rows={rows}
             rowDirection={rowDirection}

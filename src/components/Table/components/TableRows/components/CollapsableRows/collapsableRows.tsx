@@ -3,7 +3,7 @@ import { Virtualizer } from "@tanstack/react-virtual";
 import React, { Fragment } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
-import { StyledTableRow } from "../../../TableRow/tableRow.styles";
+import { StyledTableRow } from "./collapsableRows.styles";
 import { useCollapsableRows } from "./hook";
 
 export interface CollapsableRowsProps<T extends RowData> {
@@ -17,22 +17,22 @@ export const CollapsableRows = <T extends RowData>({
   tableInstance,
   virtualizer,
 }: CollapsableRowsProps<T>): JSX.Element => {
+  useCollapsableRows(tableInstance);
   const { getState } = tableInstance;
   const { grouping } = getState();
   const virtualItems = virtualizer.getVirtualItems();
-  useCollapsableRows(tableInstance);
   return (
     <Fragment>
       {virtualItems.map((virtualRow) => {
-        const row = rows[virtualRow.index] as Row<T>;
-        const { getIsPreview } = row;
+        const rowIndex = virtualRow.index;
+        const row = rows[rowIndex] as Row<T>;
         if (grouping.length > 0 && row.depth > 0) return null; // TODO(cc) hide sub rows -- sub-rows are within collapsed content -- UI TBD.
         return (
           <StyledTableRow
             key={row.id}
-            data-index={virtualRow.index}
-            isPreview={getIsPreview()}
+            data-index={rowIndex}
             ref={virtualizer.measureElement}
+            isPreview={row.getIsPreview()}
           >
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}
