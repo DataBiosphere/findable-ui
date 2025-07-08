@@ -37,7 +37,6 @@ export const CollapsableRows = <T extends RowData>({
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}
               row={row}
-              virtualizer={virtualizer}
             />
           </StyledTableRow>
         );

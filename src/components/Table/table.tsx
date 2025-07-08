@@ -34,7 +34,7 @@ export interface TableProps<T extends RowData> {
   table: TanStackTable<T>;
 }
 
-export const TableComponent = <T extends RowData>({
+export const Table = <T extends RowData>({
   listView,
   loading,
   table,
@@ -146,6 +146,3 @@ export const TableComponent = <T extends RowData>({
     </Fragment>
   );
 };
-
-// TODO(Dave) review whether memo is necessary - flash between tabs / loading state.
-export const Table = React.memo(TableComponent) as typeof TableComponent;
