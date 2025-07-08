@@ -11,7 +11,7 @@ interface Props {
 /**
  * Styles for a collapsible table with support for virtualization.
  *
- * When the table is in a collapsed (mobile) view, the table head must remain in the DOM flow
+ * When the table is in a collapsed view, the table head must remain in the DOM flow
  * to ensure virtualization calculations work correctly on initial mount.
  *
  * To achieve this, the table head is visually hidden using `visibility: hidden` and a nominal height
