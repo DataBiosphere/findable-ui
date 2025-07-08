@@ -31,6 +31,7 @@ export const FilterButton = ({
         {...props}
       >
         Filter
+        {/* NoSsr prevents server/client hydration mismatch with dynamic chip content */}
         <FilterCountChip count={filterCount} />
       </StyledButton>
     </NoSsr>
