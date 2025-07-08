@@ -1,5 +1,5 @@
 import { FilterListRounded } from "@mui/icons-material";
-import { ButtonProps } from "@mui/material";
+import { ButtonProps, NoSsr } from "@mui/material";
 import React from "react";
 import { useExploreState } from "../../../../../../../hooks/useExploreState";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
@@ -17,20 +17,22 @@ export const FilterButton = ({
   const { exploreState } = useExploreState();
   const { filterCount } = exploreState;
   return (
-    <StyledButton
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
-      className={className}
-      onClick={onOpen}
-      startIcon={
-        <FilterListRounded
-          color={SVG_ICON_PROPS.COLOR.INK_LIGHT}
-          fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL}
-        />
-      }
-      {...props}
-    >
-      Filter
-      <FilterCountChip count={filterCount} />
-    </StyledButton>
+    <NoSsr>
+      <StyledButton
+        {...BUTTON_PROPS.SECONDARY_CONTAINED}
+        className={className}
+        onClick={onOpen}
+        startIcon={
+          <FilterListRounded
+            color={SVG_ICON_PROPS.COLOR.INK_LIGHT}
+            fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL}
+          />
+        }
+        {...props}
+      >
+        Filter
+        <FilterCountChip count={filterCount} />
+      </StyledButton>
+    </NoSsr>
   );
 };

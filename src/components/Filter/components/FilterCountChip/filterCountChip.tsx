@@ -13,6 +13,7 @@ export const FilterCountChip = ({
     <StyledChip
       className={className}
       color={CHIP_PROPS.COLOR.PRIMARY}
+      component="span"
       label={String(count)}
       variant={CHIP_PROPS.VARIANT.FILLED}
       {...props}
