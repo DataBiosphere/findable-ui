@@ -1,5 +1,16 @@
 # Changelog
 
+## [38.0.0](https://github.com/DataBiosphere/findable-ui/compare/v37.1.0...v38.0.0) (2025-07-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* compact header and footer ([#554](https://github.com/DataBiosphere/findable-ui/issues/554)) (#555)
+
+### Features
+
+* compact header and footer ([#554](https://github.com/DataBiosphere/findable-ui/issues/554)) ([#555](https://github.com/DataBiosphere/findable-ui/issues/555)) ([066d3fc](https://github.com/DataBiosphere/findable-ui/commit/066d3fc4c34157d694a688dd805a8aed78eaf520))
+
 ## [37.1.0](https://github.com/DataBiosphere/findable-ui/compare/v37.0.0...v37.1.0) (2025-06-19)
 
 
