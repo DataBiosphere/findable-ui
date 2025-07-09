@@ -14,8 +14,8 @@ export const ViewToggle = ({ testId }: TestIdProps): JSX.Element | null => {
     <StyledToggleButtonGroup
       data-testid={testId}
       exclusive
-      value={viewMode}
       onChange={onChange}
+      value={viewMode}
     >
       <ToggleButton value={VIEW_MODE.TABLE}>Table</ToggleButton>
       <ToggleButton value={VIEW_MODE.CHART}>Graph</ToggleButton>
