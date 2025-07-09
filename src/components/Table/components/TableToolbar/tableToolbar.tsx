@@ -22,7 +22,7 @@ export interface TableToolbarProps<T extends RowData> {
 export const TableToolbar = <T extends RowData>({
   listView,
   tableInstance,
-}: TableToolbarProps<T>): JSX.Element | null => {
+}: TableToolbarProps<T>): JSX.Element => {
   const { exploreState } = useExploreState();
   const { paginationState } = exploreState;
   const { currentPage, pages, pageSize, rows } = paginationState;
