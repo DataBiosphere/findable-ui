@@ -1,6 +1,8 @@
 export const TEST_IDS = {
   CLEAR_ALL_FILTERS: "clear-all-filters",
+  ENTITY_SUMMARY: "entity-summary",
   EXPORT_BUTTON: "export-button",
+  EXPORT_SUMMARY: "export-summary",
   FILTERS: "filters",
   FILTER_CONTROLS: "filter-controls",
   FILTER_COUNT: "filter-count",
