@@ -50,7 +50,7 @@ export const Index = ({
           </Grid>
         </Grid>
       </StyledGridEntityLayout>
-      {/* Entity table or graph */}
+      {/* Entity */}
       <EntityViewContext.Provider value={{ onChange, viewMode, viewStatus }}>
         <StyledGridEntityList container>
           {/* Entity alerts or other */}
