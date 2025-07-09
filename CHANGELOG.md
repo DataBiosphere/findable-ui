@@ -1,5 +1,12 @@
 # Changelog
 
+## [38.1.1](https://github.com/DataBiosphere/findable-ui/compare/v38.1.0...v38.1.1) (2025-07-09)
+
+
+### Bug Fixes
+
+* table view fails to render after switching from graph view ([#560](https://github.com/DataBiosphere/findable-ui/issues/560)) ([#561](https://github.com/DataBiosphere/findable-ui/issues/561)) ([35a2f0c](https://github.com/DataBiosphere/findable-ui/commit/35a2f0c84119f66c372750442c8b29ca93af9057))
+
 ## [38.1.0](https://github.com/DataBiosphere/findable-ui/compare/v38.0.0...v38.1.0) (2025-07-09)
 
 
