@@ -7,6 +7,5 @@ export const StyledPaper = styled(RoundedPaper)`
     border-left: none;
     border-radius: 0;
     border-right: none;
-    box-shadow: none;
   }
 `;
