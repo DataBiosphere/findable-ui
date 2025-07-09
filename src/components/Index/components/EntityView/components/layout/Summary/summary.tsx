@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import { useSummary } from "../../../../../../../hooks/useSummary";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
+import { TEST_IDS } from "../../../../../../../tests/testIds";
 import { BaseComponentProps } from "../../../../../../types";
 import { GRID_PROPS } from "./constants";
 import { StyledDot, StyledGrid } from "./summary.styles";
@@ -14,7 +15,11 @@ export const Summary = ({
   if (!summaries) return null;
 
   return (
-    <StyledGrid {...GRID_PROPS} className={className}>
+    <StyledGrid
+      {...GRID_PROPS}
+      className={className}
+      data-testid={TEST_IDS.ENTITY_SUMMARY}
+    >
       {summaries.map(([count, label], i) => (
         <Fragment key={i}>
           {i !== 0 && <StyledDot />}

@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { TEST_IDS } from "../../../../../../tests/testIds";
 import { SectionTitle } from "../../../../../common/Section/components/SectionTitle/sectionTitle";
 import { GridPaperSection } from "../../../../../common/Section/section.styles";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../../Loading/loading";
@@ -17,7 +18,7 @@ export const ExportSelectedDataSummary = ({
   summaries,
 }: ExportSelectedDataSummaryProps): JSX.Element => {
   return (
-    <GridPaperSection>
+    <GridPaperSection data-testid={TEST_IDS.EXPORT_SUMMARY}>
       <Loading loading={isLoading} panelStyle={LOADING_PANEL_STYLE.INHERIT} />
       <SectionTitle title="Selected Data Summary" />
       {summaries.map(([label, value], i) => (
