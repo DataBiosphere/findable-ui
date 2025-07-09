@@ -77,7 +77,7 @@ export const Table = <T extends RowData>({
         gridTemplateColumns={gridTemplateColumns}
         stickyHeader={rowDirection === ROW_DIRECTION.DEFAULT && stickyHeader}
       >
-        <TableHead rowDirection={rowDirection} tableInstance={tableInstance} />
+        <TableHead tableInstance={tableInstance} />
         <TableBody
           rowDirection={rowDirection}
           tableInstance={tableInstance}

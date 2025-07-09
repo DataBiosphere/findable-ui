@@ -12,6 +12,7 @@ import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../hooks/useWindowResize";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
+import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { Filter } from "../Filter/filter";
 import { buildRangeTag } from "../FilterTag/utils";
 import { FilterTags } from "../FilterTags/filterTags";
@@ -24,7 +25,6 @@ export interface CategoryFilter {
 
 export interface FiltersProps {
   categoryFilters: CategoryFilter[];
-  closeAncestor?: () => void;
   disabled?: boolean; // Global disabling of filters.
   onFilter: OnFilterFn;
   trackFilterOpened?: TrackFilterOpenedFunction;
@@ -74,11 +74,11 @@ function renderFilterTags(
 
 export const Filters = ({
   categoryFilters,
-  closeAncestor,
   disabled = false,
   onFilter,
   trackFilterOpened,
 }: FiltersProps): JSX.Element => {
+  const { onClose } = useDrawer();
   const isFilterDrawer = useBreakpointHelper(
     BREAKPOINT_FN_NAME.DOWN,
     DESKTOP_SM
@@ -107,7 +107,7 @@ export const Filters = ({
               key={categoryView.key}
               categorySection={label}
               categoryView={categoryView}
-              closeAncestor={closeAncestor}
+              closeAncestor={onClose}
               isFilterDrawer={isFilterDrawer}
               onFilter={onFilter}
               trackFilterOpened={trackFilterOpened}

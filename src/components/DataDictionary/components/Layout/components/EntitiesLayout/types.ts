@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from "react";
-import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
+import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 
 export interface EntitiesLayoutProps {
   children: ReactNode;

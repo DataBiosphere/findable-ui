@@ -10,13 +10,13 @@ import {
   TableOptions,
 } from "@tanstack/react-table";
 import { JSXElementConstructor, ReactNode } from "react";
+import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { CategoryConfig } from "../common/categories/config/types";
 import {
   DataDictionaryAnnotation,
   DataDictionaryConfig,
   SelectedFilter,
 } from "../common/entities";
-import { HeroTitle } from "../components/common/Title/title";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
 import { ExploreMode } from "../hooks/useExploreMode/types";
@@ -170,7 +170,6 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   detail: BackPageConfig;
   entityMapper?: EntityMapper<T, I>;
   exploreMode: ExploreMode;
-  explorerTitle?: SiteConfig["explorerTitle"];
   export?: ExportConfig;
   getId?: GetIdFunction<T>;
   getTitle?: GetTitleFunction<T>;
@@ -181,12 +180,25 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   options?: Options;
   overrides?: Override[];
   staticLoadFile?: string;
+  ui?: EntityUIConfig;
 }
 
 /**
  * Entity mapper function.
  */
 export type EntityMapper<T, I> = (input: I) => T;
+
+export interface EntityUIConfig {
+  actionButton?: ReactNode; // Action button.
+  enableExportButton?: boolean; // Flag to show/hide the export button.
+  enableSummary?: boolean; // Flag to show/hide the summary.
+  enableTabs?: boolean; // Flag to show/hide the tabs.
+  slots?: {
+    entityListSlot?: ComponentsConfig; // Slot above the entity list.
+    entityViewSlot?: ComponentsConfig; // Slot above the entity view (e.g. top of the page).
+  };
+  title?: ReactNode; // Title component (optional).
+}
 
 /**
  * Interface to define the export configuration for a given site.
@@ -265,11 +277,8 @@ export interface ListConfig<T extends RowData> {
 export interface ListViewConfig {
   disablePagination?: boolean;
   enableDownload?: boolean;
-  enableTab?: boolean;
-  listHero?: ComponentsConfig;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
-  subTitleHero?: ComponentsConfig;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
@@ -366,7 +375,6 @@ export interface SiteConfig {
   dataSource: DataSourceConfig;
   enableEntitiesView?: boolean; // Toggle entities view - list or filter summary
   entities: EntityConfig[];
-  explorerTitle: HeroTitle;
   export?: ExportConfig;
   exportsRequireAuth?: boolean;
   exportToTerraUrl?: string; // TODO(cc) revist location; possibly nest inside "export"?
@@ -396,7 +404,7 @@ export const SORT_DIRECTION = {
  */
 export interface SummaryConfig {
   apiPath: string;
-  components: ComponentsConfig;
+  mapResponse: (response: AzulSummaryResponse) => [string, string][];
 }
 
 /**

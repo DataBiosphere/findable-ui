@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
-import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 
 export const Layout = styled("div")<LayoutSpacing>`
   grid-column: 1 / -1;

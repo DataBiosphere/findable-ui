@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Table as MTable } from "@mui/material";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { white } from "../../../styles/common/mixins/colors";
 
 export interface GridTableProps {
@@ -40,6 +41,15 @@ export const GridTable = styled(MTable, {
 
     > * {
       min-width: 0; /* required; flexbox child min-width property is "auto" by default making overflow-wrap ineffectual */
+    }
+  }
+
+  &.MuiTable-stickyHeader {
+    .MuiTableHead-root {
+      box-shadow: 0px 1px ${PALETTE.SMOKE_MAIN};
+      position: sticky;
+      top: 0;
+      z-index: 2;
     }
   }
 `;

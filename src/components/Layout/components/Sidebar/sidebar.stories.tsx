@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import React from "react";
 import { Sidebar } from "./sidebar";
 
@@ -39,14 +38,11 @@ export const PermanentSidebarStory: Story = {
 export const TemporaryClosedSidebarStory: Story = {
   args: {
     children: <div />,
-    drawerOpen: false,
   },
 };
 
 export const TemporaryOpenSidebarStory: Story = {
   args: {
     children: <div />,
-    drawerOpen: true,
-    onDrawerClose: fn(),
   },
 };

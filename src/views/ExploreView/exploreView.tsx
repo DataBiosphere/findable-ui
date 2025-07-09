@@ -1,46 +1,31 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  AzulEntitiesStaticResponse,
-  AzulSummaryResponse,
-} from "../../apis/azul/common/entities";
+import React, { useEffect, useMemo } from "react";
+import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
-import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
+import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import {
   CategoryFilter,
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
-import { Tabs } from "../../components/Index/components/Tabs/tabs";
 import { Index as IndexView } from "../../components/Index/index";
-import { SidebarButton } from "../../components/Layout/components/Sidebar/components/SidebarButton/sidebarButton";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
-import {
-  CategoryGroup,
-  ComponentsConfig,
-  SummaryConfig,
-} from "../../config/entities";
+import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../hooks/useBreakpointHelper";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
-import { useSummary } from "../../hooks/useSummary";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
-import { DESKTOP_SM } from "../../theme/common/breakpoints";
 import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
@@ -48,15 +33,11 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
 }
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, DESKTOP_SM);
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
-  const { explorerTitle, summaryConfig, trackingConfig } = config;
-  const { label, listView } = entityConfig;
-  const { listHero, subTitleHero } = listView || {};
-  const { categoryGroups, categoryViews, filterCount, loading } = exploreState;
-  const { response: summaryResponse } = useSummary(); // Fetch summary.
+  const { trackingConfig } = config;
+  const { label } = entityConfig;
+  const { categoryGroups, categoryViews, loading } = exploreState;
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
@@ -73,13 +54,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     dispatch: exploreDispatch,
     state: buildStateSyncManagerContext(exploreState, props),
   });
-
-  /**
-   * Closes filter drawer.
-   */
-  const onCloseDrawer = (): void => {
-    setIsDrawerOpen(false);
-  };
 
   /**
    * Callback fired when selected state of a category value is toggled.
@@ -134,13 +108,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   };
 
   /**
-   * Opens filter drawer.
-   */
-  const onOpenDrawer = (): void => {
-    setIsDrawerOpen(true);
-  };
-
-  /**
    * Dispatch a SelectedEntityType action when entityListType changes.
    */
   useEffect(() => {
@@ -156,21 +123,19 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <>
+    <DrawerProvider>
       {categoryViews && !!categoryViews.length && (
-        <Sidebar drawerOpen={isDrawerOpen} onDrawerClose={onCloseDrawer}>
+        <Sidebar>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
             <SidebarLabel label={"Filters"} />
             <ClearAllFilters />
             <SearchAllFilters
               categoryViews={categoryViews}
-              drawerOpen={isDrawerOpen}
               onFilter={onFilterChange.bind(null, true)}
             />
           </SidebarTools>
           <Filters
             categoryFilters={categoryFilters}
-            closeAncestor={onCloseDrawer}
             onFilter={onFilterChange.bind(null, false)}
             trackFilterOpened={trackingConfig?.trackFilterOpened}
           />
@@ -182,22 +147,8 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         entityListType={entityListType}
         entityName={label}
         loading={loading}
-        ListHero={renderComponent(listHero)}
-        SideBarButton={
-          tabletDown ? (
-            <SidebarButton
-              count={filterCount}
-              label="Filter"
-              onClick={onOpenDrawer}
-            />
-          ) : undefined
-        }
-        SubTitleHero={renderComponent(subTitleHero)}
-        Summaries={renderSummary(summaryConfig, summaryResponse)}
-        Tabs={<Tabs />}
-        title={entityConfig.explorerTitle || explorerTitle}
       />
-    </>
+    </DrawerProvider>
   );
 };
 
@@ -228,45 +179,4 @@ function buildCategoryFilters(
     }
     return accGroups;
   }, [] as CategoryFilter[]);
-}
-
-/**
- * Optionally renders component config.
- * @param componentsConfig - SubHero config.
- * @param response - Response data.
- * @returns components.
- */
-function renderComponent<T>(
-  componentsConfig?: ComponentsConfig | undefined,
-  response?: T
-): JSX.Element | undefined {
-  if (!componentsConfig) {
-    return;
-  }
-  return <ComponentCreator components={componentsConfig} response={response} />;
-}
-
-/**
- * Renders Summaries component when all the following requirements are fulfilled:
- * - defined summary config,
- * - valid summary response, and
- * - defined summaries transformed from the given summary response.
- * @param summaryConfig - Summary config.
- * @param summaryResponse - Response model return from summary API.
- * @returns rendered Summaries component.
- */
-function renderSummary(
-  summaryConfig?: SummaryConfig,
-  summaryResponse?: AzulSummaryResponse
-): JSX.Element | undefined {
-  if (!summaryConfig || !summaryResponse) {
-    return;
-  }
-  /* Render the Summaries component. */
-  return (
-    <ComponentCreator
-      components={summaryConfig.components}
-      response={summaryResponse}
-    />
-  );
 }

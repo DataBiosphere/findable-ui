@@ -7,41 +7,34 @@ import { useEntityService } from "./useEntityService";
 import { useExploreState } from "./useExploreState";
 
 interface UseSummaryResponse {
-  isLoading: boolean;
-  response?: AzulSummaryResponse;
+  summaries: [string, string][];
 }
 
-/**
- * Hook responsible for handling the load of the summary values displayed on an entity index page.
- * @returns an object with the loaded data and a flag indicating is the data is loading
- */
-export const useSummary = (): UseSummaryResponse => {
+export const useSummary = (): UseSummaryResponse | undefined => {
   const { token } = useToken();
-  const { config } = useConfig();
+  const { config, entityConfig } = useConfig();
   const { exploreState } = useExploreState();
   const { filterState } = exploreState;
   const { summaryConfig } = config;
-  const {
-    data: response,
-    isLoading: apiIsLoading,
-    run,
-  } = useAsync<AzulSummaryResponse>();
-  const { catalog, fetchSummary } = useEntityService(); // Determine type of fetch to be executed, either API endpoint or TSV.
+  const { ui } = entityConfig;
+  const { enableSummary } = ui || {};
+  const { data: response, run } = useAsync<AzulSummaryResponse>();
+  const { catalog, fetchSummary } = useEntityService();
+
+  // Summary is enabled and summary config is defined.
+  const shouldFetch = !!(enableSummary && summaryConfig);
 
   useEffect(() => {
-    if (summaryConfig) {
-      run(fetchSummary(filterState, catalog, token));
-    }
-  }, [catalog, fetchSummary, filterState, run, summaryConfig, token]);
+    if (!shouldFetch) return;
+    run(fetchSummary(filterState, catalog, token));
+  }, [catalog, fetchSummary, filterState, run, shouldFetch, token]);
 
-  // Return if there's no summary config for this site.
-  if (!summaryConfig) {
-    return { isLoading: false }; //TODO: return a summary placeholder
-  }
+  // Summary is disabled or summary config is not defined.
+  if (!enableSummary || !summaryConfig) return;
 
-  // Return the fetch status and summary data once fetch is complete.
-  return {
-    isLoading: apiIsLoading,
-    response,
-  };
+  // Summary response is not defined.
+  if (!response) return;
+
+  // Map response to summaries.
+  return { summaries: summaryConfig.mapResponse(response) };
 };

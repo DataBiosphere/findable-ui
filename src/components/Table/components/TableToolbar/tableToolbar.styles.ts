@@ -1,19 +1,19 @@
 import styled from "@emotion/styled";
 import { Toolbar as MToolbar } from "@mui/material";
-import { white } from "../../../../styles/common/mixins/colors";
-import { Grid } from "../../../common/Grid/grid";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
-export const Toolbar = styled(MToolbar)`
-  &.MuiToolbar-table {
-    align-items: center;
-    background-color: ${white};
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+export const StyledToolbar = styled(MToolbar)`
+  align-items: center;
+  background-color: ${PALETTE.COMMON_WHITE};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 16px;
+
+  .MuiGrid-root {
+    &:empty {
+      display: none;
+    }
   }
-` as typeof MToolbar;
-
-export const ToolbarActions = styled(Grid)`
-  gap: 8px;
-  grid-auto-flow: column;
 `;

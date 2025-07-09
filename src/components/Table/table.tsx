@@ -1,6 +1,6 @@
 import { TableContainer } from "@mui/material";
 import { RowData, Table as TanStackTable } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
   EVENT_NAME,
@@ -22,9 +22,9 @@ import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
 import { ROW_DIRECTION } from "./common/entities";
 import { isClientFilteringEnabled } from "./common/utils";
-import { Pagination as DXPagination } from "./components/Pagination/pagination";
 import { TableBody } from "./components/TableBody/tableBody";
 import { TableHead } from "./components/TableHead/tableHead";
+import { TablePagination } from "./components/TablePagination/tablePagination";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
 import { GridTable } from "./table.styles";
 
@@ -34,11 +34,12 @@ export interface TableProps<T extends RowData> {
   table: TanStackTable<T>;
 }
 
-export const TableComponent = <T extends RowData>({
+export const Table = <T extends RowData>({
   listView,
   loading,
   table,
 }: TableProps<T>): JSX.Element => {
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
   const exploreMode = useExploreMode();
   const { exploreDispatch, exploreState } = useExploreState();
@@ -110,32 +111,30 @@ export const TableComponent = <T extends RowData>({
     <NoResults Paper={null} title="No Results found" />
   ) : (
     <Fragment>
-      <TableToolbar
-        listView={listView}
-        rowDirection={rowDirection}
-        tableInstance={table}
-      />
+      <TableToolbar listView={listView} tableInstance={table} />
       <Loading
         appear={false}
         autoPosition={false}
         loading={loading}
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
-      <TableContainer>
+      <TableContainer ref={tableContainerRef}>
         <GridTable
           collapsable={true}
           gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
+          stickyHeader
         >
-          <TableHead rowDirection={rowDirection} tableInstance={table} />
+          <TableHead tableInstance={table} />
           <TableBody
             rows={rows}
             rowDirection={rowDirection}
+            tableContainerRef={tableContainerRef}
             tableInstance={table}
           />
         </GridTable>
       </TableContainer>
       {!disablePagination && (
-        <DXPagination
+        <TablePagination
           canNextPage={canNextPage()}
           canPreviousPage={canPreviousPage()}
           currentPage={currentPage}
@@ -147,6 +146,3 @@ export const TableComponent = <T extends RowData>({
     </Fragment>
   );
 };
-
-// TODO(Dave) review whether memo is necessary - flash between tabs / loading state.
-export const Table = React.memo(TableComponent) as typeof TableComponent;

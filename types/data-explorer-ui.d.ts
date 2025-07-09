@@ -97,7 +97,6 @@ declare module "@mui/material/Paper" {
     menu: true;
     panel: true;
     searchbar: true;
-    table: true;
   }
 }
 
@@ -191,12 +190,6 @@ declare module "@mui/material/styles" {
 }
 
 /* eslint-enable sonarjs/no-duplicate-string  -- watching duplicate strings here */
-
-declare module "@mui/material/Toolbar" {
-  interface ToolbarPropsVariantOverrides {
-    table: true;
-  }
-}
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {

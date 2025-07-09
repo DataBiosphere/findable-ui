@@ -14,7 +14,6 @@ export function getDefaultConfig(): SiteConfig {
       url: "",
     },
     entities: [],
-    explorerTitle: "",
     layout: {
       footer: {
         Branding: null,

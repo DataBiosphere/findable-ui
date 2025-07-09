@@ -39,7 +39,7 @@ export const Tabs = ({
       allowScrollButtonsMobile
       className={className}
       onChange={(_, tabValue): void => onTabChange(tabValue)}
-      ScrollButtonComponent={TabScrollFuzz} // Utilizing MuiTabScrollButton to show/hide scroll fuzz.
+      slots={{ scrollButtons: TabScrollFuzz }}
       value={value}
     >
       {tabs.map(
