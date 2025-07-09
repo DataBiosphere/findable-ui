@@ -1,5 +1,12 @@
 # Changelog
 
+## [38.1.0](https://github.com/DataBiosphere/findable-ui/compare/v38.0.0...v38.1.0) (2025-07-09)
+
+
+### Features
+
+* add data test id to summary ([#557](https://github.com/DataBiosphere/findable-ui/issues/557)) ([#558](https://github.com/DataBiosphere/findable-ui/issues/558)) ([cf97aa5](https://github.com/DataBiosphere/findable-ui/commit/cf97aa54a0ca70b0970ad169f8ae91d8585ccffd))
+
 ## [38.0.0](https://github.com/DataBiosphere/findable-ui/compare/v37.1.0...v38.0.0) (2025-07-09)
 
 
