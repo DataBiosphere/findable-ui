@@ -1,5 +1,17 @@
 # Changelog
 
+## [38.2.0](https://github.com/DataBiosphere/findable-ui/compare/v38.1.1...v38.2.0) (2025-07-11)
+
+
+### Features
+
+* add 'introduction' section to data dictionary ([#566](https://github.com/DataBiosphere/findable-ui/issues/566)) ([#567](https://github.com/DataBiosphere/findable-ui/issues/567)) ([5aeb758](https://github.com/DataBiosphere/findable-ui/commit/5aeb758792532a78fa4ec71dc0f7b3ad8c80c376))
+
+
+### Bug Fixes
+
+* align range filter toggle button styles with design ([#563](https://github.com/DataBiosphere/findable-ui/issues/563)) ([#564](https://github.com/DataBiosphere/findable-ui/issues/564)) ([1cc1ffd](https://github.com/DataBiosphere/findable-ui/commit/1cc1ffd88ae3b2f436717b494e425614412cface))
+
 ## [38.1.1](https://github.com/DataBiosphere/findable-ui/compare/v38.1.0...v38.1.1) (2025-07-09)
 
 
