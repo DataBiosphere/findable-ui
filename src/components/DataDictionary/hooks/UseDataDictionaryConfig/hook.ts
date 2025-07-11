@@ -31,6 +31,7 @@ export const useDataDictionaryConfig = <T extends RowData = Attribute>(
     // exists above and would have thrown an error if undefined.
     return {
       classes: dataDictionaryConfig!.dataDictionary.classes,
+      description: dataDictionaryConfig!.dataDictionary.description,
       tableOptions: dataDictionaryConfig!.tableOptions,
       title: dataDictionaryConfig!.dataDictionary.title,
     };

@@ -3,6 +3,7 @@ import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { Attribute } from "../../common/entities";
 import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
+import { Description } from "./components/Description/description";
 import { Entities } from "./components/Entities/entities";
 import { ColumnFilterTags } from "./components/Filters/components/ColumnFilterTags/columnFilterTags";
 import { Filters } from "./components/Filters/filters";
@@ -30,7 +31,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
   // Get dictionary configuration.
-  const { classes, tableOptions, title } =
+  const { classes, description, tableOptions, title } =
     useDataDictionaryConfig<T>(dictionary);
 
   // Layout measurements.
@@ -64,6 +65,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
         <Fade in={dimensions.height > 0}>
           {/* Fade in entities when filters are measured. */}
           <EntitiesLayout spacing={entitiesSpacing}>
+            <Description description={description} />
             <Entities spacing={entitiesSpacing} table={table} />
           </EntitiesLayout>
         </Fade>

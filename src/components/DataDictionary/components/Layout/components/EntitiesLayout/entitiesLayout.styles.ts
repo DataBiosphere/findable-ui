@@ -7,6 +7,8 @@ const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.CONTENT_PADDING_TOP; /* top padding */
 
 export const Layout = styled("div")<LayoutSpacing>`
+  display: grid;
+  gap: 16px;
   grid-column: 2;
   grid-row: 1;
   padding-bottom: ${PB}px;
