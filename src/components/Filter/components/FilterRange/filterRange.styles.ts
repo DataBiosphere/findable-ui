@@ -13,6 +13,7 @@ export const StyledForm = styled("form")`
 
     .MuiToggleButton-root {
       color: ${PALETTE.INK_LIGHT};
+      padding: 8px 12px;
       text-transform: capitalize;
 
       &.Mui-selected {
