@@ -5,6 +5,7 @@ import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../../../../../Table/components/TableCell/common/utils";
+import { handleToggleExpanded } from "../../../../../Table/components/TableFeatures/RowExpanding/utils";
 import { StyledTableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
 import { TableView } from "../../table";
 
@@ -34,8 +35,11 @@ export const TableRows = <T extends RowData>({
         return (
           <StyledTableRow
             key={row.id}
+            canExpand={row.getCanExpand()}
+            isExpanded={row.getIsExpanded()}
             isGrouped={row.getIsGrouped()}
             isPreview={row.getIsPreview()}
+            onClick={() => handleToggleExpanded(row)}
           >
             {row.getVisibleCells().map((cell) => {
               if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.

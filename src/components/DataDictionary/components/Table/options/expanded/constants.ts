@@ -6,8 +6,9 @@ import {
 
 export const EXPANDED_OPTIONS: Pick<
   ExpandedOptions<RowData>,
-  "enableExpanding" | "getExpandedRowModel"
+  "enableExpanding" | "getExpandedRowModel" | "getRowCanExpand"
 > = {
   enableExpanding: true,
   getExpandedRowModel: getExpandedRowModel(),
+  getRowCanExpand: () => true,
 };

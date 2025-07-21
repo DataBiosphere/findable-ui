@@ -7,6 +7,7 @@ import {
   getTableCellAlign,
   getTableCellPadding,
 } from "../TableCell/common/utils";
+import { handleToggleExpanded } from "../TableFeatures/RowExpanding/utils";
 import { StyledTableRow } from "../TableRow/tableRow.styles";
 
 export interface TableRowsProps<T extends RowData> {
@@ -24,13 +25,16 @@ export const TableRows = <T extends RowData>({
       {virtualItems.map((virtualRow) => {
         const rowIndex = virtualRow.index;
         const row = rows[rowIndex] as Row<T>;
-        const { getIsGrouped, getIsPreview } = row;
+        const { getCanExpand, getIsExpanded, getIsGrouped, getIsPreview } = row;
         return (
           <StyledTableRow
             key={row.id}
+            canExpand={getCanExpand()}
             data-index={rowIndex}
+            isExpanded={getIsExpanded()}
             isGrouped={getIsGrouped()}
             isPreview={getIsPreview()}
+            onClick={() => handleToggleExpanded(row)}
             ref={virtualizer.measureElement}
           >
             {row.getVisibleCells().map((cell, i) => {
