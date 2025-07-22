@@ -28,6 +28,11 @@ export const Anchor = (
     <Link
       className={props.className}
       label={props.children}
+      /*
+       * Prevents click events from bubbling up to parent components
+       * (such as CardActionArea or Accordion) when the link is activated.
+       */
+      onClick={(e) => e.stopPropagation()}
       url={props.href || ""}
     />
   );

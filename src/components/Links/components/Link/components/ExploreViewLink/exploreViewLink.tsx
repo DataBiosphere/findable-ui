@@ -46,12 +46,12 @@ export const ExploreViewLink = ({
     <Link
       className={className}
       href={url.href}
-      onClick={(): void => {
+      onClick={(e): void => {
         exploreDispatch({
           payload: { entityListType, filters, grouping, sorting },
           type: ExploreActionKind.UpdateEntityFilters,
         });
-        onClick?.();
+        onClick?.(e);
       }}
       rel={REL_ATTRIBUTE.NO_OPENER}
       target={target}

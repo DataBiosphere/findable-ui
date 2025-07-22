@@ -13,6 +13,11 @@ export const RowSelectionCell = <T extends RowData, TValue = unknown>({
       checked={getIsSelected()}
       checkedIcon={<CheckedIcon />}
       icon={<UncheckedIcon />}
+      /*
+       * Prevents click events from bubbling up to parent components
+       * (such as CardActionArea or Accordion) when the checkbox is activated.
+       */
+      onClick={(e) => e.stopPropagation()}
       onChange={getToggleSelectedHandler()}
     />
   );

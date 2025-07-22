@@ -22,7 +22,6 @@ export interface LinkProps
     Omit<MLinkProps, "children" | "component"> {
   copyable?: boolean;
   label: ReactNode /* link label may be an element */;
-  onClick?: () => void;
   target?: ANCHOR_TARGET;
   TypographyProps?: TypographyProps;
   url: Url /* url specified as UrlObject with href and query defined, and is currently only used for internal links */;

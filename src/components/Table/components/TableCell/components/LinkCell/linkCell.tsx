@@ -53,6 +53,11 @@ export const LinkCell = <
       color={color}
       component={getComponent(href, isClientSide)}
       href={href}
+      /*
+       * Prevents click events from bubbling up to parent components
+       * (such as CardActionArea or Accordion) when the link is activated.
+       */
+      onClick={(e) => e.stopPropagation()}
       rel={getRelAttribute(rel, isClientSide)}
       target={getTargetAttribute(target, isClientSide)}
       underline={underline}
