@@ -1,5 +1,12 @@
 # Changelog
 
+## [38.3.0](https://github.com/DataBiosphere/findable-ui/compare/v38.2.0...v38.3.0) (2025-07-22)
+
+
+### Features
+
+* add table row expansion to table components ([#569](https://github.com/DataBiosphere/findable-ui/issues/569)) ([#570](https://github.com/DataBiosphere/findable-ui/issues/570)) ([d23c5b8](https://github.com/DataBiosphere/findable-ui/commit/d23c5b8c091a899295a3005ff80d7cd297949033))
+
 ## [38.2.0](https://github.com/DataBiosphere/findable-ui/compare/v38.1.1...v38.2.0) (2025-07-11)
 
 
