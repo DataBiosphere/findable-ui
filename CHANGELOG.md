@@ -1,5 +1,16 @@
 # Changelog
 
+## [39.0.0](https://github.com/DataBiosphere/findable-ui/compare/v38.3.0...v39.0.0) (2025-07-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* fix global search when a marked value is inside another HTML tag ([#539](https://github.com/DataBiosphere/findable-ui/issues/539)) (#573)
+
+### Features
+
+* fix global search when a marked value is inside another HTML tag ([#539](https://github.com/DataBiosphere/findable-ui/issues/539)) ([#573](https://github.com/DataBiosphere/findable-ui/issues/573)) ([7b58c24](https://github.com/DataBiosphere/findable-ui/commit/7b58c2429ba947e752358a012a6a7d545f0ffc28))
+
 ## [38.3.0](https://github.com/DataBiosphere/findable-ui/compare/v38.2.0...v38.3.0) (2025-07-22)
 
 
