@@ -6,5 +6,6 @@ export type MarkdownRendererComponents = Record<string, ComponentType<any>>;
 
 export interface MarkdownRendererProps extends BaseComponentProps {
   components?: MarkdownRendererComponents;
+  regex?: RegExp;
   value: string;
 }
