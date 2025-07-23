@@ -16,7 +16,7 @@ import { unified } from "unified";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
-import { rehypeHighlight } from "./rehypeHightlight";
+import { rehypeHighlight } from "./rehypeHighlight";
 import { MarkdownRendererComponents, MarkdownRendererProps } from "./types";
 
 /**
