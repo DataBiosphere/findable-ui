@@ -8,11 +8,14 @@ import { RANK_ITEM_OPTIONS } from "./constants";
  * @returns Array of terms.
  */
 export function parseSearchTerms(value: unknown): string[] {
-  return String(value ?? "")
+  const terms = String(value ?? "")
     .toLowerCase()
     .trim()
     .split(/\s+/)
-    .filter(Boolean);
+    .filter(Boolean)
+    .sort((a, b) => b.length - a.length);
+  const termsSet = new Set(terms);
+  return [...termsSet];
 }
 
 /**
@@ -54,8 +57,6 @@ export function rankRowColumns<T extends RowData>(
   columnId: string,
   terms: string[]
 ): void {
-  const columnFiltersMeta = row.columnFiltersMeta;
-
   // Process other columns.
   for (const { column } of row.getAllCells()) {
     // Column is not searchable.
@@ -63,7 +64,6 @@ export function rankRowColumns<T extends RowData>(
 
     // Column has already been processed.
     if (column.id === columnId) continue;
-    if (column.id in columnFiltersMeta) continue;
 
     // Rank the column value.
     const passed = rankColumnValue(row, column.id, terms);

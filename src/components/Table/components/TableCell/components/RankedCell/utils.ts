@@ -4,43 +4,6 @@ import { ColumnFilterMeta } from "../../../../columnDef/globalFilter/types";
 import { parseSearchTerms } from "../../../../columnDef/globalFilter/utils";
 
 /**
- * Renders a cell value with highlighting if it matches item rank filter criteria.
- * @param table - Table.
- * @param row - Row.
- * @param columnId - Column identifier.
- * @param value - Cell value.
- * @returns Rendered cell value with highlighting.
- */
-export function renderRankedCell<T extends RowData>(
-  table: Table<T>,
-  row: Row<T>,
-  columnId: string,
-  value: string | undefined | null
-): string {
-  // If the cell value is undefined or null, return an empty string.
-  if (value === undefined || value === null) return "";
-
-  const stringValue = String(value);
-
-  // Check if the cell is ranked.
-  const isRanked = isRankedCell(table, row, columnId);
-
-  // Return the unranked cell, as-is, in string form.
-  if (!isRanked) return stringValue;
-
-  // Tokenise the current global filter.
-  const tokens = getTokens(table);
-
-  // If there are no tokens, return the value as-is, in string form.
-  if (tokens.length === 0) return stringValue;
-
-  // Create regex pattern.
-  const regex = getTokensRegex(tokens);
-
-  return stringValue.replace(regex, "<mark>$1</mark>");
-}
-
-/**
  * Returns the current global filter tokens from the table.
  * @param table - Table.
  * @returns An array of search tokens.
