@@ -14,8 +14,8 @@ export const useHtmlStyle = (
 
     if (value !== null) el.style.setProperty(property, value);
 
-    // Remove scroll-padding-top on the HTML element.
     return (): void => {
+      // Restore or remove property value on the HTML element.
       if (previousValue) el.style.setProperty(property, previousValue);
       else el.style.removeProperty(property);
     };
