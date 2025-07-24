@@ -2,6 +2,8 @@ import { Fade } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { Attribute } from "../../common/entities";
+import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
+import { useHtmlStyle } from "../../hooks/useHtmlStyle/hook";
 import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
 import { Description } from "./components/Description/description";
 import { Entities } from "./components/Entities/entities";
@@ -48,6 +50,10 @@ export const DataDictionary = <T extends RowData = Attribute>({
   // Dictionary outline.
   const outline = buildClassesOutline<T>(table);
 
+  // Update scroll-padding-top on the HTML element.
+  // Scroll-snaps table rows to below the sticky filters.
+  useHtmlStyle(PROPERTY.SCROLL_PADDING_TOP, `${dimensions.height}px`);
+
   return (
     <Fade in={spacing.top > 0}>
       {/* Fade in when header is measured. */}
@@ -66,7 +72,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
           {/* Fade in entities when filters are measured. */}
           <EntitiesLayout spacing={entitiesSpacing}>
             <Description description={description} />
-            <Entities spacing={entitiesSpacing} table={table} />
+            <Entities table={table} />
           </EntitiesLayout>
         </Fade>
       </View>

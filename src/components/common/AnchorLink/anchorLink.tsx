@@ -1,6 +1,6 @@
 import { LinkRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { MouseEvent } from "react";
 import { StyledNextLink } from "./anchorLink.styles";
 
 /**
@@ -13,11 +13,13 @@ import { StyledNextLink } from "./anchorLink.styles";
 interface AnchorLinkProps {
   anchorLink: string;
   className?: string;
+  onClick?: (e: MouseEvent) => void;
 }
 
 export const AnchorLink = ({
   anchorLink,
   className,
+  onClick,
 }: AnchorLinkProps): JSX.Element => {
   const { query } = useRouter();
   return (
@@ -25,6 +27,7 @@ export const AnchorLink = ({
       aria-label={anchorLink}
       className={className}
       href={{ hash: anchorLink, query }}
+      onClick={onClick}
     >
       <LinkRounded fontSize="xsmall" />
     </StyledNextLink>

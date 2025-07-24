@@ -35,6 +35,7 @@ export const TableRows = <T extends RowData>({
         return (
           <StyledTableRow
             key={row.id}
+            id={row.id}
             canExpand={row.getCanExpand()}
             isExpanded={row.getIsExpanded()}
             isGrouped={row.getIsGrouped()}

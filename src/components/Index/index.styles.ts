@@ -5,7 +5,9 @@ import { PALETTE } from "../../styles/common/constants/palette";
 import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 
-export const StyledGridEntityView = styled(Grid)<LayoutSpacing>`
+export const StyledGridEntityView = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== "bottom" && prop !== "top",
+})<LayoutSpacing>`
   align-content: flex-start;
   display: grid;
   flex: 1;
