@@ -27,7 +27,11 @@ export const CollapsableRows = <T extends RowData>({
       {(leafOrSubRows || rows).map((row) => {
         if (row.depth > 0) return null; // Hide sub rows.
         return (
-          <StyledTableRow key={row.id} isPreview={row.getIsPreview()}>
+          <StyledTableRow
+            key={row.id}
+            id={row.id}
+            isPreview={row.getIsPreview()}
+          >
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}
               row={row}

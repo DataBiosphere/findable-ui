@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import { LayoutSpacing } from "../../../../hooks/UseLayoutSpacing/types";
 
-export const StyledTypography = styled(Typography)<Partial<LayoutSpacing>>`
-  scroll-margin-top: ${({ top = 0 }) => top}px;
-
+export const StyledTypography = styled(Typography)`
   &:hover a {
     opacity: 1;
   }

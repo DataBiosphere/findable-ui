@@ -12,7 +12,6 @@ import { getClassMeta } from "./utils";
 
 export const Entity = <T extends RowData = Attribute>({
   row,
-  spacing,
   table,
 }: EntityProps<T>): JSX.Element | null => {
   // Get class key from row.
@@ -32,17 +31,18 @@ export const Entity = <T extends RowData = Attribute>({
           component="h3"
           id={classKey}
           variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
-          {...spacing}
         >
           {cls.title} <AnchorLink anchorLink={classKey} />
         </StyledTypography>
-        <Typography
-          color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-          component="div"
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
-        >
-          {cls.description}
-        </Typography>
+        {cls.description && (
+          <Typography
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+            component="div"
+            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+          >
+            {cls.description}
+          </Typography>
+        )}
       </Grid>
       {/* Class attributes table */}
       <Table row={row} table={table} />

@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { inkLight } from "../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../styles/common/constants/palette";
 
 export const StyledNextLink = styled(Link)`
-  color: ${inkLight};
+  color: ${PALETTE.INK_LIGHT};
   margin-left: 4px;
   opacity: 0;
   position: absolute;

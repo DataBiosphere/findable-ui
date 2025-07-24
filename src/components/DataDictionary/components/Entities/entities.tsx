@@ -8,7 +8,6 @@ import { GRID_PROPS, NO_RESULTS_PROPS } from "./constants";
 import { ClassesProps } from "./types";
 
 export const Entities = <T extends RowData = Attribute>({
-  spacing,
   table,
 }: ClassesProps<T>): JSX.Element => {
   const { getGroupedRowModel } = table;
@@ -20,7 +19,7 @@ export const Entities = <T extends RowData = Attribute>({
     <Grid {...GRID_PROPS}>
       {/* Render grouped rows where each "group" is a class e.g. "donor" */}
       {rows.map((row) => (
-        <Entity key={row.id} row={row} spacing={spacing} table={table} />
+        <Entity key={row.id} row={row} table={table} />
       ))}
     </Grid>
   );
