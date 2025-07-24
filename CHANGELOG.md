@@ -1,5 +1,21 @@
 # Changelog
 
+## [40.0.0](https://github.com/DataBiosphere/findable-ui/compare/v39.1.0...v40.0.0) (2025-07-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade next js to 14.2.30 or greater ([#568](https://github.com/DataBiosphere/findable-ui/issues/568)) (#579)
+
+### Bug Fixes
+
+* fix markdown rendering overflow ([#551](https://github.com/DataBiosphere/findable-ui/issues/551)) ([#580](https://github.com/DataBiosphere/findable-ui/issues/580)) ([42ce935](https://github.com/DataBiosphere/findable-ui/commit/42ce9355b10997e29648e9685622dfe04db4e625))
+
+
+### Chores
+
+* upgrade next js to 14.2.30 or greater ([#568](https://github.com/DataBiosphere/findable-ui/issues/568)) ([#579](https://github.com/DataBiosphere/findable-ui/issues/579)) ([ff88c9c](https://github.com/DataBiosphere/findable-ui/commit/ff88c9ca9479f7ae736e9794b428cc1454d81d6c))
+
 ## [39.1.0](https://github.com/DataBiosphere/findable-ui/compare/v39.0.0...v39.1.0) (2025-07-24)
 
 
