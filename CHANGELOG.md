@@ -1,5 +1,12 @@
 # Changelog
 
+## [39.1.0](https://github.com/DataBiosphere/findable-ui/compare/v39.0.0...v39.1.0) (2025-07-24)
+
+
+### Features
+
+* add row ids to data dictionary table for anchor link scrolling ([#576](https://github.com/DataBiosphere/findable-ui/issues/576)) ([#577](https://github.com/DataBiosphere/findable-ui/issues/577)) ([bd7d05b](https://github.com/DataBiosphere/findable-ui/commit/bd7d05b451a7d9190b92fb682d892600cde17ba2))
+
 ## [39.0.0](https://github.com/DataBiosphere/findable-ui/compare/v38.3.0...v39.0.0) (2025-07-23)
 
 
