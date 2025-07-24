@@ -6,6 +6,9 @@ const ignoreSsrWarning =
   "/* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */";
 
 export const StyledContainer = styled("div")`
+  min-width: 0;
+  width: 100%;
+
   > *:first-child:not(style)${ignoreSsrWarning} {
     margin-top: 0;
   }
