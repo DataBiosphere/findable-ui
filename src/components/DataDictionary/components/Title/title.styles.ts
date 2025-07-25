@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletDown } from "../../../../styles/common/mixins/breakpoints";
+import { bpDown820 } from "../../../../styles/common/mixins/breakpoints";
 import { Title } from "../../../common/Title/title";
 
 export const StyledTitle = styled(Title)`
@@ -10,7 +10,7 @@ export const StyledTitle = styled(Title)`
     line-height: 42px;
     margin: 24px 0 8px;
 
-    ${mediaTabletDown} {
+    ${bpDown820} {
       font-size: 26px;
       line-height: 34px;
     }
