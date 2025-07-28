@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
-import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpDown1024 } from "../../../../../../styles/common/mixins/breakpoints";
 import { LAYOUT_SPACING } from "../../constants";
 
 const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */
@@ -15,7 +15,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   padding-top: ${({ top }) => top}px;
   z-index: 1; /* not required, but helpful in that the entities are always on top */
 
-  ${mediaTabletDown} {
+  ${bpDown1024} {
     grid-column: 1;
     grid-row: auto;
     padding-top: ${PT}px;
