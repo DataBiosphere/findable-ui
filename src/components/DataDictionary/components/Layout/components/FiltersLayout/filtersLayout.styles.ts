@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpDown1024 } from "../../../../../../styles/common/mixins/breakpoints";
 import { LAYOUT_SPACING } from "../../constants";
 
 const PB = LAYOUT_SPACING.FILTERS_PADDING_BOTTOM; /* bottom padding */
@@ -21,7 +21,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   top: 0;
   z-index: 2; /* required, filters should be on top of entities */
 
-  ${mediaTabletDown} {
+  ${bpDown1024} {
     grid-column: 1;
     grid-row: auto;
     padding-top: ${PT}px;

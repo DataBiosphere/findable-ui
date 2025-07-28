@@ -1,6 +1,12 @@
 import { DESKTOP, DESKTOP_SM, TABLET } from "../../../theme/common/breakpoints";
 import { ThemeProps } from "../../../theme/theme";
 
+export const bpDown820 = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down(820);
+
+export const bpDown1024 = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down(1024);
+
 export const mediaDesktopSmallDown = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(DESKTOP_SM);
 

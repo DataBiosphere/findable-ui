@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
-import { mediaTabletDown } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpDown1024 } from "../../../../../../styles/common/mixins/breakpoints";
 import { LAYOUT_SPACING } from "../../constants";
 
 const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */
@@ -19,7 +19,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   position: sticky;
   top: 0;
 
-  ${mediaTabletDown} {
+  ${bpDown1024} {
     display: none;
   }
 `;
