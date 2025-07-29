@@ -1,12 +1,9 @@
-import React, { ReactNode, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { DrawerContext } from "./context";
+import { DrawerProviderProps } from "./types";
 
-export function DrawerProvider({
-  children,
-}: {
-  children: ReactNode | ReactNode[];
-}): JSX.Element {
-  const [open, setOpen] = useState(false);
+export function DrawerProvider({ children }: DrawerProviderProps): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false);
 
   const onClose = useCallback(() => setOpen(false), []);
 
@@ -14,7 +11,9 @@ export function DrawerProvider({
 
   return (
     <DrawerContext.Provider value={{ onClose, onOpen, open }}>
-      {children}
+      {typeof children === "function"
+        ? children({ onClose, onOpen, open })
+        : children}
     </DrawerContext.Provider>
   );
 }
