@@ -14,6 +14,7 @@ export const MENU_PROPS: Omit<MenuProps, "anchorEl" | "onClose" | "open"> = {
   },
   marginThreshold: 8,
   slotProps: {
+    list: { component: "div" },
     paper: { variant: "menu" },
   },
   transformOrigin: {
