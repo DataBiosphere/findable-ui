@@ -1,19 +1,13 @@
-import {
-  Checkbox,
-  Grid,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
-import { CheckedIcon } from "../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
-import { UncheckedIcon } from "../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { useMenu } from "../../../../common/Menu/hooks/useMenu";
 import { FilterCountChip } from "../../../../Filter/components/FilterCountChip/filterCountChip";
+import { ListItemButton } from "../../../../Filter/components/views/select/components/ListItemButton/listItemButton";
+import { SelectListItem } from "../../../../Filter/components/views/select/SelectListItem/selectListItem";
 import { getColumnHeader } from "../../../common/utils";
 import { getSortedFacetedValues } from "../../../featureOptions/facetedColumn/utils";
 import { StyledButton, StyledMenu } from "./columnFilter.styles";
@@ -33,9 +27,23 @@ export const ColumnFilter = <T extends RowData>({
   ...props /* MuiMenuProps */
 }: ColumnFilterProps<T>): JSX.Element => {
   const { anchorEl, onClose, onOpen, open } = useMenu();
+
+  // Grab the unique values for the column.
   const facetedUniqueValues = column.getFacetedUniqueValues();
+
+  // Sort the values.
   const sortedValues = getSortedFacetedValues(facetedUniqueValues);
+
+  // Get the filter values.
   const filterValue = (column.getFilterValue() || []) as unknown[];
+
+  const onFilter = useCallback(
+    (value: unknown) => {
+      column.setFilterValue(updater(value));
+    },
+    [column]
+  );
+
   return (
     <Fragment>
       <Button
@@ -58,31 +66,23 @@ export const ColumnFilter = <T extends RowData>({
         onClose={onClose}
         open={open}
       >
-        {sortedValues.map(([value, occurrence]) => (
-          <ListItemButton
-            key={String(value)}
-            selected={filterValue.includes(value)}
-            onClick={() => column.setFilterValue(updater(value))}
-          >
-            <Checkbox
-              checked={filterValue.includes(value)}
-              checkedIcon={<CheckedIcon />}
-              icon={<UncheckedIcon />}
+        {sortedValues.map(([value, occurrence]) => {
+          const checked = filterValue.includes(value);
+          const onClick = (): void => onFilter(value);
+          const primary = String(value);
+          const secondary = String(occurrence);
+          const selected = checked;
+          return (
+            <SelectListItem
+              key={primary}
+              slotProps={{
+                checkbox: { checked },
+                listItemButton: { onClick, selected },
+                listItemText: { primary, secondary },
+              }}
             />
-            <ListItemText
-              disableTypography
-              primary={<span>{String(value)}</span>}
-              secondary={
-                <Typography
-                  color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-                  variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
-                >
-                  {occurrence}
-                </Typography>
-              }
-            />
-          </ListItemButton>
-        ))}
+          );
+        })}
         <ListItemButton
           disabled={!column.getIsFiltered()}
           onClick={() => column.setFilterValue(undefined)}
