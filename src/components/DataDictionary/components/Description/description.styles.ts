@@ -5,10 +5,10 @@ import {
   mediaTabletUp,
 } from "../../../../styles/common/mixins/breakpoints";
 import { textHeadingSmall } from "../../../../styles/common/mixins/fonts";
-import { RoundedPaper } from "../../../common/Paper/components/RoundedPaper/roundedPaper";
+import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
 import { MarkdownRenderer } from "../../../MarkdownRenderer/markdownRenderer";
 
-export const StyledRoundedPaper = styled(RoundedPaper)`
+export const StyledFluidPaper = styled(FluidPaper)`
   padding: 20px;
 
   ${mediaTabletDown} {

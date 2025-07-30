@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-import { bpDown1024 } from "../../styles/common/mixins/breakpoints";
+import {
+  bpDown1024,
+  mediaTabletDown,
+} from "../../styles/common/mixins/breakpoints";
 
 export const View = styled("div")`
   column-gap: 24px;
@@ -12,5 +15,9 @@ export const View = styled("div")`
   ${bpDown1024} {
     grid-template-columns: 1fr;
     margin: 0 16px;
+  }
+
+  ${mediaTabletDown} {
+    margin: 0;
   }
 `;

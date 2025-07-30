@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
-import { bpDown1024 } from "../../../../../../styles/common/mixins/breakpoints";
+import {
+  bpDown1024,
+  mediaTabletDown,
+} from "../../../../../../styles/common/mixins/breakpoints";
 
 export const Layout = styled("div")<LayoutSpacing>`
   grid-column: 1 / -1;
@@ -15,5 +18,9 @@ export const Layout = styled("div")<LayoutSpacing>`
     grid-column: 1;
     grid-row: auto;
     position: relative;
+  }
+
+  ${mediaTabletDown} {
+    margin: 0 16px;
   }
 `;

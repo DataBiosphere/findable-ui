@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  StyledMarkdownRenderer,
-  StyledRoundedPaper,
-} from "./description.styles";
+import { StyledFluidPaper, StyledMarkdownRenderer } from "./description.styles";
 import { DescriptionProps } from "./types";
 
 export const Description = ({
@@ -10,8 +7,8 @@ export const Description = ({
 }: DescriptionProps): JSX.Element | null => {
   if (!description) return null;
   return (
-    <StyledRoundedPaper elevation={0}>
+    <StyledFluidPaper elevation={0}>
       <StyledMarkdownRenderer value={description} />
-    </StyledRoundedPaper>
+    </StyledFluidPaper>
   );
 };
