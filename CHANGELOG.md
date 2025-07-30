@@ -1,5 +1,27 @@
 # Changelog
 
+## [41.0.0](https://github.com/DataBiosphere/findable-ui/compare/v40.0.0...v41.0.0) (2025-07-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* create filter drawer component ([#597](https://github.com/DataBiosphere/findable-ui/issues/597)) (#598)
+
+### Features
+
+* add primary text to button constants ([#588](https://github.com/DataBiosphere/findable-ui/issues/588)) ([#589](https://github.com/DataBiosphere/findable-ui/issues/589)) ([2d708cc](https://github.com/DataBiosphere/findable-ui/commit/2d708cc710159f5539330509b2e6beca10b2fa88))
+* create filter button component ([#592](https://github.com/DataBiosphere/findable-ui/issues/592)) ([#594](https://github.com/DataBiosphere/findable-ui/issues/594)) ([b30098a](https://github.com/DataBiosphere/findable-ui/commit/b30098a4a5f12e9dd5c5aed8526ecb8077015ac2))
+* create filter drawer component ([#597](https://github.com/DataBiosphere/findable-ui/issues/597)) ([#598](https://github.com/DataBiosphere/findable-ui/issues/598)) ([8352876](https://github.com/DataBiosphere/findable-ui/commit/8352876fd1934e9d0877ce4a97c01eaf8a60c295))
+* create select filter item component ([#595](https://github.com/DataBiosphere/findable-ui/issues/595)) ([#596](https://github.com/DataBiosphere/findable-ui/issues/596)) ([b63e3bb](https://github.com/DataBiosphere/findable-ui/commit/b63e3bb793396e5ec220f2f9e85097a0fdeddd52))
+* make data dictionary table row-collapse for smaller viewports ([#600](https://github.com/DataBiosphere/findable-ui/issues/600)) ([#601](https://github.com/DataBiosphere/findable-ui/issues/601)) ([88d0490](https://github.com/DataBiosphere/findable-ui/commit/88d0490bc8b659020f20abb5c1abd3136829d74b))
+* update data dictionary smaller viewport navigation and search bar layouts ([#583](https://github.com/DataBiosphere/findable-ui/issues/583)) ([#584](https://github.com/DataBiosphere/findable-ui/issues/584)) ([20b9a53](https://github.com/DataBiosphere/findable-ui/commit/20b9a53cdc390fe85bfdf82845e7d6964f4d0cc3))
+
+
+### Code Refactoring
+
+* columnfilter menu list prop component to be "div" rather than "ul" ([#590](https://github.com/DataBiosphere/findable-ui/issues/590)) ([#591](https://github.com/DataBiosphere/findable-ui/issues/591)) ([c504b99](https://github.com/DataBiosphere/findable-ui/commit/c504b99936b74b4f7e05b18ac69e2eef8336264d))
+* drawerprovider to expose onClose via render prop ([#585](https://github.com/DataBiosphere/findable-ui/issues/585)) ([#587](https://github.com/DataBiosphere/findable-ui/issues/587)) ([2107c41](https://github.com/DataBiosphere/findable-ui/commit/2107c41545fbad344077f6c87bf1b27d2ac21a22))
+
 ## [40.0.0](https://github.com/DataBiosphere/findable-ui/compare/v39.1.0...v40.0.0) (2025-07-24)
 
 
