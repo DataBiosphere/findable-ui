@@ -1,9 +1,9 @@
 import { Button as MButton, Typography } from "@mui/material";
-import { BaseComponentProps } from "components/types";
 import React from "react";
 import { CLEAR_ALL } from "../../../../../common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { BUTTON_PROPS } from "../../../../common/Button/constants";
+import { BaseComponentProps } from "../../../../types";
 import { SurfaceProps } from "../../surfaces/types";
 import { StyledGrid } from "./controls.styles";
 
