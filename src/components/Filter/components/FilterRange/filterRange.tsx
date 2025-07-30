@@ -11,11 +11,9 @@ import {
 } from "@mui/material";
 import React, { Fragment } from "react";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { SouthIcon } from "../../../common/CustomIcon/components/SouthIcon/southIcon";
-import {
-  FilterViewTools,
-  StyledButtonBase,
-} from "../FilterMenu/filterMenu.styles";
+import { FilterViewTools } from "../FilterMenu/filterMenu.styles";
+import { ButtonBase } from "../surfaces/drawer/components/ButtonBase/buttonBase";
+import { SURFACE_TYPE } from "../surfaces/types";
 import {
   BUTTON_PROPS,
   DIVIDER_PROPS,
@@ -35,13 +33,13 @@ export const FilterRange = ({
   categoryLabel,
   categorySection,
   className,
-  isFilterDrawer,
   max,
   min,
   onCloseFilter,
   onFilter,
   selectedMax,
   selectedMin,
+  surfaceType,
   unit,
 }: FilterRangeProps): JSX.Element => {
   const rangeOperator = getRangeOperator({ selectedMax, selectedMin });
@@ -54,12 +52,9 @@ export const FilterRange = ({
   } = useFilterRange(rangeOperator);
   return (
     <Fragment>
-      {isFilterDrawer && (
-        <FilterViewTools>
-          <StyledButtonBase onClick={onCloseFilter}>
-            <SouthIcon fontSize="small" />
-            {categoryLabel}
-          </StyledButtonBase>
+      {surfaceType === SURFACE_TYPE.DRAWER && (
+        <FilterViewTools surfaceType={surfaceType}>
+          <ButtonBase onClick={onCloseFilter}>{categoryLabel}</ButtonBase>
         </FilterViewTools>
       )}
       <StyledForm
@@ -69,6 +64,7 @@ export const FilterRange = ({
           categoryKey,
           categorySection,
         })}
+        surfaceType={surfaceType}
       >
         <ToggleButtonGroup
           {...TOGGLE_BUTTON_GROUP_PROPS}

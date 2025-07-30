@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterLabel } from "./filterLabel";
 
 const meta = {
@@ -31,5 +32,6 @@ export const FilterLabelStory: Story = {
     isOpen: false,
     label: "Label",
     onClick: () => {},
+    surfaceType: SURFACE_TYPE.MENU,
   },
 };

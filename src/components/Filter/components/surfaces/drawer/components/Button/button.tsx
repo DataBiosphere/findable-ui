@@ -1,14 +1,18 @@
 import { FilterListRounded } from "@mui/icons-material";
-import { Button, ButtonProps } from "@mui/material";
+import { ButtonProps, Button as MButton } from "@mui/material";
 import React from "react";
-import { SVG_ICON_PROPS } from "../../../../../../styles/common/mui/svgIcon";
-import { BUTTON_PROPS } from "../../../../../common/Button/constants";
-import { useDrawer } from "../../../../../common/Drawer/provider/hook";
-import { BaseComponentProps } from "../../../../../types";
-import { FilterCountChip } from "../../../FilterCountChip/filterCountChip";
-import { FilterCountChipProps } from "../../../FilterCountChip/types";
+import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
+import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
+import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
+import { BaseComponentProps } from "../../../../../../types";
+import { FilterCountChip } from "../../../../FilterCountChip/filterCountChip";
+import { FilterCountChipProps } from "../../../../FilterCountChip/types";
 
-export const FilterButton = ({
+/**
+ * Opens facet-filters drawer.
+ */
+
+export const Button = ({
   className,
   count = 0,
   ...props
@@ -17,7 +21,7 @@ export const FilterButton = ({
   Pick<FilterCountChipProps, "count">): JSX.Element => {
   const { onOpen } = useDrawer();
   return (
-    <Button
+    <MButton
       {...BUTTON_PROPS.SECONDARY_CONTAINED}
       className={className}
       onClick={onOpen}
@@ -31,6 +35,6 @@ export const FilterButton = ({
     >
       Filter
       <FilterCountChip count={count} />
-    </Button>
+    </MButton>
   );
 };

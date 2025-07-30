@@ -4,9 +4,10 @@ import { Meta, StoryObj } from "@storybook/react";
 import { functionalUpdate, Table } from "@tanstack/react-table";
 import React from "react";
 import { Filters } from "../filters";
-import { BIONETWORK, DESCRIPTION, EXAMPLE, REQUIRED } from "./constants";
+import { COLUMNS } from "./constants";
 import { useFilterStore, useGlobalFilterStore } from "./hook";
 import { PartialColumn } from "./types";
+import { buildColumnFilters } from "./utils";
 
 const meta: Meta<typeof Filters> = {
   component: Filters,
@@ -27,6 +28,9 @@ const DefaultStory = (): JSX.Element => {
   const { filterStore, setFilterStore } = useFilterStore();
   const { globalFilter, setGlobalFilter } = useGlobalFilterStore();
 
+  // Builds column filters from filter store.
+  const columnFilters = buildColumnFilters(filterStore);
+
   const makeColumn = (column: PartialColumn): PartialColumn => ({
     ...column,
     getFilterValue: () => filterStore[column.id],
@@ -39,10 +43,13 @@ const DefaultStory = (): JSX.Element => {
     },
   });
 
+  // Make the columns.
+  const columns = COLUMNS.map(makeColumn);
+
   const table = {
-    getAllColumns: () =>
-      [DESCRIPTION, REQUIRED, BIONETWORK, EXAMPLE].map(makeColumn),
-    getState: () => ({ globalFilter }),
+    getAllColumns: () => columns,
+    getColumn: (columnId: string) => columns.find(({ id }) => id === columnId)!,
+    getState: () => ({ columnFilters, globalFilter }),
     options: { enableColumnFilters: true, enableGlobalFilter: true },
     setGlobalFilter,
   } as Table<unknown>;

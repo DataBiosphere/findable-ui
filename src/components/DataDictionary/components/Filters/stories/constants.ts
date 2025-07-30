@@ -47,3 +47,5 @@ export const REQUIRED: PartialColumn = {
     ]),
   id: "required",
 };
+
+export const COLUMNS = [DESCRIPTION, REQUIRED, BIONETWORK, EXAMPLE];

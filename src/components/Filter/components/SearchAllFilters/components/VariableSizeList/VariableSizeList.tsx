@@ -29,7 +29,7 @@ import {
   MAX_LIST_HEIGHT_PX,
 } from "../../../../common/constants";
 import { getSortMatchesFn } from "../../../../common/utils";
-import { List as FilterList } from "../../../FilterList/filterList.styles";
+import { StyledList } from "../../../FilterList/filterList.styles";
 import {
   DIVIDER_HEIGHT,
   DIVIDER_ITEM,
@@ -174,7 +174,7 @@ export const VariableSizeList = forwardRef<
     >
       <List
         height={height}
-        innerElementType={FilterList}
+        innerElementType={StyledList}
         innerRef={innerRef}
         itemCount={filteredItems.length}
         itemData={{

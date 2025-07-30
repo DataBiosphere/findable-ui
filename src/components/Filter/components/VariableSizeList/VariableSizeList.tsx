@@ -14,8 +14,9 @@ import {
   MAX_LIST_HEIGHT_PX,
 } from "../../common/constants";
 import { FilterMenuSearchMatch } from "../../common/entities";
-import { List as FilterList } from "../FilterList/filterList.styles";
+import { StyledList } from "../FilterList/filterList.styles";
 import VariableSizeListItem from "../VariableSizeListItem/variableSizeListItem";
+import { SURFACE_TYPE } from "../surfaces/types";
 
 export type ItemSizeByItemKey = Map<unknown, number>;
 
@@ -23,11 +24,11 @@ export interface VariableSizeListProps {
   categoryKey: CategoryKey;
   categorySection?: string;
   height?: number; // Height of list; vertical list must be a number.
-  isFilterDrawer: boolean;
   itemSize?: number; // Default item size.
   matchedItems: FilterMenuSearchMatch[];
   onFilter: OnFilterFn;
   overscanCount?: ListProps["overscanCount"];
+  surfaceType: SURFACE_TYPE;
   width?: ListProps["width"]; // Width of list; default to 100% width of parent element.
 }
 
@@ -61,11 +62,11 @@ export const VariableSizeList = ({
   categoryKey,
   categorySection,
   height: initHeight = MAX_LIST_HEIGHT_PX,
-  isFilterDrawer,
   itemSize = LIST_ITEM_HEIGHT,
   matchedItems,
   onFilter,
   overscanCount = MAX_DISPLAYABLE_LIST_ITEMS * 2,
+  surfaceType,
   width = "100%",
 }: VariableSizeListProps): JSX.Element => {
   const { height: windowHeight } = useWindowResize();
@@ -87,12 +88,12 @@ export const VariableSizeList = ({
         initHeight,
         matchedItems,
         itemSizeByItemKeyRef.current,
-        isFilterDrawer,
+        surfaceType,
         windowHeight,
         outerRef.current
       )
     );
-  }, [initHeight, isFilterDrawer, matchedItems, windowHeight]);
+  }, [initHeight, matchedItems, surfaceType, windowHeight]);
 
   // Clears VariableSizeList cache (offsets and measurements) when values are updated (filtered).
   // Facilitates correct positioning of list items when list is updated.
@@ -104,7 +105,7 @@ export const VariableSizeList = ({
     <List
       height={height}
       outerRef={outerRef}
-      innerElementType={FilterList}
+      innerElementType={StyledList}
       itemCount={matchedItems.length}
       itemData={{
         categoryKey,
@@ -132,7 +133,7 @@ export const VariableSizeList = ({
  * @param height - Specified height of list.
  * @param matchedItems - Set of search results for category value view models in the given category.
  * @param itemSizeByItemKey - Map of item size by item key.
- * @param isFilterDrawer - True if filter is displayed in filter drawer.
+ * @param surfaceType - Surface type is "Drawer" or "Menu".
  * @param windowHeight - Window height.
  * @param outerListElem - Outer list element to reference list position from.
  * @returns calculated height.
@@ -141,11 +142,11 @@ function calculateListHeight(
   height: number,
   matchedItems: FilterMenuSearchMatch[],
   itemSizeByItemKey: ItemSizeByItemKey,
-  isFilterDrawer: boolean,
+  surfaceType: SURFACE_TYPE,
   windowHeight: number,
   outerListElem: HTMLDivElement | null
 ): number {
-  if (isFilterDrawer && outerListElem) {
+  if (surfaceType === SURFACE_TYPE.DRAWER && outerListElem) {
     return windowHeight - outerListElem.getBoundingClientRect().top;
   }
   if (matchedItems.length > MAX_DISPLAYABLE_LIST_ITEMS) {

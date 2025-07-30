@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Theme, useMediaQuery } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { Attribute } from "../../../../../../common/entities";
@@ -14,8 +14,11 @@ export const ColumnFilterTags = <T extends RowData = Attribute>({
 }: ColumnFilterTagsProps<T>): JSX.Element | null => {
   const { getAllColumns, resetColumnFilters } = table;
   const columns = getAllColumns().filter((column) => column.getIsFiltered());
+  const isDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.down(820));
 
   if (columns.length === 0) return null;
+
+  if (isDrawer) return null;
 
   return (
     <StyledGrid className={className} {...GRID_PROPS}>

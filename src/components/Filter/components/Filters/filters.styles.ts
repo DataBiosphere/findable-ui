@@ -1,18 +1,18 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
-import { inkLight, inkMain } from "../../../../styles/common/mixins/colors";
-import {
-  textBody500,
-  textUppercase500,
-} from "../../../../styles/common/mixins/fonts";
+import { Typography } from "@mui/material";
+import { inkMain } from "../../../../styles/common/mixins/colors";
+import { textBody500 } from "../../../../styles/common/mixins/fonts";
+import { SURFACE_TYPE } from "../surfaces/types";
+import { FiltersProps } from "./filters";
 
 interface Props {
-  disabled: boolean;
   height: number;
 }
 
-export const Filters = styled("div")<Props>`
+export const Filters = styled("div")<
+  Props & Pick<FiltersProps, "disabled" | "surfaceType">
+>`
   ${textBody500};
   color: ${inkMain};
   height: ${({ height }) => height}px;
@@ -31,15 +31,15 @@ export const Filters = styled("div")<Props>`
     margin: 8px;
   }
 
-  ${mediaDesktopSmallUp} {
-    height: unset;
-    overflow: unset;
-    padding: 0 8px;
-  }
+  ${({ surfaceType }) =>
+    surfaceType === SURFACE_TYPE.MENU &&
+    css`
+      height: unset;
+      overflow: unset;
+      padding: 0 8px;
+    `}
 `;
 
-export const CategoryViewsLabel = styled("div")`
-  ${textUppercase500};
-  color: ${inkLight};
+export const StyledTypography = styled(Typography)`
   padding: 8px;
 `;

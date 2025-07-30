@@ -1,4 +1,3 @@
-import { CloseRounded } from "@mui/icons-material";
 import { Grow, PopoverPosition, PopoverProps } from "@mui/material";
 import React, { MouseEvent, ReactNode, useState } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
@@ -9,8 +8,10 @@ import { TEST_IDS } from "../../../../tests/testIds";
 import { FilterLabel } from "../FilterLabel/filterLabel";
 import { FilterMenu } from "../FilterMenu/filterMenu";
 import { FilterRange } from "../FilterRange/filterRange";
+import { IconButton } from "../surfaces/drawer/components/IconButton/iconButton";
+import { SURFACE_TYPE } from "../surfaces/types";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
-import { FilterPopover, IconButton } from "./filter.styles";
+import { StyledPopover } from "./filter.styles";
 
 /**
  * Filter component.
@@ -30,8 +31,8 @@ export interface FilterProps {
   categorySection?: string;
   categoryView: CategoryView;
   closeAncestor?: () => void;
-  isFilterDrawer: boolean;
   onFilter: OnFilterFn;
+  surfaceType: SURFACE_TYPE;
   tags?: ReactNode; // e.g. filter tags
   trackFilterOpened?: TrackFilterOpenedFunction;
 }
@@ -40,18 +41,19 @@ export const Filter = ({
   categorySection,
   categoryView,
   closeAncestor,
-  isFilterDrawer,
   onFilter,
+  surfaceType,
   tags,
   trackFilterOpened,
 }: FilterProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [position, setPosition] = useState<PopoverPosition>(DEFAULT_POSITION);
-  const anchorPosition = isFilterDrawer ? DEFAULT_POSITION : position;
-  const slotProps = isFilterDrawer ? DRAWER_SLOT_PROPS : DEFAULT_SLOT_PROPS;
-  const TransitionComponent = isFilterDrawer ? DrawerTransition : Grow;
+  const isDrawer = surfaceType === SURFACE_TYPE.DRAWER;
+  const anchorPosition = isDrawer ? DEFAULT_POSITION : position;
+  const slotProps = isDrawer ? DRAWER_SLOT_PROPS : DEFAULT_SLOT_PROPS;
+  const TransitionComponent = isDrawer ? DrawerTransition : Grow;
   const transitionDuration = isOpen ? 250 : 300;
-  const TransitionDuration = isFilterDrawer ? transitionDuration : undefined;
+  const TransitionDuration = isDrawer ? transitionDuration : undefined;
   const isRangeView = isRangeCategoryView(categoryView);
 
   /**
@@ -93,8 +95,9 @@ export const Filter = ({
         isOpen={isOpen}
         label={categoryView.label}
         onClick={onOpenFilter}
+        surfaceType={surfaceType}
       />
-      <FilterPopover
+      <StyledPopover
         anchorPosition={anchorPosition}
         anchorReference="anchorPosition"
         data-testid={TEST_IDS.FILTER_POPOVER}
@@ -103,27 +106,22 @@ export const Filter = ({
         open={isOpen}
         slotProps={slotProps}
         slots={{ transition: TransitionComponent }}
+        surfaceType={surfaceType}
         transitionDuration={TransitionDuration}
       >
-        {isOpen && isFilterDrawer && (
-          <IconButton
-            Icon={CloseRounded}
-            onClick={onCloseFilters}
-            size="medium"
-          />
-        )}
+        {isDrawer && <IconButton onClick={onCloseFilters} />}
         {isRangeView ? (
           <FilterRange
             categoryKey={categoryView.key}
             categoryLabel={categoryView.label}
             categorySection={categorySection}
-            isFilterDrawer={isFilterDrawer}
             max={categoryView.max}
             min={categoryView.min}
             selectedMax={categoryView.selectedMax}
             selectedMin={categoryView.selectedMin}
             onCloseFilter={onCloseFilter}
             onFilter={onFilter}
+            surfaceType={surfaceType}
             unit={categoryView.unit}
           />
         ) : (
@@ -131,13 +129,13 @@ export const Filter = ({
             categoryKey={categoryView.key}
             categoryLabel={categoryView.label}
             categorySection={categorySection}
-            isFilterDrawer={isFilterDrawer}
             onCloseFilter={onCloseFilter}
             onFilter={onFilter}
+            surfaceType={surfaceType}
             values={categoryView.values}
           />
         )}
-      </FilterPopover>
+      </StyledPopover>
       {tags}
     </>
   );
