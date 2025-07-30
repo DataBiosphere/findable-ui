@@ -9,6 +9,7 @@ import { useWindowResize } from "../../../../hooks/useWindowResize";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
+import { BaseComponentProps } from "../../../types";
 import { Filter } from "../Filter/filter";
 import { buildRangeTag } from "../FilterTag/utils";
 import { FilterTags } from "../FilterTags/filterTags";
@@ -20,7 +21,7 @@ export interface CategoryFilter {
   label?: string;
 }
 
-export interface FiltersProps {
+export interface FiltersProps extends BaseComponentProps {
   categoryFilters: CategoryFilter[];
   disabled?: boolean; // Global disabling of filters.
   onFilter: OnFilterFn;
@@ -72,6 +73,7 @@ function renderFilterTags(
 
 export const Filters = ({
   categoryFilters,
+  className,
   disabled = false,
   onFilter,
   surfaceType = SURFACE_TYPE.MENU,
@@ -88,6 +90,7 @@ export const Filters = ({
 
   return (
     <FilterList
+      className={className}
       data-testid={TEST_IDS.FILTERS}
       disabled={disabled}
       height={height}
