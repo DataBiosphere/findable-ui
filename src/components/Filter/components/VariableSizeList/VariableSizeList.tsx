@@ -133,7 +133,7 @@ export const VariableSizeList = ({
  * @param height - Specified height of list.
  * @param matchedItems - Set of search results for category value view models in the given category.
  * @param itemSizeByItemKey - Map of item size by item key.
- * @param surfaceType - Surace type is "Drawer" or "Menu".
+ * @param surfaceType - Surface type is "Drawer" or "Menu".
  * @param windowHeight - Window height.
  * @param outerListElem - Outer list element to reference list position from.
  * @returns calculated height.
