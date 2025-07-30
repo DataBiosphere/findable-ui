@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { DrawerProvider } from "../../../../../common/Drawer/provider/provider";
+import { Controls } from "../../../controls/Controls/controls";
 import { Filters } from "../../../Filters/filters";
 import { SURFACE_TYPE } from "../../types";
 import { Button as BaseButton } from "../components/Button/button";
@@ -30,6 +31,8 @@ export const Drawer = ({
           >
             {/* Closes drawer */}
             <IconButton />
+            {/* Clear all button */}
+            <Controls onFilter={onFilter} />
             <Filters
               categoryFilters={categoryFilters}
               onFilter={onFilter}

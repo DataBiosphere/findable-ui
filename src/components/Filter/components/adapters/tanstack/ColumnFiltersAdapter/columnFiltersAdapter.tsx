@@ -3,6 +3,8 @@ import { useCallback } from "react";
 import {
   CategoryKey,
   CategoryValueKey,
+  CLEAR_ALL,
+  ClearAll,
 } from "../../../../../../common/entities";
 import { updater } from "../../../../../Table/components/TableFeatures/ColumnFilter/utils";
 import { ColumnFiltersAdapterProps } from "./types";
@@ -17,11 +19,16 @@ export const ColumnFiltersAdapter = <T extends RowData>({
 
   const onFilter = useCallback(
     (
-      categoryKey: CategoryKey,
+      categoryKey: CategoryKey | ClearAll,
       selectedCategoryValue: CategoryValueKey,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `selected` is not required by TanStack adapter.
       _selected: boolean
     ) => {
+      if (categoryKey === CLEAR_ALL) {
+        table.resetColumnFilters();
+        return;
+      }
+
       table
         .getColumn(categoryKey)
         ?.setFilterValue(updater(selectedCategoryValue));

@@ -10,6 +10,7 @@ import { COLLATOR_CASE_INSENSITIVE } from "../common/constants";
 import {
   CategoryKey,
   CategoryValueKey,
+  ClearAll,
   Filters,
   SelectCategory,
   SelectCategoryValue,
@@ -27,7 +28,7 @@ export type FilterState = Filters;
  * Function invoked when selected state of a category value is toggled or range is selected.
  */
 export type OnFilterFn = (
-  categoryKey: CategoryKey,
+  categoryKey: CategoryKey | ClearAll,
   selectedCategoryValue: CategoryValueKey,
   selected: boolean,
   categorySection?: string,

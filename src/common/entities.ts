@@ -24,6 +24,16 @@ export interface Attribute {
 export type CategoryKey = string;
 
 /**
+ * Clear all filters key.
+ */
+export const CLEAR_ALL = "CLEAR_ALL" as const;
+
+/**
+ * Clear all filters type.
+ */
+export type ClearAll = typeof CLEAR_ALL;
+
+/**
  * View model of category tag.
  */
 export interface CategoryTag {
