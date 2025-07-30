@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterMenu } from "./filterMenu";
 
 const meta = {
@@ -28,10 +29,10 @@ export const FilterMenuStory: Story = {
   args: {
     categoryKey: "donorDisease",
     categoryLabel: "Donor Disease",
-    isFilterDrawer: false,
     menuWidth: 312,
     onCloseFilter: () => {},
     onFilter: () => {},
+    surfaceType: SURFACE_TYPE.MENU,
     values: [
       {
         count: 312,

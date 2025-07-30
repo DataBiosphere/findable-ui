@@ -1,16 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
-import { mediaDesktopSmallUp } from "../../../../styles/common/mixins/breakpoints";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { inkLight, smokeMain } from "../../../../styles/common/mixins/colors";
+import { SURFACE_TYPE } from "../surfaces/types";
+import { FilterLabelProps } from "./filterLabel";
 
-interface Props {
-  isOpen: boolean;
-}
-
-export const FilterLabel = styled(Button, {
-  shouldForwardProp: (prop) => prop !== "isOpen",
-})<Props>`
+export const StyledButton = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "isOpen" && prop !== "surfaceType",
+})<Pick<FilterLabelProps, "isOpen" | "surfaceType">>`
   font-weight: inherit;
   gap: 0;
   justify-content: space-between;
@@ -32,23 +30,26 @@ export const FilterLabel = styled(Button, {
     transform: rotate(-90deg);
   }
 
-  ${mediaDesktopSmallUp} {
-    padding: 6px 8px;
-
-    & .MuiButton-endIcon {
-      transform: unset;
-    }
-  }
-
-  ${(props) =>
-    props.isOpen &&
+  ${({ surfaceType }) =>
+    surfaceType === SURFACE_TYPE.MENU &&
     css`
-      background-color: ${smokeMain(props)};
+      padding: 6px 8px;
 
-      ${mediaDesktopSmallUp(props)} {
+      & .MuiButton-endIcon {
+        transform: unset;
+      }
+    `}
+
+  ${({ isOpen, surfaceType }) =>
+    isOpen &&
+    css`
+      background-color: ${PALETTE.SMOKE_MAIN};
+
+      ${surfaceType === SURFACE_TYPE.MENU &&
+      css`
         & .MuiButton-endIcon {
           transform: rotate(180deg);
         }
-      }
+      `}
     `};
 `;

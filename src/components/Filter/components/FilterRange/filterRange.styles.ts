@@ -1,9 +1,11 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaDesktopSmallDown } from "../../../../styles/common/mixins/breakpoints";
 import { textBody400 } from "../../../../styles/common/mixins/fonts";
+import { SURFACE_TYPE } from "../surfaces/types";
+import { FilterRangeProps } from "./types";
 
-export const StyledForm = styled("form")`
+export const StyledForm = styled("form")<Pick<FilterRangeProps, "surfaceType">>`
   padding: 16px;
   width: 396px;
 
@@ -94,23 +96,27 @@ export const StyledForm = styled("form")`
     grid-column: 1 / -1;
   }
 
-  ${mediaDesktopSmallDown} {
-    padding: 0 16px;
-    width: 312px;
+  ${({ surfaceType }) =>
+    surfaceType === SURFACE_TYPE.DRAWER &&
+    css`
+       {
+        padding: 0 16px;
+        width: 312px;
 
-    .MuiGrid-root {
-      gap: 16px 0;
-      grid-template-rows: auto auto;
-      margin: 16px 0;
+        .MuiGrid-root {
+          gap: 16px 0;
+          grid-template-rows: auto auto;
+          margin: 16px 0;
 
-      .MuiFormControl-root {
-        grid-row: unset;
-        grid-template-rows: unset;
+          .MuiFormControl-root {
+            grid-row: unset;
+            grid-template-rows: unset;
+          }
+
+          .MuiDivider-root {
+            display: none;
+          }
+        }
       }
-
-      .MuiDivider-root {
-        display: none;
-      }
-    }
-  }
+    `}
 `;

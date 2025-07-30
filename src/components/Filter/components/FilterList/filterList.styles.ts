@@ -33,7 +33,7 @@ export const MuiListItemTextRoot = css`
   }
 `;
 
-export const List = styled(MList)`
+export const StyledList = styled(MList)`
   && {
     overflow-wrap: break-word;
     margin: ${LIST_MARGIN}px 0;

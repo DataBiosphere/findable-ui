@@ -4,19 +4,16 @@ import { isRangeCategoryView } from "../../../../common/categories/views/range/t
 import { CategoryView } from "../../../../common/categories/views/types";
 import { CategoryTag } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../hooks/useWindowResize";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { Filter } from "../Filter/filter";
 import { buildRangeTag } from "../FilterTag/utils";
 import { FilterTags } from "../FilterTags/filterTags";
-import { CategoryViewsLabel, Filters as FilterList } from "./filters.styles";
+import { SURFACE_TYPE } from "../surfaces/types";
+import { Filters as FilterList, StyledTypography } from "./filters.styles";
 
 export interface CategoryFilter {
   categoryViews: CategoryView[];
@@ -27,6 +24,7 @@ export interface FiltersProps {
   categoryFilters: CategoryFilter[];
   disabled?: boolean; // Global disabling of filters.
   onFilter: OnFilterFn;
+  surfaceType?: SURFACE_TYPE;
   trackFilterOpened?: TrackFilterOpenedFunction;
 }
 
@@ -76,13 +74,10 @@ export const Filters = ({
   categoryFilters,
   disabled = false,
   onFilter,
+  surfaceType = SURFACE_TYPE.MENU,
   trackFilterOpened,
 }: FiltersProps): JSX.Element => {
   const { onClose } = useDrawer();
-  const isFilterDrawer = useBreakpointHelper(
-    BREAKPOINT_FN_NAME.DOWN,
-    DESKTOP_SM
-  );
   const { height: windowHeight } = useWindowResize();
   const filterListRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState<number>(0);
@@ -97,19 +92,27 @@ export const Filters = ({
       disabled={disabled}
       height={height}
       ref={filterListRef}
+      surfaceType={surfaceType}
     >
       {categoryFilters.map(({ categoryViews, label }, i) => (
         <Fragment key={i}>
           {i !== 0 && <Divider />}
-          {label && <CategoryViewsLabel>{label}</CategoryViewsLabel>}
+          {label && (
+            <StyledTypography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_UPPERCASE_500}
+            >
+              {label}
+            </StyledTypography>
+          )}
           {categoryViews.map((categoryView) => (
             <Filter
               key={categoryView.key}
               categorySection={label}
               categoryView={categoryView}
               closeAncestor={onClose}
-              isFilterDrawer={isFilterDrawer}
               onFilter={onFilter}
+              surfaceType={surfaceType}
               trackFilterOpened={trackFilterOpened}
               tags={renderFilterTags(categoryView, onFilter)}
             />

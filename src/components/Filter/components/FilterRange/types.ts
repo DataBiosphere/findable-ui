@@ -2,6 +2,7 @@ import { RangeCategoryView } from "../../../../common/categories/views/range/typ
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { BaseComponentProps } from "../../../types";
+import { SURFACE_TYPE } from "../surfaces/types";
 
 export interface FilterRangeProps
   extends Omit<RangeCategoryView, "key" | "label">,
@@ -9,7 +10,7 @@ export interface FilterRangeProps
   categoryKey: CategoryKey;
   categoryLabel: string;
   categorySection?: string;
-  isFilterDrawer: boolean;
   onCloseFilter: () => void;
   onFilter: OnFilterFn;
+  surfaceType: SURFACE_TYPE;
 }

@@ -1,3 +1,4 @@
+import { useBreakpoint } from "hooks/useBreakpoint";
 import React, { useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
@@ -11,6 +12,7 @@ import {
   Filters,
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
+import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
@@ -33,6 +35,7 @@ export interface ExploreViewProps extends AzulEntitiesStaticResponse {
 }
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
+  const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
@@ -137,6 +140,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
           <Filters
             categoryFilters={categoryFilters}
             onFilter={onFilterChange.bind(null, false)}
+            surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
             trackFilterOpened={trackingConfig?.trackFilterOpened}
           />
         </Sidebar>

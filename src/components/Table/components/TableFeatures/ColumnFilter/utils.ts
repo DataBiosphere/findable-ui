@@ -7,6 +7,8 @@ export function updater(
   value: unknown
 ): (old: unknown[] | undefined) => unknown[] | undefined {
   return (old: unknown[] | undefined) => {
+    if (value === undefined) return undefined;
+
     // If no old value, return new value.
     if (!old) return [value];
 
