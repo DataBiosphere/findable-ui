@@ -1,4 +1,3 @@
-import { useBreakpoint } from "hooks/useBreakpoint";
 import React, { useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
@@ -19,6 +18,7 @@ import { SidebarTools } from "../../components/Layout/components/Sidebar/compone
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
 import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
