@@ -1,5 +1,12 @@
 # Changelog
 
+## [41.1.0](https://github.com/DataBiosphere/findable-ui/compare/v41.0.0...v41.1.0) (2025-07-31)
+
+
+### Features
+
+* update data dictionary column filter button size to large ([#603](https://github.com/DataBiosphere/findable-ui/issues/603)) ([#604](https://github.com/DataBiosphere/findable-ui/issues/604)) ([a1d7c76](https://github.com/DataBiosphere/findable-ui/commit/a1d7c76bad1386c7c56bbb4c5f65f9905addc71e))
+
 ## [41.0.0](https://github.com/DataBiosphere/findable-ui/compare/v40.0.0...v41.0.0) (2025-07-30)
 
 
