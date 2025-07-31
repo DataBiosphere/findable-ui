@@ -1,6 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import React, { Fragment, useCallback } from "react";
+import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
@@ -51,6 +52,7 @@ export const ColumnFilter = <T extends RowData>({
         endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
         onClick={onOpen}
         open={open}
+        size={BUTTON_PROPS.SIZE.LARGE}
       >
         <Grid {...GRID_PROPS}>
           {getColumnHeader(column)}
