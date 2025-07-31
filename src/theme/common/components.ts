@@ -258,7 +258,16 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
     variants: [
       {
         props: { size: BUTTON_PROPS.SIZE.LARGE },
-        style: { padding: "10px 16px" },
+        style: {
+          padding: "10px 16px",
+          // eslint-disable-next-line sort-keys -- disabling key order for readability
+          ".MuiButton-iconSizeLarge": {
+            // eslint-disable-next-line sort-keys -- disabling key order for readability
+            ".MuiSvgIcon-root": {
+              fontSize: "20px",
+            },
+          },
+        },
       },
       {
         props: { size: BUTTON_PROPS.SIZE.MEDIUM },
