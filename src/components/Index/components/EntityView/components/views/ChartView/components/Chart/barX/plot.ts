@@ -5,7 +5,6 @@ import { PALETTE } from "../../../../../../../../../../styles/common/constants/p
 import { formatCountSize } from "../../../../../../../../../../utils/formatCountSize";
 import { DATA_FIELD, MARGIN_LEFT, TEXT_PADDING } from "./constants";
 import {
-  getCategoryTotalCount,
   getCategoryValueText,
   getCategoryValueTextFill,
   getColorRangeValue,
@@ -22,10 +21,10 @@ import {
 
 export function getPlotOptions(
   selectCategoryValueViews: SelectCategoryValueView[],
+  totalCount: number,
   width: number
 ): PlotOptions {
   const isCategorySelected = isAnyValueSelected(selectCategoryValueViews);
-  const totalCount = getCategoryTotalCount(selectCategoryValueViews);
   return {
     color: {
       domain: [false, true], // false = unselected, true = selected.
@@ -54,7 +53,6 @@ export function getPlotOptions(
         fill: DATA_FIELD.SELECTED,
         rx1: 0,
         rx2: 4,
-        sort: { order: "descending", y: "x" }, // Sort by count (x-axis), descending.
         x: DATA_FIELD.COUNT,
         y: DATA_FIELD.LABEL,
       }),
@@ -99,6 +97,7 @@ export function getPlotOptions(
       line: false,
     },
     y: {
+      domain: selectCategoryValueViews.map((d) => d.label), // Preserve the order of the pre-sorted data.
       label: null,
       line: false,
       paddingInner: getYPaddingInner(),

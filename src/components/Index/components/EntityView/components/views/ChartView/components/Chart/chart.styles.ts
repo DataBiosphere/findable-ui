@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 import { mediaTabletDown } from "../../../../../../../../../styles/common/mixins/breakpoints";
 import { textBodySmall400 } from "../../../../../../../../../styles/common/mixins/fonts";
 import { BarX } from "../../../../../../../../Plot/components/BarX/barX";
@@ -27,4 +28,9 @@ export const StyledBarX = styled(BarX)`
       }
     }
   }
+`;
+
+export const StyledButton = styled(Button)`
+  align-self: flex-start;
+  text-transform: none;
 `;
