@@ -278,7 +278,7 @@ function isCategoryAcceptListed(
  * @param cvv1 - Second category value view to compare.
  * @returns Number indicating sort precedence of cv0 vs cv1.
  */
-function sortCategoryValueViews(
+export function sortCategoryValueViews(
   cvv0: SelectCategoryValueView,
   cvv1: SelectCategoryValueView
 ): number {
