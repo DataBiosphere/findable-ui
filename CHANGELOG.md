@@ -1,5 +1,12 @@
 # Changelog
 
+## [41.2.0](https://github.com/DataBiosphere/findable-ui/compare/v41.1.0...v41.2.0) (2025-08-01)
+
+
+### Features
+
+* chart view - show more link for long tail charts ([#446](https://github.com/DataBiosphere/findable-ui/issues/446)) ([#606](https://github.com/DataBiosphere/findable-ui/issues/606)) ([fb035d8](https://github.com/DataBiosphere/findable-ui/commit/fb035d8bbb5ac47ef656ef7403ac271ffdb7e0af))
+
 ## [41.1.0](https://github.com/DataBiosphere/findable-ui/compare/v41.0.0...v41.1.0) (2025-07-31)
 
 
