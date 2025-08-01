@@ -18,7 +18,19 @@ export const Chart = ({
     <Fragment>
       <StyledBarX options={options} testId={testId} />
       {isChartExpandable(selectCategoryValueViews) && (
-        <StyledButton {...BUTTON_PROPS.PRIMARY_TEXT} onClick={onToggleBarCount}>
+        <StyledButton
+          {...BUTTON_PROPS.PRIMARY_TEXT}
+          onClick={(e) => {
+            // Scroll, only if we are closing the chart (i.e. barCount is undefined).
+            const shouldScroll = barCount === undefined;
+            onToggleBarCount();
+            if (!shouldScroll) return;
+            // Scroll the chart into view.
+            e.currentTarget
+              ?.closest("div")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           {renderButtonText(barCount, selectCategoryValueViews)}
         </StyledButton>
       )}
