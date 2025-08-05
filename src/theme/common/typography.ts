@@ -1,4 +1,4 @@
-import { TypographyStyle } from "@mui/material";
+import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 /**
@@ -42,67 +42,67 @@ export const {
   TEXT_UPPERCASE_500,
 } = TYPOGRAPHY;
 
-export const textBody400: TypographyStyle = {
+const textBody400: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-export const textBody4002Lines: TypographyStyle = {
+const textBody4002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-export const textBody500: TypographyStyle = {
+const textBody500: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "20px",
 };
 
-export const textBody5002Lines: TypographyStyle = {
+const textBody5002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textBodyLarge400: TypographyStyle = {
+const textBodyLarge400: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-export const textBodyLarge4002Lines: TypographyStyle = {
+const textBodyLarge4002Lines: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "28px",
 };
 
-export const textBodyLarge500: TypographyStyle = {
+const textBodyLarge500: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textBodySmall400: TypographyStyle = {
+const textBodySmall400: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "16px",
 };
 
-export const textBodySmall4002Lines: TypographyStyle = {
+const textBodySmall4002Lines: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-export const textBodySmall500: TypographyStyle = {
+const textBodySmall500: TypographyStyle = {
   fontSize: 13,
   fontWeight: 500,
   lineHeight: "16px",
 };
 
-export const textHeading: TypographyStyle = {
+const textHeading: TypographyStyle = {
   fontSize: 20,
   fontWeight: 500,
   letterSpacing: "-0.2px",
@@ -114,7 +114,7 @@ export const textHeading: TypographyStyle = {
   },
 };
 
-export const textHeadingLarge: TypographyStyle = {
+const textHeadingLarge: TypographyStyle = {
   fontSize: 24,
   fontWeight: 500,
   letterSpacing: "-0.4px",
@@ -126,7 +126,7 @@ export const textHeadingLarge: TypographyStyle = {
   },
 };
 
-export const textHeadingSmall: TypographyStyle = {
+const textHeadingSmall: TypographyStyle = {
   fontSize: 18,
   fontWeight: 500,
   lineHeight: "26px",
@@ -137,7 +137,7 @@ export const textHeadingSmall: TypographyStyle = {
   },
 };
 
-export const textHeadingXLarge: TypographyStyle = {
+const textHeadingXLarge: TypographyStyle = {
   fontSize: 30,
   fontWeight: 500,
   letterSpacing: "-0.8px",
@@ -149,15 +149,35 @@ export const textHeadingXLarge: TypographyStyle = {
   },
 };
 
-export const textHeadingXSmall: TypographyStyle = {
+const textHeadingXSmall: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textUppercase500: TypographyStyle = {
+const textUppercase500: TypographyStyle = {
   fontSize: 12,
   fontWeight: 500,
   lineHeight: "16px",
   textTransform: "uppercase",
+};
+
+export const typography: TypographyVariantsOptions = {
+  fontFamily: "Inter",
+  "text-body-400": textBody400,
+  "text-body-400-2lines": textBody4002Lines,
+  "text-body-500": textBody500,
+  "text-body-500-2lines": textBody5002Lines,
+  "text-body-large-400": textBodyLarge400,
+  "text-body-large-400-2lines": textBodyLarge4002Lines,
+  "text-body-large-500": textBodyLarge500,
+  "text-body-small-400": textBodySmall400,
+  "text-body-small-400-2lines": textBodySmall4002Lines,
+  "text-body-small-500": textBodySmall500,
+  "text-heading": textHeading,
+  "text-heading-large": textHeadingLarge,
+  "text-heading-small": textHeadingSmall,
+  "text-heading-xlarge": textHeadingXLarge,
+  "text-heading-xsmall": textHeadingXSmall,
+  "text-uppercase-500": textUppercase500,
 };

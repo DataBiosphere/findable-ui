@@ -4,7 +4,7 @@ import * as B from "./common/breakpoints";
 import * as C from "./common/components";
 import * as P from "./common/palette";
 import { shadows } from "./common/shadows";
-import * as T from "./common/typography";
+import { typography } from "./common/typography";
 import * as M from "./components";
 
 export interface ThemeProps {
@@ -44,25 +44,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
         },
         shadows,
         spacing: 4,
-        typography: {
-          [T.TEXT_BODY_400]: T.textBody400,
-          [T.TEXT_BODY_400_2_LINES]: T.textBody4002Lines,
-          [T.TEXT_BODY_500]: T.textBody500,
-          [T.TEXT_BODY_500_2_LINES]: T.textBody5002Lines,
-          [T.TEXT_BODY_LARGE_400]: T.textBodyLarge400,
-          [T.TEXT_BODY_LARGE_400_2_LINES]: T.textBodyLarge4002Lines,
-          [T.TEXT_BODY_LARGE_500]: T.textBodyLarge500,
-          [T.TEXT_BODY_SMALL_400]: T.textBodySmall400,
-          [T.TEXT_BODY_SMALL_400_2_LINES]: T.textBodySmall4002Lines,
-          [T.TEXT_BODY_SMALL_500]: T.textBodySmall500,
-          [T.TEXT_HEADING]: T.textHeading,
-          [T.TEXT_HEADING_LARGE]: T.textHeadingLarge,
-          [T.TEXT_HEADING_SMALL]: T.textHeadingSmall,
-          [T.TEXT_HEADING_XLARGE]: T.textHeadingXLarge,
-          [T.TEXT_HEADING_XSMALL]: T.textHeadingXSmall,
-          [T.TEXT_UPPERCASE_500]: T.textUppercase500,
-          fontFamily: T.fontFamily,
-        },
+        typography,
       },
       customOptions
     )
