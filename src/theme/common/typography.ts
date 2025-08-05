@@ -42,99 +42,66 @@ export const {
   TEXT_UPPERCASE_500,
 } = TYPOGRAPHY;
 
-/**
- * Typography Option "text-body-400"
- */
 export const textBody400: CSSProperties = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-400-2lines"
- */
 export const textBody4002Lines: CSSProperties = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-500"
- */
 export const textBody500: CSSProperties = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-500-2lines"
- */
 export const textBody5002Lines: CSSProperties = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-large-400"
- */
 export const textBodyLarge400: CSSProperties = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-large-400-2lines"
- */
 export const textBodyLarge4002Lines: CSSProperties = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "28px",
 };
 
-/**
- * Typography Option "text-body-large-500"
- */
 export const textBodyLarge500: CSSProperties = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-small-400"
- */
 export const textBodySmall400: CSSProperties = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "16px",
 };
 
-/**
- * Typography Option "text-body-small-400-2lines"
- */
 export const textBodySmall4002Lines: CSSProperties = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-small-500"
- */
 export const textBodySmall500: CSSProperties = {
   fontSize: 13,
   fontWeight: 500,
   lineHeight: "16px",
 };
 
-/**
- * Typography Option "text-heading"
- */
 export const textHeading: CSSProperties = {
   fontSize: 20,
   fontWeight: 500,
@@ -147,9 +114,6 @@ export const textHeading: CSSProperties = {
   },
 };
 
-/**
- * Typography Option "text-heading-large"
- */
 export const textHeadingLarge: CSSProperties = {
   fontSize: 24,
   fontWeight: 500,
@@ -162,9 +126,6 @@ export const textHeadingLarge: CSSProperties = {
   },
 };
 
-/**
- * Typography Option "text-heading-small"
- */
 export const textHeadingSmall: CSSProperties = {
   fontSize: 18,
   fontWeight: 500,
@@ -176,9 +137,6 @@ export const textHeadingSmall: CSSProperties = {
   },
 };
 
-/**
- * Typography Option "text-heading-xlarge"
- */
 export const textHeadingXLarge: CSSProperties = {
   fontSize: 30,
   fontWeight: 500,
@@ -191,18 +149,12 @@ export const textHeadingXLarge: CSSProperties = {
   },
 };
 
-/**
- * Typography Option "text-heading-xsmall"
- */
 export const textHeadingXSmall: CSSProperties = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-uppercase-500"
- */
 export const textUppercase500: CSSProperties = {
   fontSize: 12,
   fontWeight: 500,
