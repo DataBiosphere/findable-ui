@@ -1,4 +1,4 @@
-import { CSSProperties } from "@mui/material";
+import { TypographyStyle } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 /**
@@ -42,67 +42,67 @@ export const {
   TEXT_UPPERCASE_500,
 } = TYPOGRAPHY;
 
-export const textBody400: CSSProperties = {
+export const textBody400: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-export const textBody4002Lines: CSSProperties = {
+export const textBody4002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-export const textBody500: CSSProperties = {
+export const textBody500: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "20px",
 };
 
-export const textBody5002Lines: CSSProperties = {
+export const textBody5002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textBodyLarge400: CSSProperties = {
+export const textBodyLarge400: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-export const textBodyLarge4002Lines: CSSProperties = {
+export const textBodyLarge4002Lines: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "28px",
 };
 
-export const textBodyLarge500: CSSProperties = {
+export const textBodyLarge500: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textBodySmall400: CSSProperties = {
+export const textBodySmall400: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "16px",
 };
 
-export const textBodySmall4002Lines: CSSProperties = {
+export const textBodySmall4002Lines: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-export const textBodySmall500: CSSProperties = {
+export const textBodySmall500: TypographyStyle = {
   fontSize: 13,
   fontWeight: 500,
   lineHeight: "16px",
 };
 
-export const textHeading: CSSProperties = {
+export const textHeading: TypographyStyle = {
   fontSize: 20,
   fontWeight: 500,
   letterSpacing: "-0.2px",
@@ -114,7 +114,7 @@ export const textHeading: CSSProperties = {
   },
 };
 
-export const textHeadingLarge: CSSProperties = {
+export const textHeadingLarge: TypographyStyle = {
   fontSize: 24,
   fontWeight: 500,
   letterSpacing: "-0.4px",
@@ -126,7 +126,7 @@ export const textHeadingLarge: CSSProperties = {
   },
 };
 
-export const textHeadingSmall: CSSProperties = {
+export const textHeadingSmall: TypographyStyle = {
   fontSize: 18,
   fontWeight: 500,
   lineHeight: "26px",
@@ -137,7 +137,7 @@ export const textHeadingSmall: CSSProperties = {
   },
 };
 
-export const textHeadingXLarge: CSSProperties = {
+export const textHeadingXLarge: TypographyStyle = {
   fontSize: 30,
   fontWeight: 500,
   letterSpacing: "-0.8px",
@@ -149,13 +149,13 @@ export const textHeadingXLarge: CSSProperties = {
   },
 };
 
-export const textHeadingXSmall: CSSProperties = {
+export const textHeadingXSmall: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-export const textUppercase500: CSSProperties = {
+export const textUppercase500: TypographyStyle = {
   fontSize: 12,
   fontWeight: 500,
   lineHeight: "16px",
