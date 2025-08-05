@@ -4,7 +4,6 @@ import { tabletUp } from "./breakpoints";
 /**
  * Typography constants.
  */
-export const fontFamily = "Inter";
 const TYPOGRAPHY = {
   TEXT_BODY_400: "text-body-400",
   TEXT_BODY_400_2_LINES: "text-body-400-2lines",
@@ -43,120 +42,136 @@ export const {
 } = TYPOGRAPHY;
 
 const body400: TypographyStyle = {
-  fontSize: 14,
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 400,
   lineHeight: "20px",
 };
 
 const body4002Lines: TypographyStyle = {
-  fontSize: 14,
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 400,
   lineHeight: "24px",
 };
 
 const body500: TypographyStyle = {
-  fontSize: 14,
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 500,
   lineHeight: "20px",
 };
 
 const body5002Lines: TypographyStyle = {
-  fontSize: 14,
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 500,
   lineHeight: "24px",
 };
 
 const bodyLarge400: TypographyStyle = {
-  fontSize: 16,
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 400,
   lineHeight: "24px",
 };
 
 const bodyLarge4002Lines: TypographyStyle = {
-  fontSize: 16,
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 400,
   lineHeight: "28px",
 };
 
 const bodyLarge500: TypographyStyle = {
-  fontSize: 16,
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 500,
   lineHeight: "24px",
 };
 
 const bodySmall400: TypographyStyle = {
-  fontSize: 13,
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 400,
   lineHeight: "16px",
 };
 
 const bodySmall4002Lines: TypographyStyle = {
-  fontSize: 13,
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 400,
   lineHeight: "20px",
 };
 
 const bodySmall500: TypographyStyle = {
-  fontSize: 13,
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 500,
   lineHeight: "16px",
 };
 
 const heading: TypographyStyle = {
-  fontSize: 20,
+  fontFamily: "Inter",
+  fontSize: "20px",
   fontWeight: 500,
   letterSpacing: "-0.2px",
   lineHeight: "28px",
   [tabletUp]: {
-    fontSize: 24,
+    fontSize: "24px",
     letterSpacing: "-0.4px",
     lineHeight: "32px",
   },
 };
 
 const headingLarge: TypographyStyle = {
-  fontSize: 24,
+  fontFamily: "Inter",
+  fontSize: "24px",
   fontWeight: 500,
   letterSpacing: "-0.4px",
   lineHeight: "32px",
   [tabletUp]: {
-    fontSize: 30,
+    fontSize: "30px",
     letterSpacing: "-0.8px",
     lineHeight: "40px",
   },
 };
 
 const headingSmall: TypographyStyle = {
-  fontSize: 18,
+  fontFamily: "Inter",
+  fontSize: "18px",
   fontWeight: 500,
   lineHeight: "26px",
   [tabletUp]: {
-    fontSize: 20,
+    fontSize: "20px",
     letterSpacing: "-0.2px",
     lineHeight: "28px",
   },
 };
 
 const headingXLarge: TypographyStyle = {
-  fontSize: 30,
+  fontFamily: "Inter",
+  fontSize: "30px",
   fontWeight: 500,
   letterSpacing: "-0.8px",
   lineHeight: "40px",
   [tabletUp]: {
-    fontSize: 40,
+    fontSize: "40px",
     letterSpacing: "-1.4px",
     lineHeight: "56px",
   },
 };
 
 const headingXSmall: TypographyStyle = {
-  fontSize: 16,
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 500,
   lineHeight: "24px",
 };
 
 const uppercase500: TypographyStyle = {
-  fontSize: 12,
+  fontFamily: "Inter",
+  fontSize: "12px",
   fontWeight: 500,
   lineHeight: "16px",
   textTransform: "uppercase",
