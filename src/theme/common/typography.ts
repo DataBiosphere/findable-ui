@@ -42,67 +42,67 @@ export const {
   TEXT_UPPERCASE_500,
 } = TYPOGRAPHY;
 
-const textBody400: TypographyStyle = {
+const body400: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-const textBody4002Lines: TypographyStyle = {
+const body4002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-const textBody500: TypographyStyle = {
+const body500: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "20px",
 };
 
-const textBody5002Lines: TypographyStyle = {
+const body5002Lines: TypographyStyle = {
   fontSize: 14,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-const textBodyLarge400: TypographyStyle = {
+const bodyLarge400: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-const textBodyLarge4002Lines: TypographyStyle = {
+const bodyLarge4002Lines: TypographyStyle = {
   fontSize: 16,
   fontWeight: 400,
   lineHeight: "28px",
 };
 
-const textBodyLarge500: TypographyStyle = {
+const bodyLarge500: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-const textBodySmall400: TypographyStyle = {
+const bodySmall400: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "16px",
 };
 
-const textBodySmall4002Lines: TypographyStyle = {
+const bodySmall4002Lines: TypographyStyle = {
   fontSize: 13,
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-const textBodySmall500: TypographyStyle = {
+const bodySmall500: TypographyStyle = {
   fontSize: 13,
   fontWeight: 500,
   lineHeight: "16px",
 };
 
-const textHeading: TypographyStyle = {
+const heading: TypographyStyle = {
   fontSize: 20,
   fontWeight: 500,
   letterSpacing: "-0.2px",
@@ -114,7 +114,7 @@ const textHeading: TypographyStyle = {
   },
 };
 
-const textHeadingLarge: TypographyStyle = {
+const headingLarge: TypographyStyle = {
   fontSize: 24,
   fontWeight: 500,
   letterSpacing: "-0.4px",
@@ -126,7 +126,7 @@ const textHeadingLarge: TypographyStyle = {
   },
 };
 
-const textHeadingSmall: TypographyStyle = {
+const headingSmall: TypographyStyle = {
   fontSize: 18,
   fontWeight: 500,
   lineHeight: "26px",
@@ -137,7 +137,7 @@ const textHeadingSmall: TypographyStyle = {
   },
 };
 
-const textHeadingXLarge: TypographyStyle = {
+const headingXLarge: TypographyStyle = {
   fontSize: 30,
   fontWeight: 500,
   letterSpacing: "-0.8px",
@@ -149,13 +149,13 @@ const textHeadingXLarge: TypographyStyle = {
   },
 };
 
-const textHeadingXSmall: TypographyStyle = {
+const headingXSmall: TypographyStyle = {
   fontSize: 16,
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-const textUppercase500: TypographyStyle = {
+const uppercase500: TypographyStyle = {
   fontSize: 12,
   fontWeight: 500,
   lineHeight: "16px",
@@ -164,20 +164,20 @@ const textUppercase500: TypographyStyle = {
 
 export const typography: TypographyVariantsOptions = {
   fontFamily: "Inter",
-  "text-body-400": textBody400,
-  "text-body-400-2lines": textBody4002Lines,
-  "text-body-500": textBody500,
-  "text-body-500-2lines": textBody5002Lines,
-  "text-body-large-400": textBodyLarge400,
-  "text-body-large-400-2lines": textBodyLarge4002Lines,
-  "text-body-large-500": textBodyLarge500,
-  "text-body-small-400": textBodySmall400,
-  "text-body-small-400-2lines": textBodySmall4002Lines,
-  "text-body-small-500": textBodySmall500,
-  "text-heading": textHeading,
-  "text-heading-large": textHeadingLarge,
-  "text-heading-small": textHeadingSmall,
-  "text-heading-xlarge": textHeadingXLarge,
-  "text-heading-xsmall": textHeadingXSmall,
-  "text-uppercase-500": textUppercase500,
+  "text-body-400": body400,
+  "text-body-400-2lines": body4002Lines,
+  "text-body-500": body500,
+  "text-body-500-2lines": body5002Lines,
+  "text-body-large-400": bodyLarge400,
+  "text-body-large-400-2lines": bodyLarge4002Lines,
+  "text-body-large-500": bodyLarge500,
+  "text-body-small-400": bodySmall400,
+  "text-body-small-400-2lines": bodySmall4002Lines,
+  "text-body-small-500": bodySmall500,
+  "text-heading": heading,
+  "text-heading-large": headingLarge,
+  "text-heading-small": headingSmall,
+  "text-heading-xlarge": headingXLarge,
+  "text-heading-xsmall": headingXSmall,
+  "text-uppercase-500": uppercase500,
 };
