@@ -1,11 +1,6 @@
 import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
-const TYPOGRAPHY = {
-  TEXT_UPPERCASE_500: "text-uppercase-500",
-} as const;
-export const { TEXT_UPPERCASE_500 } = TYPOGRAPHY;
-
 const body400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
