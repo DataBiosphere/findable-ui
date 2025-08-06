@@ -24,6 +24,7 @@ const DEFAULT_BODY_400: TypographyStyle = {
 
 const CUSTOM_OPTIONS: ThemeOptions = {
   typography: {
+    // @ts-expect-error - Custom typography variant.
     "body-400": CUSTOM_BODY_400,
   },
 };
