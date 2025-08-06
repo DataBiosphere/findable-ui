@@ -11,7 +11,7 @@ import {
   SectionContent,
 } from "../../../common/Section/section.styles";
 import { TrackingProps } from "../../../types";
-import { ExportButton, SectionFootnote } from "./exportMethod.styles";
+import { ExportButton } from "./exportMethod.styles";
 
 export interface ExportMethodProps extends TrackingProps {
   buttonLabel: string;
@@ -61,7 +61,15 @@ export const ExportMethod = ({
             </span>
           </Tooltip>
         </SectionActions>
-        {footnote && <SectionFootnote>{footnote}</SectionFootnote>}
+        {footnote && (
+          <Typography
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+            component="div"
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
+          >
+            {footnote}
+          </Typography>
+        )}
       </Section>
     </FluidPaper>
   );
