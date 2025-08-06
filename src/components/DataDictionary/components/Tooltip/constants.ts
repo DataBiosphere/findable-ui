@@ -1,5 +1,4 @@
 import { TooltipProps } from "@mui/material";
-import { TEXT_BODY_SMALL_400_2_LINES } from "../../../../theme/common/typography";
 
 export const TOOLTIP_PROPS: Omit<TooltipProps, "children" | "title"> = {
   arrow: true,
@@ -15,7 +14,7 @@ export const TOOLTIP_PROPS: Omit<TooltipProps, "children" | "title"> = {
     },
     tooltip: {
       sx: (theme) => ({
-        ...theme.typography[TEXT_BODY_SMALL_400_2_LINES],
+        ...theme.typography["text-body-small-400-2lines"],
         backgroundColor: theme.palette.common.white,
         borderRadius: 2,
         color: theme.palette.ink.main,

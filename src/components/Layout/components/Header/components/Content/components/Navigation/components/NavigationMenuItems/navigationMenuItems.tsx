@@ -8,7 +8,6 @@ import {
 import Link from "next/link";
 import React, { Fragment, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
-import { TEXT_BODY_SMALL_400_2_LINES } from "../../../../../../../../../../theme/common/typography";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -90,7 +89,8 @@ export const NavigationMenuItems = ({
                   }}
                   secondary={description}
                   secondaryTypographyProps={{
-                    variant: TEXT_BODY_SMALL_400_2_LINES,
+                    variant:
+                      TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400_2_LINES,
                   }}
                 />
               </MMenuItem>

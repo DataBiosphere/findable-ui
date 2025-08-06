@@ -22,6 +22,7 @@ const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   TEXT_BODY_LARGE_400_2_LINES: "text-body-large-400-2lines",
   TEXT_BODY_LARGE_500: "text-body-large-500",
   TEXT_BODY_SMALL_400: "text-body-small-400",
+  TEXT_BODY_SMALL_400_2_LINES: "text-body-small-400-2lines",
   TEXT_BODY_SMALL_500: "text-body-small-500",
   TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",

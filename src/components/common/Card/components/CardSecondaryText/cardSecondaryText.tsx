@@ -1,22 +1,13 @@
-import { Typography } from "@mui/material";
-import React, { ReactNode } from "react";
-import { TEXT_BODY_SMALL_400_2_LINES } from "../../../../../theme/common/typography";
+import { Typography, TypographyProps } from "@mui/material";
+import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
-export interface CardSecondaryTextProps {
-  children: ReactNode;
-}
-
-export const CardSecondaryText = ({
-  children,
-  ...props /* Spread props to allow for Mui TypographyProps specific prop overrides e.g. "variant". */
-}: CardSecondaryTextProps): JSX.Element => {
+export const CardSecondaryText = (props: TypographyProps): JSX.Element => {
   return (
     <Typography
-      color="ink.light"
-      variant={TEXT_BODY_SMALL_400_2_LINES}
+      color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400_2_LINES}
       {...props}
-    >
-      {children}
-    </Typography>
+    />
   );
 };
