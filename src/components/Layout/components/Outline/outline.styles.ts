@@ -1,11 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Tab as MTab, Tabs as MTabs, TabProps } from "@mui/material";
+import { FONT } from "../../../../styles/common/constants/font";
 import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
-import {
-  textBody500,
-  textBodySmall400,
-} from "../../../../styles/common/mixins/fonts";
+import { textBodySmall400 } from "../../../../styles/common/mixins/fonts";
 
 interface Props extends TabProps {
   depth: number;
@@ -51,10 +49,10 @@ export const StyledTab = styled(MTab, {
   ${tab};
   color: ${inkMain};
 
-  ${(props) =>
-    props.depth === 2 &&
+  ${({ depth }) =>
+    depth === 2 &&
     css`
-      ${textBody500(props)};
+      font: ${FONT.BODY_500};
     `};
 
   ${(props) =>

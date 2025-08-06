@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
 import { List as MList } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
-import {
-  textBody500,
-  textUppercase500,
-} from "../../../../styles/common/mixins/fonts";
+import { textUppercase500 } from "../../../../styles/common/mixins/fonts";
 
 export const NavBar = styled.div`
   .MuiDivider-root {
@@ -47,7 +44,7 @@ export const List = styled(MList)`
         color: ${({ theme }) => theme.palette.primary.main};
 
         .MuiListItemText-root {
-          ${textBody500};
+          font: ${FONT.BODY_500};
         }
       }
     }

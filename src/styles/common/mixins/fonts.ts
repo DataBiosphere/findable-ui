@@ -14,7 +14,6 @@ function typographyToCSS(TYPOGRAPHY: string) {
   };
 }
 
-export const textBody500 = typographyToCSS("body-500");
 export const textBodyLarge400 = typographyToCSS("body-large-400");
 export const textBodyLarge4002Lines = typographyToCSS("body-large-400-2lines");
 export const textBodyLarge500 = typographyToCSS("body-large-500");
