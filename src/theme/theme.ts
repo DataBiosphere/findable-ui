@@ -21,6 +21,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
   const theme = createTheme(
     deepmerge(
       {
+        app: { fontFamily: typography.fontFamily },
         breakpoints: {
           values: {
             lg: B.desktop,
