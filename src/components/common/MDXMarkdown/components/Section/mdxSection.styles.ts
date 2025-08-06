@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../../styles/common/constants/font";
 import {
-  textBody4002Lines,
   textBody500,
   textBodyLarge500,
 } from "../../../../../styles/common/mixins/fonts";
@@ -21,7 +21,7 @@ export const SectionContent = styled.div`
   }
 
   p {
-    ${textBody4002Lines};
+    font: ${FONT.BODY_400_2_LINES};
     margin: 0 0 8px;
   }
 
