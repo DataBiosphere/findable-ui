@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const BODY_400_2_LINES = "body-400-2lines";
 const BODY_500 = "body-500";
 const BODY_SMALL_400 = "body-small-400";
 const BODY_SMALL_500 = "body-small-500";
@@ -585,7 +584,7 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
         fontFamily: theme.typography.fontFamily,
       },
       code: {
-        ...theme.typography[BODY_400_2_LINES],
+        font: FONT.BODY_400_2_LINES,
         fontFamily: "Roboto Mono, monospace",
         fontSize: 12,
       },
