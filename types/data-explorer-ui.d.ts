@@ -154,7 +154,6 @@ declare module "@mui/material/styles" {
     "text-body-400": TypographyStyleOptions;
     "text-body-400-2lines": TypographyStyleOptions;
     "text-body-500": TypographyStyleOptions;
-    "text-body-500-2lines": TypographyStyleOptions;
     "text-body-large-400": TypographyStyleOptions;
     "text-body-large-400-2lines": TypographyStyleOptions;
     "text-body-large-500": TypographyStyleOptions;
