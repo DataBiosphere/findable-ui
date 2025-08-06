@@ -27,6 +27,7 @@ const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   TEXT_HEADING: "text-heading",
   TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",
+  TEXT_HEADING_XLARGE: "text-heading-xlarge",
   TEXT_HEADING_XSMALL: "text-heading-xsmall",
   TEXT_UPPERCASE_500: "text-uppercase-500",
 };

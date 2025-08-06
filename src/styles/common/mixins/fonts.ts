@@ -1,8 +1,5 @@
 import { css, SerializedStyles } from "@emotion/react";
-import {
-  TEXT_HEADING_XLARGE,
-  TEXT_UPPERCASE_500,
-} from "../../../theme/common/typography";
+import { TEXT_UPPERCASE_500 } from "../../../theme/common/typography";
 
 /**
  * Returns typography style for the specified typography variant.
@@ -34,5 +31,5 @@ export const textBodySmall500 = typographyToCSS("text-body-small-500");
 export const textHeading = typographyToCSS("text-heading");
 export const textHeadingLarge = typographyToCSS("text-heading-large");
 export const textHeadingSmall = typographyToCSS("text-heading-small");
-export const textHeadingXLarge = typographyToCSS(TEXT_HEADING_XLARGE);
+export const textHeadingXLarge = typographyToCSS("text-heading-xlarge");
 export const textUppercase500 = typographyToCSS(TEXT_UPPERCASE_500);
