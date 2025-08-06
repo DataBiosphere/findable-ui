@@ -63,7 +63,10 @@ export const Login = <P,>({
               {title}
             </Typography>
             {text && (
-              <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+              <Typography
+                component="div"
+                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+              >
                 {text}
               </Typography>
             )}
@@ -76,7 +79,10 @@ export const Login = <P,>({
                   icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
                   onChange={handleChange}
                 />
-                <StyledTypography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+                <StyledTypography
+                  component="div"
+                  variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+                >
                   {termsOfService}
                 </StyledTypography>
               </LoginAgreement>

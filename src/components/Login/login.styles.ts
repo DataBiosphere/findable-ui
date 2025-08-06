@@ -40,7 +40,7 @@ export const StyledTypography = styled(Typography)`
     color: inherit;
     text-decoration: underline;
   }
-`;
+` as typeof Typography;
 
 export const LoginWarning = styled.div`
   ${textBodySmall400};
