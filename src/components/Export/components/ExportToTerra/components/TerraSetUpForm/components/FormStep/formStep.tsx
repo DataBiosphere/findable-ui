@@ -1,9 +1,7 @@
 import { StepIcon, Typography } from "@mui/material";
 import React, { ReactNode } from "react";
-import {
-  TEXT_BODY_400_2_LINES,
-  TEXT_BODY_500,
-} from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
+import { TEXT_BODY_500 } from "../../../../../../../../theme/common/typography";
 import { FormStatusCompletedIcon } from "../../../../../../../common/CustomIcon/components/FormStatusCompletedIcon/formStatusCompletedIcon";
 import {
   Section,
@@ -42,7 +40,11 @@ export const FormStep = ({
       </SectionStatus>
       <SectionContent>
         <Typography
-          color={active ? "ink.main" : "ink.light"}
+          color={
+            active
+              ? TYPOGRAPHY_PROPS.COLOR.INK_MAIN
+              : TYPOGRAPHY_PROPS.COLOR.INK_LIGHT
+          }
           component="h4"
           variant={TEXT_BODY_500}
         >
@@ -50,9 +52,9 @@ export const FormStep = ({
         </Typography>
         {active && (
           <Typography
-            color="ink.light"
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
             component="div"
-            variant={TEXT_BODY_400_2_LINES}
+            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
           >
             {text}
           </Typography>
