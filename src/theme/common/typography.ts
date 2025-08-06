@@ -2,10 +2,9 @@ import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 const TYPOGRAPHY = {
-  TEXT_HEADING_XSMALL: "text-heading-xsmall",
   TEXT_UPPERCASE_500: "text-uppercase-500",
 } as const;
-export const { TEXT_HEADING_XSMALL, TEXT_UPPERCASE_500 } = TYPOGRAPHY;
+export const { TEXT_UPPERCASE_500 } = TYPOGRAPHY;
 
 const body400: TypographyStyle = {
   fontFamily: "Inter",
