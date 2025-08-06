@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const BODY_SMALL_500 = "body-small-500";
 const HEADING = "heading";
 const HEADING_SMALL = "heading-small";
 
@@ -426,7 +425,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
           {
             props: { variant: "status" },
             style: {
-              ...theme.typography[BODY_SMALL_500],
+              font: FONT.BODY_SMALL_500,
             },
           },
         ],
@@ -493,8 +492,8 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "filterTag" },
         style: {
-          ...theme.typography[BODY_SMALL_500],
           cursor: "pointer", // "pointer" cursor required to restore "clickable" ui
+          font: FONT.BODY_SMALL_500,
           gap: 2,
           height: 24,
           justifySelf: FLEX_START,
