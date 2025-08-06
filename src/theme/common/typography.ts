@@ -2,14 +2,12 @@ import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 const TYPOGRAPHY = {
-  TEXT_HEADING_LARGE: "text-heading-large",
   TEXT_HEADING_SMALL: "text-heading-small",
   TEXT_HEADING_XLARGE: "text-heading-xlarge",
   TEXT_HEADING_XSMALL: "text-heading-xsmall",
   TEXT_UPPERCASE_500: "text-uppercase-500",
 } as const;
 export const {
-  TEXT_HEADING_LARGE,
   TEXT_HEADING_SMALL,
   TEXT_HEADING_XLARGE,
   TEXT_HEADING_XSMALL,
@@ -94,11 +92,9 @@ const headingLarge: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
-  letterSpacing: "-0.4px",
   lineHeight: "32px",
   [tabletUp]: {
-    fontSize: "30px",
-    letterSpacing: "-0.8px",
+    fontSize: "32px",
     lineHeight: "40px",
   },
 };
