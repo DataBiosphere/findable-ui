@@ -13,7 +13,6 @@ import {
   LoginAgreement,
   LoginSection,
   LoginSectionActions,
-  LoginWarning,
   LoginWrapper,
   StyledTypography,
 } from "./login.styles";
@@ -99,7 +98,15 @@ export const Login = <P,>({
           </LoginSectionActions>
         </LoginSection>
       </RoundedPaper>
-      {warning && <LoginWarning>{warning}</LoginWarning>}
+      {warning && (
+        <Typography
+          color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+          component="div"
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+        >
+          {warning}
+        </Typography>
+      )}
     </LoginWrapper>
   );
 };

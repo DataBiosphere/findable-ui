@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import { textBodySmall400 } from "../../styles/common/mixins/fonts";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
@@ -41,8 +40,3 @@ export const StyledTypography = styled(Typography)`
     text-decoration: underline;
   }
 ` as typeof Typography;
-
-export const LoginWarning = styled.div`
-  ${textBodySmall400};
-  color: ${({ theme }) => theme.palette.ink.light};
-`;

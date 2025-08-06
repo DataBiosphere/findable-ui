@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Tab as MTab, Tabs as MTabs, TabProps } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
-import { textBodySmall400 } from "../../../../styles/common/mixins/fonts";
 
 interface Props extends TabProps {
   depth: number;
@@ -55,10 +54,10 @@ export const StyledTab = styled(MTab, {
       font: ${FONT.BODY_500};
     `};
 
-  ${(props) =>
-    props.depth === 3 &&
+  ${({ depth }) =>
+    depth === 3 &&
     css`
-      ${textBodySmall400(props)};
+      font: ${FONT.BODY_SMALL_400};
       margin-left: 16px;
       padding: 8px 24px;
     `};
