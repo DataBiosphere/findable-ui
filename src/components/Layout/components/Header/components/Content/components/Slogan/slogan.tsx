@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { CSSProperties, forwardRef, ReactNode } from "react";
-import { TEXT_BODY_400 } from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { Slogan as CatchPhrase } from "./slogan.styles";
 
 export interface SloganProps {
@@ -16,7 +16,10 @@ export const Slogan = forwardRef<HTMLDivElement, SloganProps>(function Slogan(
   return (
     <CatchPhrase ref={ref} style={style}>
       {typeof slogan === "string" ? (
-        <Typography className={className} variant={TEXT_BODY_400}>
+        <Typography
+          className={className}
+          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+        >
           {slogan}
         </Typography>
       ) : (

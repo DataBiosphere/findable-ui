@@ -9,7 +9,6 @@ import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 import {
-  TEXT_BODY_400,
   TEXT_BODY_400_2_LINES,
   TEXT_BODY_500,
   TEXT_BODY_SMALL_400,
@@ -20,6 +19,7 @@ import {
 
 // Constants
 const FLEX_START = "flex-start";
+const TEXT_BODY_400 = "text-body-400";
 
 /**
  * MuiAccordion Component

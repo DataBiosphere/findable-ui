@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Row, RowData } from "@tanstack/react-table";
 import React from "react";
 import { ComponentsConfig } from "../../../../../../config/entities";
-import { TEXT_BODY_400 } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { ComponentCreator } from "../../../../../ComponentCreator/ComponentCreator";
 import { RowSelection as RowSelectionActions } from "./rowSelection.styles";
 
@@ -19,7 +19,7 @@ export const RowSelection = <T extends RowData>({
 }: RowSelectionProps<T>): JSX.Element | null => {
   return (
     <RowSelectionActions className={className}>
-      <Typography variant={TEXT_BODY_400}>
+      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
         {rows.length} items selected:
       </Typography>
       {rowSelectionView ? (
