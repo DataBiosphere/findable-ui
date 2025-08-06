@@ -14,5 +14,4 @@ function typographyToCSS(TYPOGRAPHY: string) {
   };
 }
 
-export const textHeadingSmall = typographyToCSS("heading-small");
 export const textUppercase500 = typographyToCSS("uppercase-500");
