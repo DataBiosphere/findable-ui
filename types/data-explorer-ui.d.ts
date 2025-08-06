@@ -151,40 +151,40 @@ declare module "@mui/material/styles" {
   }
 
   interface TypographyVariants {
-    "text-body-400": TypographyStyleOptions;
-    "text-body-400-2lines": TypographyStyleOptions;
-    "text-body-500": TypographyStyleOptions;
-    "text-body-large-400": TypographyStyleOptions;
-    "text-body-large-400-2lines": TypographyStyleOptions;
-    "text-body-large-500": TypographyStyleOptions;
-    "text-body-small-400": TypographyStyleOptions;
-    "text-body-small-400-2lines": TypographyStyleOptions;
-    "text-body-small-500": TypographyStyleOptions;
-    "text-heading": TypographyStyleOptions;
-    "text-heading-large": TypographyStyleOptions;
-    "text-heading-small": TypographyStyleOptions;
-    "text-heading-xlarge": TypographyStyleOptions;
-    "text-heading-xsmall": TypographyStyleOptions;
-    "text-uppercase-500": TypographyStyleOptions;
+    "body-400": TypographyStyleOptions;
+    "body-400-2lines": TypographyStyleOptions;
+    "body-500": TypographyStyleOptions;
+    "body-large-400": TypographyStyleOptions;
+    "body-large-400-2lines": TypographyStyleOptions;
+    "body-large-500": TypographyStyleOptions;
+    "body-small-400": TypographyStyleOptions;
+    "body-small-400-2lines": TypographyStyleOptions;
+    "body-small-500": TypographyStyleOptions;
+    heading: TypographyStyleOptions;
+    "heading-large": TypographyStyleOptions;
+    "heading-small": TypographyStyleOptions;
+    "heading-xlarge": TypographyStyleOptions;
+    "heading-xsmall": TypographyStyleOptions;
+    "uppercase-500": TypographyStyleOptions;
   }
 
   interface TypographyVariantsOptions {
-    "text-body-400"?: TypographyStyleOptions;
-    "text-body-400-2lines"?: TypographyStyleOptions;
-    "text-body-500"?: TypographyStyleOptions;
-    "text-body-500-2lines"?: TypographyStyleOptions;
-    "text-body-large-400"?: TypographyStyleOptions;
-    "text-body-large-400-2lines"?: TypographyStyleOptions;
-    "text-body-large-500"?: TypographyStyleOptions;
-    "text-body-small-400"?: TypographyStyleOptions;
-    "text-body-small-400-2lines"?: TypographyStyleOptions;
-    "text-body-small-500"?: TypographyStyleOptions;
-    "text-heading"?: TypographyStyleOptions;
-    "text-heading-large"?: TypographyStyleOptions;
-    "text-heading-small"?: TypographyStyleOptions;
-    "text-heading-xlarge"?: TypographyStyleOptions;
-    "text-heading-xsmall"?: TypographyStyleOptions;
-    "text-uppercase-500"?: TypographyStyleOptions;
+    "body-400"?: TypographyStyleOptions;
+    "body-400-2lines"?: TypographyStyleOptions;
+    "body-500"?: TypographyStyleOptions;
+    "body-500-2lines"?: TypographyStyleOptions;
+    "body-large-400"?: TypographyStyleOptions;
+    "body-large-400-2lines"?: TypographyStyleOptions;
+    "body-large-500"?: TypographyStyleOptions;
+    "body-small-400"?: TypographyStyleOptions;
+    "body-small-400-2lines"?: TypographyStyleOptions;
+    "body-small-500"?: TypographyStyleOptions;
+    heading?: TypographyStyleOptions;
+    "heading-large"?: TypographyStyleOptions;
+    "heading-small"?: TypographyStyleOptions;
+    "heading-xlarge"?: TypographyStyleOptions;
+    "heading-xsmall"?: TypographyStyleOptions;
+    "uppercase-500"?: TypographyStyleOptions;
   }
 }
 
@@ -192,22 +192,22 @@ declare module "@mui/material/styles" {
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
-    "text-body-400": true;
-    "text-body-400-2lines": true;
-    "text-body-500": true;
-    "text-body-500-2lines": true;
-    "text-body-large-400": true;
-    "text-body-large-400-2lines": true;
-    "text-body-large-500": true;
-    "text-body-small-400": true;
-    "text-body-small-400-2lines": true;
-    "text-body-small-500": true;
-    "text-heading": true;
-    "text-heading-large": true;
-    "text-heading-small": true;
-    "text-heading-xlarge": true;
-    "text-heading-xsmall": true;
-    "text-uppercase-500": true;
+    "body-400": true;
+    "body-400-2lines": true;
+    "body-500": true;
+    "body-500-2lines": true;
+    "body-large-400": true;
+    "body-large-400-2lines": true;
+    "body-large-500": true;
+    "body-small-400": true;
+    "body-small-400-2lines": true;
+    "body-small-500": true;
+    heading: true;
+    "heading-large": true;
+    "heading-small": true;
+    "heading-xlarge": true;
+    "heading-xsmall": true;
+    "uppercase-500": true;
   }
 }
 

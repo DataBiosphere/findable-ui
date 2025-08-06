@@ -11,13 +11,13 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const TEXT_BODY_400 = "text-body-400";
-const TEXT_BODY_400_2_LINES = "text-body-400-2lines";
-const TEXT_BODY_500 = "text-body-500";
-const TEXT_BODY_SMALL_400 = "text-body-small-400";
-const TEXT_BODY_SMALL_500 = "text-body-small-500";
-const TEXT_HEADING = "text-heading";
-const TEXT_HEADING_SMALL = "text-heading-small";
+const BODY_400 = "body-400";
+const BODY_400_2_LINES = "body-400-2lines";
+const BODY_500 = "body-500";
+const BODY_SMALL_400 = "body-small-400";
+const BODY_SMALL_500 = "body-small-500";
+const HEADING = "heading";
+const HEADING_SMALL = "heading-small";
 
 /**
  * MuiAccordion Component
@@ -115,7 +115,7 @@ export const MuiBreadcrumbs = (theme: Theme): Components["MuiBreadcrumbs"] => {
   return {
     styleOverrides: {
       li: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[BODY_SMALL_400],
         margin: 0,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "& .MuiLink-root": {
@@ -233,7 +233,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         },
       },
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[BODY_500],
         gap: 4,
         letterSpacing: "normal",
         padding: "10px 16px",
@@ -296,7 +296,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "activeNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[TEXT_BODY_500],
+          ...theme.typography[BODY_500],
           backgroundColor: theme.palette.smoke.light,
           color: theme.palette.ink.main,
           minWidth: 0,
@@ -313,7 +313,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "backNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[TEXT_HEADING_SMALL],
+          ...theme.typography[HEADING_SMALL],
           color: theme.palette.ink.main,
           minWidth: 0,
           textTransform: "capitalize",
@@ -329,7 +329,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "nav",
         },
         style: {
-          ...theme.typography[TEXT_BODY_500],
+          ...theme.typography[BODY_500],
           color: theme.palette.ink.main,
           minWidth: 0,
           textTransform: "capitalize",
@@ -424,12 +424,12 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         margin: "0 -2px 0 0",
       },
       label: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[BODY_SMALL_400],
         variants: [
           {
             props: { variant: "status" },
             style: {
-              ...theme.typography[TEXT_BODY_SMALL_500],
+              ...theme.typography[BODY_SMALL_500],
             },
           },
         ],
@@ -496,7 +496,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "filterTag" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_500],
+          ...theme.typography[BODY_SMALL_500],
           cursor: "pointer", // "pointer" cursor required to restore "clickable" ui
           gap: 2,
           height: 24,
@@ -511,7 +511,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "ntag" },
         style: {
-          ...theme.typography[TEXT_BODY_SMALL_400],
+          ...theme.typography[BODY_SMALL_400],
           backgroundColor: theme.palette.smoke.main,
           boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
           height: 24,
@@ -585,7 +585,7 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
         fontFamily: theme.typography.fontFamily,
       },
       code: {
-        ...theme.typography[TEXT_BODY_400_2_LINES],
+        ...theme.typography[BODY_400_2_LINES],
         fontFamily: "Roboto Mono, monospace",
         fontSize: 12,
       },
@@ -668,7 +668,7 @@ export const MuiDialogTitle = (theme: Theme): Components["MuiDialogTitle"] => {
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_HEADING],
+        ...theme.typography[HEADING],
         alignItems: "center",
         display: "grid",
         gridAutoFlow: "column",
@@ -721,7 +721,7 @@ export const MuiFormControlLabel = (
   return {
     styleOverrides: {
       label: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[BODY_400],
       },
       root: {
         gap: 8,
@@ -754,7 +754,7 @@ export const MuiFormHelperText = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[BODY_SMALL_400],
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-error": {
           color: theme.palette.alert.main,
@@ -911,13 +911,13 @@ export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
         height: "unset",
       },
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[BODY_400],
         fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
         height: 40,
         letterSpacing: "normal",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         [tabletUp]: {
-          fontSize: theme.typography[TEXT_BODY_400].fontSize,
+          fontSize: theme.typography[BODY_400].fontSize,
         },
         variants: [
           /* PRIMARY */ /* TODO: remove `adornedStart` when all input components are refactored to color: secondary */
@@ -968,7 +968,7 @@ export const MuiListItemButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[BODY_400],
         minHeight: "unset",
         padding: "10px 16px",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
@@ -1011,7 +1011,7 @@ export const MuiListSubheader = (
     defaultProps: { disableSticky: true },
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[BODY_500],
         color: theme.palette.ink.main,
       },
     },
@@ -1028,7 +1028,7 @@ export const MuiMenuItem = (theme: Theme): Components["MuiMenuItem"] => {
     defaultProps: { disableRipple: true },
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_400],
+        ...theme.typography[BODY_400],
         minHeight: "unset",
         padding: "10px 16px",
       },
@@ -1385,7 +1385,7 @@ export const MuiTab = (theme: Theme): Components["MuiTab"] => {
         },
       },
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[BODY_500],
         color: theme.palette.ink.light,
         marginBottom: 3,
         minHeight: "unset",
@@ -1515,7 +1515,7 @@ export const MuiToggleButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[TEXT_BODY_500],
+        ...theme.typography[BODY_500],
         backgroundColor: theme.palette.smoke.main,
         border: "none",
         borderRadius: 4,
@@ -1612,7 +1612,7 @@ export const MuiTooltip = (theme: Theme): Components["MuiTooltip"] => {
         },
       },
       tooltip: {
-        ...theme.typography[TEXT_BODY_SMALL_400],
+        ...theme.typography[BODY_SMALL_400],
         backgroundColor: theme.palette.ink.main,
         boxShadow: SHADOWS["02"],
         boxSizing: "content-box",

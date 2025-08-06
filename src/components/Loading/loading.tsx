@@ -1,5 +1,6 @@
 import { Fade, SvgIconProps, Typography } from "@mui/material";
 import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { LoadingIcon } from "../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { PAPER_PANEL_STYLE, PaperPanelStyle } from "../common/Paper/paper";
 import { LoadingPaper, LoadingPositioner } from "./loading.styles";
@@ -56,7 +57,11 @@ export const Loading = ({
       <LoadingPositioner panelStyle={panelStyle}>
         <LoadingPaper panelStyle={panelStyle}>
           <LoadingIcon color="primary" fontSize={iconSize} />
-          {text && <Typography variant="text-body-400">{text}</Typography>}
+          {text && (
+            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+              {text}
+            </Typography>
+          )}
         </LoadingPaper>
       </LoadingPositioner>
     </Fade>

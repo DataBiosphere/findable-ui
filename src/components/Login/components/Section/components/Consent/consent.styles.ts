@@ -7,7 +7,7 @@ export const StyledGrid = styled(Grid)`
   display: flex;
   gap: 12px;
 
-  .MuiTypography-text-body-400 {
+  .MuiTypography-body-400 {
     .MuiLink-root {
       color: inherit;
     }

@@ -2,8 +2,8 @@ import { Components, Theme } from "@mui/material";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
 
-const TEXT_BODY_400 = "text-body-400";
-const TEXT_BODY_SMALL_500 = "text-body-small-500";
+const BODY_400 = "body-400";
+const BODY_SMALL_500 = "body-small-500";
 
 export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
   const paletteSmoke = theme.palette.smoke;
@@ -36,7 +36,7 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.BODY },
             style: {
-              ...typography[TEXT_BODY_400],
+              ...typography[BODY_400],
               "& mark": {
                 backgroundColor: PALETTE.WARNING_LIGHT,
                 color: "inherit",
@@ -47,7 +47,7 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.HEAD },
             style: {
-              ...typography[TEXT_BODY_SMALL_500],
+              ...typography[BODY_SMALL_500],
               backgroundColor: paletteSmoke.lightest,
             },
           },

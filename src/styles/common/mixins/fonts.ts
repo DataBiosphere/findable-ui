@@ -14,21 +14,17 @@ function typographyToCSS(TYPOGRAPHY: string) {
   };
 }
 
-export const textBody400 = typographyToCSS("text-body-400");
-export const textBody4002Lines = typographyToCSS("text-body-400-2lines");
-export const textBody500 = typographyToCSS("text-body-500");
-export const textBodyLarge400 = typographyToCSS("text-body-large-400");
-export const textBodyLarge4002Lines = typographyToCSS(
-  "text-body-large-400-2lines"
-);
-export const textBodyLarge500 = typographyToCSS("text-body-large-500");
-export const textBodySmall400 = typographyToCSS("text-body-small-400");
-export const textBodySmall4002Lines = typographyToCSS(
-  "text-body-small-400-2lines"
-);
-export const textBodySmall500 = typographyToCSS("text-body-small-500");
-export const textHeading = typographyToCSS("text-heading");
-export const textHeadingLarge = typographyToCSS("text-heading-large");
-export const textHeadingSmall = typographyToCSS("text-heading-small");
-export const textHeadingXLarge = typographyToCSS("text-heading-xlarge");
-export const textUppercase500 = typographyToCSS("text-uppercase-500");
+export const textBody400 = typographyToCSS("body-400");
+export const textBody4002Lines = typographyToCSS("body-400-2lines");
+export const textBody500 = typographyToCSS("body-500");
+export const textBodyLarge400 = typographyToCSS("body-large-400");
+export const textBodyLarge4002Lines = typographyToCSS("body-large-400-2lines");
+export const textBodyLarge500 = typographyToCSS("body-large-500");
+export const textBodySmall400 = typographyToCSS("body-small-400");
+export const textBodySmall4002Lines = typographyToCSS("body-small-400-2lines");
+export const textBodySmall500 = typographyToCSS("body-small-500");
+export const textHeading = typographyToCSS("heading");
+export const textHeadingLarge = typographyToCSS("heading-large");
+export const textHeadingSmall = typographyToCSS("heading-small");
+export const textHeadingXLarge = typographyToCSS("heading-xlarge");
+export const textUppercase500 = typographyToCSS("uppercase-500");

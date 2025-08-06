@@ -8,7 +8,7 @@ import { SIZE } from "../../styles/common/constants/size";
 import { COLOR, SEVERITY, VARIANT } from "../../styles/common/mui/alert";
 import { FONT_SIZE } from "../../styles/common/mui/icon";
 
-const TEXT_BODY_500 = "text-body-500";
+const BODY_500 = "body-500";
 
 export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
   return {
@@ -28,7 +28,7 @@ export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
         padding: 0,
       },
       message: {
-        ...theme.typography[TEXT_BODY_500], // default size - "medium"
+        ...theme.typography[BODY_500], // default size - "medium"
         display: "grid",
         gap: 4,
         padding: 0,

@@ -14,7 +14,7 @@ export const TOOLTIP_PROPS: Omit<TooltipProps, "children" | "title"> = {
     },
     tooltip: {
       sx: (theme) => ({
-        ...theme.typography["text-body-small-400-2lines"],
+        ...theme.typography["body-small-400-2lines"],
         backgroundColor: theme.palette.common.white,
         borderRadius: 2,
         color: theme.palette.ink.main,
