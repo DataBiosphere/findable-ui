@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../../styles/common/constants/font";
-import { textBodyLarge500 } from "../../../../../styles/common/mixins/fonts";
 
 export const SectionContent = styled.div`
   h3,
@@ -9,7 +8,7 @@ export const SectionContent = styled.div`
   }
 
   h3 {
-    ${textBodyLarge500};
+    font: ${FONT.BODY_LARGE_500};
   }
 
   h4 {

@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
-import { textBodyLarge500 } from "../../../../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../../../../styles/common/constants/font";
 
 export const StyledButtonBase = styled(ButtonBase)`
-  ${textBodyLarge500}
   align-items: center;
   display: flex;
+  font: ${FONT.BODY_LARGE_500};
   gap: 8px;
   justify-content: flex-start;
   padding: 12px 16px;

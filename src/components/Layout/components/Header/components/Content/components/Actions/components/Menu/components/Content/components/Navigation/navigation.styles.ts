@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../../../../../../../../../../../styles/common/constants/font";
-import { textBodyLarge500 } from "../../../../../../../../../../../../../../styles/common/mixins/fonts";
 import { Navigation as DXNavigation } from "../../../../../../../Navigation/navigation";
 
 export const Navigation = styled(DXNavigation)`
@@ -13,7 +12,7 @@ export const Navigation = styled(DXNavigation)`
 
   .MuiButton-activeNav,
   .MuiButton-nav {
-    ${textBodyLarge500};
+    font: ${FONT.BODY_LARGE_500};
     justify-content: space-between;
     padding: 12px 24px;
 
