@@ -37,7 +37,7 @@ export const ExportMethod = ({
       <Section>
         <SectionContent>
           <SectionTitle title={title} />
-          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}>
+          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}>
             {description}
           </Typography>
         </SectionContent>

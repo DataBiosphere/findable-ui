@@ -17,16 +17,14 @@ export const PaginationSummary = ({
   return (
     <Fade in={totalResult > 0} unmountOnExit>
       <div data-testid={TEST_IDS.TABLE_PAGINATION_RESULTS}>
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           Results
         </Typography>
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_500}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
           {firstResult} - {lastResult}
         </Typography>
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
-          of
-        </Typography>
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_500}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>of</Typography>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
           {totalResult}
         </Typography>
       </div>

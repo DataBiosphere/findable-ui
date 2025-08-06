@@ -19,7 +19,7 @@ export const RowSelection = <T extends RowData>({
 }: RowSelectionProps<T>): JSX.Element | null => {
   return (
     <RowSelectionActions className={className}>
-      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
         {rows.length} items selected:
       </Typography>
       {rowSelectionView ? (

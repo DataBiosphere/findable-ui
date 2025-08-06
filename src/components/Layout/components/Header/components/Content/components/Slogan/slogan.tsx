@@ -18,7 +18,7 @@ export const Slogan = forwardRef<HTMLDivElement, SloganProps>(function Slogan(
       {typeof slogan === "string" ? (
         <Typography
           className={className}
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
         >
           {slogan}
         </Typography>

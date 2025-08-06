@@ -85,7 +85,7 @@ export default function VariableSizeListItem({
             <Typography
               color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
               data-testid={TEST_IDS.FILTER_COUNT}
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
             >
               {count}
             </Typography>

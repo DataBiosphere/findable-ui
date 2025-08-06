@@ -41,7 +41,7 @@ export const RowDrawer = <T extends RowData>({
             <MTypography
               component="div"
               noWrap
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
             >
               {title}
             </MTypography>

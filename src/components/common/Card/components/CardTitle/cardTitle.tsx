@@ -6,7 +6,7 @@ export const CardTitle = (props: TypographyProps): JSX.Element => {
   return (
     <Typography
       component="h4"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
       {...props}
     />
   );

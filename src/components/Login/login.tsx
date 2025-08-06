@@ -59,7 +59,7 @@ export const Login = <P,>({
             <Typography
               color={TYPOGRAPHY_PROPS.COLOR.INK_MAIN}
               component="h3"
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING}
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING}
             >
               {title}
             </Typography>

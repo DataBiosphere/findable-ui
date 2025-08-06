@@ -43,7 +43,7 @@ export const Input = ({
   return (
     <InputFormControl className={className}>
       {label && (
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           {label}
         </Typography>
       )}

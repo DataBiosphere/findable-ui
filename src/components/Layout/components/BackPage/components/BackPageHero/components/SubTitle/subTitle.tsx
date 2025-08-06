@@ -15,7 +15,7 @@ export const SubTitle = ({
       {typeof subTitle === "string" ? (
         <Typography
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
           {...props}
         >
           {subTitle}

@@ -10,7 +10,7 @@ export const SidebarLabel = ({ label }: SidebarLabelProps): JSX.Element => {
   return (
     <Typography
       component="div"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
     >
       {label}
     </Typography>

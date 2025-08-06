@@ -58,7 +58,7 @@ export const Loading = ({
         <LoadingPaper panelStyle={panelStyle}>
           <LoadingIcon color="primary" fontSize={iconSize} />
           {text && (
-            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
               {text}
             </Typography>
           )}

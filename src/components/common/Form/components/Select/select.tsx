@@ -29,7 +29,7 @@ export const Select = ({
   return (
     <InputFormControl className={className} isFilled={isFilled}>
       {label && (
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           {label}
         </Typography>
       )}

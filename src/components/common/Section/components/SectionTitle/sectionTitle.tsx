@@ -17,7 +17,7 @@ export const SectionTitle = ({
       className={className}
       color={TYPOGRAPHY_PROPS.COLOR.INK_MAIN}
       component="h3"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
     >
       {title}
     </Typography>

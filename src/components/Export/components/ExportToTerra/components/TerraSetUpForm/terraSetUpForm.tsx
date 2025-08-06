@@ -33,7 +33,7 @@ export const TerraSetUpForm = (): JSX.Element | null => {
             <SectionTitle title="Complete your setup" />
             <Typography
               color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
             >
               Follow these steps to unlock the full potential of the data
               explorer.

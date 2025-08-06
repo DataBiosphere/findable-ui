@@ -34,7 +34,7 @@ const ErrorMessage = ({
   <Content>
     <Typography
       component="h3"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
     >
       {title}
     </Typography>
@@ -76,11 +76,11 @@ export const Error = ({
           <SectionContent>
             <Typography
               component="h1"
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_XLARGE}
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XLARGE}
             >
               Error
             </Typography>
-            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_400}>
+            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400}>
               An error occurred processing your request
             </Typography>
           </SectionContent>

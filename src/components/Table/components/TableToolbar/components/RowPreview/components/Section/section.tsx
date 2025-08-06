@@ -18,7 +18,7 @@ export const Section = ({
     <PreviewSection className={className}>
       <Typography
         component="div"
-        variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
+        variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
       >
         {title}
       </Typography>

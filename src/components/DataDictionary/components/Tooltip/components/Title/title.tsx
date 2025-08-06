@@ -12,7 +12,7 @@ export const Title = ({
 }: BaseComponentProps & Required<TitleProps>): JSX.Element => {
   return (
     <Stack {...STACK_PROPS} className={className}>
-      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}>
+      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}>
         {title}
       </Typography>
       <Typography color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT} component="div">

@@ -35,7 +35,7 @@ export const RowDetail = <T extends RowData>({
         <Grid key={i}>
           <Typography
             color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
             {...componentConfig.props?.TypographyProps}
           >
             {header}

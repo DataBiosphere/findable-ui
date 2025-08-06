@@ -19,10 +19,7 @@ export const FilterNoResultsFound = forwardRef<
 ): JSX.Element {
   return (
     <FilterNoResults ref={ref}>
-      <Typography
-        component="div"
-        variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_500}
-      >
+      <Typography component="div" variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}>
         No results found!
       </Typography>
       <Typography
@@ -30,7 +27,7 @@ export const FilterNoResultsFound = forwardRef<
         component="div"
         mb={onClearSearchTerm ? 2 : 0}
         mt={1}
-        variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+        variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
       >
         Try adjusting your search or filter to find what you’re looking for.
       </Typography>

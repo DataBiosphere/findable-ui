@@ -14,7 +14,7 @@ export const Warning = ({
       className={className}
       color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
       mt={6}
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
       {...props}
     >
       {children}

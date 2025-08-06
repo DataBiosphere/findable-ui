@@ -23,12 +23,12 @@ export const Summary = ({
       {summaries.map(([count, label], i) => (
         <Fragment key={i}>
           {i !== 0 && <StyledDot />}
-          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_500}>
+          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
             {count}
           </Typography>
           <Typography
             color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
           >
             {label}
           </Typography>

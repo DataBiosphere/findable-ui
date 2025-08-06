@@ -34,7 +34,7 @@ export const CollapsableSection = ({
   const SectionContent = (
     <SectionText
       component="div"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
     >
       {children}
     </SectionText>

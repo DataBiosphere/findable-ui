@@ -24,12 +24,12 @@ export const SupportRequestSubmitted = ({
     <Section>
       <SectionContent>
         <IconBadge color={ICON_BADGE_COLOR.SUCCESS} Icon={EmailReadIcon} />
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}>
           {title}
         </Typography>
         <Typography
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
         >
           {description}
         </Typography>

@@ -48,7 +48,7 @@ export const CollapsableCell = <T extends RowData>({
                     <Typography
                       color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
                       component="div"
-                      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+                      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
                     >
                       {header}
                     </Typography>

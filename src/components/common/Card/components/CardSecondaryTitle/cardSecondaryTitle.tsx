@@ -7,7 +7,7 @@ export const CardSecondaryTitle = (props: TypographyProps): JSX.Element => {
   return (
     <StyledTypography
       color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400_2_LINES}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
       {...props}
     />
   );

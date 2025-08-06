@@ -45,7 +45,7 @@ export const FormStep = ({
               : TYPOGRAPHY_PROPS.COLOR.INK_LIGHT
           }
           component="h4"
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_500}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}
         >
           {title}
         </Typography>
@@ -53,7 +53,7 @@ export const FormStep = ({
           <Typography
             color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
             component="div"
-            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
           >
             {text}
           </Typography>

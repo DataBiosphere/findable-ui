@@ -186,7 +186,7 @@ export const SupportRequestForm = ({
               <Title>Contact Us</Title>
               <Typography
                 color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-                variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
               >
                 We’re here to help and answer any questions you might have. We
                 look forward to hearing from you!

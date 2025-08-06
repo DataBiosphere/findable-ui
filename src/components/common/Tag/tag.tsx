@@ -11,7 +11,7 @@ export const Tag = ({
     <Typography
       className={className}
       component="span"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_500}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}
       {...props}
     />
   );

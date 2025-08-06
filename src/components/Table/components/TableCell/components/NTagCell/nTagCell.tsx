@@ -51,7 +51,7 @@ export const NTagCell = ({
           TooltipTitle={
             <Typography
               display="block"
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
             >
               {stringifyMetadataValues(values)}
             </Typography>

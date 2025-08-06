@@ -13,7 +13,7 @@ export const Count = ({
       className={className}
       color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
       data-testid={testId}
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
       {...props}
     />
   );

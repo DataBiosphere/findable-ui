@@ -19,7 +19,7 @@ export const Title = ({
   return (
     <Typography
       component="div"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400_2_LINES}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
     >
       {buildDate && (
         <div>

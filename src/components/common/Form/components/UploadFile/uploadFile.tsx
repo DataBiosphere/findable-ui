@@ -39,7 +39,7 @@ export const UploadFile = ({
   return (
     <InputFormControl className={className} error={error}>
       {label && (
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           {label}
         </Typography>
       )}
@@ -54,7 +54,7 @@ export const UploadFile = ({
           loading={attachmentUploading}
           panelStyle={LOADING_PANEL_STYLE.INHERIT}
         />
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           {isAttached ? (
             attachmentName
           ) : (
