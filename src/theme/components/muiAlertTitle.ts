@@ -1,11 +1,10 @@
 import { Components } from "@mui/material";
-
-const BODY_500 = "body-500";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 
 export const MuiAlertTitle: Components["MuiAlertTitle"] = {
   defaultProps: {
     gutterBottom: false,
-    variant: BODY_500,
+    variant: TYPOGRAPHY_PROPS.VARIANT.BODY_500,
   },
   styleOverrides: {
     root: {

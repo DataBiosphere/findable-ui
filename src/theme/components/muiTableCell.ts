@@ -1,13 +1,10 @@
 import { Components, Theme } from "@mui/material";
+import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
 
-const BODY_400 = "body-400";
-const BODY_SMALL_500 = "body-small-500";
-
 export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
   const paletteSmoke = theme.palette.smoke;
-  const typography = theme.typography;
   return {
     defaultProps: {},
     styleOverrides: {
@@ -36,7 +33,8 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.BODY },
             style: {
-              ...typography[BODY_400],
+              font: FONT.BODY_400,
+              // eslint-disable-next-line sort-keys -- disabling key order for readability
               "& mark": {
                 backgroundColor: PALETTE.WARNING_LIGHT,
                 color: "inherit",
@@ -47,8 +45,8 @@ export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
           {
             props: { variant: TABLE_CELL_PROPS.VARIANT.HEAD },
             style: {
-              ...typography[BODY_SMALL_500],
               backgroundColor: paletteSmoke.lightest,
+              font: FONT.BODY_SMALL_500,
             },
           },
         ],
