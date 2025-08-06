@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const BODY_SMALL_400 = "body-small-400";
 const BODY_SMALL_500 = "body-small-500";
 const HEADING = "heading";
 const HEADING_SMALL = "heading-small";
@@ -113,7 +112,7 @@ export const MuiBreadcrumbs = (theme: Theme): Components["MuiBreadcrumbs"] => {
   return {
     styleOverrides: {
       li: {
-        ...theme.typography[BODY_SMALL_400],
+        font: FONT.BODY_SMALL_400,
         margin: 0,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "& .MuiLink-root": {
@@ -422,7 +421,7 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
         margin: "0 -2px 0 0",
       },
       label: {
-        ...theme.typography[BODY_SMALL_400],
+        font: FONT.BODY_SMALL_400,
         variants: [
           {
             props: { variant: "status" },
@@ -509,9 +508,9 @@ export const MuiChip = (theme: Theme): Components["MuiChip"] => {
       {
         props: { variant: "ntag" },
         style: {
-          ...theme.typography[BODY_SMALL_400],
           backgroundColor: theme.palette.smoke.main,
           boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
+          font: FONT.BODY_SMALL_400,
           height: 24,
           justifySelf: FLEX_START,
           minWidth: 0,
@@ -746,7 +745,7 @@ export const MuiFormHelperText = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[BODY_SMALL_400],
+        font: FONT.BODY_SMALL_400,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&.Mui-error": {
           color: theme.palette.alert.main,
@@ -1596,10 +1595,10 @@ export const MuiTooltip = (theme: Theme): Components["MuiTooltip"] => {
         },
       },
       tooltip: {
-        ...theme.typography[BODY_SMALL_400],
         backgroundColor: theme.palette.ink.main,
         boxShadow: SHADOWS["02"],
         boxSizing: "content-box",
+        font: FONT.BODY_SMALL_400,
         padding: "8px 12px",
       },
     },
