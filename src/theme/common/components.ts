@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const HEADING = "heading";
 const HEADING_SMALL = "heading-small";
 
 /**
@@ -657,27 +656,23 @@ export const MuiDialogContent = (
 
 /**
  * MuiDialogTitle Component
- * @param theme - Theme.
- * @returns MuiDialogTitle component theme styles.
  */
-export const MuiDialogTitle = (theme: Theme): Components["MuiDialogTitle"] => {
-  return {
-    styleOverrides: {
-      root: {
-        ...theme.typography[HEADING],
-        alignItems: "center",
-        display: "grid",
-        gridAutoFlow: "column",
-        padding: 20,
-        [tabletUp]: {},
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiIconButton-edgeEnd": {
-          alignSelf: FLEX_START,
-          justifySelf: "flex-end",
-        },
+export const MuiDialogTitle: Components["MuiDialogTitle"] = {
+  styleOverrides: {
+    root: {
+      alignItems: "center",
+      display: "grid",
+      font: FONT.HEADING,
+      gridAutoFlow: "column",
+      padding: 20,
+      [tabletUp]: {},
+      // eslint-disable-next-line sort-keys -- disabling key order for readability
+      "& .MuiIconButton-edgeEnd": {
+        alignSelf: FLEX_START,
+        justifySelf: "flex-end",
       },
     },
-  };
+  },
 };
 
 /**
