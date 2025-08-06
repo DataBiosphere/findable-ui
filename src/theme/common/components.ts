@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const BODY_500 = "body-500";
 const BODY_SMALL_400 = "body-small-400";
 const BODY_SMALL_500 = "body-small-500";
 const HEADING = "heading";
@@ -232,7 +231,7 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
         },
       },
       root: {
-        ...theme.typography[BODY_500],
+        font: FONT.BODY_500,
         gap: 4,
         letterSpacing: "normal",
         padding: "10px 16px",
@@ -295,9 +294,9 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "activeNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[BODY_500],
           backgroundColor: theme.palette.smoke.light,
           color: theme.palette.ink.main,
+          font: FONT.BODY_500,
           minWidth: 0,
           textTransform: "capitalize",
           whiteSpace: "nowrap",
@@ -328,8 +327,8 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "nav",
         },
         style: {
-          ...theme.typography[BODY_500],
           color: theme.palette.ink.main,
+          font: FONT.BODY_500,
           minWidth: 0,
           textTransform: "capitalize",
           whiteSpace: "nowrap",
@@ -1000,8 +999,8 @@ export const MuiListSubheader = (
     defaultProps: { disableSticky: true },
     styleOverrides: {
       root: {
-        ...theme.typography[BODY_500],
         color: theme.palette.ink.main,
+        font: FONT.BODY_500,
       },
     },
   };
@@ -1370,8 +1369,8 @@ export const MuiTab = (theme: Theme): Components["MuiTab"] => {
         },
       },
       root: {
-        ...theme.typography[BODY_500],
         color: theme.palette.ink.light,
+        font: FONT.BODY_500,
         marginBottom: 3,
         minHeight: "unset",
         minWidth: "unset",
@@ -1500,12 +1499,12 @@ export const MuiToggleButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[BODY_500],
         backgroundColor: theme.palette.smoke.main,
         border: "none",
         borderRadius: 4,
         color: theme.palette.ink.main,
         flex: 1,
+        font: FONT.BODY_500,
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         "&:hover": {
           backgroundColor: theme.palette.smoke.lightest,
