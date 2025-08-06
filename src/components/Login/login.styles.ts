@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import {
-  textBody400,
-  textBodySmall400,
-} from "../../styles/common/mixins/fonts";
+import { Typography } from "@mui/material";
+import { textBodySmall400 } from "../../styles/common/mixins/fonts";
 import { TABLET } from "../../theme/common/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
@@ -37,13 +35,7 @@ export const LoginSectionActions = styled(SectionActions)`
   gap: 16px 0;
 `;
 
-export const LoginText = styled.div`
-  ${textBody400};
-`;
-
-export const TermsOfService = styled.div`
-  ${textBody400};
-
+export const StyledTypography = styled(Typography)`
   a {
     color: inherit;
     text-decoration: underline;

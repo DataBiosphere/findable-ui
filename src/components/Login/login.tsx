@@ -13,10 +13,9 @@ import {
   LoginAgreement,
   LoginSection,
   LoginSectionActions,
-  LoginText,
   LoginWarning,
   LoginWrapper,
-  TermsOfService,
+  StyledTypography,
 } from "./login.styles";
 import { Props } from "./types";
 
@@ -63,7 +62,11 @@ export const Login = <P,>({
             >
               {title}
             </Typography>
-            {text && <LoginText>{text}</LoginText>}
+            {text && (
+              <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+                {text}
+              </Typography>
+            )}
           </SectionContent>
           <LoginSectionActions>
             {termsOfService && (
@@ -73,7 +76,9 @@ export const Login = <P,>({
                   icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
                   onChange={handleChange}
                 />
-                <TermsOfService>{termsOfService}</TermsOfService>
+                <StyledTypography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+                  {termsOfService}
+                </StyledTypography>
               </LoginAgreement>
             )}
             {providers?.map((provider) => (

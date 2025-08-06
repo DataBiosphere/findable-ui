@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { List as MList } from "@mui/material";
+import { FONT } from "../../../../styles/common/constants/font";
 import {
-  textBody400,
   textBody500,
   textUppercase500,
 } from "../../../../styles/common/mixins/fonts";
@@ -30,7 +30,7 @@ export const List = styled(MList)`
       }
 
       .MuiListItemText-root {
-        ${textBody400};
+        font: ${FONT.BODY_400};
       }
 
       &.Mui-disabled {
