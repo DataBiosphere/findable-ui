@@ -5,15 +5,22 @@ type TypographyPropsOptions = {
   VARIANT: typeof VARIANT;
 };
 
-const COLOR: Record<string, TypographyOwnProps["color"]> = {
+const COLOR = {
   ERROR: "error",
+  INFO: "info",
   INHERIT: "inherit",
   INK_LIGHT: "ink.light",
   INK_MAIN: "ink.main",
   PRIMARY: "primary",
-};
+  SECONDARY: "secondary",
+  SUCCESS: "success",
+  TEXT_DISABLED: "textDisabled",
+  TEXT_PRIMARY: "textPrimary",
+  TEXT_SECONDARY: "textSecondary",
+  WARNING: "warning",
+} as const satisfies Record<string, TypographyOwnProps["color"]>;
 
-const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
+const VARIANT = {
   BODY_400: "body-400",
   BODY_400_2_LINES: "body-400-2lines",
   BODY_500: "body-500",
@@ -30,7 +37,7 @@ const VARIANT: Record<string, TypographyOwnProps["variant"]> = {
   HEADING_XSMALL: "heading-xsmall",
   INHERIT: "inherit",
   UPPERCASE_500: "uppercase-500",
-};
+} as const satisfies Record<string, TypographyOwnProps["variant"]>;
 
 export const TYPOGRAPHY_PROPS: TypographyPropsOptions = {
   COLOR,

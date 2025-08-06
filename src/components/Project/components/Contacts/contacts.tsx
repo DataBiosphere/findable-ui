@@ -17,7 +17,10 @@ export const Contacts = ({ contacts }: ContactsProps): JSX.Element => {
       {contacts ? (
         contacts.map(({ email, institution, name }, c) => (
           <SectionContentListItem key={`${name}${c}`}>
-            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500_2_LINES}>
+            <Typography
+              fontWeight={500}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+            >
               {name}
             </Typography>
             {institution && <span>{institution}</span>}
