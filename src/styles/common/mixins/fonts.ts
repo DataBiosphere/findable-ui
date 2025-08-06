@@ -1,6 +1,5 @@
 import { css, SerializedStyles } from "@emotion/react";
 import {
-  TEXT_HEADING,
   TEXT_HEADING_LARGE,
   TEXT_HEADING_SMALL,
   TEXT_HEADING_XLARGE,
@@ -34,7 +33,7 @@ export const textBodySmall4002Lines = typographyToCSS(
   "text-body-small-400-2lines"
 );
 export const textBodySmall500 = typographyToCSS("text-body-small-500");
-export const textHeading = typographyToCSS(TEXT_HEADING);
+export const textHeading = typographyToCSS("text-heading");
 export const textHeadingLarge = typographyToCSS(TEXT_HEADING_LARGE);
 export const textHeadingSmall = typographyToCSS(TEXT_HEADING_SMALL);
 export const textHeadingXLarge = typographyToCSS(TEXT_HEADING_XLARGE);
