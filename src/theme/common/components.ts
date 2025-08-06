@@ -8,7 +8,6 @@ import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
 import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
-import { TEXT_HEADING_SMALL } from "./typography";
 
 // Constants
 const FLEX_START = "flex-start";
@@ -18,6 +17,7 @@ const TEXT_BODY_500 = "text-body-500";
 const TEXT_BODY_SMALL_400 = "text-body-small-400";
 const TEXT_BODY_SMALL_500 = "text-body-small-500";
 const TEXT_HEADING = "text-heading";
+const TEXT_HEADING_SMALL = "text-heading-small";
 
 /**
  * MuiAccordion Component

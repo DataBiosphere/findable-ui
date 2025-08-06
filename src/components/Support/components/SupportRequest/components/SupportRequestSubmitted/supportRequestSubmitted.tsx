@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
-import { TEXT_HEADING_SMALL } from "../../../../../../theme/common/typography";
 import { EmailReadIcon } from "../../../../../common/CustomIcon/components/EmailReadIcon/emailReadIcon";
 import {
   ICON_BADGE_COLOR,
@@ -25,7 +24,9 @@ export const SupportRequestSubmitted = ({
     <Section>
       <SectionContent>
         <IconBadge color={ICON_BADGE_COLOR.SUCCESS} Icon={EmailReadIcon} />
-        <Typography variant={TEXT_HEADING_SMALL}>{title}</Typography>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
+          {title}
+        </Typography>
         <Typography
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
           variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
