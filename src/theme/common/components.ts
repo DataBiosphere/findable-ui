@@ -1,6 +1,7 @@
 import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
+import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
 import { BUTTON_PROPS } from "../../styles/common/mui/button";
@@ -11,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const BODY_400 = "body-400";
 const BODY_400_2_LINES = "body-400-2lines";
 const BODY_500 = "body-500";
 const BODY_SMALL_400 = "body-small-400";
@@ -712,23 +712,17 @@ export const MuiDrawer: Components["MuiDrawer"] = {
 
 /**
  * MuiFormControlLabel Component
- * @param theme - Theme.
- * @returns MuiFormControlLabel component theme styles.
  */
-export const MuiFormControlLabel = (
-  theme: Theme
-): Components["MuiFormControlLabel"] => {
-  return {
-    styleOverrides: {
-      label: {
-        ...theme.typography[BODY_400],
-      },
-      root: {
-        gap: 8,
-        margin: 0,
-      },
+export const MuiFormControlLabel: Components["MuiFormControlLabel"] = {
+  styleOverrides: {
+    label: {
+      font: FONT.BODY_400,
     },
-  };
+    root: {
+      gap: 8,
+      margin: 0,
+    },
+  },
 };
 
 /**
@@ -901,38 +895,34 @@ export const MuiIconButton = (theme: Theme): Components["MuiIconButton"] => {
 
 /**
  * MuiInputBase Component
- * @param theme - Theme.
- * @returns MuiInputBase component theme styles.
  */
-export const MuiInputBase = (theme: Theme): Components["MuiInputBase"] => {
-  return {
-    styleOverrides: {
-      multiline: {
-        height: "unset",
+export const MuiInputBase: Components["MuiInputBase"] = {
+  styleOverrides: {
+    multiline: {
+      height: "unset",
+    },
+    root: {
+      font: FONT.BODY_400,
+      fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
+      height: 40,
+      letterSpacing: "normal",
+      // eslint-disable-next-line sort-keys -- disabling key order for readability
+      [tabletUp]: {
+        fontSize: "14px",
       },
-      root: {
-        ...theme.typography[BODY_400],
-        fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
-        height: 40,
-        letterSpacing: "normal",
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        [tabletUp]: {
-          fontSize: theme.typography[BODY_400].fontSize,
-        },
-        variants: [
-          /* PRIMARY */ /* TODO: remove `adornedStart` when all input components are refactored to color: secondary */
-          {
-            props: { color: "primary" },
-            style: {
-              adornedStart: {
-                gap: 8,
-              },
+      variants: [
+        /* PRIMARY */ /* TODO: remove `adornedStart` when all input components are refactored to color: secondary */
+        {
+          props: { color: "primary" },
+          style: {
+            adornedStart: {
+              gap: 8,
             },
           },
-        ],
-      },
+        },
+      ],
     },
-  };
+  },
 };
 
 /**
@@ -968,7 +958,7 @@ export const MuiListItemButton = (
   return {
     styleOverrides: {
       root: {
-        ...theme.typography[BODY_400],
+        font: FONT.BODY_400,
         minHeight: "unset",
         padding: "10px 16px",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
@@ -1020,20 +1010,16 @@ export const MuiListSubheader = (
 
 /**
  * MuiMenuItem Component
- * @param theme - Theme.
- * @returns MuiMenuItem component theme styles.
  */
-export const MuiMenuItem = (theme: Theme): Components["MuiMenuItem"] => {
-  return {
-    defaultProps: { disableRipple: true },
-    styleOverrides: {
-      root: {
-        ...theme.typography[BODY_400],
-        minHeight: "unset",
-        padding: "10px 16px",
-      },
+export const MuiMenuItem: Components["MuiMenuItem"] = {
+  defaultProps: { disableRipple: true },
+  styleOverrides: {
+    root: {
+      font: FONT.BODY_400,
+      minHeight: "unset",
+      padding: "10px 16px",
     },
-  };
+  },
 };
 
 /**
