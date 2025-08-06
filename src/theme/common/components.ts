@@ -1,5 +1,6 @@
 import { Components, Theme } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
+import { APP } from "../../styles/common/constants/app";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
@@ -340,22 +341,18 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
 
 /**
  * MuiButtonBase Component
- * @param theme - Theme.
- * @returns MuiButtonBase component theme styles.
  */
-export const MuiButtonBase = (theme: Theme): Components["MuiButtonBase"] => {
-  return {
-    defaultProps: {
-      disableRipple: true,
-      disableTouchRipple: true,
+export const MuiButtonBase: Components["MuiButtonBase"] = {
+  defaultProps: {
+    disableRipple: true,
+    disableTouchRipple: true,
+  },
+  styleOverrides: {
+    root: {
+      flex: "none",
+      fontFamily: APP.FONT_FAMILY,
     },
-    styleOverrides: {
-      root: {
-        flex: "none",
-        fontFamily: theme.typography.fontFamily,
-      },
-    },
-  };
+  },
 };
 
 /**
@@ -576,7 +573,7 @@ export const MuiCssBaseline = (theme: Theme): Components["MuiCssBaseline"] => {
         },
       },
       body: {
-        fontFamily: theme.typography.fontFamily,
+        fontFamily: APP.FONT_FAMILY,
       },
       code: {
         font: FONT.BODY_400_2_LINES,
