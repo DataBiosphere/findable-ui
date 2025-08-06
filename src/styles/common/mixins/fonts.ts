@@ -1,6 +1,5 @@
 import { css, SerializedStyles } from "@emotion/react";
 import {
-  TEXT_BODY_500,
   TEXT_BODY_500_2_LINES,
   TEXT_BODY_LARGE_400,
   TEXT_BODY_LARGE_400_2_LINES,
@@ -31,7 +30,7 @@ function typographyToCSS(TYPOGRAPHY: string) {
 
 export const textBody400 = typographyToCSS("text-body-400");
 export const textBody4002Lines = typographyToCSS("text-body-400-2lines");
-export const textBody500 = typographyToCSS(TEXT_BODY_500);
+export const textBody500 = typographyToCSS("text-body-500");
 export const textBody5002Lines = typographyToCSS(TEXT_BODY_500_2_LINES);
 export const textBodyLarge400 = typographyToCSS(TEXT_BODY_LARGE_400);
 export const textBodyLarge4002Lines = typographyToCSS(

@@ -7,7 +7,8 @@ import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { SIZE } from "../../styles/common/constants/size";
 import { COLOR, SEVERITY, VARIANT } from "../../styles/common/mui/alert";
 import { FONT_SIZE } from "../../styles/common/mui/icon";
-import { TEXT_BODY_500 } from "../common/typography";
+
+const TEXT_BODY_500 = "text-body-500";
 
 export const MuiAlert = (theme: Theme): Components["MuiAlert"] => {
   return {

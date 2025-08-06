@@ -2,7 +2,6 @@ import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
 import { tabletUp } from "./breakpoints";
 
 const TYPOGRAPHY = {
-  TEXT_BODY_500: "text-body-500",
   TEXT_BODY_500_2_LINES: "text-body-500-2lines",
   TEXT_BODY_LARGE_400: "text-body-large-400",
   TEXT_BODY_LARGE_400_2_LINES: "text-body-large-400-2lines",
@@ -18,7 +17,6 @@ const TYPOGRAPHY = {
   TEXT_UPPERCASE_500: "text-uppercase-500",
 } as const;
 export const {
-  TEXT_BODY_500,
   TEXT_BODY_500_2_LINES,
   TEXT_BODY_LARGE_400,
   TEXT_BODY_LARGE_400_2_LINES,
