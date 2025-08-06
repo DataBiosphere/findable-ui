@@ -1,5 +1,9 @@
-import { TypographyStyle, TypographyVariantsOptions } from "@mui/material";
-import { tabletUp } from "./breakpoints";
+import {
+  Theme,
+  TypographyStyle,
+  TypographyVariantsOptions,
+} from "@mui/material";
+import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 
 const body400: TypographyStyle = {
   fontFamily: "Inter",
@@ -64,51 +68,51 @@ const bodySmall500: TypographyStyle = {
   lineHeight: "16px",
 };
 
-const heading: TypographyStyle = {
+const heading = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "20px",
   fontWeight: 500,
   lineHeight: "28px",
-  [tabletUp]: {
+  [bpUpSm({ theme })]: {
     fontSize: "24px",
     lineHeight: "32px",
   },
-};
+});
 
-const headingLarge: TypographyStyle = {
+const headingLarge = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
   lineHeight: "32px",
-  [tabletUp]: {
+  [bpUpSm({ theme })]: {
     fontSize: "32px",
     lineHeight: "40px",
   },
-};
+});
 
-const headingSmall: TypographyStyle = {
+const headingSmall = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "18px",
   fontWeight: 500,
   lineHeight: "26px",
-  [tabletUp]: {
+  [bpUpSm({ theme })]: {
     fontSize: "20px",
     lineHeight: "28px",
   },
-};
+});
 
-const headingXLarge: TypographyStyle = {
+const headingXLarge = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "30px",
   fontWeight: 500,
   letterSpacing: "-0.8px",
   lineHeight: "40px",
-  [tabletUp]: {
+  [bpUpSm({ theme })]: {
     fontSize: "40px",
     letterSpacing: "-0.4px",
     lineHeight: "48px",
   },
-};
+});
 
 const headingXSmall: TypographyStyle = {
   fontFamily: "Inter",
@@ -125,7 +129,7 @@ const uppercase500: TypographyStyle = {
   textTransform: "uppercase",
 };
 
-export const typography: TypographyVariantsOptions = {
+export const typography = (theme: Theme): TypographyVariantsOptions => ({
   "body-400": body400,
   "body-400-2lines": body4002Lines,
   "body-500": body500,
@@ -136,10 +140,10 @@ export const typography: TypographyVariantsOptions = {
   "body-small-400-2lines": bodySmall4002Lines,
   "body-small-500": bodySmall500,
   fontFamily: "Inter",
-  heading: heading,
-  "heading-large": headingLarge,
-  "heading-small": headingSmall,
-  "heading-xlarge": headingXLarge,
+  heading: heading(theme),
+  "heading-large": headingLarge(theme),
+  "heading-small": headingSmall(theme),
+  "heading-xlarge": headingXLarge(theme),
   "heading-xsmall": headingXSmall,
   "uppercase-500": uppercase500,
-};
+});

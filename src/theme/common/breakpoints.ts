@@ -1,4 +1,16 @@
-import { Breakpoint } from "@mui/material";
+import { Breakpoint, ThemeOptions } from "@mui/material";
+
+export const breakpoints = (
+  themeOptions: ThemeOptions
+): ThemeOptions["breakpoints"] => ({
+  values: {
+    lg: 1440,
+    md: 1280,
+    sm: 768,
+    xs: 0,
+  },
+  ...themeOptions.breakpoints,
+});
 
 /**
  * Breakpoints
