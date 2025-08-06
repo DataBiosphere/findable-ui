@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Dialog as MDialog } from "@mui/material";
 import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import { inkLight } from "../../../../../../../../../../styles/common/mixins/colors";
-import { textUppercase500 } from "../../../../../../../../../../styles/common/mixins/fonts";
 import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 
 export const Dialog = styled(MDialog)`
@@ -13,9 +12,10 @@ export const Dialog = styled(MDialog)`
       padding: 6px 48px;
 
       &.Mui-disabled {
-        ${textUppercase500};
         color: ${inkLight};
+        font: ${FONT.UPPERCASE_500};
         margin-top: 20px;
+        text-transform: uppercase;
         opacity: 1;
       }
 
