@@ -2,6 +2,7 @@ import { createTheme, Theme, ThemeOptions } from "@mui/material";
 import { deepmerge } from "@mui/utils";
 import { breakpoints } from "./common/breakpoints";
 import * as C from "./common/components";
+import { fontStyles } from "./common/fontStyles";
 import * as P from "./common/palette";
 import { shadows } from "./common/shadows";
 import { typography } from "./common/typography";
@@ -17,8 +18,11 @@ export interface ThemeProps {
  * @returns theme with custom theme overrides.
  */
 export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
-  // Create base theme with custom breakpoints.
-  const baseTheme = createTheme({ breakpoints: breakpoints(customOptions) });
+  // Create base theme.
+  const baseTheme = createTheme({
+    breakpoints: breakpoints(customOptions),
+    typography: fontStyles(customOptions),
+  });
 
   // Remove breakpoints from custom options.
   delete customOptions.breakpoints;
@@ -27,7 +31,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
   const theme = createTheme(
     deepmerge(
       {
-        app: { fontFamily: typography(baseTheme).fontFamily },
+        app: { fontFamily: baseTheme.typography.fontFamily },
         breakpoints: baseTheme.breakpoints,
         cssVariables: true,
         palette: {

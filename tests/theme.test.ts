@@ -26,6 +26,7 @@ const CUSTOM_OPTIONS: ThemeOptions = {
   typography: {
     // @ts-expect-error - Custom typography variant.
     "body-400": CUSTOM_BODY_400,
+    fontFamily: "Roboto",
   },
 };
 
@@ -139,6 +140,14 @@ describe("Theme Configuration", () => {
       const variant = customTheme.typography["body-400" as TypographyVariant];
       expect(fontValue).toBeDefined();
       expect(fontValue).toContain(variant.fontSize);
+    });
+
+    it("should apply custom fontFamily to CSS variables", () => {
+      // @ts-expect-error - app var exists on ThemeVars.
+      const appValue = customTheme.vars?.app?.fontFamily;
+      const fontFamily = customTheme.typography.fontFamily;
+      expect(appValue).toBeDefined();
+      expect(appValue).toContain(fontFamily);
     });
   });
 });

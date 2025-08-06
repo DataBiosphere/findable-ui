@@ -139,7 +139,7 @@ export const typography = (theme: Theme): TypographyVariantsOptions => ({
   "body-small-400": bodySmall400,
   "body-small-400-2lines": bodySmall4002Lines,
   "body-small-500": bodySmall500,
-  fontFamily: "Inter",
+  fontFamily: theme.typography.fontFamily,
   heading: heading(theme),
   "heading-large": headingLarge(theme),
   "heading-small": headingSmall(theme),
