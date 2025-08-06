@@ -12,7 +12,6 @@ import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
 
 // Constants
 const FLEX_START = "flex-start";
-const HEADING_SMALL = "heading-small";
 
 /**
  * MuiAccordion Component
@@ -308,8 +307,8 @@ export const MuiButton = (theme: Theme): Components["MuiButton"] => {
           variant: "backNav", // associated with "nav" variant.
         },
         style: {
-          ...theme.typography[HEADING_SMALL],
           color: theme.palette.ink.main,
+          font: FONT.HEADING_SMALL,
           minWidth: 0,
           textTransform: "capitalize",
           whiteSpace: "nowrap",
