@@ -1,9 +1,9 @@
 import { Components, Theme } from "@mui/material";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
-import { TEXT_BODY_SMALL_500 } from "../common/typography";
 
 const TEXT_BODY_400 = "text-body-400";
+const TEXT_BODY_SMALL_500 = "text-body-small-500";
 
 export const MuiTableCell = (theme: Theme): Components["MuiTableCell"] => {
   const paletteSmoke = theme.palette.smoke;
