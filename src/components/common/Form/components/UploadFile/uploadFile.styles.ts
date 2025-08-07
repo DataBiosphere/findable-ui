@@ -3,8 +3,6 @@ import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
 import { PALETTE } from "../../../../../styles/common/constants/palette";
 import {
-  infoLightest,
-  infoMain,
   inkMain,
   smokeDark,
   smokeLight,
@@ -32,11 +30,11 @@ export const Button = styled(ButtonBase, {
   padding: 10px 12px;
 
   // Drag active.
-  ${({ isDragActive, theme }) =>
+  ${({ isDragActive }) =>
     isDragActive &&
     css`
-      background-color: ${infoLightest({ theme })};
-      border: 1px dashed ${infoMain({ theme })};
+      background-color: ${PALETTE.INFO_LIGHTEST};
+      border: 1px dashed ${PALETTE.INFO_MAIN};
     `};
 
   // Error.

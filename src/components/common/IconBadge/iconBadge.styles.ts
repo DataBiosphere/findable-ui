@@ -2,8 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../styles/common/constants/palette";
 import {
-  infoLightest,
-  infoMain,
   successLightest,
   successMain,
   warningLightest,
@@ -32,11 +30,11 @@ export const Circle = styled.div<Props>`
     `};
 
   // Info.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.INFO &&
     css`
-      background-color: ${infoLightest(props)};
-      color: ${infoMain(props)};
+      background-color: ${PALETTE.INFO_LIGHTEST};
+      color: ${PALETTE.INFO_MAIN};
     `};
 
   // Success.
