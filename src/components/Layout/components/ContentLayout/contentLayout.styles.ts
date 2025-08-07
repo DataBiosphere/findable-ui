@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
   bpDownSm,
-  media1366Up,
-  mediaDesktopSmallUp,
+  bpUp1366,
+  bpUpMd,
 } from "../../../../styles/common/mixins/breakpoints";
 import { PanelBackgroundColor } from "./common/entities";
 
@@ -39,7 +39,7 @@ export const ContentLayout = styled.div<LayoutProps>`
   height: 100%;
   margin: 0 auto;
 
-  ${mediaDesktopSmallUp} {
+  ${bpUpMd} {
     ${({ hasNavigation }) =>
       hasNavigation
         ? css`
@@ -54,7 +54,7 @@ export const ContentLayout = styled.div<LayoutProps>`
           `};
   }
 
-  ${media1366Up} {
+  ${bpUp1366} {
     grid-template-areas: "navigation content outline";
     grid-template-columns:
       ${NAV_GRID_WIDTH}px
@@ -86,7 +86,7 @@ export const NavigationGrid = styled.div<GridProps>`
   display: none;
   grid-area: navigation;
 
-  ${mediaDesktopSmallUp} {
+  ${bpUpMd} {
     display: block;
   }
 `;
@@ -102,7 +102,7 @@ export const OutlineGrid = styled("div")<GridProps>`
   display: none;
   grid-area: outline;
 
-  ${media1366Up} {
+  ${bpUp1366} {
     display: block;
   }
 `;

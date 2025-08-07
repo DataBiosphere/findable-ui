@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaDesktopSmallUp } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpUpMd } from "../../../../../../styles/common/mixins/breakpoints";
 
 interface Props {
   headerHeight: number;
@@ -11,7 +11,7 @@ export const SidebarPositioner = styled("div")<Props>`
   overflow: visible;
   padding: 16px 0;
 
-  ${mediaDesktopSmallUp} {
+  ${bpUpMd} {
     max-height: 100vh;
     overflow: auto;
     padding: ${({ headerHeight }) => headerHeight}px 0 0;
