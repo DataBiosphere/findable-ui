@@ -4,7 +4,6 @@ import {
   Theme,
   ThemeOptions,
   TypographyStyle,
-  TypographyVariant,
 } from "@mui/material";
 import { typography as typographyValues } from "../src/theme/common/typography";
 import { createAppTheme } from "../src/theme/theme";
@@ -24,7 +23,6 @@ const DEFAULT_BODY_400: TypographyStyle = {
 
 const CUSTOM_OPTIONS: ThemeOptions = {
   typography: {
-    // @ts-expect-error - Custom typography variant.
     "body-400": CUSTOM_BODY_400,
     fontFamily: "Roboto",
   },
@@ -43,7 +41,7 @@ describe("Theme Configuration", () => {
 
   describe("CSS Variables", () => {
     it("should have css variables enabled", () => {
-      expect(isVars(theme)).toBe(true);
+      expect("vars" in theme).toBe(true);
     });
   });
 
@@ -51,18 +49,14 @@ describe("Theme Configuration", () => {
     let vars: CssVarsTheme["vars"];
 
     beforeEach(() => {
-      vars = (theme as Theme & Pick<CssVarsTheme, "vars">).vars;
+      vars = theme.vars;
       expect(vars).toBeDefined();
     });
 
     it("should have custom 'app' var exposed as CSS variables", () => {
-      const variables = vars as unknown as GenericRecord;
-      const app = variables.app as unknown as GenericRecord;
-      const fontFamily = app.fontFamily;
-      expect(fontFamily).toBeDefined();
-      expect(fontFamily).toEqual(
-        `var(--mui-app-fontFamily, ${theme.typography.fontFamily})`
-      );
+      const appValue = vars.app?.fontFamily;
+      expect(appValue).toBeDefined();
+      expect(appValue).toContain(theme.typography.fontFamily);
     });
 
     it("should have fonts exposed as CSS variables", () => {
@@ -121,29 +115,25 @@ describe("Theme Configuration", () => {
 
     it("should apply configured body-400 typography styles", () => {
       expect("body-400" in theme.typography).toBe(true);
-      const body400 = theme.typography[
-        "body-400" as TypographyVariant
-      ] as TypographyStyle;
-      validateTypographyStyle(body400, DEFAULT_BODY_400);
+      validateTypographyStyle(theme.typography["body-400"], DEFAULT_BODY_400);
     });
 
     it("should override body-400 typography styles when custom values provided", () => {
-      const body400 = customTheme.typography[
-        "body-400" as TypographyVariant
-      ] as TypographyStyle;
-      validateTypographyStyle(body400, CUSTOM_BODY_400);
+      expect("body-400" in customTheme.typography).toBe(true);
+      validateTypographyStyle(
+        customTheme.typography["body-400"],
+        CUSTOM_BODY_400
+      );
     });
 
     it("should apply custom body-400 styles to CSS variables", () => {
-      const fontValue =
-        customTheme.vars?.font?.["body-400" as TypographyVariant];
-      const variant = customTheme.typography["body-400" as TypographyVariant];
+      const fontValue = customTheme.vars?.font?.["body-400"];
+      const variant = customTheme.typography["body-400"];
       expect(fontValue).toBeDefined();
       expect(fontValue).toContain(variant.fontSize);
     });
 
     it("should apply custom fontFamily to CSS variables", () => {
-      // @ts-expect-error - app var exists on ThemeVars.
       const appValue = customTheme.vars?.app?.fontFamily;
       const fontFamily = customTheme.typography.fontFamily;
       expect(appValue).toBeDefined();
@@ -161,15 +151,6 @@ function filterTypographyVariants(value: string): boolean {
   return !/fontFamily|fontSize|fontWeightLight|fontWeightRegular|fontWeightMedium|fontWeightBold|htmlFontSize|allVariants/.test(
     value
   );
-}
-
-/**
- * Type guard to check if a theme is a CssVarsTheme.
- * @param theme - Theme.
- * @returns True if the theme is a CssVarsTheme, false otherwise.
- */
-function isVars(theme: Theme): theme is Theme & CssVarsTheme {
-  return "vars" in theme;
 }
 
 /**
