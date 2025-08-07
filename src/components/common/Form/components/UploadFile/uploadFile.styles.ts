@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
+import { PALETTE } from "../../../../../styles/common/constants/palette";
 import {
-  errorMain,
   infoLightest,
   infoMain,
   inkMain,
@@ -40,11 +40,11 @@ export const Button = styled(ButtonBase, {
     `};
 
   // Error.
-  ${({ isDragActive, isError, theme }) =>
+  ${({ isDragActive, isError }) =>
     isError &&
     !isDragActive &&
     css`
-      border: 1px dashed ${errorMain({ theme })};
+      border: 1px dashed ${PALETTE.ERROR_MAIN};
     `};
 
   .MuiTypography-body-400 {
