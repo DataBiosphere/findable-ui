@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { Tab as MTab, Tabs as MTabs, TabProps } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { smokeMain } from "../../../../styles/common/mixins/colors";
 
 interface Props extends TabProps {
   depth: number;
@@ -23,7 +22,7 @@ export const tab = css`
 
 export const StyledTabs = styled(MTabs)`
   align-self: flex-start;
-  box-shadow: inset 1px 0 ${smokeMain};
+  box-shadow: inset 1px 0 ${PALETTE.SMOKE_MAIN};
   margin: 0;
   max-width: 242px;
   padding: 0;

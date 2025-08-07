@@ -3,7 +3,6 @@ import { AppBar as MAppBar } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import { smokeMain } from "../../../../styles/common/mixins/colors";
 import { Socials as DXSocials } from "../../../common/Socials/socials";
 import { Link as DXLink } from "../../../Links/components/Link/link";
 
@@ -54,7 +53,7 @@ export const Socials = styled(DXSocials)`
   gap: 8px;
   .MuiIconButton-root {
     &:hover {
-      background-color: ${smokeMain};
+      background-color: ${PALETTE.SMOKE_MAIN};
     }
   }
 `;

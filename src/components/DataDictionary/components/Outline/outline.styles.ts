@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { smokeDark } from "../../../../styles/common/mixins/colors";
 import { Outline } from "../../../Layout/components/Outline/outline";
 
 export const StyledOutline = styled(Outline)`
@@ -13,7 +12,7 @@ export const StyledOutline = styled(Outline)`
       }
 
       &.Mui-disabled {
-        color: ${smokeDark};
+        color: ${PALETTE.SMOKE_DARK};
         opacity: 1;
       }
     }

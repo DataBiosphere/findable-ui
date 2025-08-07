@@ -4,7 +4,6 @@ import { FormControl as MFormControl } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import { smokeMain } from "../../../../styles/common/mixins/colors";
 import { ThemeProps } from "../../../../theme/theme";
 import {
   sectionMargin,
@@ -91,8 +90,8 @@ export const TableFormControl = styled(FormControl)`
 `;
 
 export const GridPaper = styled.div`
-  background-color: ${smokeMain};
-  border-color: ${smokeMain};
+  background-color: ${PALETTE.SMOKE_MAIN};
+  border-color: ${PALETTE.SMOKE_MAIN};
   border-style: solid;
   border-width: 1px 0 1px 0;
   display: grid;

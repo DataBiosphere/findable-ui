@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Dialog, Input } from "@mui/material";
 import { PALETTE } from "../../../../../../../../../../../../styles/common/constants/palette";
-import { smokeMain } from "../../../../../../../../../../../../styles/common/mixins/colors";
 import { IconButton } from "../../../../../../../../../../../common/IconButton/iconButton";
 
 interface Props {
@@ -29,7 +28,7 @@ export const SearchForm = styled.form`
 `;
 
 export const SearchInput = styled(Input)`
-  border-bottom: 1px solid ${smokeMain};
+  border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
   height: 40px;
   padding: 0;
 

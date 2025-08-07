@@ -2,10 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
 import { PALETTE } from "../../../../../styles/common/constants/palette";
-import {
-  smokeDark,
-  smokeLight,
-} from "../../../../../styles/common/mixins/colors";
 
 interface Props {
   isAttached: boolean;
@@ -18,8 +14,8 @@ export const Button = styled(ButtonBase, {
     prop !== "isAttached" && prop !== "isDragActive" && prop !== "isError",
 })<Props>`
   align-items: center;
-  background-color: ${smokeLight};
-  border: 1px dashed ${smokeDark};
+  background-color: ${PALETTE.SMOKE_LIGHT};
+  border: 1px dashed ${PALETTE.SMOKE_DARK};
   border-radius: 4px;
   display: flex;
   gap: 8px;

@@ -1,13 +1,13 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Step } from "@mui/material";
-import { smokeLightest, white } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { sectionPadding } from "../../../common/Section/section.styles";
 
 export const StyledStep = styled(Step)`
   &.MuiStep-root {
     &.MuiStep-vertical {
-      background-color: ${smokeLightest};
+      background-color: ${PALETTE.SMOKE_LIGHTEST};
 
       .MuiStepLabel-root {
         ${sectionPadding};
@@ -20,13 +20,13 @@ export const StyledStep = styled(Step)`
       }
 
       &.Mui-completed {
-        background-color: ${white};
+        background-color: ${PALETTE.COMMON_WHITE};
       }
 
-      ${(props) =>
-        props.active &&
+      ${({ active }) =>
+        active &&
         css`
-          background-color: ${white(props)};
+          background-color: ${PALETTE.COMMON_WHITE};
         `};
     }
   }

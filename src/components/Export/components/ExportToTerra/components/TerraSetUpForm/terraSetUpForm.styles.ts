@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
-  smokeMain,
   successMain,
   white,
 } from "../../../../../../styles/common/mixins/colors";
@@ -38,12 +37,12 @@ export const SectionStatus = styled("div")`
   }
 
   .MuiStepIcon-root {
-    border: 2px solid ${smokeMain};
+    border: 2px solid ${PALETTE.SMOKE_MAIN};
     border-radius: 50%;
     color: ${white};
 
     .MuiStepIcon-text {
-      fill: ${smokeMain};
+      fill: ${PALETTE.SMOKE_MAIN};
       font-size: 14px;
       font-weight: 700;
       line-height: 20px;

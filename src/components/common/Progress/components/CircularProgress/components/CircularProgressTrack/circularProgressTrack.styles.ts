@@ -2,13 +2,12 @@ import styled from "@emotion/styled";
 import { CircularProgress as MCircularProgress } from "@mui/material";
 import { PALETTE } from "../../../../../../../styles/common/constants/palette";
 import {
-  smokeLight,
   successLight,
   warningLight,
 } from "../../../../../../../styles/common/mixins/colors";
 
 export const CircularProgress = styled(MCircularProgress)`
-  color: ${smokeLight};
+  color: ${PALETTE.SMOKE_LIGHT};
   left: 0;
   position: absolute;
   top: 0;
