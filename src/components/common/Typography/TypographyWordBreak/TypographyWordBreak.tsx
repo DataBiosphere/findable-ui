@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { ReactNode } from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 
 export interface TypographyWordBreakProps {
   children: ReactNode;
@@ -13,7 +14,7 @@ export const TypographyWordBreak = ({
     <Typography
       component="span"
       sx={{ wordBreak: "break-word" }}
-      variant="inherit"
+      variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...props}
     >
       {children}

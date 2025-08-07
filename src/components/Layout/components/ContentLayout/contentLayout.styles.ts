@@ -11,7 +11,7 @@ import {
   smokeMain,
   white,
 } from "../../../../styles/common/mixins/colors";
-import { ThemeProps } from "../../../../theme/theme";
+import { ThemeProps } from "../../../../theme/types";
 import { PanelBackgroundColor } from "./common/entities";
 
 const CONTENT_MAX_WIDTH = 756;

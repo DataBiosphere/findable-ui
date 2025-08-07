@@ -25,7 +25,7 @@ export const Drawer = styled(DXDrawer)`
 `;
 
 export const DrawerTitle = styled(DXDrawerTitle)`
-  .MuiTypography-text-heading-small {
+  .MuiTypography-heading-small {
     font-size: 20px;
   }
 `;

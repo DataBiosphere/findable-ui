@@ -35,7 +35,7 @@ export const ChartView = ({
       <StyledGrid data-testid={testId} ref={chartViewRef}>
         {selectCategoryViews.map(({ key, label, values }) => (
           <StyledGridPaperSection key={key}>
-            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}>
+            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}>
               {entityName} by {label}
             </Typography>
             <Chart selectCategoryValueViews={values} width={width} />

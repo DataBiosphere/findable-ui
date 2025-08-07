@@ -1,11 +1,14 @@
 import { DESKTOP, DESKTOP_SM, TABLET } from "../../../theme/common/breakpoints";
-import { ThemeProps } from "../../../theme/theme";
+import { ThemeProps } from "../../../theme/types";
 
 export const bpDown820 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(820);
 
 export const bpDown1024 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(1024);
+
+export const bpUpSm = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("sm");
 
 export const mediaDesktopSmallDown = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(DESKTOP_SM);

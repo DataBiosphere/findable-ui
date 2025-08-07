@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { Fragment } from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import {
   Key,
   KeyValuePairs,
@@ -18,10 +19,14 @@ export interface DetailsProps {
  * Wrapper element around the key.
  * @param props - Set of values accepted by this component as props.
  * @param props.children - Key component children.
- * @returns typography component with color "ink.light".
+ * @returns typography component.
  */
 function renderKey(props: { children: Key }): JSX.Element {
-  return <Typography color="ink.light">{props.children}</Typography>;
+  return (
+    <Typography color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}>
+      {props.children}
+    </Typography>
+  );
 }
 
 export const Details = ({

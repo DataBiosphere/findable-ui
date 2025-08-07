@@ -31,7 +31,7 @@ export const TablePagination = ({
       </IconButton>
       <Typography
         data-testid={TEST_IDS.TABLE_PAGINATION_PAGE}
-        variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_500}
+        variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}
       >
         Page {currentPage} of {totalPage}
       </Typography>

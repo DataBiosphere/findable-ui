@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { mediaTabletUp } from "../../../styles/common/mixins/breakpoints";
 import { white } from "../../../styles/common/mixins/colors";
-import { ThemeProps } from "../../../theme/theme";
+import { ThemeProps } from "../../../theme/types";
 
 export const sectionMargin = css`
   margin: 20px 16px;

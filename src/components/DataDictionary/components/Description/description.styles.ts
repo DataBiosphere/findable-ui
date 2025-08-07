@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
   mediaTabletDown,
   mediaTabletUp,
 } from "../../../../styles/common/mixins/breakpoints";
-import { textHeadingSmall } from "../../../../styles/common/mixins/fonts";
 import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
 import { MarkdownRenderer } from "../../../MarkdownRenderer/markdownRenderer";
 
@@ -34,7 +34,7 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
   }
 
   h2 {
-    ${textHeadingSmall};
+    font: ${FONT.HEADING_SMALL};
     font-size: 18px;
     line-height: 26px;
 

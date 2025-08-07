@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import React, { Fragment, ReactNode } from "react";
 import { LABEL } from "../../../../../../apis/azul/common/entities";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";
 
 export interface BasicCellProps {
@@ -14,7 +15,10 @@ export const BasicCell = ({
 }: BasicCellProps): JSX.Element | null => {
   if (isValueNumberOrString(value)) {
     return (
-      <Typography variant="inherit" {...TypographyProps}>
+      <Typography
+        variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
+        {...TypographyProps}
+      >
         {value}
       </Typography>
     );
@@ -23,7 +27,11 @@ export const BasicCell = ({
     return (
       <Fragment>
         {value.map((v: number | string) => (
-          <Typography key={v} variant="inherit" {...TypographyProps}>
+          <Typography
+            key={v}
+            variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
+            {...TypographyProps}
+          >
             {v}
           </Typography>
         ))}

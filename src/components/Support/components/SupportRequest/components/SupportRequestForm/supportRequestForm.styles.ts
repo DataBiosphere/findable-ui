@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { textHeadingSmall } from "../../../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../../../styles/common/constants/font";
 import { GridPaperSection } from "../../../../../common/Section/section.styles";
 
 export const Title = styled.h3`
-  ${textHeadingSmall};
+  font: ${FONT.HEADING_SMALL};
   margin: 0;
 `;
 
