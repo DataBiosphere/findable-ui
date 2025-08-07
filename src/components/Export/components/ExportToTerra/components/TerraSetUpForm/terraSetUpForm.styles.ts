@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import {
-  successMain,
-  white,
-} from "../../../../../../styles/common/mixins/colors";
+import { white } from "../../../../../../styles/common/mixins/colors";
 import { sectionPadding } from "../../../../../common/Section/section.styles";
 
 export const Section = styled("div")`
@@ -33,7 +30,7 @@ export const SectionStatus = styled("div")`
   line-height: 0;
 
   .MuiSvgIcon-fontSizeMedium {
-    color: ${successMain};
+    color: ${PALETTE.SUCCESS_MAIN};
   }
 
   .MuiStepIcon-root {

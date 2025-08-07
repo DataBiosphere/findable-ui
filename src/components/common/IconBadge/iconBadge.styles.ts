@@ -2,8 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../styles/common/constants/palette";
 import {
-  successLightest,
-  successMain,
   warningLightest,
   warningMain,
 } from "../../../styles/common/mixins/colors";
@@ -38,11 +36,11 @@ export const Circle = styled.div<Props>`
     `};
 
   // Success.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.SUCCESS &&
     css`
-      background-color: ${successLightest(props)};
-      color: ${successMain(props)};
+      background-color: ${PALETTE.SUCCESS_LIGHTEST};
+      color: ${PALETTE.SUCCESS_MAIN};
     `};
 
   // Warning.
