@@ -14,8 +14,8 @@ export const breakpoints = (
     md: 1280,
     sm: 768,
     xs: 0,
+    ...themeOptions.breakpoints?.values,
   },
-  ...themeOptions.breakpoints,
 });
 
 /**
