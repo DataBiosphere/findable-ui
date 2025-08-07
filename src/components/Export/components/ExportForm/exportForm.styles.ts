@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FormControl as MFormControl } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 import { ThemeProps } from "../../../../theme/types";
 import {
   sectionMargin,
@@ -12,7 +12,7 @@ import {
 
 export const margin = ({ theme }: ThemeProps) => css`
   ${sectionMargin}
-  ${mediaTabletUp({ theme })} {
+  ${bpUpSm({ theme })} {
     ${sectionMarginSm}
   }
 `;
@@ -52,7 +52,7 @@ export const TableFormControl = styled(FormControl)`
     .MuiFormLabel-root {
       margin: 16px;
 
-      ${mediaTabletUp} {
+      ${bpUpSm} {
         margin: 16px 20px;
       }
     }
@@ -64,7 +64,7 @@ export const TableFormControl = styled(FormControl)`
     .MuiFormHelperText-root {
       margin: 16px;
 
-      ${mediaTabletUp} {
+      ${bpUpSm} {
         margin: 16px 20px;
       }
     }
@@ -81,7 +81,7 @@ export const TableFormControl = styled(FormControl)`
         min-height: 48px;
         padding: 14px 16px;
 
-        ${mediaTabletUp} {
+        ${bpUpSm} {
           padding: 14px 20px;
         }
       }

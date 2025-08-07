@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TABLET } from "../../../theme/common/breakpoints";
+import { bpUpSm } from "../../../styles/common/mixins/breakpoints";
 import { SectionContent } from "../Section/section.styles";
 
 export const CardSection = styled.div`
@@ -7,7 +7,7 @@ export const CardSection = styled.div`
   gap: 16px;
   padding: 20px 16px;
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${bpUpSm} {
     padding: 20px;
   }
 `;

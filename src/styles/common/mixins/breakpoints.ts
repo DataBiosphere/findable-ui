@@ -1,4 +1,4 @@
-import { DESKTOP, DESKTOP_SM, TABLET } from "../../../theme/common/breakpoints";
+import { DESKTOP_SM } from "../../../theme/common/breakpoints";
 import { ThemeProps } from "../../../theme/types";
 
 export const bpDown820 = ({ theme }: ThemeProps): string =>
@@ -6,6 +6,9 @@ export const bpDown820 = ({ theme }: ThemeProps): string =>
 
 export const bpDown1024 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(1024);
+
+export const bpDownSm = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.down("sm");
 
 export const bpUpLg = ({ theme }: ThemeProps): string =>
   theme.breakpoints.up("lg");
@@ -23,13 +26,7 @@ export const mediaDesktopSmallUp = ({ theme }: ThemeProps): string =>
   theme.breakpoints.up(DESKTOP_SM);
 
 export const mediaDesktopUp = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(DESKTOP);
-
-export const mediaTabletDown = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.down(TABLET);
-
-export const mediaTabletUp = ({ theme }: ThemeProps): string =>
-  theme.breakpoints.up(TABLET);
+  theme.breakpoints.up("lg");
 
 export const media1366Up = ({ theme }: ThemeProps): string =>
   theme.breakpoints.up(1366);

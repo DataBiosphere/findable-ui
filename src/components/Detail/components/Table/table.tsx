@@ -16,7 +16,6 @@ import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
-import { TABLET } from "../../../../theme/common/breakpoints";
 import { arrIncludesSome } from "../../../Table/columnDef/columnFilters/filterFn";
 import { COLUMN_DEF } from "../../../Table/common/columnDef";
 import { ROW_DIRECTION } from "../../../Table/common/entities";
@@ -52,9 +51,9 @@ export const Table = <T extends RowData>({
   tableOptions,
   tableView,
 }: TableProps<T>): JSX.Element => {
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
+  const bpDownSm = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
   const rowDirection =
-    collapsable && tabletDown ? ROW_DIRECTION.VERTICAL : ROW_DIRECTION.DEFAULT;
+    collapsable && bpDownSm ? ROW_DIRECTION.VERTICAL : ROW_DIRECTION.DEFAULT;
   const { table, tableContainer } = tableView || {};
   const { stickyHeader = false } = table || {};
   const { sx: tableContainerSx } = tableContainer || {};

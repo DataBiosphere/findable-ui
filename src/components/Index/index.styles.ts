@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { LayoutSpacing } from "../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { mediaTabletDown } from "../../styles/common/mixins/breakpoints";
+import { bpDownSm } from "../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 
 export const StyledGridEntityView = styled(Grid, {
@@ -63,7 +63,7 @@ export const StyledGridEntityList = styled(Grid)`
   margin: 16px;
   overflow: hidden;
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     margin: 16px 0;
   }
 `;

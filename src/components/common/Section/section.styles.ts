@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import { PALETTE } from "../../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../styles/common/mixins/breakpoints";
 import { ThemeProps } from "../../../theme/types";
 
 export const sectionMargin = css`
@@ -20,7 +20,7 @@ export const sectionMarginXsm = css`
 export const sectionPadding = ({ theme }: ThemeProps) => css`
   padding: 20px 16px;
 
-  ${mediaTabletUp({ theme })} {
+  ${bpUpSm({ theme })} {
     padding: 20px;
   }
 `;
