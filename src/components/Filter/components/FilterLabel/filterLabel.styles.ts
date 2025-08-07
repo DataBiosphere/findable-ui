@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { inkLight, smokeMain } from "../../../../styles/common/mixins/colors";
+import { smokeMain } from "../../../../styles/common/mixins/colors";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterLabelProps } from "./filterLabel";
 
@@ -25,7 +25,7 @@ export const StyledButton = styled(Button, {
   }
 
   & .MuiButton-endIcon {
-    color: ${inkLight};
+    color: ${PALETTE.INK_LIGHT};
     margin-right: -4px;
     transform: rotate(-90deg);
   }

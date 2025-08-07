@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
-  inkLight,
   smokeMain,
   successMain,
   white,
@@ -50,11 +50,11 @@ export const SectionStatus = styled("div")`
     }
 
     &.Mui-active {
-      border: 2px solid ${inkLight};
+      border: 2px solid ${PALETTE.INK_LIGHT};
       color: ${white};
 
       .MuiStepIcon-text {
-        fill: ${inkLight};
+        fill: ${PALETTE.INK_LIGHT};
       }
     }
   }

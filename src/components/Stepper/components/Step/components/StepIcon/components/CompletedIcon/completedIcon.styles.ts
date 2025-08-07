@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 import { SvgIcon } from "@mui/material";
-import {
-  inkLight,
-  smokeDark,
-} from "../../../../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../../../../styles/common/constants/palette";
+import { smokeDark } from "../../../../../../../../styles/common/mixins/colors";
 
 export const StyledSvgIcon = styled(SvgIcon)`
   &.MuiSvgIcon-root {
@@ -13,7 +11,7 @@ export const StyledSvgIcon = styled(SvgIcon)`
 
     &.Mui-completed {
       border: 2px solid ${smokeDark};
-      color: ${inkLight};
+      color: ${PALETTE.INK_LIGHT};
     }
   }
 `;

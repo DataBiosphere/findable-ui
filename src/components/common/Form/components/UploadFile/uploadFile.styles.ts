@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { ButtonBase } from "@mui/material";
 import { PALETTE } from "../../../../../styles/common/constants/palette";
 import {
-  inkMain,
   smokeDark,
   smokeLight,
 } from "../../../../../styles/common/mixins/colors";
@@ -46,7 +45,7 @@ export const Button = styled(ButtonBase, {
     `};
 
   .MuiTypography-body-400 {
-    color: ${inkMain};
+    color: ${PALETTE.INK_MAIN};
     opacity: 0.8;
     overflow: hidden;
     text-overflow: ellipsis;

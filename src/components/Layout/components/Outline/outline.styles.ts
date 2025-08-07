@@ -2,7 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Tab as MTab, Tabs as MTabs, TabProps } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
-import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
+import { smokeMain } from "../../../../styles/common/mixins/colors";
 
 interface Props extends TabProps {
   depth: number;
@@ -46,7 +47,7 @@ export const StyledTab = styled(MTab, {
   shouldForwardProp: (prop) => prop !== "depth",
 })<Props>`
   ${tab};
-  color: ${inkMain};
+  color: ${PALETTE.INK_MAIN};
 
   ${({ depth }) =>
     depth === 2 &&

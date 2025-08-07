@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { StepIcon } from "@mui/material";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
-  inkLight,
   primaryMain,
   smokeDark,
 } from "../../../../../../styles/common/mixins/colors";
@@ -15,7 +15,7 @@ export const StyledStepIcon = styled(StepIcon)`
     width: 32px;
 
     .MuiStepIcon-text {
-      fill: ${inkLight};
+      fill: ${PALETTE.INK_LIGHT};
       font-size: 13px;
       font-weight: 600;
       line-height: 24px;

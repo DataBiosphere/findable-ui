@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Tab } from "@mui/material";
 import { FONT } from "../../../../../../styles/common/constants/font";
-import { inkLight } from "../../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { tab } from "../../outline.styles";
 
 export const StyledTab = styled(Tab)`
@@ -10,7 +10,7 @@ export const StyledTab = styled(Tab)`
   && {
     align-items: center;
     align-self: flex-start;
-    color: ${inkLight};
+    color: ${PALETTE.INK_LIGHT};
     font: ${FONT.UPPERCASE_500};
     pointer-events: none;
     text-transform: uppercase;

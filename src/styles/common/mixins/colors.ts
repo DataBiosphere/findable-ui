@@ -1,12 +1,6 @@
 import { CommonColors, PaletteColor } from "@mui/material/styles";
 import { ThemeProps } from "../../../theme/theme";
 
-// Ink
-export const inkLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
-  theme.palette.ink.light;
-export const inkMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
-  theme.palette.ink.main;
-
 // Primary
 export const primaryDark = ({ theme }: ThemeProps): PaletteColor["dark"] =>
   theme.palette.primary.dark;

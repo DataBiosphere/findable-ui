@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { MenuItem as MMenuItem, Popper as MPopper } from "@mui/material";
+import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
 import {
-  inkLight,
   smokeLight,
   smokeMain,
 } from "../../../../../../../../../../styles/common/mixins/colors";
@@ -49,13 +49,13 @@ export const StyledPopper = styled(MPopper)`
           }
 
           .MuiListItemText-secondary {
-            color: ${inkLight};
+            color: ${PALETTE.INK_LIGHT};
             white-space: normal;
           }
         }
 
         &.Mui-disabled {
-          color: ${inkLight};
+          color: ${PALETTE.INK_LIGHT};
           opacity: 1;
         }
 
