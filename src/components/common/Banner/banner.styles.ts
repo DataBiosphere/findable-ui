@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Alert } from "@mui/material";
 import { FONT } from "../../../styles/common/constants/font";
-import { mediaDesktopUp } from "../../../styles/common/mixins/breakpoints";
+import { bpUpLg } from "../../../styles/common/mixins/breakpoints";
 
 export const StyledAlert = styled(Alert)`
   justify-content: center;
@@ -23,7 +23,7 @@ export const StyledAlert = styled(Alert)`
     padding: 0;
   }
 
-  ${mediaDesktopUp} {
+  ${bpUpLg} {
     padding: 8px 16px;
   }
 `;

@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import {
+  bpUpMd,
   bpUpSm,
-  mediaDesktopSmallUp,
 } from "../../../../../../../../../../styles/common/mixins/breakpoints";
 
 export const Section = styled.div`
@@ -42,7 +42,7 @@ export const Section = styled.div`
     }
   }
 
-  ${mediaDesktopSmallUp} {
+  ${bpUpMd} {
     grid-template-columns: 194px minmax(0, 1fr);
   }
 `;
