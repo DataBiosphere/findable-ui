@@ -61,7 +61,7 @@ describe("Theme Configuration", () => {
       const fontFamily = app.fontFamily;
       expect(fontFamily).toBeDefined();
       expect(fontFamily).toEqual(
-        `var(--mui-app-fontFamily, ${theme.typography.fontFamily})`
+        `var(--app-fontFamily, ${theme.typography.fontFamily})`
       );
     });
 
@@ -86,7 +86,7 @@ describe("Theme Configuration", () => {
           expect(typographyValue.fontFamily).toBeDefined();
 
           // Check variable pattern.
-          expect(fontValue).toMatch(new RegExp(`^var\\(--mui-font-${variant}`));
+          expect(fontValue).toMatch(new RegExp(`^var\\(--font-${variant}`));
 
           // Check font size and line height format.
           expect(fontValue).toMatch(/\d+px\/\d+px/);
@@ -99,7 +99,7 @@ describe("Theme Configuration", () => {
           // Full pattern test.
           expect(fontValue).toMatch(
             new RegExp(
-              `^var\\(--mui-font-${variant},\\s+\\d+\\s+\\d+px\\/\\d+px\\s+${typographyValue.fontFamily}\\)$`
+              `^var\\(--font-${variant},\\s+\\d+\\s+\\d+px\\/\\d+px\\s+${typographyValue.fontFamily}\\)$`
             )
           );
         });
