@@ -1,10 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../styles/common/constants/palette";
-import {
-  warningLightest,
-  warningMain,
-} from "../../../styles/common/mixins/colors";
 import { ICON_BADGE_COLOR, IconBadgeColor } from "./iconBadge";
 
 interface Props {
@@ -44,10 +40,10 @@ export const Circle = styled.div<Props>`
     `};
 
   // Warning.
-  ${({ color, ...props }) =>
+  ${({ color }) =>
     color === ICON_BADGE_COLOR.WARNING &&
     css`
-      background-color: ${warningLightest(props)};
-      color: ${warningMain(props)};
+      background-color: ${PALETTE.WARNING_LIGHTEST};
+      color: ${PALETTE.WARNING_MAIN};
     `};
 `;
