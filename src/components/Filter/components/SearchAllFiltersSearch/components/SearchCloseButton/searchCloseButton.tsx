@@ -5,18 +5,14 @@ import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
 } from "../../../../../../hooks/useBreakpointHelper";
-import { DESKTOP_SM } from "../../../../../../theme/common/breakpoints";
 import { ListboxContext } from "../../../SearchAllFilters/searchAllFilters";
 
 export const SearchCloseButton = (): JSX.Element => {
-  const desktopSmDown = useBreakpointHelper(
-    BREAKPOINT_FN_NAME.DOWN,
-    DESKTOP_SM
-  );
+  const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
   const { onClearSearch, onCloseSearch, open, searchTerm } =
     useContext(ListboxContext);
-  const showButton = open && (desktopSmDown || searchTerm);
-  const onClickFn = desktopSmDown ? onCloseSearch : onClearSearch;
+  const showButton = open && (bpDownMd || searchTerm);
+  const onClickFn = bpDownMd ? onCloseSearch : onClearSearch;
   return (
     <Fragment>
       {showButton && (
