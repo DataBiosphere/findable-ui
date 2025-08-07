@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import {
+  bpUpSm,
   mediaDesktopSmallUp,
-  mediaTabletUp,
 } from "../../../../../../../../../../styles/common/mixins/breakpoints";
 
 export const Section = styled.div`
@@ -28,7 +28,7 @@ export const Section = styled.div`
     text-transform: none;
   }
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     gap: 0 8px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding: 8px 24px;

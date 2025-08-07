@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import { TABLET } from "../../theme/common/breakpoints";
+import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
 export const LoginWrapper = styled.div`
@@ -17,7 +17,7 @@ export const LoginSection = styled(Section)`
   gap: 24px 0;
   padding: 32px;
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${bpUpSm} {
     padding: 32px;
   }
 `;

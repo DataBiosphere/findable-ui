@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../styles/common/constants/palette";
-import { TABLET } from "../../../theme/common/breakpoints";
+import { bpDownSm } from "../../../styles/common/mixins/breakpoints";
 import { Paper } from "./paper";
 
 /**
@@ -36,7 +36,7 @@ export const RoundedPaper = styled(Paper)`
 /* eslint-enable valid-jsdoc -- disable require param */
 export const FluidPaper = styled(RoundedPaper)`
   & {
-    ${({ theme }) => theme.breakpoints.down(TABLET)} {
+    ${bpDownSm} {
       border-left: none;
       border-radius: 0;
       border-right: none;

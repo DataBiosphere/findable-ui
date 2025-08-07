@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../styles/common/constants/font";
-import { TABLET } from "../../theme/common/breakpoints";
+import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 import { Section, sectionMarginXsm } from "../common/Section/section.styles";
 
 interface Props {
@@ -29,7 +29,7 @@ export const ErrorSection = styled(Section)`
   align-items: center;
   padding: 0;
 
-  ${({ theme }) => theme.breakpoints.up(TABLET)} {
+  ${bpUpSm} {
     padding: 0;
   }
 `;

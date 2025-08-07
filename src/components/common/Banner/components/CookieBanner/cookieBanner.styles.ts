@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Alert } from "@mui/material";
 import { FONT } from "../../../../../styles/common/constants/font";
-import { mediaTabletUp } from "../../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../../styles/common/mixins/breakpoints";
 
 export const StyledAlert = styled(Alert)`
   bottom: 0;
@@ -25,7 +25,7 @@ export const StyledAlert = styled(Alert)`
     padding: 0;
   }
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     box-sizing: content-box;
     margin: 16px;
     max-width: 400px;

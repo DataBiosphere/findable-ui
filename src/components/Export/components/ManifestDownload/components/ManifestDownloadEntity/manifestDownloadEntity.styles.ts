@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { TableContainer as MTableContainer } from "@mui/material";
 import { FONT } from "../../../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../../../styles/common/mixins/breakpoints";
 
 export const SectionTitle = styled("h4")`
   background-color: ${PALETTE.COMMON_WHITE};
@@ -10,7 +10,7 @@ export const SectionTitle = styled("h4")`
   margin: 0;
   padding: 20px 16px;
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     padding: 20px;
   }
 `;
@@ -25,7 +25,7 @@ export const TableContainer = styled(MTableContainer)`
     min-height: 56px;
   }
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     td,
     th {
       padding: 12px 20px;

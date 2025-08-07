@@ -3,8 +3,7 @@ import { Fab as MFab, Popover as MPopover } from "@mui/material";
 import { COLOR_MIXES } from "../../../../../../styles/common/constants/colorMixes";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { SHADOWS } from "../../../../../../styles/common/constants/shadows";
-import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
-import { tabletUp } from "../../../../../../theme/common/breakpoints";
+import { bpUpSm } from "../../../../../../styles/common/mixins/breakpoints";
 
 interface Props {
   open: boolean;
@@ -17,7 +16,7 @@ export const Fab = styled(MFab)<Props>`
   right: 16px;
   z-index: ${({ open }) => (open ? 1350 : 1050)}; // Above backdrop component.
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     bottom: 72px;
   }
 `;
@@ -31,7 +30,7 @@ export const Popover = styled(MPopover)`
       border-radius: 8px;
       width: 100%;
 
-      ${tabletUp} {
+      ${bpUpSm} {
         max-width: 496px;
       }
     }

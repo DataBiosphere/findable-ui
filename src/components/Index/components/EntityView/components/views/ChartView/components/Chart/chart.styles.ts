@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { FONT } from "../../../../../../../../../styles/common/constants/font";
-import { mediaTabletDown } from "../../../../../../../../../styles/common/mixins/breakpoints";
+import { bpDownSm } from "../../../../../../../../../styles/common/mixins/breakpoints";
 import { BarX } from "../../../../../../../../Plot/components/BarX/barX";
 
 export const StyledBarX = styled(BarX)`
@@ -18,7 +18,7 @@ export const StyledBarX = styled(BarX)`
           text-anchor: end;
         }
 
-        ${mediaTabletDown} {
+        ${bpDownSm} {
           display: none;
           &:nth-of-type(1),
           &:nth-last-of-type(1) {

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { AppBar as MAppBar } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 import { Socials as DXSocials } from "../../../common/Socials/socials";
 import { Link as DXLink } from "../../../Links/components/Link/link";
 
@@ -19,7 +19,7 @@ export const AppBar = styled(MAppBar)`
     padding: 0 16px;
   }
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     padding: 0;
 
     .MuiToolbar-root {
@@ -37,7 +37,7 @@ export const Links = styled.div`
   flex-direction: column;
   gap: 24px;
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     flex-direction: row;
   }
 `;

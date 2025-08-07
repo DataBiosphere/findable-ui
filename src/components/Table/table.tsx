@@ -15,7 +15,6 @@ import {
 import { useExploreMode } from "../../hooks/useExploreMode/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
-import { TABLET } from "../../theme/common/breakpoints";
 import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
@@ -39,14 +38,14 @@ export const Table = <T extends RowData>({
   loading,
   table,
 }: TableProps<T>): JSX.Element => {
-  const tabletDown = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
+  const bpDownSm = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
   const exploreMode = useExploreMode();
   const { exploreDispatch, exploreState } = useExploreState();
   const { paginationState } = exploreState;
   const { currentPage, pages } = paginationState;
   const { disablePagination = false } = listView || {};
   const clientFiltering = isClientFilteringEnabled(exploreMode);
-  const rowDirection = tabletDown
+  const rowDirection = bpDownSm
     ? ROW_DIRECTION.VERTICAL
     : ROW_DIRECTION.DEFAULT;
   const { rows, scrollElementRef, virtualizer } = useVirtualization({

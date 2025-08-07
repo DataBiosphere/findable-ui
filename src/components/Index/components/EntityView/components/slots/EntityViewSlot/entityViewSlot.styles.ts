@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
-import { mediaTabletDown } from "../../../../../../../styles/common/mixins/breakpoints";
+import { bpDownSm } from "../../../../../../../styles/common/mixins/breakpoints";
 
 export const StyledGrid = styled(Grid)`
   display: grid;
@@ -11,7 +11,7 @@ export const StyledGrid = styled(Grid)`
     display: none;
   }
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     margin: 16px 0;
   }
 `;

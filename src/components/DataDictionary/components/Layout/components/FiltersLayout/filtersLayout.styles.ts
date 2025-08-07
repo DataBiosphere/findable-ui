@@ -3,7 +3,7 @@ import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
   bpDown1024,
-  mediaTabletDown,
+  bpDownSm,
 } from "../../../../../../styles/common/mixins/breakpoints";
 import { LAYOUT_SPACING } from "../../constants";
 
@@ -31,7 +31,7 @@ export const Layout = styled("div")<LayoutSpacing>`
     position: relative;
   }
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     margin: 0 16px;
   }
 `;

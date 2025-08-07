@@ -2,9 +2,9 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
+  bpDownSm,
   media1366Up,
   mediaDesktopSmallUp,
-  mediaTabletDown,
 } from "../../../../styles/common/mixins/breakpoints";
 import { PanelBackgroundColor } from "./common/entities";
 
@@ -125,7 +125,7 @@ export const Content = styled.div`
   max-width: ${CONTENT_MAX_WIDTH}px;
   padding: ${PADDING_Y}px 40px;
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     padding: ${PADDING_Y}px 16px;
   }
 `;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaTabletUp } from "../../../../../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../../../../../styles/common/mixins/breakpoints";
 
 export const BackPageHeroActions = styled.div`
   align-items: center;
@@ -8,7 +8,7 @@ export const BackPageHeroActions = styled.div`
   gap: 16px;
   justify-self: flex-start;
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     justify-self: flex-end;
   }
 `;
