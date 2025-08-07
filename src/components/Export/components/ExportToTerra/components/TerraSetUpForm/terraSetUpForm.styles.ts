@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import { white } from "../../../../../../styles/common/mixins/colors";
 import { sectionPadding } from "../../../../../common/Section/section.styles";
 
 export const Section = styled("div")`
   ${sectionPadding};
-  background-color: ${white};
+  background-color: ${PALETTE.COMMON_WHITE};
   display: grid;
   gap: 16px;
   grid-template-columns: auto 1fr;
@@ -36,7 +35,7 @@ export const SectionStatus = styled("div")`
   .MuiStepIcon-root {
     border: 2px solid ${PALETTE.SMOKE_MAIN};
     border-radius: 50%;
-    color: ${white};
+    color: ${PALETTE.COMMON_WHITE};
 
     .MuiStepIcon-text {
       fill: ${PALETTE.SMOKE_MAIN};
@@ -47,7 +46,7 @@ export const SectionStatus = styled("div")`
 
     &.Mui-active {
       border: 2px solid ${PALETTE.INK_LIGHT};
-      color: ${white};
+      color: ${PALETTE.COMMON_WHITE};
 
       .MuiStepIcon-text {
         fill: ${PALETTE.INK_LIGHT};

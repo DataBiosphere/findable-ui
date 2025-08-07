@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { SHADOWS } from "../../../../styles/common/constants/shadows";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import { white } from "../../../../styles/common/mixins/colors";
 
 export const Fab = styled("a")`
   align-items: center;
@@ -11,7 +10,7 @@ export const Fab = styled("a")`
   border-radius: 50%;
   bottom: 16px;
   box-shadow: ${SHADOWS["02"]};
-  color: ${white};
+  color: ${PALETTE.COMMON_WHITE};
   cursor: pointer;
   display: flex;
   font-size: 28px; // Determines the size of the support icon.
