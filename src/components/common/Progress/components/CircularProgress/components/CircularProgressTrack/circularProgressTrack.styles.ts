@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { CircularProgress as MCircularProgress } from "@mui/material";
+import { PALETTE } from "../../../../../../../styles/common/constants/palette";
 import {
-  alertLight,
   infoLight,
   smokeLight,
   successLight,
@@ -16,7 +16,7 @@ export const CircularProgress = styled(MCircularProgress)`
   z-index: 0;
 
   &.MuiCircularProgress-colorAlert {
-    color: ${alertLight};
+    color: ${PALETTE.ALERT_LIGHT};
   }
 
   &.MuiCircularProgress-colorInfo {

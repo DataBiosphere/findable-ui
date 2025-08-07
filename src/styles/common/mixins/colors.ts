@@ -1,15 +1,6 @@
 import { CommonColors, PaletteColor } from "@mui/material/styles";
 import { ThemeProps } from "../../../theme/theme";
 
-// Alert
-export const alertLight = ({ theme }: ThemeProps): PaletteColor["light"] =>
-  theme.palette.alert.light;
-export const alertLightest = ({
-  theme,
-}: ThemeProps): PaletteColor["lightest"] => theme.palette.alert.lightest;
-export const alertMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
-  theme.palette.alert.main;
-
 // Error
 export const errorMain = ({ theme }: ThemeProps): PaletteColor["main"] =>
   theme.palette.error.main;
