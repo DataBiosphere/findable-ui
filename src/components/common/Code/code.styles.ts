@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FONT } from "../../../styles/common/constants/font";
-import { ThemeProps } from "../../../theme/theme";
+import { ThemeProps } from "../../../theme/types";
 
 interface Props {
   copied: boolean;

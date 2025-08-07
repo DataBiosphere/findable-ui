@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { FONT } from "../../styles/common/constants/font";
 import { mediaTabletUp } from "../../styles/common/mixins/breakpoints";
 import { inkLight } from "../../styles/common/mixins/colors";
-import { ThemeProps } from "../../theme/theme";
+import { ThemeProps } from "../../theme/types";
 import { SectionContent as MDXSectionContent } from "../common/MDXMarkdown/components/Section/mdxSection.styles";
 import {
   SectionActions as DXSectionActions,

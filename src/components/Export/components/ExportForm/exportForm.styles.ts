@@ -4,7 +4,7 @@ import { FormControl as MFormControl } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
 import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
-import { ThemeProps } from "../../../../theme/theme";
+import { ThemeProps } from "../../../../theme/types";
 import {
   sectionMargin,
   sectionMarginSm,

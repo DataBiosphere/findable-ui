@@ -1,5 +1,5 @@
 import { DESKTOP, DESKTOP_SM, TABLET } from "../../../theme/common/breakpoints";
-import { ThemeProps } from "../../../theme/theme";
+import { ThemeProps } from "../../../theme/types";
 
 export const bpDown820 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(820);

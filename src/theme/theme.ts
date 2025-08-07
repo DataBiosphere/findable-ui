@@ -8,10 +8,6 @@ import { shadows } from "./common/shadows";
 import { typography } from "./common/typography";
 import * as M from "./components";
 
-export interface ThemeProps {
-  theme: Theme;
-}
-
 /**
  * Returns a generated theme with customization.
  * @param customOptions - Custom theme option overrides.
