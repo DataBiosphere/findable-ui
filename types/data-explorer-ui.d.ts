@@ -122,6 +122,20 @@ declare module "@mui/material/Tabs" {
 /* eslint-disable sonarjs/no-duplicate-string  -- ignoring duplicate strings here */
 
 declare module "@mui/material/styles" {
+  interface CssVarsTheme {
+    vars: CssVarsTheme["vars"] & {
+      app?: {
+        fontFamily?: string;
+      };
+    };
+  }
+
+  interface ThemeVars {
+    app?: {
+      fontFamily?: string;
+    };
+  }
+
   interface BreakpointOverrides {
     lg: true;
     md: true;
@@ -148,6 +162,18 @@ declare module "@mui/material/styles" {
 
   interface SimplePaletteColorOptions {
     lightest?: string;
+  }
+
+  interface Theme {
+    app?: {
+      fontFamily?: string;
+    };
+  }
+
+  interface ThemeOptions {
+    app?: {
+      fontFamily?: string;
+    };
   }
 
   interface TypographyVariants {
