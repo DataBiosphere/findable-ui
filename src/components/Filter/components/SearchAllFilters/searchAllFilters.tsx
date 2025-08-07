@@ -20,7 +20,6 @@ import {
 } from "../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { SearchCloseButton } from "../SearchAllFiltersSearch/components/SearchCloseButton/searchCloseButton";
 import { SearchAllFiltersSearch } from "../SearchAllFiltersSearch/searchAllFiltersSearch";
@@ -83,7 +82,7 @@ export const SearchAllFilters = ({
   onFilter,
 }: SearchAllFiltersProps): JSX.Element => {
   const { open: isDrawerOpen } = useDrawer();
-  const desktopSmUp = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, DESKTOP_SM);
+  const bpUpMd = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "md");
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -91,9 +90,9 @@ export const SearchAllFilters = ({
     isSelectCategoryView(view)
   );
 
-  // Handles background scroll action (desktop only).
+  // Handles background scroll action ("md" and up).
   const handleBackgroundScroll = (overflowStyle: OVERFLOW_STYLE): void => {
-    if (desktopSmUp) {
+    if (bpUpMd) {
       setElementsOverflowStyle(
         [
           document.querySelector(SELECTOR.BODY),
@@ -160,13 +159,13 @@ export const SearchAllFilters = ({
       }}
     >
       <Autocomplete
-        clearOnBlur={desktopSmUp}
+        clearOnBlur={bpUpMd}
         data-testid={TEST_IDS.SEARCH_ALL_FILTERS}
         filterOptions={(options): string[] => options}
         freeSolo
         ListboxComponent={Listbox}
-        onBlur={desktopSmUp ? onCloseSearch : undefined}
-        onClose={desktopSmUp ? onCloseSearch : undefined}
+        onBlur={bpUpMd ? onCloseSearch : undefined}
+        onClose={bpUpMd ? onCloseSearch : undefined}
         onFocus={onOpenSearch}
         onOpen={onOpen}
         open={open}
@@ -186,7 +185,7 @@ export const SearchAllFilters = ({
             },
           })
         }
-        slotProps={desktopSmUp ? DEFAULT_SLOT_PROPS : DRAWER_SLOT_PROPS}
+        slotProps={bpUpMd ? DEFAULT_SLOT_PROPS : DRAWER_SLOT_PROPS}
       />
     </ListboxContext.Provider>
   );

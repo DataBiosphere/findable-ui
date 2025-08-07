@@ -1,4 +1,4 @@
-import { Breakpoint, ThemeOptions } from "@mui/material";
+import { ThemeOptions } from "@mui/material";
 
 /**
  * Creates breakpoint configuration for theme creation.
@@ -17,24 +17,3 @@ export const breakpoints = (
     ...themeOptions.breakpoints?.values,
   },
 });
-
-/**
- * Breakpoints
- */
-enum BREAKPOINTS {
-  DESKTOP = 1440,
-  DESKTOP_SM = 1280,
-  MOBILE = 0,
-  TABLET = 768,
-}
-
-/**
- * Breakpoint key constants
- */
-const BREAKPOINT_KEY: Record<keyof typeof BREAKPOINTS, Breakpoint> = {
-  DESKTOP: "lg",
-  DESKTOP_SM: "md",
-  MOBILE: "xs",
-  TABLET: "sm",
-};
-export const DESKTOP_SM = BREAKPOINT_KEY.DESKTOP_SM;
