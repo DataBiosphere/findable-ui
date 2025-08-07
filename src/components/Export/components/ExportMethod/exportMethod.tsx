@@ -2,6 +2,7 @@ import { Tooltip, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import { useDownloadStatus } from "../../../../hooks/useDownloadStatus";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { FluidPaper } from "../../../common/Paper/paper.styles";
 import { SectionTitle } from "../../../common/Section/components/SectionTitle/sectionTitle";
 import {
@@ -10,7 +11,7 @@ import {
   SectionContent,
 } from "../../../common/Section/section.styles";
 import { TrackingProps } from "../../../types";
-import { ExportButton, SectionFootnote } from "./exportMethod.styles";
+import { ExportButton } from "./exportMethod.styles";
 
 export interface ExportMethodProps extends TrackingProps {
   buttonLabel: string;
@@ -36,7 +37,9 @@ export const ExportMethod = ({
       <Section>
         <SectionContent>
           <SectionTitle title={title} />
-          <Typography variant="text-body-400-2lines">{description}</Typography>
+          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}>
+            {description}
+          </Typography>
         </SectionContent>
         <SectionActions>
           <Tooltip arrow title={message}>
@@ -58,7 +61,15 @@ export const ExportMethod = ({
             </span>
           </Tooltip>
         </SectionActions>
-        {footnote && <SectionFootnote>{footnote}</SectionFootnote>}
+        {footnote && (
+          <Typography
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+            component="div"
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
+          >
+            {footnote}
+          </Typography>
+        )}
       </Section>
     </FluidPaper>
   );

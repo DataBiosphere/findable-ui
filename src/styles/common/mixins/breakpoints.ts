@@ -7,6 +7,9 @@ export const bpDown820 = ({ theme }: ThemeProps): string =>
 export const bpDown1024 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(1024);
 
+export const bpUpSm = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up("sm");
+
 export const mediaDesktopSmallDown = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(DESKTOP_SM);
 

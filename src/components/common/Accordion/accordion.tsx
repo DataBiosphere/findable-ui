@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { ReactNode, useState } from "react";
-import { TEXT_BODY_LARGE_500 } from "../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { AddIcon } from "../CustomIcon/components/AddIcon/addIcon";
 import { RemoveIcon } from "../CustomIcon/components/RemoveIcon/removeIcon";
 
@@ -33,7 +33,9 @@ export const Accordion = ({
   return (
     <MAccordion expanded={isExpanded} onChange={onToggleExpanded} {...props}>
       <AccordionSummary expandIcon={isExpanded ? collapseIcon : expandIcon}>
-        <Typography variant={TEXT_BODY_LARGE_500}>{title}</Typography>
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}>
+          {title}
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
     </MAccordion>

@@ -30,7 +30,7 @@ export const Entity = <T extends RowData = Attribute>({
         <StyledTypography
           component="h3"
           id={classKey}
-          variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_SMALL}
+          variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
         >
           {cls.title} <AnchorLink anchorLink={classKey} />
         </StyledTypography>
@@ -38,7 +38,7 @@ export const Entity = <T extends RowData = Attribute>({
           <Typography
             color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
             component="div"
-            variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
           >
             {cls.description}
           </Typography>

@@ -74,7 +74,7 @@ export const MarkdownRenderer = ({
     return (
       <Typography
         color={TYPOGRAPHY_PROPS.COLOR.ERROR}
-        variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400}
+        variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
       >
         {error}
       </Typography>

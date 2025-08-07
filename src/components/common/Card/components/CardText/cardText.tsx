@@ -1,18 +1,12 @@
-import { Typography } from "@mui/material";
-import React, { ReactNode } from "react";
-import { TEXT_BODY_400_2_LINES } from "../../../../../theme/common/typography";
+import { Typography, TypographyProps } from "@mui/material";
+import React from "react";
+import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
-export interface CardTextProps {
-  children: ReactNode;
-}
-
-export const CardText = ({
-  children,
-  ...props /* Spread props to allow for Mui TypographyProps specific prop overrides e.g. "variant". */
-}: CardTextProps): JSX.Element => {
+export const CardText = (props: TypographyProps): JSX.Element => {
   return (
-    <Typography variant={TEXT_BODY_400_2_LINES} {...props}>
-      {children}
-    </Typography>
+    <Typography
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+      {...props}
+    />
   );
 };

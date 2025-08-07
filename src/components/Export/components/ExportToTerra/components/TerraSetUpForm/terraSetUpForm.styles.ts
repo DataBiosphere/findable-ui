@@ -20,7 +20,7 @@ export const SectionContent = styled("div")`
   gap: 4px;
   grid-row: 1;
 
-  .MuiTypography-text-body-400-2lines {
+  .MuiTypography-body-400-2lines {
     p {
       margin: 0;
     }

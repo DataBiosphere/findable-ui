@@ -30,6 +30,6 @@ export const WITH_CUSTOM_STYLE_ARGS: Partial<ComponentProps<typeof LinkCell>> =
       color: "success",
       href: "/",
       underline: "none",
-      variant: TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_SMALL_400,
+      variant: TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400,
     })) as GetValue,
   };
