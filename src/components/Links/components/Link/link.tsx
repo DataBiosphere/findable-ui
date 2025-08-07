@@ -6,6 +6,7 @@ import {
 import NLink from "next/link";
 import React, { ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
 import { BaseComponentProps } from "../../../types";
@@ -97,7 +98,7 @@ export const Link = ({
   return (
     <MTypography
       component="span"
-      variant="inherit"
+      variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
       {...props}
     >

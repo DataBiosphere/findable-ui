@@ -1,0 +1,18 @@
+export const FONT = {
+  BODY_400: `var(--font-body-400)`,
+  BODY_400_2_LINES: `var(--font-body-400-2lines)`,
+  BODY_500: `var(--font-body-500)`,
+  BODY_LARGE_400: `var(--font-body-large-400)`,
+  BODY_LARGE_400_2_LINES: `var(--font-body-large-400-2lines)`,
+  BODY_LARGE_500: `var(--font-body-large-500)`,
+  BODY_SMALL_400: `var(--font-body-small-400)`,
+  BODY_SMALL_400_2_LINES: `var(--font-body-small-400-2lines)`,
+  BODY_SMALL_500: `var(--font-body-small-500)`,
+  HEADING: `var(--font-heading)`,
+  HEADING_LARGE: `var(--font-heading-large)`,
+  HEADING_SMALL: `var(--font-heading-small)`,
+  HEADING_XLARGE: `var(--font-heading-xlarge)`,
+  HEADING_XSMALL: `var(--font-heading-xsmall)`,
+  INHERIT: `var(--font-inherit)`,
+  UPPERCASE_500: `var(--font-uppercase-500)`,
+} as const;

@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import { inkMain } from "../../../../styles/common/mixins/colors";
-import { textBody500 } from "../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { FiltersProps } from "./filters";
 
@@ -13,8 +13,8 @@ interface Props {
 export const Filters = styled("div")<
   Props & Pick<FiltersProps, "disabled" | "surfaceType">
 >`
-  ${textBody500};
-  color: ${inkMain};
+  color: ${PALETTE.INK_MAIN};
+  font: ${FONT.BODY_500};
   height: ${({ height }) => height}px;
   margin: 8px 0;
   overflow: auto;

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { AppBar as MAppBar } from "@mui/material";
-import { smokeMain } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { HEADER_HEIGHT } from "./common/constants";
 
 // See https://github.com/emotion-js/emotion/issues/1105.
@@ -10,7 +10,7 @@ const ignoreSsrWarning =
   "/* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */";
 
 export const AppBar = styled(MAppBar)`
-  border-bottom: 1px solid ${smokeMain};
+  border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
 
   &.MuiPaper-elevation0 {
     border-bottom: 1px solid transparent;

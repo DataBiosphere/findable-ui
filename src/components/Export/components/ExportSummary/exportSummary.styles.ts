@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
-import { textBody4002Lines } from "../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export const Label = styled.div`
-  ${textBody4002Lines};
-  color: ${({ theme }) => theme.palette.ink.light};
+  color: ${PALETTE.INK_LIGHT};
+  font: ${FONT.BODY_400_2_LINES};
 `;
 
 export const Values = styled.div`
-  ${textBody4002Lines};
   display: flex;
+  font: ${FONT.BODY_400_2_LINES};
   flex-wrap: wrap;
   gap: 0 8px;
 
@@ -17,6 +18,6 @@ export const Values = styled.div`
   }
 
   code {
-    color: ${({ theme }) => theme.palette.ink.light};
+    color: ${PALETTE.INK_LIGHT};
   }
 `;

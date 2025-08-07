@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 interface MatchHighlightProps {
   leftOpen: boolean;
@@ -7,7 +8,7 @@ interface MatchHighlightProps {
 }
 
 export const MatchHighlight = styled.mark<MatchHighlightProps>`
-  background: ${({ theme }) => theme.palette.warning.light};
+  background: ${PALETTE.WARNING_LIGHT};
   color: inherit;
   padding: 2px 0;
 

@@ -17,6 +17,7 @@ export const COLOR_MIXES = {
   INK_MAIN_64: `color-mix(in srgb, ${PALETTE.INK_MAIN} 64%, transparent)`,
   INK_MAIN_80: `color-mix(in srgb, ${PALETTE.INK_MAIN} 80%, transparent)`,
   PRIMARY_DARK_08: `color-mix(in srgb, ${PALETTE.PRIMARY_DARK} 8%, transparent)`,
+  PRIMARY_MAIN_90: `color-mix(in srgb, ${PALETTE.PRIMARY_MAIN} 90%, transparent)`,
   SUCCESS_MAIN_32: `color-mix(in srgb, ${PALETTE.SUCCESS_MAIN} 32%, transparent)`,
   WARNING_MAIN_32: `color-mix(in srgb, ${PALETTE.WARNING_MAIN} 32%, transparent)`,
 };

@@ -12,7 +12,7 @@ export const Term = ({
     <Typography
       className={className}
       data-testid={testId}
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400}
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
       {...props}
     />
   );

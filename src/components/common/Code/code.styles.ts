@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { textBody500 } from "../../../styles/common/mixins/fonts";
+import { COLOR_MIXES } from "../../../styles/common/constants/colorMixes";
+import { FONT } from "../../../styles/common/constants/font";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { ThemeProps } from "../../../theme/theme";
 
 interface Props {
@@ -8,13 +10,12 @@ interface Props {
 }
 
 const copy = (props: ThemeProps) => css`
-  ${textBody500(props)};
   align-items: center;
   border-radius: inherit;
-  color: ${props.theme.palette.common.white};
+  color: ${PALETTE.COMMON_WHITE};
   content: "";
   display: flex;
-  font-family: ${props.theme.typography.fontFamily};
+  font: ${FONT.BODY_500};
   height: 100%;
   justify-content: center;
   left: 0;
@@ -26,7 +27,7 @@ const copy = (props: ThemeProps) => css`
 `;
 
 export const CodeBlock = styled("pre")<Props>`
-  background-color: ${({ theme }) => theme.palette.info.lightest};
+  background-color: ${PALETTE.INFO_LIGHTEST};
   border-radius: 4px;
   cursor: pointer;
   margin: 16px 0;
@@ -38,22 +39,22 @@ export const CodeBlock = styled("pre")<Props>`
   }
 
   // Copy to Clipboard!
-  ${({ copied, theme }) =>
+  ${({ copied }) =>
     !copied &&
     css`
       &:hover::after {
-        background-color: ${theme.palette.primary.main}e6;
+        background-color: ${COLOR_MIXES.PRIMARY_MAIN_90};
         content: "Copy to Clipboard";
         opacity: 1;
       }
     `};
 
   // Copied!
-  ${({ copied, theme }) =>
+  ${({ copied }) =>
     copied &&
     css`
       &::after {
-        background-color: ${theme.palette.primary.main};
+        background-color: ${PALETTE.PRIMARY_MAIN};
         content: "Copied!";
         opacity: 1;
       }

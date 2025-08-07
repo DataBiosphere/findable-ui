@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { ReactNode } from "react";
-import { TEXT_BODY_SMALL_400 } from "../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 
 export interface SubTitleProps {
   subTitle?: ReactNode;
@@ -13,7 +13,11 @@ export const SubTitle = ({
   return (
     <>
       {typeof subTitle === "string" ? (
-        <Typography color="ink.light" variant={TEXT_BODY_SMALL_400} {...props}>
+        <Typography
+          color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+          {...props}
+        >
           {subTitle}
         </Typography>
       ) : (
