@@ -18,14 +18,17 @@ export interface ThemeProps {
  * @returns theme with custom theme overrides.
  */
 export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
+  // Clone custom options to avoid mutation.
+  const options = { ...customOptions };
+
   // Create base theme.
   const baseTheme = createTheme({
-    breakpoints: breakpoints(customOptions),
-    typography: fontStyles(customOptions),
+    breakpoints: breakpoints(options),
+    typography: fontStyles(options),
   });
 
   // Remove breakpoints from custom options.
-  delete customOptions.breakpoints;
+  delete options.breakpoints;
 
   // Generate default theme with custom overrides.
   const theme = createTheme(
@@ -50,7 +53,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
         spacing: 4,
         typography: typography(baseTheme),
       },
-      customOptions
+      options
     )
   );
 
