@@ -109,8 +109,3 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
 
   return theme;
 }
-
-/**
- * Default theme without customization.
- */
-export const defaultTheme: Theme = createAppTheme();
