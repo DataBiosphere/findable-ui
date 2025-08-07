@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
 import { StepIcon } from "@mui/material";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import {
-  primaryMain,
-  smokeDark,
-} from "../../../../../../styles/common/mixins/colors";
+import { smokeDark } from "../../../../../../styles/common/mixins/colors";
 
 export const StyledStepIcon = styled(StepIcon)`
   &.MuiSvgIcon-root {
@@ -22,10 +19,10 @@ export const StyledStepIcon = styled(StepIcon)`
     }
 
     &.Mui-active {
-      border-color: ${primaryMain};
+      border-color: ${PALETTE.PRIMARY_MAIN};
 
       .MuiStepIcon-text {
-        fill: ${primaryMain};
+        fill: ${PALETTE.PRIMARY_MAIN};
       }
     }
   }
