@@ -101,6 +101,12 @@ const DEFAULT_PALETTE_WARNING = {
   main: "#B54708",
 };
 
+const DEFAULT_SHADOWS = [
+  "none",
+  "0 1px 4px 0 #00000012",
+  "0 8px 8px -4px #10182808, 0 20px 24px -4px #10182814",
+];
+
 const CUSTOM_OPTIONS: ThemeOptions = {
   breakpoints: CUSTOM_BREAKPOINTS,
   palette: { primary: CUSTOM_PALETTE_PRIMARY },
@@ -206,6 +212,14 @@ describe("Theme Configuration", () => {
             `var(--palette-${color}-${shade}, ${value})`
           );
         });
+      });
+    });
+
+    it("should have shadow values exposed as CSS variables", () => {
+      expect(vars.shadows).toBeDefined();
+      vars.shadows.forEach((shadow, i) => {
+        // Full pattern test.
+        expect(shadow).toEqual(`var(--shadows-${i}, ${theme.shadows[i]})`);
       });
     });
   });
@@ -321,6 +335,22 @@ describe("Theme Configuration", () => {
         dark: DEFAULT_PALETTE_PRIMARY.dark,
         lightest: DEFAULT_PALETTE_PRIMARY.lightest,
       });
+    });
+  });
+
+  describe("Shadow Configuration", () => {
+    it("should initialize with default shadow settings", () => {
+      expect(theme.shadows).toBeDefined();
+    });
+
+    it("should have the correct number of shadows", () => {
+      expect(theme.shadows.length).toBe(25);
+    });
+
+    it("should have the correct default shadow values", () => {
+      expect(theme.shadows[0]).toBe(DEFAULT_SHADOWS[0]);
+      expect(theme.shadows[1]).toBe(DEFAULT_SHADOWS[1]);
+      expect(theme.shadows[2]).toBe(DEFAULT_SHADOWS[2]);
     });
   });
 
