@@ -321,7 +321,7 @@ function isPaletteColor(color: unknown): color is PaletteColor {
  * @param actual - Actual palette color object to validate.
  * @param expected - An object containing the expected key-value pairs.
  */
-export function validatePaletteColor(
+function validatePaletteColor(
   actual: unknown,
   expected: Record<string, string>
 ): void {
