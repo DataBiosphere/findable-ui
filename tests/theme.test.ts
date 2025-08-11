@@ -40,6 +40,15 @@ const DEFAULT_BODY_400: TypographyStyle = {
   lineHeight: "20px",
 };
 
+const DEFAULT_BREAKPOINTS = {
+  values: {
+    lg: 1440,
+    md: 1280,
+    sm: 768,
+    xs: 0,
+  },
+};
+
 const DEFAULT_PALETTE_ALERT = {
   light: "#FED3D1",
   lightest: "#FFF4F4",
@@ -198,6 +207,16 @@ describe("Theme Configuration", () => {
           );
         });
       });
+    });
+  });
+
+  describe("Breakpoint Configuration", () => {
+    it("should use default breakpoint values when no custom options provided", () => {
+      expect(theme.breakpoints.values).toEqual(DEFAULT_BREAKPOINTS.values);
+    });
+
+    it("should override breakpoints when custom values provided", () => {
+      expect(customTheme.breakpoints.values).toEqual(CUSTOM_BREAKPOINTS.values);
     });
   });
 
