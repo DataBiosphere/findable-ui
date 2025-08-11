@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { TableContainer as MTableContainer } from "@mui/material";
 import { FONT } from "../../../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../../../../styles/common/mixins/breakpoints";
-import { white } from "../../../../../../styles/common/mixins/colors";
 
 export const SectionTitle = styled("h4")`
-  background-color: ${white};
+  background-color: ${PALETTE.COMMON_WHITE};
   font: ${FONT.BODY_LARGE_500};
   margin: 0;
   padding: 20px 16px;

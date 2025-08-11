@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormControl, OutlinedInput } from "@mui/material";
+import { PALETTE } from "../../../styles/common/constants/palette";
 
 interface Props {
   isFilled: boolean;
@@ -25,12 +26,12 @@ export const InputField = styled(OutlinedInput, {
   }
 
   // Input filled.
-  ${({ isFilled, theme }) =>
+  ${({ isFilled }) =>
     isFilled &&
     css`
       .MuiOutlinedInput-input,
       .MuiSvgIcon-root {
-        color: ${theme.palette.ink.main};
+        color: ${PALETTE.INK_MAIN};
       }
     `};
 `;

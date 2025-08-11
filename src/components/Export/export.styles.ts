@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FONT } from "../../styles/common/constants/font";
+import { PALETTE } from "../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../styles/common/mixins/breakpoints";
-import { inkLight } from "../../styles/common/mixins/colors";
 import { ThemeProps } from "../../theme/types";
 import { SectionContent as MDXSectionContent } from "../common/MDXMarkdown/components/Section/mdxSection.styles";
 import {
@@ -35,6 +35,6 @@ export const SectionActions = styled(DXSectionActions)`
 
 export const SectionFootnote = styled.div`
   ${sectionMargin}
-  color: ${inkLight};
+  color: ${PALETTE.INK_LIGHT};
   font: ${FONT.BODY_SMALL_400_2_LINES};
 `;

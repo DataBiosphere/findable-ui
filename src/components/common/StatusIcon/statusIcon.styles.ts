@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { PRIORITY, Priority } from "./statusIcon";
 
 interface Props {
@@ -15,36 +16,36 @@ export const StatusCircle = styled.div<Props>`
   width: 72px;
 
   // Normal priority.
-  ${({ priority, theme }) =>
+  ${({ priority }) =>
     priority === PRIORITY.NORMAL &&
     css`
-      background-color: ${theme.palette.info.lightest};
-      color: ${theme.palette.info.main};
+      background-color: ${PALETTE.INFO_LIGHTEST};
+      color: ${PALETTE.INFO_MAIN};
     `};
 
   // Low priority.
-  ${({ priority, theme }) =>
+  ${({ priority }) =>
     priority === PRIORITY.LOW &&
     css`
-      background-color: ${theme.palette.warning.lightest};
-      color: ${theme.palette.warning.main};
+      background-color: ${PALETTE.WARNING_LIGHTEST};
+      color: ${PALETTE.WARNING_MAIN};
     `};
 
   // Medium priority.
-  ${({ priority, theme }) =>
+  ${({ priority }) =>
     priority === PRIORITY.MEDIUM &&
     css`
-      background-color: ${theme.palette.warning.light};
+      background-color: ${PALETTE.WARNING_LIGHT};
       border: 3px solid white;
-      color: ${theme.palette.warning.main};
+      color: ${PALETTE.WARNING_MAIN};
     `};
 
   // High priority.
-  ${({ priority, theme }) =>
+  ${({ priority }) =>
     priority === PRIORITY.HIGH &&
     css`
-      background-color: ${theme.palette.alert.light};
+      background-color: ${PALETTE.ALERT_LIGHT};
       border: 3px solid white;
-      color: ${theme.palette.alert.main};
+      color: ${PALETTE.ALERT_MAIN};
     `};
 `;

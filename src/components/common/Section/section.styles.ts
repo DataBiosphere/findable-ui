@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../styles/common/mixins/breakpoints";
-import { white } from "../../../styles/common/mixins/colors";
 import { ThemeProps } from "../../../theme/types";
 
 export const sectionMargin = css`
@@ -34,7 +34,7 @@ export const Section = styled.div`
 
 // Basic section with white background - typically used as a direct descendant of GridPaper component.
 export const GridPaperSection = styled(Section)`
-  background-color: ${white};
+  background-color: ${PALETTE.COMMON_WHITE};
 `;
 
 export const SectionContent = styled.div`

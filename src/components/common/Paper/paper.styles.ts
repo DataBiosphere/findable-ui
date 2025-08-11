@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../styles/common/constants/palette";
 import { TABLET } from "../../../theme/common/breakpoints";
 import { Paper } from "./paper";
 
@@ -53,25 +54,24 @@ const ignoreSsrWarning =
  * Grid paper - typically used as a parent (grid) container.
  * The background color with the grid cap property create the grid "lines" between each grid item.
  */
-export const GridPaper = styled.div(({ theme }) => ({
-  backgroundColor: `${theme.palette.smoke.main}`,
-  borderRadius: "inherit", // Inherit parent container border radius.
-  display: "grid",
-  gap: "1px",
-  // First child - not <style/> - inherits top left and right border radius.
-  [`> *:first-child:not(style)${ignoreSsrWarning}`]: {
-    borderTopLeftRadius: "inherit",
-    borderTopRightRadius: "inherit",
-  },
-  // First child - after <style/> - inherits top left and right border radius.
-  [`> style:first-child + *${ignoreSsrWarning}`]: {
-    borderTopLeftRadius: "inherit",
-    borderTopRightRadius: "inherit",
-  },
-  // Last child inherits bottom left and right border radius.
-  // eslint-disable-next-line sort-keys -- disabling key order for readability
-  "> *:last-child": {
-    borderBottomLeftRadius: "inherit",
-    borderBottomRightRadius: "inherit",
-  },
-}));
+export const GridPaper = styled.div`
+  background-color: ${PALETTE.SMOKE_MAIN};
+  border-radius: inherit;
+  display: grid;
+  gap: 1px;
+
+  > *:first-child:not(style)${ignoreSsrWarning} {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  > style:first-child + *${ignoreSsrWarning} {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
+  > *:last-child {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+`;

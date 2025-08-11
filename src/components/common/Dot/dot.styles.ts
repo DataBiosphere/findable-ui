@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../styles/common/constants/palette";
 
 export const DotSeparator = styled("span")`
   align-self: center;
-  background-color: ${({ theme }) => theme.palette.ink.light};
+  background-color: ${PALETTE.INK_LIGHT};
   border-radius: 50%;
   display: block;
   flex: none;

@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { FormControl as MFormControl } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
 import { ThemeProps } from "../../../../theme/types";
 import {
   sectionMargin,
@@ -24,7 +24,7 @@ export const FormControl = styled(MFormControl)`
     gap: 16px;
 
     .MuiFormLabel-root {
-      color: ${inkMain};
+      color: ${PALETTE.INK_MAIN};
       display: block;
       font: ${FONT.BODY_LARGE_500};
     }
@@ -90,8 +90,8 @@ export const TableFormControl = styled(FormControl)`
 `;
 
 export const GridPaper = styled.div`
-  background-color: ${smokeMain};
-  border-color: ${smokeMain};
+  background-color: ${PALETTE.SMOKE_MAIN};
+  border-color: ${PALETTE.SMOKE_MAIN};
   border-style: solid;
   border-width: 1px 0 1px 0;
   display: grid;

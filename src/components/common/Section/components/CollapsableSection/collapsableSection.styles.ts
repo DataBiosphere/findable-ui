@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { ButtonBase, Typography } from "@mui/material";
+import { PALETTE } from "../../../../../styles/common/constants/palette";
 import { TABLET } from "../../../../../theme/common/breakpoints";
 
 export const CollapsableSection = styled.div`
-  background-color: ${({ theme }) => theme.palette.common.white};
+  background-color: ${PALETTE.COMMON_WHITE};
   display: flex;
   flex-direction: column;
   min-width: 0; /* required to ellipsis any flex child */
