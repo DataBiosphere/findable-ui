@@ -1,10 +1,14 @@
 import {
   createTheme,
   CssVarsTheme,
+  Palette,
+  PaletteColor,
   Theme,
   ThemeOptions,
+  ThemeVars,
   TypographyStyle,
 } from "@mui/material";
+import { palette as paletteValues } from "../src/theme/common/palette";
 import { typography as typographyValues } from "../src/theme/common/typography";
 import { createAppTheme } from "../src/theme/theme";
 
@@ -14,6 +18,10 @@ const CUSTOM_BODY_400: TypographyStyle = {
   fontSize: "80px",
 };
 
+const CUSTOM_PALETTE_PRIMARY = {
+  main: "#00ffb6",
+};
+
 const DEFAULT_BODY_400: TypographyStyle = {
   fontFamily: "Inter",
   fontSize: "14px",
@@ -21,7 +29,60 @@ const DEFAULT_BODY_400: TypographyStyle = {
   lineHeight: "20px",
 };
 
+const DEFAULT_PALETTE_ALERT = {
+  light: "#FED3D1",
+  lightest: "#FFF4F4",
+  main: "#B42318",
+};
+
+const DEFAULT_PALETTE_BACKGROUND = {
+  default: "#F6F6F7",
+};
+
+const DEFAULT_PALETTE_INFO = {
+  contrastText: "#00729C",
+  light: "#97D6EA",
+  lightest: "#F2FAFC",
+  main: "#00729C",
+};
+
+const DEFAULT_PALETTE_INK = {
+  light: "#637381",
+  main: "#212B36",
+};
+
+const DEFAULT_PALETTE_PRIMARY = {
+  dark: "#005EA9",
+  lightest: "#E6EFF6",
+  main: "#1C7CC7",
+};
+
+const DEFAULT_PALETTE_SMOKE = {
+  dark: "#C4CDD5",
+  light: "#F6F6F7",
+  lightest: "#FAFBFB",
+  main: "#E1E3E5",
+};
+
+const DEFAULT_PALETTE_SUCCESS = {
+  light: "#AEE9D1",
+  lightest: "#F1F8F5",
+  main: "#287555",
+};
+
+const DEFAULT_PALETTE_TEXT = {
+  primary: "#212B36",
+};
+
+const DEFAULT_PALETTE_WARNING = {
+  contrastText: "#B54708",
+  light: "#FFD79D",
+  lightest: "#FFFAEB",
+  main: "#B54708",
+};
+
 const CUSTOM_OPTIONS: ThemeOptions = {
+  palette: { primary: CUSTOM_PALETTE_PRIMARY },
   typography: {
     "body-400": CUSTOM_BODY_400,
     fontFamily: "Roboto",
@@ -98,6 +159,93 @@ describe("Theme Configuration", () => {
           );
         });
     });
+
+    it("should have palette colors exposed as CSS variables", () => {
+      expect(vars.palette).toBeDefined();
+
+      Object.keys(paletteValues).forEach((color) => {
+        // Test the color exists in both theme and vars.
+        expect(color in theme.palette).toBe(true);
+        expect(color in vars.palette).toBe(true);
+
+        const palette = theme.palette;
+        const paletteColor = palette[color as keyof Palette];
+        const varsPalette = vars.palette;
+        const varsColor = varsPalette[color as keyof ThemeVars["palette"]];
+
+        // We only expect the return varsColor to be an object.
+        expect(varsColor).toBeInstanceOf(Object);
+
+        Object.entries(paletteColor).forEach(([shade, value]) => {
+          // Test the shade exists in the vars.
+          expect(shade in (varsColor as object)).toBe(true);
+
+          // Full pattern test.
+          expect((vars.palette as any)[color][shade]).toEqual(
+            `var(--palette-${color}-${shade}, ${value})`
+          );
+        });
+      });
+    });
+  });
+
+  describe("Palette Configuration", () => {
+    it("should initialize with default palette settings", () => {
+      expect(theme.palette).toBeDefined();
+    });
+
+    it("should apply default alert colors", () => {
+      expect("alert" in theme.palette).toBe(true);
+      validatePaletteColor(theme.palette.alert, DEFAULT_PALETTE_ALERT);
+    });
+
+    it("should apply default background color", () => {
+      expect(theme.palette.background.default).toEqual(
+        DEFAULT_PALETTE_BACKGROUND.default
+      );
+    });
+
+    it("should apply default info colors", () => {
+      expect("info" in theme.palette).toBe(true);
+      validatePaletteColor(theme.palette.info, DEFAULT_PALETTE_INFO);
+    });
+
+    it("should apply default ink colors", () => {
+      expect("ink" in theme.palette).toBe(true);
+      validatePaletteColor(theme.palette.ink, DEFAULT_PALETTE_INK);
+    });
+
+    it("should apply default primary color", () => {
+      validatePaletteColor(theme.palette.primary, DEFAULT_PALETTE_PRIMARY);
+    });
+
+    it("should apply default smoke colors", () => {
+      expect("smoke" in theme.palette).toBe(true);
+      validatePaletteColor(theme.palette.smoke, DEFAULT_PALETTE_SMOKE);
+    });
+
+    it("should apply default success color", () => {
+      validatePaletteColor(theme.palette.success, DEFAULT_PALETTE_SUCCESS);
+    });
+
+    it("should apply default text color", () => {
+      expect(theme.palette.text.primary).toEqual(DEFAULT_PALETTE_TEXT.primary);
+    });
+
+    it("should apply default warning colors", () => {
+      validatePaletteColor(theme.palette.warning, DEFAULT_PALETTE_WARNING);
+    });
+
+    it("should apply custom primary color when specified", () => {
+      expect(customTheme.palette.primary.main).toEqual(
+        CUSTOM_PALETTE_PRIMARY.main
+      );
+      // Validate that primary dark and lightest are not overridden.
+      validatePaletteColor(customTheme.palette.primary, {
+        dark: DEFAULT_PALETTE_PRIMARY.dark,
+        lightest: DEFAULT_PALETTE_PRIMARY.lightest,
+      });
+    });
   });
 
   describe("Typography Configuration", () => {
@@ -151,6 +299,36 @@ function filterTypographyVariants(value: string): boolean {
   return !/fontFamily|fontSize|fontWeightLight|fontWeightRegular|fontWeightMedium|fontWeightBold|htmlFontSize|allVariants/.test(
     value
   );
+}
+
+/**
+ * Type guard to check if a value is a PaletteColor.
+ * @param color - Color.
+ * @returns True if the color is a valid PaletteColor, false otherwise.
+ */
+function isPaletteColor(color: unknown): color is PaletteColor {
+  return (
+    color !== null &&
+    typeof color === "object" &&
+    "light" in color &&
+    "main" in color
+  );
+}
+
+/**
+ * Validates that a palette color (like theme.palette.alert)
+ * has the expected values for given keys.
+ * @param actual - Actual palette color object to validate.
+ * @param expected - An object containing the expected key-value pairs.
+ */
+function validatePaletteColor(
+  actual: unknown,
+  expected: Record<string, string>
+): void {
+  expect(isPaletteColor(actual)).toBe(true);
+  for (const [key, value] of Object.entries(expected)) {
+    expect((actual as Record<string, unknown>)[key]).toEqual(value);
+  }
 }
 
 /**
