@@ -32,6 +32,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
       {
         app: { fontFamily: baseTheme.typography.fontFamily },
         breakpoints: baseTheme.breakpoints,
+        cssVarPrefix: "",
         cssVariables: true,
         palette: {
           alert: P.alert,
