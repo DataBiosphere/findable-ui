@@ -1,11 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { MenuItem as MMenuItem, Popper as MPopper } from "@mui/material";
-import {
-  inkLight,
-  smokeLight,
-  smokeMain,
-} from "../../../../../../../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
 import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 
 interface Props {
@@ -16,7 +12,7 @@ export const StyledPopper = styled(MPopper)`
   z-index: 1300;
 
   .MuiPaper-menu {
-    border-color: ${smokeMain};
+    border-color: ${PALETTE.SMOKE_MAIN};
     margin: 4px 0;
     max-height: calc(100vh - 96px);
     max-width: 324px;
@@ -49,18 +45,18 @@ export const StyledPopper = styled(MPopper)`
           }
 
           .MuiListItemText-secondary {
-            color: ${inkLight};
+            color: ${PALETTE.INK_LIGHT};
             white-space: normal;
           }
         }
 
         &.Mui-disabled {
-          color: ${inkLight};
+          color: ${PALETTE.INK_LIGHT};
           opacity: 1;
         }
 
         &.Mui-selected {
-          background-color: ${smokeLight};
+          background-color: ${PALETTE.SMOKE_LIGHT};
         }
       }
 
@@ -87,10 +83,10 @@ export const Button = styled(DXButton, {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<Props>`
   // Button is "active" i.e. menu is open.
-  ${(props) =>
-    props.isActive &&
+  ${({ isActive }) =>
+    isActive &&
     css`
-      background-color: ${smokeLight(props)};
+      background-color: ${PALETTE.SMOKE_LIGHT};
     `};
 `;
 

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 
 export const NavBarHero = styled.div`
   display: grid;
@@ -18,7 +19,7 @@ export const HeroLogo = styled.span`
 `;
 
 export const HeroText = styled.span`
-  color: ${({ theme }) => theme.palette.ink.light};
+  color: ${PALETTE.INK_LIGHT};
   display: block;
   font-size: 12px;
   line-height: 18px;

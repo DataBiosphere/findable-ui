@@ -1,17 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import {
   media1366Up,
   mediaDesktopSmallUp,
   mediaTabletDown,
 } from "../../../../styles/common/mixins/breakpoints";
-import {
-  smokeLight,
-  smokeLightest,
-  smokeMain,
-  white,
-} from "../../../../styles/common/mixins/colors";
-import { ThemeProps } from "../../../../theme/types";
 import { PanelBackgroundColor } from "./common/entities";
 
 const CONTENT_MAX_WIDTH = 756;
@@ -20,13 +14,10 @@ const NAV_MAX_WIDTH = 232;
 const PADDING = 24;
 const PADDING_Y = PADDING;
 
-const COLOR: Record<
-  PanelBackgroundColor,
-  ({ theme }: ThemeProps) => string | undefined
-> = {
-  DEFAULT: white,
-  SMOKE_LIGHT: smokeLight,
-  SMOKE_LIGHTEST: smokeLightest,
+const COLOR: Record<PanelBackgroundColor, string | undefined> = {
+  DEFAULT: PALETTE.COMMON_WHITE,
+  SMOKE_LIGHT: PALETTE.SMOKE_LIGHT,
+  SMOKE_LIGHTEST: PALETTE.SMOKE_LIGHTEST,
 };
 
 interface LayoutProps {
@@ -40,8 +31,7 @@ interface GridProps {
 }
 
 export const ContentLayout = styled.div<LayoutProps>`
-  background-color: ${({ panelColor, theme }) =>
-    getPanelBackgroundColor(theme, panelColor)};
+  background-color: ${({ panelColor }) => getPanelBackgroundColor(panelColor)};
   display: grid;
   flex: 1;
   grid-template-areas: "content";
@@ -73,17 +63,13 @@ export const ContentLayout = styled.div<LayoutProps>`
   }
 `;
 
-const content = ({
-  headerHeight,
-  panelColor,
-  theme,
-}: GridProps & ThemeProps) => css`
-  background-color: ${getPanelBackgroundColor(theme, panelColor)};
+const content = ({ headerHeight, panelColor }: GridProps) => css`
+  background-color: ${getPanelBackgroundColor(panelColor)};
   padding-top: ${headerHeight}px;
 `;
 
-const navigation = ({ panelColor, theme }: GridProps & ThemeProps) => css`
-  background-color: ${getPanelBackgroundColor(theme, panelColor)};
+const navigation = ({ panelColor }: GridProps) => css`
+  background-color: ${getPanelBackgroundColor(panelColor)};
 `;
 
 const positioner = ({ headerHeight }: GridProps) => css`
@@ -96,7 +82,7 @@ const positioner = ({ headerHeight }: GridProps) => css`
 
 export const NavigationGrid = styled.div<GridProps>`
   ${navigation};
-  box-shadow: inset -1px 0 ${smokeMain};
+  box-shadow: inset -1px 0 ${PALETTE.SMOKE_MAIN};
   display: none;
   grid-area: navigation;
 
@@ -153,13 +139,11 @@ export const Outline = styled.div`
 
 /**
  * Returns the background color for the panel.
- * @param theme - Theme.
  * @param panelColor - Panel color.
  * @returns background color for the panel.
  */
 function getPanelBackgroundColor(
-  theme: ThemeProps["theme"],
   panelColor?: PanelBackgroundColor
 ): string | undefined {
-  return panelColor ? COLOR[panelColor]({ theme }) : undefined;
+  return panelColor ? COLOR[panelColor] : undefined;
 }

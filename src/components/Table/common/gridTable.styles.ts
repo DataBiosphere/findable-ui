@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Table as MTable } from "@mui/material";
 import { PALETTE } from "../../../styles/common/constants/palette";
-import { white } from "../../../styles/common/mixins/colors";
 
 export interface GridTableProps {
   gridTemplateColumns: string;
@@ -25,7 +24,7 @@ export const GridTable = styled(MTable, {
   }
 
   tr {
-    background-color: ${white};
+    background-color: ${PALETTE.COMMON_WHITE};
   }
 
   td {

@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { TABLET } from "../../../../theme/common/breakpoints";
 import { Sections } from "../../../common/Sections/sections";
 
@@ -61,7 +62,7 @@ export const BackPageContent = styled.div`
 // - mobile - a gridded, flat paper environment, each section stacked with a 1px gap, and
 // - tablet - a main and side column arrangement, and within each column, a gridded, rounded paper environment, each section stacked with a 1px gap.
 export const DetailPageOverviewContent = styled(BackPageContent)`
-  background-color: ${({ theme }) => theme.palette.smoke.main};
+  background-color: ${PALETTE.SMOKE_MAIN};
   gap: 1px;
   padding: 1px 0;
 

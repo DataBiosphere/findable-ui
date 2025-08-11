@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { List as MList } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export const NavBar = styled.div`
   .MuiDivider-root {
@@ -30,7 +31,7 @@ export const List = styled(MList)`
       }
 
       &.Mui-disabled {
-        color: ${({ theme }) => theme.palette.ink.light};
+        color: ${PALETTE.INK_LIGHT};
         margin-top: 20px;
         opacity: 1;
 
@@ -41,7 +42,7 @@ export const List = styled(MList)`
       }
 
       &.Mui-selected {
-        color: ${({ theme }) => theme.palette.primary.main};
+        color: ${PALETTE.PRIMARY_MAIN};
 
         .MuiListItemText-root {
           font: ${FONT.BODY_500};

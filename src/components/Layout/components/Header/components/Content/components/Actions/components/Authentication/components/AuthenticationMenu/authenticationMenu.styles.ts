@@ -6,6 +6,7 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import { PALETTE } from "../../../../../../../../../../../../styles/common/constants/palette";
 
 export const AuthenticationMenu = styled(MMenu)`
   margin: 4px 0;
@@ -18,7 +19,7 @@ export const UserIcon = styled(MIconButton)`
 export const UserSummary = styled(MenuItem)`
   display: block;
   cursor: inherit;
-  border-bottom: 1px solid ${({ theme }) => theme.palette.smoke.main};
+  border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
   padding-bottom: ${({ theme }) => theme.spacing(4)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 

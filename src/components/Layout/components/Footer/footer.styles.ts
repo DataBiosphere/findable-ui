@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { AppBar as MAppBar } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
-import { inkMain, smokeMain } from "../../../../styles/common/mixins/colors";
 import { Socials as DXSocials } from "../../../common/Socials/socials";
 import { Link as DXLink } from "../../../Links/components/Link/link";
 
@@ -44,7 +44,7 @@ export const Links = styled.div`
 
 export const Link = styled(DXLink)`
   align-items: center;
-  color: ${inkMain};
+  color: ${PALETTE.INK_MAIN};
   display: flex;
   font: ${FONT.BODY_SMALL_400};
 `;
@@ -53,7 +53,7 @@ export const Socials = styled(DXSocials)`
   gap: 8px;
   .MuiIconButton-root {
     &:hover {
-      background-color: ${smokeMain};
+      background-color: ${PALETTE.SMOKE_MAIN};
     }
   }
 `;

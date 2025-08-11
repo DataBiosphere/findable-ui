@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { inkLight } from "../../../../styles/common/mixins/colors";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { Input } from "../../../common/Input/input";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterMenuSearchProps } from "./filterMenuSearch";
@@ -11,7 +11,7 @@ export const StyledInput = styled(Input, {
   padding: 0 16px;
 
   .MuiOutlinedInput-input {
-    color: ${inkLight};
+    color: ${PALETTE.INK_LIGHT};
   }
 
   ${({ surfaceType }) =>
