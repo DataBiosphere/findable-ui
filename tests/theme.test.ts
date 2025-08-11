@@ -8,6 +8,7 @@ import {
   ThemeVars,
   TypographyStyle,
 } from "@mui/material";
+import { components as componentsValues } from "../src/theme/common/components";
 import { palette as paletteValues } from "../src/theme/common/palette";
 import { typography as typographyValues } from "../src/theme/common/typography";
 import { createAppTheme } from "../src/theme/theme";
@@ -16,6 +17,16 @@ type GenericRecord<T = unknown> = Record<string, T>;
 
 const CUSTOM_BODY_400: TypographyStyle = {
   fontSize: "80px",
+};
+
+const CUSTOM_BREAKPOINTS = {
+  values: {
+    lg: 1280,
+    md: 1024,
+    sm: 600,
+    xl: 1600,
+    xs: 0,
+  },
 };
 
 const CUSTOM_PALETTE_PRIMARY = {
@@ -82,6 +93,7 @@ const DEFAULT_PALETTE_WARNING = {
 };
 
 const CUSTOM_OPTIONS: ThemeOptions = {
+  breakpoints: CUSTOM_BREAKPOINTS,
   palette: { primary: CUSTOM_PALETTE_PRIMARY },
   typography: {
     "body-400": CUSTOM_BODY_400,
@@ -186,6 +198,51 @@ describe("Theme Configuration", () => {
           );
         });
       });
+    });
+  });
+
+  describe("Components Configuration", () => {
+    it("should initialize with default components settings", () => {
+      expect(theme.components).toBeDefined();
+    });
+
+    it("should apply configured components variants", () => {
+      expect(componentsValues).toBeDefined();
+      Object.keys(componentsValues!).forEach((component) => {
+        expect(component in theme.components!).toBe(true);
+      });
+    });
+
+    it("should override MuiToolbar component breakpoints when custom values provided", () => {
+      // Get the component styleOverrides.
+      const styleOverrides = customTheme.components?.MuiToolbar?.styleOverrides;
+      expect(styleOverrides).toBeDefined();
+
+      // The root property should be a function that receives theme.
+      const rootFunction = styleOverrides?.root;
+      expect(typeof rootFunction).toBe("function");
+
+      if (typeof rootFunction === "function") {
+        // Call the function with the custom theme to get the computed styles.
+        const computedStyles = rootFunction({
+          ownerState: {},
+          theme: customTheme,
+        });
+
+        // Verify that the computed styles contain the custom breakpoint values.
+        // The breakpoint functions should generate media queries using custom values.
+        expect(computedStyles).toBeDefined();
+
+        const styleKeys = Object.keys(computedStyles!);
+
+        // Confirm that breakpoint-based custom styles are present.
+        expect(
+          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.xs)
+        ).toBeTruthy();
+        expect(
+          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.lg)
+        ).toBeTruthy();
+      }
     });
   });
 
@@ -298,6 +355,18 @@ describe("Theme Configuration", () => {
 function filterTypographyVariants(value: string): boolean {
   return !/fontFamily|fontSize|fontWeightLight|fontWeightRegular|fontWeightMedium|fontWeightBold|htmlFontSize|allVariants/.test(
     value
+  );
+}
+
+/**
+ * Checks if a style key exists for a given breakpoint.
+ * @param keys - Style keys.
+ * @param breakpoint - Breakpoint.
+ * @returns True if the style key exists for the given breakpoint, false otherwise.
+ */
+function hasBreakpointKey(keys: string[], breakpoint: number): boolean {
+  return keys.some(
+    (key) => /^@media/.test(key) && key.includes(String(breakpoint))
   );
 }
 

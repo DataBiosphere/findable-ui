@@ -1,23 +1,22 @@
-import { Components } from "@mui/material";
+import { Components, Theme, ThemeOptions } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { APP } from "../../styles/common/constants/app";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
+import { bpUpLg, bpUpSm, bpUpXs } from "../../styles/common/mixins/breakpoints";
 import { BUTTON_PROPS } from "../../styles/common/mui/button";
 import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
-import { desktopUp, mobileUp, tabletUp } from "./breakpoints";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
+import * as C from "../components";
 
 // Constants
 const FLEX_START = "flex-start";
 
-/**
- * MuiAccordion Component
- */
-export const MuiAccordion: Components["MuiAccordion"] = {
+const MuiAccordion: Components["MuiAccordion"] = {
   defaultProps: {
     disableGutters: true,
     elevation: 0,
@@ -38,10 +37,7 @@ export const MuiAccordion: Components["MuiAccordion"] = {
   },
 };
 
-/**
- * MuiAccordionDetails Component
- */
-export const MuiAccordionDetails: Components["MuiAccordionDetails"] = {
+const MuiAccordionDetails: Components["MuiAccordionDetails"] = {
   styleOverrides: {
     root: {
       marginBottom: 16,
@@ -50,10 +46,7 @@ export const MuiAccordionDetails: Components["MuiAccordionDetails"] = {
   },
 };
 
-/**
- * MuiAccordionSummary Component
- */
-export const MuiAccordionSummary: Components["MuiAccordionSummary"] = {
+const MuiAccordionSummary: Components["MuiAccordionSummary"] = {
   styleOverrides: {
     content: {
       margin: "16px 0",
@@ -66,10 +59,7 @@ export const MuiAccordionSummary: Components["MuiAccordionSummary"] = {
   },
 };
 
-/**
- * MuiAppBar Component
- */
-export const MuiAppBar: Components["MuiAppBar"] = {
+const MuiAppBar: Components["MuiAppBar"] = {
   defaultProps: {
     color: "default",
     elevation: 0,
@@ -82,11 +72,7 @@ export const MuiAppBar: Components["MuiAppBar"] = {
   },
 };
 
-/**
- * MuiBackdrop Component
- * @returns MuiBackdrop component theme styles.
- */
-export const MuiBackdrop: Components["MuiBackdrop"] = {
+const MuiBackdrop: Components["MuiBackdrop"] = {
   styleOverrides: {
     invisible: {
       backgroundColor: "transparent",
@@ -97,10 +83,7 @@ export const MuiBackdrop: Components["MuiBackdrop"] = {
   },
 };
 
-/**
- * MuiBreadcrumbs Component
- */
-export const MuiBreadcrumbs: Components["MuiBreadcrumbs"] = {
+const MuiBreadcrumbs: Components["MuiBreadcrumbs"] = {
   styleOverrides: {
     li: {
       font: FONT.BODY_SMALL_400,
@@ -126,10 +109,7 @@ export const MuiBreadcrumbs: Components["MuiBreadcrumbs"] = {
   },
 };
 
-/**
- * MuiButton Component
- */
-export const MuiButton: Components["MuiButton"] = {
+const MuiButton: Components["MuiButton"] = {
   defaultProps: {
     disableRipple: true,
     disableTouchRipple: true,
@@ -327,10 +307,7 @@ export const MuiButton: Components["MuiButton"] = {
   ],
 };
 
-/**
- * MuiButtonBase Component
- */
-export const MuiButtonBase: Components["MuiButtonBase"] = {
+const MuiButtonBase: Components["MuiButtonBase"] = {
   defaultProps: {
     disableRipple: true,
     disableTouchRipple: true,
@@ -343,10 +320,7 @@ export const MuiButtonBase: Components["MuiButtonBase"] = {
   },
 };
 
-/**
- * MuiCard Component
- */
-export const MuiCard: Components["MuiCard"] = {
+const MuiCard: Components["MuiCard"] = {
   styleOverrides: {
     root: {
       borderRadius: 8,
@@ -354,10 +328,7 @@ export const MuiCard: Components["MuiCard"] = {
   },
 };
 
-/**
- * MuiCheckbox Component
- */
-export const MuiCheckbox: Components["MuiCheckbox"] = {
+const MuiCheckbox: Components["MuiCheckbox"] = {
   defaultProps: {
     size: "xsmall",
   },
@@ -383,10 +354,7 @@ export const MuiCheckbox: Components["MuiCheckbox"] = {
   ],
 };
 
-/**
- * MuiChip Component
- */
-export const MuiChip: Components["MuiChip"] = {
+const MuiChip: Components["MuiChip"] = {
   defaultProps: {
     size: "small",
   },
@@ -509,10 +477,7 @@ export const MuiChip: Components["MuiChip"] = {
   ],
 };
 
-/**
- * MuiCircularProgress Component
- */
-export const MuiCircularProgress: Components["MuiCircularProgress"] = {
+const MuiCircularProgress: Components["MuiCircularProgress"] = {
   styleOverrides: {
     circle: {
       strokeLinecap: "round",
@@ -530,10 +495,7 @@ export const MuiCircularProgress: Components["MuiCircularProgress"] = {
   ],
 };
 
-/**
- * MuiCssBaseline Component
- */
-export const MuiCssBaseline: Components["MuiCssBaseline"] = {
+const MuiCssBaseline: Components["MuiCssBaseline"] = {
   styleOverrides: {
     a: {
       color: PALETTE.PRIMARY_MAIN,
@@ -572,10 +534,7 @@ export const MuiCssBaseline: Components["MuiCssBaseline"] = {
   },
 };
 
-/**
- * MuiDialog Component
- */
-export const MuiDialog: Components["MuiDialog"] = {
+const MuiDialog: Components["MuiDialog"] = {
   styleOverrides: {
     paper: {
       boxShadow: SHADOWS["02"],
@@ -589,10 +548,7 @@ export const MuiDialog: Components["MuiDialog"] = {
   },
 };
 
-/**
- * MuiDialogActions Component
- */
-export const MuiDialogActions: Components["MuiDialogActions"] = {
+const MuiDialogActions: Components["MuiDialogActions"] = {
   styleOverrides: {
     root: {
       padding: 20,
@@ -600,10 +556,7 @@ export const MuiDialogActions: Components["MuiDialogActions"] = {
   },
 };
 
-/**
- * MuiDialogContent Component
- */
-export const MuiDialogContent: Components["MuiDialogContent"] = {
+const MuiDialogContent: Components["MuiDialogContent"] = {
   styleOverrides: {
     root: {
       borderColor: PALETTE.SMOKE_MAIN,
@@ -612,31 +565,25 @@ export const MuiDialogContent: Components["MuiDialogContent"] = {
   },
 };
 
-/**
- * MuiDialogTitle Component
- */
-export const MuiDialogTitle: Components["MuiDialogTitle"] = {
+const MuiDialogTitle: Components<Theme>["MuiDialogTitle"] = {
   styleOverrides: {
-    root: {
+    root: ({ theme }) => ({
       alignItems: "center",
       display: "grid",
       font: FONT.HEADING,
       gridAutoFlow: "column",
       padding: 20,
-      [tabletUp]: {},
+      [bpUpSm({ theme })]: {},
       // eslint-disable-next-line sort-keys -- disabling key order for readability
       "& .MuiIconButton-edgeEnd": {
         alignSelf: FLEX_START,
         justifySelf: "flex-end",
       },
-    },
+    }),
   },
 };
 
-/**
- * MuiDivider Component
- */
-export const MuiDivider: Components["MuiDivider"] = {
+const MuiDivider: Components["MuiDivider"] = {
   styleOverrides: {
     root: {
       borderColor: PALETTE.SMOKE_MAIN,
@@ -644,10 +591,7 @@ export const MuiDivider: Components["MuiDivider"] = {
   },
 };
 
-/**
- * MuiDrawer Component
- */
-export const MuiDrawer: Components["MuiDrawer"] = {
+const MuiDrawer: Components["MuiDrawer"] = {
   styleOverrides: {
     paper: {
       overflowY: "visible", // required; allows backdrop button to render outside of drawer container
@@ -655,10 +599,7 @@ export const MuiDrawer: Components["MuiDrawer"] = {
   },
 };
 
-/**
- * MuiFormControlLabel Component
- */
-export const MuiFormControlLabel: Components["MuiFormControlLabel"] = {
+const MuiFormControlLabel: Components["MuiFormControlLabel"] = {
   styleOverrides: {
     label: {
       font: FONT.BODY_400,
@@ -670,10 +611,7 @@ export const MuiFormControlLabel: Components["MuiFormControlLabel"] = {
   },
 };
 
-/**
- * MuiFormGroup Component
- */
-export const MuiFormGroup: Components["MuiFormGroup"] = {
+const MuiFormGroup: Components["MuiFormGroup"] = {
   styleOverrides: {
     root: {
       alignItems: FLEX_START,
@@ -682,10 +620,7 @@ export const MuiFormGroup: Components["MuiFormGroup"] = {
   },
 };
 
-/**
- * MuiFormHelperText Component
- */
-export const MuiFormHelperText: Components["MuiFormHelperText"] = {
+const MuiFormHelperText: Components["MuiFormHelperText"] = {
   styleOverrides: {
     root: {
       font: FONT.BODY_SMALL_400,
@@ -697,10 +632,7 @@ export const MuiFormHelperText: Components["MuiFormHelperText"] = {
   },
 };
 
-/**
- * MuiIconButton Component
- */
-export const MuiIconButton: Components["MuiIconButton"] = {
+const MuiIconButton: Components["MuiIconButton"] = {
   defaultProps: {
     disableRipple: true,
   },
@@ -828,21 +760,18 @@ export const MuiIconButton: Components["MuiIconButton"] = {
   ],
 };
 
-/**
- * MuiInputBase Component
- */
-export const MuiInputBase: Components["MuiInputBase"] = {
+const MuiInputBase: Components<Theme>["MuiInputBase"] = {
   styleOverrides: {
     multiline: {
       height: "unset",
     },
-    root: {
+    root: ({ theme }) => ({
       font: FONT.BODY_400,
       fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
       height: 40,
       letterSpacing: "normal",
       // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [tabletUp]: {
+      [bpUpSm({ theme })]: {
         fontSize: "14px",
       },
       variants: [
@@ -856,14 +785,11 @@ export const MuiInputBase: Components["MuiInputBase"] = {
           },
         },
       ],
-    },
+    }),
   },
 };
 
-/**
- * MuiLink Component
- */
-export const MuiLink: Components["MuiLink"] = {
+const MuiLink: Components["MuiLink"] = {
   defaultProps: {
     underline: "always",
   },
@@ -882,10 +808,7 @@ export const MuiLink: Components["MuiLink"] = {
   },
 };
 
-/**
- * MuiListItemButton Component
- */
-export const MuiListItemButton: Components["MuiListItemButton"] = {
+const MuiListItemButton: Components["MuiListItemButton"] = {
   styleOverrides: {
     root: {
       font: FONT.BODY_400,
@@ -907,10 +830,7 @@ export const MuiListItemButton: Components["MuiListItemButton"] = {
   },
 };
 
-/**
- * MuiListItemText Component
- */
-export const MuiListItemText: Components["MuiListItemText"] = {
+const MuiListItemText: Components["MuiListItemText"] = {
   styleOverrides: {
     root: {
       margin: 0,
@@ -918,10 +838,7 @@ export const MuiListItemText: Components["MuiListItemText"] = {
   },
 };
 
-/**
- * MuiListSubheader Component
- */
-export const MuiListSubheader: Components["MuiListSubheader"] = {
+const MuiListSubheader: Components["MuiListSubheader"] = {
   defaultProps: { disableSticky: true },
   styleOverrides: {
     root: {
@@ -931,10 +848,7 @@ export const MuiListSubheader: Components["MuiListSubheader"] = {
   },
 };
 
-/**
- * MuiMenuItem Component
- */
-export const MuiMenuItem: Components["MuiMenuItem"] = {
+const MuiMenuItem: Components["MuiMenuItem"] = {
   defaultProps: { disableRipple: true },
   styleOverrides: {
     root: {
@@ -945,10 +859,7 @@ export const MuiMenuItem: Components["MuiMenuItem"] = {
   },
 };
 
-/**
- * MuiOutlinedInput Component
- */
-export const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
+const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
   styleOverrides: {
     input: {
       color: PALETTE.INK_LIGHT,
@@ -1080,10 +991,7 @@ export const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
   },
 };
 
-/**
- * MuiPaper Component
- */
-export const MuiPaper: Components["MuiPaper"] = {
+const MuiPaper: Components["MuiPaper"] = {
   variants: [
     {
       props: { elevation: 1 },
@@ -1144,10 +1052,7 @@ export const MuiPaper: Components["MuiPaper"] = {
   ],
 };
 
-/**
- * MuiRadio Component
- */
-export const MuiRadio: Components["MuiRadio"] = {
+const MuiRadio: Components["MuiRadio"] = {
   defaultProps: {
     disableRipple: true,
   },
@@ -1175,10 +1080,7 @@ export const MuiRadio: Components["MuiRadio"] = {
   },
 };
 
-/**
- * MuiSelect Component
- */
-export const MuiSelect: Components["MuiSelect"] = {
+const MuiSelect: Components["MuiSelect"] = {
   defaultProps: {
     IconComponent: DropDownIcon,
   },
@@ -1190,10 +1092,7 @@ export const MuiSelect: Components["MuiSelect"] = {
   },
 };
 
-/**
- * MuiSvgIcon Component
- */
-export const MuiSvgIcon: Components["MuiSvgIcon"] = {
+const MuiSvgIcon: Components["MuiSvgIcon"] = {
   styleOverrides: {
     fontSizeLarge: {
       fontSize: "32px",
@@ -1260,10 +1159,7 @@ export const MuiSvgIcon: Components["MuiSvgIcon"] = {
   ],
 };
 
-/**
- * MuiTab Component
- */
-export const MuiTab: Components["MuiTab"] = {
+const MuiTab: Components["MuiTab"] = {
   styleOverrides: {
     labelIcon: {
       gap: 8,
@@ -1293,10 +1189,7 @@ export const MuiTab: Components["MuiTab"] = {
   },
 };
 
-/**
- * MuiTableSortLabel Component
- */
-export const MuiTableSortLabel: Components["MuiTableSortLabel"] = {
+const MuiTableSortLabel: Components["MuiTableSortLabel"] = {
   styleOverrides: {
     icon: {
       fontSize: 20,
@@ -1321,10 +1214,7 @@ export const MuiTableSortLabel: Components["MuiTableSortLabel"] = {
   },
 };
 
-/**
- * MuiTabs Component
- */
-export const MuiTabs: Components["MuiTabs"] = {
+const MuiTabs: Components<Theme>["MuiTabs"] = {
   defaultProps: {
     textColor: "inherit",
     variant: "scrollable",
@@ -1376,21 +1266,18 @@ export const MuiTabs: Components["MuiTabs"] = {
       minHeight: "unset",
       position: "relative", // Positions scroll fuzz.
     },
-    scroller: {
+    scroller: ({ theme }) => ({
       margin: 0,
       padding: "0 8px",
       // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [tabletUp]: {
+      [bpUpSm({ theme })]: {
         padding: 0,
       },
-    },
+    }),
   },
 };
 
-/**
- * MuiToggleButton Component
- */
-export const MuiToggleButton: Components["MuiToggleButton"] = {
+const MuiToggleButton: Components<Theme>["MuiToggleButton"] = {
   styleOverrides: {
     root: {
       backgroundColor: PALETTE.SMOKE_MAIN,
@@ -1421,10 +1308,7 @@ export const MuiToggleButton: Components["MuiToggleButton"] = {
   },
 };
 
-/**
- * MuiToggleButtonGroup Component
- */
-export const MuiToggleButtonGroup: Components["MuiToggleButtonGroup"] = {
+const MuiToggleButtonGroup: Components["MuiToggleButtonGroup"] = {
   styleOverrides: {
     grouped: {
       border: "none !important", // Overrides "grouped" css selector specificity.
@@ -1443,29 +1327,23 @@ export const MuiToggleButtonGroup: Components["MuiToggleButtonGroup"] = {
   },
 };
 
-/**
- * MuiToolbar Component
- */
-export const MuiToolbar: Components["MuiToolbar"] = {
+const MuiToolbar: Components<Theme>["MuiToolbar"] = {
   styleOverrides: {
-    root: {
-      [mobileUp]: {
+    root: ({ theme }) => ({
+      [bpUpXs({ theme })]: {
         paddingLeft: 12,
         paddingRight: 12,
       },
       // eslint-disable-next-line sort-keys -- disabling key order for readability
-      [desktopUp]: {
+      [bpUpLg({ theme })]: {
         paddingLeft: 16,
         paddingRight: 16,
       },
-    },
+    }),
   },
 };
 
-/**
- * MuiTooltip Component
- */
-export const MuiTooltip: Components["MuiTooltip"] = {
+const MuiTooltip: Components["MuiTooltip"] = {
   defaultProps: {
     enterTouchDelay: 0,
     leaveTouchDelay: 4000,
@@ -1489,10 +1367,7 @@ export const MuiTooltip: Components["MuiTooltip"] = {
   },
 };
 
-/**
- * MuiTypography Component
- */
-export const MuiTypography: Components["MuiTypography"] = {
+const MuiTypography: Components["MuiTypography"] = {
   defaultProps: {
     variant: "inherit",
   },
@@ -1500,5 +1375,62 @@ export const MuiTypography: Components["MuiTypography"] = {
     gutterBottom: {
       marginBottom: 8,
     },
+    root: {
+      variants: [
+        {
+          props: { variant: TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500 },
+          style: { textTransform: "uppercase" },
+        },
+      ],
+    },
   },
+};
+
+export const components: ThemeOptions["components"] = {
+  MuiAccordion,
+  MuiAccordionDetails,
+  MuiAccordionSummary,
+  MuiAlert: C.MuiAlert,
+  MuiAlertTitle: C.MuiAlertTitle,
+  MuiAppBar,
+  MuiBackdrop,
+  MuiBreadcrumbs,
+  MuiButton,
+  MuiButtonBase,
+  MuiButtonGroup: C.MuiButtonGroup,
+  MuiCard,
+  MuiCheckbox,
+  MuiChip,
+  MuiCircularProgress,
+  MuiCssBaseline,
+  MuiDialog,
+  MuiDialogActions,
+  MuiDialogContent,
+  MuiDialogTitle,
+  MuiDivider,
+  MuiDrawer,
+  MuiFormControlLabel,
+  MuiFormGroup,
+  MuiFormHelperText,
+  MuiIconButton,
+  MuiInputBase,
+  MuiLink,
+  MuiListItemButton,
+  MuiListItemText,
+  MuiListSubheader,
+  MuiMenuItem,
+  MuiOutlinedInput,
+  MuiPaper,
+  MuiRadio,
+  MuiSelect,
+  MuiSvgIcon,
+  MuiTab,
+  MuiTableCell: C.MuiTableCell,
+  MuiTableSortLabel,
+  MuiTabs,
+  MuiToggleButton,
+  MuiToggleButtonGroup,
+  MuiToolbar,
+  MuiTooltip,
+  MuiTypography,
 };
