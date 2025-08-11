@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { TableRow as MTableRow } from "@mui/material";
+import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { textBodySmall500 } from "../../../../styles/common/mixins/fonts";
 
 export interface StyledTableRowProps {
   canExpand?: boolean;
@@ -27,8 +27,8 @@ export const StyledTableRow = styled(MTableRow, {
         background-color: ${PALETTE.SMOKE_LIGHTEST};
 
         td {
-          ${textBodySmall500(props)};
           background-color: inherit;
+          font: ${FONT.BODY_SMALL_500};
           grid-column: 1 / -1;
         }
       `}

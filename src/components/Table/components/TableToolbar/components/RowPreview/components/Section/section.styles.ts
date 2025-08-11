@@ -5,7 +5,7 @@ export const Section = styled.div`
   gap: 16px;
   padding: 16px 24px 24px;
 
-  .MuiTypography-text-heading-small {
+  .MuiTypography-heading-small {
     font-size: 18px;
     line-height: 26px;
   }

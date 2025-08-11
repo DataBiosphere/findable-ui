@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { textBody500 } from "../../../../styles/common/mixins/fonts";
 
 export const StyledTable = styled("table")`
   border-collapse: collapse;
@@ -30,8 +30,8 @@ export const StyledTable = styled("table")`
   }
 
   th {
-    ${textBody500}
     border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
+    font: ${FONT.BODY_500};
   }
 
   td {

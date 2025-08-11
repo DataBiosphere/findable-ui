@@ -4,6 +4,7 @@ import React from "react";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { ButtonPrimary } from "../common/Button/components/ButtonPrimary/buttonPrimary";
 import { AlertIcon } from "../common/CustomIcon/components/AlertIcon/alertIcon";
 import { Grid } from "../common/Grid/grid";
@@ -31,7 +32,10 @@ const ErrorMessage = ({
   title,
 }: ErrorDetailSectionProps): JSX.Element => (
   <Content>
-    <Typography component="h3" variant="text-body-large-500">
+    <Typography
+      component="h3"
+      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}
+    >
       {title}
     </Typography>
     <RoundedPaper>
@@ -70,10 +74,13 @@ export const Error = ({
         <ErrorSection>
           <StatusIcon priority={PRIORITY.HIGH} StatusIcon={AlertIcon} />
           <SectionContent>
-            <Typography component="h1" variant="text-heading-xlarge">
+            <Typography
+              component="h1"
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XLARGE}
+            >
               Error
             </Typography>
-            <Typography variant="text-body-large-400">
+            <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400}>
               An error occurred processing your request
             </Typography>
           </SectionContent>

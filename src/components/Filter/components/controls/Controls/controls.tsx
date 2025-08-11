@@ -17,7 +17,7 @@ export const Controls = ({
 }: BaseComponentProps & Pick<SurfaceProps, "onFilter">): JSX.Element | null => {
   return (
     <StyledGrid className={className} container>
-      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_LARGE_500}>
+      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}>
         Filters
       </Typography>
       <MButton

@@ -1,5 +1,5 @@
 import { CommonColors, PaletteColor } from "@mui/material/styles";
-import { ThemeProps } from "../../../theme/theme";
+import { ThemeProps } from "../../../theme/types";
 
 // Alert
 export const alertLight = ({ theme }: ThemeProps): PaletteColor["light"] =>

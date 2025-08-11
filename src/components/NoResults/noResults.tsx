@@ -24,7 +24,7 @@ export const NoResults = ({
           {description && (
             <Typography
               color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_BODY_400_2_LINES}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
             >
               {description}
             </Typography>

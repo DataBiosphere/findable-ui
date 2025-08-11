@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import { FONT } from "../../../../../../../../../styles/common/constants/font";
 import { mediaTabletDown } from "../../../../../../../../../styles/common/mixins/breakpoints";
-import { textBodySmall400 } from "../../../../../../../../../styles/common/mixins/fonts";
 import { BarX } from "../../../../../../../../Plot/components/BarX/barX";
 
 export const StyledBarX = styled(BarX)`
-  ${textBodySmall400};
+  font: ${FONT.BODY_SMALL_400};
 
   svg {
     g.x-axis {

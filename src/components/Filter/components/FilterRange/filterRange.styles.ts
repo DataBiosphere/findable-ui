@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { textBody400 } from "../../../../styles/common/mixins/fonts";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterRangeProps } from "./types";
 
@@ -44,8 +44,8 @@ export const StyledForm = styled("form")<Pick<FilterRangeProps, "surfaceType">>`
       grid-template-rows: subgrid;
 
       .MuiInputLabel-root {
-        ${textBody400};
         color: ${PALETTE.INK_MAIN};
+        font: ${FONT.BODY_400};
         max-width: unset;
         position: relative;
         transform: unset;

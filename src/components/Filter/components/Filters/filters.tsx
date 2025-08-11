@@ -103,7 +103,7 @@ export const Filters = ({
           {label && (
             <StyledTypography
               color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-              variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_UPPERCASE_500}
+              variant={TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500}
             >
               {label}
             </StyledTypography>

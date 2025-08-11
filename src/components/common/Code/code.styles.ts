@@ -1,20 +1,19 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { textBody500 } from "../../../styles/common/mixins/fonts";
-import { ThemeProps } from "../../../theme/theme";
+import { FONT } from "../../../styles/common/constants/font";
+import { ThemeProps } from "../../../theme/types";
 
 interface Props {
   copied: boolean;
 }
 
 const copy = (props: ThemeProps) => css`
-  ${textBody500(props)};
   align-items: center;
   border-radius: inherit;
   color: ${props.theme.palette.common.white};
   content: "";
   display: flex;
-  font-family: ${props.theme.typography.fontFamily};
+  font: ${FONT.BODY_500};
   height: 100%;
   justify-content: center;
   left: 0;

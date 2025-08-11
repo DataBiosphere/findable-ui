@@ -1,211 +1,149 @@
-import { CSSProperties } from "@mui/material";
-import { tabletUp } from "./breakpoints";
+import {
+  Theme,
+  TypographyStyle,
+  TypographyVariantsOptions,
+} from "@mui/material";
+import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 
-/**
- * Typography constants.
- */
-export const fontFamily = "Inter";
-const TYPOGRAPHY = {
-  TEXT_BODY_400: "text-body-400",
-  TEXT_BODY_400_2_LINES: "text-body-400-2lines",
-  TEXT_BODY_500: "text-body-500",
-  TEXT_BODY_500_2_LINES: "text-body-500-2lines",
-  TEXT_BODY_LARGE_400: "text-body-large-400",
-  TEXT_BODY_LARGE_400_2_LINES: "text-body-large-400-2lines",
-  TEXT_BODY_LARGE_500: "text-body-large-500",
-  TEXT_BODY_SMALL_400: "text-body-small-400",
-  TEXT_BODY_SMALL_400_2_LINES: "text-body-small-400-2lines",
-  TEXT_BODY_SMALL_500: "text-body-small-500",
-  TEXT_HEADING: "text-heading",
-  TEXT_HEADING_LARGE: "text-heading-large",
-  TEXT_HEADING_SMALL: "text-heading-small",
-  TEXT_HEADING_XLARGE: "text-heading-xlarge",
-  TEXT_HEADING_XSMALL: "text-heading-xsmall",
-  TEXT_UPPERCASE_500: "text-uppercase-500",
-} as const;
-export const {
-  TEXT_BODY_400,
-  TEXT_BODY_400_2_LINES,
-  TEXT_BODY_500,
-  TEXT_BODY_500_2_LINES,
-  TEXT_BODY_LARGE_400,
-  TEXT_BODY_LARGE_400_2_LINES,
-  TEXT_BODY_LARGE_500,
-  TEXT_BODY_SMALL_400,
-  TEXT_BODY_SMALL_400_2_LINES,
-  TEXT_BODY_SMALL_500,
-  TEXT_HEADING,
-  TEXT_HEADING_LARGE,
-  TEXT_HEADING_SMALL,
-  TEXT_HEADING_XLARGE,
-  TEXT_HEADING_XSMALL,
-  TEXT_UPPERCASE_500,
-} = TYPOGRAPHY;
-
-/**
- * Typography Option "text-body-400"
- */
-export const textBody400: CSSProperties = {
-  fontSize: 14,
+const body400: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-400-2lines"
- */
-export const textBody4002Lines: CSSProperties = {
-  fontSize: 14,
+const body4002Lines: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-500"
- */
-export const textBody500: CSSProperties = {
-  fontSize: 14,
+const body500: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "14px",
   fontWeight: 500,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-500-2lines"
- */
-export const textBody5002Lines: CSSProperties = {
-  fontSize: 14,
-  fontWeight: 500,
-  lineHeight: "24px",
-};
-
-/**
- * Typography Option "text-body-large-400"
- */
-export const textBodyLarge400: CSSProperties = {
-  fontSize: 16,
+const bodyLarge400: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 400,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-large-400-2lines"
- */
-export const textBodyLarge4002Lines: CSSProperties = {
-  fontSize: 16,
+const bodyLarge4002Lines: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 400,
   lineHeight: "28px",
 };
 
-/**
- * Typography Option "text-body-large-500"
- */
-export const textBodyLarge500: CSSProperties = {
-  fontSize: 16,
+const bodyLarge500: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-body-small-400"
- */
-export const textBodySmall400: CSSProperties = {
-  fontSize: 13,
+const bodySmall400: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 400,
   lineHeight: "16px",
 };
 
-/**
- * Typography Option "text-body-small-400-2lines"
- */
-export const textBodySmall4002Lines: CSSProperties = {
-  fontSize: 13,
+const bodySmall4002Lines: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 400,
   lineHeight: "20px",
 };
 
-/**
- * Typography Option "text-body-small-500"
- */
-export const textBodySmall500: CSSProperties = {
-  fontSize: 13,
+const bodySmall500: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "13px",
   fontWeight: 500,
   lineHeight: "16px",
 };
 
-/**
- * Typography Option "text-heading"
- */
-export const textHeading: CSSProperties = {
-  fontSize: 20,
+const heading = (theme: Theme): TypographyStyle => ({
+  fontFamily: "Inter",
+  fontSize: "20px",
   fontWeight: 500,
-  letterSpacing: "-0.2px",
   lineHeight: "28px",
-  [tabletUp]: {
-    fontSize: 24,
-    letterSpacing: "-0.4px",
+  [bpUpSm({ theme })]: {
+    fontSize: "24px",
     lineHeight: "32px",
   },
-};
+});
 
-/**
- * Typography Option "text-heading-large"
- */
-export const textHeadingLarge: CSSProperties = {
-  fontSize: 24,
+const headingLarge = (theme: Theme): TypographyStyle => ({
+  fontFamily: "Inter",
+  fontSize: "24px",
   fontWeight: 500,
-  letterSpacing: "-0.4px",
   lineHeight: "32px",
-  [tabletUp]: {
-    fontSize: 30,
-    letterSpacing: "-0.8px",
+  [bpUpSm({ theme })]: {
+    fontSize: "32px",
     lineHeight: "40px",
   },
-};
+});
 
-/**
- * Typography Option "text-heading-small"
- */
-export const textHeadingSmall: CSSProperties = {
-  fontSize: 18,
+const headingSmall = (theme: Theme): TypographyStyle => ({
+  fontFamily: "Inter",
+  fontSize: "18px",
   fontWeight: 500,
   lineHeight: "26px",
-  [tabletUp]: {
-    fontSize: 20,
-    letterSpacing: "-0.2px",
+  [bpUpSm({ theme })]: {
+    fontSize: "20px",
     lineHeight: "28px",
   },
-};
+});
 
-/**
- * Typography Option "text-heading-xlarge"
- */
-export const textHeadingXLarge: CSSProperties = {
-  fontSize: 30,
+const headingXLarge = (theme: Theme): TypographyStyle => ({
+  fontFamily: "Inter",
+  fontSize: "30px",
   fontWeight: 500,
   letterSpacing: "-0.8px",
   lineHeight: "40px",
-  [tabletUp]: {
-    fontSize: 40,
-    letterSpacing: "-1.4px",
-    lineHeight: "56px",
+  [bpUpSm({ theme })]: {
+    fontSize: "40px",
+    letterSpacing: "-0.4px",
+    lineHeight: "48px",
   },
-};
+});
 
-/**
- * Typography Option "text-heading-xsmall"
- */
-export const textHeadingXSmall: CSSProperties = {
-  fontSize: 16,
+const headingXSmall: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "16px",
   fontWeight: 500,
   lineHeight: "24px",
 };
 
-/**
- * Typography Option "text-uppercase-500"
- */
-export const textUppercase500: CSSProperties = {
-  fontSize: 12,
+const uppercase500: TypographyStyle = {
+  fontFamily: "Inter",
+  fontSize: "12px",
   fontWeight: 500,
   lineHeight: "16px",
   textTransform: "uppercase",
 };
+
+export const typography = (theme: Theme): TypographyVariantsOptions => ({
+  "body-400": body400,
+  "body-400-2lines": body4002Lines,
+  "body-500": body500,
+  "body-large-400": bodyLarge400,
+  "body-large-400-2lines": bodyLarge4002Lines,
+  "body-large-500": bodyLarge500,
+  "body-small-400": bodySmall400,
+  "body-small-400-2lines": bodySmall4002Lines,
+  "body-small-500": bodySmall500,
+  fontFamily: theme.typography.fontFamily,
+  heading: heading(theme),
+  "heading-large": headingLarge(theme),
+  "heading-small": headingSmall(theme),
+  "heading-xlarge": headingXLarge(theme),
+  "heading-xsmall": headingXSmall,
+  "uppercase-500": uppercase500,
+});

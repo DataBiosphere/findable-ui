@@ -2,6 +2,7 @@ import { Checkbox, Typography } from "@mui/material";
 import React, { ChangeEvent, useCallback, useState } from "react";
 import { useAuth } from "../../providers/authentication/auth/hook";
 import { ProviderId } from "../../providers/authentication/common/types";
+import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { CheckedIcon } from "../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedErrorIcon } from "../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
 import { UncheckedIcon } from "../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
@@ -12,10 +13,8 @@ import {
   LoginAgreement,
   LoginSection,
   LoginSectionActions,
-  LoginText,
-  LoginWarning,
   LoginWrapper,
-  TermsOfService,
+  StyledTypography,
 } from "./login.styles";
 import { Props } from "./types";
 
@@ -55,10 +54,21 @@ export const Login = <P,>({
       <RoundedPaper>
         <LoginSection>
           <SectionContent>
-            <Typography color="ink.main" component="h3" variant="text-heading">
+            <Typography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_MAIN}
+              component="h3"
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING}
+            >
               {title}
             </Typography>
-            {text && <LoginText>{text}</LoginText>}
+            {text && (
+              <Typography
+                component="div"
+                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+              >
+                {text}
+              </Typography>
+            )}
           </SectionContent>
           <LoginSectionActions>
             {termsOfService && (
@@ -68,7 +78,12 @@ export const Login = <P,>({
                   icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
                   onChange={handleChange}
                 />
-                <TermsOfService>{termsOfService}</TermsOfService>
+                <StyledTypography
+                  component="div"
+                  variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+                >
+                  {termsOfService}
+                </StyledTypography>
               </LoginAgreement>
             )}
             {providers?.map((provider) => (
@@ -83,7 +98,15 @@ export const Login = <P,>({
           </LoginSectionActions>
         </LoginSection>
       </RoundedPaper>
-      {warning && <LoginWarning>{warning}</LoginWarning>}
+      {warning && (
+        <Typography
+          color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+          component="div"
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+        >
+          {warning}
+        </Typography>
+      )}
     </LoginWrapper>
   );
 };

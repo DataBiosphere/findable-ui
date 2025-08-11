@@ -7,7 +7,7 @@ import {
 } from "../../../../../../hooks/authentication/terra/useAuthenticationForm";
 import { useAuth } from "../../../../../../providers/authentication/auth/hook";
 import { AUTH_STATUS } from "../../../../../../providers/authentication/auth/types";
-import { TEXT_BODY_400_2_LINES } from "../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import {
   FluidPaper,
   GridPaper,
@@ -31,7 +31,10 @@ export const TerraSetUpForm = (): JSX.Element | null => {
         <Section>
           <SectionContent>
             <SectionTitle title="Complete your setup" />
-            <Typography color="ink.light" variant={TEXT_BODY_400_2_LINES}>
+            <Typography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+            >
               Follow these steps to unlock the full potential of the data
               explorer.
             </Typography>

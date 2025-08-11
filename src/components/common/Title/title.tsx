@@ -17,7 +17,7 @@ export const Title = ({
       className={className}
       color={TYPOGRAPHY_PROPS.COLOR.INK_MAIN}
       component="h1"
-      variant={TYPOGRAPHY_PROPS.VARIANT.TEXT_HEADING_LARGE}
+      variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_LARGE}
       {...props}
     >
       {children}

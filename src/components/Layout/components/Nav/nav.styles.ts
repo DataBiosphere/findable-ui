@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
 import { List as MList } from "@mui/material";
-import {
-  textBody400,
-  textBody500,
-  textUppercase500,
-} from "../../../../styles/common/mixins/fonts";
+import { FONT } from "../../../../styles/common/constants/font";
 
 export const NavBar = styled.div`
   .MuiDivider-root {
@@ -30,7 +26,7 @@ export const List = styled(MList)`
       }
 
       .MuiListItemText-root {
-        ${textBody400};
+        font: ${FONT.BODY_400};
       }
 
       &.Mui-disabled {
@@ -39,7 +35,8 @@ export const List = styled(MList)`
         opacity: 1;
 
         .MuiListItemText-root {
-          ${textUppercase500};
+          font: ${FONT.UPPERCASE_500};
+          text-transform: uppercase;
         }
       }
 
@@ -47,7 +44,7 @@ export const List = styled(MList)`
         color: ${({ theme }) => theme.palette.primary.main};
 
         .MuiListItemText-root {
-          ${textBody500};
+          font: ${FONT.BODY_500};
         }
       }
     }

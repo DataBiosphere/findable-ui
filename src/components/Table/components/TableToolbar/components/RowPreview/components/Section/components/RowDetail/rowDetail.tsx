@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import React from "react";
 import { ListConfig } from "../../../../../../../../../../config/entities";
-import { TEXT_BODY_400 } from "../../../../../../../../../../theme/common/typography";
+import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import { ButtonTextPrimary } from "../../../../../../../../../common/Button/components/ButtonTextPrimary/buttonTextPrimary";
 import { ComponentCreator } from "../../../../../../../../../ComponentCreator/ComponentCreator";
 import { Section } from "./rowDetail.styles";
@@ -34,8 +34,8 @@ export const RowDetail = <T extends RowData>({
       {visibleColumns.map(({ componentConfig, header }, i) => (
         <Grid key={i}>
           <Typography
-            color="ink.light"
-            variant={TEXT_BODY_400}
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
             {...componentConfig.props?.TypographyProps}
           >
             {header}
