@@ -1,5 +1,30 @@
 # Changelog
 
+## [42.0.0](https://github.com/DataBiosphere/findable-ui/compare/v41.2.0...v42.0.0) (2025-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactor breakpoints.ts - limit public surface area ([#428](https://github.com/DataBiosphere/findable-ui/issues/428)) (#616)
+* refactor components.ts - limit exposure of each component to the theme ([#427](https://github.com/DataBiosphere/findable-ui/issues/427)) (#615)
+* refactor theme palette to reference css var ([#426](https://github.com/DataBiosphere/findable-ui/issues/426)) (#614)
+* refactor palette.ts - limit exposure of each palette to the theme ([#425](https://github.com/DataBiosphere/findable-ui/issues/425)) (#613)
+* update theme with css variable prefix value ([#608](https://github.com/DataBiosphere/findable-ui/issues/608)) (#612)
+* refactor typography.ts - limit public surface area ([#422](https://github.com/DataBiosphere/findable-ui/issues/422)) (#609)
+
+### Features
+
+* refactor typography.ts - limit public surface area ([#422](https://github.com/DataBiosphere/findable-ui/issues/422)) ([#609](https://github.com/DataBiosphere/findable-ui/issues/609)) ([f0d3386](https://github.com/DataBiosphere/findable-ui/commit/f0d3386957e43202435af08aafe85e9005d1d1c6))
+
+
+### Code Refactoring
+
+* refactor breakpoints.ts - limit public surface area ([#428](https://github.com/DataBiosphere/findable-ui/issues/428)) ([#616](https://github.com/DataBiosphere/findable-ui/issues/616)) ([c64b874](https://github.com/DataBiosphere/findable-ui/commit/c64b8744497b3ae1b77c12a392ad8f25720eaaa5))
+* refactor components.ts - limit exposure of each component to the theme ([#427](https://github.com/DataBiosphere/findable-ui/issues/427)) ([#615](https://github.com/DataBiosphere/findable-ui/issues/615)) ([d26cfb2](https://github.com/DataBiosphere/findable-ui/commit/d26cfb255e2864724fbf980b194fa2e03df8c1d1))
+* refactor palette.ts - limit exposure of each palette to the theme ([#425](https://github.com/DataBiosphere/findable-ui/issues/425)) ([#613](https://github.com/DataBiosphere/findable-ui/issues/613)) ([103ad30](https://github.com/DataBiosphere/findable-ui/commit/103ad305b8bc2734d5d3e239e0f0eac527247cb7))
+* refactor theme palette to reference css var ([#426](https://github.com/DataBiosphere/findable-ui/issues/426)) ([#614](https://github.com/DataBiosphere/findable-ui/issues/614)) ([2517349](https://github.com/DataBiosphere/findable-ui/commit/2517349e47cee9616b9d80964586959c9a6eb1c6))
+* update theme with css variable prefix value ([#608](https://github.com/DataBiosphere/findable-ui/issues/608)) ([#612](https://github.com/DataBiosphere/findable-ui/issues/612)) ([1c25d59](https://github.com/DataBiosphere/findable-ui/commit/1c25d59a6749a6f35ce4ff540e2fe0642f2d984c))
+
 ## [41.2.0](https://github.com/DataBiosphere/findable-ui/compare/v41.1.0...v41.2.0) (2025-08-01)
 
 
