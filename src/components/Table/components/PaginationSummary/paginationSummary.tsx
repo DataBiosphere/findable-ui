@@ -19,11 +19,11 @@ export const PaginationSummary = ({
       <div data-testid={TEST_IDS.TABLE_PAGINATION_RESULTS}>
         <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
           Results
-        </Typography>
+        </Typography>{" "}
         <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
           {firstResult} - {lastResult}
-        </Typography>
-        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>of</Typography>
+        </Typography>{" "}
+        <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>of</Typography>{" "}
         <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
           {totalResult}
         </Typography>
