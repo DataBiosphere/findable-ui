@@ -34,7 +34,7 @@ import {
   RequestValue,
 } from "./common/entities";
 import { createSupportRequest, uploadAttachment } from "./common/utils";
-import { Section, Title } from "./supportRequestForm.styles";
+import { Section } from "./supportRequestForm.styles";
 
 export interface SupportRequestFormProps {
   setFormSubmitted: Dispatch<SetStateAction<boolean>>;
@@ -183,7 +183,12 @@ export const SupportRequestForm = ({
         <GridPaper>
           <Section>
             <SectionContent>
-              <Title>Contact Us</Title>
+              <Typography
+                component="h3"
+                variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
+              >
+                Contact Us
+              </Typography>
               <Typography
                 color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
                 variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
