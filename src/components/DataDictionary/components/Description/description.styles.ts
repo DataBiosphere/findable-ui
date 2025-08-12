@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { bpDownSm, bpUpSm } from "../../../../styles/common/mixins/breakpoints";
+import { bpDownSm } from "../../../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
 import { MarkdownRenderer } from "../../../MarkdownRenderer/markdownRenderer";
 
@@ -34,11 +34,6 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
     font: ${FONT.HEADING_SMALL};
     font-size: 18px;
     line-height: 26px;
-
-    ${bpUpSm} {
-      font-size: 18px;
-      line-height: 26px;
-    }
   }
 
   hr {
@@ -48,6 +43,6 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
   }
 
   p {
-    font: inherit;
+    font: ${FONT.BODY_400_2_LINES};
   }
 `;

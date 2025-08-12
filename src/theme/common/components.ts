@@ -109,7 +109,7 @@ const MuiBreadcrumbs: Components["MuiBreadcrumbs"] = {
   },
 };
 
-const MuiButton: Components["MuiButton"] = {
+const MuiButton: Components<Theme>["MuiButton"] = {
   defaultProps: {
     disableRipple: true,
     disableTouchRipple: true,
@@ -276,9 +276,9 @@ const MuiButton: Components["MuiButton"] = {
       props: {
         variant: "backNav", // associated with "nav" variant.
       },
-      style: {
+      style: ({ theme }) => ({
+        ...theme.typography["heading-small"],
         color: PALETTE.INK_MAIN,
-        font: FONT.HEADING_SMALL,
         minWidth: 0,
         textTransform: "capitalize",
         whiteSpace: "nowrap",
@@ -286,7 +286,7 @@ const MuiButton: Components["MuiButton"] = {
         "&:hover": {
           backgroundColor: PALETTE.SMOKE_LIGHT,
         },
-      },
+      }),
     },
     {
       props: {
@@ -568,9 +568,9 @@ const MuiDialogContent: Components["MuiDialogContent"] = {
 const MuiDialogTitle: Components<Theme>["MuiDialogTitle"] = {
   styleOverrides: {
     root: ({ theme }) => ({
+      ...theme.typography.heading,
       alignItems: "center",
       display: "grid",
-      font: FONT.HEADING,
       gridAutoFlow: "column",
       padding: 20,
       [bpUpSm({ theme })]: {},
