@@ -1,5 +1,12 @@
 # Changelog
 
+## [42.0.1](https://github.com/DataBiosphere/findable-ui/compare/v42.0.0...v42.0.1) (2025-08-12)
+
+
+### Bug Fixes
+
+* update any typography header fonts using css vars with breakpoint overrides ([#620](https://github.com/DataBiosphere/findable-ui/issues/620)) ([#621](https://github.com/DataBiosphere/findable-ui/issues/621)) ([468fb09](https://github.com/DataBiosphere/findable-ui/commit/468fb09cb367a98c20fd70949cc857ce17db2dd4))
+
 ## [42.0.0](https://github.com/DataBiosphere/findable-ui/compare/v41.2.0...v42.0.0) (2025-08-12)
 
 
