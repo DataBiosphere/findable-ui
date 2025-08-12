@@ -42,4 +42,4 @@ export const Filters = styled("div")<
 
 export const StyledTypography = styled(Typography)`
   padding: 8px;
-`;
+` as typeof Typography;
