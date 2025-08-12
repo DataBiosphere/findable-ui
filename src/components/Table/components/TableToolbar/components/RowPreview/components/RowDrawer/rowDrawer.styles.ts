@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../../../../../styles/common/constants/palette";
-import { mediaTabletUp } from "../../../../../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../../../../../styles/common/mixins/breakpoints";
 import { DrawerTitle as DXDrawerTitle } from "../../../../../../../common/Drawer/components/DrawerTitle/drawerTitle";
 import { Drawer as DXDrawer } from "../../../../../../../common/Drawer/drawer";
 
@@ -16,7 +16,7 @@ export const Drawer = styled(DXDrawer)`
       width: 100%;
     }
 
-    ${mediaTabletUp} {
+    ${bpUpSm} {
       .MuiDrawer-paper {
         max-width: min(506px, 50vw);
       }

@@ -6,7 +6,6 @@ import {
   useBreakpointHelper,
 } from "../../../../../hooks/useBreakpointHelper";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
-import { TABLET } from "../../../../../theme/common/breakpoints";
 import { SectionTitle } from "../SectionTitle/sectionTitle";
 import {
   CollapsableSection as Section,
@@ -25,11 +24,11 @@ export const CollapsableSection = ({
   collapsable = false,
   title,
 }: CollapsableSectionProps): JSX.Element => {
-  const mobile = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, TABLET);
+  const bpDownSm = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
   const [expanded, setExpanded] = useState<boolean>(false);
   const [transitionDuration, setTransitionDuration] =
     useState<CollapseProps["timeout"]>(0);
-  const disabled = !mobile || !collapsable;
+  const disabled = !bpDownSm || !collapsable;
   const ExpandIcon = expanded ? RemoveRounded : AddRounded;
   const SectionContent = (
     <SectionText
@@ -46,14 +45,14 @@ export const CollapsableSection = ({
 
   // Toggles expanded state on change of media breakpoint.
   useEffect(() => {
-    setExpanded(!mobile);
-  }, [mobile]);
+    setExpanded(!bpDownSm);
+  }, [bpDownSm]);
 
   // Sets collapseTimeout state on change of media breakpoint.
   // Delays setting transitionDuration state for mobile breakpoint to facilitate the immediate transition from
   // tablet to mobile.
   useEffect(() => {
-    if (mobile) {
+    if (bpDownSm) {
       const duration = setTimeout(() => {
         setTransitionDuration("auto");
       }, 100);
@@ -63,7 +62,7 @@ export const CollapsableSection = ({
     } else {
       setTransitionDuration(0);
     }
-  }, [mobile]);
+  }, [bpDownSm]);
 
   return (
     <Section>

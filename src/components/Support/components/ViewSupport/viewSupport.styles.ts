@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { SHADOWS } from "../../../../styles/common/constants/shadows";
-import { mediaTabletUp } from "../../../../styles/common/mixins/breakpoints";
+import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 
 export const Fab = styled("a")`
   align-items: center;
@@ -25,7 +25,7 @@ export const Fab = styled("a")`
     background-color: ${PALETTE.PRIMARY_DARK};
   }
 
-  ${mediaTabletUp} {
+  ${bpUpSm} {
     bottom: 72px;
   }
 `;

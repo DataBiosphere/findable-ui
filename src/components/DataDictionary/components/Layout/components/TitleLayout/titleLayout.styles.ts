@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import {
   bpDown1024,
-  mediaTabletDown,
+  bpDownSm,
 } from "../../../../../../styles/common/mixins/breakpoints";
 
 export const Layout = styled("div")<LayoutSpacing>`
@@ -20,7 +20,7 @@ export const Layout = styled("div")<LayoutSpacing>`
     position: relative;
   }
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     margin: 0 16px;
   }
 `;

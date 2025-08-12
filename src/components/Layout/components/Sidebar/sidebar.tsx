@@ -5,7 +5,6 @@ import {
   useBreakpointHelper,
 } from "../../../../hooks/useBreakpointHelper";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { DESKTOP_SM } from "../../../../theme/common/breakpoints";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { SidebarDrawer } from "./components/SidebarDrawer/sidebarDrawer";
 import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositioner";
@@ -13,11 +12,8 @@ import { Sidebar as PermanentSidebar } from "./sidebar.styles";
 
 export const Sidebar = ({ children }: ChildrenProps): JSX.Element => {
   const { onClose, open } = useDrawer();
-  const desktopSmDown = useBreakpointHelper(
-    BREAKPOINT_FN_NAME.DOWN,
-    DESKTOP_SM
-  );
-  const drawerSidebar = desktopSmDown;
+  const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
+  const drawerSidebar = bpDownMd;
   const Bar = drawerSidebar ? SidebarDrawer : PermanentSidebar;
   const barProps = drawerSidebar
     ? { onClose, open }
@@ -25,10 +21,10 @@ export const Sidebar = ({ children }: ChildrenProps): JSX.Element => {
 
   // Closes an open, controlled drawer sidebar with a change of breakpoint.
   useEffect(() => {
-    if (open && !desktopSmDown) {
+    if (open && !bpDownMd) {
       onClose();
     }
-  }, [desktopSmDown, onClose, open]);
+  }, [bpDownMd, onClose, open]);
 
   return (
     <Bar {...barProps}>

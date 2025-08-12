@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { mediaDesktopSmallUp } from "../../../../../../styles/common/mixins/breakpoints";
+import { bpUpMd } from "../../../../../../styles/common/mixins/breakpoints";
 
 export const SidebarTools = styled.div`
   display: grid;
@@ -12,7 +12,7 @@ export const SidebarTools = styled.div`
     grid-column: 1 / -1; // SearchAllFilters component to utilize full width of the grid.
   }
 
-  ${mediaDesktopSmallUp} {
+  ${bpUpMd} {
     padding: 8px 16px;
   }
 `;

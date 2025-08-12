@@ -1,17 +1,14 @@
 import styled from "@emotion/styled";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import {
-  mediaTabletDown,
-  mediaTabletUp,
-} from "../../../../styles/common/mixins/breakpoints";
+import { bpDownSm, bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
 import { MarkdownRenderer } from "../../../MarkdownRenderer/markdownRenderer";
 
 export const StyledFluidPaper = styled(FluidPaper)`
   padding: 20px;
 
-  ${mediaTabletDown} {
+  ${bpDownSm} {
     padding: 20px 16px;
   }
 `;
@@ -38,7 +35,7 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
     font-size: 18px;
     line-height: 26px;
 
-    ${mediaTabletUp} {
+    ${bpUpSm} {
       font-size: 18px;
       line-height: 26px;
     }
