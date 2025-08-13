@@ -1,5 +1,19 @@
 # Changelog
 
+## [42.1.0](https://github.com/DataBiosphere/findable-ui/compare/v42.0.1...v42.1.0) (2025-08-13)
+
+
+### Features
+
+* create typography to css helper function ([#625](https://github.com/DataBiosphere/findable-ui/issues/625)) ([#626](https://github.com/DataBiosphere/findable-ui/issues/626)) ([2a78f7a](https://github.com/DataBiosphere/findable-ui/commit/2a78f7aa256617f9f1f058b2979849e865a668a0))
+
+
+### Bug Fixes
+
+* fix category group filter label line height ([#627](https://github.com/DataBiosphere/findable-ui/issues/627)) ([#628](https://github.com/DataBiosphere/findable-ui/issues/628)) ([3bb93ce](https://github.com/DataBiosphere/findable-ui/commit/3bb93ce6f8cd4ad316d08809626638b45e238b56))
+* fix pagination summary spacing ([#623](https://github.com/DataBiosphere/findable-ui/issues/623)) ([#624](https://github.com/DataBiosphere/findable-ui/issues/624)) ([b1bfd1f](https://github.com/DataBiosphere/findable-ui/commit/b1bfd1f6c4f1a7d53524ec8d584a97b9cd1dbe83))
+* revert typography theme styles ([#630](https://github.com/DataBiosphere/findable-ui/issues/630)) ([#631](https://github.com/DataBiosphere/findable-ui/issues/631)) ([e9f037b](https://github.com/DataBiosphere/findable-ui/commit/e9f037b8e5c759533f7cb491e7b080c5496f6474))
+
 ## [42.0.1](https://github.com/DataBiosphere/findable-ui/compare/v42.0.0...v42.0.1) (2025-08-12)
 
 
