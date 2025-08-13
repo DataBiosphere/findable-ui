@@ -72,9 +72,11 @@ const heading = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "20px",
   fontWeight: 500,
+  letterSpacing: "-0.2px",
   lineHeight: "28px",
   [bpUpSm({ theme })]: {
     fontSize: "24px",
+    letterSpacing: "-0.4px",
     lineHeight: "32px",
   },
 });
@@ -83,9 +85,11 @@ const headingLarge = (theme: Theme): TypographyStyle => ({
   fontFamily: "Inter",
   fontSize: "24px",
   fontWeight: 500,
+  letterSpacing: "-0.4px",
   lineHeight: "32px",
   [bpUpSm({ theme })]: {
-    fontSize: "32px",
+    fontSize: "30px",
+    letterSpacing: "-0.8px",
     lineHeight: "40px",
   },
 });
@@ -97,6 +101,7 @@ const headingSmall = (theme: Theme): TypographyStyle => ({
   lineHeight: "26px",
   [bpUpSm({ theme })]: {
     fontSize: "20px",
+    letterSpacing: "-0.2px",
     lineHeight: "28px",
   },
 });
@@ -109,8 +114,8 @@ const headingXLarge = (theme: Theme): TypographyStyle => ({
   lineHeight: "40px",
   [bpUpSm({ theme })]: {
     fontSize: "40px",
-    letterSpacing: "-0.4px",
-    lineHeight: "48px",
+    letterSpacing: "-1.4px",
+    lineHeight: "56px",
   },
 });
 
