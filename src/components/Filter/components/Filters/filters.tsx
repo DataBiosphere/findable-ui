@@ -103,6 +103,7 @@ export const Filters = ({
           {label && (
             <StyledTypography
               color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+              component="div"
               variant={TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500}
             >
               {label}
