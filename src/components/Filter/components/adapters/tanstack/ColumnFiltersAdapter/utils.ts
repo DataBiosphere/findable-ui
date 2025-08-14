@@ -1,5 +1,5 @@
 import { Column, RowData, Table } from "@tanstack/react-table";
-import { CategoryConfig } from "common/categories/config/types";
+import { CategoryConfig } from "../../../../../../common/categories/config/types";
 import { CategoryView } from "../../../../../../common/categories/views/types";
 import { SelectCategoryValueView } from "../../../../../../common/entities";
 import { CategoryGroup } from "../../../../../../config/entities";
