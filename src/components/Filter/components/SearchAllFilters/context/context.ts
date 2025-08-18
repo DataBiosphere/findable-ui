@@ -8,5 +8,5 @@ export const AutocompleteContext = createContext<AutocompleteContextProps>({
   open: false,
   searchTerm: "",
   selectCategoryViews: [],
-  surfaceType: SURFACE_TYPE.MENU,
+  surfaceType: SURFACE_TYPE.POPPER_MENU,
 });
