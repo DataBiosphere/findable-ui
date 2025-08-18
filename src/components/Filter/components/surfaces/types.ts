@@ -10,4 +10,6 @@ export interface SurfaceProps {
 export enum SURFACE_TYPE {
   DRAWER = "DRAWER",
   MENU = "MENU",
+  POPPER_DRAWER = "POPPER_DRAWER",
+  POPPER_MENU = "POPPER_MENU",
 }

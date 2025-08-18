@@ -1,55 +1,42 @@
-import { PaperProps, PopperProps } from "@mui/material";
+import { AutocompleteProps, PaperProps, PopperProps } from "@mui/material";
 import { DividerItem, ITEM_TYPE, NoResultsItem } from "./entites";
 
 export const DEFAULT_LIST_HEIGHT = 0;
 
 export const DIVIDER_HEIGHT = 17;
 
-export const DEFAULT_PAPER_PROPS: Partial<PaperProps> = {
-  sx: {
-    width: 368,
-  },
-  variant: "menu",
-};
-export const DEFAULT_POPPER_PROPS: Partial<PopperProps> = {
-  modifiers: [
-    {
-      name: "offset",
-      options: {
-        offset: [0, 8],
-      },
-    },
-  ],
+const POPPER_MENU_PAPER_PROPS: Partial<PaperProps> = { variant: "menu" };
+
+const POPPER_MENU_POPPER_PROPS: Partial<PopperProps> = {
+  modifiers: [{ name: "offset", options: { offset: [0, 8] } }],
   placement: "bottom-start",
 };
 
-export const DEFAULT_SLOT_PROPS = {
-  paper: DEFAULT_PAPER_PROPS,
-  popper: DEFAULT_POPPER_PROPS,
+export const POPPER_MENU_SLOT_PROPS: AutocompleteProps<
+  string,
+  false,
+  false,
+  true
+>["slotProps"] = {
+  paper: POPPER_MENU_PAPER_PROPS,
+  popper: POPPER_MENU_POPPER_PROPS,
 };
 
-export const DRAWER_PAPER_PROPS: Partial<PaperProps> = {
-  elevation: 0,
-  sx: {
-    width: 312,
-  },
-};
+const POPPER_DRAWER_PAPER_PROPS: Partial<PaperProps> = { elevation: 0 };
 
-export const DRAWER_POPPER_PROPS: Partial<PopperProps> = {
-  modifiers: [
-    {
-      name: "offset",
-      options: {
-        offset: [-16, 8],
-      },
-    },
-  ],
+const POPPER_DRAWER_POPPER_PROPS: Partial<PopperProps> = {
+  modifiers: [{ name: "offset", options: { offset: [-16, 8] } }],
   popperOptions: { strategy: "absolute" },
 };
 
-export const DRAWER_SLOT_PROPS = {
-  paper: DRAWER_PAPER_PROPS,
-  popper: DRAWER_POPPER_PROPS,
+export const POPPER_DRAWER_SLOT_PROPS: AutocompleteProps<
+  string,
+  false,
+  false,
+  true
+>["slotProps"] = {
+  paper: POPPER_DRAWER_PAPER_PROPS,
+  popper: POPPER_DRAWER_POPPER_PROPS,
 };
 
 export const DIVIDER_ITEM: DividerItem = {

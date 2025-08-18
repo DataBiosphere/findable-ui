@@ -1,15 +1,14 @@
 import styled from "@emotion/styled";
-import { Autocomplete as MAutocomplete } from "@mui/material";
-import { PALETTE } from "../../../../styles/common/constants/palette";
+import { Autocomplete } from "@mui/material";
 
-export const Autocomplete = styled(MAutocomplete)`
-  &.Mui-expanded {
+export const StyledAutocomplete = styled(Autocomplete)`
+  &.MuiAutocomplete-root {
     .MuiOutlinedInput-root {
-      .MuiIconButton-root {
-        .MuiSvgIcon-root {
-          color: ${PALETTE.INK_MAIN};
-        }
+      padding: 0 12px;
+
+      .MuiAutocomplete-input {
+        padding: 10px 0;
       }
     }
   }
-` as typeof MAutocomplete;
+` as typeof Autocomplete;

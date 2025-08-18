@@ -1,61 +1,25 @@
-import {
-  AutocompleteRenderInputParams,
-  ListProps as MListProps,
-} from "@mui/material";
-import React, {
-  ChangeEvent,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ListProps as MListProps } from "@mui/material";
+import React, { useCallback, useRef, useState } from "react";
 import { isSelectCategoryView } from "../../../../common/categories/views/select/typeGuards";
-import { CategoryView } from "../../../../common/categories/views/types";
-import { SelectCategoryView } from "../../../../common/entities";
 import { SELECTOR } from "../../../../common/selectors";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../../../hooks/useBreakpointHelper";
-import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { useDrawer } from "../../../common/Drawer/provider/hook";
-import { SearchCloseButton } from "../SearchAllFiltersSearch/components/SearchCloseButton/searchCloseButton";
-import { SearchAllFiltersSearch } from "../SearchAllFiltersSearch/searchAllFiltersSearch";
-import { DEFAULT_SLOT_PROPS, DRAWER_SLOT_PROPS } from "./common/constants";
+import {
+  StyledPopper,
+  StyledPopperDrawer,
+} from "../surfaces/popper/Popper/popper.styles";
+import { SURFACE_TYPE } from "../surfaces/types";
+import {
+  POPPER_DRAWER_SLOT_PROPS,
+  POPPER_MENU_SLOT_PROPS,
+} from "./common/constants";
 import { OVERFLOW_STYLE } from "./common/entites";
 import { setElementsOverflowStyle } from "./common/utils";
-import { AutocompletePopper } from "./components/AutocompletePopper/autocompletePopper.styles";
+import { OutlinedInput } from "./components/OutlinedInput/outlinedInput";
 import { VariableSizeList } from "./components/VariableSizeList/VariableSizeList";
-import { Autocomplete } from "./searchAllFilters.styles";
-
-export interface SearchAllFiltersProps {
-  categoryViews: CategoryView[];
-  onFilter: OnFilterFn;
-}
-
-interface ListboxContextValue {
-  onClearSearch: () => void;
-  onCloseSearch: () => void;
-  onFilter: OnFilterFn;
-  open: boolean;
-  searchTerm: string;
-  selectCategoryViews: SelectCategoryView[];
-}
-
-const renderInput = (params: AutocompleteRenderInputParams): JSX.Element => (
-  <SearchAllFiltersSearch {...params} />
-);
-
-export const ListboxContext = createContext<ListboxContextValue>({
-  onClearSearch: (): void => undefined,
-  onCloseSearch: (): void => undefined,
-  onFilter: (): void => undefined,
-  open: false,
-  searchTerm: "",
-  selectCategoryViews: [],
-});
+import { AutocompleteContext } from "./context/context";
+import { useAutocomplete } from "./context/hook";
+import { StyledAutocomplete } from "./searchAllFilters.styles";
+import { SearchAllFiltersProps } from "./types";
 
 const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
   props,
@@ -64,8 +28,8 @@ const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
   props = Object.assign({}, props, {
     children: undefined, // Content is controlled by VariableSizeList
   });
-  const { onFilter, searchTerm, selectCategoryViews } =
-    useContext(ListboxContext);
+  const { onFilter, searchTerm, selectCategoryViews, surfaceType } =
+    useAutocomplete();
   return (
     <VariableSizeList
       autocompleteListProps={props}
@@ -73,120 +37,94 @@ const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
       ref={ref}
       searchTerm={searchTerm}
       selectCategoryViews={selectCategoryViews}
+      surfaceType={surfaceType}
     />
   );
 });
 
 export const SearchAllFilters = ({
   categoryViews,
+  className,
   onFilter,
+  surfaceType = SURFACE_TYPE.POPPER_MENU,
+  ...props /* Mui AutocompleteProps */
 }: SearchAllFiltersProps): JSX.Element => {
-  const { open: isDrawerOpen } = useDrawer();
-  const bpUpMd = useBreakpointHelper(BREAKPOINT_FN_NAME.UP, "md");
   const autocompleteRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const selectCategoryViews = categoryViews.filter((view) =>
-    isSelectCategoryView(view)
+  const selectCategoryViews = categoryViews.filter(isSelectCategoryView);
+
+  // Handles background scroll action.
+  const handleBackgroundScroll = useCallback(
+    (overflowStyle: OVERFLOW_STYLE): void => {
+      if (surfaceType === SURFACE_TYPE.POPPER_MENU) {
+        setElementsOverflowStyle(
+          [
+            document.querySelector(SELECTOR.BODY),
+            document.getElementById(SELECTOR.SIDEBAR_POSITIONER),
+          ],
+          overflowStyle
+        );
+      }
+    },
+    [surfaceType]
   );
 
-  // Handles background scroll action ("md" and up).
-  const handleBackgroundScroll = (overflowStyle: OVERFLOW_STYLE): void => {
-    if (bpUpMd) {
-      setElementsOverflowStyle(
-        [
-          document.querySelector(SELECTOR.BODY),
-          document.getElementById(SELECTOR.SIDEBAR_POSITIONER),
-        ],
-        overflowStyle
-      );
-    }
-  };
-
-  // Callback fired when the value is changed.
-  const onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Clear search
-  const onClearSearch = (): void => {
-    setSearchTerm("");
-  };
-
-  // Close search.
-  const onCloseSearch = (): void => {
+  const onClose = useCallback((): void => {
     setSearchTerm("");
     setOpen(false);
     handleBackgroundScroll(OVERFLOW_STYLE.NONE);
-  };
-
-  // Callback fired when the popup requests to be opened.
-  const onOpen = (): void => {
-    handleBackgroundScroll(OVERFLOW_STYLE.HIDDEN);
-  };
-
-  // Open search.
-  const onOpenSearch = (): void => {
-    if (open) {
-      return;
-    }
-    setOpen(true);
-  };
-
-  useEffect(() => {
-    if (!open) {
+    setTimeout(() => {
       autocompleteRef.current?.querySelector("input")?.blur();
-    }
-  }, [open]);
+    }, 100);
+  }, [handleBackgroundScroll]);
 
-  // Close search when filter drawer is closed.
-  useEffect(() => {
-    if (!isDrawerOpen) {
-      setSearchTerm("");
-      setOpen(false);
-    }
-  }, [isDrawerOpen]);
+  const onOpen = useCallback((): void => {
+    setOpen(true);
+    handleBackgroundScroll(OVERFLOW_STYLE.HIDDEN);
+  }, [handleBackgroundScroll]);
+
+  const onClear = useCallback((): void => {
+    setSearchTerm("");
+    if (surfaceType === SURFACE_TYPE.POPPER_DRAWER) onClose();
+  }, [onClose, surfaceType]);
 
   return (
-    <ListboxContext.Provider
+    <AutocompleteContext.Provider
       value={{
-        onClearSearch,
-        onCloseSearch,
+        onClear,
         onFilter,
         open,
         searchTerm,
         selectCategoryViews,
+        surfaceType,
       }}
     >
-      <Autocomplete
-        clearOnBlur={bpUpMd}
+      <StyledAutocomplete
+        className={className}
         data-testid={TEST_IDS.SEARCH_ALL_FILTERS}
         filterOptions={(options): string[] => options}
         freeSolo
-        ListboxComponent={Listbox}
-        onBlur={bpUpMd ? onCloseSearch : undefined}
-        onClose={bpUpMd ? onCloseSearch : undefined}
-        onFocus={onOpenSearch}
+        onClose={onClose}
+        onInputChange={(_, v = "") => setSearchTerm(v)}
         onOpen={onOpen}
         open={open}
         options={[""]} // Placeholder options, since item rendering is fully controlled by VariableSizeList
-        PopperComponent={AutocompletePopper}
         ref={autocompleteRef}
-        renderInput={(props): JSX.Element =>
-          renderInput({
-            ...props,
-            InputProps: {
-              ...props.InputProps,
-              endAdornment: <SearchCloseButton />,
-            },
-            inputProps: {
-              ...props.inputProps,
-              onChange,
-            },
-          })
+        renderInput={OutlinedInput}
+        slotProps={
+          surfaceType === SURFACE_TYPE.POPPER_MENU
+            ? POPPER_MENU_SLOT_PROPS
+            : POPPER_DRAWER_SLOT_PROPS
         }
-        slotProps={bpUpMd ? DEFAULT_SLOT_PROPS : DRAWER_SLOT_PROPS}
+        slots={
+          surfaceType === SURFACE_TYPE.POPPER_MENU
+            ? { listbox: Listbox, popper: StyledPopper }
+            : { listbox: Listbox, popper: StyledPopperDrawer }
+        }
+        value={searchTerm}
+        {...props}
       />
-    </ListboxContext.Provider>
+    </AutocompleteContext.Provider>
   );
 };
