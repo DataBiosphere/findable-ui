@@ -1,5 +1,18 @@
 # Changelog
 
+## [43.0.0](https://github.com/DataBiosphere/findable-ui/compare/v42.1.0...v43.0.0) (2025-08-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* add surfacetype prop to searchallfilters ([#636](https://github.com/DataBiosphere/findable-ui/issues/636)) (#637)
+
+### Features
+
+* add surfacetype prop to searchallfilters ([#636](https://github.com/DataBiosphere/findable-ui/issues/636)) ([#637](https://github.com/DataBiosphere/findable-ui/issues/637)) ([026f522](https://github.com/DataBiosphere/findable-ui/commit/026f522e383dca64903b68859f10997ead191fe9))
+* update columnfiltersadapter to handle grouping of column filters ([#632](https://github.com/DataBiosphere/findable-ui/issues/632)) ([#633](https://github.com/DataBiosphere/findable-ui/issues/633)) ([23c54e9](https://github.com/DataBiosphere/findable-ui/commit/23c54e99a83522d8eef4b2f4b544b3cb3367ce32))
+* update columnfiltersadapter to handle range category filtering ([#634](https://github.com/DataBiosphere/findable-ui/issues/634)) ([#635](https://github.com/DataBiosphere/findable-ui/issues/635)) ([5b5a5b8](https://github.com/DataBiosphere/findable-ui/commit/5b5a5b8d36c2d847f2b97bfbb55f094f5961dbb5))
+
 ## [42.1.0](https://github.com/DataBiosphere/findable-ui/compare/v42.0.1...v42.1.0) (2025-08-13)
 
 
