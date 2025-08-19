@@ -1,7 +1,12 @@
 import { Column, RowData, Table } from "@tanstack/react-table";
+import { isRangeCategoryConfig } from "../../../../../../common/categories/config/range/typeGuards";
 import { CategoryConfig } from "../../../../../../common/categories/config/types";
+import { RangeCategoryView } from "../../../../../../common/categories/views/range/types";
 import { CategoryView } from "../../../../../../common/categories/views/types";
-import { SelectCategoryValueView } from "../../../../../../common/entities";
+import {
+  SelectCategoryValueView,
+  SelectCategoryView,
+} from "../../../../../../common/entities";
 import { CategoryGroup } from "../../../../../../config/entities";
 import { getColumnHeader } from "../../../../../Table/common/utils";
 import { getSortedFacetedValues } from "../../../../../Table/featureOptions/facetedColumn/utils";
@@ -113,7 +118,17 @@ function mapCategoryFilter<T extends RowData>(
       const column = table.getColumn(categoryConfig.key);
       if (!column) return acc;
       if (!column.getCanFilter()) return acc;
-      const categoryView = mapColumnToCategoryView(column, categoryConfig);
+
+      let categoryView: CategoryView;
+
+      if (isRangeCategoryConfig(categoryConfig)) {
+        // Build range category view.
+        categoryView = mapColumnToRangeCategoryView(column, categoryConfig);
+      } else {
+        // Build select category view.
+        categoryView = mapColumnToSelectCategoryView(column, categoryConfig);
+      }
+
       return [...acc, categoryView];
     },
     []
@@ -125,15 +140,47 @@ function mapCategoryFilter<T extends RowData>(
 }
 
 /**
- * Adapter for TanStack column to category view.
+ * Adapter for TanStack column to range category view.
  * @param column - Column.
  * @param categoryConfig - Category config.
- * @returns Category view.
+ * @returns Range category view.
  */
-function mapColumnToCategoryView<T extends RowData>(
+function mapColumnToRangeCategoryView<T extends RowData>(
   column: Column<T>,
   categoryConfig?: CategoryConfig
-): CategoryView {
+): RangeCategoryView {
+  const minMax = column.getFacetedMinMaxValues();
+  const isDisabled = !minMax;
+
+  // Selected values for the column.
+  const filterValue = (column.getFilterValue() || [null, null]) as [
+    number | null,
+    number | null
+  ];
+
+  return {
+    annotation: undefined,
+    isDisabled,
+    key: column.id,
+    label: getColumnHeader(column),
+    max: minMax?.[1] || Infinity,
+    min: minMax?.[0] || -Infinity,
+    selectedMax: filterValue[1],
+    selectedMin: filterValue[0],
+    ...categoryConfig,
+  };
+}
+
+/**
+ * Adapter for TanStack column to select category view.
+ * @param column - Column.
+ * @param categoryConfig - Category config.
+ * @returns Select category view.
+ */
+function mapColumnToSelectCategoryView<T extends RowData>(
+  column: Column<T>,
+  categoryConfig?: CategoryConfig
+): SelectCategoryView {
   const facetedUniqueValues = column.getFacetedUniqueValues();
   const isDisabled = facetedUniqueValues.size === 0;
   const values = mapColumnToSelectCategoryValueView(column);
