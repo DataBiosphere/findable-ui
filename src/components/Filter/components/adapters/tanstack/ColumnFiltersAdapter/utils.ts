@@ -153,7 +153,10 @@ function mapColumnToRangeCategoryView<T extends RowData>(
   const isDisabled = !minMax;
 
   // Selected values for the column.
-  const filterValue = (column.getFilterValue() || []) as [number, number];
+  const filterValue = (column.getFilterValue() || [null, null]) as [
+    number | null,
+    number | null
+  ];
 
   return {
     annotation: undefined,
