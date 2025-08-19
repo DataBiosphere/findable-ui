@@ -135,6 +135,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
             <SearchAllFilters
               categoryViews={categoryViews}
               onFilter={onFilterChange.bind(null, true)}
+              surfaceType={
+                mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
+              }
             />
           </SidebarTools>
           <Filters

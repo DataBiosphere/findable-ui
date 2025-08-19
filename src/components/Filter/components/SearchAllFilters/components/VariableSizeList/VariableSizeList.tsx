@@ -15,10 +15,6 @@ import {
   VariableSizeListProps as ListProps,
 } from "react-window";
 import { SelectCategoryView } from "../../../../../../common/entities";
-import {
-  BREAKPOINT_FN_NAME,
-  useBreakpointHelper,
-} from "../../../../../../hooks/useBreakpointHelper";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../../../hooks/useWindowResize";
 import {
@@ -29,6 +25,7 @@ import {
 } from "../../../../common/constants";
 import { getSortMatchesFn } from "../../../../common/utils";
 import { StyledList } from "../../../FilterList/filterList.styles";
+import { SURFACE_TYPE } from "../../../surfaces/types";
 import {
   DIVIDER_HEIGHT,
   DIVIDER_ITEM,
@@ -51,6 +48,7 @@ export interface VariableSizeListProps {
   overscanCount?: ListProps["overscanCount"];
   searchTerm: string;
   selectCategoryViews: SelectCategoryView[];
+  surfaceType: SURFACE_TYPE;
   width?: ListProps["width"]; // Width of list; default to 100% width of parent element.
 }
 
@@ -125,13 +123,13 @@ export const VariableSizeList = forwardRef<
     overscanCount = MAX_DISPLAYABLE_LIST_ITEMS * 2,
     searchTerm,
     selectCategoryViews,
+    surfaceType,
     width = "100%",
   }: VariableSizeListProps,
   autocompleteListRef
 ): JSX.Element {
   const filteredItems = applyMenuFilter(selectCategoryViews, searchTerm);
   let resizeRequired = true;
-  const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
   const { height: windowHeight } = useWindowResize();
   const [height, setHeight] = useState<number>(initHeight);
   const itemSizeByItemKeyRef = useRef<ItemSizeByItemKey>(new Map());
@@ -153,10 +151,10 @@ export const VariableSizeList = forwardRef<
           outerRef.current,
           innerRef.current,
           windowHeight,
-          bpDownMd
+          surfaceType
         )
       );
-  }, [bpDownMd, windowHeight]);
+  }, [surfaceType, windowHeight]);
 
   // Clears VariableSizeList cache (offsets and measurements) when values are updated (filtered).
   // Facilitates correct positioning of list items when list is updated.
@@ -198,7 +196,7 @@ export const VariableSizeList = forwardRef<
                   outerRef.current,
                   innerRef.current,
                   windowHeight,
-                  bpDownMd
+                  surfaceType
                 )
               );
             }
@@ -266,20 +264,21 @@ function applyMenuFilter(
  * @param outerListElem - Outer list element to reference list position from.
  * @param innerListElem - Element containing list items.
  * @param windowHeight - Window height.
- * @param bpDownMd - True if viewport is "md" or smaller.
+ * @param surfaceType - Type of surface "POPPER_MENU" or "POPPER_DRAWER".
  * @returns calculated height.
  */
 function calculateListHeight(
   outerListElem: HTMLDivElement,
   innerListElem: HTMLUListElement,
   windowHeight: number,
-  bpDownMd: boolean
+  surfaceType: SURFACE_TYPE
 ): number {
   // Calculate max possible list height, based on window height and top position of the list element.
   const maxHeight = windowHeight - outerListElem.getBoundingClientRect().top;
-  if (bpDownMd) {
-    return maxHeight;
-  }
+
+  // Return the maximum possible height if the list is in a popper drawer.
+  if (surfaceType === SURFACE_TYPE.POPPER_DRAWER) return maxHeight;
+
   // Grab the first and last element in the list.
   const { firstElementChild: firstListEl, lastElementChild: lastListEl } =
     innerListElem;
