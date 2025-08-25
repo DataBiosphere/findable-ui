@@ -3,4 +3,5 @@ import { FILTER_SORT } from "../../../../../../../common/filters/sort/config/typ
 export interface FilterSortProps {
   enabled?: boolean;
   filterSort: FILTER_SORT;
+  onFilterSortChange: (filterSort: FILTER_SORT) => void;
 }

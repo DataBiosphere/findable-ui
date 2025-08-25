@@ -30,6 +30,7 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
@@ -42,14 +43,18 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
   const { label } = entityConfig;
-  const { categoryGroups, categoryViews, filterSort, loading } = exploreState;
+  const { categoryGroups, categoryViews, loading } = exploreState;
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
-  const isFilterSortEnabled = Boolean(config.filterSort?.sortBy);
+  const {
+    enabled: filterSortEnabled,
+    filterSort,
+    onFilterSortChange,
+  } = useUpdateFilterSort();
 
   /**
    * State sync manager.
@@ -137,8 +142,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
             <Stack direction="row" gap={4}>
               <ClearAllFilters />
               <FilterSort
-                enabled={isFilterSortEnabled}
+                enabled={filterSortEnabled}
                 filterSort={filterSort}
+                onFilterSortChange={onFilterSortChange}
               />
             </Stack>
             <SearchAllFilters
