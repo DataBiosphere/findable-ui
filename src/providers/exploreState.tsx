@@ -11,6 +11,7 @@ import React, {
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { CategoryView } from "../common/categories/views/types";
 import { SelectedFilter } from "../common/entities";
+import { FILTER_SORT } from "../common/filters/sort/types";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useToken } from "../hooks/authentication/token/useToken";
@@ -95,6 +96,7 @@ export type ExploreState = {
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
   featureFlagState: FeatureFlagState;
   filterCount: number;
+  filterSort: FILTER_SORT;
   filterState: SelectedFilter[];
   listItems: ListItems;
   loading: boolean;
