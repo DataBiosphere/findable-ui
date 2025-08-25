@@ -19,6 +19,7 @@ import { FilterSortProps } from "./types";
 export const FilterSort = ({
   enabled = false,
   filterSort,
+  onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {
   const { anchorEl, onClose, onOpen, open } = useMenu();
 
@@ -46,7 +47,7 @@ export const FilterSort = ({
             Sort Filter Values By
           </ListItemText>
         </ListItem>
-        <ListItemButton>
+        <ListItemButton onClick={() => onFilterSortChange(FILTER_SORT.ALPHA)}>
           <Radio
             checked={filterSort === FILTER_SORT.ALPHA}
             checkedIcon={<RadioCheckedIcon {...SVG_ICON_PROPS} />}
@@ -56,7 +57,7 @@ export const FilterSort = ({
             Alphabetical
           </ListItemText>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={() => onFilterSortChange(FILTER_SORT.COUNT)}>
           <Radio
             checked={filterSort === FILTER_SORT.COUNT}
             checkedIcon={<RadioCheckedIcon {...SVG_ICON_PROPS} />}
