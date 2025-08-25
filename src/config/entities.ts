@@ -17,7 +17,7 @@ import {
   DataDictionaryConfig,
   SelectedFilter,
 } from "../common/entities";
-import { FilterSortConfig } from "../common/filters/sort/types";
+import { FilterSortConfig } from "../common/filters/sort/config/types";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
 import { ExploreMode } from "../hooks/useExploreMode/types";

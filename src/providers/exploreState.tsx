@@ -11,7 +11,7 @@ import React, {
 import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { CategoryView } from "../common/categories/views/types";
 import { SelectedFilter } from "../common/entities";
-import { FILTER_SORT } from "../common/filters/sort/types";
+import { FILTER_SORT } from "../common/filters/sort/config/types";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
 import { useToken } from "../hooks/authentication/token/useToken";

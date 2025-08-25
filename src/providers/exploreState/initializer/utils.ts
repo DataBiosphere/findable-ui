@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-table";
 import { CategoryConfig } from "../../../common/categories/config/types";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
-import { getFilterSortType } from "../../../common/filters/sort/utils";
+import { getFilterSortType } from "../../../common/filters/sort/config/utils";
 import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryGroup,

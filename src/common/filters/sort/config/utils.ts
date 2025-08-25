@@ -1,4 +1,4 @@
-import { SiteConfig } from "../../../config/entities";
+import { SiteConfig } from "../../../../config/entities";
 import { FILTER_SORT } from "./types";
 
 /**

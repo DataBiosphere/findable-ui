@@ -1,4 +1,4 @@
-import { FILTER_SORT } from "../../../common/filters/sort/types";
+import { FILTER_SORT } from "../../../common/filters/sort/config/types";
 import { CategoryGroup } from "../../../config/entities";
 import { ExploreState, PaginationState } from "../../exploreState";
 import { SELECT_CATEGORY_KEY } from "../constants";
