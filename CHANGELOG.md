@@ -1,5 +1,16 @@
 # Changelog
 
+## [44.0.0](https://github.com/DataBiosphere/findable-ui/compare/v43.0.0...v44.0.0) (2025-08-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* configure default filter sort ([#640](https://github.com/DataBiosphere/findable-ui/issues/640)) (#643)
+
+### Features
+
+* configure default filter sort ([#640](https://github.com/DataBiosphere/findable-ui/issues/640)) ([#643](https://github.com/DataBiosphere/findable-ui/issues/643)) ([63be8d1](https://github.com/DataBiosphere/findable-ui/commit/63be8d1bb87e3a473385bd45f5196d1125cfb5ed))
+
 ## [43.0.0](https://github.com/DataBiosphere/findable-ui/compare/v42.1.0...v43.0.0) (2025-08-19)
 
 
