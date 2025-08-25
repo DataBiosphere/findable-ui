@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
@@ -6,6 +7,7 @@ import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
+import { FilterSort } from "../../components/Filter/components/controls/Controls/components/FilterSort/filterSort";
 import {
   CategoryFilter,
   Filters,
@@ -40,13 +42,14 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
   const { label } = entityConfig;
-  const { categoryGroups, categoryViews, loading } = exploreState;
+  const { categoryGroups, categoryViews, filterSort, loading } = exploreState;
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
+  const isFilterSortEnabled = Boolean(config.filterSort?.sortBy);
 
   /**
    * State sync manager.
@@ -131,7 +134,13 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         <Sidebar>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
             <SidebarLabel label={"Filters"} />
-            <ClearAllFilters />
+            <Stack direction="row" gap={4}>
+              <ClearAllFilters />
+              <FilterSort
+                enabled={isFilterSortEnabled}
+                filterSort={filterSort}
+              />
+            </Stack>
             <SearchAllFilters
               categoryViews={categoryViews}
               onFilter={onFilterChange.bind(null, true)}
