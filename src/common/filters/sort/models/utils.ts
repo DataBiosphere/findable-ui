@@ -1,5 +1,24 @@
 import { COLLATOR_CASE_INSENSITIVE } from "../../../constants";
 import { SelectCategoryValueView } from "../../../entities";
+import { FILTER_SORT } from "../config/types";
+
+/**
+ * Sort category value views based on filter sort configuration.
+ * Uses function selection pattern for efficiency.
+ * @param categoryValueViews - Array of category value views to sort.
+ * @param filterSort - Sort configuration (ALPHA or COUNT).
+ */
+export function sortCategoryValueViews(
+  categoryValueViews: SelectCategoryValueView[],
+  filterSort: FILTER_SORT
+): void {
+  const sortFn =
+    filterSort === FILTER_SORT.ALPHA
+      ? sortCategoryValueViewsAlpha
+      : sortCategoryValueViewsCount;
+
+  categoryValueViews.sort(sortFn);
+}
 
 /**
  * Sort category value views alphabetically.

@@ -18,7 +18,8 @@ import {
   SelectCategoryView,
   SelectedFilter,
 } from "../common/entities";
-import { sortCategoryValueViewsAlpha } from "../common/filters/sort/models/utils";
+import { FILTER_SORT } from "../common/filters/sort/config/types";
+import { sortCategoryValueViews } from "../common/filters/sort/models/utils";
 
 /**
  * State backing filter functionality and calculations. Converted to view model for display.
@@ -95,12 +96,14 @@ function buildCategoryView(
  * @param categories - Categories, category value and their counts with the current filter applied.
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
  * @param filterState - Current set of selected category and category values.
+ * @param filterSort - Sort configuration (ALPHA or COUNT).
  * @returns Array of category view objects.
  */
 export function buildCategoryViews(
   categories: Category[],
   categoryConfigs: CategoryConfig[] | undefined,
-  filterState: FilterState
+  filterState: FilterState,
+  filterSort: FILTER_SORT
 ): CategoryView[] {
   if (!categories || !categoryConfigs) {
     return [];
@@ -133,8 +136,8 @@ export function buildCategoryViews(
       buildCategoryValueView(categoryValue, categorySelectedFilter)
     );
 
-    // Sort category value views alphabetically.
-    categoryValueViews.sort(sortCategoryValueViewsAlpha);
+    // Sort category value views based on filter sort configuration.
+    sortCategoryValueViews(categoryValueViews, filterSort);
 
     // Build category view model.
     return buildCategoryView(category, categoryValueViews, categoryConfigs);

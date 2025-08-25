@@ -540,7 +540,8 @@ function exploreReducer(
               ...entityState.savedSelectCategories, // "savedFilter" select categories are built from config at reducer initialization.
             ],
             entityState.categoryConfigs,
-            [...state.filterState, ...entityState.savedFilterState]
+            [...state.filterState, ...entityState.savedFilterState],
+            state.filterSort
           )
         : state.categoryViews;
       const rowPreview = entityPageState.rowPreview;
