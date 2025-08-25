@@ -1,5 +1,5 @@
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
-import { sortCategoryValueViews } from "../../../../../../../../../hooks/useCategoryFilter";
+import { sortCategoryValueViewsAlpha } from "../../../../../../../../../common/filters/sort/models/utils";
 
 /**
  * Renders the button text for the chart.
@@ -31,5 +31,5 @@ export function sortByCountThenLabel(
   b: SelectCategoryValueView
 ): number {
   const compare = b.count - a.count;
-  return compare === 0 ? sortCategoryValueViews(a, b) : compare;
+  return compare === 0 ? sortCategoryValueViewsAlpha(a, b) : compare;
 }
