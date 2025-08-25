@@ -1,5 +1,5 @@
-import { FILTER_SORT } from "common/filters/sort/config/types";
 import { useCallback } from "react";
+import { FILTER_SORT } from "../../../../common/filters/sort/config/types";
 import { useConfig } from "../../../../hooks/useConfig";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { updateFilterSort } from "../../../../providers/exploreState/actions/updateFilterSort/dispatch";
