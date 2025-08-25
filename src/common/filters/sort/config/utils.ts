@@ -7,5 +7,5 @@ import { FILTER_SORT } from "./types";
  * @returns default filter sort type.
  */
 export function getFilterSortType(config?: SiteConfig): FILTER_SORT {
-  return config?.filterSort?.defaultSort ?? FILTER_SORT.ALPHA;
+  return config?.filterSort?.sortBy ?? FILTER_SORT.ALPHA;
 }

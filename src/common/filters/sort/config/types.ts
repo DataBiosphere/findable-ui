@@ -10,5 +10,5 @@ export enum FILTER_SORT {
  * Filter sort configuration for site config.
  */
 export interface FilterSortConfig {
-  defaultSort?: FILTER_SORT;
+  sortBy?: FILTER_SORT;
 }
