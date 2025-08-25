@@ -18,6 +18,8 @@ import {
   SelectCategoryView,
   SelectedFilter,
 } from "../common/entities";
+import { FILTER_SORT } from "../common/filters/sort/config/types";
+import { sortCategoryValueViews } from "../common/filters/sort/models/utils";
 
 /**
  * State backing filter functionality and calculations. Converted to view model for display.
@@ -94,12 +96,14 @@ function buildCategoryView(
  * @param categories - Categories, category value and their counts with the current filter applied.
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
  * @param filterState - Current set of selected category and category values.
+ * @param filterSort - Sort configuration (ALPHA or COUNT).
  * @returns Array of category view objects.
  */
 export function buildCategoryViews(
   categories: Category[],
   categoryConfigs: CategoryConfig[] | undefined,
-  filterState: FilterState
+  filterState: FilterState,
+  filterSort: FILTER_SORT
 ): CategoryView[] {
   if (!categories || !categoryConfigs) {
     return [];
@@ -131,7 +135,9 @@ export function buildCategoryViews(
     const categoryValueViews = category.values.map((categoryValue) =>
       buildCategoryValueView(categoryValue, categorySelectedFilter)
     );
-    categoryValueViews.sort(sortCategoryValueViews);
+
+    // Sort category value views based on filter sort configuration.
+    sortCategoryValueViews(categoryValueViews, filterSort);
 
     // Build category view model.
     return buildCategoryView(category, categoryValueViews, categoryConfigs);
@@ -270,23 +276,6 @@ function isCategoryAcceptListed(
   return categoryConfigs.some(
     (categoryConfig) => categoryConfig.key === category.key
   );
-}
-
-/**
- * Sort category value views by key, ascending.
- * @param cvv0 - First category value view to compare.
- * @param cvv1 - Second category value view to compare.
- * @returns Number indicating sort precedence of cv0 vs cv1.
- */
-export function sortCategoryValueViews(
-  cvv0: SelectCategoryValueView,
-  cvv1: SelectCategoryValueView
-): number {
-  return !cvv0.label
-    ? 1
-    : !cvv1.label
-    ? -1
-    : COLLATOR_CASE_INSENSITIVE.compare(cvv0.label, cvv1.label);
 }
 
 /**

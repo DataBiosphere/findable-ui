@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { SelectCategoryValueView } from "../../../../../../../../../../../common/entities";
+import { sortCategoryValueViewsCount } from "../../../../../../../../../../../common/filters/sort/models/utils";
 import { getPlotOptions } from "../../barX/plot";
 import { getCategoryTotalCount } from "../../barX/utils";
-import { sortByCountThenLabel } from "../../utils";
 import { UsePlotOptions } from "./types";
 
 export const usePlotOptions = (
@@ -13,7 +13,7 @@ export const usePlotOptions = (
   // Organise the select category value views (sort and slice) for chart display.
   const data = selectCategoryValueViews
     // Sort the category values by count and label.
-    .sort(sortByCountThenLabel)
+    .sort(sortCategoryValueViewsCount)
     // Slice the category values to the number of bars to display.
     .slice(0, barCount);
 

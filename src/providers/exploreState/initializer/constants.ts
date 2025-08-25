@@ -1,3 +1,4 @@
+import { FILTER_SORT } from "../../../common/filters/sort/config/types";
 import { CategoryGroup } from "../../../config/entities";
 import { ExploreState, PaginationState } from "../../exploreState";
 import { SELECT_CATEGORY_KEY } from "../constants";
@@ -34,6 +35,7 @@ export const INITIAL_STATE: ExploreState = {
   entityStateByCategoryGroupConfigKey: new Map(),
   featureFlagState: undefined,
   filterCount: 0,
+  filterSort: FILTER_SORT.ALPHA,
   filterState: [],
   listItems: [],
   loading: true,
