@@ -9,6 +9,8 @@ export const TEST_IDS = {
   FILTER_ITEM: "filter-item",
   FILTER_POPOVER: "filter-popover",
   FILTER_RANGE: "filter-range",
+  FILTER_SORT_BUTTON: "filter-sort-button",
+  FILTER_SORT_MENU: "filter-sort-menu",
   FILTER_TERM: "filter-term",
   SEARCH_ALL_FILTERS: "search-all-filters",
   SIDEBAR: "sidebar",
