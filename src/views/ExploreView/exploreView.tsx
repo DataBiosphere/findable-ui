@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material";
 import React, { useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
@@ -6,6 +7,7 @@ import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
+import { FilterSort } from "../../components/Filter/components/controls/Controls/components/FilterSort/filterSort";
 import {
   CategoryFilter,
   Filters,
@@ -28,6 +30,7 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
@@ -47,6 +50,11 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews]
   );
+  const {
+    enabled: filterSortEnabled,
+    filterSort,
+    onFilterSortChange,
+  } = useUpdateFilterSort();
 
   /**
    * State sync manager.
@@ -131,7 +139,14 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         <Sidebar>
           <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
             <SidebarLabel label={"Filters"} />
-            <ClearAllFilters />
+            <Stack direction="row" gap={4}>
+              <ClearAllFilters />
+              <FilterSort
+                enabled={filterSortEnabled}
+                filterSort={filterSort}
+                onFilterSortChange={onFilterSortChange}
+              />
+            </Stack>
             <SearchAllFilters
               categoryViews={categoryViews}
               onFilter={onFilterChange.bind(null, true)}
