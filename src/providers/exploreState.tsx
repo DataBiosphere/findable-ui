@@ -26,6 +26,8 @@ import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
 import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
 import { stateToUrlAction } from "./exploreState/actions/stateToUrl/action";
 import { StateToUrlAction } from "./exploreState/actions/stateToUrl/types";
+import { updateFilterSortAction } from "./exploreState/actions/updateFilterSort/action";
+import { UpdateFilterSortAction } from "./exploreState/actions/updateFilterSort/types";
 import { updateGroupingAction } from "./exploreState/actions/updateGrouping/action";
 import { UpdateGroupingAction } from "./exploreState/actions/updateGrouping/types";
 import { updateColumnVisibilityAction } from "./exploreState/actions/updateVisibility/action";
@@ -245,6 +247,7 @@ export enum ExploreActionKind {
   UpdateEntityFilters = "UPDATE_ENTITY_FILTERS",
   UpdateEntityViewAccess = "UPDATE_ENTITY_VIEW_ACCESS",
   UpdateFilter = "UPDATE_FILTER",
+  UpdateFilterSort = "UPDATE_FILTER_SORT",
   UpdateGrouping = "UPDATE_GROUPING",
   UpdateRowPreview = "UPDATE_ROW_PREVIEW",
   UpdateRowSelection = "UPDATE_ROW_SELECTION",
@@ -270,6 +273,7 @@ export type ExploreAction =
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
   | UpdateFilterAction
+  | UpdateFilterSortAction
   | UpdateGroupingAction
   | UpdateRowPreviewAction
   | UpdateRowSelectionAction
@@ -707,6 +711,12 @@ function exploreReducer(
         paginationState: resetPage(state.paginationState),
         rowPreview,
       };
+    }
+    /**
+     * Update filter sort
+     */
+    case ExploreActionKind.UpdateFilterSort: {
+      return updateFilterSortAction(state, payload);
     }
     /**
      * Update grouping
