@@ -3,9 +3,9 @@ import React from "react";
 import { CLEAR_ALL } from "../../../../../common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { BUTTON_PROPS } from "../../../../common/Button/constants";
-import { BaseComponentProps } from "../../../../types";
-import { SurfaceProps } from "../../surfaces/types";
+import { FilterSort } from "./components/FilterSort/filterSort";
 import { StyledGrid } from "./controls.styles";
+import { ControlsProps } from "./types";
 
 /**
  * Renders filter title and "Clear All" button.
@@ -13,8 +13,11 @@ import { StyledGrid } from "./controls.styles";
 
 export const Controls = ({
   className,
+  filterSort,
+  filterSortEnabled = false,
   onFilter,
-}: BaseComponentProps & Pick<SurfaceProps, "onFilter">): JSX.Element | null => {
+  onFilterSortChange,
+}: ControlsProps): JSX.Element | null => {
   return (
     <StyledGrid className={className} container>
       <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_500}>
@@ -26,6 +29,11 @@ export const Controls = ({
       >
         Clear All
       </MButton>
+      <FilterSort
+        enabled={filterSortEnabled}
+        filterSort={filterSort}
+        onFilterSortChange={onFilterSortChange}
+      />
     </StyledGrid>
   );
 };

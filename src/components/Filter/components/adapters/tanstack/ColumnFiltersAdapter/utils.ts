@@ -7,9 +7,10 @@ import {
   SelectCategoryValueView,
   SelectCategoryView,
 } from "../../../../../../common/entities";
+import { FILTER_SORT } from "../../../../../../common/filters/sort/config/types";
+import { sortCategoryValueViews } from "../../../../../../common/filters/sort/models/utils";
 import { CategoryGroup } from "../../../../../../config/entities";
 import { getColumnHeader } from "../../../../../Table/common/utils";
-import { getSortedFacetedValues } from "../../../../../Table/featureOptions/facetedColumn/utils";
 import { CategoryFilter } from "../../../Filters/filters";
 import { SurfaceProps } from "../../../surfaces/types";
 import { ColumnFiltersTableMeta } from "./types";
@@ -31,16 +32,22 @@ function buildCategoryConfigs<T extends RowData>(
 /**
  * Adapter for TanStack table to category filters.
  * @param table - Table.
+ * @param filterSort - Filter sort.
  * @param categoryGroups - Category groups.
  * @returns Category filters.
  */
 function buildCategoryFilters<T extends RowData>(
   table: Table<T>,
+  filterSort: FILTER_SORT,
   categoryGroups: CategoryGroup[]
 ): SurfaceProps["categoryFilters"] {
   return categoryGroups.reduce<SurfaceProps["categoryFilters"]>(
     (acc, categoryGroup) => {
-      const categoryFilter = mapCategoryFilter(table, categoryGroup);
+      const categoryFilter = mapCategoryFilter(
+        table,
+        filterSort,
+        categoryGroup
+      );
       if (categoryFilter) acc.push(categoryFilter);
       return acc;
     },
@@ -51,10 +58,12 @@ function buildCategoryFilters<T extends RowData>(
 /**
  * Adapter for TanStack table column filters to category filters.
  * @param table - Table.
+ * @param filterSort - Filter sort.
  * @returns Category filters.
  */
 export function buildColumnFilters<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
+  filterSort = FILTER_SORT.ALPHA
 ): SurfaceProps["categoryFilters"] {
   const { options } = table;
   const { meta = {} } = options;
@@ -64,11 +73,13 @@ export function buildColumnFilters<T extends RowData>(
     // Build single category group with all (filterable) columns.
     const categoryConfigs: CategoryConfig[] = buildCategoryConfigs(table);
     // Build category filters from single category group.
-    return buildCategoryFilters(table, [{ categoryConfigs, label: "" }]);
+    return buildCategoryFilters(table, filterSort, [
+      { categoryConfigs, label: "" },
+    ]);
   }
 
   // Build category filters from category groups.
-  return buildCategoryFilters(table, categoryGroups);
+  return buildCategoryFilters(table, filterSort, categoryGroups);
 }
 
 /**
@@ -104,11 +115,13 @@ function mapCategoryConfig<T extends RowData>(
 /**
  * Adapter for TanStack table to category filter.
  * @param table - Table.
+ * @param filterSort - Filter sort.
  * @param categoryGroup - Category group.
  * @returns Category filter.
  */
 function mapCategoryFilter<T extends RowData>(
   table: Table<T>,
+  filterSort: FILTER_SORT,
   categoryGroup: CategoryGroup
 ): CategoryFilter | undefined {
   const { categoryConfigs, label } = categoryGroup;
@@ -126,7 +139,11 @@ function mapCategoryFilter<T extends RowData>(
         categoryView = mapColumnToRangeCategoryView(column, categoryConfig);
       } else {
         // Build select category view.
-        categoryView = mapColumnToSelectCategoryView(column, categoryConfig);
+        categoryView = mapColumnToSelectCategoryView(
+          column,
+          filterSort,
+          categoryConfig
+        );
       }
 
       return [...acc, categoryView];
@@ -174,16 +191,18 @@ function mapColumnToRangeCategoryView<T extends RowData>(
 /**
  * Adapter for TanStack column to select category view.
  * @param column - Column.
+ * @param filterSort - Filter sort.
  * @param categoryConfig - Category config.
  * @returns Select category view.
  */
 function mapColumnToSelectCategoryView<T extends RowData>(
   column: Column<T>,
+  filterSort: FILTER_SORT,
   categoryConfig?: CategoryConfig
 ): SelectCategoryView {
   const facetedUniqueValues = column.getFacetedUniqueValues();
   const isDisabled = facetedUniqueValues.size === 0;
-  const values = mapColumnToSelectCategoryValueView(column);
+  const values = mapColumnToSelectCategoryValueView(column, filterSort);
   return {
     annotation: undefined,
     enableChartView: false,
@@ -198,22 +217,24 @@ function mapColumnToSelectCategoryView<T extends RowData>(
 /**
  * Adapter for TanStack column to select category value view.
  * @param column - Column.
+ * @param filterSort - Filter sort.
  * @returns Select category value view.
  */
 function mapColumnToSelectCategoryValueView<T extends RowData>(
-  column: Column<T>
+  column: Column<T>,
+  filterSort: FILTER_SORT
 ): SelectCategoryValueView[] {
   // Get the faceted unique values and sort them.
   const facetedUniqueValues = column.getFacetedUniqueValues();
-  const sortedFacetsValues = getSortedFacetedValues(facetedUniqueValues);
 
   // Selected values for the column.
   const filterValue = (column.getFilterValue() || []) as unknown[];
 
   // Build the select category values.
-  const selectCategoryValues: SelectCategoryValueView[] = [];
-  for (const [label, count] of sortedFacetsValues) {
-    selectCategoryValues.push({
+  const categoryValueViews: SelectCategoryValueView[] = [];
+
+  for (const [label, count] of [...facetedUniqueValues]) {
+    categoryValueViews.push({
       count,
       key: String(label),
       label: String(label),
@@ -221,5 +242,7 @@ function mapColumnToSelectCategoryValueView<T extends RowData>(
     });
   }
 
-  return selectCategoryValues;
+  sortCategoryValueViews(categoryValueViews, filterSort);
+
+  return categoryValueViews;
 }
