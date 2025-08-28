@@ -1,5 +1,19 @@
 # Changelog
 
+## [44.0.0](https://github.com/DataBiosphere/findable-ui/compare/v43.0.0...v44.0.0) (2025-08-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* configure default filter sort ([#640](https://github.com/DataBiosphere/findable-ui/issues/640)) (#643)
+
+### Features
+
+* configure default filter sort ([#640](https://github.com/DataBiosphere/findable-ui/issues/640)) ([#643](https://github.com/DataBiosphere/findable-ui/issues/643)) ([63be8d1](https://github.com/DataBiosphere/findable-ui/commit/63be8d1bb87e3a473385bd45f5196d1125cfb5ed))
+* configure filter sort for tanstack column filtering ([#647](https://github.com/DataBiosphere/findable-ui/issues/647)) ([#648](https://github.com/DataBiosphere/findable-ui/issues/648)) ([c653a19](https://github.com/DataBiosphere/findable-ui/commit/c653a19ec4abd19a7aceafee6414d46f381c7544))
+* create filter sort component ([#641](https://github.com/DataBiosphere/findable-ui/issues/641)) ([#644](https://github.com/DataBiosphere/findable-ui/issues/644)) ([7f80b7c](https://github.com/DataBiosphere/findable-ui/commit/7f80b7c2b76224cc3d6da7a435b678567bbb41c9))
+* update filter sort ([#642](https://github.com/DataBiosphere/findable-ui/issues/642)) ([#645](https://github.com/DataBiosphere/findable-ui/issues/645)) ([e7470b5](https://github.com/DataBiosphere/findable-ui/commit/e7470b50d2c19e674c73e1de533559e2032516e6))
+
 ## [43.0.0](https://github.com/DataBiosphere/findable-ui/compare/v42.1.0...v43.0.0) (2025-08-19)
 
 
