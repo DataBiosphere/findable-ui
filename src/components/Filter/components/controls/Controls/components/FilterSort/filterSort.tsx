@@ -18,12 +18,12 @@ import { FilterSortProps } from "./types";
 
 export const FilterSort = ({
   enabled = false,
-  filterSort,
+  filterSort = FILTER_SORT.ALPHA,
   onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {
   const { anchorEl, onClose, onOpen, open } = useMenu();
 
-  if (!enabled) return null;
+  if (!enabled || !onFilterSortChange) return null;
 
   return (
     <Fragment>

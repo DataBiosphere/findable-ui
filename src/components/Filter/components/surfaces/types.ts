@@ -1,9 +1,11 @@
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { CategoryFilter } from "../Filters/filters";
+import { FilterSortProps } from "../controls/Controls/components/FilterSort/types";
 
-export interface SurfaceProps {
+export interface SurfaceProps extends Omit<FilterSortProps, "enabled"> {
   categoryFilters: CategoryFilter[];
   count?: number;
+  filterSortEnabled: boolean;
   onFilter: OnFilterFn;
 }
 

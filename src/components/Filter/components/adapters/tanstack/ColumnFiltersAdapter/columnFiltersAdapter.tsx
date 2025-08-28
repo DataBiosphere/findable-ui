@@ -8,6 +8,7 @@ import {
   ClearAll,
 } from "../../../../../../common/entities";
 import { updater } from "../../../../../Table/components/TableFeatures/ColumnFilter/utils";
+import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { ColumnFiltersAdapterProps } from "./types";
 import { buildColumnFilters, getColumnFiltersCount } from "./utils";
 
@@ -15,7 +16,13 @@ export const ColumnFiltersAdapter = <T extends RowData>({
   renderSurface,
   table,
 }: ColumnFiltersAdapterProps<T>): JSX.Element | null => {
-  const categoryFilters = buildColumnFilters(table);
+  const {
+    enabled: filterSortEnabled,
+    filterSort,
+    onFilterSortChange,
+  } = useUpdateFilterSort(table);
+
+  const categoryFilters = buildColumnFilters(table, filterSort);
   const count = getColumnFiltersCount(table);
 
   const onFilter = useCallback(
@@ -50,6 +57,9 @@ export const ColumnFiltersAdapter = <T extends RowData>({
   return renderSurface({
     categoryFilters,
     count,
+    filterSort,
+    filterSortEnabled,
     onFilter,
+    onFilterSortChange,
   });
 };

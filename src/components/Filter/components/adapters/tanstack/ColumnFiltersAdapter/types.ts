@@ -3,6 +3,7 @@ import {
   Table,
   TableMeta as TanStackTableMeta,
 } from "@tanstack/react-table";
+import { FILTER_SORT } from "../../../../../../common/filters/sort/config/types";
 import { CategoryGroup } from "../../../../../../config/entities";
 import { SurfaceProps } from "../../../surfaces/types";
 
@@ -13,4 +14,5 @@ export interface ColumnFiltersAdapterProps<T extends RowData> {
 export interface ColumnFiltersTableMeta<T extends RowData>
   extends TanStackTableMeta<T> {
   categoryGroups?: CategoryGroup[];
+  filterSort?: FILTER_SORT;
 }
