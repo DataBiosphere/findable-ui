@@ -277,7 +277,6 @@ export interface ListConfig<T extends RowData> {
  */
 export interface ListViewConfig {
   disablePagination?: boolean;
-  enableDownload?: boolean;
   rowPreviewView?: ComponentsConfig; // Row preview view is expected to be a modal or drawer or similar.
   rowSelectionView?: ComponentsConfig;
 }
