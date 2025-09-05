@@ -1,5 +1,6 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
 import { Attribute } from "../../../../../common/entities";
+import { TABLE_DOWNLOAD_OPTIONS } from "../../../../Table/featureOptions/tableDownload/constants";
 import { useColumnFiltersOptions } from "./columnFilters/hook";
 import { CORE_OPTIONS } from "./core/constants";
 import { EXPANDED_OPTIONS } from "./expanded/constants";
@@ -30,6 +31,7 @@ export const useTableOptions = <T extends RowData = Attribute>(): Omit<
     ...GROUPING_OPTIONS,
     ...PAGINATION_OPTIONS,
     ...SORTING_OPTIONS,
+    ...TABLE_DOWNLOAD_OPTIONS,
     ...VISIBILITY_OPTIONS,
   } as TableOptions<T>;
 };

@@ -34,6 +34,7 @@ import {
   sortingFn,
 } from "../../Table/common/utils";
 import { getFacetedMinMaxValues } from "../../Table/featureOptions/facetedColumn/getFacetedMinMaxValues";
+import { TABLE_DOWNLOAD_OPTIONS } from "../../Table/featureOptions/tableDownload/constants";
 import { ROW_POSITION } from "../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../Table/features/RowPreview/constants";
 import { RowPreviewState } from "../../Table/features/RowPreview/entities";
@@ -188,6 +189,7 @@ UseTableProps): UseTable<T> => {
     onRowSelectionChange,
     onSortingChange,
     pageCount,
+    ...TABLE_DOWNLOAD_OPTIONS,
     state,
     ...tableOptions,
   });
