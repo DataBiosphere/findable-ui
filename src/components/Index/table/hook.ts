@@ -37,6 +37,7 @@ import { getFacetedMinMaxValues } from "../../Table/featureOptions/facetedColumn
 import { ROW_POSITION } from "../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../Table/features/RowPreview/constants";
 import { RowPreviewState } from "../../Table/features/RowPreview/entities";
+import { TABLE_DOWNLOAD } from "../../Table/features/TableDownload/constants";
 import { buildBaseColumnDef } from "../../TableCreator/common/utils";
 import { useTableOptions } from "../../TableCreator/options/hook";
 import { createCell } from "./coreOptions/columns/cellFactory";
@@ -162,7 +163,7 @@ UseTableProps): UseTable<T> => {
    * - This will simplify the configuration structure and centralize table state definitions, reducing redundancy and improving clarity.
    */
   const table = useReactTable<T>({
-    _features: [ROW_POSITION, ROW_PREVIEW],
+    _features: [ROW_POSITION, ROW_PREVIEW, TABLE_DOWNLOAD],
     columns: columnDefs,
     data: listItems || [],
     enableColumnFilters: true, // client-side filtering.
