@@ -13,12 +13,17 @@ export function downloadData<T extends RowData>(table: Table<T>): void {
 /**
  * Returns true if column can be downloaded.
  * @param column - Column.
+ * @param table - Table.
  * @returns True if column can be downloaded.
  */
 export function getCanDownload<T extends RowData, TValue>(
-  column: Column<T, TValue>
+  column: Column<T, TValue>,
+  table: Table<T>
 ): boolean {
-  return column.columnDef.enableDownload !== false;
+  return (
+    (column.columnDef.enableDownload ?? true) &&
+    (table.options.enableDownload ?? false)
+  );
 }
 
 /**

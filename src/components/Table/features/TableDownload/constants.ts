@@ -14,9 +14,10 @@ import {
 
 export const TABLE_DOWNLOAD: TableFeature = {
   createColumn: <TData extends RowData, TValue>(
-    column: Column<TData, TValue>
+    column: Column<TData, TValue>,
+    table: Table<TData>
   ): void => {
-    column.getCanDownload = (): boolean => getCanDownload(column);
+    column.getCanDownload = (): boolean => getCanDownload(column, table);
   },
   createTable: <T extends RowData>(table: Table<T>): void => {
     table.downloadData = (): void => downloadData(table);
