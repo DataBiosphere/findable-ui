@@ -3,7 +3,7 @@ import { TableDownloadOptions } from "../../features/TableDownload/types";
 
 export const TABLE_DOWNLOAD_OPTIONS: Pick<
   TableDownloadOptions<RowData>,
-  "enableDownload"
+  "enableTableDownload"
 > = {
-  enableDownload: false,
+  enableTableDownload: false,
 };

@@ -26,5 +26,5 @@ export const TABLE_DOWNLOAD: TableFeature = {
   },
   getDefaultOptions: <T extends RowData>(): Partial<
     TableOptionsResolved<T>
-  > => ({ enableDownload: false, onDownload }),
+  > => ({ enableTableDownload: false, onDownload }),
 };

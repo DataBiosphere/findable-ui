@@ -5,7 +5,7 @@ export interface TableDownloadColumn {
 }
 
 export interface TableDownloadColumnDef {
-  enableDownload?: boolean;
+  enableTableDownload?: boolean;
 }
 
 export interface TableDownloadInstance {
@@ -15,6 +15,6 @@ export interface TableDownloadInstance {
 
 export interface TableDownloadOptions<T extends RowData> {
   downloadFilename?: string;
-  enableDownload?: boolean;
+  enableTableDownload?: boolean;
   onDownload?: (table: Table<T>) => void;
 }

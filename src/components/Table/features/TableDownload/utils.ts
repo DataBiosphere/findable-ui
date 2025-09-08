@@ -22,7 +22,7 @@ export function getCanTableDownload<T extends RowData, TValue>(
 ): boolean {
   return (
     (column.columnDef.enableTableDownload ?? true) &&
-    (table.options.enableDownload ?? false)
+    (table.options.enableTableDownload ?? false)
   );
 }
 
@@ -34,7 +34,7 @@ export function getCanTableDownload<T extends RowData, TValue>(
 export function getIsDownloadEnabled<T extends RowData>(
   table: Table<T>
 ): boolean {
-  return table.options.enableDownload ?? false;
+  return table.options.enableTableDownload ?? false;
 }
 
 /**
