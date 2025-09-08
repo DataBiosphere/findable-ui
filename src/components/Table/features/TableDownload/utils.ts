@@ -27,23 +27,12 @@ export function getCanTableDownload<T extends RowData, TValue>(
 }
 
 /**
- * Returns true if download is enabled for the table.
- * @param table - Table.
- * @returns True if download is enabled for the table.
- */
-export function getIsDownloadEnabled<T extends RowData>(
-  table: Table<T>
-): boolean {
-  return table.options.enableTableDownload ?? false;
-}
-
-/**
  * Default download function that downloads the table data as a TSV file.
  * @param table - Table.
  */
 export function onTableDownload<T extends RowData>(table: Table<T>): void {
   // Check if download is enabled.
-  if (!getIsDownloadEnabled(table)) return;
+  if (!(table.options.enableTableDownload ?? false)) return;
 
   // Generate the blob.
   const blob = getBlob(table);

@@ -5,12 +5,7 @@ import {
   TableFeature,
   TableOptionsResolved,
 } from "@tanstack/react-table";
-import {
-  downloadData,
-  getCanTableDownload,
-  getIsDownloadEnabled,
-  onTableDownload,
-} from "./utils";
+import { downloadData, getCanTableDownload, onTableDownload } from "./utils";
 
 export const TABLE_DOWNLOAD: TableFeature = {
   createColumn: <TData extends RowData, TValue>(
@@ -22,7 +17,6 @@ export const TABLE_DOWNLOAD: TableFeature = {
   },
   createTable: <T extends RowData>(table: Table<T>): void => {
     table.downloadData = (): void => downloadData(table);
-    table.getIsDownloadEnabled = (): boolean => getIsDownloadEnabled(table);
   },
   getDefaultOptions: <T extends RowData>(): Partial<
     TableOptionsResolved<T>

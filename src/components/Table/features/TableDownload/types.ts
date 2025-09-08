@@ -10,7 +10,6 @@ export interface TableDownloadColumnDef {
 
 export interface TableDownloadInstance {
   downloadData: () => void;
-  getIsDownloadEnabled: () => boolean;
 }
 
 export interface TableDownloadOptions<T extends RowData> {
