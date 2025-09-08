@@ -21,7 +21,7 @@ export function getCanDownload<T extends RowData, TValue>(
   table: Table<T>
 ): boolean {
   return (
-    (column.columnDef.enableDownload ?? true) &&
+    (column.columnDef.enableTableDownload ?? true) &&
     (table.options.enableDownload ?? false)
   );
 }

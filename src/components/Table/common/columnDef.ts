@@ -9,10 +9,10 @@ export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_POSITION: {
     cell: RowPositionCell,
     enableColumnFilter: false,
-    enableDownload: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
+    enableTableDownload: false,
     header: "",
     id: COLUMN_IDENTIFIER.ROW_POSITION,
     meta: {
@@ -25,10 +25,10 @@ export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_SELECTION: {
     cell: RowSelectionCell,
     enableColumnFilter: false,
-    enableDownload: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
+    enableTableDownload: false,
     header: HeadSelectionCell,
     id: COLUMN_IDENTIFIER.ROW_SELECTION,
     meta: {
