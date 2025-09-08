@@ -9,6 +9,7 @@ export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_POSITION: {
     cell: RowPositionCell,
     enableColumnFilter: false,
+    enableDownload: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,
@@ -24,6 +25,7 @@ export const COLUMN_DEF: Record<string, ColumnDef<RowData>> = {
   ROW_SELECTION: {
     cell: RowSelectionCell,
     enableColumnFilter: false,
+    enableDownload: false,
     enableGrouping: false,
     enableHiding: false,
     enableSorting: false,

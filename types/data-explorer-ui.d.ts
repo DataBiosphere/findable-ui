@@ -23,6 +23,7 @@ import { Components } from "rehype-react";
 import { DataLayer } from "../src/common/analytics/entities";
 import { DataDictionaryAnnotation } from "../src/common/entities";
 import {
+  CustomFeatureColumn,
   CustomFeatureInitialTableState,
   CustomFeatureInstance,
   CustomFeatureOptions,
@@ -245,6 +246,14 @@ declare module "@emotion/react" {
 
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
+  interface Column<TData extends RowData, TValue> extends CustomFeatureColumn {}
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
+  interface ColumnDefBase<TData extends RowData, TValue> {
+    enableDownload?: boolean;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
   interface ColumnMeta<TData extends RowData, TValue> {
     align?: TableCellProps["align"];
     annotation?: DataDictionaryAnnotation;
@@ -253,10 +262,13 @@ declare module "@tanstack/react-table" {
     header?: string;
     width?: GridTrackSize;
   }
+
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending.
   interface InitialTableState extends CustomFeatureInitialTableState {}
+
   // eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars -- empty interface is needed for extending, TData is an unused variable.
   interface Row<TData extends RowData> extends CustomFeatureRow {}
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData is an unused variables.
   interface SortingOptions<TData extends RowData> {
     /**
@@ -265,11 +277,13 @@ declare module "@tanstack/react-table" {
      */
     enableSortingInteraction?: boolean;
   }
+
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending.
   interface Table<TData extends RowData> extends CustomFeatureInstance<TData> {}
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface, @typescript-eslint/no-unused-vars -- empty interface is needed for extending, TData is an unused variable.
+
   interface TableOptionsResolved<TData extends RowData>
-    extends CustomFeatureOptions {}
+    extends CustomFeatureOptions<TData> {}
+
   // eslint-disable-next-line @typescript-eslint/no-empty-interface -- empty interface is needed for extending.
   interface TableState extends CustomFeatureTableState {}
 }

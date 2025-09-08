@@ -6,9 +6,25 @@ import {
   RowPreviewRow,
   RowPreviewTableState,
 } from "./RowPreview/entities";
+import {
+  TableDownloadColumn,
+  TableDownloadInstance,
+  TableDownloadOptions,
+} from "./TableDownload/types";
+
+export type CustomFeatureColumn = TableDownloadColumn;
+
+export interface CustomFeatureInstance<T extends RowData>
+  extends TableDownloadInstance,
+    RowPreviewInstance<T> {}
 
 export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
-export type CustomFeatureInstance<T extends RowData> = RowPreviewInstance<T>;
-export type CustomFeatureOptions = RowPreviewOptions & RowPositionOptions;
-export type CustomFeatureRow = RowPositionRow & RowPreviewRow;
+
+export interface CustomFeatureOptions<T extends RowData>
+  extends TableDownloadOptions<T>,
+    RowPositionOptions,
+    RowPreviewOptions {}
+
+export interface CustomFeatureRow extends RowPositionRow, RowPreviewRow {}
+
 export type CustomFeatureTableState = RowPreviewTableState;
