@@ -9,7 +9,7 @@ import {
   downloadData,
   getCanTableDownload,
   getIsDownloadEnabled,
-  onDownload,
+  onTableDownload,
 } from "./utils";
 
 export const TABLE_DOWNLOAD: TableFeature = {
@@ -26,5 +26,5 @@ export const TABLE_DOWNLOAD: TableFeature = {
   },
   getDefaultOptions: <T extends RowData>(): Partial<
     TableOptionsResolved<T>
-  > => ({ enableTableDownload: false, onDownload }),
+  > => ({ enableTableDownload: false, onTableDownload }),
 };

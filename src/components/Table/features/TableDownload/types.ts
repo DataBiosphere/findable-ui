@@ -16,5 +16,5 @@ export interface TableDownloadInstance {
 export interface TableDownloadOptions<T extends RowData> {
   downloadFilename?: string;
   enableTableDownload?: boolean;
-  onDownload?: (table: Table<T>) => void;
+  onTableDownload?: (table: Table<T>) => void;
 }
