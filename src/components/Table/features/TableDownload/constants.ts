@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import {
   downloadData,
-  getCanDownload,
+  getCanTableDownload,
   getIsDownloadEnabled,
   onDownload,
 } from "./utils";
@@ -17,7 +17,8 @@ export const TABLE_DOWNLOAD: TableFeature = {
     column: Column<TData, TValue>,
     table: Table<TData>
   ): void => {
-    column.getCanDownload = (): boolean => getCanDownload(column, table);
+    column.getCanTableDownload = (): boolean =>
+      getCanTableDownload(column, table);
   },
   createTable: <T extends RowData>(table: Table<T>): void => {
     table.downloadData = (): void => downloadData(table);

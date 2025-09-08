@@ -16,7 +16,7 @@ export function downloadData<T extends RowData>(table: Table<T>): void {
  * @param table - Table.
  * @returns True if column can be downloaded.
  */
-export function getCanDownload<T extends RowData, TValue>(
+export function getCanTableDownload<T extends RowData, TValue>(
   column: Column<T, TValue>,
   table: Table<T>
 ): boolean {

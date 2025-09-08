@@ -1,7 +1,7 @@
 import { RowData, Table } from "@tanstack/react-table";
 
 export interface TableDownloadColumn {
-  getCanDownload: () => boolean;
+  getCanTableDownload: () => boolean;
 }
 
 export interface TableDownloadColumnDef {
