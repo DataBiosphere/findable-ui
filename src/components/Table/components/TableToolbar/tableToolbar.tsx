@@ -5,8 +5,8 @@ import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { ViewToggle } from "../../../Index/components/EntityView/components/controls/ViewToggle/viewToggle";
 import { isAnyRowSelected } from "../../common/utils";
-import { DownloadEntityResults } from "../DownloadEntityResults/downloadEntityResults";
 import { PaginationSummary } from "../PaginationSummary/paginationSummary";
+import { TableDownload } from "../TableFeatures/TableDownload/tableDownload";
 import { ColumnGrouping } from "./components/ColumnGrouping/columnGrouping";
 import { ColumnVisibility } from "./components/ColumnVisibility/columnVisibility";
 import { RowPreview } from "./components/RowPreview/rowPreview";
@@ -27,7 +27,7 @@ export const TableToolbar = <T extends RowData>({
   const { paginationState } = exploreState;
   const { currentPage, pages, pageSize, rows } = paginationState;
   const { getSelectedRowModel } = tableInstance;
-  const { enableDownload, rowPreviewView } = listView || {};
+  const { rowPreviewView } = listView || {};
   return (
     <Fragment>
       <StyledToolbar>
@@ -47,12 +47,7 @@ export const TableToolbar = <T extends RowData>({
           )}
         </Grid>
         <Grid {...GRID_PROPS}>
-          {enableDownload && (
-            <DownloadEntityResults
-              entityName={exploreState.tabValue}
-              rows={tableInstance.getFilteredRowModel().rows}
-            />
-          )}
+          <TableDownload table={tableInstance} />
           <ColumnGrouping tableInstance={tableInstance} />
           <ColumnVisibility tableInstance={tableInstance} />
         </Grid>

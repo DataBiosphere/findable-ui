@@ -11,7 +11,6 @@ import {
 } from "@tanstack/react-table";
 import { Category } from "../../../common/categories/models/types";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode/types";
-import { COLUMN_IDENTIFIER } from "./columnIdentifier";
 
 /**
  * Internal model of a category term count keyed by category term.
@@ -23,11 +22,6 @@ type CountByTerms = Map<any, number>;
  * Pinned cell and pinned cell index tuple.
  */
 type PinnedCell<T extends RowData> = [Cell<T, unknown>, number];
-
-/**
- * Model of possible table data values.
- */
-type TableData = number | string | string[];
 
 /**
  * Build view-specific models from react table faceted values function.
@@ -98,49 +92,6 @@ export function getColumnHeader<T extends RowData>(column: Column<T>): string {
 
   // Return header from meta or id.
   return meta?.header || id;
-}
-
-/**
- * Format data to TSV string.
- * @param data - Table data.
- * @returns table data formatted into a TSV string.
- */
-function formatDataToTSV(data: TableData[][]): string {
-  return data
-    .map((row) => {
-      return row
-        .map((data) => {
-          // Use empty string in place of undefined and null.
-          if (data === undefined || data === null) return "";
-          // Convert to string.
-          const dataString = Array.isArray(data)
-            ? data.join(", ")
-            : String(data);
-          // Quote if necessary.
-          return /[\t\r\n"]/.test(dataString)
-            ? `"${dataString.replaceAll('"', '""')}"`
-            : dataString;
-        })
-        .join("\t");
-    })
-    .join("\n");
-}
-
-/**
- * Returns filtered entity results as a blob.
- * @param rows - Table rows.
- * @returns filtered entity results as a blob.
- */
-export function generateDownloadBlob<T extends RowData>(
-  rows: Row<T>[]
-): Blob | undefined {
-  if (rows.length === 0) {
-    return;
-  }
-  const tableHeaders = getHeadersTableData(rows);
-  const tableData = getRowsTableData(rows);
-  const tsv = formatDataToTSV([tableHeaders, ...tableData]);
-  return new Blob([tsv], { type: "text/tab-separated-values" });
 }
 
 /**
@@ -223,32 +174,6 @@ export function getTableStatePagination(
     pageIndex,
     pageSize,
   };
-}
-
-/**
- * Returns the list of table headers, excluding "rowSelection" column.
- * @param rows - Table rows.
- * @returns list of headers.
- */
-function getHeadersTableData<T extends RowData>(rows: Row<T>[]): TableData[] {
-  return rows[0]
-    .getAllCells()
-    .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
-    .map((cell) => cell.column.columnDef.header as TableData);
-}
-
-/**
- * Returns the list of table data, excluding "rowSelection" column.
- * @param rows - Table rows.
- * @returns list of data.
- */
-function getRowsTableData<T extends RowData>(rows: Row<T>[]): TableData[][] {
-  return rows.map((row) =>
-    row
-      .getAllCells()
-      .filter((cell) => cell.column.id !== COLUMN_IDENTIFIER.ROW_SELECTION)
-      .map((cell) => cell.getValue() as TableData)
-  );
 }
 
 /**
