@@ -9,7 +9,7 @@ export const TableDownload = <T extends RowData>({
   className,
   table,
 }: TableDownloadProps<T>): JSX.Element | null => {
-  if (!table.getIsDownloadEnabled()) return null;
+  if (!table.options.enableTableDownload) return null;
   return (
     <StyledButton
       {...BUTTON_PROPS.SECONDARY_CONTAINED}

@@ -7,7 +7,7 @@ import { getBlob } from "./onDownload/utils";
  * @param table - Table.
  */
 export function downloadData<T extends RowData>(table: Table<T>): void {
-  table.options.onDownload?.(table);
+  table.options.onTableDownload?.(table);
 }
 
 /**
@@ -16,34 +16,23 @@ export function downloadData<T extends RowData>(table: Table<T>): void {
  * @param table - Table.
  * @returns True if column can be downloaded.
  */
-export function getCanDownload<T extends RowData, TValue>(
+export function getCanTableDownload<T extends RowData, TValue>(
   column: Column<T, TValue>,
   table: Table<T>
 ): boolean {
   return (
-    (column.columnDef.enableDownload ?? true) &&
-    (table.options.enableDownload ?? false)
+    (column.columnDef.enableTableDownload ?? true) &&
+    (table.options.enableTableDownload ?? false)
   );
-}
-
-/**
- * Returns true if download is enabled for the table.
- * @param table - Table.
- * @returns True if download is enabled for the table.
- */
-export function getIsDownloadEnabled<T extends RowData>(
-  table: Table<T>
-): boolean {
-  return table.options.enableDownload ?? false;
 }
 
 /**
  * Default download function that downloads the table data as a TSV file.
  * @param table - Table.
  */
-export function onDownload<T extends RowData>(table: Table<T>): void {
+export function onTableDownload<T extends RowData>(table: Table<T>): void {
   // Check if download is enabled.
-  if (!getIsDownloadEnabled(table)) return;
+  if (!(table.options.enableTableDownload ?? false)) return;
 
   // Generate the blob.
   const blob = getBlob(table);

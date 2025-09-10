@@ -72,5 +72,5 @@ export function getBlob<T extends RowData>(table: Table<T>): Blob | undefined {
 export function getDownloadableColumns<T extends RowData>(
   table: Table<T>
 ): Column<T>[] {
-  return table.getAllColumns().filter((column) => column.getCanDownload());
+  return table.getAllColumns().filter((column) => column.getCanTableDownload());
 }

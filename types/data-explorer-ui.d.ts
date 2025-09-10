@@ -250,7 +250,7 @@ declare module "@tanstack/react-table" {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
   interface ColumnDefBase<TData extends RowData, TValue> {
-    enableDownload?: boolean;
+    enableTableDownload?: boolean;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- TData and TValue are unused variables.
