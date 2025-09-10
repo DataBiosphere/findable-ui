@@ -1,5 +1,25 @@
 # Changelog
 
+## [45.0.0](https://github.com/DataBiosphere/findable-ui/compare/v44.0.0...v45.0.0) (2025-09-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactor existing tabletoolbar with download button component ([#652](https://github.com/DataBiosphere/findable-ui/issues/652)) (#656)
+
+### Features
+
+* create download button ([#651](https://github.com/DataBiosphere/findable-ui/issues/651)) ([#655](https://github.com/DataBiosphere/findable-ui/issues/655)) ([2c4959a](https://github.com/DataBiosphere/findable-ui/commit/2c4959ac3f30e81d65466d3b3edfa559997053d6))
+* create new tabletoolbar  with download button - independent of explorestate ([#653](https://github.com/DataBiosphere/findable-ui/issues/653)) ([028558a](https://github.com/DataBiosphere/findable-ui/commit/028558a3f0d7bc51da5bc30a1e847b04c41c32c0))
+* create new tabletoolbar with download button - independent of explorestate ([#653](https://github.com/DataBiosphere/findable-ui/issues/653)) ([#657](https://github.com/DataBiosphere/findable-ui/issues/657)) ([028558a](https://github.com/DataBiosphere/findable-ui/commit/028558a3f0d7bc51da5bc30a1e847b04c41c32c0))
+* implement tanstack custom feature to support download table data ([#650](https://github.com/DataBiosphere/findable-ui/issues/650)) ([#654](https://github.com/DataBiosphere/findable-ui/issues/654)) ([c897fbb](https://github.com/DataBiosphere/findable-ui/commit/c897fbb68003af09fe04ccbfed18ec71fe8ef5a7))
+* refactor existing tabletoolbar with download button component ([#652](https://github.com/DataBiosphere/findable-ui/issues/652)) ([#656](https://github.com/DataBiosphere/findable-ui/issues/656)) ([f4d5695](https://github.com/DataBiosphere/findable-ui/commit/f4d5695c28e1f4a6d7a3df2d684d4472005f33c0))
+
+
+### Code Refactoring
+
+* align table download feature more closely with tanstack standards ([#659](https://github.com/DataBiosphere/findable-ui/issues/659)) ([#660](https://github.com/DataBiosphere/findable-ui/issues/660)) ([46d3bb3](https://github.com/DataBiosphere/findable-ui/commit/46d3bb315f8aaf4ed25c7c5c81e364d7c000f332))
+
 ## [44.0.0](https://github.com/DataBiosphere/findable-ui/compare/v43.0.0...v44.0.0) (2025-08-28)
 
 
