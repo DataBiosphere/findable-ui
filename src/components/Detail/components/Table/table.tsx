@@ -23,6 +23,7 @@ import { TableHead } from "../../../Table/components/TableHead/tableHead";
 import { TABLE_DOWNLOAD_OPTIONS } from "../../../Table/featureOptions/tableDownload/constants";
 import { ROW_POSITION } from "../../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../../Table/features/RowPreview/constants";
+import { ROW_SELECTION_VALIDATION } from "../../../Table/features/RowSelectionValidation/constants";
 import { TABLE_DOWNLOAD } from "../../../Table/features/TableDownload/constants";
 import { GridTable } from "../../../Table/table.styles";
 import { generateColumnDefinitions } from "./common/utils";
@@ -60,7 +61,12 @@ export const Table = <T extends RowData>({
   const { stickyHeader = false } = table || {};
   const { sx: tableContainerSx } = tableContainer || {};
   const tableInstance = useReactTable({
-    _features: [ROW_POSITION, ROW_PREVIEW, TABLE_DOWNLOAD],
+    _features: [
+      ROW_POSITION,
+      ROW_PREVIEW,
+      ROW_SELECTION_VALIDATION,
+      TABLE_DOWNLOAD,
+    ],
     columns: generateColumnDefinitions([
       COLUMN_DEF.ROW_POSITION as ColumnDef<T>,
       ...columns,
