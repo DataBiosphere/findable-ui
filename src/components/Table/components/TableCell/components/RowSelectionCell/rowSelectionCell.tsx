@@ -16,7 +16,7 @@ export const RowSelectionCell = <T extends RowData, TValue = unknown>({
     getToggleSelectedHandler,
   } = row;
   return (
-    <Tooltip {...TOOLTIP_PROPS} title={getSelectionValidation()}>
+    <Tooltip {...TOOLTIP_PROPS} title={getSelectionValidation?.()}>
       <span>
         <MCheckbox
           checked={getIsSelected()}

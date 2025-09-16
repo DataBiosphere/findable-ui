@@ -10,5 +10,6 @@ export function getSelectionValidation<T extends RowData>(
   row: Row<T>,
   table: Table<T>
 ): string | undefined {
-  return table.options.enableRowSelectionValidation?.(row);
+  if (!table.options.enableRowSelectionValidation) return;
+  return table.options.getRowSelectionValidation?.(row);
 }

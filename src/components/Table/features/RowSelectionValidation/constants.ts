@@ -17,7 +17,8 @@ export const ROW_SELECTION_VALIDATION: TableFeature = {
     TableOptionsResolved<T>
   > => {
     return {
-      enableRowSelectionValidation: undefined,
+      enableRowSelectionValidation: false,
+      getRowSelectionValidation: undefined,
     };
   },
 };
