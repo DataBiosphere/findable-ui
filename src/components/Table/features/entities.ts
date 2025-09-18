@@ -7,6 +7,10 @@ import {
   RowPreviewTableState,
 } from "./RowPreview/entities";
 import {
+  RowSelectionValidationOptions,
+  RowSelectionValidationRow,
+} from "./RowSelectionValidation/types";
+import {
   TableDownloadColumn,
   TableDownloadInstance,
   TableDownloadOptions,
@@ -23,8 +27,12 @@ export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
 export interface CustomFeatureOptions<T extends RowData>
   extends TableDownloadOptions<T>,
     RowPositionOptions,
-    RowPreviewOptions {}
+    RowPreviewOptions,
+    RowSelectionValidationOptions<T> {}
 
-export interface CustomFeatureRow extends RowPositionRow, RowPreviewRow {}
+export interface CustomFeatureRow
+  extends RowPositionRow,
+    RowPreviewRow,
+    RowSelectionValidationRow {}
 
 export type CustomFeatureTableState = RowPreviewTableState;
