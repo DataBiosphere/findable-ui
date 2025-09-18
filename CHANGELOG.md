@@ -1,5 +1,14 @@
 # Changelog
 
+## [45.1.0](https://github.com/DataBiosphere/findable-ui/compare/v45.0.0...v45.1.0) (2025-09-18)
+
+
+### Features
+
+* extend row selection feature to handle validation messages for each row ([#666](https://github.com/DataBiosphere/findable-ui/issues/666)) ([#669](https://github.com/DataBiosphere/findable-ui/issues/669)) ([04fc041](https://github.com/DataBiosphere/findable-ui/commit/04fc0411cae9f1ae9c47d8f384e599413cffe639))
+* update row selection component to display disabled state ([#663](https://github.com/DataBiosphere/findable-ui/issues/663)) ([#667](https://github.com/DataBiosphere/findable-ui/issues/667)) ([c2c9fb2](https://github.com/DataBiosphere/findable-ui/commit/c2c9fb24e458858dd6d26be2be8e74f4e3e976da))
+* update table row to display disabled state ([#665](https://github.com/DataBiosphere/findable-ui/issues/665)) ([#668](https://github.com/DataBiosphere/findable-ui/issues/668)) ([2c6000f](https://github.com/DataBiosphere/findable-ui/commit/2c6000f86d0066b91409032f9970284f6b4b6443))
+
 ## [45.0.0](https://github.com/DataBiosphere/findable-ui/compare/v44.0.0...v45.0.0) (2025-09-10)
 
 
