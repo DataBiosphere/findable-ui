@@ -31,6 +31,7 @@ export const CollapsableRows = <T extends RowData>({
             key={row.id}
             id={row.id}
             isPreview={row.getIsPreview()}
+            isSelected={row.getIsSelected()}
           >
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}

@@ -6,17 +6,21 @@ import { PALETTE } from "../../../../styles/common/constants/palette";
 
 export interface StyledTableRowProps {
   canExpand?: boolean;
+  canSelect?: boolean;
   isExpanded?: boolean;
   isGrouped?: boolean;
   isPreview?: boolean;
+  isSelected?: boolean;
 }
 
 export const StyledTableRow = styled(MTableRow, {
   shouldForwardProp: (prop) =>
     prop !== "canExpand" &&
+    prop !== "canSelect" &&
     prop !== "isExpanded" &&
+    prop !== "isGrouped" &&
     prop !== "isPreview" &&
-    prop !== "isGrouped",
+    prop !== "isSelected",
 })<StyledTableRowProps>`
   && {
     transition: background-color 300ms ease-in;
@@ -53,6 +57,20 @@ export const StyledTableRow = styled(MTableRow, {
       isPreview &&
       css`
         background-color: ${PALETTE.PRIMARY_LIGHTEST};
+      `}
+
+    ${({ isSelected }) =>
+      isSelected &&
+      css`
+        background-color: ${PALETTE.PRIMARY_LIGHTEST};
+      `}
+
+    ${({ canSelect }) =>
+      !canSelect &&
+      css`
+        .MuiTableCell-root {
+          color: ${PALETTE.INK_LIGHT};
+        }
       `}
   }
 `;
