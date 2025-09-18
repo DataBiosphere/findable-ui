@@ -37,9 +37,11 @@ export const TableRows = <T extends RowData>({
             key={row.id}
             id={row.id}
             canExpand={row.getCanExpand()}
+            canSelect={row.getCanSelect()}
             isExpanded={row.getIsExpanded()}
             isGrouped={row.getIsGrouped()}
             isPreview={row.getIsPreview()}
+            isSelected={row.getIsSelected()}
             onClick={() => handleToggleExpanded(row)}
           >
             {row.getVisibleCells().map((cell) => {

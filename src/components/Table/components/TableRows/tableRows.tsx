@@ -30,10 +30,12 @@ export const TableRows = <T extends RowData>({
           <StyledTableRow
             key={row.id}
             canExpand={getCanExpand()}
+            canSelect={row.getCanSelect()}
             data-index={rowIndex}
             isExpanded={getIsExpanded()}
             isGrouped={getIsGrouped()}
             isPreview={getIsPreview()}
+            isSelected={row.getIsSelected()}
             onClick={() => handleToggleExpanded(row)}
             ref={virtualizer.measureElement}
           >

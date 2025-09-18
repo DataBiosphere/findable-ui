@@ -33,6 +33,7 @@ export const CollapsableRows = <T extends RowData>({
             data-index={rowIndex}
             ref={virtualizer.measureElement}
             isPreview={row.getIsPreview()}
+            isSelected={row.getIsSelected()}
           >
             <CollapsableCell
               isDisabled={isCollapsableRowDisabled(tableInstance)}

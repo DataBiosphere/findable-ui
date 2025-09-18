@@ -13,7 +13,7 @@ export function generateColumnDefinitions<T extends RowData>(
       ...column,
       meta: {
         ...column.meta,
-        header: column.meta?.header || (column.header as string),
+        header: column.meta?.header ?? (column.header as string),
       },
     };
   });
