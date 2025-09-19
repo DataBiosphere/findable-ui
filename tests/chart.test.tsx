@@ -18,8 +18,10 @@ const CLASSNAMES = {
 
 const { Default, Selected } = composeStories(stories);
 
-const DATA = Default.args.selectCategoryValueViews || [];
-const SELECTED_DATA = Selected.args.selectCategoryValueViews || [];
+const DATA: SelectCategoryValueView[] =
+  Default.args.selectCategoryValueViews || [];
+const SELECTED_DATA: SelectCategoryValueView[] =
+  Selected.args.selectCategoryValueViews || [];
 const TOTAL_COUNT = getCategoryTotalCount(DATA);
 
 describe("Chart", () => {

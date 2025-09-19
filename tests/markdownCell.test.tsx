@@ -10,7 +10,6 @@ import {
 } from "../src/components/Links/common/entities";
 import { STYLED_ANCHOR } from "../src/components/Table/components/TableCell/components/MarkdownCell/stories/constants";
 import * as stories from "../src/components/Table/components/TableCell/components/MarkdownCell/stories/markdownCell.stories";
-import { MarkdownCellProps } from "../src/components/Table/components/TableCell/components/MarkdownCell/types";
 
 expect.extend(matchers);
 
@@ -41,7 +40,7 @@ describe("MarkdownCell", () => {
         column={
           {
             columnDef: { meta: { components: { a: STYLED_ANCHOR } } },
-          } as unknown as Column<unknown, MarkdownCellProps>
+          } as unknown as Column<unknown, string>
         }
       />
     );
