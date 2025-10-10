@@ -26,12 +26,14 @@ export const Summary = ({
           <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_500}>
             {count}
           </Typography>
-          <Typography
-            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
-          >
-            {label}
-          </Typography>
+          {label && (
+            <Typography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+            >
+              {label}
+            </Typography>
+          )}
         </Fragment>
       ))}
     </StyledGrid>
