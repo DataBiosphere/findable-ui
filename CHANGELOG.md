@@ -1,5 +1,22 @@
 # Changelog
 
+## [45.2.0](https://github.com/DataBiosphere/findable-ui/compare/v45.1.0...v45.2.0) (2025-10-10)
+
+
+### Features
+
+* update entity list summary component to optionally display summary label ([#679](https://github.com/DataBiosphere/findable-ui/issues/679)) ([#681](https://github.com/DataBiosphere/findable-ui/issues/681)) ([e57e366](https://github.com/DataBiosphere/findable-ui/commit/e57e3660d92e0c155f5cdb56dcd5769bfc0ca2b0))
+
+
+### Bug Fixes
+
+* reintstate file download button component ([#667](https://github.com/DataBiosphere/findable-ui/issues/667)) ([#678](https://github.com/DataBiosphere/findable-ui/issues/678)) ([aa538a3](https://github.com/DataBiosphere/findable-ui/commit/aa538a39f64b07e02f4bc512c51c25fb1234fb89))
+
+
+### Chores
+
+* upgrade packages (minor) and fix security warnings ([#671](https://github.com/DataBiosphere/findable-ui/issues/671)) ([#673](https://github.com/DataBiosphere/findable-ui/issues/673)) ([6b067d5](https://github.com/DataBiosphere/findable-ui/commit/6b067d5e189d72253e6b39551c1ab5d49aa8126a))
+
 ## [45.1.0](https://github.com/DataBiosphere/findable-ui/compare/v45.0.0...v45.1.0) (2025-09-18)
 
 
