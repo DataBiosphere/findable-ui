@@ -58,6 +58,8 @@ export function getHeadingTextValue(
       value.push(child.value);
     }
     if ("children" in child) {
+      // Recurse into nested children, accumulating text into the shared `value` array.
+      // The return value is ignored here because accumulation happens via in-place mutation.
       getHeadingTextValue(child.children, value);
     }
   }
