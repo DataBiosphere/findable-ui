@@ -8,7 +8,7 @@ import { DEFAULT_TAB_VALUE } from "./constants";
 import { getNextValue } from "./utils";
 
 export function useTabs(
-  outline: OutlineItem[]
+  outline?: OutlineItem[] | null
 ): Pick<TabsProps, "indicatorColor" | "onChange" | "orientation" | "value"> {
   const [value, setValue] = useState<TabsProps["value"]>(DEFAULT_TAB_VALUE);
   const { hash } = useHash();
@@ -18,7 +18,7 @@ export function useTabs(
   }, []);
 
   useEffect(() => {
-    setValue(getNextValue(hash, outline));
+    setValue(getNextValue(hash, outline ?? []));
   }, [hash, outline]);
 
   return {
