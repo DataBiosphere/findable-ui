@@ -14,8 +14,7 @@ export const Outline = ({
     outline ?? []
   );
 
-  if (!outline) return null;
-  if (!outline.length) return null;
+  if (!outline?.length) return null;
 
   return (
     <StyledTabs
