@@ -1,5 +1,32 @@
 # Changelog
 
+## [46.0.0](https://github.com/DataBiosphere/findable-ui/compare/v45.1.0...v46.0.0) (2025-10-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* add get static props helper function ([#691](https://github.com/DataBiosphere/findable-ui/issues/691)) (#692)
+* add helper functions remarkHeadings and rehypeSlug ([#684](https://github.com/DataBiosphere/findable-ui/issues/684)) (#685)
+* add get static paths helper function ([#688](https://github.com/DataBiosphere/findable-ui/issues/688)) (#693)
+
+### Features
+
+* add get static paths helper function ([#688](https://github.com/DataBiosphere/findable-ui/issues/688)) ([#693](https://github.com/DataBiosphere/findable-ui/issues/693)) ([887b1d8](https://github.com/DataBiosphere/findable-ui/commit/887b1d82770ce472957e03b483aeeacb06ab8fdd))
+* add get static props helper function ([#691](https://github.com/DataBiosphere/findable-ui/issues/691)) ([#692](https://github.com/DataBiosphere/findable-ui/issues/692)) ([71b2927](https://github.com/DataBiosphere/findable-ui/commit/71b2927059e5e55b6e03bda6dc87dad009533fe9))
+* add helper functions remarkHeadings and rehypeSlug ([#684](https://github.com/DataBiosphere/findable-ui/issues/684)) ([#685](https://github.com/DataBiosphere/findable-ui/issues/685)) ([b130b3c](https://github.com/DataBiosphere/findable-ui/commit/b130b3c4a2527566eadcdab174c937e95338a394))
+* update entity list summary component to optionally display summary label ([#679](https://github.com/DataBiosphere/findable-ui/issues/679)) ([#681](https://github.com/DataBiosphere/findable-ui/issues/681)) ([e57e366](https://github.com/DataBiosphere/findable-ui/commit/e57e3660d92e0c155f5cdb56dcd5769bfc0ca2b0))
+* update outline component prop 'outline' to be optional ([#686](https://github.com/DataBiosphere/findable-ui/issues/686)) ([#687](https://github.com/DataBiosphere/findable-ui/issues/687)) ([eaba690](https://github.com/DataBiosphere/findable-ui/commit/eaba690d4277e69e88f3a6cd11d558c9e27918e6))
+
+
+### Bug Fixes
+
+* reintstate file download button component ([#667](https://github.com/DataBiosphere/findable-ui/issues/667)) ([#678](https://github.com/DataBiosphere/findable-ui/issues/678)) ([aa538a3](https://github.com/DataBiosphere/findable-ui/commit/aa538a39f64b07e02f4bc512c51c25fb1234fb89))
+
+
+### Chores
+
+* upgrade packages (minor) and fix security warnings ([#671](https://github.com/DataBiosphere/findable-ui/issues/671)) ([#673](https://github.com/DataBiosphere/findable-ui/issues/673)) ([6b067d5](https://github.com/DataBiosphere/findable-ui/commit/6b067d5e189d72253e6b39551c1ab5d49aa8126a))
+
 ## [45.1.0](https://github.com/DataBiosphere/findable-ui/compare/v45.0.0...v45.1.0) (2025-09-18)
 
 
