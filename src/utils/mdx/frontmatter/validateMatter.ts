@@ -9,7 +9,12 @@ import { FrontmatterProps } from "./types";
 export function validateMatter<F extends object>(
   data: matter.GrayMatterFile<string>["data"]
 ): FrontmatterProps<F> | undefined {
-  if ("title" in data && "description" in data) {
+  if (
+    "title" in data &&
+    typeof data.title === "string" &&
+    "description" in data &&
+    typeof data.description === "string"
+  ) {
     return data as FrontmatterProps<F>;
   }
 }
