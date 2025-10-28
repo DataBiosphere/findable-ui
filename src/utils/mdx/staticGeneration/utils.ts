@@ -1,5 +1,5 @@
 import { GetStaticPropsContext } from "next/types";
-import { resolveRelativeDirs } from "../resolveRelativeDirs";
+import { resolveRelativeDirs } from "../files/resolveRelativeDirs";
 
 /**
  * Builds the MDX file path from the given list of doc directories and slug.
