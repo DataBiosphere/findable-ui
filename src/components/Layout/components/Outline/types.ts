@@ -12,5 +12,5 @@ export interface OutlineItem {
 
 export interface OutlineProps extends BaseComponentProps, TabsProps {
   Contents: ElementType<ContentsTabProps>;
-  outline: OutlineItem[];
+  outline?: OutlineItem[] | null;
 }

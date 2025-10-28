@@ -10,7 +10,12 @@ export const Outline = ({
   outline,
   ...props /* MuiTabsProps */
 }: OutlineProps): JSX.Element | null => {
-  const { indicatorColor, onChange, orientation, value } = useTabs(outline);
+  const { indicatorColor, onChange, orientation, value } = useTabs(
+    outline ?? []
+  );
+
+  if (!outline?.length) return null;
+
   return (
     <StyledTabs
       className={className}
