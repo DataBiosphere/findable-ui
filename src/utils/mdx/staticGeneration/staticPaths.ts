@@ -1,6 +1,6 @@
 import type { GetStaticPathsResult } from "next";
-import { mapMDXSlugByFilePaths } from "../mdx/mapMDXSlugByFilePaths";
-import { resolveRelativeDirs } from "../mdx/resolveRelativeDirs";
+import { mapMDXSlugByFilePaths } from "../mapMDXSlugByFilePaths";
+import { resolveRelativeDirs } from "../resolveRelativeDirs";
 
 /**
  * Builds Next.js static paths for MDX page files found under the given relative directories.
