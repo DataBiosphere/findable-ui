@@ -2,8 +2,8 @@ import matter from "gray-matter";
 import { FrontmatterProps } from "./types";
 
 /**
- * Returns the frontmatter from the given grey matter file data.
- * @param data - Grey matter file data.
+ * Returns the frontmatter from the given gray matter file data.
+ * @param data - Gray matter file data.
  * @returns Frontmatter.
  */
 export function validateMatter<F extends object>(
