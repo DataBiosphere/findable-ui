@@ -1,5 +1,17 @@
 # Changelog
 
+## [46.1.0](https://github.com/DataBiosphere/findable-ui/compare/v46.0.0...v46.1.0) (2025-11-03)
+
+
+### Features
+
+* update column filter adapter to render custom filter values ([#694](https://github.com/DataBiosphere/findable-ui/issues/694)) ([#695](https://github.com/DataBiosphere/findable-ui/issues/695)) ([67404e9](https://github.com/DataBiosphere/findable-ui/commit/67404e940ea7610153e8a756609cd402225fa0cc))
+
+
+### Bug Fixes
+
+* update column filter adapter to always show filter values with a zero count ([#696](https://github.com/DataBiosphere/findable-ui/issues/696)) ([#697](https://github.com/DataBiosphere/findable-ui/issues/697)) ([a693f3b](https://github.com/DataBiosphere/findable-ui/commit/a693f3bf4f84cacf5602bbbe134b7a4f611e36dc))
+
 ## [46.0.0](https://github.com/DataBiosphere/findable-ui/compare/v45.1.0...v46.0.0) (2025-10-28)
 
 
