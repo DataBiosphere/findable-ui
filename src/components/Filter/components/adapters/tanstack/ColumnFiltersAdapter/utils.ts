@@ -1,6 +1,9 @@
 import { Column, RowData, Table } from "@tanstack/react-table";
 import { isRangeCategoryConfig } from "../../../../../../common/categories/config/range/typeGuards";
-import { CategoryConfig } from "../../../../../../common/categories/config/types";
+import {
+  CategoryConfig,
+  SelectCategoryConfig,
+} from "../../../../../../common/categories/config/types";
 import { RangeCategoryView } from "../../../../../../common/categories/views/range/types";
 import { CategoryView } from "../../../../../../common/categories/views/types";
 import {
@@ -10,6 +13,7 @@ import {
 import { FILTER_SORT } from "../../../../../../common/filters/sort/config/types";
 import { sortCategoryValueViews } from "../../../../../../common/filters/sort/models/utils";
 import { CategoryGroup } from "../../../../../../config/entities";
+import { getSelectCategoryValue } from "../../../../../../hooks/useCategoryFilter";
 import { getColumnHeader } from "../../../../../Table/common/utils";
 import { CategoryFilter } from "../../../Filters/filters";
 import { SurfaceProps } from "../../../surfaces/types";
@@ -142,7 +146,7 @@ function mapCategoryFilter<T extends RowData>(
         categoryView = mapColumnToSelectCategoryView(
           column,
           filterSort,
-          categoryConfig
+          categoryConfig as SelectCategoryConfig
         );
       }
 
@@ -198,11 +202,13 @@ function mapColumnToRangeCategoryView<T extends RowData>(
 function mapColumnToSelectCategoryView<T extends RowData>(
   column: Column<T>,
   filterSort: FILTER_SORT,
-  categoryConfig?: CategoryConfig
+  categoryConfig?: SelectCategoryConfig
 ): SelectCategoryView {
   const facetedUniqueValues = column.getFacetedUniqueValues();
   const isDisabled = facetedUniqueValues.size === 0;
-  const values = mapColumnToSelectCategoryValueView(column, filterSort);
+  const values = mapColumnToSelectCategoryValueView(column, filterSort).map(
+    categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue
+  );
   return {
     annotation: undefined,
     enableChartView: false,
