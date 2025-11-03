@@ -236,6 +236,12 @@ function mapColumnToSelectCategoryValueView<T extends RowData>(
   // Selected values for the column.
   const filterValue = (column.getFilterValue() || []) as unknown[];
 
+  // Update faceted unique values with selected filters that are not in the faceted unique values.
+  for (const value of filterValue) {
+    if (facetedUniqueValues.has(value)) continue;
+    facetedUniqueValues.set(value, 0);
+  }
+
   // Build the select category values.
   const categoryValueViews: SelectCategoryValueView[] = [];
 
