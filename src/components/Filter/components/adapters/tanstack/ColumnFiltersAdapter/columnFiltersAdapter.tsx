@@ -36,7 +36,7 @@ export const ColumnFiltersAdapter = <T extends RowData>({
       viewKind?: VIEW_KIND
     ) => {
       if (categoryKey === CLEAR_ALL) {
-        table.resetColumnFilters();
+        table.resetColumnFilters(true);
         return;
       }
 
