@@ -1,5 +1,12 @@
 # Changelog
 
+## [46.1.1](https://github.com/DataBiosphere/findable-ui/compare/v46.1.0...v46.1.1) (2025-11-10)
+
+
+### Bug Fixes
+
+* column filters clear all filters does not clear all filters with initial column filters ([#699](https://github.com/DataBiosphere/findable-ui/issues/699)) ([#700](https://github.com/DataBiosphere/findable-ui/issues/700)) ([75d1c2d](https://github.com/DataBiosphere/findable-ui/commit/75d1c2d47f88a894e2e9941d7aa2228c3eef5252))
+
 ## [46.1.0](https://github.com/DataBiosphere/findable-ui/compare/v46.0.0...v46.1.0) (2025-11-03)
 
 
