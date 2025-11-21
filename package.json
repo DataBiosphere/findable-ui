@@ -26,7 +26,7 @@
     "@commitlint/config-conventional": "^17.4.2",
     "@emotion/jest": "^11.13.0",
     "@mui/types": "^7.4.0",
-    "@next/eslint-plugin-next": "^14.2.32",
+    "@next/eslint-plugin-next": "^14.2.33",
     "@storybook/addon-actions": "^8.6.4",
     "@storybook/addon-essentials": "^8.6.4",
     "@storybook/addon-interactions": "^8.6.4",
@@ -46,7 +46,7 @@
     "@types/uuid": "8.3.4",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "eslint": "^8.33.0",
-    "eslint-config-next": "^14.2.32",
+    "eslint-config-next": "^14.2.33",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-jsdoc": "^48.1.0",
@@ -79,8 +79,8 @@
     "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^2.22.0",
     "ky": "^1.7.2",
-    "next": "^14.2.32",
-    "next-auth": "4.24.11",
+    "next": "^14.2.33",
+    "next-auth": "^4.24.13",
     "next-mdx-remote": "^4.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -98,6 +98,9 @@
     "unified": "^10.1.2",
     "uuid": "8.3.2",
     "yup": "^1.6.1"
+  },
+  "overrides": {
+    "glob": "^11.0.4"
   },
   "engines": {
     "node": "20.10.0"
