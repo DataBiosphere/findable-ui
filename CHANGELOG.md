@@ -1,5 +1,12 @@
 # Changelog
 
+## [46.1.2](https://github.com/DataBiosphere/findable-ui/compare/v46.1.1...v46.1.2) (2025-11-21)
+
+
+### Bug Fixes
+
+* bug/ui issue: horizontal table scroll triggers browser history navigation ([#702](https://github.com/DataBiosphere/findable-ui/issues/702)) ([#707](https://github.com/DataBiosphere/findable-ui/issues/707)) ([750cbf4](https://github.com/DataBiosphere/findable-ui/commit/750cbf40acd986a046e75c00fd0780dfe916542a))
+
 ## [46.1.1](https://github.com/DataBiosphere/findable-ui/compare/v46.1.0...v46.1.1) (2025-11-10)
 
 
