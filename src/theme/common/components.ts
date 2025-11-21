@@ -513,6 +513,9 @@ const MuiCssBaseline: Components["MuiCssBaseline"] = {
       fontFamily: "Roboto Mono, monospace",
       fontSize: 12,
     },
+    html: {
+      overscrollBehaviorX: "contain",
+    },
     img: {
       display: "block",
     },
