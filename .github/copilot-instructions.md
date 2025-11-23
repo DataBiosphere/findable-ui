@@ -117,10 +117,10 @@ describe("ComponentName", () => {
   it("should do something specific", () => {
     // Arrange
     const input = "test";
-    
+
     // Act
     const result = functionUnderTest(input);
-    
+
     // Assert
     expect(result).toBe("expected");
   });
