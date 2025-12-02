@@ -1,5 +1,12 @@
 # Changelog
 
+## [46.1.3](https://github.com/DataBiosphere/findable-ui/compare/v46.1.2...v46.1.3) (2025-12-01)
+
+
+### Chores
+
+* bump nextjs version to fix vulnerabilities ([#704](https://github.com/DataBiosphere/findable-ui/issues/704)) ([#705](https://github.com/DataBiosphere/findable-ui/issues/705)) ([096ba35](https://github.com/DataBiosphere/findable-ui/commit/096ba35d926fe8b40b1c0b981770076355cae8ab))
+
 ## [46.1.2](https://github.com/DataBiosphere/findable-ui/compare/v46.1.1...v46.1.2) (2025-11-21)
 
 
