@@ -12,7 +12,7 @@
 
 1. Clone this repository into the same parent folder as
    the [Data Biosphere Data Browser](https://github.com/DataBiosphere/data-browser).
-2. Set `node` version to `20.10.0` (this is also the version used by the Data Browser).
+2. Set `node` version to `22.12.0` (this is also the version used by the Data Browser).
 3. In the `findable-ui` repository directory:
     - Run `npm ci`.
     - [Bump the version number](https://docs.npmjs.com/cli/v6/commands/npm-version) in `package.json`
