@@ -60,7 +60,7 @@ export const ToggleButtonGroup = ({
   ): void => {
     if (newToggleValue) {
       setToggleValue(newToggleValue);
-      onToggleFn && onToggleFn();
+      if (onToggleFn) onToggleFn();
     }
   };
 
