@@ -31,7 +31,7 @@ export function buildFetchFileUrl(url?: string): string | undefined {
       "/fetch/"
     );
     return urlObj.href;
-  } catch (e) {
+  } catch {
     throw new Error(`Invalid file URL: ${url}`);
   }
 }

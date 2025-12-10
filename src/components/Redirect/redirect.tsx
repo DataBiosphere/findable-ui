@@ -13,7 +13,11 @@ export const Redirect = ({
   const router = useRouter();
 
   useEffect(() => {
-    replace ? router.replace(destination) : router.push(destination);
+    if (replace) {
+      router.replace(destination);
+    } else {
+      router.push(destination);
+    }
   }, [destination, replace, router]);
 
   return <></>;

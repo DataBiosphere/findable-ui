@@ -132,7 +132,7 @@ function isValidJsonString(query: string): boolean {
   try {
     JSON.parse(query);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 }
