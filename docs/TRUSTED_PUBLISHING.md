@@ -16,9 +16,9 @@ The `.github/workflows/release-please.yml` workflow is configured with the follo
 
 ```yaml
 permissions:
-  contents: write       # Required for release-please to create releases
-  pull-requests: write  # Required for release-please to create PRs
-  id-token: write      # Required for trusted publishing to npm
+  contents: write # Required for release-please to create releases
+  pull-requests: write # Required for release-please to create PRs
+  id-token: write # Required for trusted publishing to npm
 ```
 
 The `id-token: write` permission enables the workflow to request OIDC tokens from GitHub's OIDC provider.
@@ -30,7 +30,7 @@ The `id-token: write` permission enables the workflow to request OIDC tokens fro
   with:
     node-version: "22.12.0"
     registry-url: "https://registry.npmjs.org"
-    always-auth: true  # Enable authentication for trusted publishing
+    always-auth: true # Enable authentication for trusted publishing
 ```
 
 The `always-auth: true` setting ensures that authentication is enabled when publishing packages.
