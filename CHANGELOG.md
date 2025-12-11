@@ -1,5 +1,12 @@
 # Changelog
 
+## [47.0.1](https://github.com/DataBiosphere/findable-ui/compare/v47.0.0...v47.0.1) (2025-12-11)
+
+
+### Chores
+
+* add GitHub Copilot instructions for repository ([#709](https://github.com/DataBiosphere/findable-ui/issues/709)) ([#710](https://github.com/DataBiosphere/findable-ui/issues/710)) ([e2bf4fb](https://github.com/DataBiosphere/findable-ui/commit/e2bf4fb81b46fc1376c7797141fc41a8a6029c9f))
+
 ## [47.0.0](https://github.com/DataBiosphere/findable-ui/compare/v46.1.3...v47.0.0) (2025-12-11)
 
 
