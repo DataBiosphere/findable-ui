@@ -32,6 +32,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           always-auth: true # Enable authentication for trusted publishing
 
+      - name: Upgrade npm for trusted publishing
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm install -g npm@^11.5.1
+
       - name: Install dependencies
         if: ${{ steps.release.outputs.release_created }}
         run: npm ci
