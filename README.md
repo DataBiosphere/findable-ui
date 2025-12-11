@@ -27,5 +27,3 @@
       with the same command or by running `npm link @databiosphere/findable-ui`. 
     - To successfully link to findable-ui, you may need to comment out the following packages from the `next.config.mjs` webpack configuration:
       - `@tanstack/react-table`
-
-
