@@ -1,5 +1,12 @@
 # Changelog
 
+## [47.0.2](https://github.com/DataBiosphere/findable-ui/compare/v47.0.1...v47.0.2) (2025-12-11)
+
+
+### Chores
+
+* remove trailing whitespace from README to trigger release ([#728](https://github.com/DataBiosphere/findable-ui/issues/728)) ([5f24174](https://github.com/DataBiosphere/findable-ui/commit/5f24174aed98fc54429e939d9b63c542f1cce0b8))
+
 ## [47.0.1](https://github.com/DataBiosphere/findable-ui/compare/v47.0.0...v47.0.1) (2025-12-11)
 
 
