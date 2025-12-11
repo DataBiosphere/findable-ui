@@ -1,5 +1,17 @@
 # Changelog
 
+## [47.0.0](https://github.com/DataBiosphere/findable-ui/compare/v46.1.3...v47.0.0) (2025-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade Node.js from 20.10.0 to 22.12.0 ([#713](https://github.com/DataBiosphere/findable-ui/issues/713)) (#716)
+
+### Chores
+
+* update the package-lock ([#720](https://github.com/DataBiosphere/findable-ui/issues/720)) ([#721](https://github.com/DataBiosphere/findable-ui/issues/721)) ([6cf79a9](https://github.com/DataBiosphere/findable-ui/commit/6cf79a9b18ac39365b92ae041df1ab67fe825434))
+* upgrade Node.js from 20.10.0 to 22.12.0 ([#713](https://github.com/DataBiosphere/findable-ui/issues/713)) ([#716](https://github.com/DataBiosphere/findable-ui/issues/716)) ([26d97dd](https://github.com/DataBiosphere/findable-ui/commit/26d97dd951c65099b5e868ead0b03205eb15235a))
+
 ## [46.1.3](https://github.com/DataBiosphere/findable-ui/compare/v46.1.2...v46.1.3) (2025-12-01)
 
 
