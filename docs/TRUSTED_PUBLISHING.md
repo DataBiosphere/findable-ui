@@ -75,7 +75,7 @@ To enable trusted publishing for this package on npm, you need to:
 
 The following configuration is no longer needed with trusted publishing:
 
-- **Repository Secret**: `DATABIOSPHERE_FINDABLE_UI_NPM_PUBLISH_TOKEN` - This secret can be safely removed from the repository settings as it is no longer used
+- **Repository Secret**: `DATABIOSPHERE_FINDABLE_UI_NPM_PUBLISH_TOKEN` - This secret can be safely removed from the repository settings as it is no longer used. **Important**: Only remove this secret after confirming the trusted publishing workflow works successfully in production to avoid disrupting the release process.
 - **NODE_AUTH_TOKEN Environment Variable**: No longer required in the publish step
 
 ### Workflow Changes
