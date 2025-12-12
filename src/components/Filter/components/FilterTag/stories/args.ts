@@ -1,6 +1,6 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
-import { LOREM_IPSUM } from "storybook/loremIpsum";
+import { fn } from "storybook/test";
+import { LOREM_IPSUM } from "../../../../../storybook/loremIpsum";
 import { FilterTag } from "../filterTag";
 
 export const DEFAULT_ARGS: ComponentProps<typeof FilterTag> = {

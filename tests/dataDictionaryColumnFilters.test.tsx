@@ -1,10 +1,10 @@
 import { matchers } from "@emotion/jest";
 import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
-import { waitFor } from "@storybook/test";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
+import { waitFor } from "storybook/test";
 import * as stories from "../src/components/DataDictionary/components/Filters/stories/filters.stories";
 import { MUI_CLASSES } from "../src/tests/mui/constants";
 import {

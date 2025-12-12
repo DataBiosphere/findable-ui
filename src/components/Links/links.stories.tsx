@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Links } from "./links";
 
 const FACEBOOK_URL = "https://www.facebook.com";

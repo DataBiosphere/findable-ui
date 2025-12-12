@@ -1,5 +1,5 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
+import { fn } from "storybook/test";
 import { DONOR_COUNT, GENUS_SPECIES } from "../../Filters/stories/constants";
 import { SURFACE_TYPE } from "../../surfaces/types";
 import { Filter } from "../filter";

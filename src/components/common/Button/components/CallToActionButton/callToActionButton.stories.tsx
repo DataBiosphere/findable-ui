@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { ANCHOR_TARGET } from "../../../../Links/common/entities";
 import { CallToAction, CallToActionButton } from "./callToActionButton";
 

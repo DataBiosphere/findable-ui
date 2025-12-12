@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import React from "react";
 import { CollaboratingOrganizations } from "../Project/components/CollaboratingOrganizations/collaboratingOrganizations";
 import { CollaboratingOrganizationsStory } from "../Project/components/CollaboratingOrganizations/collaboratingOrganizations.stories";

@@ -1,5 +1,5 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
+import { fn } from "storybook/test";
 import {
   BIOLOGICAL_SEX,
   DONOR_COUNT,

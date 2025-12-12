@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { FilterCountChip } from "../filterCountChip";
 
 const meta: Meta<typeof FilterCountChip> = {

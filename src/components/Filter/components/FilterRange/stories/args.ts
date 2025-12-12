@@ -1,5 +1,5 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
+import { fn } from "storybook/test";
 import { SURFACE_TYPE } from "../../surfaces/types";
 import { FilterRange } from "../filterRange";
 

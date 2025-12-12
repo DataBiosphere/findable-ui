@@ -1,5 +1,5 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
+import { fn } from "storybook/test";
 import { Filters } from "../filters";
 import {
   BIOLOGICAL_SEX,

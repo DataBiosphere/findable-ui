@@ -1,4 +1,4 @@
-import { Preview } from "@storybook/react";
+import { Preview } from "@storybook/nextjs-vite";
 
 export const parameters: Preview["parameters"] = {
   actions: { argTypesRegex: "^on[A-Z].*" },

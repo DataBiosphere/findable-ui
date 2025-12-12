@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import image from "images/logo.svg";
 import React from "react";
 import { NavBarHero } from "../../components/Layout/components/Nav/components/NavBarHero/navBarHero";

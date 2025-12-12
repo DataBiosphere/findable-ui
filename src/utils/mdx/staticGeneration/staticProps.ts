@@ -1,4 +1,3 @@
-import { SerializeOptions } from "next-mdx-remote/dist/types";
 import { serialize } from "next-mdx-remote/serialize";
 import { GetStaticPropsResult } from "next/types";
 import remarkGfm from "remark-gfm";
@@ -16,7 +15,7 @@ export async function buildStaticProps<F extends object, P extends object>(
   frontmatterFn = (
     frontmatter: FrontmatterProps<F> | undefined
   ): FrontmatterProps<F> | undefined => frontmatter,
-  serializeOptions: SerializeOptions = {},
+  serializeOptions: Parameters<typeof serialize>[1] = {},
   otherProps: P = {} as P
 ): Promise<
   GetStaticPropsResult<StaticProps<FrontmatterProps<F>, P>> | undefined

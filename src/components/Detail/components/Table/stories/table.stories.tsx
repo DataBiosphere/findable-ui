@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { ComponentProps } from "react";
 import { CONTROL_TYPE } from "../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../storybook/controls/utils";
