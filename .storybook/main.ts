@@ -5,8 +5,6 @@ export default defineMain({
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   core: {
     builder: "@storybook/builder-vite",
-  },
-  async viteFinal(config) {
-    return config;
+    disableTelemetry: true,
   },
 });
