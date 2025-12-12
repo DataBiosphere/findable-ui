@@ -27,6 +27,13 @@ npm test ||
 	false;
 )
 
+# Check Black (Python formatter)
+python -m black backend --check ||
+(
+	echo '🤔 Black Check Failed. Run: python -m black backend';
+	false;
+)
+
 # Check TypeScript
 npm run test-compile ||
 (
