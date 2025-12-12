@@ -54,6 +54,7 @@ export type SelectedSearchTermsBySearchKey = Map<
  * Model of an individual facet value. For example, the term "Homo Sapiens" contained in the facet "Species".
  */
 export interface Term {
+  alternateName?: string;
   count: number;
   name: string;
   selected: boolean;
