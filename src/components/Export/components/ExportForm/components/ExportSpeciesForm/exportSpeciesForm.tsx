@@ -41,7 +41,7 @@ export const ExportSpeciesForm = ({
         </FormHelperText>
       )}
       <FormGroup>
-        {speciesFacet.terms.map(({ name, selected }) => (
+        {speciesFacet.terms.map(({ alternateName, name, selected }) => (
           <FormControlLabel
             control={
               <Checkbox
@@ -55,7 +55,7 @@ export const ExportSpeciesForm = ({
               />
             }
             key={name}
-            label={name}
+            label={alternateName ?? name}
           />
         ))}
       </FormGroup>

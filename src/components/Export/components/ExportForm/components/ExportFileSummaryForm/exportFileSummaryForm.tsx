@@ -82,7 +82,7 @@ export const ExportFileSummaryForm = ({
           </TableHead>
           <TableBody>
             {fileSummaryFacet.terms.map(
-              ({ count, name, selected, size = 0 }) => (
+              ({ alternateName, count, name, selected, size = 0 }) => (
                 <TableRow key={name}>
                   <TableCell>
                     <FormControlLabel
@@ -100,7 +100,7 @@ export const ExportFileSummaryForm = ({
                         />
                       }
                       key={name}
-                      label={name}
+                      label={alternateName ?? name}
                     />
                   </TableCell>
                   <TableCell>{formatCountSize(count)}</TableCell>
