@@ -1,5 +1,9 @@
 import { Stepper } from "@mui/material";
-import { Meta, StoryObj, composeStories } from "@storybook/react";
+import {
+  type Meta,
+  type StoryObj,
+  composeStories,
+} from "@storybook/nextjs-vite";
 import React, { ComponentProps } from "react";
 import { CONTROL_TYPE } from "../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../storybook/controls/utils";

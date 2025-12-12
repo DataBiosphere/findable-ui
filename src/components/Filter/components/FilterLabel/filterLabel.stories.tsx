@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import React from "react";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { FilterLabel } from "./filterLabel";

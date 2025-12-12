@@ -1,52 +1,10 @@
-import { StorybookConfig } from "@storybook/nextjs";
-import * as path from "path";
+import { defineMain } from "@storybook/nextjs-vite/node";
 
-const toPath = (filePath: string) => path.join(process.cwd(), filePath);
-
-const config: StorybookConfig = {
+export default defineMain({
+  framework: "@storybook/nextjs-vite",
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   core: {
+    builder: "@storybook/builder-vite",
     disableTelemetry: true,
   },
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    "@storybook/addon-mdx-gfm",
-  ],
-  typescript: {
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      shouldExtractLiteralValuesFromEnum: true,
-      // Filter out third-party props from node_modules except @mui packages
-      propFilter: (prop: any) =>
-        prop.parent
-          ? !/node_modules\/(?!@mui)/.test(prop.parent.fileName)
-          : true,
-    },
-  },
-  framework: {
-    name: "@storybook/nextjs",
-    options: {},
-  },
-  webpackFinal: async (config: any) => {
-    return {
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          app: path.resolve(__dirname, "../src"),
-          //images: path.resolve(__dirname, "../images"),
-          "@emotion/core": toPath("node_modules/@emotion/react"),
-          "emotion-theming": toPath("node_modules/@emotion/react"),
-        },
-      },
-    };
-  },
-  docs: {
-    autodocs: true,
-  },
-};
-
-export default config;
+});

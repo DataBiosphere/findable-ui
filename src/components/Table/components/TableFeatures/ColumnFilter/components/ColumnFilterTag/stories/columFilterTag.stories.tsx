@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Column } from "@tanstack/react-table";
 import React from "react";
 import { BIONETWORK } from "../../../../../../../DataDictionary/components/Filters/stories/constants";
 import { ColumnFilterTag } from "../columnFilterTag";
@@ -21,6 +22,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    column: BIONETWORK,
+    column: BIONETWORK as Column<unknown>,
   },
 };

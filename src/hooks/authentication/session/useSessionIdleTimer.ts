@@ -1,5 +1,4 @@
-import { useIdleTimer } from "react-idle-timer";
-import { IIdleTimerProps } from "react-idle-timer/dist/types/IIdleTimerProps";
+import { type IIdleTimerProps, useIdleTimer } from "react-idle-timer";
 
 /**
  * Sets a session timeout that triggers when the user has been idle for the specified duration.

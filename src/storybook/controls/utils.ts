@@ -1,4 +1,4 @@
-import { Args, ArgTypes } from "@storybook/react";
+import type { Args, ArgTypes } from "@storybook/nextjs-vite";
 import { CONTROL_CONFIG_MAP } from "./constants";
 import { CONTROL_TYPE } from "./types";
 

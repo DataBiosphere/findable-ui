@@ -1,5 +1,5 @@
-import { fn } from "@storybook/test";
 import { ComponentProps } from "react";
+import { fn } from "storybook/test";
 import { TablePagination } from "../tablePagination";
 
 export const DEFAULT_ARGS: ComponentProps<typeof TablePagination> = {

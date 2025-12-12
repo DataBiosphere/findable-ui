@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { FILTER_SORT } from "../../../../../../../../common/filters/sort/config/types";
 import { FilterSort } from "../filterSort";
 
