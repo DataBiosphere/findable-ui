@@ -49,7 +49,7 @@ npm test -- --watch
 When developing alongside the Data Browser:
 
 1. Clone both repos in the same parent directory
-2. In findable-ui: `npm ci && npx tsc`
+2. In findable-ui: `npm update && npx tsc`
 3. In data-browser/explorer: `npm link ../findable-ui`
 4. Rerun `npm link` if you install/uninstall packages (symlink gets removed)
 5. May need to comment out `@tanstack/react-table` in Data Browser's `next.config.mjs` webpack config
