@@ -1,5 +1,18 @@
 # Changelog
 
+## [47.1.0](https://github.com/DataBiosphere/findable-ui/compare/v47.0.2...v47.1.0) (2025-12-13)
+
+
+### Features
+
+* added facets endpoint [#737](https://github.com/DataBiosphere/findable-ui/issues/737) ([#741](https://github.com/DataBiosphere/findable-ui/issues/741)) ([c7d4445](https://github.com/DataBiosphere/findable-ui/commit/c7d444576d3c609c5212cb8cf7a18bb64f48df4d))
+
+
+### Chores
+
+* add claude.md for ([#739](https://github.com/DataBiosphere/findable-ui/issues/739)) ([#740](https://github.com/DataBiosphere/findable-ui/issues/740)) ([969b484](https://github.com/DataBiosphere/findable-ui/commit/969b4844b83725128133abf83c378125a8d78880))
+* upgrade storybook to latest version ([#733](https://github.com/DataBiosphere/findable-ui/issues/733)) ([#734](https://github.com/DataBiosphere/findable-ui/issues/734)) ([b419e22](https://github.com/DataBiosphere/findable-ui/commit/b419e2226768c6182191a0936955b7ed98cfcfc3))
+
 ## [47.0.2](https://github.com/DataBiosphere/findable-ui/compare/v47.0.1...v47.0.2) (2025-12-11)
 
 
