@@ -10,6 +10,7 @@ class SelectedValue(BaseModel):
         term (str): The resolved facet value.
         mention (str): The original query text that resolved to the value.
     """
+
     term: str
     mention: str
 
@@ -23,6 +24,7 @@ class FacetSelection(BaseModel):
         facet (str): The name of the facet.
         selectedValues (list[SelectedValue]): The list of selected values for this facet.
     """
+
     facet: str
     selectedValues: list[SelectedValue]
 
@@ -36,5 +38,6 @@ class FacetsResponse(BaseModel):
         query (str): The original query string.
         facets (list[FacetSelection]): The list of selected facets and their values.
     """
+
     query: str
     facets: list[FacetSelection]

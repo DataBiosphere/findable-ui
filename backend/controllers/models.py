@@ -1,6 +1,11 @@
 from pydantic import BaseModel
 
 
-# Model of the request body for the /api/v0/facets endpoint.
 class FacetsRequest(BaseModel):
+    """
+    Request model for the /api/v0/facets endpoint.
+    Attributes:
+        query (str): The search query string to retrieve facets for.
+    """
+
     query: str

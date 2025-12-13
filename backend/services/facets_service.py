@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-from pydantic import BaseModel
-
-
 from backend.services.models import FacetsResponse
 
 
