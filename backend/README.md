@@ -33,6 +33,8 @@ From the repo root:
 uvicorn backend.main:app --reload
 ```
 
+The app will start on `http://127.0.0.1:8000` by default.
+
 ## Format code
 
 From the repo root:
@@ -40,8 +42,6 @@ From the repo root:
 ```bash
 python -m black backend
 ```
-
-The app will start on `http://127.0.0.1:8000` by default.
 
 ### Endpoint
 
