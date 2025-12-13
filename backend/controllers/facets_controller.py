@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
 
 from backend.services.facets_service import compute_facets_from_query
 from backend.services.models import FacetsResponse
