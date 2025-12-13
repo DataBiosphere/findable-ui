@@ -15,6 +15,8 @@ export const useWindowResize = (timeout = 200): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>(getWindowSize());
 
   useEffect(() => {
+    // Skip event listener setup on server.
+    if (typeof window === "undefined") return;
     /**
      * Resize event fired; window size recalculated.
      */
@@ -42,6 +44,9 @@ export const useWindowResize = (timeout = 200): WindowSize => {
  * @returns window height and width.
  */
 function getWindowSize(): WindowSize {
-  const { innerHeight, innerWidth } = window;
+  if (typeof window === "undefined") {
+    return { height: 0, width: 0 };
+  }
+  const { innerHeight = 0, innerWidth = 0 } = window;
   return { height: innerHeight, width: innerWidth };
 }
