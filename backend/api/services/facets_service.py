@@ -166,3 +166,60 @@ def compute_facets_with_opensearch(query: str) -> FacetsResponse:
     facet_selections = normalizer.normalize_mentions(stubbed_mentions)
 
     return FacetsResponse(query=query, facets=facet_selections)
+
+
+def compute_facets_with_llm_and_opensearch(query: str, use_mock_llm: bool = False) -> FacetsResponse:
+    """Complete Phase 2+3 workflow: LLM extraction + OpenSearch normalization.
+
+    This is the COMPLETE implementation combining:
+    - Phase 2: LLM-based mention extraction
+    - Phase 3: OpenSearch-based normalization
+
+    Args:
+        query: Natural language query from user.
+        use_mock_llm: If True, uses mock LLM extractor (for testing).
+            If False, uses real OpenAI API (requires API key).
+
+    Returns:
+        FacetsResponse with LLM-extracted and OpenSearch-normalized facets.
+
+    Note:
+        Requires both OpenAI API key and OpenSearch to be running.
+    """
+    from services.config import create_opensearch_resolver
+
+    # Step 1: Extract mentions using LLM
+    if use_mock_llm:
+        from tests.mock_llm_extractor import MockLLMMentionExtractor
+        llm_extractor = MockLLMMentionExtractor()
+    else:
+        from services.llm_mention_extractor import LLMMentionExtractor
+        from services.llm_config import LLMConfig
+        llm_extractor = LLMMentionExtractor(LLMConfig())
+
+    try:
+        mentions = llm_extractor.extract_mentions(query)
+
+        if not mentions:
+            return FacetsResponse(query=query, facets=[])
+
+    except Exception as e:
+        print(f"Error extracting mentions: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Step 2: Normalize mentions using OpenSearch
+    try:
+        resolver = create_opensearch_resolver()
+
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+
+        normalizer = MentionNormalizer(resolver)
+        facet_selections = normalizer.normalize_mentions(mentions)
+
+        return FacetsResponse(query=query, facets=facet_selections)
+
+    except Exception as e:
+        print(f"Error normalizing mentions: {e}")
+        return FacetsResponse(query=query, facets=[])
