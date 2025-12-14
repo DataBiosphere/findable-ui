@@ -5,6 +5,7 @@ import {
 } from "../../apis/azul/common/entities";
 import { Filters } from "../../common/entities";
 import { fetchEntitiesFromURL } from "../../entity/common/service";
+import { useAlternateTermNames } from "../../providers/alternateTermNames/useAlternateTermNames";
 import { fetchQueryParams, SearchParams } from "../../utils/fetchQueryParams";
 import { useToken } from "../authentication/token/useToken";
 import { useAsync } from "../useAsync";
@@ -27,6 +28,7 @@ export const useFetchFilesFacets = (
   isEnabled: boolean
 ): FetchFilesFacets => {
   const { token } = useToken();
+  const { alternateTermNames } = useAlternateTermNames();
   // Build request params.
   const requestParams = fetchQueryParams(filters, catalog, searchParams);
   // Build request URL.
@@ -36,8 +38,8 @@ export const useFetchFilesFacets = (
     useAsync<AzulEntitiesResponse>();
   // Bind facets.
   const { facets } = useMemo(
-    () => bindEntitySearchResultsResponse(data, filters),
-    [data, filters]
+    () => bindEntitySearchResultsResponse(data, filters, alternateTermNames),
+    [alternateTermNames, data, filters]
   );
 
   // Fetch facets from files endpoint.

@@ -7,6 +7,8 @@ import {
 } from "../../../apis/azul/common/entities";
 import { COLLATOR_CASE_INSENSITIVE } from "../../../common/constants";
 import { Filters } from "../../../common/entities";
+import { AlternateTermNamesMap } from "../../../providers/alternateTermNames/alternateTermNames";
+import { getAlternateName } from "../../../providers/alternateTermNames/utils";
 import {
   EntitySearchResults,
   FileFacet,
@@ -19,16 +21,22 @@ import {
  * Parse the entity API response and build up entity search results.
  * @param entityResponse - Response model return from the given entity API.
  * @param filters - Selected filters.
+ * @param alternateTermNames - Optional map of alternate term names.
  * @returns entity search results.
  */
 export function bindEntitySearchResultsResponse(
   entityResponse: AzulEntitiesResponse | undefined,
-  filters: Filters
+  filters: Filters,
+  alternateTermNames?: AlternateTermNamesMap | null
 ): EntitySearchResults {
   // Grab the search terms by search key
   const searchTermsBySearchKey = getSelectedSearchTermsBySearchKey(filters);
   // Build up term facets
-  const facets = bindFacets(searchTermsBySearchKey, entityResponse?.termFacets);
+  const facets = bindFacets(
+    searchTermsBySearchKey,
+    entityResponse?.termFacets,
+    alternateTermNames
+  );
   return {
     facets,
   };
@@ -41,11 +49,13 @@ export function bindEntitySearchResultsResponse(
  * TODO age range facet to be added, if required.
  * @param searchTermsBySearchKey - Selected search terms by search key.
  * @param responseFacetsByName - Facets returned from the API response.
+ * @param alternateTermNames - Optional map of alternate term names.
  * @returns file facets.
  */
 function bindFacets(
   searchTermsBySearchKey: SelectedSearchTermsBySearchKey,
-  responseFacetsByName: AzulTermFacets | undefined
+  responseFacetsByName: AzulTermFacets | undefined,
+  alternateTermNames?: AlternateTermNamesMap | null
 ): FileFacet[] {
   if (!responseFacetsByName) {
     return [];
@@ -54,7 +64,8 @@ function bindFacets(
     return buildFileFacet(
       facetName,
       searchTermsBySearchKey,
-      responseFacetsByName[facetName]
+      responseFacetsByName[facetName],
+      alternateTermNames
     );
   });
 }
@@ -65,20 +76,26 @@ function bindFacets(
  * @param facetName - Facet name.
  * @param responseTerms - Response terms.
  * @param searchTermNames - Selected search term names.
+ * @param alternateTermNames - Optional map of alternate term names.
  * @returns response terms with selected state.
  */
 function bindFacetTerms(
   facetName: string,
   responseTerms: AzulTerm[],
-  searchTermNames: unknown[]
+  searchTermNames: unknown[],
+  alternateTermNames?: AlternateTermNamesMap | null
 ): Term[] {
   return responseTerms.reduce((accum: Term[], responseTerm) => {
     // Default term name to "Unspecified" if term name is null.
     const name = bindTermName(responseTerm);
     // Determine if term is currently selected as a search term.
     const selected = searchTermNames.indexOf(responseTerm.term) >= 0;
+    // Look up alternate name if available.
+    const alternateName = alternateTermNames
+      ? getAlternateName(alternateTermNames, facetName, name)
+      : undefined;
     // Create new term - default name to "Unspecified" if no value is returned.
-    accum.push({ count: responseTerm.count, name, selected });
+    accum.push({ alternateName, count: responseTerm.count, name, selected });
     return accum;
   }, []);
 }
@@ -97,12 +114,14 @@ function bindTermName(termResponse: AzulTerm): string {
  * @param facetName - Facet name.
  * @param searchTermsBySearchKey - Selected search terms by search key.
  * @param responseFacet - Response facet of the given facet name.
- * @returns something.
+ * @param alternateTermNames - Optional map of alternate term names.
+ * @returns File facet with populated terms and selected state.
  */
 function buildFileFacet(
   facetName: string,
   searchTermsBySearchKey: SelectedSearchTermsBySearchKey,
-  responseFacet: AzulTermFacet
+  responseFacet: AzulTermFacet,
+  alternateTermNames?: AlternateTermNamesMap | null
 ): FileFacet {
   // Determine the set of currently selected search term names for this facet.
   const searchTermNames = listFacetSearchTermNames(
@@ -113,7 +132,8 @@ function buildFileFacet(
   const responseTerms = bindFacetTerms(
     facetName,
     responseFacet.terms,
-    searchTermNames
+    searchTermNames,
+    alternateTermNames
   );
   // Create facet from newly built terms and newly calculated total.
   return getFileFacet(facetName, responseFacet.total || 0, responseTerms);
