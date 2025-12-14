@@ -119,3 +119,50 @@ def compute_facets_with_normalizer(query: str, concept_resolver) -> FacetsRespon
     facet_selections = normalizer.normalize_mentions(stubbed_mentions)
 
     return FacetsResponse(query=query, facets=facet_selections)
+
+
+def compute_facets_with_opensearch(query: str) -> FacetsResponse:
+    """Demonstration using real OpenSearch concept resolver.
+
+    This shows the complete Phase 3 workflow with real OpenSearch lookups.
+    Still uses stubbed mention extraction (Phase 2 will add LLM).
+
+    Args:
+        query: The user's natural language query.
+
+    Returns:
+        FacetsResponse with facets normalized against real OpenSearch database.
+
+    Note:
+        Requires OpenSearch to be running with concepts loaded.
+        Falls back to empty response if OpenSearch is unavailable.
+    """
+    from services.config import create_opensearch_resolver
+
+    # Create the real OpenSearch resolver with AnVIL config
+    try:
+        resolver = create_opensearch_resolver()
+
+        # Check if OpenSearch is available
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+
+    except Exception as e:
+        print(f"Error connecting to OpenSearch: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Stubbed mentions extraction (will be replaced by LLM in Phase 2)
+    # Using AnVIL API facet names (will be mapped by resolver)
+    stubbed_mentions = [
+        Mention(text="bam", facet="File Format"),
+        Mention(text="latino", facet="Reported Ethnicity"),
+        Mention(text="diabetes", facet="Diagnosis"),
+        Mention(text="unknown_term_xyz", facet="Diagnosis"),  # Will not match
+    ]
+
+    # Normalize mentions using the real OpenSearch resolver
+    normalizer = MentionNormalizer(resolver)
+    facet_selections = normalizer.normalize_mentions(stubbed_mentions)
+
+    return FacetsResponse(query=query, facets=facet_selections)

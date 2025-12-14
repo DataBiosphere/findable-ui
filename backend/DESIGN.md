@@ -35,6 +35,7 @@ Results + Unmatched Terms
 ### Components
 
 #### 1. Mention Extraction & Facet Tagging
+
 - **Input**: Natural language query (string)
 - **Process**: Use LLM to identify concept mentions and assign tentative facets
 - **Output**: List of mentions with facet assignments
@@ -49,10 +50,12 @@ Results + Unmatched Terms
   ```
 
 #### 2. Mention Normalization
+
 - **Input**: Mentions with facet assignments
 - **Process**: Look up each mention in concept database to find normalized term
 - **Output**: Normalized facets with standard terms (or "unknown" if not found)
 - **Example**:
+
   ```
   Input: "latino" → Reported Ethnicity
   Lookup in concept database
@@ -64,11 +67,13 @@ Results + Unmatched Terms
   ```
 
 #### 3. Browser Facet Selection
+
 - **Input**: Normalized facets from API
 - **Process**: Browser renders facets in UI, user can review/modify
 - **Output**: Facet query structure
 
 #### 4. Dataset Query
+
 - **Input**: Selected facets
 - **Process**: Query datasets with AND across facets, OR within facets
 - **Logic**:
@@ -82,67 +87,92 @@ Results + Unmatched Terms
 ## Current State
 
 ### Implemented
+
 - ✅ FastAPI backend structure (`backend/api/`)
 - ✅ Health check endpoint
 - ✅ Facets endpoint (`/api/v0/facets`)
 - ✅ Stubbed facets service (`compute_facets_from_query`)
 - ✅ Pydantic models for request/response
 - ✅ Basic test infrastructure
+- ✅ **Phase 1 Complete**: Mention normalization service with dependency injection
+  - `MentionNormalizer` service (`services/normalization_service.py`)
+  - `MockConceptResolver` for testing (`tests/mock_concept_resolver.py`)
+  - Comprehensive test suite (10 unit tests + 2 integration tests)
+  - `compute_facets_with_normalizer()` demonstration function
 
 ### Existing Resources
+
 - ✅ Concept database (OpenSearch)
 - ✅ Dataset database (location TBD)
 - ✅ Predefined facet schema for datasets
 
 ## Implementation Plan
 
-### Phase 1: Mention Normalization Service (Next Step)
+### Phase 1: Mention Normalization Service ✅ COMPLETED
+
 **Goal**: Build the service that normalizes mentions against the concept database
 
 **Tasks**:
-1. Define concept database interface/client
-2. Implement normalization lookup service
-3. Handle edge cases (unknown terms, partial matches, synonyms)
-4. Return normalized facets in API response format
+
+1. ✅ Define concept database interface/client
+2. ✅ Implement normalization lookup service
+3. ✅ Handle edge cases (unknown terms, partial matches, synonyms)
+4. ✅ Return normalized facets in API response format
 
 **Testing Strategy**:
-- Mock concept database responses
-- Use fixture data with known mention → normalized term mappings
-- Test cases:
+
+- ✅ Mock concept database responses
+- ✅ Use fixture data with known mention → normalized term mappings
+- ✅ Test cases:
   - Exact match found
   - Synonym match found
   - No match found (return "unknown")
   - Multiple facets with multiple mentions
   - Empty mentions
+  - Case-insensitive matching
+  - Custom fixtures
 
-**Deliverable**: Service that takes `List[Mention]` and returns `List[NormalizedFacet]`
+**Deliverable**: ✅ Service that takes `List[Mention]` and returns `List[FacetSelection]`
+
+**Implementation Details**:
+- Uses dependency injection (no framework required)
+- `MentionNormalizer` class accepts any resolver with `resolve_mention()` method
+- `MockConceptResolver` provides test fixtures for unit testing
+- 12 tests covering all edge cases and integration scenarios
+- Ready to swap in real `OpenSearchConceptResolver`
 
 ### Phase 2: LLM Mention Extraction
+
 **Goal**: Replace stub with real LLM-based mention extraction
 
 **Tasks**:
+
 1. Design LLM prompt for mention extraction and facet tagging
 2. Integrate OpenAI API (already in requirements.txt)
 3. Parse LLM response into structured mentions
 4. Handle edge cases (ambiguous mentions, unrecognized terms)
 
 **Testing Strategy**:
+
 - Mock LLM API responses
 - Use fixture queries with expected mention extractions
 - Test edge cases (empty query, gibberish, technical terms)
 
 **Deliverable**: LLM-powered mention extraction replacing stub
 
-### Phase 3: Concept Database Integration
+### Phase 3: Concept Database Integration (Next Step)
+
 **Goal**: Connect to real OpenSearch concept database
 
 **Tasks**:
+
 1. Set up OpenSearch client configuration
 2. Implement search/lookup against concept index
 3. Handle synonym matching and fuzzy search
 4. Map concept results to facet values
 
 **Testing Strategy**:
+
 - Integration tests against test OpenSearch instance
 - Mock OpenSearch client for unit tests
 - Test with real concept data samples
@@ -150,15 +180,18 @@ Results + Unmatched Terms
 **Deliverable**: Live concept database lookups
 
 ### Phase 4: Dataset Query Integration
+
 **Goal**: Enable browser to query datasets with normalized facets
 
 **Tasks**:
+
 1. Define dataset query endpoint
 2. Implement facet-based filtering (AND/OR logic)
 3. Return matched datasets + unmatched terms
 4. Performance optimization
 
 **Testing Strategy**:
+
 - Test query logic with fixture dataset data
 - Validate AND/OR semantics
 - Test empty results, partial matches
@@ -166,9 +199,11 @@ Results + Unmatched Terms
 **Deliverable**: Working dataset query endpoint
 
 ### Phase 5: Error Handling & Edge Cases
+
 **Goal**: Robust production-ready system
 
 **Tasks**:
+
 1. Handle malformed queries
 2. Rate limiting and timeout handling
 3. Logging and monitoring
@@ -210,15 +245,18 @@ class ConceptMatch(BaseModel):
 ## Open Questions
 
 1. **How do we handle ambiguous mentions?** (e.g., "ALS" could be disease or chemical)
+
    - Use context from other mentions?
    - Return multiple possibilities?
    - Ask user for clarification?
 
 2. **What's the threshold for fuzzy matching?**
+
    - Levenshtein distance?
    - Semantic similarity score?
 
 3. **How do we handle unknown facets?**
+
    - Current stub returns `facet: "unknown"`
    - Should we attempt to guess from available facets?
    - Should we suggest closest match?
@@ -231,11 +269,15 @@ class ConceptMatch(BaseModel):
 ## Next Immediate Steps
 
 1. ✅ Document design (this file)
-2. Create test fixtures for mention normalization
-3. Implement concept database client interface
-4. Build normalization service with mocked database
-5. Write tests for normalization service
-6. Integrate with real concept database
+2. ✅ Create test fixtures for mention normalization
+3. ✅ Implement concept database client interface
+4. ✅ Build normalization service with mocked database
+5. ✅ Write tests for normalization service
+6. **IN PROGRESS**: Integrate with real concept database
+   - Verify OpenSearch instance and concept mappings
+   - Implement `OpenSearchConceptResolver`
+   - Create integration tests against real OpenSearch
+   - Wire up production configuration
 
 ## References
 
