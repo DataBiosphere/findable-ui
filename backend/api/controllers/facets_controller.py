@@ -1,9 +1,8 @@
 from fastapi import APIRouter
 
-from backend.services.facets_service import compute_facets_from_query
-from backend.services.models import FacetsResponse
-
-from backend.controllers.models import FacetsRequest
+from services.facets_service import compute_facets_from_query
+from services.models import FacetsResponse
+from controllers.models import FacetsRequest
 
 router = APIRouter(prefix="/api/v0/facets", tags=["facets"])
 

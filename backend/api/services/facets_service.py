@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from backend.services.models import FacetsResponse
+from services.models import FacetsResponse
 
 
 def compute_facets_from_query() -> FacetsResponse:
