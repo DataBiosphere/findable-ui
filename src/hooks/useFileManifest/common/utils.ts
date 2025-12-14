@@ -115,7 +115,7 @@ function bindTermName(termResponse: AzulTerm): string {
  * @param searchTermsBySearchKey - Selected search terms by search key.
  * @param responseFacet - Response facet of the given facet name.
  * @param alternateTermNames - Optional map of alternate term names.
- * @returns something.
+ * @returns File facet with populated terms and selected state.
  */
 function buildFileFacet(
   facetName: string,
