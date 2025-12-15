@@ -49,8 +49,6 @@ export const FacetAssistant = (): JSX.Element => {
 
         const data = await res.json();
 
-        console.log("API Response:", data);
-
         // Map the response data to facet filters.
         const filters = mapResponse(data);
 

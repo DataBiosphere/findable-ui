@@ -7,7 +7,7 @@ import { AiResponse, Facet, SelectedValue } from "./types";
  * @returns Boolean.
  */
 function filterFacet(facet: Facet): boolean {
-  return facet.facet !== "unknown";
+  return facet.facet !== "unknown" && facet.facet !== "unmatched";
 }
 
 /**
