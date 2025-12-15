@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Query as QueryParam
+import os
+from fastapi import APIRouter, Query as QueryParam, HTTPException
 
 from services.facets_service import (
     compute_facets_from_query,
@@ -30,13 +31,26 @@ def get_facets(
         - "bam files for brain tissue"
         - "female patients with type 2 diabetes from blood samples"
     """
-    if mode == "mock":
-        return compute_facets_with_llm_and_opensearch(
-            query=payload.query, use_mock_llm=True
-        )
-    elif mode == "llm":
+    if mode == "llm":
+        # Check for API key before proceeding
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env or use mode=mock for testing.",
+                    "suggestion": "Try adding mode=mock to the URL for pattern matching (no API key required)",
+                },
+            )
+
         return compute_facets_with_llm_and_opensearch(
             query=payload.query, use_mock_llm=False
+        )
+    elif mode == "mock":
+        return compute_facets_with_llm_and_opensearch(
+            query=payload.query, use_mock_llm=True
         )
     else:
         # Default: stub mode (backwards compatible)

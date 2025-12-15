@@ -1,8 +1,7 @@
 """LLM-based mention extraction using Pydantic AI and tool calling."""
 from typing import List, Literal
 from pydantic import BaseModel, Field
-from pydantic_ai import Agent, tool
-from pydantic_ai.models.openai import OpenAIModel
+from pydantic_ai import Agent
 
 from services.normalization_service import Mention
 from services.llm_config import LLMConfig
@@ -91,19 +90,6 @@ class MentionExtractionResult(BaseModel):
     )
 
 
-@tool
-def extract_query_mentions(result: MentionExtractionResult) -> None:
-    """Tool-only schema used to force structured mention extraction.
-
-    The tool implementation is intentionally a noop.
-    The tool-call arguments are treated as the model's output.
-
-    Args:
-        result: The structured mention extraction result.
-    """
-    return None  # noop
-
-
 class LLMMentionExtractor:
     """Extract mentions from queries using Pydantic AI and tool calling."""
 
@@ -116,16 +102,25 @@ class LLMMentionExtractor:
         self.config = config or LLMConfig()
 
         # Create Pydantic AI agent with OpenAI model
+        # In the new API, we use output_type instead of result_type
+        # The model string is in the format "openai:model-name"
+        import os
+        model_name = f"openai:{self.config.model}"
+        api_key = self.config.api_key or os.getenv("OPENAI_API_KEY")
+
         self.agent = Agent(
-            model=OpenAIModel(self.config.model, api_key=self.config.api_key),
-            result_type=MentionExtractionResult,
-            system_prompt=(
+            model=model_name,
+            output_type=MentionExtractionResult,
+            instructions=(
                 "You are a genomic data query parser for the AnVIL platform. "
                 "Extract search terms from user queries and categorize them into facets. "
-                "Use the extract_query_mentions tool to return structured results."
+                "Return structured results with the query and extracted facet mentions."
             ),
-            tools=[extract_query_mentions],
         )
+
+        # Override the model's API key if provided
+        if api_key:
+            os.environ["OPENAI_API_KEY"] = api_key
 
         # Track usage stats
         self.stats = {
@@ -151,18 +146,21 @@ class LLMMentionExtractor:
             # Run the agent
             result = self.agent.run_sync(query)
 
-            # Extract the structured data
-            extraction = result.data
+            # In pydantic-ai 1.x, the output is accessed via .output attribute
+            extraction = result.output
 
             # Update stats if usage info is available
             if hasattr(result, "usage"):
-                usage = result.usage()
-                self.stats["total_queries"] += 1
-                self.stats["total_input_tokens"] += usage.request_tokens
-                self.stats["total_output_tokens"] += usage.response_tokens
-                self.stats["total_cost"] += self.config.estimate_cost(
-                    usage.request_tokens, usage.response_tokens
-                )
+                try:
+                    usage = result.usage()
+                    self.stats["total_queries"] += 1
+                    self.stats["total_input_tokens"] += usage.request_tokens
+                    self.stats["total_output_tokens"] += usage.response_tokens
+                    self.stats["total_cost"] += self.config.estimate_cost(
+                        usage.request_tokens, usage.response_tokens
+                    )
+                except Exception:
+                    pass  # Ignore usage tracking errors
 
             # Convert FacetMention format to List[Mention] format
             mentions = self._convert_to_mentions(extraction)
@@ -171,6 +169,8 @@ class LLMMentionExtractor:
 
         except Exception as e:
             print(f"Error calling LLM: {e}")
+            import traceback
+            traceback.print_exc()
             return []
 
     def _convert_to_mentions(self, extraction: MentionExtractionResult) -> List[Mention]:
