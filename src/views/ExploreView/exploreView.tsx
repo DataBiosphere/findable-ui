@@ -6,6 +6,7 @@ import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
+import { FacetAssistant } from "../../components/Filter/components/ai/components/FacetAssistant/facetAssistant";
 import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
 import { FilterSort } from "../../components/Filter/components/controls/Controls/components/FilterSort/filterSort";
 import {
@@ -147,6 +148,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
                 onFilterSortChange={onFilterSortChange}
               />
             </Stack>
+            <FacetAssistant />
             <SearchAllFilters
               categoryViews={categoryViews}
               onFilter={onFilterChange.bind(null, true)}
