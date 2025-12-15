@@ -19,10 +19,29 @@ The concept index stores facet terms and their synonyms to resolve user mentions
 ### Prerequisites
 - Docker & Docker Compose
 - Python 3.10+
-- Install Python dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
+
+### Setup Python Environment
+
+Create and activate a virtual environment:
+
+```bash
+cd backend/opensearch
+
+# Create virtual environment
+python3 -m venv .venv
+
+# Activate it
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+Verify installation:
+```bash
+pip list | grep opensearch
+# Should show: opensearch-py    2.8.0
+```
 
 ### 1. Start OpenSearch
 

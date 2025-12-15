@@ -1,6 +1,10 @@
 # Environment files with secrets
 .env
 
+# Virtual environment
+.venv/
+venv/
+
 # Intermediate enrichment files (can be regenerated)
 concepts-from-datasets.json
 concepts-enriched.json
@@ -12,6 +16,7 @@ test-*.json
 
 # Temporary files
 .test-api-key.sh
+tmp/
 
 # Python cache
 __pycache__/
