@@ -631,7 +631,7 @@ function exploreReducer(
      */
     case ExploreActionKind.UpdateEntityFilters: {
       const {
-        entityListType,
+        entityListType = state.tabValue,
         filters: filterState,
         grouping = [],
         sorting = [],
@@ -662,7 +662,7 @@ function exploreReducer(
           categoryGroupConfigKey
         ),
         rowPreview: closeRowPreview(state.rowPreview),
-        ...(payload.entityListType === state.tabValue
+        ...(entityListType === state.tabValue
           ? {
               filterCount: getFilterCount(filterState),
               filterState,

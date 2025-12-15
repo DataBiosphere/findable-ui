@@ -57,7 +57,7 @@ export type ResetExploreResponsePayload = undefined;
  * Update entity filters payload.
  */
 export interface UpdateEntityFiltersPayload {
-  entityListType: string;
+  entityListType?: string;
   filters: SelectedFilter[];
   grouping?: GroupingState;
   sorting?: ColumnSort[];
