@@ -60,8 +60,13 @@ class MockLLMMentionExtractor:
         # Common non-facet words (patients, with, for, etc.) -> ignore
     ]
 
-    def __init__(self):
-        """Initialize the mock extractor."""
+    def __init__(self, facet_name_mapping: dict = None):
+        """Initialize the mock extractor.
+
+        Args:
+            facet_name_mapping: Mapping from pretty facet names to database names.
+        """
+        self.facet_name_mapping = facet_name_mapping or {}
         self.stats = {
             "total_queries": 0,
             "total_input_tokens": 0,
@@ -91,12 +96,14 @@ class MockLLMMentionExtractor:
         query_lower = query.lower()
         seen = set()  # Track seen (text, facet) pairs to avoid duplicates
 
-        for pattern, mention_text, facet in self.PATTERNS:
+        for pattern, mention_text, pretty_facet in self.PATTERNS:
             if re.search(pattern, query_lower):
+                # Map pretty facet name to database name
+                database_facet = self.facet_name_mapping.get(pretty_facet, pretty_facet)
                 # Avoid duplicates
-                key = (mention_text, facet)
+                key = (mention_text, database_facet)
                 if key not in seen:
-                    mentions.append(Mention(text=mention_text, facet=facet))
+                    mentions.append(Mention(text=mention_text, facet=database_facet))
                     seen.add(key)
 
         return mentions

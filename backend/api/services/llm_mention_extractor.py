@@ -93,13 +93,16 @@ class MentionExtractionResult(BaseModel):
 class LLMMentionExtractor:
     """Extract mentions from queries using Pydantic AI and tool calling."""
 
-    def __init__(self, config: LLMConfig = None):
+    def __init__(self, config: LLMConfig = None, facet_name_mapping: dict = None):
         """Initialize the LLM mention extractor.
 
         Args:
             config: LLM configuration. If None, uses default config.
+            facet_name_mapping: Mapping from pretty facet names to database names.
+                Example: {"Diagnosis": "diagnoses.disease"}
         """
         self.config = config or LLMConfig()
+        self.facet_name_mapping = facet_name_mapping or {}
 
         # Create Pydantic AI agent with OpenAI model
         # In the new API, we use output_type instead of result_type
@@ -176,18 +179,22 @@ class LLMMentionExtractor:
     def _convert_to_mentions(self, extraction: MentionExtractionResult) -> List[Mention]:
         """Convert MentionExtractionResult to flat list of Mention objects.
 
+        Converts pretty facet names from LLM to database facet names.
+
         Args:
             extraction: The structured extraction result from Pydantic AI.
 
         Returns:
-            Flat list of Mention objects.
+            Flat list of Mention objects with database facet names.
         """
         mentions = []
 
         for facet_mention in extraction.facets:
-            facet = facet_mention.facet
+            pretty_facet = facet_mention.facet
+            # Map pretty name to database name
+            database_facet = self.facet_name_mapping.get(pretty_facet, pretty_facet)
             for mention_text in facet_mention.mentions:
-                mentions.append(Mention(text=mention_text, facet=facet))
+                mentions.append(Mention(text=mention_text, facet=database_facet))
 
         return mentions
 

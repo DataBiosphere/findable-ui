@@ -189,13 +189,15 @@ def compute_facets_with_llm_and_opensearch(query: str, use_mock_llm: bool = Fals
     from services.config import create_opensearch_resolver
 
     # Step 1: Extract mentions using LLM
+    from services.anvil_config import get_anvil_facet_mapping
+
     if use_mock_llm:
         from tests.mock_llm_extractor import MockLLMMentionExtractor
-        llm_extractor = MockLLMMentionExtractor()
+        llm_extractor = MockLLMMentionExtractor(facet_name_mapping=get_anvil_facet_mapping())
     else:
         from services.llm_mention_extractor import LLMMentionExtractor
         from services.llm_config import LLMConfig
-        llm_extractor = LLMMentionExtractor(LLMConfig())
+        llm_extractor = LLMMentionExtractor(LLMConfig(), facet_name_mapping=get_anvil_facet_mapping())
 
     try:
         mentions = llm_extractor.extract_mentions(query)

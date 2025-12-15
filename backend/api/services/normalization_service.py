@@ -69,7 +69,7 @@ class MentionNormalizer:
             else:
                 # No match found - mark as unknown
                 term = "unknown"
-                # Keep the original facet for unmatched terms
+                # Mention already has database facet name (converted before normalizer)
                 database_facet_name = mention.facet
 
             # Create a SelectedValue
