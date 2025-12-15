@@ -16850,7 +16850,11 @@
       "Consortia Exclusive Access",
       "Consortia Limited Access",
       "Consortia Restricted Access",
-      "Consortium Access Only"
+      "Consortium Access Only",
+      "controlled access",
+      "private",
+      "private access",
+      "restricted access"
     ],
     "metadata": {
       "count": 1
@@ -17531,6 +17535,8 @@
       "full access",
       "no restrictions",
       "open access",
+      "public",
+      "public access",
       "unlimited access"
     ],
     "metadata": {
