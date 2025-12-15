@@ -31,7 +31,9 @@ export function mapResponse(response: AiResponse): SelectedFilter[] {
   const filteredFacets = facets.filter(filterFacet);
 
   // Map facets to selected filters.
-  return filteredFacets.map(mapSelectedFilter);
+  return filteredFacets
+    .map(mapSelectedFilter)
+    .filter((filter) => filter.value.length > 0);
 }
 
 /**

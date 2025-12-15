@@ -13,7 +13,6 @@ import {
   CategoryFilter,
   Filters,
 } from "../../components/Filter/components/Filters/filters";
-import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
 import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
@@ -149,13 +148,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
               />
             </Stack>
             <FacetAssistant />
-            <SearchAllFilters
-              categoryViews={categoryViews}
-              onFilter={onFilterChange.bind(null, true)}
-              surfaceType={
-                mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
-              }
-            />
           </SidebarTools>
           <Filters
             categoryFilters={categoryFilters}
