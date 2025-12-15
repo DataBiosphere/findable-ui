@@ -63,6 +63,7 @@ Expected output:
 
 - `make start` - Start OpenSearch
 - `make stop` - Stop OpenSearch
+- `make health` - Check if OpenSearch is ready
 - `make load` - Load concepts (keeps existing data)
 - `make clear` - Clear index and reload concepts
 
