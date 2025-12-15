@@ -1,6 +1,6 @@
-import { ExploreActionKind } from "providers/exploreState";
 import React, { FormEvent, useCallback, useState } from "react";
 import { useExploreState } from "../../../../../../hooks/useExploreState";
+import { ExploreActionKind } from "../../../../../../providers/exploreState";
 import { getFormValue } from "../../../../../../utils/form";
 import { EndAdornment } from "./components/EndAdornment/endAdornment";
 import { getEndAdornmentType } from "./components/EndAdornment/utils";
@@ -28,13 +28,16 @@ export const FacetAssistant = (): JSX.Element => {
       if (!formValue) return;
 
       setIsSubmitting(true);
+      setIsError(false);
 
       try {
         const res = await fetch("/api/v0/facets/response.json");
+
         if (!res.ok) {
           setIsError(true);
           return;
         }
+
         const data = await res.json();
 
         // Map the response data to facet filters.
@@ -48,7 +51,7 @@ export const FacetAssistant = (): JSX.Element => {
 
         // Reset the form.
         setIsDirty(false);
-        e.currentTarget.reset();
+        (e.target as HTMLFormElement).reset();
       } catch (err) {
         console.error(err);
         setIsError(true);
