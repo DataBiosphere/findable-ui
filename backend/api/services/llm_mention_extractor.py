@@ -19,7 +19,17 @@ Facet definitions and guidance:
   independent of the technology or methods used to produce the information.
 
 - Diagnosis:
-  A human-readable property that identifies a disease or condition has been reported in this entity.
+  A disease, condition, phenotypic abnormality, or clinical finding reported in an entity.
+  This includes:
+  * Diseases (e.g., diabetes, cancer, Alzheimer's disease)
+  * Clinical conditions and phenotypes (e.g., accessory oral frenulum, cleft palate)
+  * HPO (Human Phenotype Ontology) terms describing abnormalities
+  * MONDO disease terms
+  * Any medical/clinical abnormality or pathological condition
+
+  IMPORTANT: Even if a term contains anatomical words (e.g., "oral", "cardiac"),
+  it should be categorized as Diagnosis if it describes an abnormality or condition,
+  not Anatomical Site.
 
 - Organism Type:
   A human-readable reference to the organism type.
@@ -35,7 +45,14 @@ Facet definitions and guidance:
   expression of sexual characteristics." [PATO_0001894]
 
 - Anatomical Site:
-  A human-readable reference to the site within the organism from which the biosample was taken.
+  The normal anatomical location within an organism from which a biosample was taken.
+  This refers to standard body parts/tissues where samples are collected, such as:
+  * Organs: brain, heart, liver, kidney
+  * Tissues: blood, tissue, muscle
+  * Body regions: oral cavity, chest
+
+  IMPORTANT: This is for NORMAL anatomy (sample collection sites), NOT abnormalities.
+  Abnormal anatomical features or conditions should be categorized as Diagnosis.
 
 - BioSample Type:
   A human-readable reference to the type of biosample represented by the record.
@@ -47,6 +64,9 @@ Facet definitions and guidance:
 Instructions:
 - Extract exact substrings from the query.
 - Assign mentions to the most appropriate facet listed above.
+- When choosing between Diagnosis and Anatomical Site: if the term describes an abnormality,
+  condition, or disease, choose Diagnosis. Only use Anatomical Site for normal body parts
+  where samples are collected.
 - If a meaningful term does not map to any facet, use facet = 'unmatched'.
 - Do not invent new facet names.
 """.strip()
