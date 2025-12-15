@@ -28,17 +28,26 @@ Facet definitions and guidance:
   independent of the technology or methods used to produce the information.
 
 - Diagnosis:
-  A disease, condition, phenotypic abnormality, or clinical finding reported in an entity.
+  A disease or individual phenotypic feature.
   This includes:
-  * Diseases (e.g., diabetes, cancer, Alzheimer's disease)
-  * Clinical conditions and phenotypes (e.g., accessory oral frenulum, cleft palate)
-  * HPO (Human Phenotype Ontology) terms describing abnormalities
+  * Named diseases (e.g., diabetes, cancer, Alzheimer's disease, autism)
   * MONDO disease terms
-  * Any medical/clinical abnormality or pathological condition
+  * Individual HPO phenotypic features (e.g., cleft palate, seizure, hypotonia)
+  * Single observable characteristics or abnormalities
 
-  IMPORTANT: Even if a term contains anatomical words (e.g., "oral", "cardiac"),
-  it should be categorized as Diagnosis if it describes an abnormality or condition,
-  not Anatomical Site.
+  IMPORTANT: Use Diagnosis for both named diseases AND individual phenotypic traits.
+  Only use Phenotype for complex phenotype syndromes.
+
+- Phenotype:
+  Complex phenotype syndromes and named phenotypic conditions.
+  This includes:
+  * Complex phenotype syndromes (e.g., Coffin-Siris syndrome, Epileptic Encephalopathy)
+  * Named phenotypic conditions (e.g., Agenesis of the Corpus Callosum)
+  * Multi-feature phenotypic presentations
+  * Specific syndrome names
+
+  IMPORTANT: Use Phenotype only for complex/named syndromes. For individual features
+  like "cleft palate" or "seizure", use Diagnosis instead.
 
 - Organism Type:
   A human-readable reference to the organism type.
@@ -73,9 +82,11 @@ Facet definitions and guidance:
 Instructions:
 - Extract exact substrings from the query.
 - Assign mentions to the most appropriate facet listed above.
-- When choosing between Diagnosis and Anatomical Site: if the term describes an abnormality,
-  condition, or disease, choose Diagnosis. Only use Anatomical Site for normal body parts
-  where samples are collected.
+- When choosing between Diagnosis and Phenotype: use Diagnosis for diseases AND individual
+  phenotypic features (like "cleft palate", "seizure"). Use Phenotype only for complex
+  syndrome names (like "Coffin-Siris syndrome", "Epileptic Encephalopathy").
+- When choosing between Diagnosis/Phenotype and Anatomical Site: use Diagnosis/Phenotype
+  for abnormalities, use Anatomical Site only for normal body parts where samples are collected.
 - If a meaningful term does not map to any facet, use facet = 'unmatched'.
 - Do not invent new facet names.
 """.strip()
@@ -86,6 +97,7 @@ FacetName = Literal[
     "Consent Group",
     "Data Modality",
     "Diagnosis",
+    "Phenotype",
     "Organism Type",
     "Reported Ethnicity",
     "Phenotypic Sex",

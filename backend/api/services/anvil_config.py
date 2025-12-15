@@ -11,6 +11,7 @@ from typing import Dict
 ANVIL_FACET_NAME_MAPPING: Dict[str, str] = {
     # Primary facets
     "Diagnosis": "diagnoses.disease",
+    "Phenotype": "diagnoses.phenotype",
     "Reported Ethnicity": "donors.reported_ethnicity",
     "File Format": "files.file_format",
     "Anatomical Site": "biosamples.anatomical_site",
@@ -24,7 +25,6 @@ ANVIL_FACET_NAME_MAPPING: Dict[str, str] = {
     # Unmatched terms - no OpenSearch mapping
     "unmatched": "unmatched",
     # Legacy mappings (for backwards compatibility)
-    "Phenotype": "diagnoses.phenotype",
     "Data Use Permission": "datasets.data_use_permission",
     "Activity Type": "activities.activity_type",
     "Assay Type": "activities.assay_type",

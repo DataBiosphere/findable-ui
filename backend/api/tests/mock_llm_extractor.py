@@ -20,6 +20,14 @@ class MockLLMMentionExtractor:
         (r"\bcancer\b", "cancer", "Diagnosis"),
         (r"\bals\b", "als", "Diagnosis"),
         (r"\btype\s+2\s+diabetes\b", "type 2 diabetes", "Diagnosis"),
+        # Individual phenotypic features (go in Diagnosis)
+        (r"\bcleft\s+palate\b", "cleft palate", "Diagnosis"),
+        (r"\bseizure\b", "seizure", "Diagnosis"),
+        (r"\bhypotonia\b", "hypotonia", "Diagnosis"),
+        # Complex phenotype syndromes (go in Phenotype) - patterns are lowercase because query is lowercased
+        (r"\bcoffin-siris\s+syndrome\b", "Coffin-Siris syndrome", "Phenotype"),
+        (r"\bepileptic\s+encephalopathy\b", "Epileptic Encephalopathy", "Phenotype"),
+        (r"\bagenesis\s+of\s+(?:the\s+)?corpus\s+callosum\b", "agenesis of the corpus callosum", "Phenotype"),
         # Ethnicity
         (r"\blatino\b", "latino", "Reported Ethnicity"),
         (r"\bhispanic\b", "hispanic", "Reported Ethnicity"),

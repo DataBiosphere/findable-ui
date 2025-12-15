@@ -2,6 +2,7 @@
 import pytest
 
 from services.normalization_service import Mention
+from services.anvil_config import get_anvil_facet_mapping
 from tests.mock_llm_extractor import MockLLMMentionExtractor
 
 
@@ -9,6 +10,12 @@ from tests.mock_llm_extractor import MockLLMMentionExtractor
 def mock_extractor() -> MockLLMMentionExtractor:
     """Fixture providing a mock LLM extractor."""
     return MockLLMMentionExtractor()
+
+
+@pytest.fixture
+def mock_extractor_with_mapping() -> MockLLMMentionExtractor:
+    """Fixture providing a mock LLM extractor with facet name mapping."""
+    return MockLLMMentionExtractor(facet_name_mapping=get_anvil_facet_mapping())
 
 
 def test_simple_query_diabetes(mock_extractor: MockLLMMentionExtractor) -> None:
@@ -184,3 +191,33 @@ def test_phenotypic_sex_extraction(mock_extractor: MockLLMMentionExtractor) -> N
     mentions = mock_extractor.extract_mentions(query)
 
     assert any(m.text == "male" and m.facet == "Phenotypic Sex" for m in mentions)
+
+
+def test_individual_phenotype_feature_as_diagnosis(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+    """Test that individual phenotypic features are extracted as Diagnosis."""
+    query = "patients with cleft palate"
+
+    mentions = mock_extractor_with_mapping.extract_mentions(query)
+
+    assert any(m.text == "cleft palate" and m.facet == "diagnoses.disease" for m in mentions)
+
+
+def test_complex_phenotype_syndrome(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+    """Test that complex phenotype syndromes are extracted as Phenotype."""
+    query = "patients with Coffin-Siris syndrome"
+
+    mentions = mock_extractor_with_mapping.extract_mentions(query)
+
+    assert any(m.text == "Coffin-Siris syndrome" and m.facet == "diagnoses.phenotype" for m in mentions)
+
+
+def test_diagnosis_vs_phenotype_distinction(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+    """Test that the mock extractor distinguishes between Diagnosis and Phenotype."""
+    query = "patients with diabetes and Epileptic Encephalopathy"
+
+    mentions = mock_extractor_with_mapping.extract_mentions(query)
+
+    # diabetes should be Diagnosis (diagnoses.disease)
+    assert any(m.text == "diabetes" and m.facet == "diagnoses.disease" for m in mentions)
+    # Epileptic Encephalopathy should be Phenotype (diagnoses.phenotype)
+    assert any(m.text == "Epileptic Encephalopathy" and m.facet == "diagnoses.phenotype" for m in mentions)
