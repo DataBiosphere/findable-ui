@@ -56,25 +56,27 @@ class MentionNormalizer:
 
         for mention in mentions:
             # Resolve the mention using the concept resolver
+            # Request up to 20 results - will get all matches above min_score threshold
             results = self.resolver.resolve_mention(
-                facet_name=mention.facet, mention=mention.text, top_k=1
+                facet_name=mention.facet, mention=mention.text, top_k=20
             )
 
-            # Determine the normalized term and actual facet name
+            # Determine the normalized terms and actual facet name
             if results:
-                # Use the top match
-                term = results[0]["term"]
-                # Use the database facet name from OpenSearch
-                database_facet_name = results[0]["facet_name"]
+                # Use all matches above the min_score threshold
+                # All results are already filtered by min_score in the resolver
+                for result in results:
+                    term = result["term"]
+                    database_facet_name = result["facet_name"]
+                    selected_value = SelectedValue(term=term, mention=mention.text)
+                    facet_groups[database_facet_name].append(selected_value)
             else:
                 # No match found - mark as unknown
                 term = "unknown"
                 # Mention already has database facet name (converted before normalizer)
                 database_facet_name = mention.facet
-
-            # Create a SelectedValue
-            selected_value = SelectedValue(term=term, mention=mention.text)
-            facet_groups[database_facet_name].append(selected_value)
+                selected_value = SelectedValue(term=term, mention=mention.text)
+                facet_groups[database_facet_name].append(selected_value)
 
         # Convert to list of FacetSelection objects
         facet_selections = [
