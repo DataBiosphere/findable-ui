@@ -135,14 +135,15 @@ def test_facet_name_mapping(anvil_resolver: OpenSearchConceptResolver) -> None:
 
 
 def test_multiple_facets_different_results(resolver: OpenSearchConceptResolver) -> None:
-    """Test that same mention in different facets returns different results."""
-    # Search for "type" in different facets
+    """Test that different facets return results from the correct facet."""
+    # Search for "diabetes" in disease facet
     disease_results = resolver.resolve_mention(
-        facet_name="diagnoses.disease", mention="type", top_k=3
+        facet_name="diagnoses.disease", mention="diabetes", top_k=3
     )
 
+    # Search for "tissue" in biosample type facet
     biosample_results = resolver.resolve_mention(
-        facet_name="biosamples.biosample_type", mention="type", top_k=3
+        facet_name="biosamples.biosample_type", mention="tissue", top_k=3
     )
 
     # Both should have results

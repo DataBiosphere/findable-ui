@@ -21,6 +21,7 @@ class OpenSearchConceptResolver:
         use_ssl: bool = False,
         verify_certs: bool = False,
         facet_name_mapping: Optional[Dict[str, str]] = None,
+        min_score: float = 25.0,
     ):
         """Initialize the OpenSearch concept resolver.
 
@@ -32,6 +33,8 @@ class OpenSearchConceptResolver:
             facet_name_mapping: Optional mapping from application facet names to
                 OpenSearch facet names. If None, facet names are used as-is.
                 Example: {"Diagnosis": "diagnoses.disease"}
+            min_score: Minimum relevance score for matches (default: 25.0).
+                Results below this threshold are filtered out to prevent weak matches.
         """
         self.client = OpenSearch(
             hosts=[{"host": host, "port": port}],
@@ -41,6 +44,7 @@ class OpenSearchConceptResolver:
         )
         self.index_name = "concepts"
         self.facet_name_mapping = facet_name_mapping or {}
+        self.min_score = min_score
 
     def resolve_mention(
         self, facet_name: str, mention: str, top_k: int = 5
@@ -145,6 +149,7 @@ class OpenSearchConceptResolver:
 
         Returns:
             List of concept dicts with score, id, term, name, facet_name, metadata.
+            Only includes results with score >= min_score threshold.
         """
         hits = response.get("hits", {}).get("hits", [])
 
@@ -158,6 +163,7 @@ class OpenSearchConceptResolver:
                 "metadata": hit["_source"].get("metadata", {}),
             }
             for hit in hits
+            if hit["_score"] >= self.min_score
         ]
 
     def health_check(self) -> bool:
