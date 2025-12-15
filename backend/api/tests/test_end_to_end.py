@@ -34,11 +34,9 @@ def test_end_to_end_simple_query() -> None:
     # Should have extracted and normalized diabetes
     facet_dict = {fs.facet: fs for fs in result.facets}
 
-    # The AnVIL mapping should map "Diagnosis" to "diagnoses.disease"
-    # But the facet selection uses the original facet name from the mention
-    # So we need to check what comes back
+    # Should return database facet name "diagnoses.disease"
     diagnosis_facets = [
-        fs for fs in result.facets if "Diagnosis" in fs.facet or "diagnosis" in fs.facet.lower()
+        fs for fs in result.facets if fs.facet == "diagnoses.disease"
     ]
 
     assert len(diagnosis_facets) > 0

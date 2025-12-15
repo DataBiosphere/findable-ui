@@ -51,7 +51,7 @@ class MentionNormalizer:
         Returns:
             List of FacetSelection objects grouped by facet with normalized terms.
         """
-        # Group mentions by facet
+        # Group mentions by facet (using database facet names)
         facet_groups: Dict[str, List[SelectedValue]] = defaultdict(list)
 
         for mention in mentions:
@@ -60,17 +60,21 @@ class MentionNormalizer:
                 facet_name=mention.facet, mention=mention.text, top_k=1
             )
 
-            # Determine the normalized term
+            # Determine the normalized term and actual facet name
             if results:
                 # Use the top match
                 term = results[0]["term"]
+                # Use the database facet name from OpenSearch
+                database_facet_name = results[0]["facet_name"]
             else:
                 # No match found - mark as unknown
                 term = "unknown"
+                # Keep the original facet for unmatched terms
+                database_facet_name = mention.facet
 
             # Create a SelectedValue
             selected_value = SelectedValue(term=term, mention=mention.text)
-            facet_groups[mention.facet].append(selected_value)
+            facet_groups[database_facet_name].append(selected_value)
 
         # Convert to list of FacetSelection objects
         facet_selections = [
