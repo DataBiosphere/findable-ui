@@ -31,7 +31,13 @@ export const FacetAssistant = (): JSX.Element => {
       setIsError(false);
 
       try {
-        const res = await fetch("/api/v0/facets/response.json");
+        const res = await fetch("http://localhost:8000/api/v0/facets?mode=llm", {
+          body: JSON.stringify({ query: formValue }),
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (!res.ok) {
           setIsError(true);
@@ -39,6 +45,8 @@ export const FacetAssistant = (): JSX.Element => {
         }
 
         const data = await res.json();
+
+        console.log("API Response:", data);
 
         // Map the response data to facet filters.
         const filters = mapResponse(data);
