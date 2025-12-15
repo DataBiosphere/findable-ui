@@ -31,13 +31,16 @@ export const FacetAssistant = (): JSX.Element => {
       setIsError(false);
 
       try {
-        const res = await fetch("http://localhost:8000/api/v0/facets?mode=llm", {
-          body: JSON.stringify({ query: formValue }),
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          "http://localhost:8000/api/v0/facets?mode=llm",
+          {
+            body: JSON.stringify({ query: formValue }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+          }
+        );
 
         if (!res.ok) {
           setIsError(true);
