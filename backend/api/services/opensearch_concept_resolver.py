@@ -107,9 +107,9 @@ class OpenSearchConceptResolver:
                     ],
                     "should": [
                         # Exact matches (highest priority)
-                        {"term": {"term.keyword": mention}},
-                        {"term": {"name.keyword": mention}},
-                        {"term": {"synonyms.keyword": mention}},
+                        {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
+                        {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
+                        {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
                         # Fuzzy matches with boosting
                         {
                             "match": {

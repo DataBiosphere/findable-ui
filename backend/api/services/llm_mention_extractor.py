@@ -13,6 +13,15 @@ Facet definitions and guidance:
 
 - Consent Group:
   Consent group or consent groups related to a dataset.
+  Common examples include: GRU, HMB, NRES, DS-* variants, Unrestricted access, Consortia Access Only.
+
+  Access level terminology:
+  * "Private access", "restricted access", "controlled access", "limited access" →
+    typically refer to restricted/consortia consent groups
+  * "Public access", "open access", "unrestricted access" →
+    typically refer to unrestricted/open consent groups
+
+  IMPORTANT: Pay attention to access modifiers - "private" and "public" have opposite meanings.
 
 - Data Modality:
   Describes the biological nature of the information gathered as the result of an Activity,
