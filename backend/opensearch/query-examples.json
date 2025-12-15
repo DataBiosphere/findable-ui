@@ -1,0 +1,104 @@
+{
+  "exact_match_query": {
+    "description": "Find exact match on term or name",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "term": {
+              "facet_name": "country"
+            }
+          }
+        ],
+        "should": [
+          {
+            "term": {
+              "term.exact": "USA"
+            }
+          },
+          {
+            "term": {
+              "name.exact": "United States of America"
+            }
+          },
+          {
+            "term": {
+              "synonyms.exact": "America"
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    }
+  },
+  "fuzzy_match_query": {
+    "description": "Find matches with typos/spelling errors",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "term": {
+              "facet_name": "disease"
+            }
+          }
+        ],
+        "should": [
+          {
+            "match": {
+              "term.fuzzy": {
+                "query": "diabtes",
+                "fuzziness": "AUTO"
+              }
+            }
+          },
+          {
+            "match": {
+              "name.fuzzy": {
+                "query": "diabtes",
+                "fuzziness": "AUTO"
+              }
+            }
+          },
+          {
+            "match": {
+              "synonyms": {
+                "query": "diabtes",
+                "fuzziness": "AUTO"
+              }
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    }
+  },
+  "multi_match_query": {
+    "description": "Search across all fields with boosting",
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "term": {
+              "facet_name": "tissue"
+            }
+          },
+          {
+            "multi_match": {
+              "query": "brian",
+              "fields": [
+                "term.exact^3",
+                "name.exact^2",
+                "synonyms.exact^2",
+                "term.fuzzy",
+                "name.fuzzy",
+                "synonyms"
+              ],
+              "fuzziness": "AUTO",
+              "type": "best_fields"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

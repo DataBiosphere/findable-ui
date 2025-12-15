@@ -1,0 +1,32 @@
+[
+  {
+    "id": "country-001",
+    "facet_name": "country",
+    "term": "USA",
+    "name": "United States of America",
+    "synonyms": ["United States", "America", "US", "USA"],
+    "metadata": {
+      "iso_code": "US"
+    }
+  },
+  {
+    "id": "disease-001",
+    "facet_name": "disease",
+    "term": "T2D",
+    "name": "Type 2 Diabetes",
+    "synonyms": ["Type II Diabetes", "Diabetes Mellitus Type 2", "T2DM"],
+    "metadata": {
+      "icd_code": "E11"
+    }
+  },
+  {
+    "id": "tissue-001",
+    "facet_name": "tissue",
+    "term": "brain",
+    "name": "Brain Tissue",
+    "synonyms": ["cerebral tissue", "neural tissue", "brain"],
+    "metadata": {
+      "uberon_id": "UBERON:0000955"
+    }
+  }
+]

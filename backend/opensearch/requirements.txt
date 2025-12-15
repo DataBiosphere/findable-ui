@@ -1,0 +1,8 @@
+# OpenSearch Python client for loading and querying concepts
+opensearch-py==2.8.0
+
+# OpenAI client for synonym generation (generate-synonyms-gpt.py)
+openai==2.11.0
+
+# Python dotenv for loading .env files
+python-dotenv==1.2.1

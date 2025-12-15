@@ -1,0 +1,79 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "synonym_filter": {
+          "type": "synonym",
+          "synonyms": [
+            "usa, united states, america",
+            "uk, united kingdom, britain"
+          ]
+        }
+      },
+      "analyzer": {
+        "concept_exact": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": ["lowercase"]
+        },
+        "concept_fuzzy": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "synonym_filter"
+          ]
+        }
+      }
+    },
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "facet_name": {
+        "type": "keyword"
+      },
+      "term": {
+        "type": "text",
+        "fields": {
+          "exact": {
+            "type": "keyword"
+          },
+          "fuzzy": {
+            "type": "text",
+            "analyzer": "concept_fuzzy"
+          }
+        }
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "exact": {
+            "type": "keyword"
+          },
+          "fuzzy": {
+            "type": "text",
+            "analyzer": "concept_fuzzy"
+          }
+        }
+      },
+      "synonyms": {
+        "type": "text",
+        "analyzer": "concept_fuzzy",
+        "fields": {
+          "exact": {
+            "type": "keyword"
+          }
+        }
+      },
+      "metadata": {
+        "type": "object",
+        "enabled": true
+      }
+    }
+  }
+}
