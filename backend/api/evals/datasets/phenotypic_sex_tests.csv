@@ -1,16 +1,17 @@
 test_id,query,expected_facet,expected_terms,notes,category
-ps_001,female patients,donors.phenotypic_sex,female,Simple single term,basic
-ps_002,male patients,donors.phenotypic_sex,male,Simple single term,basic
-ps_003,female,donors.phenotypic_sex,female,Just the term alone,basic
-ps_004,male,donors.phenotypic_sex,male,Just the term alone,basic
-ps_005,women with diabetes,donors.phenotypic_sex,female,Synonym - women,synonym
-ps_006,men with cancer,donors.phenotypic_sex,male,Synonym - men,synonym
-ps_007,XX patients,donors.phenotypic_sex,female,Chromosome notation,synonym
-ps_008,XY patients,donors.phenotypic_sex,male,Chromosome notation,synonym
-ps_009,F patients,donors.phenotypic_sex,female,Single letter abbrev,abbreviation
-ps_010,M patients,donors.phenotypic_sex,male,Single letter abbrev,abbreviation
-ps_011,feminine subjects,donors.phenotypic_sex,female,Synonym - feminine,synonym
-ps_012,masculine subjects,donors.phenotypic_sex,male,Synonym - masculine,synonym
-ps_013,unknown sex,donors.phenotypic_sex,unknown,Unknown sex,edge_case
-ps_014,sex not specified,donors.phenotypic_sex,unknown,Unknown variant,edge_case
-ps_015,patients,,,Should not extract phenotypic sex,negative_test
+ps_001,female patients,donors.phenotypic_sex,Female,Simple single term,basic
+ps_002,male patients,donors.phenotypic_sex,Male,Simple single term,basic
+ps_003,female,donors.phenotypic_sex,Female,Just the term alone,basic
+ps_004,male,donors.phenotypic_sex,Male,Just the term alone,basic
+ps_005,women with diabetes,donors.phenotypic_sex,Female,Synonym - women,synonym
+ps_006,men with cancer,donors.phenotypic_sex,Male,Synonym - men,synonym
+ps_007,XX patients,donors.phenotypic_sex,Female,Chromosome notation,synonym
+ps_008,XY patients,donors.phenotypic_sex,Male,Chromosome notation,synonym
+ps_009,F patients,donors.phenotypic_sex,Female,Single letter abbrev,abbreviation
+ps_010,M patients,donors.phenotypic_sex,Male,Single letter abbrev,abbreviation
+ps_011,feminine subjects,donors.phenotypic_sex,Female,Synonym - feminine,synonym
+ps_012,masculine subjects,donors.phenotypic_sex,Male,Synonym - masculine,synonym
+ps_013,unknown sex,donors.phenotypic_sex,Unknown,Unknown sex,edge_case
+ps_014,sex not specified,donors.phenotypic_sex,Unspecified,Not specified variant,edge_case
+ps_015,sex unspecified,donors.phenotypic_sex,Unknown|Unspecified,Unspecified variant (matches both),edge_case
+ps_016,patients,,,Should not extract phenotypic sex,negative_test

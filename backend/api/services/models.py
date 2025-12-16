@@ -9,10 +9,12 @@ class SelectedValue(BaseModel):
     Attributes:
         term (str): The resolved facet value.
         mention (str): The original query text that resolved to the value.
+        recognized (bool): Whether the term was found in the concept database (default: True).
     """
 
     term: str
     mention: str
+    recognized: bool = True
 
 
 # Model of a selected facet and its resolved values.

@@ -164,7 +164,7 @@ class OpenSearchConceptResolver:
             {
                 "score": hit["_score"],
                 "id": hit["_source"]["id"],
-                "term": hit["_source"]["term"],
+                "term": hit["_source"].get("display_name", hit["_source"]["term"]),
                 "name": hit["_source"]["name"],
                 "facet_name": hit["_source"]["facet_name"],
                 "metadata": hit["_source"].get("metadata", {}),

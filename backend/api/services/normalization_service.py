@@ -72,11 +72,13 @@ class MentionNormalizer:
                     selected_value = SelectedValue(term=term, mention=mention.text)
                     facet_groups[database_facet_name].append(selected_value)
             else:
-                # No match found - mark as unknown
-                term = "unknown"
-                # Mention already has database facet name (converted before normalizer)
+                # No match found - return the mention as-is with recognized=False
+                # This distinguishes from database null values (which would be "Unspecified")
+                term = mention.text
                 database_facet_name = mention.facet
-                selected_value = SelectedValue(term=term, mention=mention.text)
+                selected_value = SelectedValue(
+                    term=term, mention=mention.text, recognized=False
+                )
                 facet_groups[database_facet_name].append(selected_value)
 
         # Convert to list of FacetSelection objects
