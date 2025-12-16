@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-15T23:24:37.983149",
+    "date": "2025-12-15T23:29:48.212304",
     "dataset": "reported_ethnicity_tests",
     "total_tests": 21,
-    "passed": 20,
-    "failed": 1,
-    "pass_rate": 0.9523809523809523
+    "passed": 18,
+    "failed": 3,
+    "pass_rate": 0.8571428571428571
   },
   "results": [
     {
@@ -161,7 +161,7 @@
     {
       "test_id": "re_006",
       "query": "african american donors",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -180,13 +180,11 @@
           "American Indian, Native American, Alaska Native|Asia|Black or African American",
           "American Indian, Native American, Alaska Native|Black or African American|White or European American",
           "Asia|Black or African American|White or European American",
-          "Black or African American",
           "Black or African American|Hispanic/Latino(a)",
-          "Black or African American|White or European American",
-          "Black or African American|White or European American|Hispanic/Latino(a)"
+          "Black or African American|White or European American"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Includes combined ethnicities",
       "category": "synonym"
     },
@@ -223,7 +221,7 @@
     {
       "test_id": "re_008",
       "query": "native american subjects",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -236,13 +234,10 @@
       "actual": {
         "facet": "donors.reported_ethnicity",
         "terms": [
-          "American Indian or Alaska Native",
-          "American Indian, Native American, Alaska Native",
-          "American Indian, Native American, Alaska Native|Asia|Black or African American",
-          "American Indian, Native American, Alaska Native|Black or African American|White or European American"
+          "American Indian or Alaska Native"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Includes combined ethnicities",
       "category": "synonym"
     },
@@ -514,10 +509,17 @@
       "actual": {
         "facet": "donors.reported_ethnicity",
         "terms": [
-          "ispanic"
+          "Asia|Hispanic/Latino(a)",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Black or African American|Hispanic/Latino(a)",
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)",
+          "Hispanic/Latino(a)|Prefer not to answer",
+          "Not Hispanic or Latino",
+          "White or European American|Hispanic/Latino(a)"
         ]
       },
-      "error_type": "wrong_term",
+      "error_type": "extra_terms",
       "notes": "Typo - missing h",
       "category": "typo"
     }
@@ -529,9 +531,9 @@
       "pass_rate": 1.0
     },
     "synonym": {
-      "passed": 8,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 6,
+      "failed": 2,
+      "pass_rate": 0.75
     },
     "abbreviation": {
       "passed": 2,

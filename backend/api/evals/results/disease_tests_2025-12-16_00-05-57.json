@@ -1,0 +1,362 @@
+{
+  "metadata": {
+    "date": "2025-12-16T00:05:57.068078",
+    "dataset": "disease_tests",
+    "total_tests": 15,
+    "passed": 4,
+    "failed": 11,
+    "pass_rate": 0.26666666666666666
+  },
+  "results": [
+    {
+      "test_id": "dis_001",
+      "query": "diabetes",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus"
+        ]
+      },
+      "error_type": null,
+      "notes": "Common disease name",
+      "category": "basic"
+    },
+    {
+      "test_id": "dis_002",
+      "query": "lung cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Lung cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Lung cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Specific cancer",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_003",
+      "query": "bladder cancer",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Bladder cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Bladder or urinary tract cancer"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Specific cancer - should not match all cancers",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_004",
+      "query": "breast cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Breast cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Breast cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Specific cancer",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_005",
+      "query": "cancer",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Ampullary cancer",
+          "Blood cancer",
+          "Bone cancer",
+          "Bowel cancer",
+          "Breast cancer",
+          "Cervical cancer",
+          "Eye cancer",
+          "Head and neck cancer",
+          "Kidney cancer",
+          "Liver cancer",
+          "Lung cancer",
+          "Lymphatic cancer",
+          "Pancreatic cancer",
+          "Pleural cancer",
+          "Prostate cancer",
+          "Skin cancer",
+          "Soft tissue cancer",
+          "Testicular cancer",
+          "Thyroid cancer",
+          "Uterine cancer"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Generic cancer term",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_006",
+      "query": "brain cancer",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Brain cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Brain-specific cancer",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_007",
+      "query": "diabtes",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus",
+          "Diabetes mellitus type 1 without retinopathy",
+          "Diabetes mellitus type 2 without retinopathy",
+          "Retinopathy due to diabetes mellitus",
+          "Retinopathy due to type 1 diabetes mellitus",
+          "Retinopathy due to type 2 diabetes mellitus",
+          "Type 1 diabetes mellitus",
+          "Type 2 diabetes mellitus"
+        ]
+      },
+      "error_type": "extra_terms",
+      "notes": "Typo - missing e",
+      "category": "typo"
+    },
+    {
+      "test_id": "dis_008",
+      "query": "alzheimers",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer disease"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Missing apostrophe - brain condition",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_009",
+      "query": "alzheimer's disease",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer disease"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Full name with apostrophe",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_010",
+      "query": "seizures",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Seizure"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0001250"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Neurological symptom",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_011",
+      "query": "epilepsy",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Epilepsy"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Epilepsy",
+          "HP:0001250"
+        ]
+      },
+      "error_type": "extra_terms",
+      "notes": "Seizure disorder",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_012",
+      "query": "brain tumor",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Brain tumor"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Brain growth",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_013",
+      "query": "parkinsons",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Parkinson disease"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "parkinsons"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Missing apostrophe",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_014",
+      "query": "asthma",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Asthma"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0002099"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Respiratory disease",
+      "category": "basic"
+    },
+    {
+      "test_id": "dis_015",
+      "query": "patients",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "Should not extract disease",
+      "category": "negative_test"
+    }
+  ],
+  "by_category": {
+    "basic": {
+      "passed": 1,
+      "failed": 1,
+      "pass_rate": 0.5
+    },
+    "cancer": {
+      "passed": 2,
+      "failed": 3,
+      "pass_rate": 0.4
+    },
+    "typo": {
+      "passed": 0,
+      "failed": 1,
+      "pass_rate": 0.0
+    },
+    "brain": {
+      "passed": 0,
+      "failed": 6,
+      "pass_rate": 0.0
+    },
+    "negative_test": {
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0
+    }
+  }
+}

@@ -5099,11 +5099,13 @@
     "term": "bladder or urinary tract cancer",
     "name": "bladder or urinary tract cancer",
     "synonyms": [
-      "bladder or urinary tract cancer",
-      "uc",
+      "bladder cancer",
       "bladder carcinoma",
       "bladder neoplasm",
+      "bladder or urinary tract cancer",
+      "uc",
       "urinary bladder cancer",
+      "urinary tract cancer",
       "urothelial carcinoma"
     ],
     "metadata": {
@@ -5189,11 +5191,13 @@
     "term": "cns or brain cancer",
     "name": "cns or brain cancer",
     "synonyms": [
+      "brain cancer",
+      "brain carcinoma",
+      "brain neoplasm",
+      "cns cancer",
       "cns malignancy",
       "cns or brain cancer",
       "cns tumor",
-      "brain carcinoma",
-      "brain neoplasm",
       "intracranial tumor"
     ],
     "metadata": {
@@ -5299,10 +5303,12 @@
     "name": "esophageal or stomach cancer",
     "synonyms": [
       "eac",
-      "esophageal or stomach cancer",
+      "esophageal cancer",
       "esophageal carcinoma",
       "esophageal neoplasm",
+      "esophageal or stomach cancer",
       "gastric cancer",
+      "stomach cancer",
       "stomach neoplasm"
     ],
     "metadata": {
@@ -6646,6 +6652,7 @@
     "name": "ovarian or fallopian tube cancer",
     "synonyms": [
       "epithelial ovarian cancer",
+      "fallopian tube cancer",
       "fallopian tube carcinoma",
       "fallopian tube neoplasm",
       "ovarian cancer",
@@ -6933,12 +6940,14 @@
     "term": "vulvar or vaginal cancer",
     "name": "vulvar or vaginal cancer",
     "synonyms": [
-      "vcc",
-      "vulvar or vaginal cancer",
+      "vaginal cancer",
       "vaginal carcinoma",
       "vaginal neoplasm",
+      "vcc",
+      "vulvar cancer",
       "vulvar carcinoma",
-      "vulvar neoplasm"
+      "vulvar neoplasm",
+      "vulvar or vaginal cancer"
     ],
     "metadata": {
       "count": 2

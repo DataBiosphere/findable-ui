@@ -23,6 +23,8 @@ class OpenSearchConceptResolver:
         verify_certs: bool = False,
         facet_name_mapping: Optional[Dict[str, str]] = None,
         min_score: float = 50.0,
+        exact_min_score: float = 50.0,
+        fuzzy_min_score: float = 15.0,
     ):
         """Initialize the OpenSearch concept resolver.
 
@@ -34,9 +36,12 @@ class OpenSearchConceptResolver:
             facet_name_mapping: Optional mapping from application facet names to
                 OpenSearch facet names. If None, facet names are used as-is.
                 Example: {"Diagnosis": "diagnoses.disease"}
-            min_score: Minimum relevance score for matches (default: 50.0).
-                Results below this threshold are filtered out to prevent weak matches.
-                Increased from 25.0 to 50.0 to account for boost=10.0 on exact matches.
+            min_score: Deprecated. Use exact_min_score and fuzzy_min_score instead.
+                Kept for backward compatibility.
+            exact_min_score: Minimum score for exact matches (default: 50.0).
+                Exact matches use term.keyword matching with boost=10.0.
+            fuzzy_min_score: Minimum score for fuzzy matches (default: 15.0).
+                Only used if no exact matches found (two-pass query).
         """
         self.client = OpenSearch(
             hosts=[{"host": host, "port": port}],
@@ -46,12 +51,17 @@ class OpenSearchConceptResolver:
         )
         self.index_name = "concepts"
         self.facet_name_mapping = facet_name_mapping or {}
-        self.min_score = min_score
+        # Support both old and new parameter styles
+        self.exact_min_score = exact_min_score if exact_min_score != 50.0 else min_score
+        self.fuzzy_min_score = fuzzy_min_score
 
     def resolve_mention(
         self, facet_name: str, mention: str, top_k: int = 5
     ) -> List[Dict]:
-        """Resolve a user mention to facet concepts using OpenSearch.
+        """Resolve a user mention to facet concepts using two-pass matching.
+
+        Pass 1: Exact matches only (keyword matching with high threshold)
+        Pass 2: Fuzzy matches if no exact results (typo tolerance with lower threshold)
 
         Args:
             facet_name: The facet name (will be mapped if mapping provided).
@@ -69,15 +79,30 @@ class OpenSearchConceptResolver:
         # Lowercase the mention for case-insensitive matching
         mention_lower = mention.lower()
 
-        # Build the search query
-        query = self._build_search_query(opensearch_facet, mention_lower, top_k)
-
         try:
-            # Execute the search
-            response = self.client.search(index=self.index_name, body=query)
+            # Pass 1: Try exact matches only
+            exact_query = self._build_search_query(
+                opensearch_facet, mention_lower, top_k, exact_only=True
+            )
+            exact_response = self.client.search(index=self.index_name, body=exact_query)
+            exact_results = self._parse_results(
+                exact_response, min_score=self.exact_min_score
+            )
 
-            # Parse and return results
-            return self._parse_results(response)
+            # If we found exact matches, return them
+            if exact_results:
+                return exact_results
+
+            # Pass 2: Fall back to fuzzy matching if no exact matches
+            fuzzy_query = self._build_search_query(
+                opensearch_facet, mention_lower, top_k, exact_only=False
+            )
+            fuzzy_response = self.client.search(index=self.index_name, body=fuzzy_query)
+            fuzzy_results = self._parse_results(
+                fuzzy_response, min_score=self.fuzzy_min_score
+            )
+
+            return fuzzy_results
 
         except Exception as e:
             # Log error and return empty results
@@ -85,74 +110,71 @@ class OpenSearchConceptResolver:
             print(f"Error querying OpenSearch: {e}")
             return []
 
-    def _build_search_query(self, facet_name: str, mention: str, top_k: int) -> Dict:
+    def _build_search_query(
+        self, facet_name: str, mention: str, top_k: int, exact_only: bool = False
+    ) -> Dict:
         """Build the OpenSearch query for concept lookup.
-
-        Uses a multi-pronged strategy:
-        1. Exact matches on term, name, and synonyms (highest priority)
-        2. Fuzzy matches with boosting (typo tolerance)
-        3. Synonym expansion (automatic via analyzer)
 
         Args:
             facet_name: The OpenSearch facet name.
             mention: The search query string.
             top_k: Number of results to return.
+            exact_only: If True, only include exact keyword matches.
+                       If False, include both exact and fuzzy matches.
 
         Returns:
             OpenSearch query dict.
         """
+        should_clauses = [
+            # Exact matches (keyword matching)
+            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+        ]
+
+        # Add fuzzy matching clauses only if not exact_only
+        if not exact_only:
+            should_clauses.extend(
+                [
+                    {
+                        "match": {
+                            "term": {
+                                "query": mention,
+                                "fuzziness": "AUTO",
+                                "boost": 2.0,
+                            }
+                        }
+                    },
+                    {
+                        "match": {
+                            "name": {
+                                "query": mention,
+                                "fuzziness": "AUTO",
+                                "boost": 1.5,
+                            }
+                        }
+                    },
+                    {"match": {"synonyms": {"query": mention, "fuzziness": "AUTO"}}},
+                ]
+            )
+
         return {
             "query": {
                 "bool": {
-                    "must": [
-                        # Must match the facet
-                        {"term": {"facet_name.keyword": facet_name}}
-                    ],
-                    "should": [
-                        # Exact matches (highest priority)
-                        {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
-                        {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-                        {
-                            "term": {
-                                "synonyms.keyword": {"value": mention, "boost": 10.0}
-                            }
-                        },
-                        # Fuzzy matches with boosting
-                        {
-                            "match": {
-                                "term": {
-                                    "query": mention,
-                                    "fuzziness": "AUTO",
-                                    "boost": 2.0,
-                                }
-                            }
-                        },
-                        {
-                            "match": {
-                                "name": {
-                                    "query": mention,
-                                    "fuzziness": "AUTO",
-                                    "boost": 1.5,
-                                }
-                            }
-                        },
-                        {
-                            "match": {
-                                "synonyms": {"query": mention, "fuzziness": "AUTO"}
-                            }
-                        },
-                    ],
+                    "must": [{"term": {"facet_name.keyword": facet_name}}],
+                    "should": should_clauses,
                     "minimum_should_match": 1,
                 }
             },
             "size": top_k,
         }
 
-    def _parse_results(self, response: Dict) -> List[Dict]:
+    def _parse_results(self, response: Dict, min_score: float) -> List[Dict]:
         """Parse OpenSearch response into a list of concept matches.
 
         Args:
             response: Raw OpenSearch response dict.
+            min_score: Minimum score threshold for accepting results.
 
         Returns:
             List of concept dicts with score, id, term, name, facet_name, metadata.
@@ -170,7 +192,7 @@ class OpenSearchConceptResolver:
                 "metadata": hit["_source"].get("metadata", {}),
             }
             for hit in hits
-            if hit["_score"] >= self.min_score
+            if hit["_score"] >= min_score
         ]
 
     def health_check(self) -> bool:

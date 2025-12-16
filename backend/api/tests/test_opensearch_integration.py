@@ -84,9 +84,6 @@ def test_synonym_match_latino(resolver: OpenSearchConceptResolver) -> None:
     assert any("latino" in name or "hispanic" in name for name in names)
 
 
-@pytest.mark.xfail(
-    reason="Fuzzy matches score below min_score=50.0. Will be fixed with match-type discrimination."
-)
 def test_fuzzy_match_typo(resolver: OpenSearchConceptResolver) -> None:
     """Test fuzzy matching with typo: 'diabtes' should still find diabetes."""
     results = resolver.resolve_mention(
