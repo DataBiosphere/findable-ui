@@ -1,5 +1,6 @@
 export interface AiResponse {
   facets: Facet[];
+  query: string;
 }
 
 export interface Facet {
@@ -9,5 +10,6 @@ export interface Facet {
 
 export interface SelectedValue {
   mention: string;
+  recognized: boolean;
   term: string;
 }

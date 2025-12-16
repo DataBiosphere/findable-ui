@@ -4,9 +4,11 @@ import { ExploreActionKind } from "../../../../../../providers/exploreState";
 import { getFormValue } from "../../../../../../utils/form";
 import { EndAdornment } from "./components/EndAdornment/endAdornment";
 import { getEndAdornmentType } from "./components/EndAdornment/utils";
+import { ResultSummary } from "./components/ResultSummary/resultSummary";
 import { OUTLINED_INPUT_PROPS } from "./constants";
-import { StyledForm, StyledOutlinedInput } from "./facetAssistant.styles";
-import { mapResponse } from "./utils";
+import { StyledOutlinedInput, StyledStack } from "./facetAssistant.styles";
+import { AiResponse } from "./types";
+import { buildSummary, mapResponse } from "./utils";
 
 /**
  * AI-powered facet assistant component.
@@ -18,6 +20,7 @@ export const FacetAssistant = (): JSX.Element => {
   const [isDirty, setIsDirty] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [response, setResponse] = useState<AiResponse | null>(null);
 
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -27,8 +30,9 @@ export const FacetAssistant = (): JSX.Element => {
       const formValue = getFormValue(e, "query-to-facets");
       if (!formValue) return;
 
-      setIsSubmitting(true);
       setIsError(false);
+      setIsSubmitting(true);
+      setResponse(null);
 
       try {
         const res = await fetch(
@@ -49,6 +53,9 @@ export const FacetAssistant = (): JSX.Element => {
 
         const data = await res.json();
 
+        // Set the response data
+        setResponse(data);
+
         // Map the response data to facet filters.
         const filters = mapResponse(data);
 
@@ -63,6 +70,7 @@ export const FacetAssistant = (): JSX.Element => {
         (e.target as HTMLFormElement).reset();
       } catch (err) {
         console.error(err);
+        setResponse(null);
         setIsError(true);
       } finally {
         setIsSubmitting(false);
@@ -72,17 +80,20 @@ export const FacetAssistant = (): JSX.Element => {
   );
 
   return (
-    <StyledForm onSubmit={onSubmit}>
-      <StyledOutlinedInput
-        {...OUTLINED_INPUT_PROPS}
-        endAdornment={
-          <EndAdornment
-            adornmentType={getEndAdornmentType(isDirty, isSubmitting)}
-          />
-        }
-        error={isError}
-        onChange={(): void => setIsDirty(true)}
-      />
-    </StyledForm>
+    <StyledStack useFlexGap>
+      <form onSubmit={onSubmit}>
+        <StyledOutlinedInput
+          {...OUTLINED_INPUT_PROPS}
+          endAdornment={
+            <EndAdornment
+              adornmentType={getEndAdornmentType(isDirty, isSubmitting)}
+            />
+          }
+          error={isError}
+          onChange={(): void => setIsDirty(true)}
+        />
+      </form>
+      <ResultSummary summary={buildSummary(response)} />
+    </StyledStack>
   );
 };

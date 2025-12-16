@@ -1113,6 +1113,14 @@ const MuiSvgIcon: Components["MuiSvgIcon"] = {
   variants: [
     {
       props: {
+        color: "alert",
+      },
+      style: {
+        color: PALETTE.ALERT_MAIN,
+      },
+    },
+    {
+      props: {
         color: "inkLight",
       },
       style: {

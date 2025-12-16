@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
-import { OutlinedInput } from "@mui/material";
+import { OutlinedInput, Stack } from "@mui/material";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 
-export const StyledForm = styled.form`
+export const StyledStack = styled(Stack)`
+  gap: 8px;
   grid-column: 1 / -1;
 `;
 

@@ -7,6 +7,7 @@ type SvgIconPropsOptions = {
 
 const COLOR: Record<string, SvgIconProps["color"]> = {
   ACTION: "action",
+  ALERT: "alert",
   DISABLED: "disabled",
   ERROR: "error",
   INFO: "info",
