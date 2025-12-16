@@ -1,4 +1,5 @@
 """Mock LLM mention extractor for testing without API calls."""
+
 from typing import List, Dict
 import re
 
@@ -27,7 +28,11 @@ class MockLLMMentionExtractor:
         # Complex phenotype syndromes (go in Phenotype) - patterns are lowercase because query is lowercased
         (r"\bcoffin-siris\s+syndrome\b", "Coffin-Siris syndrome", "Phenotype"),
         (r"\bepileptic\s+encephalopathy\b", "Epileptic Encephalopathy", "Phenotype"),
-        (r"\bagenesis\s+of\s+(?:the\s+)?corpus\s+callosum\b", "agenesis of the corpus callosum", "Phenotype"),
+        (
+            r"\bagenesis\s+of\s+(?:the\s+)?corpus\s+callosum\b",
+            "agenesis of the corpus callosum",
+            "Phenotype",
+        ),
         # Ethnicity
         (r"\blatino\b", "latino", "Reported Ethnicity"),
         (r"\bhispanic\b", "hispanic", "Reported Ethnicity"),

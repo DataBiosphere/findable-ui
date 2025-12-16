@@ -3,6 +3,7 @@
 ## Overview
 
 Your dataset has **654 ontology IDs** that need human-readable names:
+
 - **HP:** 364 terms (Human Phenotype Ontology)
 - **OMIM:** 191 terms (Online Mendelian Inheritance in Man)
 - **ORPHA:** 98 terms (Orphanet Rare Disease Ontology)
@@ -21,6 +22,7 @@ python3 convert-datasets-to-concepts.py
 This creates `concepts-from-datasets.json` with 1,966 concepts.
 
 **Before enrichment:**
+
 ```json
 {
   "id": "disease-93b47a9f7205",
@@ -44,6 +46,7 @@ python3 enrich-ontology-terms.py \
 **This will take 5-10 minutes** (654 API calls with rate limiting).
 
 **After enrichment:**
+
 ```json
 {
   "id": "disease-93b47a9f7205",
@@ -89,6 +92,7 @@ curl -s "http://localhost:9200/concepts/_search" \
 ```
 
 **Result:**
+
 ```json
 {
   "term": "HP:0001250",
@@ -99,9 +103,11 @@ curl -s "http://localhost:9200/concepts/_search" \
 ## APIs Used
 
 The enrichment script uses the **EBI Ontology Lookup Service (OLS)**:
+
 - https://www.ebi.ac.uk/ols/
 
 Supported ontologies:
+
 - **HP** → Human Phenotype Ontology
 - **OMIM** → Online Mendelian Inheritance in Man
 - **ORPHA** → Orphanet Rare Disease Ontology
@@ -113,6 +119,7 @@ Supported ontologies:
 ## Rate Limiting
 
 The script includes:
+
 - 3 retry attempts for failed requests
 - 1-second pause every 50 successful lookups
 - Caching to avoid duplicate lookups
@@ -134,6 +141,7 @@ tail -f enrichment.log
 ```
 
 You'll see progress updates every 10 concepts:
+
 ```
 Progress: 10/1966 (5 enriched, 0 failed)
 Progress: 20/1966 (12 enriched, 0 failed)
@@ -143,6 +151,7 @@ Progress: 20/1966 (12 enriched, 0 failed)
 ## Handling Failures
 
 If some terms fail to enrich (e.g., network issues):
+
 1. The script will continue with other terms
 2. Failed terms keep their original ID as the name
 3. Check the statistics at the end:
@@ -190,11 +199,13 @@ head -50 concepts-test.json
 ## Benefits
 
 **Before enrichment:**
+
 - Users must know exact IDs: "HP:0001250"
 - No fuzzy matching: "seizure" won't find anything
 - No synonyms
 
 **After enrichment:**
+
 - Users can search: "seizure", "seizures", "epilepsy"
 - Fuzzy matching works: "siezure" (typo) still finds "Seizure"
 - Rich metadata with descriptions

@@ -1,4 +1,5 @@
 """Test the facets service with normalizer integration."""
+
 import pytest
 
 from services.facets_service import compute_facets_with_normalizer

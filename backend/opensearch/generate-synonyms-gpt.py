@@ -32,7 +32,7 @@ class SynonymGenerator:
             "failed": 0,
             "total_input_tokens": 0,
             "total_output_tokens": 0,
-            "estimated_cost": 0.0
+            "estimated_cost": 0.0,
         }
 
         # Pricing per million tokens
@@ -41,14 +41,14 @@ class SynonymGenerator:
 
     def should_generate_synonyms(self, concept: Dict, min_synonyms: int = 2) -> bool:
         """Check if concept needs synonym generation."""
-        synonyms = concept.get('synonyms', [])
+        synonyms = concept.get("synonyms", [])
 
         # Skip if already has enough synonyms
         if len(synonyms) >= min_synonyms:
             return False
 
         # Skip if term is just an ID without enrichment
-        if concept['name'] == concept['term'] and ':' in concept['term']:
+        if concept["name"] == concept["term"] and ":" in concept["term"]:
             return False
 
         return True
@@ -89,16 +89,13 @@ Synonyms:"""
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a biomedical terminology expert. Generate accurate synonyms for medical and scientific terms."
+                        "content": "You are a biomedical terminology expert. Generate accurate synonyms for medical and scientific terms.",
                     },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
+                    {"role": "user", "content": prompt},
                 ],
                 temperature=0.3,  # Low temperature for consistency
                 max_tokens=100,
-                response_format={"type": "json_object"}
+                response_format={"type": "json_object"},
             )
 
             # Track usage
@@ -109,7 +106,7 @@ Synonyms:"""
             # Calculate cost
             input_cost = (usage.prompt_tokens / 1_000_000) * self.input_price
             output_cost = (usage.completion_tokens / 1_000_000) * self.output_price
-            self.stats["estimated_cost"] += (input_cost + output_cost)
+            self.stats["estimated_cost"] += input_cost + output_cost
 
             # Parse response
             content = response.choices[0].message.content
@@ -117,7 +114,7 @@ Synonyms:"""
 
             # Handle different response formats
             if isinstance(result, dict):
-                synonyms = result.get('synonyms', result.get('terms', []))
+                synonyms = result.get("synonyms", result.get("terms", []))
             else:
                 synonyms = result
 
@@ -143,10 +140,7 @@ Synonyms:"""
         return contexts.get(facet_name, f"This is from the '{facet_name}' category")
 
     def process_concepts(
-        self,
-        concepts: List[Dict],
-        batch_size: int = 10,
-        max_concepts: int = None
+        self, concepts: List[Dict], batch_size: int = 10, max_concepts: int = None
     ) -> List[Dict]:
         """
         Process concepts and add synonyms.
@@ -175,17 +169,17 @@ Synonyms:"""
                 continue
 
             # Generate synonyms
-            term = concept['term']
-            name = concept['name']
-            facet_name = concept['facet_name']
+            term = concept["term"]
+            name = concept["name"]
+            facet_name = concept["facet_name"]
 
             new_synonyms = self.generate_synonyms(term, name, facet_name)
 
             if new_synonyms:
                 # Combine with existing synonyms
-                existing = set(concept.get('synonyms', []))
+                existing = set(concept.get("synonyms", []))
                 all_synonyms = existing | set(new_synonyms) | {term}
-                concept['synonyms'] = sorted(list(all_synonyms))
+                concept["synonyms"] = sorted(list(all_synonyms))
 
                 self.stats["processed"] += 1
 
@@ -200,10 +194,12 @@ Synonyms:"""
 
     def _print_progress(self, current: int, total: int):
         """Print progress with cost estimate."""
-        print(f"  Progress: {current}/{total} "
-              f"(Processed: {self.stats['processed']}, "
-              f"Skipped: {self.stats['skipped']}, "
-              f"Cost: ${self.stats['estimated_cost']:.4f})")
+        print(
+            f"  Progress: {current}/{total} "
+            f"(Processed: {self.stats['processed']}, "
+            f"Skipped: {self.stats['skipped']}, "
+            f"Cost: ${self.stats['estimated_cost']:.4f})"
+        )
 
     def print_summary(self):
         """Print final statistics."""
@@ -215,7 +211,9 @@ Synonyms:"""
         print()
         print(f"Input tokens: {self.stats['total_input_tokens']:,}")
         print(f"Output tokens: {self.stats['total_output_tokens']:,}")
-        print(f"Total tokens: {self.stats['total_input_tokens'] + self.stats['total_output_tokens']:,}")
+        print(
+            f"Total tokens: {self.stats['total_input_tokens'] + self.stats['total_output_tokens']:,}"
+        )
         print()
         print(f"💰 Estimated cost: ${self.stats['estimated_cost']:.4f}")
 
@@ -224,14 +222,16 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Generate synonyms using GPT-4o-mini")
-    parser.add_argument("--input", default="concepts-fully-enriched.json",
-                       help="Input concepts file")
-    parser.add_argument("--output", default="concepts-with-synonyms.json",
-                       help="Output file")
-    parser.add_argument("--limit", type=int,
-                       help="Limit to N concepts (for testing)")
-    parser.add_argument("--api-key",
-                       help="OpenAI API key (or set OPENAI_API_KEY env var)")
+    parser.add_argument(
+        "--input", default="concepts-fully-enriched.json", help="Input concepts file"
+    )
+    parser.add_argument(
+        "--output", default="concepts-with-synonyms.json", help="Output file"
+    )
+    parser.add_argument("--limit", type=int, help="Limit to N concepts (for testing)")
+    parser.add_argument(
+        "--api-key", help="OpenAI API key (or set OPENAI_API_KEY env var)"
+    )
 
     args = parser.parse_args()
 
@@ -245,19 +245,16 @@ def main():
 
     # Read concepts
     print(f"Reading concepts from {args.input}...")
-    with open(args.input, 'r') as f:
+    with open(args.input, "r") as f:
         concepts = json.load(f)
 
     # Generate synonyms
     generator = SynonymGenerator(api_key=api_key)
-    updated_concepts = generator.process_concepts(
-        concepts,
-        max_concepts=args.limit
-    )
+    updated_concepts = generator.process_concepts(concepts, max_concepts=args.limit)
 
     # Save
     print(f"\nWriting concepts with synonyms to {args.output}...")
-    with open(args.output, 'w') as f:
+    with open(args.output, "w") as f:
         json.dump(updated_concepts, f, indent=2)
 
     # Print summary

@@ -1,4 +1,5 @@
 """LLM-based mention extraction using Pydantic AI and tool calling."""
+
 from typing import List, Literal
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
@@ -149,6 +150,7 @@ class LLMMentionExtractor:
         # In the new API, we use output_type instead of result_type
         # The model string is in the format "openai:model-name"
         import os
+
         model_name = f"openai:{self.config.model}"
         api_key = self.config.api_key or os.getenv("OPENAI_API_KEY")
 
@@ -214,10 +216,13 @@ class LLMMentionExtractor:
         except Exception as e:
             print(f"Error calling LLM: {e}")
             import traceback
+
             traceback.print_exc()
             return []
 
-    def _convert_to_mentions(self, extraction: MentionExtractionResult) -> List[Mention]:
+    def _convert_to_mentions(
+        self, extraction: MentionExtractionResult
+    ) -> List[Mention]:
         """Convert MentionExtractionResult to flat list of Mention objects.
 
         Converts pretty facet names from LLM to database facet names.

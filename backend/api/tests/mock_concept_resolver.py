@@ -1,4 +1,5 @@
 """Mock concept resolver for testing mention normalization."""
+
 from typing import Dict, List, Optional
 
 

@@ -3,6 +3,7 @@
 These tests require OpenSearch to be running with concepts loaded.
 Tests will be skipped if OpenSearch is not available.
 """
+
 import pytest
 from opensearchpy.exceptions import ConnectionError
 

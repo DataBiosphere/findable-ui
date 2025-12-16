@@ -1,4 +1,5 @@
 """End-to-end tests for complete LLM + OpenSearch workflow."""
+
 import pytest
 from opensearchpy.exceptions import ConnectionError
 
@@ -35,9 +36,7 @@ def test_end_to_end_simple_query() -> None:
     facet_dict = {fs.facet: fs for fs in result.facets}
 
     # Should return database facet name "diagnoses.disease"
-    diagnosis_facets = [
-        fs for fs in result.facets if fs.facet == "diagnoses.disease"
-    ]
+    diagnosis_facets = [fs for fs in result.facets if fs.facet == "diagnoses.disease"]
 
     assert len(diagnosis_facets) > 0
 
@@ -117,4 +116,6 @@ def test_end_to_end_complex_query() -> None:
     if "brain" in mention_set:
         expected_found += 1
 
-    assert expected_found >= 2, f"Should find at least 2 expected mentions, found {expected_found}"
+    assert (
+        expected_found >= 2
+    ), f"Should find at least 2 expected mentions, found {expected_found}"

@@ -1,4 +1,5 @@
 """Tests for mention normalization service."""
+
 import pytest
 
 from services.normalization_service import MentionNormalizer, Mention
@@ -75,7 +76,9 @@ def test_multiple_facets_with_multiple_mentions(normalizer: MentionNormalizer) -
     assert facet_dict["Diagnosis"].selectedValues[0].term == "MONDO:0005015"
 
     assert "Reported Ethnicity" in facet_dict
-    assert facet_dict["Reported Ethnicity"].selectedValues[0].term == "Hispanic or Latino"
+    assert (
+        facet_dict["Reported Ethnicity"].selectedValues[0].term == "Hispanic or Latino"
+    )
 
     assert "File Format" in facet_dict
     assert facet_dict["File Format"].selectedValues[0].term == ".bam"
@@ -143,7 +146,9 @@ def test_case_insensitive_matching(normalizer: MentionNormalizer) -> None:
 
     # Should still match despite case differences
     assert facet_dict["Diagnosis"].selectedValues[0].term == "MONDO:0005015"
-    assert facet_dict["Reported Ethnicity"].selectedValues[0].term == "Hispanic or Latino"
+    assert (
+        facet_dict["Reported Ethnicity"].selectedValues[0].term == "Hispanic or Latino"
+    )
 
 
 def test_normalize_from_dict(normalizer: MentionNormalizer) -> None:

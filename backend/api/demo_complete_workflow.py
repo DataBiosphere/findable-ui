@@ -36,7 +36,9 @@ def demo_with_mock_llm():
         for facet in result.facets:
             print(f"  [{facet.facet}]")
             for value in facet.selectedValues:
-                normalized = f" → {value.term}" if value.term != "unknown" else " → (not found)"
+                normalized = (
+                    f" → {value.term}" if value.term != "unknown" else " → (not found)"
+                )
                 print(f"    '{value.mention}'{normalized}")
         print()
 
@@ -79,7 +81,9 @@ def demo_with_real_llm():
     for facet in result.facets:
         print(f"  [{facet.facet}]")
         for value in facet.selectedValues:
-            normalized = f" → {value.term}" if value.term != "unknown" else " → (not found)"
+            normalized = (
+                f" → {value.term}" if value.term != "unknown" else " → (not found)"
+            )
             print(f"    '{value.mention}'{normalized}")
     print()
 

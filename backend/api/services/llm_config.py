@@ -1,4 +1,5 @@
 """Configuration for LLM services (OpenAI)."""
+
 import os
 from typing import Optional
 

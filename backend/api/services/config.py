@@ -1,4 +1,5 @@
 """Configuration for services including OpenSearch connection settings."""
+
 import os
 from typing import Dict
 

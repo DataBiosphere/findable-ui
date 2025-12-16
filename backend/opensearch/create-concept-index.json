@@ -19,10 +19,7 @@
         "concept_fuzzy": {
           "type": "custom",
           "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "synonym_filter"
-          ]
+          "filter": ["lowercase", "synonym_filter"]
         }
       }
     },

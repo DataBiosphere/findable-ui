@@ -1,4 +1,5 @@
 """Tests for LLM-based mention extraction."""
+
 import pytest
 
 from services.normalization_service import Mention
@@ -193,31 +194,47 @@ def test_phenotypic_sex_extraction(mock_extractor: MockLLMMentionExtractor) -> N
     assert any(m.text == "male" and m.facet == "Phenotypic Sex" for m in mentions)
 
 
-def test_individual_phenotype_feature_as_diagnosis(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+def test_individual_phenotype_feature_as_diagnosis(
+    mock_extractor_with_mapping: MockLLMMentionExtractor,
+) -> None:
     """Test that individual phenotypic features are extracted as Diagnosis."""
     query = "patients with cleft palate"
 
     mentions = mock_extractor_with_mapping.extract_mentions(query)
 
-    assert any(m.text == "cleft palate" and m.facet == "diagnoses.disease" for m in mentions)
+    assert any(
+        m.text == "cleft palate" and m.facet == "diagnoses.disease" for m in mentions
+    )
 
 
-def test_complex_phenotype_syndrome(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+def test_complex_phenotype_syndrome(
+    mock_extractor_with_mapping: MockLLMMentionExtractor,
+) -> None:
     """Test that complex phenotype syndromes are extracted as Phenotype."""
     query = "patients with Coffin-Siris syndrome"
 
     mentions = mock_extractor_with_mapping.extract_mentions(query)
 
-    assert any(m.text == "Coffin-Siris syndrome" and m.facet == "diagnoses.phenotype" for m in mentions)
+    assert any(
+        m.text == "Coffin-Siris syndrome" and m.facet == "diagnoses.phenotype"
+        for m in mentions
+    )
 
 
-def test_diagnosis_vs_phenotype_distinction(mock_extractor_with_mapping: MockLLMMentionExtractor) -> None:
+def test_diagnosis_vs_phenotype_distinction(
+    mock_extractor_with_mapping: MockLLMMentionExtractor,
+) -> None:
     """Test that the mock extractor distinguishes between Diagnosis and Phenotype."""
     query = "patients with diabetes and Epileptic Encephalopathy"
 
     mentions = mock_extractor_with_mapping.extract_mentions(query)
 
     # diabetes should be Diagnosis (diagnoses.disease)
-    assert any(m.text == "diabetes" and m.facet == "diagnoses.disease" for m in mentions)
+    assert any(
+        m.text == "diabetes" and m.facet == "diagnoses.disease" for m in mentions
+    )
     # Epileptic Encephalopathy should be Phenotype (diagnoses.phenotype)
-    assert any(m.text == "Epileptic Encephalopathy" and m.facet == "diagnoses.phenotype" for m in mentions)
+    assert any(
+        m.text == "Epileptic Encephalopathy" and m.facet == "diagnoses.phenotype"
+        for m in mentions
+    )

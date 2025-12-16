@@ -1,4 +1,5 @@
 """Tests for health check endpoint."""
+
 from fastapi.testclient import TestClient
 
 

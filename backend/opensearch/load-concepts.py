@@ -6,14 +6,16 @@ import argparse
 from opensearchpy import OpenSearch, helpers
 
 
-def load_concepts(file_path: str, clear: bool = False, host: str = "localhost", port: int = 9200):
+def load_concepts(
+    file_path: str, clear: bool = False, host: str = "localhost", port: int = 9200
+):
     """Load concepts from JSON file into OpenSearch."""
     # Connect to OpenSearch
     client = OpenSearch(
         hosts=[{"host": host, "port": port}],
         http_compress=True,
         use_ssl=False,
-        verify_certs=False
+        verify_certs=False,
     )
     index_name = "concepts"
 
@@ -22,9 +24,7 @@ def load_concepts(file_path: str, clear: bool = False, host: str = "localhost", 
         print(f"Clearing index {index_name}...")
         try:
             client.delete_by_query(
-                index=index_name,
-                body={"query": {"match_all": {}}},
-                conflicts="proceed"
+                index=index_name, body={"query": {"match_all": {}}}, conflicts="proceed"
             )
             print("✓ Index cleared")
         except Exception as e:
@@ -32,18 +32,14 @@ def load_concepts(file_path: str, clear: bool = False, host: str = "localhost", 
 
     # Read concepts from file
     print(f"Reading concepts from {file_path}...")
-    with open(file_path, 'r') as f:
+    with open(file_path, "r") as f:
         concepts = json.load(f)
 
     print(f"Loading {len(concepts)} concepts...")
 
     # Prepare bulk actions
     actions = [
-        {
-            "_index": index_name,
-            "_id": concept["id"],
-            "_source": concept
-        }
+        {"_index": index_name, "_id": concept["id"], "_source": concept}
         for concept in concepts
     ]
 
@@ -53,11 +49,7 @@ def load_concepts(file_path: str, clear: bool = False, host: str = "localhost", 
 
     try:
         success, errors = helpers.bulk(
-            client,
-            actions,
-            raise_on_error=False,
-            chunk_size=500,
-            request_timeout=60
+            client, actions, raise_on_error=False, chunk_size=500, request_timeout=60
         )
         success_count = success
 
@@ -84,7 +76,9 @@ def load_concepts(file_path: str, clear: bool = False, host: str = "localhost", 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Load concepts into OpenSearch")
     parser.add_argument("--file", required=True, help="JSON file to load")
-    parser.add_argument("--clear", action="store_true", help="Clear index before loading")
+    parser.add_argument(
+        "--clear", action="store_true", help="Clear index before loading"
+    )
     parser.add_argument("--host", default="localhost", help="OpenSearch host")
     parser.add_argument("--port", type=int, default=9200, help="OpenSearch port")
 

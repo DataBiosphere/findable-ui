@@ -1,4 +1,5 @@
 """Service for normalizing mentions to canonical facet values."""
+
 from typing import List, Dict
 from collections import defaultdict
 
@@ -95,7 +96,5 @@ class MentionNormalizer:
         Returns:
             List of FacetSelection objects.
         """
-        mentions = [
-            Mention(text=m["text"], facet=m["facet"]) for m in mention_dicts
-        ]
+        mentions = [Mention(text=m["text"], facet=m["facet"]) for m in mention_dicts]
         return self.normalize_mentions(mentions)

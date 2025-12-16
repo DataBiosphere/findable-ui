@@ -21,35 +21,37 @@ import json
 import hashlib
 from collections import defaultdict
 
+
 def create_concept_id(facet_name: str, term: str) -> str:
     """Create a unique ID for a concept."""
     # Use hash of facet + term for uniqueness
-    hash_input = f"{facet_name}::{term}".encode('utf-8')
+    hash_input = f"{facet_name}::{term}".encode("utf-8")
     hash_digest = hashlib.md5(hash_input).hexdigest()[:12]
     # Create readable ID
-    facet_short = facet_name.split('.')[-1]  # e.g., "disease" from "diagnoses.disease"
+    facet_short = facet_name.split(".")[-1]  # e.g., "disease" from "diagnoses.disease"
     return f"{facet_short}-{hash_digest}"
 
+
 def main():
-    input_file = 'tmp/datasets.json'
-    output_file = 'concepts-from-datasets.json'
+    input_file = "tmp/datasets.json"
+    output_file = "concepts-from-datasets.json"
 
     print(f"Reading {input_file}...")
-    with open(input_file, 'r') as f:
+    with open(input_file, "r") as f:
         data = json.load(f)
 
     concepts = []
     facet_counts = defaultdict(int)
 
-    if 'termFacets' in data:
-        for facet_name, facet_data in data['termFacets'].items():
-            if 'terms' in facet_data:
-                for term_obj in facet_data['terms']:
-                    term_value = term_obj.get('term', '')
+    if "termFacets" in data:
+        for facet_name, facet_data in data["termFacets"].items():
+            if "terms" in facet_data:
+                for term_obj in facet_data["terms"]:
+                    term_value = term_obj.get("term", "")
 
                     # Skip None or empty terms
-                    if term_value is None or term_value == '':
-                        term_value = 'None'
+                    if term_value is None or term_value == "":
+                        term_value = "None"
 
                     # Create concept document
                     concept = {
@@ -59,8 +61,10 @@ def main():
                         "name": term_value,  # Use term as name (can enhance later)
                         "synonyms": [],  # Can add synonyms later
                         "metadata": {
-                            "count": term_obj.get('count', 0),  # Document count from facet
-                        }
+                            "count": term_obj.get(
+                                "count", 0
+                            ),  # Document count from facet
+                        },
                     }
 
                     concepts.append(concept)
@@ -68,7 +72,7 @@ def main():
 
     # Write to output file
     print(f"\nWriting {len(concepts)} concepts to {output_file}...")
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         json.dump(concepts, f, indent=2)
 
     # Print summary
@@ -82,6 +86,7 @@ def main():
     print(f"\n✓ Concepts saved to {output_file}")
     print(f"\nTo load into OpenSearch:")
     print(f"  python load-concepts.py --file {output_file}")
+
 
 if __name__ == "__main__":
     main()

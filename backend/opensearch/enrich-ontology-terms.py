@@ -28,17 +28,12 @@ class OntologyEnricher:
     def __init__(self):
         self.cache = {}
         self.api_base = "https://www.ebi.ac.uk/ols/api"
-        self.stats = {
-            "total": 0,
-            "enriched": 0,
-            "failed": 0,
-            "cached": 0
-        }
+        self.stats = {"total": 0, "enriched": 0, "failed": 0, "cached": 0}
 
     def is_ontology_id(self, term: str) -> bool:
         """Check if term looks like an ontology ID."""
         # Pattern: PREFIX:NUMBER (e.g., HP:0001250, OMIM:614231)
-        return bool(re.match(r'^[A-Z]+:\d+$', term))
+        return bool(re.match(r"^[A-Z]+:\d+$", term))
 
     def lookup_term(self, ontology_id: str) -> Optional[Dict]:
         """
@@ -56,21 +51,21 @@ class OntologyEnricher:
             return self.cache[ontology_id]
 
         # Parse ontology prefix and ID
-        if ':' not in ontology_id:
+        if ":" not in ontology_id:
             return None
 
-        prefix, term_id = ontology_id.split(':', 1)
+        prefix, term_id = ontology_id.split(":", 1)
 
         # Map prefixes to OLS ontology names
         ontology_map = {
-            'HP': 'hp',
-            'MONDO': 'mondo',
-            'OMIM': 'omim',
-            'ORPHA': 'ordo',
-            'UBERON': 'uberon',
-            'CL': 'cl',
-            'OBI': 'obi',
-            'HGNC': 'hgnc',
+            "HP": "hp",
+            "MONDO": "mondo",
+            "OMIM": "omim",
+            "ORPHA": "ordo",
+            "UBERON": "uberon",
+            "CL": "cl",
+            "OBI": "obi",
+            "HGNC": "hgnc",
         }
 
         ontology_name = ontology_map.get(prefix)
@@ -80,7 +75,7 @@ class OntologyEnricher:
         # Construct OLS API URL
         # Double-encode the IRI (OLS requirement)
         iri = f"http://purl.obolibrary.org/obo/{prefix}_{term_id}"
-        encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=''), safe='')
+        encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=""), safe="")
         url = f"{self.api_base}/ontologies/{ontology_name}/terms/{encoded_iri}"
 
         try:
@@ -88,12 +83,16 @@ class OntologyEnricher:
             for attempt in range(3):
                 try:
                     with urllib.request.urlopen(url, timeout=10) as response:
-                        data = json.loads(response.read().decode('utf-8'))
+                        data = json.loads(response.read().decode("utf-8"))
 
                     result = {
-                        'label': data.get('label', ontology_id),
-                        'description': data.get('description', [None])[0] if data.get('description') else None,
-                        'synonyms': data.get('synonyms', [])
+                        "label": data.get("label", ontology_id),
+                        "description": (
+                            data.get("description", [None])[0]
+                            if data.get("description")
+                            else None
+                        ),
+                        "synonyms": data.get("synonyms", []),
                     }
 
                     # Cache the result
@@ -106,7 +105,7 @@ class OntologyEnricher:
                         return None
                     elif e.code == 429:
                         # Rate limit - wait and retry
-                        time.sleep(2 ** attempt)
+                        time.sleep(2**attempt)
                         continue
                     else:
                         raise
@@ -126,7 +125,7 @@ class OntologyEnricher:
 
     def enrich_concept(self, concept: Dict) -> Dict:
         """Enrich a single concept if it has an ontology ID."""
-        term = concept['term']
+        term = concept["term"]
 
         if not self.is_ontology_id(term):
             return concept
@@ -138,19 +137,19 @@ class OntologyEnricher:
 
         if ontology_data:
             # Update concept with enriched data
-            concept['name'] = ontology_data['label']
+            concept["name"] = ontology_data["label"]
 
             # Add synonyms (combine with existing)
-            existing_synonyms = set(concept.get('synonyms', []))
-            ontology_synonyms = set(ontology_data.get('synonyms', []))
+            existing_synonyms = set(concept.get("synonyms", []))
+            ontology_synonyms = set(ontology_data.get("synonyms", []))
             all_synonyms = list(existing_synonyms | ontology_synonyms | {term})
-            concept['synonyms'] = all_synonyms
+            concept["synonyms"] = all_synonyms
 
             # Add description to metadata if available
-            if ontology_data.get('description'):
-                if 'metadata' not in concept:
-                    concept['metadata'] = {}
-                concept['metadata']['description'] = ontology_data['description']
+            if ontology_data.get("description"):
+                if "metadata" not in concept:
+                    concept["metadata"] = {}
+                concept["metadata"]["description"] = ontology_data["description"]
 
             self.stats["enriched"] += 1
             return concept
@@ -180,7 +179,9 @@ class OntologyEnricher:
 
             # Print progress
             if (i + 1) % batch_size == 0:
-                print(f"  Progress: {i + 1}/{total} ({self.stats['enriched']} enriched, {self.stats['failed']} failed)")
+                print(
+                    f"  Progress: {i + 1}/{total} ({self.stats['enriched']} enriched, {self.stats['failed']} failed)"
+                )
 
             # Rate limiting - be nice to the API
             if self.stats["enriched"] % 50 == 0 and self.stats["enriched"] > 0:
@@ -200,20 +201,28 @@ class OntologyEnricher:
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(description="Enrich concepts with ontology term names")
-    parser.add_argument("--input", default="concepts-from-datasets.json", help="Input concepts file")
-    parser.add_argument("--output", default="concepts-enriched.json", help="Output enriched concepts file")
+    parser = argparse.ArgumentParser(
+        description="Enrich concepts with ontology term names"
+    )
+    parser.add_argument(
+        "--input", default="concepts-from-datasets.json", help="Input concepts file"
+    )
+    parser.add_argument(
+        "--output",
+        default="concepts-enriched.json",
+        help="Output enriched concepts file",
+    )
     parser.add_argument("--limit", type=int, help="Limit to N concepts (for testing)")
 
     args = parser.parse_args()
 
     # Read concepts
     print(f"Reading concepts from {args.input}...")
-    with open(args.input, 'r') as f:
+    with open(args.input, "r") as f:
         concepts = json.load(f)
 
     if args.limit:
-        concepts = concepts[:args.limit]
+        concepts = concepts[: args.limit]
         print(f"Limiting to first {args.limit} concepts for testing")
 
     # Enrich
@@ -222,7 +231,7 @@ def main():
 
     # Save
     print(f"\nWriting enriched concepts to {args.output}...")
-    with open(args.output, 'w') as f:
+    with open(args.output, "w") as f:
         json.dump(enriched_concepts, f, indent=2)
 
     # Print stats

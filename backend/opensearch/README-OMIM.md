@@ -3,6 +3,7 @@
 ## Why OMIM Enrichment Failed
 
 OMIM (Online Mendelian Inheritance in Man) contains:
+
 - **Genes** (e.g., OMIM:137580)
 - **Phenotypes/Diseases** (most of your data)
 
@@ -32,6 +33,7 @@ API: https://api.monarchinitiative.org/
 ## Option 3: Leave OMIM IDs As-Is
 
 For now, you have:
+
 - ✅ 363 HP terms (human-readable names)
 - ✅ 99 ORPHA terms (human-readable names)
 - ⚠️ 183 OMIM terms (still as IDs like "OMIM:615369")
@@ -41,6 +43,7 @@ Users can still search by OMIM ID directly. The IDs are searchable even without 
 ## Current State
 
 **What works now:**
+
 ```bash
 # Search for "Adenocarcinoma" (ORPHA term)
 curl "http://localhost:9200/concepts/_search" -d '{

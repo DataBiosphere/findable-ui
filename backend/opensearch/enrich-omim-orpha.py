@@ -36,14 +36,14 @@ class OMIMEnricher:
             return self.cache[omim_id]
 
         # Extract numeric ID
-        numeric_id = omim_id.replace('OMIM:', '')
+        numeric_id = omim_id.replace("OMIM:", "")
 
         # Query MyGene.info
         url = f"{self.api_base}/query"
         params = {
-            'q': f'MIM:{numeric_id}',
-            'fields': 'name,summary,alias',
-            'species': 'human'
+            "q": f"MIM:{numeric_id}",
+            "fields": "name,summary,alias",
+            "species": "human",
         }
 
         try:
@@ -51,28 +51,28 @@ class OMIMEnricher:
             full_url = f"{url}?{query_string}"
 
             with urllib.request.urlopen(full_url, timeout=10) as response:
-                data = json.loads(response.read().decode('utf-8'))
+                data = json.loads(response.read().decode("utf-8"))
 
-            if data.get('total', 0) == 0:
+            if data.get("total", 0) == 0:
                 return None
 
-            hit = data['hits'][0]
+            hit = data["hits"][0]
 
             # Extract name
-            name = hit.get('name', omim_id)
+            name = hit.get("name", omim_id)
 
             # Build synonyms from aliases
             synonyms = []
-            if 'alias' in hit:
-                if isinstance(hit['alias'], list):
-                    synonyms = hit['alias']
+            if "alias" in hit:
+                if isinstance(hit["alias"], list):
+                    synonyms = hit["alias"]
                 else:
-                    synonyms = [hit['alias']]
+                    synonyms = [hit["alias"]]
 
             result = {
-                'label': name,
-                'description': hit.get('summary'),
-                'synonyms': synonyms
+                "label": name,
+                "description": hit.get("summary"),
+                "synonyms": synonyms,
             }
 
             self.cache[omim_id] = result
@@ -105,22 +105,26 @@ class ORPHAEnricher:
             return self.cache[orpha_id]
 
         # Normalize to ORPHA format
-        numeric_id = orpha_id.replace('ORPHA:', '').replace('Orphanet:', '')
+        numeric_id = orpha_id.replace("ORPHA:", "").replace("Orphanet:", "")
 
         # Try OLS with ordo ontology
         # IRI format: http://www.orpha.net/ORDO/Orphanet_104075
         iri = f"http://www.orpha.net/ORDO/Orphanet_{numeric_id}"
-        encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=''), safe='')
+        encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=""), safe="")
         url = f"{self.api_base}/ontologies/ordo/terms/{encoded_iri}"
 
         try:
             with urllib.request.urlopen(url, timeout=10) as response:
-                data = json.loads(response.read().decode('utf-8'))
+                data = json.loads(response.read().decode("utf-8"))
 
             result = {
-                'label': data.get('label', orpha_id),
-                'description': data.get('description', [None])[0] if data.get('description') else None,
-                'synonyms': data.get('synonyms', [])
+                "label": data.get("label", orpha_id),
+                "description": (
+                    data.get("description", [None])[0]
+                    if data.get("description")
+                    else None
+                ),
+                "synonyms": data.get("synonyms", []),
             }
 
             self.cache[orpha_id] = result
@@ -145,7 +149,7 @@ def enrich_failed_terms(input_file: str, output_file: str):
     """Enrich OMIM and ORPHA terms that failed in previous enrichment."""
 
     print(f"Reading concepts from {input_file}...")
-    with open(input_file, 'r') as f:
+    with open(input_file, "r") as f:
         concepts = json.load(f)
 
     omim_enricher = OMIMEnricher()
@@ -157,55 +161,61 @@ def enrich_failed_terms(input_file: str, output_file: str):
     print(f"Processing {len(concepts)} concepts...")
 
     for i, concept in enumerate(concepts):
-        term = concept['term']
+        term = concept["term"]
 
         # Skip if already enriched
-        if concept['name'] != term:
+        if concept["name"] != term:
             continue
 
         # Try OMIM
-        if term.startswith('OMIM:'):
-            omim_enricher.stats['total'] += 1
+        if term.startswith("OMIM:"):
+            omim_enricher.stats["total"] += 1
             data = omim_enricher.lookup_omim(term)
 
             if data:
-                concept['name'] = data['label']
-                concept['synonyms'] = list(set(concept.get('synonyms', []) + data.get('synonyms', []) + [term]))
+                concept["name"] = data["label"]
+                concept["synonyms"] = list(
+                    set(concept.get("synonyms", []) + data.get("synonyms", []) + [term])
+                )
 
-                if data.get('description'):
-                    if 'metadata' not in concept:
-                        concept['metadata'] = {}
-                    concept['metadata']['description'] = data['description']
+                if data.get("description"):
+                    if "metadata" not in concept:
+                        concept["metadata"] = {}
+                    concept["metadata"]["description"] = data["description"]
 
-                omim_enricher.stats['enriched'] += 1
+                omim_enricher.stats["enriched"] += 1
                 enriched_count += 1
             else:
-                omim_enricher.stats['failed'] += 1
+                omim_enricher.stats["failed"] += 1
                 failed_count += 1
 
         # Try ORPHA
-        elif term.startswith('ORPHA:') or term.startswith('Orphanet:'):
-            orpha_enricher.stats['total'] += 1
+        elif term.startswith("ORPHA:") or term.startswith("Orphanet:"):
+            orpha_enricher.stats["total"] += 1
             data = orpha_enricher.lookup_orpha(term)
 
             if data:
-                concept['name'] = data['label']
-                concept['synonyms'] = list(set(concept.get('synonyms', []) + data.get('synonyms', []) + [term]))
+                concept["name"] = data["label"]
+                concept["synonyms"] = list(
+                    set(concept.get("synonyms", []) + data.get("synonyms", []) + [term])
+                )
 
-                if data.get('description'):
-                    if 'metadata' not in concept:
-                        concept['metadata'] = {}
-                    concept['metadata']['description'] = data['description']
+                if data.get("description"):
+                    if "metadata" not in concept:
+                        concept["metadata"] = {}
+                    concept["metadata"]["description"] = data["description"]
 
-                orpha_enricher.stats['enriched'] += 1
+                orpha_enricher.stats["enriched"] += 1
                 enriched_count += 1
             else:
-                orpha_enricher.stats['failed'] += 1
+                orpha_enricher.stats["failed"] += 1
                 failed_count += 1
 
         # Progress
         if (i + 1) % 50 == 0:
-            print(f"  Progress: {i + 1}/{len(concepts)} ({enriched_count} new enrichments)")
+            print(
+                f"  Progress: {i + 1}/{len(concepts)} ({enriched_count} new enrichments)"
+            )
 
         # Rate limiting
         if enriched_count % 50 == 0 and enriched_count > 0:
@@ -213,7 +223,7 @@ def enrich_failed_terms(input_file: str, output_file: str):
 
     # Save
     print(f"\nWriting enriched concepts to {output_file}...")
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         json.dump(concepts, f, indent=2)
 
     # Print stats
@@ -236,7 +246,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Enrich OMIM and ORPHA terms")
     parser.add_argument("--input", default="concepts-enriched.json", help="Input file")
-    parser.add_argument("--output", default="concepts-fully-enriched.json", help="Output file")
+    parser.add_argument(
+        "--output", default="concepts-fully-enriched.json", help="Output file"
+    )
 
     args = parser.parse_args()
 

@@ -1,4 +1,5 @@
 """OpenSearch-based concept resolver for normalizing mentions to canonical terms."""
+
 from typing import Dict, List, Optional
 from opensearchpy import OpenSearch
 
@@ -80,9 +81,7 @@ class OpenSearchConceptResolver:
             print(f"Error querying OpenSearch: {e}")
             return []
 
-    def _build_search_query(
-        self, facet_name: str, mention: str, top_k: int
-    ) -> Dict:
+    def _build_search_query(self, facet_name: str, mention: str, top_k: int) -> Dict:
         """Build the OpenSearch query for concept lookup.
 
         Uses a multi-pronged strategy:
@@ -109,7 +108,11 @@ class OpenSearchConceptResolver:
                         # Exact matches (highest priority)
                         {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
                         {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-                        {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+                        {
+                            "term": {
+                                "synonyms.keyword": {"value": mention, "boost": 10.0}
+                            }
+                        },
                         # Fuzzy matches with boosting
                         {
                             "match": {

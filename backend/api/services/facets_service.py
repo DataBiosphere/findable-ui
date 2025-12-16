@@ -168,7 +168,9 @@ def compute_facets_with_opensearch(query: str) -> FacetsResponse:
     return FacetsResponse(query=query, facets=facet_selections)
 
 
-def compute_facets_with_llm_and_opensearch(query: str, use_mock_llm: bool = False) -> FacetsResponse:
+def compute_facets_with_llm_and_opensearch(
+    query: str, use_mock_llm: bool = False
+) -> FacetsResponse:
     """Complete Phase 2+3 workflow: LLM extraction + OpenSearch normalization.
 
     This is the COMPLETE implementation combining:
@@ -193,11 +195,17 @@ def compute_facets_with_llm_and_opensearch(query: str, use_mock_llm: bool = Fals
 
     if use_mock_llm:
         from tests.mock_llm_extractor import MockLLMMentionExtractor
-        llm_extractor = MockLLMMentionExtractor(facet_name_mapping=get_anvil_facet_mapping())
+
+        llm_extractor = MockLLMMentionExtractor(
+            facet_name_mapping=get_anvil_facet_mapping()
+        )
     else:
         from services.llm_mention_extractor import LLMMentionExtractor
         from services.llm_config import LLMConfig
-        llm_extractor = LLMMentionExtractor(LLMConfig(), facet_name_mapping=get_anvil_facet_mapping())
+
+        llm_extractor = LLMMentionExtractor(
+            LLMConfig(), facet_name_mapping=get_anvil_facet_mapping()
+        )
 
     try:
         mentions = llm_extractor.extract_mentions(query)

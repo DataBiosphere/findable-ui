@@ -3867,12 +3867,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001250",
     "name": "Seizure",
-    "synonyms": [
-      "Epilepsy",
-      "Epileptic seizure",
-      "HP:0001250",
-      "Seizures"
-    ],
+    "synonyms": ["Epilepsy", "Epileptic seizure", "HP:0001250", "Seizures"],
     "metadata": {
       "count": 5,
       "description": "A seizure is an intermittent abnormality of nervous system physiology characterized by a transient occurrence of signs and/or symptoms due to abnormal excessive or synchronous neuronal activity in the brain."
@@ -3938,11 +3933,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001324",
     "name": "Muscle weakness",
-    "synonyms": [
-      "HP:0001324",
-      "Muscular weakness",
-      "Muscle weakness"
-    ],
+    "synonyms": ["HP:0001324", "Muscular weakness", "Muscle weakness"],
     "metadata": {
       "count": 5,
       "description": "Reduced strength of muscles."
@@ -3953,11 +3944,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003198",
     "name": "Myopathy",
-    "synonyms": [
-      "Muscle tissue disease",
-      "HP:0003198",
-      "Myopathic changes"
-    ],
+    "synonyms": ["Muscle tissue disease", "HP:0003198", "Myopathic changes"],
     "metadata": {
       "count": 5,
       "description": "A disorder of muscle unrelated to impairment of innervation or neuromuscular junction."
@@ -3968,10 +3955,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012727",
     "name": "Thoracic aortic aneurysm",
-    "synonyms": [
-      "HP:0012727",
-      "Dilatation of the thoracic aorta"
-    ],
+    "synonyms": ["HP:0012727", "Dilatation of the thoracic aorta"],
     "metadata": {
       "count": 5,
       "description": "An abnormal localized widening (dilatation) of the thoracic aorta."
@@ -4313,10 +4297,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000717",
     "name": "Autism",
-    "synonyms": [
-      "HP:0000717",
-      "Autism"
-    ],
+    "synonyms": ["HP:0000717", "Autism"],
     "metadata": {
       "count": 3,
       "description": "Autism is a neurodevelopmental disorder characterized by impaired social interaction and communication, and by restricted and repetitive behavior. Autism begins in childhood. It is marked by the presence of markedly abnormal or impaired development in social interaction and communication and a markedly restricted repertoire of activity and interest. Manifestations of the disorder vary greatly depending on the developmental level and chronological age of the individual (DSM-IV)."
@@ -4327,10 +4308,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000767",
     "name": "Pectus excavatum",
-    "synonyms": [
-      "Funnel chest",
-      "HP:0000767"
-    ],
+    "synonyms": ["Funnel chest", "HP:0000767"],
     "metadata": {
       "count": 3,
       "description": "A defect of the chest wall characterized by a depression of the sternum, giving the chest (\"pectus\") a caved-in (\"excavatum\") appearance."
@@ -4360,11 +4338,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001305",
     "name": "Dandy-Walker malformation",
-    "synonyms": [
-      "Dandy-Walker cyst",
-      "HP:0001305",
-      "Dandy-walker anomaly"
-    ],
+    "synonyms": ["Dandy-Walker cyst", "HP:0001305", "Dandy-walker anomaly"],
     "metadata": {
       "count": 3,
       "description": "A congenital brain malformation typically characterized by incomplete formation of the cerebellar vermis, dilation of the fourth ventricle, and enlargement of the posterior fossa. In layman's terms, Dandy Walker malformation is a cyst in the cerebellum (typically symmetrical) that is involved with the fourth ventricle. This may interfere with the ability to drain cerebrospinal fluid from the brain, resulting in hydrocephalus. Dandy Walker cysts are formed during early embryonic development, while the brain forms. The cyst in the cerebellum typically has several blood vessels running through it connecting to the brain, thereby prohibiting surgical removal."
@@ -4425,11 +4399,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001655",
     "name": "Patent foramen ovale",
-    "synonyms": [
-      "Persistent foramen ovale",
-      "HP:0001655",
-      "PFO"
-    ],
+    "synonyms": ["Persistent foramen ovale", "HP:0001655", "PFO"],
     "metadata": {
       "count": 3,
       "description": "Failure of the foramen ovale to seal postnatally, leaving a potential conduit between the left and right cardiac atria."
@@ -4462,11 +4432,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002540",
     "name": "Inability to walk",
-    "synonyms": [
-      "Inability to walk",
-      "Non-ambulatory",
-      "HP:0002540"
-    ],
+    "synonyms": ["Inability to walk", "Non-ambulatory", "HP:0002540"],
     "metadata": {
       "count": 3,
       "description": "Incapability to ambulate."
@@ -4503,11 +4469,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003530",
     "name": "Elevated circulating glutaric acid concentration",
-    "synonyms": [
-      "Glutaric acidemia",
-      "HP:0003530",
-      "Glutarate acidemia"
-    ],
+    "synonyms": ["Glutaric acidemia", "HP:0003530", "Glutarate acidemia"],
     "metadata": {
       "count": 3,
       "description": "An increased concentration of glutaric acid in the blood."
@@ -4518,10 +4480,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0006785",
     "name": "Limb-girdle muscular dystrophy",
-    "synonyms": [
-      "HP:0006785",
-      "limb girdle muscular dystrophy"
-    ],
+    "synonyms": ["HP:0006785", "limb girdle muscular dystrophy"],
     "metadata": {
       "count": 3,
       "description": "Muscular dystrophy affecting the muscles of the limb girdle (the hips and shoulders)."
@@ -5070,11 +5029,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000093",
     "name": "Proteinuria",
-    "synonyms": [
-      "HP:0000093",
-      "High urine protein levels",
-      "Protein in urine"
-    ],
+    "synonyms": ["HP:0000093", "High urine protein levels", "Protein in urine"],
     "metadata": {
       "count": 2,
       "description": "Increased levels of protein in the urine."
@@ -5201,10 +5156,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000651",
     "name": "Diplopia",
-    "synonyms": [
-      "Double vision",
-      "HP:0000651"
-    ],
+    "synonyms": ["Double vision", "HP:0000651"],
     "metadata": {
       "count": 2,
       "description": "Diplopia is a condition in which a single object is perceived as two images, it is also known as double vision."
@@ -5299,11 +5251,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001009",
     "name": "Telangiectasia",
-    "synonyms": [
-      "Spider veins",
-      "HP:0001009",
-      "Telangiectases"
-    ],
+    "synonyms": ["Spider veins", "HP:0001009", "Telangiectases"],
     "metadata": {
       "count": 2,
       "description": "Telangiectasias refer to small dilated blood vessels located near the surface of the skin or mucous membranes, measuring between 0.5 and 1 millimeter in diameter. Telangiectasia are located especially on the tongue, lips, palate, fingers, face, conjunctiva, trunk, nail beds, and fingertips."
@@ -5314,10 +5262,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001251",
     "name": "Ataxia",
-    "synonyms": [
-      "Cerebellar ataxia",
-      "HP:0001251"
-    ],
+    "synonyms": ["Cerebellar ataxia", "HP:0001251"],
     "metadata": {
       "count": 2,
       "description": "Ataxia refers to impaired coordination of voluntary muscle movement. Cerebellar ataxia refers to ataxia due to dysfunction of the cerebellum. This causes a variety of elementary neurological deficits including asynergy (lack of coordination between muscles, limbs and joints), dysmetria (lack of ability to judge distances that can lead to under- or overshoot in grasping movements), and dysdiadochokinesia (inability to perform rapid movements requiring antagonizing muscle groups to be switched on and off repeatedly)."
@@ -5328,10 +5273,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001279",
     "name": "Syncope",
-    "synonyms": [
-      "Fainting spell",
-      "HP:0001279"
-    ],
+    "synonyms": ["Fainting spell", "HP:0001279"],
     "metadata": {
       "count": 2,
       "description": "Syncope is a syndrome in which loss of consciousness is of relatively sudden onset, temporary (usually less than 1 to 2 minutes), self-terminating, and of usually rapid recovery. Syncope leads to a generalized weakness of muscles with loss of postural tone, inability to stand upright, and loss of consciousness. Once the patient is in a horizontal position, blood flow to the brain is no longer hindered by gravitation and consciousness is regained. Unconsciousness usually lasts for seconds to minutes. Headache and drowsiness (which usually follow seizures) do not follow a syncopal attack. Syncope results from a sudden impairment of brain metabolism usually due to a reduction in cerebral blood flow."
@@ -5381,11 +5323,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001332",
     "name": "Dystonia",
-    "synonyms": [
-      "Dystonic disease",
-      "HP:0001332",
-      "Dystonic movements"
-    ],
+    "synonyms": ["Dystonic disease", "HP:0001332", "Dystonic movements"],
     "metadata": {
       "count": 2,
       "description": "An abnormally increased muscular tone that causes fixed abnormal postures. There is a slow, intermittent twisting motion that leads to exaggerated turning and posture of the extremities and trunk."
@@ -5415,11 +5353,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001513",
     "name": "Obesity",
-    "synonyms": [
-      "Obesity",
-      "HP:0001513",
-      "Having too much body fat"
-    ],
+    "synonyms": ["Obesity", "HP:0001513", "Having too much body fat"],
     "metadata": {
       "count": 2,
       "description": "Accumulation of substantial excess body fat."
@@ -5465,10 +5399,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001636",
     "name": "Tetralogy of Fallot",
-    "synonyms": [
-      "Tetrology of fallot",
-      "HP:0001636"
-    ],
+    "synonyms": ["Tetrology of fallot", "HP:0001636"],
     "metadata": {
       "count": 2,
       "description": "A congenital cardiac malformation comprising pulmonary stenosis, overriding aorta, ventricular septum defect, and right ventricular hypertrophy. The diagnosis of TOF is made if at least three of the four above mentioned features are present."
@@ -5528,10 +5459,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001824",
     "name": "Weight loss",
-    "synonyms": [
-      "Loss of weight",
-      "HP:0001824"
-    ],
+    "synonyms": ["Loss of weight", "HP:0001824"],
     "metadata": {
       "count": 2,
       "description": "Reduction of total body weight."
@@ -5576,11 +5504,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001943",
     "name": "Hypoglycemia",
-    "synonyms": [
-      "Hypoglycaemia",
-      "Low blood sugar",
-      "HP:0001943"
-    ],
+    "synonyms": ["Hypoglycaemia", "Low blood sugar", "HP:0001943"],
     "metadata": {
       "count": 2,
       "description": "A decreased concentration of glucose in the blood."
@@ -5623,11 +5547,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002084",
     "name": "Encephalocele",
-    "synonyms": [
-      "Cranium bifidum",
-      "HP:0002084",
-      "Bifid skull"
-    ],
+    "synonyms": ["Cranium bifidum", "HP:0002084", "Bifid skull"],
     "metadata": {
       "count": 2,
       "description": "A neural tube defect characterized by sac-like protrusions of the brain and the membranes that cover it through openings in the skull."
@@ -5662,11 +5582,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002315",
     "name": "Headache",
-    "synonyms": [
-      "Headaches",
-      "Headache",
-      "HP:0002315"
-    ],
+    "synonyms": ["Headaches", "Headache", "HP:0002315"],
     "metadata": {
       "count": 2,
       "description": "Cephalgia, or pain sensed in various parts of the head, not confined to the area of distribution of any nerve."
@@ -5725,12 +5641,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003326",
     "name": "Myalgia",
-    "synonyms": [
-      "HP:0003326",
-      "Myalgias",
-      "Muscle pain",
-      "Muscle ache"
-    ],
+    "synonyms": ["HP:0003326", "Myalgias", "Muscle pain", "Muscle ache"],
     "metadata": {
       "count": 2,
       "description": "Pain in muscle."
@@ -5774,10 +5685,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003750",
     "name": "Increased muscle fatiguability",
-    "synonyms": [
-      "Muscle fatigue",
-      "HP:0003750"
-    ],
+    "synonyms": ["Muscle fatigue", "HP:0003750"],
     "metadata": {
       "count": 2,
       "description": "An abnormal, increased fatiguability of the musculature."
@@ -5788,11 +5696,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0004904",
     "name": "Maturity-onset diabetes of the young",
-    "synonyms": [
-      "Maturity onset diabetes of the young",
-      "HP:0004904",
-      "MODY"
-    ],
+    "synonyms": ["Maturity onset diabetes of the young", "HP:0004904", "MODY"],
     "metadata": {
       "count": 2,
       "description": "The term Maturity-onset diabetes of the young (MODY) was initially used for patients diagnosed with fasting hyperglycemia that could be treated without insulin for more than two years, where the initial diagnosis was made at a young age (under 25 years). Thus, MODY combines characteristics of type 1 diabetes (young age at diagnosis) and type 2 diabetes (less insulin dependence than type 1 diabetes). The term MODY is now most often used to refer to a group of monogenic diseases with these characteristics. Here, the term is used to describe hyperglycemia diagnosed at a young age with no or minor insulin dependency, no evidence of insulin resistance, and lack of evidence of autoimmune destruction of the beta cells."
@@ -5873,11 +5777,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0009763",
     "name": "Limb pain",
-    "synonyms": [
-      "Pain in extremities",
-      "Limb pain",
-      "HP:0009763"
-    ],
+    "synonyms": ["Pain in extremities", "Limb pain", "HP:0009763"],
     "metadata": {
       "count": 2,
       "description": "Chronic pain in the limbs with no clear focal etiology."
@@ -5927,12 +5827,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012378",
     "name": "Fatigue",
-    "synonyms": [
-      "Tiredness",
-      "Tired",
-      "HP:0012378",
-      "Fatigue"
-    ],
+    "synonyms": ["Tiredness", "Tired", "HP:0012378", "Fatigue"],
     "metadata": {
       "count": 2,
       "description": "A subjective feeling of tiredness characterized by a lack of energy and motivation."
@@ -7114,11 +7009,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000054",
     "name": "Micropenis",
-    "synonyms": [
-      "Small penis",
-      "HP:0000054",
-      "Short penis"
-    ],
+    "synonyms": ["Small penis", "HP:0000054", "Short penis"],
     "metadata": {
       "count": 1,
       "description": "Abnormally small penis. At birth, the normal penis is about 3 cm (stretched length from pubic tubercle to tip of penis) with micropenis less than 2.0-2.5 cm."
@@ -7146,11 +7037,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000083",
     "name": "Renal insufficiency",
-    "synonyms": [
-      "Renal failure",
-      "Renal failure in adulthood",
-      "HP:0000083"
-    ],
+    "synonyms": ["Renal failure", "Renal failure in adulthood", "HP:0000083"],
     "metadata": {
       "count": 1,
       "description": "A reduction in the level of performance of the kidneys in areas of function comprising the concentration of urine, removal of wastes, the maintenance of electrolyte balance, homeostasis of blood pressure, and calcium metabolism."
@@ -7194,11 +7081,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000112",
     "name": "Nephropathy",
-    "synonyms": [
-      "Kidney disease",
-      "Kidney damage",
-      "HP:0000112"
-    ],
+    "synonyms": ["Kidney disease", "Kidney damage", "HP:0000112"],
     "metadata": {
       "count": 1,
       "description": "A nonspecific term referring to disease or damage of the kidneys."
@@ -7226,11 +7109,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000153",
     "name": "Abnormality of the mouth",
-    "synonyms": [
-      "Abnormality of the mouth",
-      "HP:0000153",
-      "Abnormal mouth"
-    ],
+    "synonyms": ["Abnormality of the mouth", "HP:0000153", "Abnormal mouth"],
     "metadata": {
       "count": 1,
       "description": "An abnormality of the mouth."
@@ -7528,11 +7407,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000360",
     "name": "Tinnitus",
-    "synonyms": [
-      "Ringing in ears",
-      "HP:0000360",
-      "Ringing in the ears"
-    ],
+    "synonyms": ["Ringing in ears", "HP:0000360", "Ringing in the ears"],
     "metadata": {
       "count": 1,
       "description": "Tinnitus is an auditory perception that can be described as the experience of sound, in the ear or in the head, in the absence of external acoustic stimulation."
@@ -7646,11 +7521,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000470",
     "name": "Short neck",
-    "synonyms": [
-      "Short neck",
-      "HP:0000470",
-      "Decreased length of neck"
-    ],
+    "synonyms": ["Short neck", "HP:0000470", "Decreased length of neck"],
     "metadata": {
       "count": 1,
       "description": "Diminished length of the neck."
@@ -7746,11 +7617,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000510",
     "name": "Rod-cone dystrophy",
-    "synonyms": [
-      "HP:0000510",
-      "Rod cone dystrophy",
-      "Retinitis pigmentosa"
-    ],
+    "synonyms": ["HP:0000510", "Rod cone dystrophy", "Retinitis pigmentosa"],
     "metadata": {
       "count": 1,
       "description": "An inherited retinal disease subtype in which the rod photoreceptors appear to be more severely affected than the cone photoreceptors. Typical presentation is with nyctalopia (due to rod dysfunction) followed by loss of mid-peripheral field of vision, which gradually extends and leaves many patients with a small central island of vision due to the preservation of macular cones."
@@ -7798,11 +7665,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000541",
     "name": "Retinal detachment",
-    "synonyms": [
-      "HP:0000541",
-      "Retinal detachment",
-      "Detached retina"
-    ],
+    "synonyms": ["HP:0000541", "Retinal detachment", "Detached retina"],
     "metadata": {
       "count": 1,
       "description": "Separation of the inner layers of the retina (neural retina) from the pigment epithelium."
@@ -7856,10 +7719,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000565",
     "name": "Esotropia",
-    "synonyms": [
-      "Inward turning cross eyed",
-      "HP:0000565"
-    ],
+    "synonyms": ["Inward turning cross eyed", "HP:0000565"],
     "metadata": {
       "count": 1,
       "description": "A form of strabismus with one or both eyes turned inward ('crossed') to a relatively severe degree, usually defined as 10 diopters or more."
@@ -7906,12 +7766,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000572",
     "name": "Visual loss",
-    "synonyms": [
-      "Loss of vision",
-      "HP:0000572",
-      "Visual loss",
-      "Vision loss"
-    ],
+    "synonyms": ["Loss of vision", "HP:0000572", "Visual loss", "Vision loss"],
     "metadata": {
       "count": 1,
       "description": "Loss of visual acuity (implying that vision was better at a certain time point in life). Otherwise the term reduced visual acuity should be used (or a subclass of that)."
@@ -7989,10 +7844,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000639",
     "name": "Nystagmus",
-    "synonyms": [
-      "Involuntary, rapid, rhythmic eye movements",
-      "HP:0000639"
-    ],
+    "synonyms": ["Involuntary, rapid, rhythmic eye movements", "HP:0000639"],
     "metadata": {
       "count": 1,
       "description": "Rhythmic, involuntary oscillations of one or both eyes related to abnormality in fixation, conjugate gaze, or vestibular mechanisms."
@@ -8003,10 +7855,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000666",
     "name": "Horizontal nystagmus",
-    "synonyms": [
-      "HP:0000666",
-      "Nystagmus, horizontal"
-    ],
+    "synonyms": ["HP:0000666", "Nystagmus, horizontal"],
     "metadata": {
       "count": 1,
       "description": "Nystagmus consisting of horizontal to-and-fro eye movements."
@@ -8094,10 +7943,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000776",
     "name": "Congenital diaphragmatic hernia",
-    "synonyms": [
-      "HP:0000776",
-      "Diaphragmatic hernia"
-    ],
+    "synonyms": ["HP:0000776", "Diaphragmatic hernia"],
     "metadata": {
       "count": 1,
       "description": "The presence of a hernia of the diaphragm present at birth."
@@ -8124,11 +7970,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000790",
     "name": "Hematuria",
-    "synonyms": [
-      "High urine occult blood",
-      "HP:0000790",
-      "Blood in urine"
-    ],
+    "synonyms": ["High urine occult blood", "HP:0000790", "Blood in urine"],
     "metadata": {
       "count": 1,
       "description": "The presence of blood in the urine. Hematuria may be gross hematuria (visible to the naked eye) or microscopic hematuria (detected by dipstick or microscopic examination of the urine)."
@@ -8268,11 +8110,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000988",
     "name": "Skin rash",
-    "synonyms": [
-      "Skin rash",
-      "HP:0000988",
-      "Rash"
-    ],
+    "synonyms": ["Skin rash", "HP:0000988", "Rash"],
     "metadata": {
       "count": 1,
       "description": "A red eruption of the skin."
@@ -8301,11 +8139,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001022",
     "name": "Albinism",
-    "synonyms": [
-      "HP:0001022",
-      "Albinism",
-      "Achromasia"
-    ],
+    "synonyms": ["HP:0001022", "Albinism", "Achromasia"],
     "metadata": {
       "count": 1,
       "description": "An abnormal reduction in the amount of pigmentation (reduced or absent) of skin, hair and eye (iris and retina)."
@@ -8316,10 +8150,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001025",
     "name": "Urticaria",
-    "synonyms": [
-      "HP:0001025",
-      "Hives"
-    ],
+    "synonyms": ["HP:0001025", "Hives"],
     "metadata": {
       "count": 1,
       "description": "Raised, well-circumscribed areas of erythema and edema involving the dermis and epidermis. Urticaria is intensely pruritic, and blanches completely with pressure."
@@ -8330,11 +8161,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001028",
     "name": "Hemangioma",
-    "synonyms": [
-      "Strawberry mark",
-      "HP:0001028",
-      "Hemangiomata"
-    ],
+    "synonyms": ["Strawberry mark", "HP:0001028", "Hemangiomata"],
     "metadata": {
       "count": 1,
       "description": "A hemangioma is a benign tumor characterized by blood-filled spaces lined by benign endothelial cells. A hemangioma characterized by large endothelial spaces (caverns) is called a cavernous hemangioma (in contrast to a hemangioma with small endothelial spaces, which is called capillary hemangioma)."
@@ -8359,11 +8186,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001054",
     "name": "Numerous nevi",
-    "synonyms": [
-      "Numerous moles",
-      "Multiple pigmented nevi",
-      "HP:0001054"
-    ],
+    "synonyms": ["Numerous moles", "Multiple pigmented nevi", "HP:0001054"],
     "metadata": {
       "count": 1
     }
@@ -8406,10 +8229,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001138",
     "name": "Optic neuropathy",
-    "synonyms": [
-      "Damaged optic nerve",
-      "HP:0001138"
-    ],
+    "synonyms": ["Damaged optic nerve", "HP:0001138"],
     "metadata": {
       "count": 1
     }
@@ -8419,10 +8239,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001159",
     "name": "Syndactyly",
-    "synonyms": [
-      "HP:0001159",
-      "Webbed fingers or toes"
-    ],
+    "synonyms": ["HP:0001159", "Webbed fingers or toes"],
     "metadata": {
       "count": 1,
       "description": "Webbing or fusion of the fingers or toes, involving soft parts only or including bone structure. Bony fusions are referred to as \"bony\" syndactyly if the fusion occurs in a radio-ulnar axis. Fusions of bones of the fingers or toes in a proximo-distal axis are referred to as \"symphalangism\"."
@@ -8623,11 +8440,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001337",
     "name": "Tremor",
-    "synonyms": [
-      "Tremors",
-      "HP:0001337",
-      "Tremor"
-    ],
+    "synonyms": ["Tremors", "HP:0001337", "Tremor"],
     "metadata": {
       "count": 1,
       "description": "An unintentional, oscillating to-and-fro muscle movement about a joint axis."
@@ -8658,10 +8471,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001339",
     "name": "Lissencephaly",
-    "synonyms": [
-      "Fewer or absent grooves in brain",
-      "HP:0001339"
-    ],
+    "synonyms": ["Fewer or absent grooves in brain", "HP:0001339"],
     "metadata": {
       "count": 1,
       "description": "A spectrum of malformations of cortical development caused by insufficient neuronal migration that subsumes the terms agyria, pachygyria and subcortical band heterotopia. See also neuropathological definitions for 2-, 3-, and 4-layered lissencephaly."
@@ -8672,11 +8482,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001369",
     "name": "Arthritis",
-    "synonyms": [
-      "Arthritis",
-      "HP:0001369",
-      "Joint inflammation"
-    ],
+    "synonyms": ["Arthritis", "HP:0001369", "Joint inflammation"],
     "metadata": {
       "count": 1,
       "description": "Inflammation of a joint."
@@ -8799,11 +8605,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001539",
     "name": "Omphalocele",
-    "synonyms": [
-      "Exomphalos",
-      "Omphalocoele",
-      "HP:0001539"
-    ],
+    "synonyms": ["Exomphalos", "Omphalocoele", "HP:0001539"],
     "metadata": {
       "count": 1,
       "description": "A midline anterior incomplete closure of the abdominal wall in which there is herniation of the abdominal viscera into the base of the abdominal cord."
@@ -8887,10 +8689,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001601",
     "name": "Laryngomalacia",
-    "synonyms": [
-      "Softening of voice box tissue",
-      "HP:0001601"
-    ],
+    "synonyms": ["Softening of voice box tissue", "HP:0001601"],
     "metadata": {
       "count": 1,
       "description": "Laryngomalacia is a congenital abnormality of the laryngeal cartilage in which the cartilage is floppy and prolapses over the larynx during inspiration."
@@ -8901,11 +8700,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001640",
     "name": "Cardiomegaly",
-    "synonyms": [
-      "HP:0001640",
-      "Enlarged heart",
-      "Increased heart size"
-    ],
+    "synonyms": ["HP:0001640", "Enlarged heart", "Increased heart size"],
     "metadata": {
       "count": 1,
       "description": "Increased size of the heart, clinically defined as an increased transverse diameter of the cardiac silhouette that is greater than or equal to 50% of the transverse diameter of the chest (increased cardiothoracic ratio) on a posterior-anterior projection of a chest radiograph or a computed tomography."
@@ -9046,11 +8841,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001863",
     "name": "Toe clinodactyly",
-    "synonyms": [
-      "HP:0001863",
-      "Clinodactyly of feet",
-      "Toe curvature"
-    ],
+    "synonyms": ["HP:0001863", "Clinodactyly of feet", "Toe curvature"],
     "metadata": {
       "count": 1,
       "description": "Bending or curvature of a toe in the tibial direction (i.e., towards the big toe)."
@@ -9131,12 +8922,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001945",
     "name": "Fever",
-    "synonyms": [
-      "HP:0001945",
-      "Hyperthermia",
-      "Fever",
-      "Pyrexia"
-    ],
+    "synonyms": ["HP:0001945", "Hyperthermia", "Fever", "Pyrexia"],
     "metadata": {
       "count": 1,
       "description": "Body temperature elevated above the normal range."
@@ -9179,10 +8965,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001987",
     "name": "Hyperammonemia",
-    "synonyms": [
-      "High blood ammonia levels",
-      "HP:0001987"
-    ],
+    "synonyms": ["High blood ammonia levels", "HP:0001987"],
     "metadata": {
       "count": 1,
       "description": "An increased concentration of ammonia in the blood."
@@ -9193,10 +8976,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001998",
     "name": "Neonatal hypoglycemia",
-    "synonyms": [
-      "HP:0001998",
-      "Low blood sugar in newborn"
-    ],
+    "synonyms": ["HP:0001998", "Low blood sugar in newborn"],
     "metadata": {
       "count": 1
     }
@@ -9206,11 +8986,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002007",
     "name": "Frontal bossing",
-    "synonyms": [
-      "HP:0002007",
-      "Frontal protuberance",
-      "Skull bossing"
-    ],
+    "synonyms": ["HP:0002007", "Frontal protuberance", "Skull bossing"],
     "metadata": {
       "count": 1,
       "description": "Bilateral bulging of the lateral frontal bone prominences with relative sparing of the midline."
@@ -9238,12 +9014,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002019",
     "name": "Constipation",
-    "synonyms": [
-      "Costiveness",
-      "Constipation",
-      "HP:0002019",
-      "Dyschezia"
-    ],
+    "synonyms": ["Costiveness", "Constipation", "HP:0002019", "Dyschezia"],
     "metadata": {
       "count": 1,
       "description": "Infrequent or difficult evacuation of feces."
@@ -9269,12 +9040,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002033",
     "name": "Poor suck",
-    "synonyms": [
-      "Sucking weakness",
-      "Poor suck",
-      "HP:0002033",
-      "Poor sucking"
-    ],
+    "synonyms": ["Sucking weakness", "Poor suck", "HP:0002033", "Poor sucking"],
     "metadata": {
       "count": 1,
       "description": "An inadequate sucking reflex, resulting in the difficult of newborns to be breast-fed."
@@ -9300,11 +9066,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002058",
     "name": "Myopathic facies",
-    "synonyms": [
-      "Myopathic face",
-      "Myopathic facial appearance",
-      "HP:0002058"
-    ],
+    "synonyms": ["Myopathic face", "Myopathic facial appearance", "HP:0002058"],
     "metadata": {
       "count": 1,
       "description": "A facial appearance characteristic of myopathic conditions. The face appears expressionless with sunken cheeks, bilateral ptosis, and inability to elevate the corners of the mouth, due to muscle weakness."
@@ -9449,10 +9211,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002144",
     "name": "Tethered cord",
-    "synonyms": [
-      "Occult spinal dysraphism",
-      "HP:0002144"
-    ],
+    "synonyms": ["Occult spinal dysraphism", "HP:0002144"],
     "metadata": {
       "count": 1,
       "description": "During normal embryological development, the spinal cord first occupies the entire length of the vertebral column but goes on to assume a position at the level of L1 due to differential growth of the conus medullaris and the vertebral column. The filum terminale is a slender, threadlike structure that remains after the normal regression of the distal embryonic spinal cord and attaches the spinal cord to the coccyx. A tethered cord results if there is a thickened rope-like filum terminale which anchors the cord at the level of L2 or below, potentially causing neurologic signs owing to abnormal tension on the spinal cord."
@@ -9463,10 +9222,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002153",
     "name": "Hyperkalemia",
-    "synonyms": [
-      "HP:0002153",
-      "Increased circulating potassium concentration"
-    ],
+    "synonyms": ["HP:0002153", "Increased circulating potassium concentration"],
     "metadata": {
       "count": 1,
       "description": "An abnormally increased potassium concentration in the blood."
@@ -9493,10 +9249,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002183",
     "name": "Phonophobia",
-    "synonyms": [
-      "Fear of loud sounds",
-      "HP:0002183"
-    ],
+    "synonyms": ["Fear of loud sounds", "HP:0002183"],
     "metadata": {
       "count": 1,
       "description": "An abnormally heightened sensitivity to loud sounds."
@@ -9597,10 +9350,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002514",
     "name": "Cerebral calcification",
-    "synonyms": [
-      "Abnormal deposits of calcium in the brain",
-      "HP:0002514"
-    ],
+    "synonyms": ["Abnormal deposits of calcium in the brain", "HP:0002514"],
     "metadata": {
       "count": 1,
       "description": "The presence of calcium deposition within the cerebrum."
@@ -9644,10 +9394,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002538",
     "name": "Abnormal cerebral cortex morphology",
-    "synonyms": [
-      "Abnormality of the cerebral cortex",
-      "HP:0002538"
-    ],
+    "synonyms": ["Abnormality of the cerebral cortex", "HP:0002538"],
     "metadata": {
       "count": 1,
       "description": "Any structural abnormality of the cerebral cortex."
@@ -9658,10 +9405,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002587",
     "name": "Projectile vomiting",
-    "synonyms": [
-      "Projectile vomiting",
-      "HP:0002587"
-    ],
+    "synonyms": ["Projectile vomiting", "HP:0002587"],
     "metadata": {
       "count": 1,
       "description": "Vomiting that ejects the gastric contents with great force."
@@ -9672,10 +9416,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002650",
     "name": "Scoliosis",
-    "synonyms": [
-      "Cobb angle greater than ten degrees",
-      "HP:0002650"
-    ],
+    "synonyms": ["Cobb angle greater than ten degrees", "HP:0002650"],
     "metadata": {
       "count": 1,
       "description": "The presence of an abnormal lateral curvature of the spine."
@@ -9686,11 +9427,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002716",
     "name": "Lymphadenopathy",
-    "synonyms": [
-      "Swollen lymph nodes",
-      "HP:0002716",
-      "Lymph node hyperplasia"
-    ],
+    "synonyms": ["Swollen lymph nodes", "HP:0002716", "Lymph node hyperplasia"],
     "metadata": {
       "count": 1,
       "description": "Enlargement (swelling) of a lymph node."
@@ -9736,10 +9473,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002749",
     "name": "Osteomalacia",
-    "synonyms": [
-      "Softening of the bones",
-      "HP:0002749"
-    ],
+    "synonyms": ["Softening of the bones", "HP:0002749"],
     "metadata": {
       "count": 1,
       "description": "Osteomalacia is a general term for bone weakness owing to a defect in mineralization of the protein framework known as osteoid. This defective mineralization is mainly caused by lack in vitamin D. Osteomalacia in children is known as rickets."
@@ -9750,10 +9484,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002758",
     "name": "Osteoarthritis",
-    "synonyms": [
-      "HP:0002758",
-      "Degenerative joint disease"
-    ],
+    "synonyms": ["HP:0002758", "Degenerative joint disease"],
     "metadata": {
       "count": 1,
       "description": "Degeneration (wear and tear) of articular cartilage, i.e., of the joint surface. Joint degeneration may be accompanied by osteophytes (bone overgrowth), narrowing of the joint space, regions of sclerosis at the joint surface, or joint deformity."
@@ -9781,10 +9512,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002870",
     "name": "Obstructive sleep apnea",
-    "synonyms": [
-      "HP:0002870",
-      "Obstructive sleep apnoea"
-    ],
+    "synonyms": ["HP:0002870", "Obstructive sleep apnoea"],
     "metadata": {
       "count": 1,
       "description": "Obstructive Sleep Apnea is a condition characterized by the obstruction of the airway and pauses in breathing during sleep, which occur multiple times throughout the night. It is related to the relaxation of muscle tone that typically happens during sleep, leading to a partial collapse of the soft tissues in the airway and causing airflow obstruction."
@@ -9795,10 +9523,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0002904",
     "name": "Hyperbilirubinemia",
-    "synonyms": [
-      "High blood bilirubin levels",
-      "HP:0002904"
-    ],
+    "synonyms": ["High blood bilirubin levels", "HP:0002904"],
     "metadata": {
       "count": 1,
       "description": "An increased amount of bilirubin in the blood."
@@ -9842,10 +9567,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003011",
     "name": "Abnormality of the musculature",
-    "synonyms": [
-      "Muscular abnormality",
-      "HP:0003011"
-    ],
+    "synonyms": ["Muscular abnormality", "HP:0003011"],
     "metadata": {
       "count": 1,
       "description": "Abnormality originating in one or more muscles, i.e., of the set of muscles of body."
@@ -9908,11 +9630,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003186",
     "name": "Inverted nipples",
-    "synonyms": [
-      "Inverted nipples",
-      "HP:0003186",
-      "Invaginated nipples"
-    ],
+    "synonyms": ["Inverted nipples", "HP:0003186", "Invaginated nipples"],
     "metadata": {
       "count": 1,
       "description": "The presence of nipples that instead of pointing outward are retracted inwards."
@@ -9923,10 +9641,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003201",
     "name": "Rhabdomyolysis",
-    "synonyms": [
-      "HP:0003201",
-      "Breakdown of skeletal muscle"
-    ],
+    "synonyms": ["HP:0003201", "Breakdown of skeletal muscle"],
     "metadata": {
       "count": 1,
       "description": "Breakdown of muscle fibers that leads to the release of muscle fiber contents (myoglobin) into the bloodstream."
@@ -9971,11 +9686,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003307",
     "name": "Hyperlordosis",
-    "synonyms": [
-      "Lordosis",
-      "Prominent swayback",
-      "HP:0003307"
-    ],
+    "synonyms": ["Lordosis", "Prominent swayback", "HP:0003307"],
     "metadata": {
       "count": 1,
       "description": "Abnormally increased curvature (anterior concavity) of the lumbar or cervical spine."
@@ -10002,12 +9713,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003365",
     "name": "Arthralgia of the hip",
-    "synonyms": [
-      "HP:0003365",
-      "Hip joint pain",
-      "Hip arthralgia",
-      "Coxalgia"
-    ],
+    "synonyms": ["HP:0003365", "Hip joint pain", "Hip arthralgia", "Coxalgia"],
     "metadata": {
       "count": 1,
       "description": "Joint pain affecting the hip."
@@ -10115,11 +9821,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003690",
     "name": "Limb muscle weakness",
-    "synonyms": [
-      "Limb muscle weakness",
-      "HP:0003690",
-      "Limb weakness"
-    ],
+    "synonyms": ["Limb muscle weakness", "HP:0003690", "Limb weakness"],
     "metadata": {
       "count": 1,
       "description": "Reduced strength and weakness of the muscles of the arms and legs."
@@ -10152,10 +9854,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0003713",
     "name": "Muscle fiber necrosis",
-    "synonyms": [
-      "Muscle fibre necrosis",
-      "HP:0003713"
-    ],
+    "synonyms": ["Muscle fibre necrosis", "HP:0003713"],
     "metadata": {
       "count": 1,
       "description": "Abnormal cell death involving muscle fibers usually associated with break in, or absence of, muscle surface fiber membrane and resulting in irreversible damage to muscle fibers."
@@ -10240,10 +9939,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0004432",
     "name": "Agammaglobulinemia",
-    "synonyms": [
-      "Agammaglobulinaemia",
-      "HP:0004432"
-    ],
+    "synonyms": ["Agammaglobulinaemia", "HP:0004432"],
     "metadata": {
       "count": 1,
       "description": "A lasting absence of total IgG and total IgA and total IgM in the blood circulation, whereby at most trace quantities can be measured."
@@ -10272,10 +9968,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0004468",
     "name": "Anomalous tracheal cartilage",
-    "synonyms": [
-      "Abnormal tracheal cartilaginous ring",
-      "HP:0004468"
-    ],
+    "synonyms": ["Abnormal tracheal cartilaginous ring", "HP:0004468"],
     "metadata": {
       "count": 1,
       "description": "An abnormality of the C-shaped rings of hyaline cartilage, normally 16 to 20 in number, that occupy the anterior two-thirds of the circumference of the trachea (the posterior portion of the ring is completed by fibrous and smooth muscle tissue)."
@@ -10302,11 +9995,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0004755",
     "name": "Supraventricular tachycardia",
-    "synonyms": [
-      "HP:0004755",
-      "SVT",
-      "Supraventricular tachyarrhythmia"
-    ],
+    "synonyms": ["HP:0004755", "SVT", "Supraventricular tachyarrhythmia"],
     "metadata": {
       "count": 1,
       "description": "Supraventricular tachycardia (SVT) is an abnormally increased heart rate (over 100 beats per minute at rest) with origin above the level of the ventricles."
@@ -10317,10 +10006,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0004794",
     "name": "Malrotation of small bowel",
-    "synonyms": [
-      "HP:0004794",
-      "Malrotation of the small intestine"
-    ],
+    "synonyms": ["HP:0004794", "Malrotation of the small intestine"],
     "metadata": {
       "count": 1,
       "description": "A deviation from the normal rotation of the midgut during embryologic development with mislocalization of the small bowel."
@@ -10501,10 +10187,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0006934",
     "name": "Congenital nystagmus",
-    "synonyms": [
-      "HP:0006934",
-      "Nystagmus, congenital"
-    ],
+    "synonyms": ["HP:0006934", "Nystagmus, congenital"],
     "metadata": {
       "count": 1,
       "description": "Nystagmus dating from or present at birth."
@@ -10634,10 +10317,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0008677",
     "name": "Congenital nephrotic syndrome",
-    "synonyms": [
-      "HP:0008677",
-      "Congenital nephrosis"
-    ],
+    "synonyms": ["HP:0008677", "Congenital nephrosis"],
     "metadata": {
       "count": 1,
       "description": "Nephrotic syndrome with onset within the first three months of life."
@@ -10720,11 +10400,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0009099",
     "name": "Median cleft palate",
-    "synonyms": [
-      "HP:0009099",
-      "Midline cleft palate",
-      "Central cleft palate"
-    ],
+    "synonyms": ["HP:0009099", "Midline cleft palate", "Central cleft palate"],
     "metadata": {
       "count": 1,
       "description": "Cleft palate of the midline of the palate."
@@ -10735,10 +10411,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0009486",
     "name": "Radial deviation of the hand",
-    "synonyms": [
-      "HP:0009486",
-      "Radial deviation of hands"
-    ],
+    "synonyms": ["HP:0009486", "Radial deviation of hands"],
     "metadata": {
       "count": 1,
       "description": "An abnormal position of the hand in which the wrist is bent toward the radius (i.e., toward the thumb)."
@@ -10804,10 +10477,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0010307",
     "name": "Stridor",
-    "synonyms": [
-      "HP:0010307",
-      "Noisy breathing"
-    ],
+    "synonyms": ["HP:0010307", "Noisy breathing"],
     "metadata": {
       "count": 1,
       "description": "Stridor is a high pitched sound resulting from turbulent air flow in the upper airway."
@@ -10818,10 +10488,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0010518",
     "name": "Thyroglossal cyst",
-    "synonyms": [
-      "Thyroglossal duct cyst",
-      "HP:0010518"
-    ],
+    "synonyms": ["Thyroglossal duct cyst", "HP:0010518"],
     "metadata": {
       "count": 1,
       "description": "An abnormality of the thyroid gland owing to the presence of a fibrous cyst resulting from the persistence of the thyroglossal duct."
@@ -10832,10 +10499,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0010536",
     "name": "Central sleep apnea",
-    "synonyms": [
-      "Central sleep apnoea",
-      "HP:0010536"
-    ],
+    "synonyms": ["Central sleep apnoea", "HP:0010536"],
     "metadata": {
       "count": 1,
       "description": "Sleep apnea results from a temporary loss of the central drive to the muscles responsible for breathing."
@@ -10846,10 +10510,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0010783",
     "name": "Erythema",
-    "synonyms": [
-      "HP:0010783",
-      "Redness of skin or mucous membrane"
-    ],
+    "synonyms": ["HP:0010783", "Redness of skin or mucous membrane"],
     "metadata": {
       "count": 1,
       "description": "Redness of the skin, caused by hyperemia of the capillaries in the lower layers of the skin."
@@ -10893,10 +10554,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0010886",
     "name": "Osteochondritis dissecans",
-    "synonyms": [
-      "Osteochondrosis dissecans",
-      "HP:0010886"
-    ],
+    "synonyms": ["Osteochondrosis dissecans", "HP:0010886"],
     "metadata": {
       "count": 1,
       "description": "A joint disorder caused by blood deprivation in the subchondral bone causing the subchondral bone to die in a process called avascular necrosis. The bone is then reabsorbed by the body, leaving the articular cartilage it supported prone to damage. The result is fragmentation (dissection) of both cartilage and bone, and the free movement of these osteochondral fragments within the joint space, causing pain and further damage."
@@ -10925,11 +10583,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0011134",
     "name": "Low-grade fever",
-    "synonyms": [
-      "Low-grade fever",
-      "Mild fever",
-      "HP:0011134"
-    ],
+    "synonyms": ["Low-grade fever", "Mild fever", "HP:0011134"],
     "metadata": {
       "count": 1,
       "description": "Mild fever that does not exceed 38.5 degrees centigrade."
@@ -10992,10 +10646,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0011471",
     "name": "Gastrostomy tube feeding in infancy",
-    "synonyms": [
-      "HP:0011471",
-      "PEG-fed in infancy"
-    ],
+    "synonyms": ["HP:0011471", "PEG-fed in infancy"],
     "metadata": {
       "count": 1,
       "description": "Feeding problem necessitating gastrostomy tube feeding."
@@ -11089,11 +10740,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012432",
     "name": "Chronic fatigue",
-    "synonyms": [
-      "Chronic extreme exhaustion",
-      "Chronic fatigue",
-      "HP:0012432"
-    ],
+    "synonyms": ["Chronic extreme exhaustion", "Chronic fatigue", "HP:0012432"],
     "metadata": {
       "count": 1,
       "description": "Subjective feeling of tiredness characterized by a lack of energy and motivation that persists for six months or longer."
@@ -11120,10 +10767,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012486",
     "name": "Myelitis",
-    "synonyms": [
-      "HP:0012486",
-      "Inflammation of spinal cord"
-    ],
+    "synonyms": ["HP:0012486", "Inflammation of spinal cord"],
     "metadata": {
       "count": 1,
       "description": "Inflammation of the spinal cord."
@@ -11134,10 +10778,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012531",
     "name": "Pain",
-    "synonyms": [
-      "Pain",
-      "HP:0012531"
-    ],
+    "synonyms": ["Pain", "HP:0012531"],
     "metadata": {
       "count": 1,
       "description": "An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage."
@@ -11198,10 +10839,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012734",
     "name": "Ketotic hypoglycemia",
-    "synonyms": [
-      "HP:0012734",
-      "Ketotic low blood sugar"
-    ],
+    "synonyms": ["HP:0012734", "Ketotic low blood sugar"],
     "metadata": {
       "count": 1,
       "description": "Low blood glucose is accompanied by elevated levels of ketone bodies in the body."
@@ -11227,10 +10865,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012758",
     "name": "Neurodevelopmental delay",
-    "synonyms": [
-      "NDD",
-      "HP:0012758"
-    ],
+    "synonyms": ["NDD", "HP:0012758"],
     "metadata": {
       "count": 1,
       "description": "Neurodevelopmental delay (NDD) refers to delays in the maturation of the brain and central nervous system; infants and young children with NDD may experience delays in the development of one or more skills including gross motor abilities, fine-motor coordination, language abilities and ability to solve increasingly complex problems."
@@ -11294,11 +10929,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0030157",
     "name": "Flank pain",
-    "synonyms": [
-      "Kidney pain",
-      "HP:0030157",
-      "Flank pain"
-    ],
+    "synonyms": ["Kidney pain", "HP:0030157", "Flank pain"],
     "metadata": {
       "count": 1,
       "description": "An unpleasant sensation characterized by physical discomfort (such as pricking, throbbing, or aching) and perceived to originate in the flank."
@@ -11349,10 +10980,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0030828",
     "name": "Wheezing",
-    "synonyms": [
-      "HP:0030828",
-      "Wheezing"
-    ],
+    "synonyms": ["HP:0030828", "Wheezing"],
     "metadata": {
       "count": 1,
       "description": "A high-pitched whistling sound associated with labored breathing."
@@ -11363,10 +10991,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0030890",
     "name": "Hyperintensity of cerebral white matter on MRI",
-    "synonyms": [
-      "White matter hyperintensity",
-      "HP:0030890"
-    ],
+    "synonyms": ["White matter hyperintensity", "HP:0030890"],
     "metadata": {
       "count": 1,
       "description": "A brighter than expected signal on magnetic resonance imaging emanating from the cerebral white matter."
@@ -11377,10 +11002,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0030948",
     "name": "Elevated gamma-glutamyltransferase level",
-    "synonyms": [
-      "Elevated serum GGT",
-      "HP:0030948"
-    ],
+    "synonyms": ["Elevated serum GGT", "HP:0030948"],
     "metadata": {
       "count": 1,
       "description": "Increased level of the enzyme gamma-glutamyltransferase (GGT). GGT is mainly present in kidney, liver, and pancreatic cells, but small amounts are present in other tissues."
@@ -11391,10 +11013,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0031951",
     "name": "Nocturnal seizures",
-    "synonyms": [
-      "HP:0031951",
-      "Sleep seizures"
-    ],
+    "synonyms": ["HP:0031951", "Sleep seizures"],
     "metadata": {
       "count": 1,
       "description": "Seizures that occur while the affected individual is sleeping."
@@ -11422,10 +11041,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0032379",
     "name": "Polymorphous light eruption",
-    "synonyms": [
-      "HP:0032379",
-      "Sun allergy"
-    ],
+    "synonyms": ["HP:0032379", "Sun allergy"],
     "metadata": {
       "count": 1,
       "description": "The cardinal symptom is severely pruritic skin lesions. Macular, papular, papulovesicular, urticarial, multiforme- and plaque-like variants are differentiated morphologically, hence the name polymorphous. Usually one morphology dominates in a single individual (monomorphous). The skin lesions develop a few hours to several days after sun exposure. Initially, patchy erythema develops, accompanied by pruritus. Distinct lesions then develop. The upper chest, upper arms, backs of the hands, thighs, and the sides of the face are the primary localizations. The skin lesions resolve spontaneously within several days of ceasing sun exposure and do not leave behind any traces."
@@ -11454,10 +11070,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0033981",
     "name": "Vertebral artery tortuosity",
-    "synonyms": [
-      "Tortuous vertebral arteries",
-      "HP:0033981"
-    ],
+    "synonyms": ["Tortuous vertebral arteries", "HP:0033981"],
     "metadata": {
       "count": 1,
       "description": "Abnormal tortuous (i.e., twisted) form of the vertebral arteries."
@@ -11504,10 +11117,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0045086",
     "name": "Knee joint hypermobility",
-    "synonyms": [
-      "HP:0045086",
-      "Knee joint over-flexibility"
-    ],
+    "synonyms": ["HP:0045086", "Knee joint over-flexibility"],
     "metadata": {
       "count": 1,
       "description": "The ability of the knee to move past its normal range of motion, (knee hyperextension is greater than 10 degrees)."
@@ -11518,11 +11128,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0100021",
     "name": "Cerebral palsy",
-    "synonyms": [
-      "HP:0100021",
-      "Cerebral paralysis",
-      "CP"
-    ],
+    "synonyms": ["HP:0100021", "Cerebral paralysis", "CP"],
     "metadata": {
       "count": 1,
       "description": "Cerebral palsy describes a group of permanent disorders of the development of movement and posture, causing activity limitation, that are attributed to nonprogressive disturbances that occurred in the developing fetal or infant brain. The motor disorders of cerebral palsy are often accompanied by disturbances of sensation, perception, cognition, communication, and behavior, by epilepsy, and by secondary musculoskeletal problems."
@@ -11549,10 +11155,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0100553",
     "name": "Hemihypertrophy of lower limb",
-    "synonyms": [
-      "HP:0100553",
-      "Overgrowth of one leg"
-    ],
+    "synonyms": ["HP:0100553", "Overgrowth of one leg"],
     "metadata": {
       "count": 1,
       "description": "Overgrowth of only one leg."
@@ -11596,10 +11199,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0100720",
     "name": "Hypoplasia of the ear cartilage",
-    "synonyms": [
-      "Underdeveloped ear cartilage",
-      "HP:0100720"
-    ],
+    "synonyms": ["Underdeveloped ear cartilage", "HP:0100720"],
     "metadata": {
       "count": 1
     }
@@ -11626,10 +11226,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0100790",
     "name": "Hernia",
-    "synonyms": [
-      "Hernias",
-      "HP:0100790"
-    ],
+    "synonyms": ["Hernias", "HP:0100790"],
     "metadata": {
       "count": 1
     }
@@ -11639,11 +11236,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0200034",
     "name": "Papule",
-    "synonyms": [
-      "HP:0200034",
-      "Papules",
-      "Skin papules"
-    ],
+    "synonyms": ["HP:0200034", "Papules", "Skin papules"],
     "metadata": {
       "count": 1,
       "description": "A circumscribed, solid elevation of skin with no visible fluid, varying in size from a pinhead to less than 10mm in diameter at the widest point."
@@ -11654,10 +11247,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0200134",
     "name": "Epileptic encephalopathy",
-    "synonyms": [
-      "Convulsive encephalopathy",
-      "HP:0200134"
-    ],
+    "synonyms": ["Convulsive encephalopathy", "HP:0200134"],
     "metadata": {
       "count": 1,
       "description": "A condition in which epileptiform abnormalities are believed to contribute to the progressive disturbance in cerebral function. Epileptic encephalaopathy is characterized by (1) electrographic EEG paroxysmal activity that is often aggressive, (2) seizures that are usually multiform and intractable, (3) cognitive, behavioral and neurological deficits that may be relentless, and (4) sometimes early death."
@@ -11668,11 +11258,7 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0410030",
     "name": "Cleft lip",
-    "synonyms": [
-      "HP:0410030",
-      "Cleft of the lip",
-      "Cleft lip"
-    ],
+    "synonyms": ["HP:0410030", "Cleft of the lip", "Cleft lip"],
     "metadata": {
       "count": 1,
       "description": "A gap in the lip or lips."
@@ -24108,10 +23694,7 @@
     "facet_name": "biosamples.anatomical_site",
     "term": "Unknown",
     "name": "Unknown",
-    "synonyms": [
-      "N/A",
-      "Unknown"
-    ],
+    "synonyms": ["N/A", "Unknown"],
     "metadata": {
       "count": 133
     }
@@ -27432,14 +27015,7 @@
     "facet_name": "donors.phenotypic_sex",
     "term": "Female",
     "name": "Female",
-    "synonyms": [
-      "F",
-      "Female",
-      "XX",
-      "female sex",
-      "feminine",
-      "woman"
-    ],
+    "synonyms": ["F", "Female", "XX", "female sex", "feminine", "woman"],
     "metadata": {
       "count": 187
     }
@@ -27449,14 +27025,7 @@
     "facet_name": "donors.phenotypic_sex",
     "term": "Male",
     "name": "Male",
-    "synonyms": [
-      "Androgenic",
-      "M",
-      "Male",
-      "Male Gender",
-      "Masculine",
-      "XY"
-    ],
+    "synonyms": ["Androgenic", "M", "Male", "Male Gender", "Masculine", "XY"],
     "metadata": {
       "count": 187
     }
@@ -27483,11 +27052,7 @@
     "facet_name": "donors.phenotypic_sex",
     "term": "None",
     "name": "None",
-    "synonyms": [
-      "None",
-      "not recorded",
-      "not specified"
-    ],
+    "synonyms": ["None", "not recorded", "not specified"],
     "metadata": {
       "count": 198
     }
@@ -27906,14 +27471,7 @@
     "facet_name": "files.file_format",
     "term": ".crai",
     "name": ".crai",
-    "synonyms": [
-      ".crai",
-      ".crf",
-      ".csv",
-      ".data",
-      ".txt",
-      ".xml"
-    ],
+    "synonyms": [".crai", ".crf", ".csv", ".data", ".txt", ".xml"],
     "metadata": {
       "count": 226
     }
@@ -27923,13 +27481,7 @@
     "facet_name": "files.file_format",
     "term": ".md5",
     "name": ".md5",
-    "synonyms": [
-      ".md5",
-      "MD5 Checksum",
-      "MD5 Digest",
-      "MD5 File",
-      "MD5 Hash"
-    ],
+    "synonyms": [".md5", "MD5 Checksum", "MD5 Digest", "MD5 File", "MD5 Hash"],
     "metadata": {
       "count": 194
     }
@@ -27973,14 +27525,7 @@
     "facet_name": "files.file_format",
     "term": ".idat",
     "name": ".idat",
-    "synonyms": [
-      ".dat",
-      ".data",
-      ".idat",
-      ".idata",
-      ".idatafile",
-      ".idatfile"
-    ],
+    "synonyms": [".dat", ".data", ".idat", ".idata", ".idatafile", ".idatfile"],
     "metadata": {
       "count": 108
     }
@@ -27990,13 +27535,7 @@
     "facet_name": "files.file_format",
     "term": ".egt",
     "name": ".egt",
-    "synonyms": [
-      ".egt",
-      ".egtd",
-      ".egtf",
-      ".egtr",
-      ".egtx"
-    ],
+    "synonyms": [".egt", ".egtd", ".egtf", ".egtr", ".egtx"],
     "metadata": {
       "count": 107
     }
@@ -28779,13 +28318,7 @@
     "facet_name": "files.file_format",
     "term": ".fast5",
     "name": ".fast5",
-    "synonyms": [
-      ".fast5",
-      "FAST5",
-      "FAST5 file",
-      "Fast5 data",
-      "Fast5 format"
-    ],
+    "synonyms": [".fast5", "FAST5", "FAST5 file", "Fast5 data", "Fast5 format"],
     "metadata": {
       "count": 2
     }
@@ -28828,14 +28361,7 @@
     "facet_name": "files.file_format",
     "term": ".pgen",
     "name": ".pgen",
-    "synonyms": [
-      ".pgen",
-      "P-GEN",
-      "PGEN",
-      "PGN",
-      "PGen",
-      "PGen file"
-    ],
+    "synonyms": [".pgen", "P-GEN", "PGEN", "PGN", "PGen", "PGen file"],
     "metadata": {
       "count": 2
     }
@@ -28911,13 +28437,7 @@
     "facet_name": "files.file_format",
     "term": ".BED",
     "name": ".BED",
-    "synonyms": [
-      ".BED",
-      "BAM",
-      "BED file",
-      "BED format",
-      "Binary End Data"
-    ],
+    "synonyms": [".BED", "BAM", "BED file", "BED format", "Binary End Data"],
     "metadata": {
       "count": 1
     }
@@ -28960,14 +28480,7 @@
     "facet_name": "files.file_format",
     "term": ".bw",
     "name": ".bw",
-    "synonyms": [
-      ".bw",
-      ".bwd",
-      ".bwf",
-      ".bwi",
-      ".bws",
-      ".bwt"
-    ],
+    "synonyms": [".bw", ".bwd", ".bwf", ".bwi", ".bws", ".bwt"],
     "metadata": {
       "count": 1
     }
@@ -29011,14 +28524,7 @@
     "facet_name": "files.file_format",
     "term": ".counts",
     "name": ".counts",
-    "synonyms": [
-      ".counts",
-      ".csv",
-      ".dat",
-      ".data",
-      ".txt",
-      ".xlsx"
-    ],
+    "synonyms": [".counts", ".csv", ".dat", ".data", ".txt", ".xlsx"],
     "metadata": {
       "count": 1
     }
@@ -29128,13 +28634,7 @@
     "facet_name": "files.file_format",
     "term": ".hist",
     "name": ".hist",
-    "synonyms": [
-      ".data",
-      ".hdf",
-      ".hist",
-      ".histo",
-      ".histogram"
-    ],
+    "synonyms": [".data", ".hdf", ".hist", ".histo", ".histogram"],
     "metadata": {
       "count": 1
     }
@@ -29279,13 +28779,7 @@
     "facet_name": "files.file_format",
     "term": ".qv",
     "name": ".qv",
-    "synonyms": [
-      ".qv",
-      ".qvd",
-      ".qvdf",
-      ".qvds",
-      ".qvx"
-    ],
+    "synonyms": [".qv", ".qvd", ".qvdf", ".qvds", ".qvx"],
     "metadata": {
       "count": 1
     }
@@ -29329,14 +28823,7 @@
     "facet_name": "files.file_format",
     "term": ".stats",
     "name": ".stats",
-    "synonyms": [
-      ".csv",
-      ".dat",
-      ".data",
-      ".stats",
-      ".txt",
-      ".xlsx"
-    ],
+    "synonyms": [".csv", ".dat", ".data", ".stats", ".txt", ".xlsx"],
     "metadata": {
       "count": 1
     }
@@ -30323,14 +29810,7 @@
     "facet_name": "accessible",
     "term": "true",
     "name": "true",
-    "synonyms": [
-      "actual",
-      "authentic",
-      "genuine",
-      "real",
-      "true",
-      "veritable"
-    ],
+    "synonyms": ["actual", "authentic", "genuine", "real", "true", "veritable"],
     "metadata": {
       "count": 11
     }

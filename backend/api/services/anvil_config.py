@@ -3,6 +3,7 @@
 This module contains the mapping between AnVIL API facet names and
 the OpenSearch facet names used in the concept database.
 """
+
 from typing import Dict
 
 

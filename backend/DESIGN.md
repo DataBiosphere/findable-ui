@@ -135,6 +135,7 @@ Results + Unmatched Terms
 **Deliverable**: ✅ Service that takes `List[Mention]` and returns `List[FacetSelection]`
 
 **Implementation Details**:
+
 - Uses dependency injection (no framework required)
 - `MentionNormalizer` class accepts any resolver with `resolve_mention()` method
 - `MockConceptResolver` provides test fixtures for unit testing
