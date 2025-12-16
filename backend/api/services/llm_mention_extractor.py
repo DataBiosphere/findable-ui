@@ -62,6 +62,9 @@ Facet definitions and guidance:
   A reference to the BiologicalSex of the donor organism:
   "An organismal quality inhering in a bearer by virtue of the bearer's physical
   expression of sexual characteristics." [PATO_0001894]
+  Common notations: male/female, masculine/feminine, men/women, M/F, XY/XX
+  IMPORTANT: Extract single letters M or F when they appear with biological context words
+  like patients, subjects, donors, or samples (e.g., "M patients", "F donors")
 
 - Anatomical Site:
   The normal anatomical location within an organism from which a biosample was taken.

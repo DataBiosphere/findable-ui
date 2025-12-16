@@ -22,7 +22,7 @@ class OpenSearchConceptResolver:
         use_ssl: bool = False,
         verify_certs: bool = False,
         facet_name_mapping: Optional[Dict[str, str]] = None,
-        min_score: float = 25.0,
+        min_score: float = 50.0,
     ):
         """Initialize the OpenSearch concept resolver.
 
@@ -34,8 +34,9 @@ class OpenSearchConceptResolver:
             facet_name_mapping: Optional mapping from application facet names to
                 OpenSearch facet names. If None, facet names are used as-is.
                 Example: {"Diagnosis": "diagnoses.disease"}
-            min_score: Minimum relevance score for matches (default: 25.0).
+            min_score: Minimum relevance score for matches (default: 50.0).
                 Results below this threshold are filtered out to prevent weak matches.
+                Increased from 25.0 to 50.0 to account for boost=10.0 on exact matches.
         """
         self.client = OpenSearch(
             hosts=[{"host": host, "port": port}],
@@ -65,8 +66,11 @@ class OpenSearchConceptResolver:
         # Map facet name if mapping provided
         opensearch_facet = self.facet_name_mapping.get(facet_name, facet_name)
 
+        # Lowercase the mention for case-insensitive matching
+        mention_lower = mention.lower()
+
         # Build the search query
-        query = self._build_search_query(opensearch_facet, mention, top_k)
+        query = self._build_search_query(opensearch_facet, mention_lower, top_k)
 
         try:
             # Execute the search

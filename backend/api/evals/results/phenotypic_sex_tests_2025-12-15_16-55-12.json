@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-15T17:00:02.808628",
+    "date": "2025-12-15T16:55:12.173180",
     "dataset": "phenotypic_sex_tests",
     "total_tests": 15,
-    "passed": 15,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 14,
+    "failed": 1,
+    "pass_rate": 0.9333333333333333
   },
   "results": [
     {
@@ -14,11 +14,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -30,11 +34,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -46,11 +54,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -62,11 +74,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -78,11 +94,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - women",
@@ -94,11 +114,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - men",
@@ -110,11 +134,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Chromosome notation",
@@ -126,11 +154,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Chromosome notation",
@@ -139,16 +171,20 @@
     {
       "test_id": "ps_009",
       "query": "F patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "unknown"
+        ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Single letter abbrev",
       "category": "abbreviation"
     },
@@ -158,11 +194,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Single letter abbrev",
@@ -174,11 +214,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - feminine",
@@ -190,11 +234,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - masculine",
@@ -206,11 +254,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "error_type": null,
       "notes": "Unknown sex",
@@ -222,11 +274,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "error_type": null,
       "notes": "Unknown variant",
@@ -261,9 +317,9 @@
       "pass_rate": 1.0
     },
     "abbreviation": {
-      "passed": 2,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 1,
+      "failed": 1,
+      "pass_rate": 0.5
     },
     "edge_case": {
       "passed": 2,

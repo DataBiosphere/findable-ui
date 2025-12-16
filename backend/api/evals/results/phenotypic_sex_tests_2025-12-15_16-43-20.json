@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-15T17:00:02.808628",
+    "date": "2025-12-15T16:43:20.948225",
     "dataset": "phenotypic_sex_tests",
     "total_tests": 15,
-    "passed": 15,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 9,
+    "failed": 6,
+    "pass_rate": 0.6
   },
   "results": [
     {
@@ -14,11 +14,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -30,11 +34,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -46,11 +54,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -62,11 +74,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -78,11 +94,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - women",
@@ -94,11 +114,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "error_type": null,
       "notes": "Synonym - men",
@@ -107,96 +131,110 @@
     {
       "test_id": "ps_007",
       "query": "XX patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
-        "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Chromosome notation",
       "category": "synonym"
     },
     {
       "test_id": "ps_008",
       "query": "XY patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
-        "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Chromosome notation",
       "category": "synonym"
     },
     {
       "test_id": "ps_009",
       "query": "F patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
-        "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Single letter abbrev",
       "category": "abbreviation"
     },
     {
       "test_id": "ps_010",
       "query": "M patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
-        "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Single letter abbrev",
       "category": "abbreviation"
     },
     {
       "test_id": "ps_011",
       "query": "feminine subjects",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "terms": [
+          "female"
+        ]
       },
       "actual": {
-        "facet": "donors.phenotypic_sex",
-        "terms": ["female"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Synonym - feminine",
       "category": "synonym"
     },
     {
       "test_id": "ps_012",
       "query": "masculine subjects",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "male"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["male"]
+        "terms": [
+          "unknown"
+        ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Synonym - masculine",
       "category": "synonym"
     },
@@ -206,11 +244,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "error_type": null,
       "notes": "Unknown sex",
@@ -222,11 +264,15 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": ["unknown"]
+        "terms": [
+          "unknown"
+        ]
       },
       "error_type": null,
       "notes": "Unknown variant",
@@ -256,14 +302,14 @@
       "pass_rate": 1.0
     },
     "synonym": {
-      "passed": 6,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 2,
+      "failed": 4,
+      "pass_rate": 0.3333333333333333
     },
     "abbreviation": {
-      "passed": 2,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 0,
+      "failed": 2,
+      "pass_rate": 0.0
     },
     "edge_case": {
       "passed": 2,
