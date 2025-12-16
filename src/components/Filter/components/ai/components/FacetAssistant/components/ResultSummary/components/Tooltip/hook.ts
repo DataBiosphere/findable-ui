@@ -14,9 +14,9 @@ export function useMeasuredWidth<T extends HTMLElement>(): [
   const ref = useCallback((node: T | null) => {
     if (!node) return;
 
-    const { width } = node.getBoundingClientRect();
+    const { width: measuredWidth } = node.getBoundingClientRect();
 
-    setWidth(width);
+    setWidth(measuredWidth);
   }, []);
 
   return [width, ref];
