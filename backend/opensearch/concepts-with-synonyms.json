@@ -5261,6 +5261,7 @@
     "term": "diabetes mellitus",
     "name": "diabetes mellitus",
     "synonyms": [
+      "diabetes",
       "diabetes mellitus",
       "iddm",
       "insulin-dependent diabetes",
@@ -16505,8 +16506,10 @@
     "name": "hispanic or latino",
     "synonyms": [
       "chicano",
+      "hispanic",
       "hispanic or latino",
       "hispano",
+      "latino",
       "latino/a",
       "latinx",
       "spanish-speaking"
@@ -29869,6 +29872,7 @@
     "synonyms": [
       ".bam",
       "alignment file",
+      "bam",
       "bam file",
       "bam format",
       "binary alignment/map",

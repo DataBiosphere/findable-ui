@@ -44,15 +44,16 @@ def test_synonym_match_found(normalizer: MentionNormalizer) -> None:
 
 
 def test_no_match_returns_unknown(normalizer: MentionNormalizer) -> None:
-    """Test that unmatched mentions return 'unknown' as the term."""
+    """Test that unmatched mentions return the original term with recognized=False."""
     mentions = [Mention(text="foobar", facet="unknown")]
 
     result = normalizer.normalize_mentions(mentions)
 
     assert len(result) == 1
     assert result[0].facet == "unknown"
-    assert result[0].selectedValues[0].term == "unknown"
+    assert result[0].selectedValues[0].term == "foobar"
     assert result[0].selectedValues[0].mention == "foobar"
+    assert result[0].selectedValues[0].recognized == False
 
 
 def test_multiple_facets_with_multiple_mentions(normalizer: MentionNormalizer) -> None:
@@ -121,7 +122,14 @@ def test_mixed_known_and_unknown_mentions(normalizer: MentionNormalizer) -> None
     # Check we have both a known and unknown term
     terms = [sv.term for sv in result[0].selectedValues]
     assert "MONDO:0005015" in terms
-    assert "unknown" in terms
+    assert "foobar" in terms
+
+    # Check recognized flags
+    for sv in result[0].selectedValues:
+        if sv.term == "MONDO:0005015":
+            assert sv.recognized == True
+        elif sv.term == "foobar":
+            assert sv.recognized == False
 
 
 def test_empty_mentions_list(normalizer: MentionNormalizer) -> None:

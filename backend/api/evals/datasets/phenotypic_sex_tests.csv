@@ -13,5 +13,5 @@ ps_011,feminine subjects,donors.phenotypic_sex,Female,Synonym - feminine,synonym
 ps_012,masculine subjects,donors.phenotypic_sex,Male,Synonym - masculine,synonym
 ps_013,unknown sex,donors.phenotypic_sex,Unknown,Unknown sex,edge_case
 ps_014,sex not specified,donors.phenotypic_sex,Unspecified,Not specified variant,edge_case
-ps_015,sex unspecified,donors.phenotypic_sex,Unknown|Unspecified,Unspecified variant (matches both),edge_case
+ps_015,sex unspecified,donors.phenotypic_sex,"Unknown;;;Unspecified",Unspecified variant (matches both),edge_case
 ps_016,patients,,,Should not extract phenotypic sex,negative_test

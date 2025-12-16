@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "date": "2025-12-15T20:09:11.061218",
+    "date": "2025-12-15T22:42:57.665481",
     "dataset": "phenotypic_sex_tests",
     "total_tests": 16,
     "passed": 14,
@@ -302,7 +302,7 @@
       "actual": {
         "facet": "donors.phenotypic_sex",
         "terms": [
-          "Unspecified"
+          "sex"
         ]
       },
       "error_type": "wrong_term",

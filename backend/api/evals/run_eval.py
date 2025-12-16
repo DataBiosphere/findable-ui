@@ -36,7 +36,8 @@ def load_test_cases(csv_path: str) -> List[TestCase]:
             # Parse expected_terms - can be empty for negative tests
             expected_terms_str = row["expected_terms"].strip()
             if expected_terms_str:
-                expected_terms = set(t.strip() for t in expected_terms_str.split("|"))
+                # Use ;;; as delimiter to avoid conflicts with pipe characters in ethnicity values
+                expected_terms = set(t.strip() for t in expected_terms_str.split(";;;"))
             else:
                 expected_terms = set()
 

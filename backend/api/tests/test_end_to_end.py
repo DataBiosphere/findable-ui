@@ -67,14 +67,15 @@ def test_end_to_end_with_unknown_terms() -> None:
     assert result.query == query
 
     # Mock extractor will assign these to "unmatched" facet
-    # OpenSearch won't find them, so they should return "unknown" term
+    # OpenSearch won't find them, so they should return the original term with recognized=False
     unmatched_facets = [fs for fs in result.facets if "unmatched" in fs.facet.lower()]
 
     if unmatched_facets:
-        # Check that unknown terms get "unknown" as the term
+        # Check that unknown terms get the original term with recognized=False
         for facet_selection in unmatched_facets:
             for selected_value in facet_selection.selectedValues:
-                assert selected_value.term == "unknown"
+                assert selected_value.term in ["foobar", "xyzabc", "unknown_term_123"]
+                assert selected_value.recognized == False
 
 
 def test_end_to_end_empty_query() -> None:

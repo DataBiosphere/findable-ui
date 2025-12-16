@@ -59,14 +59,16 @@ def test_compute_facets_with_normalizer(mock_resolver: MockConceptResolver) -> N
 
     # Check unknown mention
     foobaz_value = next(v for v in diagnosis_values if v.mention == "foobaz")
-    assert foobaz_value.term == "unknown"
+    assert foobaz_value.term == "foobaz"
+    assert foobaz_value.recognized == False
 
     # Verify unknown facet
     assert "unknown" in facet_dict
     unknown_values = facet_dict["unknown"].selectedValues
     assert len(unknown_values) == 1
     assert unknown_values[0].mention == "foobar"
-    assert unknown_values[0].term == "unknown"
+    assert unknown_values[0].term == "foobar"
+    assert unknown_values[0].recognized == False
 
 
 def test_normalizer_produces_same_structure_as_stub() -> None:
