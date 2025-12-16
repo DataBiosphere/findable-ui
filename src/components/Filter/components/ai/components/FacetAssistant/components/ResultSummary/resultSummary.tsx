@@ -21,12 +21,12 @@ export const ResultSummary = ({
           <ResultSummarySection
             icon={<SuccessIcon color={SVG_ICON_PROPS.COLOR.SUCCESS} />}
             mentionTermPair={summary.matched}
-            title="Matches"
+            title="Matched"
           />
           <ResultSummarySection
             icon={<ErrorIcon color={SVG_ICON_PROPS.COLOR.ERROR} />}
             mentionTermPair={summary.unmatched}
-            title="No matches"
+            title="Unmatched"
           />
         </Stack>
       }

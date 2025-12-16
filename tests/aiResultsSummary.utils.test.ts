@@ -7,7 +7,7 @@ describe("renderSummary", () => {
     unmatched: [],
   });
 
-  it("renders 'AI found X matches' when only matched items exist (plural)", () => {
+  it("renders 'X matched' when only matched items exist (plural)", () => {
     const summary: ResultSummaryData = {
       matched: [
         ["a", "A"],
@@ -16,19 +16,19 @@ describe("renderSummary", () => {
       unmatched: [],
     };
 
-    expect(renderSummary(summary)).toBe("AI found 2 matches");
+    expect(renderSummary(summary)).toBe("2 matched");
   });
 
-  it("renders 'AI found 1 match' when a single matched item exists", () => {
+  it("renders '1 matched' when a single matched item exists", () => {
     const summary: ResultSummaryData = {
       matched: [["a", "A"]],
       unmatched: [],
     };
 
-    expect(renderSummary(summary)).toBe("AI found 1 match");
+    expect(renderSummary(summary)).toBe("1 matched");
   });
 
-  it("renders 'AI found X with no match' when only unmatched items exist", () => {
+  it("renders 'X unmatched' when only unmatched items exist", () => {
     const summary: ResultSummaryData = {
       matched: [],
       unmatched: [
@@ -37,10 +37,10 @@ describe("renderSummary", () => {
       ],
     };
 
-    expect(renderSummary(summary)).toBe("AI found 2 with no match");
+    expect(renderSummary(summary)).toBe("2 unmatched");
   });
 
-  it("renders 'AI found X matches and Y with no match' when both exist", () => {
+  it("renders 'X matched and Y unmatched' when both exist", () => {
     const summary: ResultSummaryData = {
       matched: [
         ["a", "A"],
@@ -49,15 +49,13 @@ describe("renderSummary", () => {
       unmatched: [["c", "C"]],
     };
 
-    expect(renderSummary(summary)).toBe(
-      "AI found 2 matches and 1 with no match"
-    );
+    expect(renderSummary(summary)).toBe("2 matched, 1 unmatched");
   });
 
   it("handles empty matched and unmatched arrays (current behavior)", () => {
     const summary = emptySummary();
 
     // With current implementation: matched = 0, unmatched = 0
-    expect(renderSummary(summary)).toBe("AI found 0 matches");
+    expect(renderSummary(summary)).toBe("0 matched");
   });
 });
