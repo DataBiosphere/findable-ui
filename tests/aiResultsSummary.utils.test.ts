@@ -40,7 +40,7 @@ describe("renderSummary", () => {
     expect(renderSummary(summary)).toBe("2 unmatched");
   });
 
-  it("renders 'X matched and Y unmatched' when both exist", () => {
+  it("renders 'X matched, Y unmatched' when both exist", () => {
     const summary: ResultSummaryData = {
       matched: [
         ["a", "A"],

@@ -24,7 +24,7 @@ export const ResultSummary = ({
             title="Matched"
           />
           <ResultSummarySection
-            icon={<ErrorIcon color={SVG_ICON_PROPS.COLOR.ERROR} />}
+            icon={<ErrorIcon color={SVG_ICON_PROPS.COLOR.ALERT} />}
             mentionTermPair={summary.unmatched}
             title="Unmatched"
           />
