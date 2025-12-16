@@ -15,9 +15,9 @@ export const ResultSummarySection = ({
       <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}>
         {title}
       </Typography>
-      {mentionTermPair.map(([mention, term]) => (
+      {mentionTermPair.map(([mention, term], index) => (
         <Stack
-          key={`${mention}-${term}`}
+          key={`${mention}-${term}-${index}`}
           direction={STACK_PROPS.DIRECTION.ROW}
           spacing={1}
           useFlexGap
