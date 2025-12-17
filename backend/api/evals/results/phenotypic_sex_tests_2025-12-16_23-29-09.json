@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-16T23:41:15.324460",
+    "date": "2025-12-16T23:29:09.424290",
     "dataset": "phenotypic_sex_tests",
     "total_tests": 16,
-    "passed": 16,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 15,
+    "failed": 1,
+    "pass_rate": 0.9375
   },
   "results": [
     {
@@ -171,7 +171,7 @@
     {
       "test_id": "ps_009",
       "query": "F patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
         "terms": [
@@ -181,10 +181,10 @@
       "actual": {
         "facet": "donors.phenotypic_sex",
         "terms": [
-          "Female"
+          "F patients"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Single letter abbrev",
       "category": "abbreviation"
     },
@@ -337,9 +337,9 @@
       "pass_rate": 1.0
     },
     "abbreviation": {
-      "passed": 2,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 1,
+      "failed": 1,
+      "pass_rate": 0.5
     },
     "edge_case": {
       "passed": 3,

@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-16T23:40:27.275069",
+    "date": "2025-12-16T22:56:37.783977",
     "dataset": "disease_tests",
     "total_tests": 15,
-    "passed": 15,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 13,
+    "failed": 2,
+    "pass_rate": 0.8666666666666667
   },
   "results": [
     {
@@ -283,7 +283,7 @@
     {
       "test_id": "dis_016",
       "query": "disease not specified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "diagnoses.disease",
         "terms": [
@@ -293,17 +293,24 @@
       "actual": {
         "facet": "diagnoses.disease",
         "terms": [
-          "Unspecified"
+          "Alzheimer's disease",
+          "Chronic kidney disease",
+          "Disease of liver",
+          "Inflammatory bowel disease",
+          "Interstitial lung disease",
+          "Non-alcoholic fatty liver disease",
+          "Other",
+          "Recurrent infectious disease"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Not specified variant",
       "category": "edge_case"
     },
     {
       "test_id": "dis_017",
       "query": "disease unspecified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "diagnoses.disease",
         "terms": [
@@ -313,10 +320,16 @@
       "actual": {
         "facet": "diagnoses.disease",
         "terms": [
-          "Unspecified"
+          "Alzheimer's disease",
+          "Chronic kidney disease",
+          "Disease of liver",
+          "Inflammatory bowel disease",
+          "Interstitial lung disease",
+          "Non-alcoholic fatty liver disease",
+          "Recurrent infectious disease"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Unspecified variant",
       "category": "edge_case"
     }
@@ -348,9 +361,9 @@
       "pass_rate": 1.0
     },
     "edge_case": {
-      "passed": 2,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 0,
+      "failed": 2,
+      "pass_rate": 0.0
     }
   }
 }

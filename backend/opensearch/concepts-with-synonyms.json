@@ -29256,8 +29256,7 @@
       "indeterminate sex",
       "sex not determined",
       "unknown sex",
-      "unspecified sex",
-      "sex not specified"
+      "unspecified sex"
     ],
     "metadata": {
       "count": 75
@@ -32333,10 +32332,436 @@
       "not specified",
       "not recorded",
       "no data",
-      "missing"
+      "missing",
+      "sex not specified"
     ],
     "metadata": {
       "count": 0
+    }
+  },
+  {
+    "id": "phenotype-7732edced3ef",
+    "facet_name": "diagnoses.phenotype",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "phenotype unspecified",
+      "not specified",
+      "phenotype not specified",
+      "not reported",
+      "phenotype not reported",
+      "unknown",
+      "phenotype unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "disease-0377c7407a90",
+    "facet_name": "biosamples.disease",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "disease unspecified",
+      "not specified",
+      "disease not specified",
+      "not reported",
+      "disease not reported",
+      "unknown",
+      "disease unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "disease-a14805245cad",
+    "facet_name": "diagnoses.disease",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "disease unspecified",
+      "not specified",
+      "disease not specified",
+      "not reported",
+      "disease not reported",
+      "unknown",
+      "disease unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "phenopacket-4da1a068d294",
+    "facet_name": "diagnoses.phenopacket",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "phenopacket unspecified",
+      "not specified",
+      "phenopacket not specified",
+      "not reported",
+      "phenopacket not reported",
+      "unknown",
+      "phenopacket unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "data_modality-074c164350dc",
+    "facet_name": "files.data_modality",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "data modality unspecified",
+      "not specified",
+      "data modality not specified",
+      "not reported",
+      "data modality not reported",
+      "unknown",
+      "data modality unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "reported_ethnicity-34cb0e2879ad",
+    "facet_name": "donors.reported_ethnicity",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "ethnicity unspecified",
+      "not specified",
+      "ethnicity not specified",
+      "not reported",
+      "ethnicity not reported",
+      "unknown",
+      "ethnicity unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "consent_group-2176552ecd7a",
+    "facet_name": "datasets.consent_group",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "consent group unspecified",
+      "not specified",
+      "consent group not specified",
+      "not reported",
+      "consent group not reported",
+      "unknown",
+      "consent group unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "assay_type-7cedd1405a6f",
+    "facet_name": "activities.assay_type",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "assay type unspecified",
+      "not specified",
+      "assay type not specified",
+      "not reported",
+      "assay type not reported",
+      "unknown",
+      "assay type unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "anatomical_site-d1a936966a77",
+    "facet_name": "biosamples.anatomical_site",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "anatomical site unspecified",
+      "not specified",
+      "anatomical site not specified",
+      "not reported",
+      "anatomical site not reported",
+      "unknown",
+      "anatomical site unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "organism_type-6a9026583e81",
+    "facet_name": "donors.organism_type",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "organism type unspecified",
+      "not specified",
+      "organism type not specified",
+      "not reported",
+      "organism type not reported",
+      "unknown",
+      "organism type unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "data_use_permission-e0380caa780c",
+    "facet_name": "datasets.data_use_permission",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "data use permission unspecified",
+      "not specified",
+      "data use permission not specified",
+      "not reported",
+      "data use permission not reported",
+      "unknown",
+      "data use permission unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "data_modality-d2f9689b57b2",
+    "facet_name": "activities.data_modality",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "data modality unspecified",
+      "not specified",
+      "data modality not specified",
+      "not reported",
+      "data modality not reported",
+      "unknown",
+      "data modality unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "activity_type-718c9ff30e75",
+    "facet_name": "activities.activity_type",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "activity type unspecified",
+      "not specified",
+      "activity type not specified",
+      "not reported",
+      "activity type not reported",
+      "unknown",
+      "activity type unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "biosample_type-9f28d5498514",
+    "facet_name": "biosamples.biosample_type",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "biosample type unspecified",
+      "not specified",
+      "biosample type not specified",
+      "not reported",
+      "biosample type not reported",
+      "unknown",
+      "biosample type unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "file_format-b27a3f47a440",
+    "facet_name": "files.file_format",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "file format unspecified",
+      "not specified",
+      "file format not specified",
+      "not reported",
+      "file format not reported",
+      "unknown",
+      "file format unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "registered_identifier-d1c5b1fac5af",
+    "facet_name": "datasets.registered_identifier",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "registered identifier unspecified",
+      "not specified",
+      "registered identifier not specified",
+      "not reported",
+      "registered identifier not reported",
+      "unknown",
+      "registered identifier unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
+    }
+  },
+  {
+    "id": "reference_assembly-888da86d2b8d",
+    "facet_name": "files.reference_assembly",
+    "term": "unspecified",
+    "name": "unspecified",
+    "display_name": "Unspecified",
+    "synonyms": [
+      "unspecified",
+      "reference assembly unspecified",
+      "not specified",
+      "reference assembly not specified",
+      "not reported",
+      "reference assembly not reported",
+      "unknown",
+      "reference assembly unknown",
+      "missing",
+      "no data",
+      "n/a",
+      "na"
+    ],
+    "metadata": {
+      "count": 0,
+      "auto_generated": true
     }
   }
 ]

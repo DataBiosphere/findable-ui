@@ -12,3 +12,5 @@ dis_011,epilepsy,diagnoses.disease,Epilepsy;;;HP:0001250,Seizure disorder - incl
 dis_012,brain tumor,diagnoses.disease,CNS or brain cancer,Brain growth,brain
 dis_014,asthma,diagnoses.disease,HP:0002099,Respiratory disease - phenotype code in data,basic
 dis_015,patients,,,Should not extract disease,negative_test
+dis_016,disease not specified,diagnoses.disease,Unspecified,Not specified variant,edge_case
+dis_017,disease unspecified,diagnoses.disease,Unspecified,Unspecified variant,edge_case

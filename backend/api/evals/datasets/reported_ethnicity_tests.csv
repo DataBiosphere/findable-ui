@@ -14,10 +14,12 @@ re_012,first nations participants,donors.reported_ethnicity,"American Indian or 
 re_013,chicano subjects,donors.reported_ethnicity,"Hispanic or Latino;;;Hispanic/Latino(a)",Includes variant naming,synonym
 re_014,european donors,donors.reported_ethnicity,White,Geographic synonym,synonym
 re_015,unknown ethnicity,donors.reported_ethnicity,Unknown,Unknown ethnicity,edge_case
-re_016,ethnicity not reported,donors.reported_ethnicity,Unknown,Not reported variant,edge_case
+re_016,ethnicity not reported,donors.reported_ethnicity,Unspecified,Not reported variant,edge_case
 re_017,prefer not to answer ethnicity,,,LLM extraction issue - should improve,edge_case
 re_018,patients,,,Should not extract ethnicity,negative_test
 re_019,diabetic participants,,,Should not extract ethnicity,negative_test
 re_020,middle eastern patients,donors.reported_ethnicity,Middle Eastern or North African,Full term variant,basic
 re_021,ispanic patients,donors.reported_ethnicity,"Hispanic or Latino;;;Hispanic/Latino(a)",Typo - missing h,typo
 re_022,hispanic,donors.reported_ethnicity,"Asia|Hispanic/Latino(a);;;Asia|White or European American|Hispanic/Latino(a);;;Black or African American|Hispanic/Latino(a);;;Hispanic or Latino;;;Hispanic/Latino(a);;;White or European American|Hispanic/Latino(a)",Should NOT match Not Hispanic or Latino,negative_precision
+re_023,ethnicity not specified,donors.reported_ethnicity,Unspecified,Not specified variant,edge_case
+re_024,ethnicity unspecified,donors.reported_ethnicity,Unspecified,Unspecified variant,edge_case

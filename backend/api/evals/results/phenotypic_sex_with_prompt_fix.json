@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-16T23:41:15.324460",
+    "date": "2025-12-16T22:47:17.522574",
     "dataset": "phenotypic_sex_tests",
     "total_tests": 16,
-    "passed": 16,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 14,
+    "failed": 2,
+    "pass_rate": 0.875
   },
   "results": [
     {
@@ -271,7 +271,7 @@
     {
       "test_id": "ps_014",
       "query": "sex not specified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
         "terms": [
@@ -281,20 +281,21 @@
       "actual": {
         "facet": "donors.phenotypic_sex",
         "terms": [
-          "Unspecified"
+          "Unknown"
         ]
       },
-      "error_type": null,
+      "error_type": "wrong_term",
       "notes": "Not specified variant",
       "category": "edge_case"
     },
     {
       "test_id": "ps_015",
       "query": "sex unspecified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.phenotypic_sex",
         "terms": [
+          "Unknown",
           "Unspecified"
         ]
       },
@@ -304,8 +305,8 @@
           "Unspecified"
         ]
       },
-      "error_type": null,
-      "notes": "Unspecified variant",
+      "error_type": "wrong_term",
+      "notes": "Unspecified variant (matches both)",
       "category": "edge_case"
     },
     {
@@ -342,9 +343,9 @@
       "pass_rate": 1.0
     },
     "edge_case": {
-      "passed": 3,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 1,
+      "failed": 2,
+      "pass_rate": 0.3333333333333333
     },
     "negative_test": {
       "passed": 1,

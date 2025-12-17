@@ -86,6 +86,9 @@ Facet definitions and guidance:
 Instructions:
 - Extract exact substrings from the query.
 - Assign mentions to the most appropriate facet listed above.
+- When extracting edge case phrases like "X not specified", "X unknown", "X not reported",
+  "X unspecified", extract the COMPLETE PHRASE (e.g., "sex not specified" not just "sex").
+  These phrases indicate missing/unknown data and should be treated as distinct mentions.
 - When choosing between Diagnosis and Phenotype: use Diagnosis for diseases AND individual
   phenotypic features (like "cleft palate", "seizure"). Use Phenotype only for complex
   syndrome names (like "Coffin-Siris syndrome", "Epileptic Encephalopathy").
