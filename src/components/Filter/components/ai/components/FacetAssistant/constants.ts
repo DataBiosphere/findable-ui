@@ -7,6 +7,6 @@ export const OUTLINED_INPUT_PROPS: OutlinedInputProps = {
   fullWidth: true,
   id: "query-to-facets",
   name: "query-to-facets",
-  placeholder: "Search all filters...",
+  placeholder: "Type what you want to find...",
   size: MUI_TEXT_FIELD_PROPS.SIZE.SMALL,
 };

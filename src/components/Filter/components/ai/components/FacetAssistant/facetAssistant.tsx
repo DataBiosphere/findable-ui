@@ -91,7 +91,7 @@ export const FacetAssistant = (): JSX.Element => {
             />
           }
           error={isError}
-          onChange={(): void => setIsDirty(true)}
+          onChange={(e): void => setIsDirty(Boolean(e.target.value))}
         />
       </form>
       <ResultSummary summary={buildSummary(response)} />

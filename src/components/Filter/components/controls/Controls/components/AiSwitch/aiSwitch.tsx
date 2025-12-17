@@ -6,11 +6,12 @@ import { AiSwitchProps } from "./types";
 
 export const AiSwitch = ({
   enabled = false,
+  ...props /* MuiSwitchProps */
 }: AiSwitchProps): JSX.Element | null => {
   if (!enabled) return null;
   return (
     <StyledFormControlLabel
-      control={<Switch color={SWITCH_PROPS.COLOR.PURPLE} />}
+      control={<Switch color={SWITCH_PROPS.COLOR.PURPLE} {...props} />}
       label="AI Search Assist"
     />
   );

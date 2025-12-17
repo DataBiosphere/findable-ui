@@ -1,25 +1,6 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import {
-  IconButton,
-  Menu,
-  MenuProps,
-  menuClasses,
-  paperClasses,
-} from "@mui/material";
-import { PALETTE } from "../../../../../../../styles/common/constants/palette";
+import { Menu, menuClasses, paperClasses } from "@mui/material";
 import { MuiListItemButtonRoot } from "../../../../FilterList/filterList.styles";
-
-export const StyledIconButton = styled(IconButton)<Pick<MenuProps, "open">>`
-  align-self: center;
-  padding: 0;
-
-  ${({ open }) =>
-    open &&
-    css`
-      color: ${PALETTE.INK_MAIN};
-    `}
-`;
 
 export const StyledMenu = styled(Menu)`
   .${paperClasses.root} {

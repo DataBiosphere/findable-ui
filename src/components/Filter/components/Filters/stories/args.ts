@@ -1,5 +1,6 @@
 import { ComponentProps } from "react";
 import { fn } from "storybook/test";
+import { FILTER_SORT } from "../../../../../common/filters/sort/config/types";
 import { Filters } from "../filters";
 import {
   BIOLOGICAL_SEX,
@@ -20,5 +21,8 @@ export const DEFAULT_ARGS: ComponentProps<typeof Filters> = {
       label: "File",
     },
   ],
+  filterSort: FILTER_SORT.ALPHA,
+  filterSortEnabled: false,
   onFilter: fn(),
+  onFilterSortChange: fn(),
 };

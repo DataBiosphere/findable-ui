@@ -237,6 +237,26 @@ const MuiButton: Components<Theme>["MuiButton"] = {
     },
     {
       props: {
+        color: BUTTON_PROPS.COLOR.SECONDARY,
+        variant: BUTTON_PROPS.VARIANT.TEXT,
+      },
+      style: {
+        alignSelf: "center",
+        color: PALETTE.INK_LIGHT,
+        minWidth: 0,
+        padding: 0,
+        // eslint-disable-next-line sort-keys -- disabling key order for readability
+        "&:hover": {
+          backgroundColor: "transparent",
+          textDecoration: "underline",
+          textDecorationColor: "currentColor",
+          textDecorationSkipInk: "none",
+          textUnderlinePosition: "from-font",
+        },
+      },
+    },
+    {
+      props: {
         color: BUTTON_PROPS.COLOR.PRIMARY,
         variant: BUTTON_PROPS.VARIANT.TEXT,
       },
