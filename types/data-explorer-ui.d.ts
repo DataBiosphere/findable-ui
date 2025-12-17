@@ -19,6 +19,7 @@ import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import type {} from "@tanstack/react-table";
 import { RowData } from "@tanstack/react-table";
+import type {} from "mui/material/Switch";
 import { Components } from "rehype-react";
 import { DataLayer } from "../src/common/analytics/entities";
 import { DataDictionaryAnnotation } from "../src/common/entities";
@@ -115,6 +116,12 @@ declare module "@mui/material/SvgIcon" {
   }
 }
 
+declare module "@mui/material/Switch" {
+  interface SwitchPropsColorOverrides {
+    purple: true;
+  }
+}
+
 declare module "@mui/material/Tabs" {
   interface TabsPropsIndicatorColorOverrides {
     transparent: true;
@@ -149,6 +156,7 @@ declare module "@mui/material/styles" {
   interface Palette {
     alert: PaletteColor;
     ink: PaletteColor;
+    purple: PaletteColor;
     smoke: PaletteColor;
   }
 
@@ -159,6 +167,7 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     alert?: PaletteColorOptions;
     ink?: PaletteColorOptions;
+    purple?: PaletteColorOptions;
     smoke?: PaletteColorOptions;
   }
 

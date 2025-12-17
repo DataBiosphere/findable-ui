@@ -23,6 +23,7 @@ export const PALETTE = {
   PRIMARY_LIGHT: `var(--palette-primary-light)`,
   PRIMARY_LIGHTEST: `var(--palette-primary-lightest)`,
   PRIMARY_MAIN: `var(--palette-primary-main)`,
+  PURPLE_MAIN: `var(--palette-purple-main)`,
   SECONDARY_CONTRAST_TEXT: `var(--palette-secondary-contrastText)`,
   SECONDARY_DARK: `var(--palette-secondary-dark)`,
   SECONDARY_LIGHT: `var(--palette-secondary-light)`,

@@ -1435,6 +1435,7 @@ export const components: ThemeOptions["components"] = {
   MuiRadio,
   MuiSelect,
   MuiSvgIcon,
+  MuiSwitch: C.MuiSwitch,
   MuiTab,
   MuiTableCell: C.MuiTableCell,
   MuiTableSortLabel,

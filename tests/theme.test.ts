@@ -77,6 +77,10 @@ const DEFAULT_PALETTE_PRIMARY = {
   main: "#1C7CC7",
 };
 
+const DEFAULT_PALETTE_PURPLE = {
+  main: "#622395",
+};
+
 const DEFAULT_PALETTE_SMOKE = {
   dark: "#C4CDD5",
   light: "#F6F6F7",
@@ -307,6 +311,11 @@ describe("Theme Configuration", () => {
 
     it("should apply default primary color", () => {
       validatePaletteColor(theme.palette.primary, DEFAULT_PALETTE_PRIMARY);
+    });
+
+    it("should apply default purple.main color", () => {
+      expect("purple" in theme.palette).toBe(true);
+      expect(theme.palette.purple.main).toEqual(DEFAULT_PALETTE_PURPLE.main);
     });
 
     it("should apply default smoke colors", () => {
