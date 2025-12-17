@@ -20,3 +20,4 @@ re_018,patients,,,Should not extract ethnicity,negative_test
 re_019,diabetic participants,,,Should not extract ethnicity,negative_test
 re_020,middle eastern patients,donors.reported_ethnicity,Middle Eastern or North African,Full term variant,basic
 re_021,ispanic patients,donors.reported_ethnicity,"Hispanic or Latino;;;Hispanic/Latino(a)",Typo - missing h,typo
+re_022,hispanic,donors.reported_ethnicity,"Asia|Hispanic/Latino(a);;;Asia|White or European American|Hispanic/Latino(a);;;Black or African American|Hispanic/Latino(a);;;Hispanic or Latino;;;Hispanic/Latino(a);;;White or European American|Hispanic/Latino(a)",Should NOT match Not Hispanic or Latino,negative_precision

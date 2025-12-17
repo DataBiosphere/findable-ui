@@ -213,3 +213,179 @@ def test_metadata_included_in_results(resolver: OpenSearchConceptResolver) -> No
     assert "metadata" in results[0]
     # Metadata should be a dict (may be empty)
     assert isinstance(results[0]["metadata"], dict)
+
+
+# ============================================================================
+# Negation Filtering Tests
+# ============================================================================
+
+
+def test_has_negation_prefix(resolver: OpenSearchConceptResolver) -> None:
+    """Test detection of negation prefixes in queries."""
+    # Should detect negation prefixes
+    assert resolver._has_negation_prefix("non-alcoholic") is True
+    assert resolver._has_negation_prefix("not hispanic") is True
+    assert resolver._has_negation_prefix("anti-inflammatory") is True
+    assert resolver._has_negation_prefix("no cancer") is True
+
+    # Should not detect (no negation prefix)
+    assert resolver._has_negation_prefix("hispanic") is False
+    assert resolver._has_negation_prefix("alcoholic") is False
+    assert resolver._has_negation_prefix("diabetes") is False
+    assert resolver._has_negation_prefix("fatty liver") is False
+
+    # Case insensitive
+    assert resolver._has_negation_prefix("Non-Alcoholic") is True
+    assert resolver._has_negation_prefix("NOT HISPANIC") is True
+
+
+def test_filter_negation_values_with_negation_value_type(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Test filtering of NEGATION_VALUE results based on query."""
+    # Mock results with NEGATION_VALUE
+    results = [
+        {
+            "term": "Hispanic or Latino",
+            "modifier_role": None,
+            "score": 100,
+        },
+        {
+            "term": "Not Hispanic or Latino",
+            "modifier_role": "NEGATION_VALUE",
+            "score": 90,
+        },
+    ]
+
+    # Query without negation prefix - should filter NEGATION_VALUE
+    filtered = resolver._filter_negation_values(results, "hispanic")
+    assert len(filtered) == 1
+    assert filtered[0]["term"] == "Hispanic or Latino"
+
+    # Query WITH negation prefix - should keep NEGATION_VALUE
+    filtered = resolver._filter_negation_values(results, "not hispanic")
+    assert len(filtered) == 2
+    assert any(r["term"] == "Not Hispanic or Latino" for r in filtered)
+
+
+def test_filter_negation_values_with_canonical_name_type(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Test filtering of CANONICAL_NAME results based on query."""
+    # Mock results with CANONICAL_NAME
+    results = [
+        {
+            "term": "Non-alcoholic fatty liver disease",
+            "modifier_role": "CANONICAL_NAME",
+            "score": 100,
+        },
+        {
+            "term": "Steatosis of liver",
+            "modifier_role": None,
+            "score": 80,
+        },
+    ]
+
+    # Query matching negated component - should filter
+    filtered = resolver._filter_negation_values(results, "alcoholic")
+    assert len(filtered) == 1
+    assert filtered[0]["term"] == "Steatosis of liver"
+
+    # Query NOT matching negated component - should keep
+    filtered = resolver._filter_negation_values(results, "fatty liver")
+    assert len(filtered) == 2
+    assert any(
+        r["term"] == "Non-alcoholic fatty liver disease" for r in filtered
+    )
+
+    # Query WITH negation prefix - should keep
+    filtered = resolver._filter_negation_values(results, "non-alcoholic")
+    assert len(filtered) == 2
+
+
+def test_filter_negation_values_no_modifier_role(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Test that results without modifier_role are never filtered."""
+    results = [
+        {
+            "term": "Diabetes mellitus",
+            "modifier_role": None,
+            "score": 100,
+        },
+        {
+            "term": "Type 1 diabetes",
+            "modifier_role": None,
+            "score": 90,
+        },
+    ]
+
+    # Should keep all results regardless of query
+    filtered = resolver._filter_negation_values(results, "diabetes")
+    assert len(filtered) == 2
+
+    filtered = resolver._filter_negation_values(results, "not diabetes")
+    assert len(filtered) == 2
+
+
+def test_negation_filter_integration_ispanic(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Integration test: 'ispanic' should NOT match 'Not Hispanic or Latino'."""
+    results = resolver.resolve_mention(
+        facet_name="donors.reported_ethnicity", mention="ispanic", top_k=10
+    )
+
+    # Should not contain "Not Hispanic or Latino"
+    assert not any("not hispanic" in r["term"].lower() for r in results)
+
+    # Should contain positive hispanic terms
+    assert any("hispanic" in r["term"].lower() for r in results)
+
+
+def test_negation_filter_integration_not_hispanic(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Integration test: 'not hispanic' SHOULD match 'Not Hispanic or Latino'."""
+    results = resolver.resolve_mention(
+        facet_name="donors.reported_ethnicity", mention="not hispanic", top_k=10
+    )
+
+    # Should contain "Not Hispanic or Latino"
+    assert any("not hispanic" in r["term"].lower() for r in results)
+
+
+def test_negation_filter_integration_alcoholic(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Integration test: 'alcoholic' should NOT match 'Non-alcoholic...'."""
+    results = resolver.resolve_mention(
+        facet_name="diagnoses.disease", mention="alcoholic", top_k=10
+    )
+
+    # Should not contain "Non-alcoholic fatty liver disease"
+    assert not any("non-alcoholic" in r["term"].lower() for r in results)
+
+
+def test_negation_filter_integration_fatty_liver(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Integration test: 'fatty liver' SHOULD match 'Non-alcoholic...'."""
+    results = resolver.resolve_mention(
+        facet_name="diagnoses.disease", mention="fatty liver", top_k=10
+    )
+
+    # Should contain "Non-alcoholic fatty liver disease"
+    assert any("non-alcoholic" in r["term"].lower() for r in results)
+
+
+def test_negation_filter_integration_non_alcoholic(
+    resolver: OpenSearchConceptResolver,
+) -> None:
+    """Integration test: 'non-alcoholic' SHOULD match 'Non-alcoholic...'."""
+    results = resolver.resolve_mention(
+        facet_name="diagnoses.disease", mention="non-alcoholic", top_k=10
+    )
+
+    # Should contain "Non-alcoholic fatty liver disease"
+    assert any("non-alcoholic fatty liver" in r["term"].lower() for r in results)

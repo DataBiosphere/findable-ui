@@ -6752,7 +6752,8 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Post-traumatic non-communicating hydrocephalus"
+    "display_name": "Post-traumatic non-communicating hydrocephalus",
+    "modifier_role": "CANONICAL_NAME"
   },
   {
     "id": "disease-42d81b6d0a2f",
@@ -12707,7 +12708,8 @@
     "metadata": {
       "count": 1
     },
-    "display_name": "Non-alcoholic fatty liver disease"
+    "display_name": "Non-alcoholic fatty liver disease",
+    "modifier_role": "CANONICAL_NAME"
   },
   {
     "id": "disease-30b4a6f4c026",
@@ -16616,7 +16618,8 @@
     "metadata": {
       "count": 11
     },
-    "display_name": "Not Hispanic or Latino"
+    "display_name": "Not Hispanic or Latino",
+    "modifier_role": "NEGATION_VALUE"
   },
   {
     "id": "reported_ethnicity-f3a7a2af012d",

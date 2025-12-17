@@ -89,9 +89,9 @@ class OpenSearchConceptResolver:
                 exact_response, min_score=self.exact_min_score
             )
 
-            # If we found exact matches, return them
+            # If we found exact matches, filter and return them
             if exact_results:
-                return exact_results
+                return self._filter_negation_values(exact_results, mention)
 
             # Pass 2: Fall back to fuzzy matching if no exact matches
             fuzzy_query = self._build_search_query(
@@ -102,7 +102,8 @@ class OpenSearchConceptResolver:
                 fuzzy_response, min_score=self.fuzzy_min_score
             )
 
-            return fuzzy_results
+            # Filter negation values from fuzzy results
+            return self._filter_negation_values(fuzzy_results, mention)
 
         except Exception as e:
             # Log error and return empty results
@@ -190,10 +191,77 @@ class OpenSearchConceptResolver:
                 "name": hit["_source"]["name"],
                 "facet_name": hit["_source"]["facet_name"],
                 "metadata": hit["_source"].get("metadata", {}),
+                "modifier_role": hit["_source"].get("modifier_role"),
             }
             for hit in hits
             if hit["_score"] >= min_score
         ]
+
+    def _has_negation_prefix(self, query: str) -> bool:
+        """Check if query starts with a negation prefix.
+
+        Args:
+            query: The query string to check.
+
+        Returns:
+            True if query starts with negation prefix, False otherwise.
+        """
+        query_lower = query.lower().strip()
+        negation_prefixes = ["non-", "not ", "anti-", "no "]
+        return any(query_lower.startswith(prefix) for prefix in negation_prefixes)
+
+    def _filter_negation_values(self, results: List[Dict], query: str) -> List[Dict]:
+        """Filter out negated results based on query and modifier_role.
+
+        Args:
+            results: List of concept matches.
+            query: The original query string.
+
+        Returns:
+            Filtered list of concept matches.
+        """
+        query_lower = query.lower().strip()
+        query_has_negation = self._has_negation_prefix(query_lower)
+
+        filtered_results = []
+        for r in results:
+            modifier_role = r.get("modifier_role")
+            term_lower = r.get("term", "").lower()
+
+            # NEGATION_VALUE: Filter if query lacks negation prefix
+            if modifier_role == "NEGATION_VALUE" and not query_has_negation:
+                continue  # Skip this result
+
+            # CANONICAL_NAME: Filter if query matches negated component
+            # Example: "alcoholic" should not match "non-alcoholic fatty liver"
+            # But "fatty liver" SHOULD match "non-alcoholic fatty liver"
+            if modifier_role == "CANONICAL_NAME":
+                # Check if term has negation prefix
+                negation_prefix_found = None
+                for prefix in ["non-", "not ", "anti-"]:
+                    if term_lower.startswith(prefix):
+                        negation_prefix_found = prefix
+                        break
+
+                if negation_prefix_found and not query_has_negation:
+                    # Extract the negated component (first word/token after prefix)
+                    # "non-alcoholic fatty liver" → negated component is "alcoholic"
+                    after_prefix = term_lower[len(negation_prefix_found) :].strip()
+                    # Get first word (up to space or hyphen)
+                    negated_component = after_prefix.split()[0] if after_prefix else ""
+                    negated_component = negated_component.split("-")[0]
+
+                    # Only filter if query specifically matches the negated component
+                    # "alcoholic" matches "alcoholic" → FILTER
+                    # "fatty liver" does not match "alcoholic" → KEEP
+                    if query_lower == negated_component or query_lower.startswith(
+                        negated_component
+                    ):
+                        continue  # Skip this result
+
+            filtered_results.append(r)
+
+        return filtered_results
 
     def health_check(self) -> bool:
         """Check if OpenSearch is accessible and the concepts index exists.
