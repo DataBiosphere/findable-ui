@@ -7,13 +7,11 @@ import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
 import { SwitchProvider } from "../../components/common/Switch/provider/provider";
-import { FacetAssistant } from "../../components/Filter/components/ai/components/FacetAssistant/facetAssistant";
 import { AiSwitch } from "../../components/Filter/components/controls/Controls/components/AiSwitch/aiSwitch";
 import {
   CategoryFilter,
   Filters,
 } from "../../components/Filter/components/Filters/filters";
-import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
 import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
@@ -31,6 +29,7 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { Search } from "./components/filters/Search/search";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
@@ -149,19 +148,15 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
                     onChange={onChange}
                   />
                 </Stack>
-                {checked ? (
-                  <FacetAssistant />
-                ) : (
-                  <SearchAllFilters
-                    categoryViews={categoryViews}
-                    onFilter={onFilterChange.bind(null, true)}
-                    surfaceType={
-                      mdDown
-                        ? SURFACE_TYPE.POPPER_DRAWER
-                        : SURFACE_TYPE.POPPER_MENU
-                    }
-                  />
-                )}
+                <Search
+                  categoryViews={categoryViews}
+                  onFilter={onFilterChange.bind(null, true)}
+                  surfaceType={
+                    mdDown
+                      ? SURFACE_TYPE.POPPER_DRAWER
+                      : SURFACE_TYPE.POPPER_MENU
+                  }
+                />
               </SidebarTools>
               <Filters
                 categoryFilters={categoryFilters}
