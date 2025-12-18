@@ -23,11 +23,13 @@ Initial implementation used a single fuzzy query that produced too many false po
 Implemented a two-pass query approach with different scoring thresholds:
 
 **Pass 1: Exact Matches (High Confidence)**
+
 - Uses `term.keyword` matching with `boost=10.0`
 - Minimum score threshold: `50.0`
 - Returns only high-confidence exact/keyword matches
 
 **Pass 2: Fuzzy Matches (Fallback)**
+
 - Only executes if Pass 1 returns no results
 - Uses fuzzy matching with `fuzziness=AUTO`
 - Minimum score threshold: `15.0`
@@ -99,6 +101,7 @@ For official medical/scientific terms with negation prefixes that are NOT opposi
 **Behavior**: Only filtered if the query specifically matches the negated component (the word after the prefix)
 
 **Use case**:
+
 - ✅ "fatty liver" → matches "Non-alcoholic fatty liver disease" (OK, different part of term)
 - ❌ "alcoholic" → does NOT match "Non-alcoholic fatty liver disease" (filtered, matches negated component)
 - ✅ "non-alcoholic" → matches "Non-alcoholic fatty liver disease" (OK, query has negation)
@@ -220,6 +223,7 @@ Added "Unspecified" concepts to all facets with null values, with facet-specific
 Each "Unspecified" concept includes facet-specific synonyms:
 
 **Example: Phenotypic Sex**
+
 ```json
 {
   "id": "phenotypic_sex-6fcdc090caea",
@@ -243,6 +247,7 @@ Each "Unspecified" concept includes facet-specific synonyms:
 ```
 
 **Example: Disease**
+
 ```json
 {
   "id": "disease-abc123",
@@ -328,11 +333,13 @@ Instructions:
 ### Examples
 
 **Before:**
+
 - Query: "disease not specified"
 - LLM extracted: "disease"
 - Result: Matched many disease terms (Alzheimer's, diabetes, etc.)
 
 **After:**
+
 - Query: "disease not specified"
 - LLM extracted: "disease not specified"
 - Result: Matched "Unspecified" concept only ✅
@@ -391,12 +398,12 @@ python evals/run_eval.py --dataset disease_tests.csv --mode mock
 
 As of 2025-12-16:
 
-| Test Suite | Passed | Failed | Pass Rate |
-|------------|--------|--------|-----------|
-| Disease | 15 | 0 | **100.0%** ✅ |
-| Phenotypic Sex | 15 | 1 | 93.8% |
-| Reported Ethnicity | 21 | 3 | 87.5% |
-| **Overall** | **51** | **4** | **92.7%** |
+| Test Suite         | Passed | Failed | Pass Rate     |
+| ------------------ | ------ | ------ | ------------- |
+| Disease            | 15     | 0      | **100.0%** ✅ |
+| Phenotypic Sex     | 15     | 1      | 93.8%         |
+| Reported Ethnicity | 21     | 3      | 87.5%         |
+| **Overall**        | **51** | **4**  | **92.7%**     |
 
 ### Example Test Case
 
@@ -440,8 +447,8 @@ dis_016,disease not specified,diagnoses.disease,Unspecified,Not specified varian
     }
   ],
   "by_category": {
-    "basic": {"passed": 2, "failed": 0, "pass_rate": 1.0},
-    "typo": {"passed": 1, "failed": 0, "pass_rate": 1.0}
+    "basic": { "passed": 2, "failed": 0, "pass_rate": 1.0 },
+    "typo": { "passed": 1, "failed": 0, "pass_rate": 1.0 }
   }
 }
 ```
@@ -480,12 +487,14 @@ dis_016,disease not specified,diagnoses.disease,Unspecified,Not specified varian
 ### Component-Based Expansion
 
 For compound ethnicity values like "Black or African American|Hispanic/Latino(a)", implement component-based matching so:
+
 - "african american" matches both "Black or African American" AND "Black or African American|Hispanic/Latino(a)"
 - "native american" matches both individual and combined ethnicity terms
 
 ### Single-Letter Abbreviation Handling
 
 Improve LLM extraction or concept resolution for single-letter queries in context:
+
 - "F patients" should match "Female"
 - "M patients" should match "Male"
 
