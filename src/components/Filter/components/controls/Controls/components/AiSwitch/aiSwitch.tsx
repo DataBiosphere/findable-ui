@@ -4,6 +4,13 @@ import { SWITCH_PROPS } from "../../../../../../../styles/common/mui/switch";
 import { StyledFormControlLabel } from "./aiSwitch.styles";
 import { AiSwitchProps } from "./types";
 
+/**
+ * AiSwitch component.
+ * Renders a switch for AI search assist to toggle between search all filters and facet assistant.
+ * @param props - Component props.
+ * @param props.enabled - Whether the switch is enabled.
+ * @returns AiSwitch component.
+ */
 export const AiSwitch = ({
   enabled = false,
   ...props /* MuiSwitchProps */

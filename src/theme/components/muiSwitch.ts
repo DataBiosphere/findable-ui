@@ -1,5 +1,4 @@
 import { Components } from "@mui/material";
-// import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 
 export const MuiSwitch: Components["MuiSwitch"] = {

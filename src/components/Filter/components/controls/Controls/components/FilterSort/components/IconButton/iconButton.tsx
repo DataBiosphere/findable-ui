@@ -6,6 +6,14 @@ import { SVG_ICON_PROPS } from "./constants";
 import { StyledIconButton } from "./iconButton.styles";
 import { IconButtonProps } from "./types";
 
+/**
+ * IconButton component.
+ * Renders an icon button with a settings icon for filter sorting.
+ * @param props - Component props.
+ * @param props.onClick - Click handler.
+ * @param props.open - Whether the icon button is open.
+ * @returns IconButton component.
+ */
 export const IconButton = ({
   onClick,
   open = false,
