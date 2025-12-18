@@ -294,9 +294,7 @@ def test_filter_negation_values_with_canonical_name_type(
     # Query NOT matching negated component - should keep
     filtered = resolver._filter_negation_values(results, "fatty liver")
     assert len(filtered) == 2
-    assert any(
-        r["term"] == "Non-alcoholic fatty liver disease" for r in filtered
-    )
+    assert any(r["term"] == "Non-alcoholic fatty liver disease" for r in filtered)
 
     # Query WITH negation prefix - should keep
     filtered = resolver._filter_negation_values(results, "non-alcoholic")
