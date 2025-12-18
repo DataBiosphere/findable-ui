@@ -16,10 +16,9 @@ import { StyledMenu } from "./filterSort.styles";
 import { FilterSortProps } from "./types";
 
 export const FilterSort = ({
-  button,
+  Button = IconButton,
   enabled = false,
   filterSort = FILTER_SORT.ALPHA,
-  iconButton = IconButton,
   onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {
   const { anchorEl, onClose, onOpen, open } = useMenu();
@@ -28,9 +27,7 @@ export const FilterSort = ({
 
   return (
     <Fragment>
-      {button
-        ? button({ onClick: onOpen, open })
-        : iconButton({ onClick: onOpen, open })}
+      <Button onClick={onOpen} open={open} />
       <StyledMenu
         {...MENU_PROPS}
         anchorEl={anchorEl}

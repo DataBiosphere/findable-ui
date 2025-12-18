@@ -25,7 +25,7 @@ export const Controls = ({
     <StyledStack direction={STACK_PROPS.DIRECTION.ROW} useFlexGap>
       {children}
       <FilterSort
-        button={Button}
+        Button={Button}
         enabled={filterSortEnabled}
         filterSort={filterSort}
         onFilterSortChange={onFilterSortChange}
