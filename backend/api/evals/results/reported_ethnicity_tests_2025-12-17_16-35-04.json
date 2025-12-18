@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-17T16:38:37.753993",
+    "date": "2025-12-17T16:35:04.490933",
     "dataset": "reported_ethnicity_tests",
     "total_tests": 26,
-    "passed": 22,
-    "failed": 4,
-    "pass_rate": 0.8461538461538461
+    "passed": 23,
+    "failed": 3,
+    "pass_rate": 0.8846153846153846
   },
   "results": [
     {
@@ -59,7 +59,7 @@
     {
       "test_id": "re_003",
       "query": "black participants",
-      "passed": false,
+      "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -74,15 +74,13 @@
         "facet": "donors.reported_ethnicity",
         "terms": [
           "American Indian, Native American, Alaska Native|Asia|Black or African American",
-          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
           "Asia|Black or African American|White or European American",
           "Black or African American",
           "Black or African American|Hispanic/Latino(a)",
-          "Black or African American|White or European American",
-          "Black or African American|White or European American|Hispanic/Latino(a)"
+          "Black or African American|White or European American"
         ]
       },
-      "error_type": "extra_terms",
+      "error_type": null,
       "notes": "Includes combined ethnicities",
       "category": "basic"
     },
@@ -637,9 +635,9 @@
   ],
   "by_category": {
     "basic": {
-      "passed": 4,
-      "failed": 1,
-      "pass_rate": 0.8
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
     },
     "synonym": {
       "passed": 6,

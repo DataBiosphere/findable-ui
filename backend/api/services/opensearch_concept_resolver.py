@@ -207,7 +207,7 @@ class OpenSearchConceptResolver:
             True if query starts with negation prefix, False otherwise.
         """
         query_lower = query.lower().strip()
-        negation_prefixes = ["non-", "not ", "anti-", "no "]
+        negation_prefixes = ["non-", "non ", "not ", "anti-", "no "]
         return any(query_lower.startswith(prefix) for prefix in negation_prefixes)
 
     def _filter_negation_values(self, results: List[Dict], query: str) -> List[Dict]:
@@ -228,6 +228,12 @@ class OpenSearchConceptResolver:
             modifier_role = r.get("modifier_role")
             term_lower = r.get("term", "").lower()
 
+            # If query has negation prefix, ONLY keep NEGATION_VALUE concepts
+            # This prevents "non hispanic" from matching regular "Hispanic" concepts
+            if query_has_negation:
+                if modifier_role != "NEGATION_VALUE":
+                    continue  # Skip non-negated concepts when query is negated
+
             # NEGATION_VALUE: Filter if query lacks negation prefix
             if modifier_role == "NEGATION_VALUE" and not query_has_negation:
                 continue  # Skip this result
@@ -238,7 +244,7 @@ class OpenSearchConceptResolver:
             if modifier_role == "CANONICAL_NAME":
                 # Check if term has negation prefix
                 negation_prefix_found = None
-                for prefix in ["non-", "not ", "anti-"]:
+                for prefix in ["non-", "non ", "not ", "anti-"]:
                     if term_lower.startswith(prefix):
                         negation_prefix_found = prefix
                         break

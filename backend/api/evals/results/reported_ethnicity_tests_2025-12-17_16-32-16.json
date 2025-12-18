@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "date": "2025-12-17T16:38:37.753993",
+    "date": "2025-12-17T16:32:16.607790",
     "dataset": "reported_ethnicity_tests",
     "total_tests": 26,
     "passed": 22,
@@ -59,7 +59,7 @@
     {
       "test_id": "re_003",
       "query": "black participants",
-      "passed": false,
+      "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -74,15 +74,13 @@
         "facet": "donors.reported_ethnicity",
         "terms": [
           "American Indian, Native American, Alaska Native|Asia|Black or African American",
-          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
           "Asia|Black or African American|White or European American",
           "Black or African American",
           "Black or African American|Hispanic/Latino(a)",
-          "Black or African American|White or European American",
-          "Black or African American|White or European American|Hispanic/Latino(a)"
+          "Black or African American|White or European American"
         ]
       },
-      "error_type": "extra_terms",
+      "error_type": null,
       "notes": "Includes combined ethnicities",
       "category": "basic"
     },
@@ -577,7 +575,7 @@
     {
       "test_id": "re_022b",
       "query": "non ispanic",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -587,10 +585,21 @@
       "actual": {
         "facet": "donors.reported_ethnicity",
         "terms": [
-          "Not Hispanic or Latino"
+          "Asia|Hispanic/Latino(a)",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Black or African American|Hispanic/Latino(a)",
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)",
+          "Hispanic/Latino(a)|Prefer not to answer",
+          "Hispanic/Latino(a)|Prefer not to answer|Unknown/none of these fully describe me",
+          "None",
+          "Not Hispanic or Latino",
+          "Prefer not to answer",
+          "Unknown/none of these fully describe me",
+          "White or European American|Hispanic/Latino(a)"
         ]
       },
-      "error_type": null,
+      "error_type": "extra_terms",
       "notes": "Typo with negation prefix - should still match",
       "category": "negative_precision"
     },
@@ -637,9 +646,9 @@
   ],
   "by_category": {
     "basic": {
-      "passed": 4,
-      "failed": 1,
-      "pass_rate": 0.8
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
     },
     "synonym": {
       "passed": 6,
@@ -667,9 +676,9 @@
       "pass_rate": 0.0
     },
     "negative_precision": {
-      "passed": 3,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 2,
+      "failed": 1,
+      "pass_rate": 0.6666666666666666
     }
   }
 }
