@@ -13,6 +13,7 @@ import { buildSummary, mapResponse } from "./utils";
 /**
  * AI-powered facet assistant component.
  * Converts a user query into facet filters (PoC implementation).
+ * TODO - clear search.
  */
 
 export const FacetAssistant = (): JSX.Element => {
@@ -90,7 +91,7 @@ export const FacetAssistant = (): JSX.Element => {
             />
           }
           error={isError}
-          onChange={(): void => setIsDirty(true)}
+          onChange={(e): void => setIsDirty(Boolean(e.target.value))}
         />
       </form>
       <ResultSummary summary={buildSummary(response)} />

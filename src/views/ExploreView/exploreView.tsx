@@ -6,9 +6,8 @@ import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
 import { CategoryKey, CategoryValueKey } from "../../common/entities";
 import { DrawerProvider } from "../../components/common/Drawer/provider/provider";
-import { FacetAssistant } from "../../components/Filter/components/ai/components/FacetAssistant/facetAssistant";
-import { ClearAllFilters } from "../../components/Filter/components/ClearAllFilters/clearAllFilters";
-import { FilterSort } from "../../components/Filter/components/controls/Controls/components/FilterSort/filterSort";
+import { SwitchProvider } from "../../components/common/Switch/provider/provider";
+import { AiSwitch } from "../../components/Filter/components/controls/Controls/components/AiSwitch/aiSwitch";
 import {
   CategoryFilter,
   Filters,
@@ -30,6 +29,7 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { Search } from "./components/filters/Search/search";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
@@ -135,28 +135,42 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 
   return (
     <DrawerProvider>
-      {categoryViews && !!categoryViews.length && (
-        <Sidebar>
-          <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
-            <SidebarLabel label={"Filters"} />
-            <Stack direction="row" gap={4}>
-              <ClearAllFilters />
-              <FilterSort
-                enabled={filterSortEnabled}
+      <SwitchProvider>
+        {({ checked, onChange }) =>
+          categoryViews.length > 0 && (
+            <Sidebar>
+              <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
+                <SidebarLabel label={"Filters"} />
+                <Stack direction="row" gap={4}>
+                  <AiSwitch
+                    checked={checked}
+                    enabled={true}
+                    onChange={onChange}
+                  />
+                </Stack>
+                <Search
+                  categoryViews={categoryViews}
+                  onFilter={onFilterChange.bind(null, true)}
+                  surfaceType={
+                    mdDown
+                      ? SURFACE_TYPE.POPPER_DRAWER
+                      : SURFACE_TYPE.POPPER_MENU
+                  }
+                />
+              </SidebarTools>
+              <Filters
+                categoryFilters={categoryFilters}
                 filterSort={filterSort}
+                filterSortEnabled={filterSortEnabled}
+                onFilter={onFilterChange.bind(null, false)}
                 onFilterSortChange={onFilterSortChange}
+                surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
+                trackFilterOpened={trackingConfig?.trackFilterOpened}
               />
-            </Stack>
-            <FacetAssistant />
-          </SidebarTools>
-          <Filters
-            categoryFilters={categoryFilters}
-            onFilter={onFilterChange.bind(null, false)}
-            surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-            trackFilterOpened={trackingConfig?.trackFilterOpened}
-          />
-        </Sidebar>
-      )}
+            </Sidebar>
+          )
+        }
+      </SwitchProvider>
       <IndexView
         className={props.className}
         categoryFilters={categoryFilters}

@@ -1,11 +1,12 @@
 import { DrawerProps as MDrawerProps } from "@mui/material";
-import { BaseComponentProps } from "../../../../../types";
-import { SurfaceProps } from "../../types";
-import { Button } from "../components/Button/button";
+import { ComponentType } from "react";
+import type { BaseComponentProps } from "../../../../../types";
+import type { SurfaceProps } from "../../types";
+import type { ButtonProps } from "../components/Button/types";
 
 export interface DrawerProps
   extends BaseComponentProps,
     Omit<MDrawerProps, "children">,
     SurfaceProps {
-  Button?: typeof Button;
+  Button?: ComponentType<ButtonProps>;
 }

@@ -34,6 +34,10 @@ const PRIMARY = {
   MAIN: "#1C7CC7",
 };
 
+const PURPLE = {
+  MAIN: "#622395",
+};
+
 const SMOKE = {
   DARK: "#C4CDD5",
   LIGHT: "#F6F6F7",
@@ -99,6 +103,10 @@ const primary: PaletteColorOptions = {
   main: PRIMARY.MAIN,
 };
 
+const purple: PaletteColorOptions = {
+  main: PURPLE.MAIN,
+};
+
 const smoke: PaletteColorOptions = {
   dark: SMOKE.DARK,
   light: SMOKE.LIGHT,
@@ -130,6 +138,7 @@ export const palette: PaletteOptions = {
   info,
   ink,
   primary,
+  purple,
   smoke,
   success,
   text,

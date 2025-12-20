@@ -1,12 +1,11 @@
 import { FilterListRounded } from "@mui/icons-material";
-import { ButtonProps, Button as MButton } from "@mui/material";
+import { Button as MButton } from "@mui/material";
 import React from "react";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
-import { BaseComponentProps } from "../../../../../../types";
 import { FilterCountChip } from "../../../../FilterCountChip/filterCountChip";
-import { FilterCountChipProps } from "../../../../FilterCountChip/types";
+import type { ButtonProps } from "./types";
 
 /**
  * Opens facet-filters drawer.
@@ -16,9 +15,7 @@ export const Button = ({
   className,
   count = 0,
   ...props
-}: BaseComponentProps &
-  ButtonProps &
-  Pick<FilterCountChipProps, "count">): JSX.Element => {
+}: ButtonProps): JSX.Element => {
   const { onOpen } = useDrawer();
   return (
     <MButton

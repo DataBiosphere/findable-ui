@@ -1,29 +1,40 @@
 import { Divider } from "@mui/material";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, {
+  ComponentProps,
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { CategoryTag } from "../../../../common/entities";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { useWindowResize } from "../../../../hooks/useWindowResize";
-import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { BaseComponentProps } from "../../../types";
+import { FilterSort } from "../controls/Controls/components/FilterSort/filterSort";
 import { Filter } from "../Filter/filter";
 import { buildRangeTag } from "../FilterTag/utils";
 import { FilterTags } from "../FilterTags/filterTags";
 import { SURFACE_TYPE } from "../surfaces/types";
-import { Filters as FilterList, StyledTypography } from "./filters.styles";
+import { CategoryLabel } from "./components/CategoryLabel/categoryLabel";
+import { Controls } from "./components/Controls/controls";
+import { Filters as FilterList } from "./filters.styles";
 
 export interface CategoryFilter {
   categoryViews: CategoryView[];
   label?: string;
 }
 
-export interface FiltersProps extends BaseComponentProps {
+export interface FiltersProps
+  extends BaseComponentProps,
+    Omit<ComponentProps<typeof FilterSort>, "enabled"> {
   categoryFilters: CategoryFilter[];
   disabled?: boolean; // Global disabling of filters.
+  filterSortEnabled?: boolean;
   onFilter: OnFilterFn;
   surfaceType?: SURFACE_TYPE;
   trackFilterOpened?: TrackFilterOpenedFunction;
@@ -75,7 +86,10 @@ export const Filters = ({
   categoryFilters,
   className,
   disabled = false,
+  filterSort,
+  filterSortEnabled,
   onFilter,
+  onFilterSortChange,
   surfaceType = SURFACE_TYPE.MENU,
   trackFilterOpened,
 }: FiltersProps): JSX.Element => {
@@ -100,15 +114,13 @@ export const Filters = ({
       {categoryFilters.map(({ categoryViews, label }, i) => (
         <Fragment key={i}>
           {i !== 0 && <Divider />}
-          {label && (
-            <StyledTypography
-              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-              component="div"
-              variant={TYPOGRAPHY_PROPS.VARIANT.UPPERCASE_500}
-            >
-              {label}
-            </StyledTypography>
-          )}
+          <Controls
+            filterSort={filterSort}
+            filterSortEnabled={filterSortEnabled && i === 0}
+            onFilterSortChange={onFilterSortChange}
+          >
+            <CategoryLabel>{label}</CategoryLabel>
+          </Controls>
           {categoryViews.map((categoryView) => (
             <Filter
               key={categoryView.key}

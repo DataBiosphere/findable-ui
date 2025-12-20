@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
 import { FONT } from "../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { SURFACE_TYPE } from "../surfaces/types";
@@ -39,7 +38,3 @@ export const Filters = styled("div")<
       padding: 0 8px;
     `}
 `;
-
-export const StyledTypography = styled(Typography)`
-  padding: 8px;
-` as typeof Typography;

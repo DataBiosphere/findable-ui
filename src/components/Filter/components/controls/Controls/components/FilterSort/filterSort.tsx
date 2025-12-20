@@ -1,22 +1,22 @@
-import { SettingsOutlined } from "@mui/icons-material";
 import { ListItem, ListItemButton, ListItemText, Radio } from "@mui/material";
 import React, { Fragment } from "react";
 import { FILTER_SORT } from "../../../../../../../common/filters/sort/config/types";
-import { ICON_BUTTON_PROPS } from "../../../../../../../styles/common/mui/iconButton";
 import { TEST_IDS } from "../../../../../../../tests/testIds";
 import { RadioCheckedIcon } from "../../../../../../common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 import { useMenu } from "../../../../../../common/Menu/hooks/useMenu";
+import { IconButton } from "./components/IconButton/iconButton";
 import {
   LIST_ITEM_BUTTON_TEXT_PROPS,
   LIST_ITEM_TEXT_PROPS,
   MENU_PROPS,
   SVG_ICON_PROPS,
 } from "./constants";
-import { StyledIconButton, StyledMenu } from "./filterSort.styles";
+import { StyledMenu } from "./filterSort.styles";
 import { FilterSortProps } from "./types";
 
 export const FilterSort = ({
+  Button = IconButton,
   enabled = false,
   filterSort = FILTER_SORT.ALPHA,
   onFilterSortChange,
@@ -27,14 +27,7 @@ export const FilterSort = ({
 
   return (
     <Fragment>
-      <StyledIconButton
-        color={ICON_BUTTON_PROPS.COLOR.INK_LIGHT}
-        data-testid={TEST_IDS.FILTER_SORT_BUTTON}
-        onClick={onOpen}
-        open={open}
-      >
-        <SettingsOutlined {...SVG_ICON_PROPS} />
-      </StyledIconButton>
+      <Button onClick={onOpen} open={open} />
       <StyledMenu
         {...MENU_PROPS}
         anchorEl={anchorEl}
