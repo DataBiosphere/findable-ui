@@ -10,7 +10,9 @@ export const Drawer = styled(DXDrawer)`
 
     .MuiDrawer-paper {
       border-left: 1px solid ${PALETTE.SMOKE_MAIN};
-      box-shadow: -8px 0 8px -4px #10182808, 0 20px 24px -4px #10182814;
+      box-shadow:
+        -8px 0 8px -4px #10182808,
+        0 20px 24px -4px #10182814;
       pointer-events: all;
       max-width: min(506px, 84vw);
       width: 100%;

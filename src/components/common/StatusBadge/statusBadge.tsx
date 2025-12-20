@@ -19,7 +19,7 @@ export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
       label,
       ...props /* Spread props to allow for Mui ChipProps specific prop overrides e.g. "onDelete". */
     }: MChipProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <MChip
@@ -31,5 +31,5 @@ export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
         {...props}
       />
     );
-  }
+  },
 );

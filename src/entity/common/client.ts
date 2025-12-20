@@ -11,7 +11,7 @@ let kyInstance: KyInstance | null = null;
  */
 export function fetchApi<T>(
   url: string,
-  options: Options = {}
+  options: Options = {},
 ): ResponsePromise<T> {
   if (!kyInstance) {
     kyInstance = ky.create({

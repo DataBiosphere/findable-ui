@@ -26,7 +26,7 @@ import { DEFAULT_ENTITY_STATE } from "./initializer/constants";
 export function buildEntityStateSavedFilterState(
   categoryKey: CategoryKey,
   selectedValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
 ): SelectedFilter[] {
   if (!selected) return [];
   return [{ categoryKey, value: [selectedValue] }];
@@ -42,7 +42,7 @@ export function buildEntityStateSavedFilterState(
 export function buildNextSavedFilterState(
   state: ExploreState,
   selectedValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
 ): SelectedFilter[] {
   if (!selected) return []; // Clears all filters on de-select of saved filter.
   const savedFilter = getEntityStateSavedFilter(state, selectedValue);
@@ -69,7 +69,7 @@ export function closeRowPreview(rowPreview: RowPreviewState): RowPreviewState {
  */
 export function getEntityCategoryGroupConfigKey(
   entityPath: string,
-  entityPageState: EntityPageStateMapper
+  entityPageState: EntityPageStateMapper,
 ): CategoryGroupConfigKey {
   return entityPageState[entityPath].categoryGroupConfigKey;
 }
@@ -84,8 +84,8 @@ export function getEntityState(
   state: ExploreState,
   categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
-    state.entityPageState
-  )
+    state.entityPageState,
+  ),
 ): EntityState {
   return (
     state.entityStateByCategoryGroupConfigKey.get(categoryGroupConfigKey) ||
@@ -101,7 +101,7 @@ export function getEntityState(
  */
 export function getEntityStateSavedFilter(
   state: ExploreState,
-  categoryValueKey: CategoryValueKey
+  categoryValueKey: CategoryValueKey,
 ): EntityStateSavedFilter | undefined {
   const entityState = getEntityState(state);
   return entityState.savedFilterByCategoryValueKey?.get(categoryValueKey);
@@ -121,7 +121,7 @@ export function getEntityStateSavedProperty<K extends "sorting" | "grouping">(
   state: ExploreState,
   selectedValue: CategoryValueKey,
   selected: boolean,
-  propertyName: K
+  propertyName: K,
 ): EntityStateSavedFilter[K] | undefined {
   if (!selected) return;
   const savedFilter = getEntityStateSavedFilter(state, selectedValue);
@@ -147,11 +147,11 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
 export function patchEntityListItems(
   listItems: ListItems,
   updatedListItems: ListItems,
-  listItemKey: keyof ListItem
+  listItemKey: keyof ListItem,
 ): ListItems {
   if (!listItems || !updatedListItems) return listItems;
   const listItemById = new Map(
-    listItems.map((listItem) => [listItem[listItemKey], listItem])
+    listItems.map((listItem) => [listItem[listItemKey], listItem]),
   );
   updatedListItems.forEach((listItem) => {
     listItemById.set(listItem[listItemKey], listItem);
@@ -180,11 +180,11 @@ export function resetPage(paginationState: PaginationState): PaginationState {
 function setEntityStateByCategoryGroupConfigKey(
   categoryGroupConfigKey: CategoryGroupConfigKey,
   state: ExploreState,
-  nextEntityState: EntityState
+  nextEntityState: EntityState,
 ): void {
   state.entityStateByCategoryGroupConfigKey.set(
     categoryGroupConfigKey,
-    nextEntityState
+    nextEntityState,
   );
 }
 
@@ -198,7 +198,7 @@ function setEntityStateByCategoryGroupConfigKey(
 export function updateEntityPageState(
   entityPath: string, // entityListType.
   entityPageState: EntityPageStateMapper,
-  nextEntityPageState: Partial<EntityPageState>
+  nextEntityPageState: Partial<EntityPageState>,
 ): EntityPageStateMapper {
   return {
     ...entityPageState,
@@ -221,8 +221,8 @@ export function updateEntityPageStateWithCommonCategoryGroupConfigKey(
   nextEntityPageState: Partial<EntityPageState>,
   categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
-    state.entityPageState
-  )
+    state.entityPageState,
+  ),
 ): EntityPageStateMapper {
   return Object.entries(state.entityPageState).reduce(
     (acc, [entityPath, entityPageState]) => {
@@ -234,7 +234,7 @@ export function updateEntityPageStateWithCommonCategoryGroupConfigKey(
       }
       return { ...acc, [entityPath]: entityPageState };
     },
-    {} as EntityPageStateMapper
+    {} as EntityPageStateMapper,
   );
 }
 
@@ -250,8 +250,8 @@ export function updateEntityStateByCategoryGroupConfigKey(
   nextEntityState: Partial<EntityState>,
   categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     state.tabValue,
-    state.entityPageState
-  )
+    state.entityPageState,
+  ),
 ): void {
   const entityState = getEntityState(state, categoryGroupConfigKey);
   if (entityState) {
@@ -271,7 +271,7 @@ export function updateEntityStateByCategoryGroupConfigKey(
  */
 export function updateSelectColumnVisibility(
   state: ExploreState,
-  canEdit: boolean
+  canEdit: boolean,
 ): EntityPageStateMapper {
   return Object.entries(state.entityPageState).reduce(
     (acc, [entityPath, entityPageState]) => {
@@ -290,6 +290,6 @@ export function updateSelectColumnVisibility(
       }
       return { ...acc, [entityPath]: entityPageState };
     },
-    {} as EntityPageStateMapper
+    {} as EntityPageStateMapper,
   );
 }

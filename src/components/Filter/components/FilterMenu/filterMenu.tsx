@@ -76,7 +76,7 @@ export const FilterMenu = ({
 
 export function applyMenuFilter(
   values: SelectCategoryValueView[],
-  searchTerm: string
+  searchTerm: string,
 ): FilterMenuSearchMatch[] {
   return getSortMatchesFn(searchTerm)(values);
 }

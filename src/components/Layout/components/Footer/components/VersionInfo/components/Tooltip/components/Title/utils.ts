@@ -8,7 +8,7 @@ import { VersionInfo } from "../../../../types";
  */
 export function getCommitUrl(
   gitHubRepoUrl?: string,
-  versionInfo?: VersionInfo
+  versionInfo?: VersionInfo,
 ): string {
   if (!gitHubRepoUrl || !versionInfo) return "";
   if (!versionInfo.gitHash) return "";
@@ -23,7 +23,7 @@ export function getCommitUrl(
  */
 export function getReleaseUrl(
   gitHubRepoUrl?: string,
-  versionInfo?: VersionInfo
+  versionInfo?: VersionInfo,
 ): string {
   if (!gitHubRepoUrl || !versionInfo) return "";
   if (!versionInfo.version) return "";

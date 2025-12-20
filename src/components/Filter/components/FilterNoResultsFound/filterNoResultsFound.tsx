@@ -15,7 +15,7 @@ export const FilterNoResultsFound = forwardRef<
   FilterNoResultsFoundProps
 >(function FilterNoResultsFound(
   { onClearSearchTerm }: FilterNoResultsFoundProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <FilterNoResults ref={ref}>

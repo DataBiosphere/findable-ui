@@ -12,12 +12,12 @@ import { EntityState } from "../types";
  */
 export function buildQuery(
   entityListType: string,
-  state: EntityState
+  state: EntityState,
 ): NextRouter["query"] {
   const query: NextRouter["query"] = {};
 
   for (const [key, value] of Object.entries(
-    getQueryState(entityListType, state)
+    getQueryState(entityListType, state),
   )) {
     // Handle the undefined case.
     if (value === undefined) continue;
@@ -55,7 +55,7 @@ export function buildQuery(
  */
 export function getQueryState(
   entityListType: string,
-  state: EntityState
+  state: EntityState,
 ): Record<string, string | SelectedFilter[] | undefined> {
   return {
     catalog: state.catalogState,

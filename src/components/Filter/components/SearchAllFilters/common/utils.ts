@@ -5,7 +5,7 @@
  */
 export function setElementsOverflowStyle(
   elements: (HTMLElement | null)[],
-  overflowStyle: string
+  overflowStyle: string,
 ): void {
   for (const element of elements) {
     if (element) {

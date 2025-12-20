@@ -8,7 +8,7 @@ export interface UseHeaderNavigation {
 }
 
 export const useHeaderNavigation = (
-  headerProps: HeaderProps
+  headerProps: HeaderProps,
 ): UseHeaderNavigation => {
   const { breakpoint } = useBreakpoint();
   const { navigation: [navL, navC, navR] = [] } = headerProps;

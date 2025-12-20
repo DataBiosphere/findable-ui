@@ -9,7 +9,7 @@ import { COLUMN_IDENTIFIER } from "../../../Table/common/columnIdentifier";
 export function getInitialColumnVisibilityState<T extends RowData>(
   tableOptions?:
     | Partial<TableOptions<T>>
-    | Partial<Omit<TableOptions<T>, "data" | "columns" | "getCoreRowModel">>
+    | Partial<Omit<TableOptions<T>, "data" | "columns" | "getCoreRowModel">>,
 ): VisibilityState {
   const { initialState } = tableOptions || {};
   const enableRowPosition = Boolean(tableOptions?.enableRowPosition);

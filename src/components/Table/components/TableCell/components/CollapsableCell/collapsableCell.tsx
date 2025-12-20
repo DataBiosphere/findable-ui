@@ -70,7 +70,7 @@ export const CollapsableCell = <T extends RowData>({
  * @returns row or sub row visible cells.
  */
 function getRowVisibleCells<T extends RowData>(
-  row: Row<T>
+  row: Row<T>,
 ): Cell<T, unknown>[] {
   if (row.getIsGrouped()) {
     return row.subRows.map(({ getVisibleCells }) => getVisibleCells()).flat();

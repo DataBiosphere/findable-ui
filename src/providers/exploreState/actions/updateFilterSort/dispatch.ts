@@ -7,7 +7,7 @@ import { UpdateFilterSortAction, UpdateFilterSortPayload } from "./types";
  * @returns Action with payload and action type.
  */
 export function updateFilterSort(
-  payload: UpdateFilterSortPayload
+  payload: UpdateFilterSortPayload,
 ): UpdateFilterSortAction {
   return {
     payload,

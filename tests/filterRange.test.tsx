@@ -79,7 +79,7 @@ describe("FilterRange", () => {
 
       it("renders BETWEEN toggle button as selected", () => {
         expect(getClassNames(getButton(BETWEEN))).toContain(
-          MUI_CLASSES.SELECTED
+          MUI_CLASSES.SELECTED,
         );
       });
 
@@ -109,7 +109,7 @@ describe("FilterRange", () => {
 
       it("renders LESS THAN toggle button as selected", () => {
         expect(getClassNames(getButton(LESS_THAN))).toContain(
-          MUI_CLASSES.SELECTED
+          MUI_CLASSES.SELECTED,
         );
       });
 
@@ -132,7 +132,7 @@ describe("FilterRange", () => {
 
       it("renders GREATER THAN toggle button as selected", () => {
         expect(getClassNames(getButton(GREATER_THAN))).toContain(
-          MUI_CLASSES.SELECTED
+          MUI_CLASSES.SELECTED,
         );
       });
 
@@ -155,38 +155,38 @@ describe("FilterRange", () => {
         <Default
           selectedMax={TEST_VALUES.SELECTED_MAX}
           selectedMin={TEST_VALUES.SELECTED_MIN}
-        />
+        />,
       );
       expect(getClassNames(getButton(BETWEEN))).toContain(MUI_CLASSES.SELECTED);
       expect(getLabelText<HTMLInputElement>(LABEL_TEXTS.MIN).value).toEqual(
-        TEST_VALUES.SELECTED_MIN.toString()
+        TEST_VALUES.SELECTED_MIN.toString(),
       );
       expect(getLabelText<HTMLInputElement>(LABEL_TEXTS.MAX).value).toEqual(
-        TEST_VALUES.SELECTED_MAX.toString()
+        TEST_VALUES.SELECTED_MAX.toString(),
       );
     });
 
     it("renders min input with selected value when only selectedMin is defined", () => {
       render(
-        <Default selectedMax={null} selectedMin={TEST_VALUES.SELECTED_MIN} />
+        <Default selectedMax={null} selectedMin={TEST_VALUES.SELECTED_MIN} />,
       );
       expect(getClassNames(getButton(GREATER_THAN))).toContain(
-        MUI_CLASSES.SELECTED
+        MUI_CLASSES.SELECTED,
       );
       expect(
-        getLabelText<HTMLInputElement>(LABEL_TEXTS.GREATER_THAN).value
+        getLabelText<HTMLInputElement>(LABEL_TEXTS.GREATER_THAN).value,
       ).toEqual(TEST_VALUES.SELECTED_MIN.toString());
     });
 
     it("renders max input with selected value when only selectedMax is defined", () => {
       render(
-        <Default selectedMax={TEST_VALUES.SELECTED_MAX} selectedMin={null} />
+        <Default selectedMax={TEST_VALUES.SELECTED_MAX} selectedMin={null} />,
       );
       expect(getClassNames(getButton(LESS_THAN))).toContain(
-        MUI_CLASSES.SELECTED
+        MUI_CLASSES.SELECTED,
       );
       expect(
-        getLabelText<HTMLInputElement>(LABEL_TEXTS.LESS_THAN).value
+        getLabelText<HTMLInputElement>(LABEL_TEXTS.LESS_THAN).value,
       ).toEqual(TEST_VALUES.SELECTED_MAX.toString());
     });
   });
@@ -199,7 +199,7 @@ describe("FilterRange", () => {
             selectedMin={TEST_VALUES.SELECTED_MIN}
             selectedMax={TEST_VALUES.SELECTED_MAX}
             onFilter={TEST_VALUES.ON_FILTER}
-          />
+          />,
         );
         fireEvent.click(getFilterButton());
         await waitFor(() => {
@@ -209,7 +209,7 @@ describe("FilterRange", () => {
             [TEST_VALUES.SELECTED_MIN, TEST_VALUES.SELECTED_MAX],
             true,
             undefined,
-            VIEW_KIND.RANGE
+            VIEW_KIND.RANGE,
           );
         });
       });
@@ -220,7 +220,7 @@ describe("FilterRange", () => {
             selectedMin={TEST_VALUES.SELECTED_MIN}
             selectedMax={null}
             onFilter={TEST_VALUES.ON_FILTER}
-          />
+          />,
         );
         fireEvent.click(getFilterButton());
         await waitFor(() => {
@@ -229,7 +229,7 @@ describe("FilterRange", () => {
             [TEST_VALUES.SELECTED_MIN, null],
             true,
             undefined,
-            VIEW_KIND.RANGE
+            VIEW_KIND.RANGE,
           );
         });
       });
@@ -240,7 +240,7 @@ describe("FilterRange", () => {
             selectedMin={null}
             selectedMax={TEST_VALUES.SELECTED_MAX}
             onFilter={TEST_VALUES.ON_FILTER}
-          />
+          />,
         );
         fireEvent.click(getFilterButton());
         await waitFor(() => {
@@ -249,7 +249,7 @@ describe("FilterRange", () => {
             [null, TEST_VALUES.SELECTED_MAX],
             true,
             undefined,
-            VIEW_KIND.RANGE
+            VIEW_KIND.RANGE,
           );
         });
       });
@@ -274,7 +274,7 @@ describe("FilterRange", () => {
           <Default
             selectedMin={TEST_VALUES.SELECTED_MIN}
             selectedMax={TEST_VALUES.SELECTED_MAX}
-          />
+          />,
         );
         fireEvent.change(getLabelText(LABEL_TEXTS.MIN), STRING_VALUE);
         fireEvent.click(getFilterButton());
@@ -289,7 +289,7 @@ describe("FilterRange", () => {
           <Default
             selectedMin={TEST_VALUES.SELECTED_MIN}
             selectedMax={TEST_VALUES.SELECTED_MAX}
-          />
+          />,
         );
         fireEvent.change(getLabelText(LABEL_TEXTS.MAX), STRING_VALUE);
         fireEvent.click(getFilterButton());
@@ -304,7 +304,7 @@ describe("FilterRange", () => {
           <Default
             selectedMin={TEST_VALUES.SELECTED_MAX}
             selectedMax={TEST_VALUES.SELECTED_MIN}
-          />
+          />,
         );
         fireEvent.click(getFilterButton());
         await waitFor(() => {

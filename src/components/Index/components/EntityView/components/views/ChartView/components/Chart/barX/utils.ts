@@ -21,7 +21,7 @@ import {
  * @returns The total sum of the count property from all category value objects in the array.
  */
 export function getCategoryTotalCount(
-  selectCategoryValueViews: SelectCategoryValueView[]
+  selectCategoryValueViews: SelectCategoryValueView[],
 ): number {
   return selectCategoryValueViews.reduce((acc, { count }) => acc + count, 0);
 }
@@ -44,7 +44,7 @@ export function getCategoryValueText(d: SelectCategoryValueView): string {
  */
 export function getCategoryValueTextFill(
   d: SelectCategoryValueView,
-  isCategorySelected: boolean
+  isCategorySelected: boolean,
 ): string {
   if (d.selected) return PALETTE.INK_MAIN;
   if (isCategorySelected) return PALETTE.INK_LIGHT;
@@ -68,7 +68,7 @@ export function getColorRangeValue(isCategorySelected: boolean): string {
  */
 export function getCountPercentage(
   d: SelectCategoryValueView,
-  total: number
+  total: number,
 ): string {
   if (total === 0) return "0";
   const percentage = (d.count / total) * 100;
@@ -87,7 +87,7 @@ export function getCountPercentage(
  */
 export function getCountText(
   d: SelectCategoryValueView,
-  total: number
+  total: number,
 ): string {
   return `${d.count.toLocaleString()} (${getCountPercentage(d, total)}%)`;
 }
@@ -100,7 +100,7 @@ export function getCountText(
  */
 export function getCountTextFill(
   d: SelectCategoryValueView,
-  isCategorySelected: boolean
+  isCategorySelected: boolean,
 ): string {
   if (d.selected) return PALETTE.COMMON_WHITE;
   if (isCategorySelected) return PALETTE.SMOKE_DARK;
@@ -248,7 +248,7 @@ export function renderText(
   values: ChannelValues,
   dimensions: Dimensions,
   context: Context,
-  next?: RenderFunction
+  next?: RenderFunction,
 ): SVGElement | null {
   const g = next?.(index, scales, values, dimensions, context);
   if (!g) return null;
@@ -264,7 +264,7 @@ export function renderText(
         // Translate by the width of the bar plus padding on each side.
         textEl.setAttribute(
           "transform",
-          `translate(${tx + bBox.width + TEXT_PADDING * 2}, ${ty})`
+          `translate(${tx + bBox.width + TEXT_PADDING * 2}, ${ty})`,
         );
         // If the text fill is white, change it to ink.
         const fill = textEl.getAttribute("fill");

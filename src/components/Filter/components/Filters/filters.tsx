@@ -37,7 +37,7 @@ export interface FiltersProps extends BaseComponentProps {
  */
 function buildFilterTags(
   categoryView: CategoryView,
-  onFilter: OnFilterFn
+  onFilter: OnFilterFn,
 ): CategoryTag[] {
   // Handle range category views
   if (isRangeCategoryView(categoryView)) {
@@ -65,7 +65,7 @@ function buildFilterTags(
  */
 function renderFilterTags(
   categoryView: CategoryView,
-  onFilter: OnFilterFn
+  onFilter: OnFilterFn,
 ): JSX.Element {
   const tags = buildFilterTags(categoryView, onFilter);
   return <FilterTags tags={tags} />;
@@ -135,7 +135,7 @@ export const Filters = ({
  */
 function calculateListHeight(
   windowHeight: number,
-  filterListEl: HTMLDivElement | null
+  filterListEl: HTMLDivElement | null,
 ): number {
   return windowHeight - (filterListEl?.getBoundingClientRect()?.top ?? 0);
 }

@@ -11,7 +11,7 @@ export const Outline = ({
   ...props /* MuiTabsProps */
 }: OutlineProps): JSX.Element | null => {
   const { indicatorColor, onChange, orientation, value } = useTabs(
-    outline ?? []
+    outline ?? [],
   );
 
   if (!outline?.length) return null;

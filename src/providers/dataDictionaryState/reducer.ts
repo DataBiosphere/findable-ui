@@ -17,7 +17,7 @@ import { DataDictionaryState } from "./types";
  */
 export function dataDictionaryReducer(
   state: DataDictionaryState,
-  action: DataDictionaryAction
+  action: DataDictionaryAction,
 ): DataDictionaryState {
   const { payload, type } = action;
   switch (type) {

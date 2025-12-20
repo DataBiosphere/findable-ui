@@ -18,17 +18,17 @@ describe("useFileLocation", () => {
       });
       test("url is invalid", () => {
         expect(() => buildFetchFileUrl(URL_INVALID)).toThrowError(
-          `Invalid file URL: ${URL_INVALID}`
+          `Invalid file URL: ${URL_INVALID}`,
         );
       });
       test("url with 'fetch' prepended in path", () => {
         expect(buildFetchFileUrl(URL_WITH_FETCH_PREPEND)).toEqual(
-          URL_WITH_FETCH_PREPEND
+          URL_WITH_FETCH_PREPEND,
         );
       });
       test("url without 'fetch' prepended in path", () => {
         expect(buildFetchFileUrl(URL_WITHOUT_FETCH_PREPEND)).toEqual(
-          URL_WITH_FETCH_PREPEND
+          URL_WITH_FETCH_PREPEND,
         );
       });
     });

@@ -8,7 +8,7 @@ import { ColumnFiltersTableMeta } from "../../types";
  * @returns default filter sort type.
  */
 export function initFilterSort<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): FILTER_SORT {
   const { options } = table;
   const { meta = {} } = options;
@@ -23,7 +23,7 @@ export function initFilterSort<T extends RowData>(
  * @returns true if filter sort is enabled.
  */
 export function isFilterSortEnabled<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): boolean {
   const { options } = table;
   const { meta = {} } = options;

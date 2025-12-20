@@ -12,18 +12,18 @@ import { MANIFEST_DOWNLOAD_FORMAT } from "../../../apis/azul/common/entities";
 export function buildExportToTerraUrl(
   exportToTerraUrl: string,
   requestParams: URLSearchParams,
-  location?: string
+  location?: string,
 ): string {
   if (!location) {
     throw new Error(
-      "Error attempting to build export to Terra link. No location given."
+      "Error attempting to build export to Terra link. No location given.",
     );
   }
 
   const format = requestParams.get("format"); // TODO(cc) constant
   if (!format) {
     throw new Error(
-      "Error attempting to build export to Terra link. No format found."
+      "Error attempting to build export to Terra link. No format found.",
     );
   }
 
@@ -37,7 +37,7 @@ export function buildExportToTerraUrl(
     paramTokens.push(`format=${EXPORT_TO_TERRA_URL_PFB_FORMAT}`);
   } else {
     throw new Error(
-      `Error attempting to build export to Terra link. Unsupported format: ${format}`
+      `Error attempting to build export to Terra link. Unsupported format: ${format}`,
     );
   }
 

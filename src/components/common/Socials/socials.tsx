@@ -34,7 +34,7 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
       socials,
       style,
     }: SocialsProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <StyledSocials className={className} ref={ref} style={style}>
@@ -51,5 +51,5 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
         ))}
       </StyledSocials>
     );
-  }
+  },
 );

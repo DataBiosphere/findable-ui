@@ -12,7 +12,7 @@ export interface UseRouteHistory {
 }
 
 export function useRouteHistory(
-  maxHistory = MAX_HISTORY_LENGTH
+  maxHistory = MAX_HISTORY_LENGTH,
 ): UseRouteHistory {
   const { asPath } = useRouter();
   const rootPath = useRouteRoot();
@@ -26,7 +26,7 @@ export function useRouteHistory(
         historyRef.current.pop();
       }
     },
-    [maxHistory]
+    [maxHistory],
   );
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function useRouteHistory(
   const callbackUrl = useCallback(
     (transformFn?: TransformRouteFn): string =>
       getCallbackUrl(historyRef.current, rootPath, transformFn),
-    [rootPath]
+    [rootPath],
   );
 
   return { callbackUrl };
@@ -56,7 +56,7 @@ export function useRouteHistory(
 export function getCallbackUrl(
   history: string[],
   rootPath: string,
-  transformFn?: TransformRouteFn
+  transformFn?: TransformRouteFn,
 ): string {
   if (transformFn) {
     return transformFn(history) || rootPath;

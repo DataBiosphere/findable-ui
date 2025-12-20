@@ -7,7 +7,7 @@ import { useDataDictionaryState } from "../../../../../../providers/dataDictiona
 import { GLOBAL_FILTER_OPTIONS } from "./constants";
 
 export const useGlobalFilterOptions = <
-  T extends RowData = Attribute
+  T extends RowData = Attribute,
 >(): GlobalFilterOptions<T> => {
   const { dictionary } = useDataDictionary();
   const { dataDictionaryDispatch } = useDataDictionaryState();
@@ -15,10 +15,10 @@ export const useGlobalFilterOptions = <
   const onGlobalFilterChange = useCallback(
     (updaterOrValue: Updater<string | undefined>): void => {
       dataDictionaryDispatch?.(
-        updateGlobalFilter({ dictionary, updaterOrValue })
+        updateGlobalFilter({ dictionary, updaterOrValue }),
       );
     },
-    [dataDictionaryDispatch, dictionary]
+    [dataDictionaryDispatch, dictionary],
   );
 
   return {

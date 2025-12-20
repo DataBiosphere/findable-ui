@@ -5,12 +5,12 @@ import { AuthenticationContextProps } from "../../../providers/authentication/au
 import { initializer } from "../../../providers/authentication/common/utils";
 
 export const useAuthenticationReducer = (
-  initialState = DEFAULT_AUTHENTICATION_STATE
+  initialState = DEFAULT_AUTHENTICATION_STATE,
 ): AuthenticationContextProps => {
   const [authenticationState, authenticationDispatch] = useReducer(
     authenticationReducer,
     initialState,
-    initializer
+    initializer,
   );
   return { authenticationDispatch, authenticationState };
 };

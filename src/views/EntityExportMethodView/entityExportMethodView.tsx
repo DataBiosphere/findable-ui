@@ -11,7 +11,7 @@ import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
 
 export const EntityExportMethodView = (
-  props: EntityDetailViewProps
+  props: EntityDetailViewProps,
 ): JSX.Element => {
   // Update the catalog param if necessary.
   useUpdateURLCatalogParams();
@@ -53,7 +53,7 @@ export const EntityExportMethodView = (
  */
 function getExportMethodConfig(
   exportMethods: ExportMethodConfig[],
-  query: ParsedUrlQuery
+  query: ParsedUrlQuery,
 ): ExportMethodConfig | undefined {
   // Determine the selected export method from the URL.
   const exportMethodRoute = query.params?.[PARAMS_INDEX_EXPORT_METHOD];

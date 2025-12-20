@@ -13,7 +13,7 @@ import { useFileManifestState } from "../useFileManifestState";
  */
 export const useFileManifest = (
   initialFilters: Filters | undefined = [],
-  fileSummaryFacetName?: string
+  fileSummaryFacetName?: string,
 ): void => {
   // Initial file manifest filter.
   const [initFilters] = useState(() => initialFilters);

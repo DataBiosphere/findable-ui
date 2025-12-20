@@ -9,7 +9,7 @@ import { DictionariesContext } from "../dictionaries/types";
  * @returns The initialized dictionaries context.
  */
 export function initDictionaries(
-  dataDictionaries: DataDictionaryConfig[]
+  dataDictionaries: DataDictionaryConfig[],
 ): DictionariesContext {
   return dataDictionaries.reduce((acc, { path, tableOptions }) => {
     acc[path] = {
@@ -26,7 +26,7 @@ export function initDictionaries(
  * @returns The initialized dictionary state.
  */
 function initState(
-  tableOptions: DataDictionaryConfig["tableOptions"]
+  tableOptions: DataDictionaryConfig["tableOptions"],
 ): Partial<TableState> {
   const { initialState } = tableOptions;
 

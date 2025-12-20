@@ -7,7 +7,7 @@ import { CategoryView } from "../types";
  * @returns true if the category view is a select category view.
  */
 export function isSelectCategoryView(
-  view: CategoryView
+  view: CategoryView,
 ): view is SelectCategoryView {
   return "values" in view;
 }

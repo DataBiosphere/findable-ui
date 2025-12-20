@@ -9,7 +9,7 @@ import { TokenAction, TokenActionKind, TokenState } from "./types";
  */
 export function tokenReducer(
   state: TokenState,
-  action: TokenAction
+  action: TokenAction,
 ): TokenState {
   const { payload, type } = action;
   switch (type) {

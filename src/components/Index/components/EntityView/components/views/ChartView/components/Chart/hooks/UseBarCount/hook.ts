@@ -4,10 +4,10 @@ import { UseBarCount } from "./types";
 import { initBarCount, updateBarCount } from "./utils";
 
 export const useBarCount = (
-  selectCategoryValueViews: SelectCategoryValueView[]
+  selectCategoryValueViews: SelectCategoryValueView[],
 ): UseBarCount => {
   const [barCount, setBarCount] = useState<number | undefined>(
-    initBarCount(selectCategoryValueViews)
+    initBarCount(selectCategoryValueViews),
   );
 
   const onToggleBarCount = useCallback(() => {

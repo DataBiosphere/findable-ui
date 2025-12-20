@@ -7,7 +7,7 @@ import { SEARCH_PARAMETERS } from "./constants";
  * @returns new URLSearchParams object.
  */
 function getNewURLSearchParams(
-  searchParams: ReadonlyURLSearchParams | null
+  searchParams: ReadonlyURLSearchParams | null,
 ): URLSearchParams {
   if (!searchParams) return new URLSearchParams();
   return new URLSearchParams(searchParams.toString());
@@ -21,7 +21,7 @@ function getNewURLSearchParams(
  */
 export function getSearchParams(
   searchParams: ReadonlyURLSearchParams | null,
-  searchStr: string
+  searchStr: string,
 ): URLSearchParams {
   const params = getNewURLSearchParams(searchParams);
   params.set(SEARCH_PARAMETERS.QUERY, searchStr);

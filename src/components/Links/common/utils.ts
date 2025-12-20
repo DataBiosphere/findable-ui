@@ -16,12 +16,12 @@ export function isClientSideNavigation(link: string): boolean {
  * @returns true if the given url is a URL object with href and query.
  */
 export function isURLObjectWithHrefAndQuery(
-  value: Url
+  value: Url,
 ): value is UrlObjectWithHrefAndQuery {
   return (
     typeof value !== "string" &&
     Object.entries(value).every(
-      ([key, value]) => URL_OBJECT_KEYS.includes(key) && !!value
+      ([key, value]) => URL_OBJECT_KEYS.includes(key) && !!value,
     )
   );
 }

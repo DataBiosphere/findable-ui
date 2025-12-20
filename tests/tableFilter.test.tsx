@@ -34,7 +34,7 @@ describe("Table - Filtering", () => {
         const cell = row.querySelectorAll("td")[COLUMN_INDEX.STRING];
         const text = cell.textContent;
         expect(text).toMatch(
-          /Coronary Artery Disease Study|Myocardial Infarction Study/
+          /Coronary Artery Disease Study|Myocardial Infarction Study/,
         );
         expect(text).not.toMatch(/Myocardial Infarction Study X/);
       });

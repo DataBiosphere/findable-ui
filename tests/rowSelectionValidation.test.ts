@@ -58,7 +58,7 @@ const createTable = (
   tableOptions?: Omit<
     TableOptions<RowData>,
     "columns" | "data" | "getCoreRowModel"
-  >
+  >,
 ): RenderHookResult<Table<RowData>, unknown> => {
   return renderHook(() =>
     useReactTable({
@@ -68,7 +68,7 @@ const createTable = (
       enableRowSelectionValidation: true,
       getCoreRowModel: getCoreRowModel(),
       ...tableOptions,
-    })
+    }),
   );
 };
 
@@ -95,7 +95,7 @@ describe("RowSelectionValidation Feature", () => {
       expect(ROW_SELECTION_VALIDATION).toHaveProperty("getDefaultOptions");
       expect(typeof ROW_SELECTION_VALIDATION.createRow).toBe("function");
       expect(typeof ROW_SELECTION_VALIDATION.getDefaultOptions).toBe(
-        "function"
+        "function",
       );
     });
 
@@ -113,14 +113,14 @@ describe("RowSelectionValidation Feature", () => {
       expect(
         getSelectionValidation(
           firstRowWithoutValidation,
-          tableWithoutValidation
-        )
+          tableWithoutValidation,
+        ),
       ).toBeUndefined();
     });
 
     test("should return validation message when validation function is provided", () => {
       expect(
-        getSelectionValidation(firstRowWithValidation, tableWithValidation)
+        getSelectionValidation(firstRowWithValidation, tableWithValidation),
       ).toBe(VALIDATION_MESSAGE.INVALID);
     });
 
@@ -156,7 +156,7 @@ describe("RowSelectionValidation Feature", () => {
       expect(getSelectionValidation(rows[0], table)).toBeUndefined();
       expect(getSelectionValidation(rows[2], table)).toBeUndefined();
       expect(getSelectionValidation(rows[1], table)).toBe(
-        VALIDATION_MESSAGE.INVALID
+        VALIDATION_MESSAGE.INVALID,
       );
       expect(getRowSelectionValidation).toHaveBeenCalledTimes(3);
     });
@@ -174,13 +174,13 @@ describe("RowSelectionValidation Feature", () => {
 
     test("should return undefined when no validation function is configured", () => {
       expect(
-        firstRowWithoutValidation.getSelectionValidation()
+        firstRowWithoutValidation.getSelectionValidation(),
       ).toBeUndefined();
     });
 
     test("should return validation message when validation function is configured", () => {
       expect(firstRowWithValidation.getSelectionValidation()).toBe(
-        VALIDATION_MESSAGE.INVALID
+        VALIDATION_MESSAGE.INVALID,
       );
     });
   });
@@ -240,11 +240,11 @@ describe("RowSelectionValidation Feature", () => {
 
       expect(rows[0].getSelectionValidation?.()).toBe(VALIDATION_MESSAGE.VALID);
       expect(rows[1].getSelectionValidation?.()).toBe(
-        VALIDATION_MESSAGE.INVALID
+        VALIDATION_MESSAGE.INVALID,
       );
       expect(rows[2].getSelectionValidation?.()).toBeUndefined();
       expect(rows[3].getSelectionValidation?.()).toBe(
-        VALIDATION_MESSAGE.INVALID
+        VALIDATION_MESSAGE.INVALID,
       );
     });
   });

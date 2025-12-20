@@ -5,7 +5,7 @@ import { BaseComponentProps } from "../../../../../types";
 
 export const ChipCell = <
   T extends RowData,
-  TValue extends ChipProps = ChipProps
+  TValue extends ChipProps = ChipProps,
 >({
   className,
   getValue,

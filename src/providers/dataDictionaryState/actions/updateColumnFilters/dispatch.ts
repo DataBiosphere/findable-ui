@@ -7,7 +7,7 @@ import { UpdateColumnFiltersAction, UpdateColumnFiltersPayload } from "./types";
  * @returns Action with payload and action type.
  */
 export function updateColumnFilters(
-  payload: UpdateColumnFiltersPayload
+  payload: UpdateColumnFiltersPayload,
 ): UpdateColumnFiltersAction {
   return {
     payload,

@@ -47,7 +47,7 @@ export const useMenu = <E extends HTMLElement>(): UseMenu<E> => {
         setAnchorEl(event.currentTarget);
       }
     },
-    [open]
+    [open],
   );
 
   return {

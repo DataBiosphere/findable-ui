@@ -106,7 +106,7 @@ export const ExportFileSummaryForm = ({
                   <TableCell>{formatCountSize(count)}</TableCell>
                   {hasFileSize && <TableCell>{formatFileSize(size)}</TableCell>}
                 </TableRow>
-              )
+              ),
             )}
           </TableBody>
         </GridTable>

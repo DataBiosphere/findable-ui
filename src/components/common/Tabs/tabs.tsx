@@ -52,7 +52,7 @@ export const Tabs = ({
             label,
             value: tabValue,
           },
-          t
+          t,
         ) => (
           <Tab
             icon={icon}
@@ -61,7 +61,7 @@ export const Tabs = ({
             label={buildTabLabel(label, count, annotation)}
             value={tabValue}
           />
-        )
+        ),
       )}
     </MTabs>
   );
@@ -78,7 +78,7 @@ export const Tabs = ({
 function buildTabLabel(
   label: ReactNode,
   count?: string,
-  annotation?: DataDictionaryAnnotation
+  annotation?: DataDictionaryAnnotation,
 ): ReactElement {
   return (
     <Tooltip description={annotation?.description} title={annotation?.label}>

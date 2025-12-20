@@ -33,7 +33,7 @@ export const Breadcrumbs = ({
               <Typography key={`${path}${b}`} maxWidth={180} noWrap>
                 {text}
               </Typography>
-            )
+            ),
           )}
         </MBreadcrumbs>
       ) : null}

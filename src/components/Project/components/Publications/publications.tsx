@@ -20,7 +20,7 @@ export const Publications = ({
           {publications.map(
             (
               { officialHcaPublication, publicationTitle, publicationUrl },
-              p
+              p,
             ) => (
               <Typography key={`${publicationTitle}${p}`}>
                 <Link
@@ -32,7 +32,7 @@ export const Publications = ({
                   <span> (Official HCA Publication)</span>
                 )}
               </Typography>
-            )
+            ),
           )}
         </div>
       ) : (

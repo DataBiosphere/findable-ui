@@ -14,7 +14,7 @@ import { CategoryGroupConfig, SiteConfig } from "../../../config/entities";
  */
 export function annotateColumnConfig(
   siteConfig: SiteConfig,
-  annotationsByKey: Record<string, DataDictionaryAnnotation>
+  annotationsByKey: Record<string, DataDictionaryAnnotation>,
 ): void {
   // Annotate every column in every entity.
   siteConfig.entities.forEach((entity) => {
@@ -48,7 +48,7 @@ export function annotateSiteConfig(siteConfig: SiteConfig): void {
   }
   for (const dataDictionaryConfig of dataDictionaryConfigs) {
     const annotationsByKey = keyAnnotationsByKey(
-      dataDictionaryConfig.dataDictionary
+      dataDictionaryConfig.dataDictionary,
     );
 
     // Annotate elements of site config.
@@ -67,7 +67,7 @@ export function annotateSiteConfig(siteConfig: SiteConfig): void {
  */
 export function annotateEntityConfig(
   siteConfig: SiteConfig,
-  annotationsByKey: Record<string, DataDictionaryAnnotation>
+  annotationsByKey: Record<string, DataDictionaryAnnotation>,
 ): void {
   // Annotate every entity.
   siteConfig.entities.forEach((entityConfig) => {
@@ -90,7 +90,7 @@ export function annotateEntityConfig(
  */
 export function annotateDefaultCategoryConfig(
   siteConfig: SiteConfig,
-  annotationsByKey: Record<string, DataDictionaryAnnotation>
+  annotationsByKey: Record<string, DataDictionaryAnnotation>,
 ): void {
   const { categoryGroupConfig } = siteConfig;
   if (categoryGroupConfig) {
@@ -106,7 +106,7 @@ export function annotateDefaultCategoryConfig(
  */
 export function annotateEntityCategoryConfig(
   siteConfig: SiteConfig,
-  annotationsByKey: Record<string, DataDictionaryAnnotation>
+  annotationsByKey: Record<string, DataDictionaryAnnotation>,
 ): void {
   // Annotate every category in every entity.
   siteConfig.entities.forEach((entityConfig) => {
@@ -124,7 +124,7 @@ export function annotateEntityCategoryConfig(
  */
 function annotateCategoryGroupConfig(
   categoryGroupConfig: CategoryGroupConfig,
-  annotationsByKey: Record<string, DataDictionaryAnnotation>
+  annotationsByKey: Record<string, DataDictionaryAnnotation>,
 ): void {
   categoryGroupConfig.categoryGroups.forEach((categoryGroup) => {
     categoryGroup.categoryConfigs.forEach((categorConfig) => {
@@ -140,7 +140,7 @@ function annotateCategoryGroupConfig(
  * @returns Key-annotation map.
  */
 function keyAnnotationsByKey(
-  dataDictionary: DataDictionary
+  dataDictionary: DataDictionary,
 ): Record<string, DataDictionaryAnnotation> {
   return dataDictionary.classes.reduce(
     (acc: Record<string, DataDictionaryAnnotation>, cls: Class) => {
@@ -159,6 +159,6 @@ function keyAnnotationsByKey(
       });
       return acc;
     },
-    {} as Record<string, DataDictionaryAnnotation>
+    {} as Record<string, DataDictionaryAnnotation>,
   );
 }

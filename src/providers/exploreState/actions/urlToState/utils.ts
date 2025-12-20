@@ -6,7 +6,7 @@ import { SelectedFilter } from "../../../../common/entities";
  * @returns The selected filters or an empty array.
  */
 export function decodeFilterParamValue(
-  paramValue: string | string[] | undefined
+  paramValue: string | string[] | undefined,
 ): SelectedFilter[] {
   if (typeof paramValue === "string") {
     // Return decoded filter param value if it is a string.

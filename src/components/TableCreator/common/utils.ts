@@ -10,7 +10,7 @@ import { ColumnConfig } from "../../../config/entities";
  * @returns column definition.
  */
 export function buildBaseColumnDef<T>(
-  baseColumnConfig: ColumnConfig<T>
+  baseColumnConfig: ColumnConfig<T>,
 ): ColumnDef<T> {
   const {
     columnPinned,

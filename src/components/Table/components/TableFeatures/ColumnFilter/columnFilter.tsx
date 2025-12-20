@@ -42,7 +42,7 @@ export const ColumnFilter = <T extends RowData>({
     (value: unknown) => {
       column.setFilterValue(updater(value));
     },
-    [column]
+    [column],
   );
 
   return (

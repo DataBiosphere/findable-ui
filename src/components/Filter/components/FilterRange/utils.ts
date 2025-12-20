@@ -7,7 +7,7 @@ import { RANGE_OPERATOR } from "./hooks/UseFilterRange/types";
  * @returns The range operator or undefined if no valid range is selected.
  */
 export function getRangeOperator(
-  categoryView: Pick<RangeCategoryView, "selectedMax" | "selectedMin">
+  categoryView: Pick<RangeCategoryView, "selectedMax" | "selectedMin">,
 ): RANGE_OPERATOR | undefined {
   const { selectedMax, selectedMin } = categoryView;
   if (selectedMin && selectedMax) return RANGE_OPERATOR.BETWEEN;

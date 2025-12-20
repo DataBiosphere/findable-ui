@@ -81,10 +81,10 @@ export const UploadFile = ({
  * @returns error message.
  */
 function getErrorMessage(
-  attachmentRejections: FormState["attachmentRejections"]
+  attachmentRejections: FormState["attachmentRejections"],
 ): string {
   const fileSizeError = attachmentRejections.find(
-    (rejection) => rejection.code === "file-too-large"
+    (rejection) => rejection.code === "file-too-large",
   );
   return fileSizeError
     ? "File must be less than 20 MB."

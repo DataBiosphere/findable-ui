@@ -13,7 +13,7 @@
  */
 export function parseJsonQueryParam<T = unknown>(
   param: string | string[] | undefined,
-  defaultValue?: T
+  defaultValue?: T,
 ): T | undefined {
   // Handle non-string parameters.
   if (typeof param !== "string") return defaultValue;

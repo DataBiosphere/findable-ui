@@ -9,7 +9,7 @@ import { getInitialColumnVisibilityState } from "./columnVisibility";
 export function useInitialState<T extends RowData>(
   tableOptions?:
     | Partial<TableOptions<T>>
-    | Partial<Omit<TableOptions<T>, "data" | "columns" | "getCoreRowModel">>
+    | Partial<Omit<TableOptions<T>, "data" | "columns" | "getCoreRowModel">>,
 ): InitialTableState {
   const { initialState } = tableOptions || {};
   const columnVisibility = getInitialColumnVisibilityState(tableOptions);
@@ -19,6 +19,6 @@ export function useInitialState<T extends RowData>(
       ...initialState,
       columnVisibility,
     }),
-    [initialState, columnVisibility]
+    [initialState, columnVisibility],
   );
 }

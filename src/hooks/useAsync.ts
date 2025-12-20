@@ -14,22 +14,22 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
   const initialStateRef = useRef<State<T>>(state);
   const [{ data, error, status }, setState] = useReducer(
     (s: State<T>, a: State<T>) => ({ ...s, ...a }),
-    initialStateRef.current
+    initialStateRef.current,
   );
 
   const safeSetState = useSafeDispatch(setState);
 
   const setData = useCallback(
     (data?: T) => safeSetState({ data, status: "resolved" }),
-    [safeSetState]
+    [safeSetState],
   );
   const setError = useCallback(
     (error: Error) => safeSetState({ error, status: "rejected" }),
-    [safeSetState]
+    [safeSetState],
   );
   const reset = useCallback(
     () => safeSetState(initialStateRef.current),
-    [safeSetState]
+    [safeSetState],
   );
 
   if (error) {
@@ -40,7 +40,7 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
     (promise: Promise<T>) => {
       if (!promise || !promise.then) {
         throw new Error(
-          `The argument passed to useAsync().run must be a promise.`
+          `The argument passed to useAsync().run must be a promise.`,
         );
       }
       safeSetState({ status: "pending" });
@@ -52,10 +52,10 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
         (error: Error) => {
           setError(error);
           return Promise.reject(error);
-        }
+        },
       );
     },
-    [safeSetState, setData, setError]
+    [safeSetState, setData, setError],
   );
 
   return {
@@ -87,7 +87,7 @@ const useSafeDispatch = <T>(dispatch: (args: T) => void) => {
   }, []);
   return useCallback(
     (args: T) => (mounted.current ? dispatch(args) : void 0),
-    [dispatch]
+    [dispatch],
   );
 };
 

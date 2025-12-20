@@ -19,7 +19,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       StartIcon,
       ...props /* Spread props to allow for Mui ButtonProps specific prop overrides e.g. "onClick". */
     }: ButtonProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <MButton
@@ -32,5 +32,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </MButton>
     );
-  }
+  },
 );

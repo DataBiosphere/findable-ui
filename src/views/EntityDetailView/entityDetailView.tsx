@@ -30,7 +30,7 @@ function getTabs(entity: EntityConfig): Tab[] {
       iconPosition,
       label,
       value: route,
-    })
+    }),
   );
 }
 

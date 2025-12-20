@@ -15,7 +15,7 @@ import { ExploreView } from "./exploreView";
  */
 export function buildStateSyncManagerContext(
   exploreState: ExploreState,
-  pageProps: ComponentProps<typeof ExploreView>
+  pageProps: ComponentProps<typeof ExploreView>,
 ): StateSyncManagerContext {
   return {
     command: exploreState.meta?.command,

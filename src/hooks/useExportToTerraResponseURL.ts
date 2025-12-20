@@ -10,7 +10,7 @@ import { FileLocation } from "./useRequestFileLocation";
  */
 export const useExportToTerraResponseURL = (
   requestParams?: URLSearchParams,
-  fileLocation?: FileLocation
+  fileLocation?: FileLocation,
 ): string | undefined => {
   const { config } = useConfig();
   const { exportToTerraUrl } = config;

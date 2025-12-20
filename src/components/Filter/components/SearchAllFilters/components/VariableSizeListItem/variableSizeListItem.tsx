@@ -61,7 +61,7 @@ export default function VariableSizeListItem({
             !selected,
             undefined,
             VIEW_KIND.SELECT,
-            searchTerm
+            searchTerm,
           )
         }
         selected={selected}

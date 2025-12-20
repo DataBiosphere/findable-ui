@@ -9,7 +9,7 @@ import { useConfig } from "./useConfig";
  */
 export const useFetchRequestURL = (
   endpoint: APIEndpoints,
-  requestParams: URLSearchParams
+  requestParams: URLSearchParams,
 ): string => {
   const { config } = useConfig();
   const { dataSource } = config;

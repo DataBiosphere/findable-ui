@@ -33,7 +33,7 @@ export const useStateSyncManager = <Action>({
    * and ensures effect dependencies remain stable.
    */
   const [actions] = useState<StateSyncManagerActions<Action>>(
-    () => actionCreators
+    () => actionCreators,
   );
 
   // Register pop state related side effects.

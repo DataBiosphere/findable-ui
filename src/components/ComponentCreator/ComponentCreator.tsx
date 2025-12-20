@@ -66,7 +66,7 @@ export const ComponentCreator = <T,>({
         return React.createElement(
           c.component,
           { ...c.props, ...props, key: k },
-          [children ?? props.children]
+          [children ?? props.children],
         );
       })}
     </>

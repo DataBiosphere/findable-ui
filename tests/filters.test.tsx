@@ -55,7 +55,7 @@ describe("Filters", () => {
  * @returns Array of category views.
  */
 function getCategoryViews(
-  categoryFilters: CategoryFilter[] = []
+  categoryFilters: CategoryFilter[] = [],
 ): CategoryView[] {
   return categoryFilters.flatMap(({ categoryViews }) => categoryViews);
 }

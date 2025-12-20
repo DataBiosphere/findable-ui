@@ -9,12 +9,14 @@ import {
 } from "./common/entities";
 import { StyledMenu } from "./dropdownMenu.styles";
 
-export interface DropdownMenuProps
-  extends Omit<MMenuProps, "children" | "open"> {
+export interface DropdownMenuProps extends Omit<
+  MMenuProps,
+  "children" | "open"
+> {
   button: (
     props:
       | Pick<DropdownMenuButtonProps, "onClick" | "open">
-      | Pick<DropdownMenuIconButtonProps, "onClick" | "open">
+      | Pick<DropdownMenuIconButtonProps, "onClick" | "open">,
   ) => JSX.Element;
   children?: ({ closeMenu }: DropdownMenuItemProps) => JSX.Element[];
   className?: string;

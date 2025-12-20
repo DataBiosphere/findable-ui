@@ -60,7 +60,7 @@ export const ExportForm = ({
   const onFilter = (
     categoryKey: CategoryKey,
     selectedCategoryValue: CategoryValueKey,
-    selected: boolean
+    selected: boolean,
   ): void => {
     fileManifestDispatch({
       payload: {
@@ -130,7 +130,7 @@ export const ExportForm = ({
  * @returns true if the facet has selected terms.
  */
 function isFacetSelected(
-  facet: FormFileFacet | FileSummaryFacet | undefined
+  facet: FormFileFacet | FileSummaryFacet | undefined,
 ): boolean {
   if (!facet) {
     return false;

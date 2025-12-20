@@ -9,10 +9,10 @@ import { resolveRelativeDirs } from "../files/resolveRelativeDirs";
  * @returns Array of path objects suitable for `getStaticPaths`.
  */
 export function buildStaticPaths(
-  relativeDirs: string[]
+  relativeDirs: string[],
 ): GetStaticPathsResult["paths"] {
   const slugByFilePaths = mapMDXSlugByFilePaths(
-    resolveRelativeDirs(relativeDirs)
+    resolveRelativeDirs(relativeDirs),
   );
   return [...slugByFilePaths].map(([, slug]) => ({ params: { slug } }));
 }

@@ -32,7 +32,7 @@ function isTrackingEnabled(): boolean {
  */
 export function track(
   eventName: EVENT_NAME,
-  params: EventParams[typeof eventName]
+  params: EventParams[typeof eventName],
 ): void {
   if (!isTrackingEnabled()) {
     return;

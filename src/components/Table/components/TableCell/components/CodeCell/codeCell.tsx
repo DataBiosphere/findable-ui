@@ -6,7 +6,7 @@ import { StyledChip } from "./codeCell.styles";
 
 export const CodeCell = <
   T extends RowData,
-  TValue extends ReactNode = ReactNode
+  TValue extends ReactNode = ReactNode,
 >({
   className,
   getValue,

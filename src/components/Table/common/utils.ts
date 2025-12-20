@@ -31,7 +31,7 @@ type PinnedCell<T extends RowData> = [Cell<T, unknown>, number];
  */
 export function buildCategoryViews<T extends RowData>(
   columns: Column<T>[],
-  columnFilters: ColumnFiltersState
+  columnFilters: ColumnFiltersState,
 ): Category[] {
   const categoryViews: Category[] = [];
   for (const column of columns) {
@@ -103,7 +103,7 @@ export function getColumnHeader<T extends RowData>(column: Column<T>): string {
  */
 export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
   table: Table<T>,
-  columnId: string
+  columnId: string,
 ) => () => CountByTerms {
   return (table, columnId) =>
     memo(
@@ -132,7 +132,7 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
           "getFacetedUniqueValues_" + columnId,
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default.
         onChange: () => {},
-      }
+      },
     );
 }
 
@@ -142,7 +142,7 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
  * @returns pinned cell and index tuple.
  */
 export function getPinnedCellIndex<T extends RowData>(
-  row: Row<T>
+  row: Row<T>,
 ): PinnedCell<T> {
   const visibleCells = row.getVisibleCells();
   let pinnedIndex = 0;
@@ -168,7 +168,7 @@ export function getPinnedCellIndex<T extends RowData>(
  */
 export function getTableStatePagination(
   pageIndex = 0,
-  pageSize: number
+  pageSize: number,
 ): PaginationState {
   return {
     pageIndex,
@@ -204,7 +204,7 @@ export function isClientFilteringEnabled(exploreMode: ExploreMode): boolean {
  * @returns true if the collapsable row is disabled.
  */
 export function isCollapsableRowDisabled<T extends RowData>(
-  tableInstance: Table<T>
+  tableInstance: Table<T>,
 ): boolean {
   return tableInstance.getVisibleLeafColumns().length === 1;
 }
@@ -222,7 +222,7 @@ export function isCollapsableRowDisabled<T extends RowData>(
 export function sortingFn<T>(
   rowA: Row<T>,
   rowB: Row<T>,
-  columnId: string
+  columnId: string,
 ): number {
   const columnAValue = rowA.getValue(columnId);
   const columnBValue = rowB.getValue(columnId);
@@ -233,7 +233,7 @@ export function sortingFn<T>(
     // https://github.com/TanStack/table/blob/beccddcab001434f3bb11843b3fda72f8b000cc2/packages/table-core/src/sortingFns.ts#L73.
     return basicSort(
       toString(columnAValue[0]).toLowerCase(),
-      toString(columnBValue[0]).toLowerCase()
+      toString(columnBValue[0]).toLowerCase(),
     );
   }
   // Sort other values with React Table's "alphanumeric" compare function.
@@ -284,11 +284,11 @@ function updateFacetedUniqueValues(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see React Table FiltersColumn getFacetedUniqueValues
   facetedUniqueValues: Map<any, number>,
   columnFilters: ColumnFiltersState,
-  columnId: string
+  columnId: string,
 ): void {
   // Grab the selected category values for the specified column.
   const filterStateValues = columnFilters.find(
-    ({ id }) => id === columnId
+    ({ id }) => id === columnId,
   )?.value;
   if (Array.isArray(filterStateValues)) {
     filterStateValues.forEach((term) => {

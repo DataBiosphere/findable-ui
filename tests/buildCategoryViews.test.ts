@@ -48,7 +48,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     expect(result).toHaveLength(2);
@@ -69,7 +69,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.COUNT
+      FILTER_SORT.COUNT,
     );
 
     expect(result).toHaveLength(2);
@@ -90,7 +90,7 @@ describe("buildCategoryViews", () => {
       undefined as any,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     expect(result).toEqual([]);
@@ -101,7 +101,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       undefined,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     expect(result).toEqual([]);
@@ -112,7 +112,7 @@ describe("buildCategoryViews", () => {
       [],
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     expect(result).toEqual([]);
@@ -128,7 +128,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       limitedConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     // Should only return the species category
@@ -142,7 +142,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
     expect(alphaResult).toHaveLength(2);
 
@@ -151,7 +151,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.COUNT
+      FILTER_SORT.COUNT,
     );
     expect(countResult).toHaveLength(2);
   });
@@ -161,7 +161,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.ALPHA
+      FILTER_SORT.ALPHA,
     );
 
     const selectCategoryViews = result.filter(isSelectCategoryView);
@@ -186,7 +186,7 @@ describe("buildCategoryViews", () => {
       mockCategories,
       mockCategoryConfigs,
       mockFilterState,
-      FILTER_SORT.COUNT
+      FILTER_SORT.COUNT,
     );
 
     const selectCategoryViews = result.filter(isSelectCategoryView);
@@ -224,14 +224,14 @@ describe("buildCategoryViews", () => {
       equalCountCategories,
       equalCountConfigs,
       mockFilterState,
-      FILTER_SORT.COUNT
+      FILTER_SORT.COUNT,
     );
 
     const selectCategoryViews = result.filter(isSelectCategoryView);
 
     // Should be sorted alphabetically when counts are equal: Apple, Banana, Zebra
     expect(
-      getCategoryValues(selectCategoryViews, "equal_counts", "label")
+      getCategoryValues(selectCategoryViews, "equal_counts", "label"),
     ).toEqual(["Apple", "Banana", "Zebra"]);
   });
 });
@@ -246,7 +246,7 @@ describe("buildCategoryViews", () => {
 function getCategoryValues(
   categoryViews: SelectCategoryView[],
   key: string,
-  fieldName: "label" | "count"
+  fieldName: "label" | "count",
 ): string[] | number[] {
   const categoryView = findSelectCategoryView(categoryViews, key);
   return getValuesByField(categoryView, fieldName);
@@ -260,7 +260,7 @@ function getCategoryValues(
  */
 function getValuesByField(
   categoryView: SelectCategoryView | undefined,
-  fieldName: "label" | "count"
+  fieldName: "label" | "count",
 ): string[] | number[] {
   if (!categoryView) return [];
   const values = categoryView.values.map((v) => v[fieldName]);
@@ -276,7 +276,7 @@ function getValuesByField(
  */
 function findSelectCategoryView(
   categoryViews: SelectCategoryView[],
-  key: string
+  key: string,
 ): SelectCategoryView | undefined {
   return categoryViews.find((cv) => cv.key === key);
 }

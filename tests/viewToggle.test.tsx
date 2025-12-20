@@ -8,16 +8,14 @@ jest.unstable_mockModule(
   "../src/components/Index/components/EntityView/context/hook",
   () => ({
     useEntityView: jest.fn(),
-  })
+  }),
 );
 
-const { useEntityView } = await import(
-  "../src/components/Index/components/EntityView/context/hook"
-);
+const { useEntityView } =
+  await import("../src/components/Index/components/EntityView/context/hook");
 const { composeStories } = await import("@storybook/react");
-const stories = await import(
-  "../src/components/Index/components/EntityView/components/controls/ViewToggle/stories/viewToggle.stories"
-);
+const stories =
+  await import("../src/components/Index/components/EntityView/components/controls/ViewToggle/stories/viewToggle.stories");
 
 const { Default } = composeStories(stories);
 

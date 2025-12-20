@@ -22,7 +22,7 @@ import { BaseComponentProps } from "../../../types";
 export const Anchor = (
   props: BaseComponentProps &
     ClassAttributes<HTMLAnchorElement> &
-    AnchorHTMLAttributes<HTMLAnchorElement>
+    AnchorHTMLAttributes<HTMLAnchorElement>,
 ): JSX.Element => {
   return (
     <Link

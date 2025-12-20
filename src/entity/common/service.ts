@@ -13,11 +13,11 @@ import { getKyRequestOptions } from "./utils";
  */
 export const fetchEntitiesFromURL = async (
   URL: string,
-  accessToken?: string
+  accessToken?: string,
 ): Promise<AzulEntitiesResponse> => {
   const res = await fetchApi<AzulEntitiesResponse>(
     URL,
-    getKyRequestOptions(accessToken)
+    getKyRequestOptions(accessToken),
   );
   return await res.json();
 };
@@ -30,11 +30,11 @@ export const fetchEntitiesFromURL = async (
  */
 export const fetchEntityFromURL = async (
   URL: string,
-  accessToken?: string
+  accessToken?: string,
 ): Promise<AzulEntityStaticResponse> => {
   const res = await fetchApi<AzulEntityStaticResponse>(
     URL,
-    getKyRequestOptions(accessToken)
+    getKyRequestOptions(accessToken),
   );
   return await res.json();
 };

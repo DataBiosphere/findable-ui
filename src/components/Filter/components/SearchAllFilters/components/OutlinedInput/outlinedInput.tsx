@@ -8,7 +8,7 @@ import { TEXT_FIELD_PROPS } from "./constants";
 import { isButtonIn } from "./utils";
 
 export const OutlinedInput = (
-  props: AutocompleteRenderInputParams
+  props: AutocompleteRenderInputParams,
 ): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Intended behavior, destructure InputLabelProps, as they are not used on the component.
   const { InputLabelProps, InputProps, ...outlinedInputProps } = props;

@@ -9,7 +9,7 @@ import { NextHistoryState } from "../../../../services/beforePopState/types";
  */
 export function hasParams(
   query: NextRouter["query"],
-  paramKeys: string[]
+  paramKeys: string[],
 ): boolean {
   return paramKeys.some((key) => query[key] !== undefined);
 }
@@ -22,7 +22,7 @@ export function hasParams(
  */
 export function isSynced(
   queryA: NextRouter["query"],
-  queryB: NextRouter["query"]
+  queryB: NextRouter["query"],
 ): boolean {
   return stringifyQuery(queryA) === stringifyQuery(queryB);
 }
@@ -36,7 +36,7 @@ export function stringifyQuery(query: NextRouter["query"]): string {
   return JSON.stringify(
     Object.keys(query)
       .sort()
-      .reduce((acc, key) => ({ ...acc, [key]: query[key] }), {})
+      .reduce((acc, key) => ({ ...acc, [key]: query[key] }), {}),
   );
 }
 
@@ -50,7 +50,7 @@ export function stringifyQuery(query: NextRouter["query"]): string {
 export function wasPop(
   basePath = "",
   pathname: string,
-  nextHistoryState: NextHistoryState | undefined
+  nextHistoryState: NextHistoryState | undefined,
 ): boolean {
   if (!nextHistoryState) return false;
   const [path] = nextHistoryState.url.split("?");

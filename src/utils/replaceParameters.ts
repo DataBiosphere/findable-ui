@@ -14,7 +14,7 @@ export function replaceParameters(str: string, parameter: Parameter): string {
       const regex = new RegExp(`\\{${parameterKey}}`, "g");
       return acc.replace(regex, parameterValue);
     },
-    str
+    str,
   );
   if (/\{\w+}/.test(result)) {
     throw new Error(`URL still contains path parameters: ${result}`);

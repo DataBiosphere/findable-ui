@@ -9,7 +9,7 @@ export const Banner = forwardRef<
   AlertProps & BaseComponentProps
 >(function Alert(
   { ...props }: AlertProps & BaseComponentProps,
-  ref
+  ref,
 ): JSX.Element {
   return <StyledAlert {...ALERT_PROPS} ref={ref} {...props} />;
 });

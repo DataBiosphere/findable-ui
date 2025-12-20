@@ -5,7 +5,7 @@ import { NavLinkItem } from "../components/Content/components/Navigation/navigat
 export type Navigation = [
   NavLinkItem[] | undefined,
   NavLinkItem[] | undefined,
-  NavLinkItem[] | undefined
+  NavLinkItem[] | undefined,
 ]; // [LEFT, CENTER, RIGHT]
 
 export type SelectedMatch =

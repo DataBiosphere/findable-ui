@@ -13,7 +13,7 @@ import {
 import { getFormValues } from "./utils";
 
 export const useFilterRange = (
-  initialValue: RANGE_OPERATOR = RANGE_OPERATOR.BETWEEN
+  initialValue: RANGE_OPERATOR = RANGE_OPERATOR.BETWEEN,
 ): UseFilterRange => {
   const [errors, setErrors] = useState<FieldErrors>({});
   const { onChange, value } =
@@ -36,7 +36,7 @@ export const useFilterRange = (
               [result.min, result.max],
               true,
               parameters.categorySection,
-              VIEW_KIND.RANGE
+              VIEW_KIND.RANGE,
             );
           })
           .catch((validationError: ValidationError) => {
@@ -48,7 +48,7 @@ export const useFilterRange = (
           });
       };
     },
-    [value]
+    [value],
   );
 
   return {

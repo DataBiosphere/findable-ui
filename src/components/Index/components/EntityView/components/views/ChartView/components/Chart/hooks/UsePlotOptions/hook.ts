@@ -8,7 +8,7 @@ import { UsePlotOptions } from "./types";
 export const usePlotOptions = (
   selectCategoryValueViews: SelectCategoryValueView[],
   width: number,
-  barCount: number | undefined
+  barCount: number | undefined,
 ): UsePlotOptions => {
   // Organise the select category value views (sort and slice) for chart display.
   const data = selectCategoryValueViews
@@ -23,9 +23,9 @@ export const usePlotOptions = (
       getPlotOptions(
         data,
         getCategoryTotalCount(selectCategoryValueViews),
-        width
+        width,
       ),
-    [data, selectCategoryValueViews, width]
+    [data, selectCategoryValueViews, width],
   );
 
   return { options };

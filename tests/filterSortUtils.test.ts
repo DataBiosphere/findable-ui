@@ -9,7 +9,7 @@ import {
 // Mock data for testing
 const createMockCategoryValueView = (
   key: unknown,
-  count: number
+  count: number,
 ): SelectCategoryValueView => ({
   count,
   key,

@@ -10,11 +10,11 @@ const meta: Meta<typeof Table> = {
   argTypes: {
     ...configureControls<ComponentProps<typeof Table>>(
       DISABLED_CONTROLS,
-      CONTROL_TYPE.DISABLED
+      CONTROL_TYPE.DISABLED,
     ),
     ...configureControls<ComponentProps<typeof Table>>(
       BOOLEAN_CONTROLS,
-      CONTROL_TYPE.BOOLEAN
+      CONTROL_TYPE.BOOLEAN,
     ),
   },
   component: Table,

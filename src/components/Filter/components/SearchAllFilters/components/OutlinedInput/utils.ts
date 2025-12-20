@@ -12,7 +12,7 @@ import { SURFACE_TYPE } from "../../../surfaces/types";
 export function isButtonIn(
   surfaceType: SURFACE_TYPE,
   searchTerm: string,
-  open: boolean
+  open: boolean,
 ): boolean {
   if (!open) return false;
 

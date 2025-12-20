@@ -10,7 +10,7 @@ import { buildColumnSort } from "../RowSorting/utils";
  * @param table - Table.
  */
 export function handleClearGroupingState<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): void {
   const {
     options: { enableSorting },
@@ -40,7 +40,7 @@ export function handleClearGroupingState<T extends RowData>(
  */
 export function handleToggleGrouping<T extends RowData>(
   table: Table<T>,
-  column: Column<T>
+  column: Column<T>,
 ): void {
   const {
     options: { enableSorting },

@@ -216,7 +216,7 @@ function isFillPrimaryMain(element: Element): boolean {
  */
 function mapCount(
   categoryValueView: SelectCategoryValueView,
-  total: number
+  total: number,
 ): string {
   return getCountText(categoryValueView, total);
 }
@@ -247,7 +247,7 @@ function mapTextContent(el: SVGElement): string | null {
  */
 function sortByCount(
   a: SelectCategoryValueView,
-  b: SelectCategoryValueView
+  b: SelectCategoryValueView,
 ): number {
   return b.count - a.count;
 }

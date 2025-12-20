@@ -10,8 +10,10 @@ import { DrawerContent } from "../../../../../../../common/Drawer/components/dra
 import { DEFAULT_DRAWER_PROPS } from "./common/constants";
 import { Drawer, DrawerTitle } from "./rowDrawer.styles";
 
-export interface RowDrawerProps<T extends RowData>
-  extends Omit<MDrawerProps, "content" | "title"> {
+export interface RowDrawerProps<T extends RowData> extends Omit<
+  MDrawerProps,
+  "content" | "title"
+> {
   className?: string;
   tableInstance?: Table<T>;
   title: ReactNode;

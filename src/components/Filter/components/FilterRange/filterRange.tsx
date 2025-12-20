@@ -102,8 +102,8 @@ export const FilterRange = ({
                 {errors[FIELD_NAME.MIN]
                   ? errors[FIELD_NAME.MIN]
                   : value === RANGE_OPERATOR.BETWEEN
-                  ? `Min allowed: ${min}`
-                  : `Allowed values: \u2265 ${min} and \u2264 ${max}`}
+                    ? `Min allowed: ${min}`
+                    : `Allowed values: \u2265 ${min} and \u2264 ${max}`}
               </FormHelperText>
             </FormControl>
           )}
@@ -126,8 +126,8 @@ export const FilterRange = ({
                 {errors[FIELD_NAME.MAX]
                   ? errors[FIELD_NAME.MAX]
                   : value === RANGE_OPERATOR.BETWEEN
-                  ? `Max allowed: ${max}`
-                  : `Allowed values: \u2265 ${min} and \u2264 ${max}`}
+                    ? `Max allowed: ${max}`
+                    : `Allowed values: \u2265 ${min} and \u2264 ${max}`}
               </FormHelperText>
             </FormControl>
           )}

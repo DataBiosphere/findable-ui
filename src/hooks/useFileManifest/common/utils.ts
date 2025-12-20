@@ -23,7 +23,7 @@ import {
  */
 export function bindEntitySearchResultsResponse(
   entityResponse: AzulEntitiesResponse | undefined,
-  filters: Filters
+  filters: Filters,
 ): EntitySearchResults {
   // Grab the search terms by search key
   const searchTermsBySearchKey = getSelectedSearchTermsBySearchKey(filters);
@@ -45,7 +45,7 @@ export function bindEntitySearchResultsResponse(
  */
 function bindFacets(
   searchTermsBySearchKey: SelectedSearchTermsBySearchKey,
-  responseFacetsByName: AzulTermFacets | undefined
+  responseFacetsByName: AzulTermFacets | undefined,
 ): FileFacet[] {
   if (!responseFacetsByName) {
     return [];
@@ -54,7 +54,7 @@ function bindFacets(
     return buildFileFacet(
       facetName,
       searchTermsBySearchKey,
-      responseFacetsByName[facetName]
+      responseFacetsByName[facetName],
     );
   });
 }
@@ -70,7 +70,7 @@ function bindFacets(
 function bindFacetTerms(
   facetName: string,
   responseTerms: AzulTerm[],
-  searchTermNames: unknown[]
+  searchTermNames: unknown[],
 ): Term[] {
   return responseTerms.reduce((accum: Term[], responseTerm) => {
     // Default term name to "Unspecified" if term name is null.
@@ -102,18 +102,18 @@ function bindTermName(termResponse: AzulTerm): string {
 function buildFileFacet(
   facetName: string,
   searchTermsBySearchKey: SelectedSearchTermsBySearchKey,
-  responseFacet: AzulTermFacet
+  responseFacet: AzulTermFacet,
 ): FileFacet {
   // Determine the set of currently selected search term names for this facet.
   const searchTermNames = listFacetSearchTermNames(
     facetName,
-    searchTermsBySearchKey
+    searchTermsBySearchKey,
   );
   // Build up the list of terms from the facet response.
   const responseTerms = bindFacetTerms(
     facetName,
     responseFacet.terms,
-    searchTermNames
+    searchTermNames,
   );
   // Create facet from newly built terms and newly calculated total.
   return getFileFacet(facetName, responseFacet.total || 0, responseTerms);
@@ -127,7 +127,7 @@ function buildFileFacet(
  */
 export function findFacet(
   filesFacets: FileFacet[],
-  facetName: string
+  facetName: string,
 ): FileFacet | undefined {
   return filesFacets.find(({ name }) => name === facetName);
 }
@@ -142,7 +142,7 @@ export function findFacet(
 export function getFileFacet(
   name: string,
   total: number,
-  terms: Term[]
+  terms: Term[],
 ): FileFacet {
   const selectedTerms = terms.filter(({ selected }) => selected);
   const selected = selectedTerms.length > 0;
@@ -169,7 +169,7 @@ export function getFileFacet(
  * @returns map of selected search terms by search key.
  */
 export function getSelectedSearchTermsBySearchKey(
-  filters: Filters
+  filters: Filters,
 ): SelectedSearchTermsBySearchKey {
   const selectedSearchTermsBySearchKey: SelectedSearchTermsBySearchKey =
     new Map();
@@ -187,10 +187,10 @@ export function getSelectedSearchTermsBySearchKey(
  */
 export function isFacetTermSelected(
   fileFacet: FileFacet,
-  termName: string
+  termName: string,
 ): boolean {
   return Boolean(
-    fileFacet.terms.find((term) => term.name === termName)?.selected
+    fileFacet.terms.find((term) => term.name === termName)?.selected,
   );
 }
 
@@ -202,7 +202,7 @@ export function isFacetTermSelected(
  */
 function listFacetSearchTermNames(
   facetName: string,
-  searchTermsBySearchKey: SelectedSearchTermsBySearchKey
+  searchTermsBySearchKey: SelectedSearchTermsBySearchKey,
 ): unknown[] {
   return [...(searchTermsBySearchKey.get(facetName) ?? [])];
 }

@@ -18,7 +18,7 @@ describe("buildRequestManifest", () => {
       ENDPOINT_URL,
       CATALOG,
       FILTERS.FORM_SUBSET,
-      MANIFEST_FORMAT
+      MANIFEST_FORMAT,
     );
     expect(result.requestMethod).toEqual(METHOD.PUT);
   });
@@ -28,7 +28,7 @@ describe("buildRequestManifest", () => {
       ENDPOINT_URL,
       CATALOG,
       FILTERS.FORM_SUBSET,
-      MANIFEST_FORMAT
+      MANIFEST_FORMAT,
     );
     expect(result.requestParams).toBeDefined();
     expect(result.requestUrl).toBeDefined();
@@ -39,7 +39,7 @@ describe("buildRequestManifest", () => {
       ENDPOINT_URL,
       CATALOG,
       FILTERS.FORM_SUBSET,
-      MANIFEST_FORMAT
+      MANIFEST_FORMAT,
     );
     // Assert that the requestParams contains the required keys.
     expect(result.requestParams?.has("catalog")).toBeTruthy();
@@ -48,7 +48,7 @@ describe("buildRequestManifest", () => {
     // // Assert the values of these keys.
     expect(result.requestParams?.get("catalog")).toEqual(CATALOG);
     expect(result.requestParams?.get("filters")).toEqual(
-      transformFilters(FILTERS.FORM_SUBSET)
+      transformFilters(FILTERS.FORM_SUBSET),
     );
     expect(result.requestParams?.get("format")).toEqual(MANIFEST_FORMAT);
   });
@@ -58,12 +58,12 @@ describe("buildRequestManifest", () => {
       ENDPOINT_URL,
       CATALOG,
       FILTERS.FORM_INITIAL_SET,
-      MANIFEST_FORMAT
+      MANIFEST_FORMAT,
     );
     const expectedParams = getExpectedParams(
       CATALOG,
       FILTERS.FORM_INITIAL_SET,
-      MANIFEST_FORMAT
+      MANIFEST_FORMAT,
     );
     const expectedUrl = getExpectedUrl(expectedParams);
     expect(result.requestUrl).toEqual(expectedUrl);
@@ -80,7 +80,7 @@ describe("buildRequestManifest", () => {
 function getExpectedParams(
   catalog: string,
   filters: Filters,
-  manifestFormat: ManifestDownloadFormat
+  manifestFormat: ManifestDownloadFormat,
 ): URLSearchParams {
   return new URLSearchParams({
     catalog,
@@ -97,7 +97,7 @@ function getExpectedParams(
  */
 function getExpectedUrl(
   expectedParams: URLSearchParams,
-  endpointUrl: string = ENDPOINT_URL
+  endpointUrl: string = ENDPOINT_URL,
 ): string {
   return `${endpointUrl}fetch/manifest/files?${expectedParams.toString()}`;
 }

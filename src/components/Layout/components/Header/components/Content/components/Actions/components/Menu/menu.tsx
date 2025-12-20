@@ -32,7 +32,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
       pathname,
       style,
     }: MenuProps,
-    ref
+    ref,
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
 
@@ -75,5 +75,5 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
         </MDialog>
       </Fragment>
     );
-  }
+  },
 );

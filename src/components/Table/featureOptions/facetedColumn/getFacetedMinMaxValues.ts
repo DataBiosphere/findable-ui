@@ -8,7 +8,7 @@ import { getMemoOptions, memo, RowData, Table } from "@tanstack/react-table";
  */
 export function getFacetedMinMaxValues<TData extends RowData>(): (
   table: Table<TData>,
-  columnId: string
+  columnId: string,
 ) => () => undefined | [number, number] {
   return (table, columnId) =>
     memo(
@@ -59,6 +59,6 @@ export function getFacetedMinMaxValues<TData extends RowData>(): (
 
         return facetedMinMaxValues;
       },
-      getMemoOptions(table.options, "debugTable", "getFacetedMinMaxValues")
+      getMemoOptions(table.options, "debugTable", "getFacetedMinMaxValues"),
     );
 }

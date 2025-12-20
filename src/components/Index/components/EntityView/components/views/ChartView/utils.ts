@@ -8,7 +8,7 @@ import { CategoryFilter } from "../../../../../../Filter/components/Filters/filt
  * @returns Set of category views with chart view enabled.
  */
 export function getSelectCategoryViews(
-  categoryFilters: CategoryFilter[]
+  categoryFilters: CategoryFilter[],
 ): SelectCategoryView[] {
   return categoryFilters
     .flatMap(({ categoryViews }) => categoryViews)

@@ -9,7 +9,7 @@ import { PAGINATION_TABLE_STATE } from "./constants";
  * @returns The initialized pagination state.
  */
 export function initPaginationState(
-  initialState?: InitialTableState
+  initialState?: InitialTableState,
 ): PaginationTableState {
   if (!initialState?.pagination) return PAGINATION_TABLE_STATE;
   return {

@@ -35,7 +35,7 @@ describe("TableCell, LinkCell", () => {
     expect(anchorEl).toHaveClass("MuiLink-underlineAlways");
     expect(anchorEl).toHaveStyleRule(
       STYLE_RULE_PROPERTIES.TEXT_DECORATION,
-      STYLE_RULE_VALUES.UNDERLINE
+      STYLE_RULE_VALUES.UNDERLINE,
     );
   });
 
@@ -45,14 +45,14 @@ describe("TableCell, LinkCell", () => {
     expect(anchorEl).toBeDefined();
     expect(anchorEl?.getAttribute("href")).toBe("https://www.example.com");
     expect(anchorEl?.getAttribute("rel")).toBe(
-      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
     );
     expect(anchorEl?.getAttribute("target")).toBe(ANCHOR_TARGET.BLANK);
     // Expect MuiLink-underlineAlways class and underline style.
     expect(anchorEl).toHaveClass("MuiLink-underlineAlways");
     expect(anchorEl).toHaveStyleRule(
       STYLE_RULE_PROPERTIES.TEXT_DECORATION,
-      STYLE_RULE_VALUES.UNDERLINE
+      STYLE_RULE_VALUES.UNDERLINE,
     );
   });
 
@@ -67,7 +67,7 @@ describe("TableCell, LinkCell", () => {
     expect(spanEl).not.toHaveClass("MuiLink-root");
     expect(spanEl).not.toHaveStyleRule(
       STYLE_RULE_PROPERTIES.TEXT_DECORATION,
-      STYLE_RULE_VALUES.UNDERLINE
+      STYLE_RULE_VALUES.UNDERLINE,
     );
   });
 
@@ -78,12 +78,12 @@ describe("TableCell, LinkCell", () => {
     expect(anchorEl).toHaveClass("MuiLink-underlineNone");
     expect(anchorEl).toHaveStyleRule(
       STYLE_RULE_PROPERTIES.TEXT_DECORATION,
-      STYLE_RULE_VALUES.NONE
+      STYLE_RULE_VALUES.NONE,
     );
     expect(anchorEl).toHaveStyleRule(
       STYLE_RULE_PROPERTIES.TEXT_DECORATION,
       STYLE_RULE_VALUES.NONE,
-      { target: ":hover" }
+      { target: ":hover" },
     );
   });
 });

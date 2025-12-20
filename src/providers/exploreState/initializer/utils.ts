@@ -37,7 +37,7 @@ import {
  * @returns category groups with saved filters category.
  */
 function buildCategoryGroups(
-  categoryGroupConfig: CategoryGroupConfig
+  categoryGroupConfig: CategoryGroupConfig,
 ): CategoryGroup[] {
   const { categoryGroups, savedFilters } = categoryGroupConfig;
   if (!savedFilters) return categoryGroups;
@@ -50,7 +50,7 @@ function buildCategoryGroups(
  * @returns select categories.
  */
 function buildSavedSelectCategories(
-  savedFilters?: SavedFilter[]
+  savedFilters?: SavedFilter[],
 ): SelectCategory[] {
   if (!savedFilters) return [];
   return [
@@ -73,7 +73,7 @@ function buildSavedSelectCategories(
  * @returns saved filter by category value key.
  */
 function buildSavedFilterByCategoryValueKey(
-  savedFilters?: SavedFilter[]
+  savedFilters?: SavedFilter[],
 ): SavedFilterByCategoryValueKey | undefined {
   if (!savedFilters) return;
   const savedFilterByCategoryValueKey: SavedFilterByCategoryValueKey =
@@ -97,7 +97,7 @@ function buildSavedFilterByCategoryValueKey(
  */
 function getEntityCategoryGroupConfig(
   siteConfig: SiteConfig,
-  entityConfig: EntityConfig
+  entityConfig: EntityConfig,
 ): CategoryGroupConfig | undefined {
   const siteCategoryGroupConfig = siteConfig.categoryGroupConfig;
   const entityCategoryGroupConfig = entityConfig.categoryGroupConfig;
@@ -110,7 +110,7 @@ function getEntityCategoryGroupConfig(
  * @returns a list of configured categories.
  */
 function flattenCategoryGroups(
-  categoryGroups?: CategoryGroup[]
+  categoryGroups?: CategoryGroup[],
 ): CategoryConfig[] | undefined {
   return categoryGroups?.flatMap(({ categoryConfigs }) => categoryConfigs);
 }
@@ -123,11 +123,11 @@ function flattenCategoryGroups(
  */
 function initCategoryGroupConfigKey(
   siteConfig: SiteConfig,
-  entityConfig: EntityConfig
+  entityConfig: EntityConfig,
 ): CategoryGroupConfigKey {
   const categoryGroupConfig = getEntityCategoryGroupConfig(
     siteConfig,
-    entityConfig
+    entityConfig,
   );
   return categoryGroupConfig?.key || entityConfig.route;
 }
@@ -140,7 +140,7 @@ function initCategoryGroupConfigKey(
  */
 function initCategoryGroups(
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey,
-  categoryGroupConfigKey: CategoryGroupConfigKey
+  categoryGroupConfigKey: CategoryGroupConfigKey,
 ): CategoryGroup[] | undefined {
   return entityStateByCategoryGroupConfigKey.get(categoryGroupConfigKey)
     ?.categoryGroups;
@@ -216,7 +216,7 @@ function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
 function initEntityStateByCategoryGroupConfigKey(
   config: SiteConfig,
   categoryGroupConfigKey: CategoryGroupConfigKey,
-  filterState: SelectedFilter[]
+  filterState: SelectedFilter[],
 ): EntityStateByCategoryGroupConfigKey {
   const entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey =
     new Map();
@@ -296,23 +296,23 @@ export function initReducerArguments(
   entityListType: string,
   decodedFilterParam: string,
   decodedCatalogParam?: string,
-  decodedFeatureFlagParam?: string
+  decodedFeatureFlagParam?: string,
 ): ExploreState {
   const filterState = initFilterState(decodedFilterParam);
   const entityPageState = initEntityPageState(config);
   const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     entityListType,
-    entityPageState
+    entityPageState,
   );
   const entityStateByCategoryGroupConfigKey =
     initEntityStateByCategoryGroupConfigKey(
       config,
       categoryGroupConfigKey,
-      filterState
+      filterState,
     );
   const categoryGroups = initCategoryGroups(
     entityStateByCategoryGroupConfigKey,
-    categoryGroupConfigKey
+    categoryGroupConfigKey,
   );
   const entities = initEntities(entityPageState);
 

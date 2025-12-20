@@ -25,7 +25,7 @@ export interface InputProps {
  */
 function onChangeInputField(
   changeEvent: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  setSearchTerm: SetSearchTermFn
+  setSearchTerm: SetSearchTermFn,
 ): void {
   const searchTerm = changeEvent.target.value;
   setSearchTerm(searchTerm);

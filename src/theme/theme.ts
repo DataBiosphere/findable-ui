@@ -39,7 +39,7 @@ export function createAppTheme(customOptions: ThemeOptions = {}): Theme {
         spacing: 4,
         typography: typography(baseTheme),
       },
-      options
-    )
+      options,
+    ),
   );
 }

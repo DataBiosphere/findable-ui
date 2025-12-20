@@ -24,7 +24,7 @@ export const ExportToTerraReady = ({
     window.open(
       exportURL,
       ANCHOR_TARGET.BLANK,
-      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
     );
   };
   return (

@@ -6,7 +6,7 @@ export const Slide = forwardRef<Element, MSlideProps>(function Slide(
     children,
     ...props /* Spread props to allow for Mui SlideProps specific prop overrides. */
   }: MSlideProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <MSlide

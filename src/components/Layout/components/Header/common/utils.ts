@@ -18,7 +18,7 @@ import {
 function addSelectedPattern(
   setOfPatterns: Set<string>,
   navLinkItem: NavLinkItem,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): void {
   if (!navLinkItem.url) return;
   // Exclude external links.
@@ -56,7 +56,7 @@ export function getMenuNavigationLinks(navigation?: Navigation): NavLinkItem[] {
  */
 export function getNavigationLinks(
   navigationLinks?: NavLinkItem[],
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): NavLinkItem[] {
   if (!navigationLinks) return [];
   return navigationLinks
@@ -96,7 +96,7 @@ function getPatternStartsWith(url: string): string {
  */
 function getSelectedMatch(
   selectedMatch?: SelectedMatch,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): SELECTED_MATCH | undefined {
   if (!selectedMatch) return SELECTED_MATCH.STARTS_WITH;
   if (typeof selectedMatch === "string") return selectedMatch;
@@ -110,7 +110,7 @@ function getSelectedMatch(
  * @returns selected match.
  */
 function getSelectMatchValue(
-  selectedMatchValue?: boolean | SELECTED_MATCH
+  selectedMatchValue?: boolean | SELECTED_MATCH,
 ): SELECTED_MATCH | undefined {
   if (selectedMatchValue === false) return undefined;
   if (selectedMatchValue === true) return SELECTED_MATCH.STARTS_WITH;
@@ -125,7 +125,7 @@ function getSelectMatchValue(
  */
 function isLinkFlattened(
   navLinkItem: NavLinkItem,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): boolean {
   if (!breakpoint) return false; // Default is not flattened.
   if (!navLinkItem.flatten) return false; // Default is not flattened.
@@ -140,7 +140,7 @@ function isLinkFlattened(
  */
 function isLinkVisible(
   navLinkItem: NavLinkItem,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): boolean {
   if (!breakpoint) return true; // Default is visible.
   if (!navLinkItem.visible) return true; // Default is visible.
@@ -155,7 +155,7 @@ function isLinkVisible(
  */
 export function isSocialsVisible(
   bp: Pick<UseBreakpoint, "breakpoint" | "lgUp">,
-  socialMedia?: SocialMedia
+  socialMedia?: SocialMedia,
 ): boolean {
   if (!socialMedia) return false;
   if (!bp.breakpoint) return false;
@@ -171,7 +171,7 @@ export function isSocialsVisible(
  */
 function mapSelectedMatches(
   navLinkItem: NavLinkItem,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): NavLinkItem {
   const setOfPatterns = new Set<string>();
   // Add selected pattern for the current navigation link.
@@ -179,7 +179,7 @@ function mapSelectedMatches(
   const cloneLink = { ...navLinkItem };
   if (cloneLink.menuItems) {
     cloneLink.menuItems = [...cloneLink.menuItems].map((menuItem) =>
-      mapSelectedMatches(menuItem, breakpoint)
+      mapSelectedMatches(menuItem, breakpoint),
     );
     for (const { selectedPatterns = [] } of cloneLink.menuItems) {
       selectedPatterns.forEach((pattern) => setOfPatterns.add(pattern));
@@ -198,7 +198,7 @@ function mapSelectedMatches(
  */
 function processNavLinkItem(
   navLinkItem: NavLinkItem,
-  breakpoint?: Breakpoint
+  breakpoint?: Breakpoint,
 ): NavLinkItem[] | undefined {
   if (isLinkVisible(navLinkItem, breakpoint)) {
     const cloneLink = { ...navLinkItem };

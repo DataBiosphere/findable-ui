@@ -33,7 +33,7 @@ export const SCHEMA = object({
               if (!min || !max) return true;
               if (Number.isNaN(min) || Number.isNaN(max)) return true;
               return min < max;
-            }
+            },
           )
           .test(
             "at-least-min-or-max",
@@ -42,7 +42,7 @@ export const SCHEMA = object({
               const max = this.parent[FIELD_NAME.MAX];
               // If both values are null, validation fails.
               return !(min === null && max === null);
-            }
+            },
           ),
     })
     .when(FIELD_NAME.RANGE_OPERATOR, {
@@ -55,6 +55,6 @@ export const SCHEMA = object({
       then: (schema) => schema.required("Value is required"),
     }),
   [FIELD_NAME.RANGE_OPERATOR]: mixed<RANGE_OPERATOR>().default(
-    RANGE_OPERATOR.BETWEEN
+    RANGE_OPERATOR.BETWEEN,
   ),
 });

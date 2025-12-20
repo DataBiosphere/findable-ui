@@ -10,7 +10,7 @@ export const convertUrlParams = (params: Record<string, string>): string => {
   // Delete any key which value is undefined. So the result string will not transform { key: undefined } into
   // 'key=undefined'
   Object.keys(params).forEach(
-    (key) => validParams[key] === undefined && delete validParams[key]
+    (key) => validParams[key] === undefined && delete validParams[key],
   );
   if (isSSR()) {
     // check if the operation is being executed on server side

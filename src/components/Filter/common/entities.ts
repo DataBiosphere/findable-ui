@@ -26,7 +26,7 @@ export interface FilterMenuSearchStringMatch {
  * Function that performs a match on a string.
  */
 export type FilterMenuSearchMatchStringFn = (
-  s: string
+  s: string,
 ) => FilterMenuSearchStringMatch | null;
 
 /**
@@ -42,5 +42,5 @@ export interface FilterMenuSearchMatch {
  * Function that performs a match on a SelectCategoryValueView.
  */
 export type FilterMenuSearchSortMatchesFn = (
-  values: SelectCategoryValueView[]
+  values: SelectCategoryValueView[],
 ) => FilterMenuSearchMatch[];

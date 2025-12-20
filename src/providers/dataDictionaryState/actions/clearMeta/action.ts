@@ -9,7 +9,7 @@ import { ClearMetaPayload } from "./types";
  */
 export function clearMetaAction(
   state: DataDictionaryState,
-  payload: ClearMetaPayload
+  payload: ClearMetaPayload,
 ): DataDictionaryState {
   return {
     ...state,

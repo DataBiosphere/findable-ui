@@ -56,7 +56,7 @@ describe("Filter", () => {
           [100, null],
           true,
           undefined,
-          VIEW_KIND.RANGE
+          VIEW_KIND.RANGE,
         );
       });
     });

@@ -46,7 +46,7 @@ export function resetState(): ResetStateAction {
  * @returns Action.
  */
 export function updateAuthentication(
-  payload: UpdateAuthenticationPayload
+  payload: UpdateAuthenticationPayload,
 ): UpdateAuthenticationAction {
   return {
     payload,

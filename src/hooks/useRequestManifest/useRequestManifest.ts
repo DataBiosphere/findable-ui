@@ -22,7 +22,7 @@ import {
  */
 export const useRequestManifest = (
   fileManifestFormat: ManifestDownloadFormat | undefined,
-  formFacet: FormFacet
+  formFacet: FormFacet,
 ): UseRequestManifest => {
   // Retrieve the endpoint URL from configured data source.
   const config = useConfig();
@@ -42,7 +42,7 @@ export const useRequestManifest = (
       endpointUrl,
       catalog as string, // Catalog is defined.
       buildRequestFilters(fileManifestState, formFacet),
-      fileManifestFormat as ManifestDownloadFormat // Manifest format is defined.
+      fileManifestFormat as ManifestDownloadFormat, // Manifest format is defined.
     );
   }
   return REQUEST_MANIFEST;

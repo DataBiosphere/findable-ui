@@ -10,7 +10,7 @@ import { ROUTER_METHOD, StateToUrlPayload } from "./types";
  */
 export function stateToUrlAction(
   state: ExploreState,
-  payload: StateToUrlPayload
+  payload: StateToUrlPayload,
 ): ExploreState {
   const command =
     payload.method === ROUTER_METHOD.PUSH

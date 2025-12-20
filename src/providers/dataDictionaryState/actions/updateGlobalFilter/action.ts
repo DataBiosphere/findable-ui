@@ -11,7 +11,7 @@ import { buildNextGlobalFilter, buildNextMeta } from "./utils";
  */
 export function updateGlobalFilterAction(
   state: DataDictionaryState,
-  payload: UpdateGlobalFilterPayload
+  payload: UpdateGlobalFilterPayload,
 ): DataDictionaryState {
   const globalFilter = buildNextGlobalFilter(payload);
   const meta = buildNextMeta(state, payload, globalFilter);

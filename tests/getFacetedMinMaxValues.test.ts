@@ -123,7 +123,7 @@ describe("getFacetedMinMaxValues", () => {
  */
 function getExpected(
   table: Table<RowData>,
-  columnId: string
+  columnId: string,
 ): [number, number] | undefined {
   return getFacetedMinMaxValues()(table, columnId)();
 }

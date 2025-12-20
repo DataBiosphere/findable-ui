@@ -26,7 +26,7 @@ export const useGoogleSignInService = (reducer: SessionReducer): Service => {
         tokenDispatch,
       });
     },
-    [authDispatch, authenticationDispatch, findProvider, tokenDispatch]
+    [authDispatch, authenticationDispatch, findProvider, tokenDispatch],
   );
 
   const onLogout = useCallback(
@@ -46,7 +46,7 @@ export const useGoogleSignInService = (reducer: SessionReducer): Service => {
       basePath,
       credentialsDispatch,
       tokenDispatch,
-    ]
+    ],
   );
 
   return { requestLogin: onLogin, requestLogout: onLogout };

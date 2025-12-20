@@ -12,7 +12,7 @@ import { sortCategoryViews } from "./utils";
  */
 export function updateFilterSortAction(
   state: ExploreState,
-  payload: UpdateFilterSortPayload
+  payload: UpdateFilterSortPayload,
 ): ExploreState {
   const filterSort = payload;
 

@@ -47,11 +47,11 @@ export const ManifestDownload = ({
   } = useExploreState();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const manifestURL = getManifestDownloadURL(data);
   return manifestURL ? (
@@ -80,7 +80,7 @@ export const ManifestDownload = ({
  * @returns manifest download URL.
  */
 function getManifestDownloadURL(
-  fileLocation?: FileLocation
+  fileLocation?: FileLocation,
 ): string | undefined {
   const { location } = fileLocation || {};
   return location;

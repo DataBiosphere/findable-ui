@@ -22,7 +22,7 @@ describe("ChartView", () => {
     render(<Default />);
     // Mocks include the facets `Biological Sex`, `Genus Species` and `Paired End`.
     const categoryLabels = screen.getAllByText(
-      /Biological Sex|Genus Species|Paired End}/
+      /Biological Sex|Genus Species|Paired End}/,
     );
     // `Paired End` is not included in the chart view, `enableChartView` is false.
     expect(categoryLabels.length).toBe(2);
@@ -35,7 +35,7 @@ describe("ChartView", () => {
     } = Default;
     ["Biological Sex", "Genus Species"].forEach((category) => {
       expect(
-        screen.getByText(new RegExp(`${entityName} by ${category}`))
+        screen.getByText(new RegExp(`${entityName} by ${category}`)),
       ).toBeDefined();
     });
   });

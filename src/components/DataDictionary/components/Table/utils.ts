@@ -9,13 +9,13 @@ import { ClassMeta } from "./types";
  * @returns Class meta data.
  */
 export const buildClassMeta = <T extends RowData = Attribute>(
-  classes: Class<T>[]
+  classes: Class<T>[],
 ): ClassMeta => {
   return Object.fromEntries(
     classes.map(({ description, name, title }) => [
       name,
       { description, title },
-    ])
+    ]),
   );
 };
 
@@ -27,14 +27,14 @@ export const buildClassMeta = <T extends RowData = Attribute>(
  * @returns Table data.
  */
 export const buildTableData = <T extends RowData = Attribute>(
-  classes: Class<T>[]
+  classes: Class<T>[],
 ): T[] => {
   return classes
     .map(({ attributes, name: classKey }) =>
       attributes.map((attribute) => ({
         ...(attribute as unknown as Attribute),
         classKey,
-      }))
+      })),
     )
     .flat() as T[];
 };

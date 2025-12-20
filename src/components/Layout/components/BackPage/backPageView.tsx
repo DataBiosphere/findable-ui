@@ -32,8 +32,8 @@ export const BackPageView = ({
   const MainColumn = isDetailOverview
     ? DetailPageOverviewContentMainColumn
     : sideColumn
-    ? BackPageContentMainColumn
-    : Fragment;
+      ? BackPageContentMainColumn
+      : Fragment;
   const SideColumn = isDetailOverview
     ? DetailPageOverviewContentSideColumn
     : BackPageContentSideColumn;

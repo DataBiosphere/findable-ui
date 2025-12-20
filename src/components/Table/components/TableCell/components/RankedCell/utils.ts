@@ -33,7 +33,7 @@ export function getTokensRegex(tokens: string[]): RegExp {
 export function isRankedCell<T extends RowData>(
   table: Table<T>,
   row: Row<T>,
-  columnId: string
+  columnId: string,
 ): boolean {
   const { getState } = table;
   const { globalFilter } = getState();

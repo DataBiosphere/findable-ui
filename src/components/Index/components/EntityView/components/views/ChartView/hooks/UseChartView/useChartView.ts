@@ -8,21 +8,21 @@ import { getSelectCategoryViews, getSVGWidth } from "../../utils";
 import { UseChartView } from "./types";
 
 export const useChartView = (
-  categoryFilters: CategoryFilter[]
+  categoryFilters: CategoryFilter[],
 ): UseChartView => {
   const chartViewRef = useRef<HTMLDivElement>(null);
   const selectCategoryViews = useMemo(
     () => getSelectCategoryViews(categoryFilters),
-    [categoryFilters]
+    [categoryFilters],
   );
   const shouldObserve = useMemo(
     () => selectCategoryViews.length > 0,
-    [selectCategoryViews]
+    [selectCategoryViews],
   );
   const chartViewRect = useResizeObserver(
     chartViewRef,
     getBorderBoxSize,
-    shouldObserve
+    shouldObserve,
   );
   const width = getSVGWidth(chartViewRect?.width);
   return { chartViewRef, selectCategoryViews, width };

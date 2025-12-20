@@ -36,7 +36,7 @@ export const ExportMethodView = (): JSX.Element => {
  */
 function getExportMethodConfig(
   exportMethods: ExportMethodConfig[],
-  pathname: string
+  pathname: string,
 ): ExportMethodConfig | undefined {
   return exportMethods.find(({ route }) => route === pathname);
 }
