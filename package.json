@@ -68,7 +68,7 @@
     "@tanstack/react-virtual": "^3.13.13",
     "copy-to-clipboard": "^3.3.1",
     "gray-matter": "^4.0.3",
-    "isomorphic-dompurify": "^2.22.0",
+    "isomorphic-dompurify": "^2.34.0",
     "ky": "^1.7.2",
     "next": "^14.2.33",
     "next-auth": "^4.24.13",
