@@ -24,7 +24,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
-    "@emotion/jest": "^11.13.0",
+    "@emotion/jest": "^11.14.2",
     "@next/eslint-plugin-next": "^14.2.33",
     "@storybook/nextjs-vite": "^10.1.7",
     "@testing-library/react": "^16.0.1",
@@ -58,8 +58,8 @@
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
     "@observablehq/plot": "^0.6.17",
