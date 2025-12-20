@@ -10,10 +10,10 @@ export function getFacetedMinMaxValues<TData extends RowData>(): (
   table: Table<TData>,
   columnId: string
 ) => () => undefined | [number, number] {
-  // eslint-disable-next-line sonarjs/cognitive-complexity -- Customized copy of tanstack table function.
   return (table, columnId) =>
     memo(
       () => [table.getColumn(columnId)?.getFacetedRowModel()],
+      // eslint-disable-next-line sonarjs/cognitive-complexity -- Customized copy of tanstack table function.
       (facetedRowModel) => {
         if (!facetedRowModel) return undefined;
 
