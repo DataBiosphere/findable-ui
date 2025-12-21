@@ -1,6 +1,6 @@
 import { Checkbox, ListItemButton, ListItemText } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { CheckedIcon } from "../../../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { handleResetVisibilityState } from "../../../../../TableFeatures/ColumnVisibility/utils";

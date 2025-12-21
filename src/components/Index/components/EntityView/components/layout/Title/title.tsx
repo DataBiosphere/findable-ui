@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { Title as CommonTitle } from "../../../../../../common/Title/title";
 import { BaseComponentProps } from "../../../../../../types";

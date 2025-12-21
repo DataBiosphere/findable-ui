@@ -1,6 +1,6 @@
 import { AddRounded, RemoveRounded } from "@mui/icons-material";
 import { Collapse, CollapseProps } from "@mui/material";
-import React, { ReactNode, useEffect, useState } from "react";
+import { JSX, ReactNode, useEffect, useState } from "react";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,

@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { parseValue } from "./utils";
 

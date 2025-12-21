@@ -3,7 +3,7 @@ import {
   Fade as MFade,
   FadeProps as MFadeProps,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { StatusBadge } from "../../../common/StatusBadge/statusBadge";
 
 const DEFAULT_FADE_PROPS: Partial<MFadeProps> = {

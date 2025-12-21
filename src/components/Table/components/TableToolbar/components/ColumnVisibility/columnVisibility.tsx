@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { DropdownButton } from "../../../../../common/Button/components/DropdownButton/dropdownButton";
 import { StyledDropdownMenu } from "./columnVisibility.styles";
 import { MenuItems } from "./components/MenuItems/menuItems";

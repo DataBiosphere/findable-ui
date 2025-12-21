@@ -1,6 +1,6 @@
 import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { List, NavBar } from "./nav.styles";
 
 export interface NavItem {
@@ -22,11 +22,14 @@ export const Nav = ({ Hero, navigation }: NavProps): JSX.Element => {
         {navigation.map(({ active, label, url }, i) => {
           return (
             <ListItem key={`${label}${i}`}>
-              <Link href={url ?? ""} legacyBehavior passHref>
-                <ListItemButton disabled={!url} selected={active}>
-                  <ListItemText disableTypography primary={label} />
-                </ListItemButton>
-              </Link>
+              <ListItemButton
+                component={Link}
+                disabled={!url}
+                href={url ?? ""}
+                selected={active}
+              >
+                <ListItemText disableTypography primary={label} />
+              </ListItemButton>
             </ListItem>
           );
         })}

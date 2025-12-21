@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { BackPageHeroActions } from "./actions.styles";
 
 export interface ActionsProps {

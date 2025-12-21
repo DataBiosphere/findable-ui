@@ -1,4 +1,4 @@
-import React, { Dispatch, ElementType, SetStateAction } from "react";
+import { JSX, Dispatch, ElementType, SetStateAction } from "react";
 import { FileManifestState } from "../../../../../../providers/fileManifestState";
 import { PAPER_PANEL_STYLE } from "../../../../../common/Paper/paper";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";

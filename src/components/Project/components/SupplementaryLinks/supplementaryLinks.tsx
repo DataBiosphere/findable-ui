@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { CollapsableSection } from "../../../common/Section/components/CollapsableSection/collapsableSection";
 import { SectionDetailsEmpty } from "../../../common/Section/components/SectionDetailsEmpty/sectionDetailsEmpty";
 import { Stack } from "../../../common/Stack/stack";

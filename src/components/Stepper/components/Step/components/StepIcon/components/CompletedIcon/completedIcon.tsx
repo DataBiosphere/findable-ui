@@ -1,5 +1,5 @@
 import { stepIconClasses } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { TestIdProps } from "../../../../../../../types";
 import { StyledSvgIcon } from "./completedIcon.styles";
 import { SVG_ICON_PROPS } from "./contants";

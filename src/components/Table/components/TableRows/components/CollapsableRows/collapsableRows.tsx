@@ -1,6 +1,6 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
 import { StyledTableRow } from "./collapsableRows.styles";

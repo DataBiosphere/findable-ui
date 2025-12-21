@@ -1,6 +1,6 @@
 import { ButtonProps } from "@mui/material";
-import NLink from "next/link";
-import React, { ElementType } from "react";
+import Link from "next/link";
+import { JSX, ElementType } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -32,18 +32,17 @@ export const CallToActionButton = ({
   const { label, target, url } = callToAction;
   const isInternal = isClientSideNavigation(url);
   return isInternal ? (
-    <NLink href={url} legacyBehavior passHref>
-      <Button
-        className={className}
-        disabled={disabled}
-        href="passHref"
-        rel={REL_ATTRIBUTE.NO_OPENER}
-        target={target || ANCHOR_TARGET.SELF}
-        {...buttonProps}
-      >
-        {label}
-      </Button>
-    </NLink>
+    <Button
+      className={className}
+      component={Link}
+      disabled={disabled}
+      href={url}
+      rel={REL_ATTRIBUTE.NO_OPENER}
+      target={target || ANCHOR_TARGET.SELF}
+      {...buttonProps}
+    >
+      {label}
+    </Button>
   ) : (
     <Button
       className={className}

@@ -1,5 +1,5 @@
 import { CellContext, RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { BaseComponentProps, ChildrenProps } from "../../../../../types";
 import { getTokens, getTokensRegex, isRankedCell } from "./utils";
 

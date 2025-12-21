@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { Attribute } from "../../../../common/entities";
 import { GlobalFilter } from "../../../Table/components/TableFeatures/GlobalFilter/globalFilter";
 import { ColumnFilters } from "./components/ColumnFilters/columnFilters";

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { CHIP_PROPS } from "../../../../styles/common/mui/chip";
 import { StyledChip } from "./filterCountChip.styles";
 import { FilterCountChipProps } from "./types";

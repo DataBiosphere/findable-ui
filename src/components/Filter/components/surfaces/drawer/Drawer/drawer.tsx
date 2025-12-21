@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { DrawerProvider } from "../../../../../common/Drawer/provider/provider";
 import { Controls } from "../../../controls/Controls/controls";
 import { Filters } from "../../../Filters/filters";

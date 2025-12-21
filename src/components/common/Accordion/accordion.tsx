@@ -5,7 +5,7 @@ import {
   AccordionProps as MAccordionProps,
   Typography,
 } from "@mui/material";
-import React, { ReactNode, useState } from "react";
+import { JSX, ReactNode, useState } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { AddIcon } from "../CustomIcon/components/AddIcon/addIcon";
 import { RemoveIcon } from "../CustomIcon/components/RemoveIcon/removeIcon";

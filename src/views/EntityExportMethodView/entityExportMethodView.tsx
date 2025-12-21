@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
-import React from "react";
+import { JSX } from "react";
 import { EntityDetailViewProps } from "views/EntityDetailView/entityDetailView";
 import { PARAMS_INDEX_EXPORT_METHOD } from "../../common/constants";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { ComponentCreator } from "../../../../../../ComponentCreator/ComponentCreator";
 

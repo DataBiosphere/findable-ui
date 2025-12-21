@@ -19,12 +19,12 @@ export type ElementRect = {
  * @returns Element size and position properties for the given element.
  */
 export function useResizeObserver(
-  ref: RefObject<HTMLElement>,
+  ref: RefObject<HTMLElement | null>,
   onResizeFn: (entries: ResizeObserverEntry[]) => Partial<ElementRect>,
   shouldObserve: boolean = true,
 ): Partial<ElementRect> | undefined {
   const [elementRect, setElementRect] = useState<Partial<ElementRect>>();
-  const observerRef = useRef<ResizeObserver>();
+  const observerRef = useRef<ResizeObserver>(null);
 
   // Observed element is resized or repositioned - set state elementRect with the element's new dimensions or position.
   const onResize = useCallback(

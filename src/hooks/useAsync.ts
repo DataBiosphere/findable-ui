@@ -1,7 +1,7 @@
 /**
  * Hook to make API async calls and handles the API result state.
  */
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 import { DataExplorerError } from "../types/error";
 
 /**
@@ -78,7 +78,7 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
  */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- TODO revisit return type here
 const useSafeDispatch = <T>(dispatch: (args: T) => void) => {
-  const mounted = React.useRef(false);
+  const mounted = useRef(false);
   useEffect(() => {
     mounted.current = true;
     return (): void => {

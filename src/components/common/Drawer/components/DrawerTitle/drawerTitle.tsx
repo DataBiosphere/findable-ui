@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { DrawerTitle as Title } from "./drawerTitle.styles";
 
 export interface DrawerTitleProps {

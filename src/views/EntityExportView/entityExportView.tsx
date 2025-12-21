@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { EntityDetailViewProps } from "views/EntityDetailView/entityDetailView";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";

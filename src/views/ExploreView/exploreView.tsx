@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import React, { useEffect, useMemo } from "react";
+import { JSX, useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";

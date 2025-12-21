@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 
 export const ActionButton = (): JSX.Element | null => {

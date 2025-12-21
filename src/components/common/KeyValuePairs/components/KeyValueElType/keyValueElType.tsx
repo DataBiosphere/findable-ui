@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { KeyValue, KeyValueFn } from "../../keyValuePairs";
 
 /**

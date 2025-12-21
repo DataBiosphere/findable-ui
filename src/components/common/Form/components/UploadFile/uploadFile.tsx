@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { FormHelperText, Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { DropzoneState } from "react-dropzone";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../Loading/loading";

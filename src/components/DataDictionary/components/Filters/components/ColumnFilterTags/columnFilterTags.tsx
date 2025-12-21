@@ -1,6 +1,6 @@
 import { Button, Theme, useMediaQuery } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { Attribute } from "../../../../../../common/entities";
 import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
 import { ColumnFilterTag } from "../../../../../Table/components/TableFeatures/ColumnFilter/components/ColumnFilterTag/columnFilterTag";

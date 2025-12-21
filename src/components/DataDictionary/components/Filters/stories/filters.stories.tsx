@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { functionalUpdate, Table } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { action } from "storybook/actions";
 import { Filters } from "../filters";
 import { COLUMNS } from "./constants";

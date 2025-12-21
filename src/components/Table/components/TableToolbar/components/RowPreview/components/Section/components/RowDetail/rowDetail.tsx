@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX, useState } from "react";
 import { ListConfig } from "../../../../../../../../../../config/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import { ButtonTextPrimary } from "../../../../../../../../../common/Button/components/ButtonTextPrimary/buttonTextPrimary";
@@ -24,7 +24,7 @@ export const RowDetail = <T extends RowData>({
   minColumns = MIN_COLUMNS,
   rowData,
 }: RowDetailProps<T>): JSX.Element | null => {
-  const [showMore, setShowMore] = React.useState<boolean>(expanded);
+  const [showMore, setShowMore] = useState<boolean>(expanded);
   const visibleColumns = showMore ? columns : columns.slice(0, minColumns);
   const buttonText = showMore ? "Show less" : "Show more";
   const onToggleShowMore = (): void => setShowMore(!showMore);

@@ -1,6 +1,6 @@
 import { Divider, Typography } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { JSX } from "react";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
@@ -86,14 +86,13 @@ export const Error = ({
           </SectionContent>
           {rootPath && (
             <SectionActions>
-              <Link href={rootPath} legacyBehavior passHref>
-                <ButtonPrimary
-                  onClick={handleToHomePageClicked}
-                  href="passHref"
-                >
-                  To Homepage
-                </ButtonPrimary>
-              </Link>
+              <ButtonPrimary
+                component={Link}
+                href={rootPath}
+                onClick={handleToHomePageClicked}
+              >
+                To Homepage
+              </ButtonPrimary>
             </SectionActions>
           )}
         </ErrorSection>

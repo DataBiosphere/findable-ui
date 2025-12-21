@@ -6,7 +6,7 @@ import {
   Skeleton,
 } from "@mui/material";
 import Router from "next/router";
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { useProfile } from "../../../../../../../../../../hooks/authentication/profile/useProfile";
 import { ROUTE } from "../../../../../../../../../../routes/constants";
 import { isNavigationLinkSelected } from "../../../Navigation/common/utils";

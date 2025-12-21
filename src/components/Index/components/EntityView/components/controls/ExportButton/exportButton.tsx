@@ -1,6 +1,6 @@
 import { Button, Tooltip } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { JSX } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { useDownloadStatus } from "../../../../../../../hooks/useDownloadStatus";
 import { ROUTE } from "../../../../../../../routes/constants";

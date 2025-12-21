@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
-import React, {
+import {
   Fragment,
+  JSX,
   createElement,
   useEffect,
   useMemo,

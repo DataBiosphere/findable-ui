@@ -1,5 +1,5 @@
 import { Grow, PopoverPosition, PopoverProps } from "@mui/material";
-import React, { MouseEvent, ReactNode, useState } from "react";
+import { JSX, MouseEvent, ReactNode, useState } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";

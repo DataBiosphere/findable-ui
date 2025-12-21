@@ -1,6 +1,6 @@
 import { Fade } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { Attribute } from "../../common/entities";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
 import { useHtmlStyle } from "../../hooks/useHtmlStyle/hook";

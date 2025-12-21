@@ -6,7 +6,7 @@ import {
   Paper as MPaper,
   PopperProps as MPopperProps,
 } from "@mui/material";
-import React, { Fragment, ReactNode, useEffect } from "react";
+import { JSX, Fragment, ReactNode, useEffect } from "react";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {

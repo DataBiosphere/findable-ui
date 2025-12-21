@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { Fragment, useEffect } from "react";
+import { JSX, Fragment, useEffect } from "react";
 import { updateAuthState } from "../../../../../../providers/authentication/auth/dispatch";
 import { useAuth } from "../../../../../../providers/authentication/auth/hook";
 import { updateAuthentication } from "../../../../../../providers/authentication/authentication/dispatch";

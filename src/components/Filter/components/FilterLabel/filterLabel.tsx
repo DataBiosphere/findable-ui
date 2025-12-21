@@ -1,5 +1,5 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
-import React, { MouseEvent } from "react";
+import { JSX, MouseEvent } from "react";
 import { DataDictionaryAnnotation } from "../../../../common/entities";
 import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import { SURFACE_TYPE } from "../surfaces/types";

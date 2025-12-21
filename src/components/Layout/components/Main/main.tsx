@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { MainWithOffset } from "./main.styles";
 

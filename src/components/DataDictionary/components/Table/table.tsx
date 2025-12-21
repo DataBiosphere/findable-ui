@@ -1,6 +1,6 @@
 import { TableContainer } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { useBreakpoint } from "../../../../hooks/useBreakpoint";
 import { TableBody } from "../../../Detail/components/Table/components/TableBody/tableBody";
 import { ROW_DIRECTION } from "../../../Table/common/entities";

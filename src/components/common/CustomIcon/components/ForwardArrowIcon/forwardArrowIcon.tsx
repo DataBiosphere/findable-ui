@@ -1,5 +1,5 @@
 import { SvgIcon } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { CustomSVGIconProps } from "../../common/entities";
 
 export const ForwardArrowIcon = ({

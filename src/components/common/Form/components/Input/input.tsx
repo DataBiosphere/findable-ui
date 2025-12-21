@@ -3,7 +3,7 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { InputFormControl } from "./input.styles";
 

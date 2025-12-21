@@ -1,5 +1,5 @@
 import { Drawer as MDrawer, DrawerProps as MDrawerProps } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 export interface DrawerProps extends MDrawerProps {
   children?: ReactNode | ReactNode[];

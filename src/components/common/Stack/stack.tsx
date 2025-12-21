@@ -1,5 +1,5 @@
 import { Stack as MStack, StackProps as MStackProps } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 /**
  * An extension of the basic Mui Stack component with available Stack props.

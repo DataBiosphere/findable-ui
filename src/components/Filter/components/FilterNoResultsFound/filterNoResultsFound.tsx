@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { ButtonTextPrimary } from "../../../common/Button/components/ButtonTextPrimary/buttonTextPrimary";
 import { FilterNoResultsFound as FilterNoResults } from "./filterNoResultsFound.styles";

@@ -3,7 +3,7 @@ import {
   IconButton as MIconButton,
   IconButtonProps as MIconButtonProps,
 } from "@mui/material";
-import React, { ElementType, useState } from "react";
+import { JSX, ElementType, useState } from "react";
 import { SearchIcon } from "../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { StyledButton } from "./components/Button/button.styles";
 import SearchBar from "./components/SearchBar/searchBar";

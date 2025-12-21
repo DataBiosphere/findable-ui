@@ -1,5 +1,5 @@
 import { MenuProps as MMenuProps } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { useMenu } from "../Menu/hooks/useMenu";
 import { DEFAULT_DROPDOWN_MENU_PROPS } from "./common/constants";
 import {

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { AzulEntityStaticResponse } from "../../apis/azul/common/entities";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";

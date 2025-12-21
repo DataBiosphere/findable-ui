@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { Attribute } from "../../../../common/entities";
 import { NoResults } from "../../../NoResults/noResults";
 import { Entity } from "../Entity/entity";

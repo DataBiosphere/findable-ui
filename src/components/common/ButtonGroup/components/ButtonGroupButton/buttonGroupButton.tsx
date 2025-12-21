@@ -1,5 +1,5 @@
 import { Button as MButton } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { LoadingIcon } from "../../../CustomIcon/components/LoadingIcon/loadingIcon";
 
 export interface ButtonGroupButtonProps {

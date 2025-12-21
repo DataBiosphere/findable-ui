@@ -1,7 +1,8 @@
 import { RowSelectionState } from "@tanstack/react-table";
-import React, {
+import {
   createContext,
   Dispatch,
+  JSX,
   ReactNode,
   useEffect,
   useMemo,

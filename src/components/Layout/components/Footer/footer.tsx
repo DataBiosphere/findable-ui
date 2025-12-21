@@ -1,5 +1,5 @@
 import { Toolbar } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { SELECTOR } from "../../../../common/selectors";
 import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { Social } from "../../../common/Socials/socials";

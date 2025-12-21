@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { StyledButton } from "./button.styles";
 import { BUTTON_PROPS } from "./constants";
 import { Props } from "./types";
