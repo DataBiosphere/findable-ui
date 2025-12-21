@@ -1,14 +1,15 @@
 import { Typography } from "@mui/material";
 import {
-  Fragment,
   JSX,
-  createElement,
   useEffect,
   useMemo,
   useState,
+  createElement,
+  Fragment,
+  isValidElement,
 } from "react";
 import rehypeRaw from "rehype-raw";
-import rehypeReact from "rehype-react";
+import rehypeReact, { Components } from "rehype-react";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -18,7 +19,7 @@ import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
 import { rehypeHighlight } from "./rehypeHighlight";
-import { MarkdownRendererComponents, MarkdownRendererProps } from "./types";
+import { MarkdownRendererProps } from "./types";
 
 /**
  * Markdown Rendering - Pipeline Version Constraints
@@ -30,7 +31,7 @@ import { MarkdownRendererComponents, MarkdownRendererProps } from "./types";
  * Because remark-gfm 3.x is required, migrating to Unified 11 is not yet possible.
  *
  * rehype plug-ins are chosen from versions that still target Unified 10:
- * rehype-raw 7.x, rehype-sanitize 5.x and rehype-react 7.x.
+ * rehype-raw 7.x, rehype-sanitize 6.x and rehype-react 8.x.
  */
 
 export const MarkdownRenderer = ({
@@ -41,7 +42,7 @@ export const MarkdownRenderer = ({
 }: MarkdownRendererProps): JSX.Element => {
   const [element, setElement] = useState<JSX.Element | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [components] = useState<MarkdownRendererComponents>(componentOptions);
+  const [components] = useState<Components>(componentOptions);
   const regex = useMemo(() => markdownRegex, [markdownRegex]);
 
   useEffect(() => {
@@ -55,12 +56,17 @@ export const MarkdownRenderer = ({
       .use(rehypeRaw)
       .use(rehypeSanitize)
       .use(rehypeHighlight, { regex })
+      // @ts-expect-error - rehype-react plugin type compatibility issue with unified processor.
+      // The plugin is functionally compatible, but TypeScript types don't match exactly
+      // due to unified version constraints. This is a known issue with rehype-react v8.x
+      // when used with unified v10.x pipeline.
       .use(rehypeReact, { Fragment, components, createElement });
 
     processor
       .process(value)
       .then(({ result }) => {
-        if (!cancelled) setElement(result);
+        if (cancelled) return;
+        if (isValidElement(result)) setElement(result);
       })
       .catch((err) => {
         if (!cancelled) setError(err.message);
