@@ -17137,7 +17137,10 @@
       "consent cohort",
       "consent group",
       "consent set",
-      "gru"
+      "gru",
+      "general research use",
+      "general research",
+      "unrestricted research use"
     ],
     "metadata": {
       "count": 101
@@ -18711,7 +18714,8 @@
       "open access",
       "public",
       "public access",
-      "unlimited access"
+      "unlimited access",
+      "open-access"
     ],
     "metadata": {
       "count": 1

@@ -1,0 +1,12 @@
+test_id,query,expected_facet,expected_terms,notes,category
+cg_001,open access,datasets.consent_group,Unrestricted access,Open access with space,basic
+cg_002,open-access,datasets.consent_group,Unrestricted access,Open access with hyphen,basic
+cg_003,public access,datasets.consent_group,Unrestricted access,Public access variant,synonym
+cg_004,unrestricted access,datasets.consent_group,Unrestricted access,Exact term match,basic
+cg_005,GRU,datasets.consent_group,GRU,General Research Use abbreviation,abbreviation
+cg_006,datasets consented for general research use,datasets.consent_group,GRU,General Research Use with context,synonym
+cg_007,consortia access only,datasets.consent_group,Consortia Access Only,Restricted access,basic
+cg_008,restricted access,datasets.consent_group,Consortia Access Only,Restricted access synonym,synonym
+cg_009,HMB,datasets.consent_group,HMB,Health/Medical/Biomedical abbreviation,abbreviation
+cg_010,consent group not specified,datasets.consent_group,Unspecified,Not specified variant,edge_case
+cg_011,consent group unspecified,datasets.consent_group,Unspecified,Unspecified variant,edge_case
