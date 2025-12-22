@@ -15,6 +15,10 @@ lib
 # dependencies
 node_modules
 
+# python
+.venv
+.pytest_cache
+
 # editors
 .vscode
 

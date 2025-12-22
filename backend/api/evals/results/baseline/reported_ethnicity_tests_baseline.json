@@ -14,17 +14,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Asia|White or European American|Hispanic/Latino(a)",
-          "White"
-        ]
+        "terms": ["Asia|White or European American|Hispanic/Latino(a)", "White"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Asia|White or European American|Hispanic/Latino(a)",
-          "White"
-        ]
+        "terms": ["Asia|White or European American|Hispanic/Latino(a)", "White"]
       },
       "error_type": null,
       "notes": "Includes combined ethnicities",
@@ -235,9 +229,7 @@
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "American Indian or Alaska Native"
-        ]
+        "terms": ["American Indian or Alaska Native"]
       },
       "error_type": "wrong_term",
       "notes": "Includes combined ethnicities",
@@ -353,17 +345,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Hispanic or Latino",
-          "Hispanic/Latino(a)"
-        ]
+        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Hispanic or Latino",
-          "Hispanic/Latino(a)"
-        ]
+        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
       },
       "error_type": null,
       "notes": "Includes variant naming",
@@ -375,15 +361,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "White"
-        ]
+        "terms": ["White"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "White"
-        ]
+        "terms": ["White"]
       },
       "error_type": null,
       "notes": "Geographic synonym",
@@ -395,15 +377,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unknown"
-        ]
+        "terms": ["Unknown"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unknown"
-        ]
+        "terms": ["Unknown"]
       },
       "error_type": null,
       "notes": "Unknown ethnicity",
@@ -415,15 +393,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "error_type": null,
       "notes": "Not reported variant",
@@ -483,15 +457,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Middle Eastern or North African"
-        ]
+        "terms": ["Middle Eastern or North African"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Middle Eastern or North African"
-        ]
+        "terms": ["Middle Eastern or North African"]
       },
       "error_type": null,
       "notes": "Full term variant",
@@ -503,10 +473,7 @@
       "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Hispanic or Latino",
-          "Hispanic/Latino(a)"
-        ]
+        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
@@ -560,15 +527,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Not Hispanic or Latino"
-        ]
+        "terms": ["Not Hispanic or Latino"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Not Hispanic or Latino"
-        ]
+        "terms": ["Not Hispanic or Latino"]
       },
       "error_type": null,
       "notes": "Should match negated term with negation prefix",
@@ -580,15 +543,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Not Hispanic or Latino"
-        ]
+        "terms": ["Not Hispanic or Latino"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Not Hispanic or Latino"
-        ]
+        "terms": ["Not Hispanic or Latino"]
       },
       "error_type": null,
       "notes": "Typo with negation prefix - should still match",
@@ -600,15 +559,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "error_type": null,
       "notes": "Not specified variant",
@@ -620,15 +575,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "error_type": null,
       "notes": "Unspecified variant",

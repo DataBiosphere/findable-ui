@@ -27,6 +27,19 @@ Facet definitions and guidance:
 - Data Modality:
   Describes the biological nature of the information gathered as the result of an Activity,
   independent of the technology or methods used to produce the information.
+  Common examples include:
+  * Sequencing types: whole genome, WGS, RNA-seq, scRNA-seq, snRNA-seq, ATAC-seq, scATAC-seq, snATAC-seq
+  * Technologies: PacBio sequencing, long-read sequencing, SHARE-seq
+  * Molecular data: genome, methylation, DNA methylation, genomic DNA, gdna
+  * Single-cell/nucleus variants: single-cell RNA sequencing, single-nucleus RNA sequencing
+  * Special values: none, unspecified
+
+  IMPORTANT: Extract complete data modality terms as single mentions.
+  * When terms appear in isolation (e.g., "WGS", "methylation", "genome"), extract them.
+  * When terms are part of a longer specific phrase (e.g., "single-cell RNA sequencing assay"
+    or "PacBio whole genome sequencing"), extract the COMPLETE phrase as ONE mention.
+  * DO NOT split technology-specific phrases into parts - "PacBio whole genome sequencing"
+    should be ONE mention, not separate "PacBio" and "whole genome sequencing" mentions.
 
 - Diagnosis:
   A disease or individual phenotypic feature.

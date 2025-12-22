@@ -14,15 +14,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -34,15 +30,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Simple single term",
@@ -54,15 +46,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -74,15 +62,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Just the term alone",
@@ -94,15 +78,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Synonym - women",
@@ -114,15 +94,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Synonym - men",
@@ -134,15 +110,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Chromosome notation",
@@ -154,15 +126,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Chromosome notation",
@@ -174,15 +142,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Single letter abbrev",
@@ -194,15 +158,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Single letter abbrev",
@@ -214,15 +174,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Female"
-        ]
+        "terms": ["Female"]
       },
       "error_type": null,
       "notes": "Synonym - feminine",
@@ -234,15 +190,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Male"
-        ]
+        "terms": ["Male"]
       },
       "error_type": null,
       "notes": "Synonym - masculine",
@@ -254,15 +206,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unknown"
-        ]
+        "terms": ["Unknown"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unknown"
-        ]
+        "terms": ["Unknown"]
       },
       "error_type": null,
       "notes": "Unknown sex",
@@ -274,15 +222,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "error_type": null,
       "notes": "Not specified variant",
@@ -294,15 +238,11 @@
       "passed": true,
       "expected": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "actual": {
         "facet": "donors.phenotypic_sex",
-        "terms": [
-          "Unspecified"
-        ]
+        "terms": ["Unspecified"]
       },
       "error_type": null,
       "notes": "Unspecified variant",

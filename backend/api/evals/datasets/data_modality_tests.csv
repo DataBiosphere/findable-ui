@@ -1,0 +1,33 @@
+test_id,query,expected_facet,expected_terms,notes,category
+dm_001,whole genome,files.data_modality,Whole Genome,Exact term match,basic
+dm_002,WGS,files.data_modality,Whole Genome,Common abbreviation,abbreviation
+dm_003,whole genome sequencing,files.data_modality,Whole Genome,Full name variant,synonym
+dm_004,single-cell rna sequencing assay,files.data_modality,single-cell RNA sequencing assay,Exact term match,basic
+dm_005,scRNA-seq,files.data_modality,single-cell RNA sequencing assay,Common abbreviation,abbreviation
+dm_006,single cell rna seq,files.data_modality,single-cell RNA sequencing assay,Space/hyphen variant,synonym
+dm_007,single-nucleus rna sequencing assay,files.data_modality,single-nucleus RNA sequencing assay,Exact term match,basic
+dm_008,snRNA-seq,files.data_modality,single-nucleus RNA sequencing assay,Common abbreviation,abbreviation
+dm_009,single-cell atac-seq,files.data_modality,single-cell ATAC-seq,Exact term match,basic
+dm_010,scATAC-seq,files.data_modality,single-cell ATAC-seq,Single-cell abbreviation,abbreviation
+dm_011,single-nucleus atac-seq,files.data_modality,single-nucleus ATAC-seq,Exact term match,basic
+dm_012,snATAC-seq,files.data_modality,single-nucleus ATAC-seq,Specific abbreviation,abbreviation
+dm_013,pacbio whole genome sequencing,files.data_modality,PacBio Whole Genome Sequencing,Full name variant,synonym
+dm_014,long-read sequencing,files.data_modality,PacBio Whole Genome Sequencing,Technology synonym,synonym
+dm_015,pacbio sequencing,files.data_modality,PacBio Whole Genome Sequencing,Short form,synonym
+dm_016,SHARE-seq,files.data_modality,SHARE-seq,Exact term with caps,basic
+dm_017,methylation,files.data_modality,methylation,Exact term match,basic
+dm_018,dna methylation,files.data_modality,methylation,Full name variant,synonym
+dm_019,genome,files.data_modality,genome,Exact term match,basic
+dm_020,genomic dna,files.data_modality,genome,Synonym variant,synonym
+dm_021,gdna,files.data_modality,genome,Common abbreviation,abbreviation
+dm_022,data modality not specified,files.data_modality,Unspecified,Not specified variant,edge_case
+dm_023,data modality unspecified,files.data_modality,Unspecified,Unspecified variant,edge_case
+dm_024,data modality none,files.data_modality,None,None value with context,edge_case
+dm_025,single cell transcriptomics,files.data_modality,single-cell RNA sequencing assay,Alternative term,synonym
+dm_026,scrnaseq,files.data_modality,single-cell RNA sequencing assay,No spaces/hyphens variant,abbreviation
+dm_027,rna sequencing assay,files.data_modality,RNA sequencing assay,Exact term match,basic
+dm_028,rna-seq,files.data_modality,RNA sequencing assay,Common abbreviation,abbreviation
+dm_029,rna seq,files.data_modality,RNA sequencing assay,Space variant,synonym
+dm_030,bulk rna-seq,files.data_modality,RNA sequencing assay,Bulk qualifier,synonym
+dm_031,transcriptome sequencing,files.data_modality,RNA sequencing assay,Alternative term,synonym
+dm_032,mrna sequencing,files.data_modality,RNA sequencing assay,Specific RNA type,synonym

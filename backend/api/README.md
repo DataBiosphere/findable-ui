@@ -65,16 +65,16 @@ python3 load-concepts.py --file concepts-with-synonyms.json --clear
 
 ## Makefile Commands
 
-| Command | Description |
-|---------|-------------|
-| `make dev` | Start API with auto-reload (development) |
-| `make run` | Start API (production mode) |
-| `make stop` | Stop the API server |
-| `make test` | Run all tests (47 tests) |
-| `make opensearch-start` | Start OpenSearch in Docker |
-| `make opensearch-stop` | Stop OpenSearch |
-| `make start-all` | Start OpenSearch + API |
-| `make stop-all` | Stop everything |
+| Command                 | Description                              |
+| ----------------------- | ---------------------------------------- |
+| `make dev`              | Start API with auto-reload (development) |
+| `make run`              | Start API (production mode)              |
+| `make stop`             | Stop the API server                      |
+| `make test`             | Run all tests (47 tests)                 |
+| `make opensearch-start` | Start OpenSearch in Docker               |
+| `make opensearch-stop`  | Stop OpenSearch                          |
+| `make start-all`        | Start OpenSearch + API                   |
+| `make stop-all`         | Stop everything                          |
 
 ## API Endpoint
 
@@ -83,9 +83,11 @@ python3 load-concepts.py --file concepts-with-synonyms.json --clear
 Extract facets from a natural language query.
 
 **URL Parameters:**
+
 - `mode` (optional): `stub` | `mock` | `llm` (default: `stub`)
 
 **Modes:**
+
 - **`stub`**: Returns hardcoded stub data (for testing API structure)
 - **`mock`**: Pattern matching + real OpenSearch (no API cost) ← **Recommended for testing**
 - **`llm`**: Real OpenAI LLM + real OpenSearch (requires API key, costs money)
@@ -95,6 +97,7 @@ Extract facets from a natural language query.
 ### Example 1: Mock Mode (Recommended)
 
 **Request:**
+
 ```
 POST http://localhost:8000/api/v0/facets?mode=mock
 Content-Type: application/json
@@ -105,27 +108,22 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "query": "latino patients with diabetes and bam files",
   "facets": [
     {
       "facet": "Diagnosis",
-      "selectedValues": [
-        {"term": "Diabetes mellitus", "mention": "diabetes"}
-      ]
+      "selectedValues": [{ "term": "Diabetes mellitus", "mention": "diabetes" }]
     },
     {
       "facet": "Reported Ethnicity",
-      "selectedValues": [
-        {"term": "Hispanic/Latino(a)", "mention": "latino"}
-      ]
+      "selectedValues": [{ "term": "Hispanic/Latino(a)", "mention": "latino" }]
     },
     {
       "facet": "File Format",
-      "selectedValues": [
-        {"term": ".bam", "mention": "bam"}
-      ]
+      "selectedValues": [{ "term": ".bam", "mention": "bam" }]
     }
   ]
 }
@@ -134,6 +132,7 @@ Content-Type: application/json
 ### Example 2: LLM Mode (Costs Money)
 
 **Request:**
+
 ```
 POST http://localhost:8000/api/v0/facets?mode=llm
 Content-Type: application/json
@@ -148,6 +147,7 @@ Content-Type: application/json
 ### Example 3: Stub Mode
 
 **Request:**
+
 ```
 POST http://localhost:8000/api/v0/facets
 Content-Type: application/json
@@ -192,6 +192,7 @@ make test
 ```
 
 **Test Coverage:** 47 tests
+
 - 14 LLM extraction tests
 - 12 OpenSearch integration tests
 - 10 normalization tests
@@ -205,6 +206,7 @@ User Query → LLM Extraction → Normalization → OpenSearch → Structured Re
 ```
 
 **Components:**
+
 - **LLM Extraction**: Extracts mentions from natural language (Pydantic AI)
 - **Normalization**: Converts mentions to canonical terms
 - **OpenSearch**: Fuzzy matching + synonym expansion (Docker)
@@ -228,18 +230,21 @@ api/
 ## API Documentation
 
 When running, visit:
+
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
 
 ## Troubleshooting
 
 ### OpenSearch won't start
+
 ```bash
 cd ../opensearch
 docker-compose logs opensearch
 ```
 
 ### API won't start
+
 ```bash
 # Check if port 8000 is in use
 lsof -i :8000
@@ -249,6 +254,7 @@ make stop
 ```
 
 ### Tests failing
+
 ```bash
 # Ensure OpenSearch is running
 make opensearch-start

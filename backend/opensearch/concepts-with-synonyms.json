@@ -16275,7 +16275,18 @@
     "metadata": {
       "count": 368
     },
-    "display_name": "None"
+    "display_name": "None",
+    "ontology": {
+      "broad_modal": {
+        "category": null,
+        "uri": null
+      },
+      "edam": {
+        "id": null,
+        "uri": null
+      },
+      "notes": "Special value for missing data"
+    }
   },
   {
     "id": "data_modality-68c39c2703ff",
@@ -16288,12 +16299,28 @@
       "single-cell rna sequencing assay",
       "single-cell rna-seq assay",
       "single-cell gene expression analysis",
-      "single-cell transcriptomics"
+      "single-cell transcriptomics",
+      "scrnaseq",
+      "scrna seq",
+      "sc rna seq",
+      "single cell rna sequencing",
+      "single cell transcriptomics"
     ],
     "metadata": {
       "count": 3
     },
-    "display_name": "single-cell RNA sequencing assay"
+    "display_name": "single-cell RNA sequencing assay",
+    "ontology": {
+      "broad_modal": {
+        "category": "transcriptomic nontargeted",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000026"
+      },
+      "edam": {
+        "id": "data_2603",
+        "uri": "http://edamontology.org/data_2603"
+      },
+      "notes": "data_2603 'Expression data' has 'RNA-seq data' as synonym. Previous mapping to data_3112 was incorrect (microarray-specific)."
+    }
   },
   {
     "id": "data_modality-8c1de13187ce",
@@ -16301,8 +16328,6 @@
     "term": "single-nucleus atac-seq",
     "name": "single-nucleus atac-seq",
     "synonyms": [
-      "scatac-seq",
-      "single-cell atac-seq",
       "single-nucleus atac sequencing",
       "single-nucleus atac-seq",
       "single-nucleus assay for transposase-accessible chromatin using sequencing",
@@ -16311,7 +16336,17 @@
     "metadata": {
       "count": 3
     },
-    "display_name": "single-nucleus ATAC-seq"
+    "display_name": "single-nucleus ATAC-seq",
+    "ontology": {
+      "broad_modal": {
+        "category": "DNA chromatin accessibility",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000007"
+      },
+      "edam": {
+        "id": "data_3998",
+        "uri": "http://edamontology.org/data_3998"
+      }
+    }
   },
   {
     "id": "data_modality-5941835a60f4",
@@ -16320,8 +16355,6 @@
     "name": "single-nucleus rna sequencing assay",
     "synonyms": [
       "nucleus rna sequencing",
-      "scrna-seq",
-      "single-cell rna sequencing",
       "single-nucleus rna sequencing assay",
       "single-nucleus transcriptome analysis",
       "snrna-seq"
@@ -16329,7 +16362,18 @@
     "metadata": {
       "count": 3
     },
-    "display_name": "single-nucleus RNA sequencing assay"
+    "display_name": "single-nucleus RNA sequencing assay",
+    "ontology": {
+      "broad_modal": {
+        "category": "transcriptomic nontargeted",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000026"
+      },
+      "edam": {
+        "id": "data_2603",
+        "uri": "http://edamontology.org/data_2603"
+      },
+      "notes": "data_2603 'Expression data' has 'RNA-seq data' as synonym"
+    }
   },
   {
     "id": "data_modality-feb503d62ca5",
@@ -16346,7 +16390,17 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "single-cell ATAC-seq"
+    "display_name": "single-cell ATAC-seq",
+    "ontology": {
+      "broad_modal": {
+        "category": "DNA chromatin accessibility",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000007"
+      },
+      "edam": {
+        "id": "data_3998",
+        "uri": "http://edamontology.org/data_3998"
+      }
+    }
   },
   {
     "id": "data_modality-bb590c1fc1d3",
@@ -16364,7 +16418,18 @@
     "metadata": {
       "count": 1
     },
-    "display_name": "PacBio Whole Genome Sequencing"
+    "display_name": "PacBio Whole Genome Sequencing",
+    "ontology": {
+      "broad_modal": {
+        "category": "whole genome",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000012"
+      },
+      "edam": {
+        "id": "data_3498",
+        "uri": "http://edamontology.org/data_3498"
+      },
+      "notes": "PacBio is a platform/technology, not in standard ontologies"
+    }
   },
   {
     "id": "data_modality-f83b393be32f",
@@ -16377,12 +16442,24 @@
       "share-seq method",
       "share-seq technology",
       "share-sequencing",
-      "single-cell rna sequencing with haplotype resolution"
+      "simultaneous high-throughput atac and rna expression",
+      "multimodal single-cell sequencing"
     ],
     "metadata": {
       "count": 1
     },
-    "display_name": "SHARE-seq"
+    "display_name": "SHARE-seq",
+    "ontology": {
+      "broad_modal": {
+        "category": "transcriptomic nontargeted",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000026"
+      },
+      "edam": {
+        "id": "data_3112",
+        "uri": "http://edamontology.org/data_3112"
+      },
+      "notes": "SHARE-seq is multimodal (RNA+ATAC), primary focus is transcriptomic"
+    }
   },
   {
     "id": "data_modality-e895a8764862",
@@ -16400,7 +16477,17 @@
     "metadata": {
       "count": 1
     },
-    "display_name": "Whole Genome"
+    "display_name": "Whole Genome",
+    "ontology": {
+      "broad_modal": {
+        "category": "whole genome",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000012"
+      },
+      "edam": {
+        "id": "data_3498",
+        "uri": "http://edamontology.org/data_3498"
+      }
+    }
   },
   {
     "id": "data_modality-a6a3f2b5cc6d",
@@ -16413,12 +16500,23 @@
       "genetic blueprint",
       "genetic material",
       "genome",
-      "genomic dna"
+      "genomic dna",
+      "dna sequence (raw)"
     ],
     "metadata": {
       "count": 1
     },
-    "display_name": "genome"
+    "display_name": "genome",
+    "ontology": {
+      "broad_modal": {
+        "category": "genomic",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000009"
+      },
+      "edam": {
+        "id": "data_3497",
+        "uri": "http://edamontology.org/data_3497"
+      }
+    }
   },
   {
     "id": "data_modality-57c1873c77b8",
@@ -16436,7 +16534,17 @@
     "metadata": {
       "count": 1
     },
-    "display_name": "methylation"
+    "display_name": "methylation",
+    "ontology": {
+      "broad_modal": {
+        "category": "DNA methylation",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000008"
+      },
+      "edam": {
+        "id": "data_3207",
+        "uri": "http://edamontology.org/data_3207"
+      }
+    }
   },
   {
     "id": "reported_ethnicity-8fec8dc1ceab",
@@ -32467,6 +32575,51 @@
     "metadata": {
       "count": 0,
       "auto_generated": true
+    },
+    "ontology": {
+      "broad_modal": {
+        "category": null,
+        "uri": null
+      },
+      "edam": {
+        "id": null,
+        "uri": null
+      },
+      "notes": "Special value for unspecified data"
+    }
+  },
+  {
+    "id": "data_modality-8e01398b3552",
+    "facet_name": "files.data_modality",
+    "term": "rna sequencing assay",
+    "name": "rna sequencing assay",
+    "synonyms": [
+      "rna sequencing assay",
+      "rna-seq",
+      "rna seq",
+      "rnaseq",
+      "bulk rna-seq",
+      "bulk rna sequencing",
+      "bulk rnaseq",
+      "transcriptome sequencing",
+      "whole transcriptome sequencing",
+      "mrna sequencing",
+      "mrna-seq"
+    ],
+    "metadata": {
+      "count": 0
+    },
+    "display_name": "RNA sequencing assay",
+    "ontology": {
+      "broad_modal": {
+        "category": "transcriptomic nontargeted",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000026"
+      },
+      "edam": {
+        "id": "data_2603",
+        "uri": "http://edamontology.org/data_2603"
+      },
+      "notes": "data_2603 'Expression data' has synonyms: RNA-seq data, RNA profile, transcriptome profile, etc."
     }
   },
   {

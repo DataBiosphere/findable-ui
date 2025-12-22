@@ -102,6 +102,11 @@ class OpenSearchConceptResolver:
                 fuzzy_response, min_score=self.fuzzy_min_score
             )
 
+            # Apply score gap filter to reduce false positives from fuzzy matching
+            fuzzy_results = self._apply_score_gap_filter(
+                fuzzy_results, max_score_gap_percent=3.0
+            )
+
             # Filter negation values from fuzzy results
             return self._filter_negation_values(fuzzy_results, mention)
 
@@ -196,6 +201,31 @@ class OpenSearchConceptResolver:
             for hit in hits
             if hit["_score"] >= min_score
         ]
+
+    def _apply_score_gap_filter(
+        self, results: List[Dict], max_score_gap_percent: float = 10.0
+    ) -> List[Dict]:
+        """Filter results to only include those within a score gap of the top result.
+
+        This helps reduce false positives from fuzzy matching by only keeping results
+        that are close in score to the best match.
+
+        Args:
+            results: List of results sorted by score (descending).
+            max_score_gap_percent: Maximum percentage gap from top score (default: 10%).
+                For example, if top score is 100 and gap is 10%, only results with
+                score >= 90 are kept.
+
+        Returns:
+            Filtered list of results within the score gap.
+        """
+        if not results:
+            return results
+
+        top_score = results[0]["score"]
+        min_acceptable_score = top_score * (1 - max_score_gap_percent / 100)
+
+        return [r for r in results if r["score"] >= min_acceptable_score]
 
     def _has_negation_prefix(self, query: str) -> bool:
         """Check if query starts with a negation prefix.
