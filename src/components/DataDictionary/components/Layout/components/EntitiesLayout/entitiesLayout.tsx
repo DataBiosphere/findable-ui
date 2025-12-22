@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { Layout } from "./entitiesLayout.styles";
 import { EntitiesLayoutProps } from "./types";
 

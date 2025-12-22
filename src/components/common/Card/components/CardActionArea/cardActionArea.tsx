@@ -1,6 +1,6 @@
 import { CardActionArea as MCardActionArea } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,

@@ -4,7 +4,7 @@ import {
   ToggleButtonGroupProps as MToggleButtonGroupProps,
   ToggleButtonProps as MToggleButtonProps,
 } from "@mui/material";
-import React, { MouseEvent, useState } from "react";
+import { JSX, MouseEvent, useState } from "react";
 
 /**
  * An extension of the basic Mui ToggleButtonGroup component with available ToggleButtonGroup props.

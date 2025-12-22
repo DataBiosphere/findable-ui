@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { IconButton, DialogTitle as MDialogTitle } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 export interface DialogTitleProps {
   className?: string;

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { DataDictionary } from "../../components/DataDictionary/dataDictionary";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import { DataDictionaryContext } from "../../providers/dataDictionary/context";

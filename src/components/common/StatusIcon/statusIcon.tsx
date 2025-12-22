@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { StatusCircle } from "./statusIcon.styles";
 
 /**

@@ -1,7 +1,7 @@
 // TODO deprecate component if possible (see MDXMarkdown)
 import { Box as MBox, BoxProps as MBoxProps } from "@mui/material";
 import DOMPurify from "isomorphic-dompurify";
-import React from "react";
+import { JSX } from "react";
 
 export interface MarkdownProps {
   content: string;

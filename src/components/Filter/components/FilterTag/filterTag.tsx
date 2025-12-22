@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { Chip, Tooltip } from "@mui/material";
-import React, { useRef } from "react";
+import { JSX, useRef } from "react";
 import { SupersededTag } from "./filterTag.styles";
 
 export interface FilterTagProps {

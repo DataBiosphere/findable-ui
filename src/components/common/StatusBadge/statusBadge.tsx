@@ -1,5 +1,5 @@
 import { Chip as MChip, ChipProps as MChipProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 
 export enum STATUS_BADGE_COLOR {
   DEFAULT = "default",

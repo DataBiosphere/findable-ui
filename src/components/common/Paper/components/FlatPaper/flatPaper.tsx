@@ -1,5 +1,5 @@
 import { PaperProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { BaseComponentProps } from "../../../../types";
 import { StyledPaper } from "./flatPaper.styles";
 

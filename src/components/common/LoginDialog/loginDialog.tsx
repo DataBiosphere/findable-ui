@@ -5,7 +5,7 @@ import {
   DialogTitle,
   IconButton,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useAuthenticationConfig } from "../../../hooks/authentication/config/useAuthenticationConfig";
 import { Buttons } from "../../Login/components/Buttons/buttons";
 import { Consent } from "../../Login/components/Section/components/Consent/consent";

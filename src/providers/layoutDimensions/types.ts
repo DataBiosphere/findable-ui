@@ -8,8 +8,8 @@ export interface LayoutDimensions {
 
 export interface LayoutDimensionsContextProps {
   dimensions: LayoutDimensions;
-  footerRef: RefObject<HTMLElement> | null;
-  headerRef: RefObject<HTMLElement> | null;
+  footerRef: RefObject<HTMLElement | null>;
+  headerRef: RefObject<HTMLElement | null>;
 }
 
 export interface LayoutDimensionsProviderProps {

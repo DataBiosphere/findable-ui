@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { CardActions as Actions } from "./cardActions.styles";
 
 export interface CardActionsProps {

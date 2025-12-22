@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { ExploreActionKind } from "../../../../providers/exploreState";
 import { BUTTON_PROPS } from "../../../../styles/common/mui/button";

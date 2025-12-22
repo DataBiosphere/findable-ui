@@ -1,10 +1,12 @@
 import { MenuItem, SelectChangeEvent, Typography } from "@mui/material";
-import React, {
+import {
+  useEffect,
   ChangeEvent,
   Dispatch,
   FocusEvent,
   SetStateAction,
   useState,
+  JSX,
 } from "react";
 import { FileRejection } from "react-dropzone";
 import { ValidationError } from "yup";
@@ -49,7 +51,7 @@ export const SupportRequestForm = ({
   const [errorFields, setErrorFields] = useState<Set<string>>();
 
   // Validate form state when it changes.
-  React.useEffect(() => {
+  useEffect(() => {
     VALIDATION_SCHEMA.validate(buildSupportRequest(formState), {
       abortEarly: false,
     })

@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useRef } from "react";
+import { JSX, ReactNode, useCallback, useRef } from "react";
 import { NextHistoryState } from "../../../services/beforePopState/types";
 import { useOnPopState } from "../../../services/beforePopState/useOnPopState";
 import { WasPopContext } from "./context";
@@ -21,7 +21,7 @@ export function WasPopProvider({
 }: {
   children: ReactNode;
 }): JSX.Element {
-  const popRef = useRef<NextHistoryState | undefined>();
+  const popRef = useRef<NextHistoryState | undefined>(undefined);
 
   // Pop callback.
   const onBeforePopState = useCallback((state: NextHistoryState) => {

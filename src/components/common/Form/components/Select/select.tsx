@@ -3,7 +3,7 @@ import {
   SelectProps as MSelectProps,
   Typography,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { InputFormControl } from "./select.styles";
 

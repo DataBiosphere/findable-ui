@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { FilterTags } from "./filterTags";
 
 const onRemove = (): void => {

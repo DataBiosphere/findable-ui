@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { ContactSupportIcon } from "../../../common/CustomIcon/components/ContactSupportIcon/contactSupportIcon";
 import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../../Links/common/entities";
 import { ViewSupportProps } from "./types";

@@ -4,7 +4,7 @@ import {
   type StoryObj,
   composeStories,
 } from "@storybook/nextjs-vite";
-import React, { ComponentProps } from "react";
+import { JSX, ComponentProps } from "react";
 import { CONTROL_TYPE } from "../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../storybook/controls/utils";
 import { LOREM_IPSUM } from "../../../../../storybook/loremIpsum";

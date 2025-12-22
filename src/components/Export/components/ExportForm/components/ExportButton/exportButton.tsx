@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import React, { ElementType, ReactNode } from "react";
+import { JSX, ElementType, ReactNode } from "react";
 import { useDownloadStatus } from "../../../../../../hooks/useDownloadStatus";
 import { useFileManifestState } from "../../../../../../hooks/useFileManifestState";
 import { useLoginGuard } from "../../../../../../providers/loginGuard/hook";

@@ -1,5 +1,5 @@
 import { MenuProps as MMenuProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { DropdownButton } from "../../../../../../../common/Button/components/DropdownButton/dropdownButton";
 import { DropdownMenuItemProps } from "../../../../../../../common/DropdownMenu/common/entities";
 import { DropdownMenuProps as DXDropdownMenuProps } from "../../../../../../../common/DropdownMenu/dropdownMenu";

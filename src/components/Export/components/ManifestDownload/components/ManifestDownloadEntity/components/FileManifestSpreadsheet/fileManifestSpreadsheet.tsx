@@ -1,6 +1,6 @@
 import { Button, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
-import React from "react";
+import { JSX } from "react";
 import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestSpreadsheet } from "../../../../../../../../hooks/useFileManifest/useFileManifestSpreadsheet";

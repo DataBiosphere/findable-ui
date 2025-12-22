@@ -1,6 +1,6 @@
 import { Checkbox } from "@mui/material";
 import { HeaderContext, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { IndeterminateIcon } from "../../../../../common/CustomIcon/components/IndeterminateIcon/indeterminateIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";

@@ -1,5 +1,5 @@
 import copy from "copy-to-clipboard";
-import React, { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { CodeBlock } from "./code.styles";
 
 export interface CodeProps {

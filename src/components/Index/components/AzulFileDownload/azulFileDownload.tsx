@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import { JSX, Fragment, useEffect, useRef, useState } from "react";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
 import { useLoginGuard } from "../../../../providers/loginGuard/hook";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";

@@ -1,5 +1,5 @@
 import { SvgIcon, Tooltip } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { SVG_ICON_PROPS, TOOLTIP_PROPS } from "./constants";
 import { IconProps } from "./types";
 

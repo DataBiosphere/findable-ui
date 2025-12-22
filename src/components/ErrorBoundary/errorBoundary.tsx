@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, PropsWithRef } from "react";
+import { Component, ReactNode, PropsWithChildren, PropsWithRef } from "react";
 
 interface ErrorBoundaryState {
   error?: Error;
@@ -10,14 +10,14 @@ interface FallbackRenderProps {
 }
 
 interface ErrorBoundaryProps {
-  fallbackRender: (props: FallbackRenderProps) => React.ReactNode;
+  fallbackRender: (props: FallbackRenderProps) => ReactNode;
 }
 
 type ErrorBoundaryPropsType = PropsWithRef<
   PropsWithChildren<ErrorBoundaryProps>
 >;
 
-export class ErrorBoundary extends React.Component<
+export class ErrorBoundary extends Component<
   ErrorBoundaryPropsType,
   ErrorBoundaryState
 > {

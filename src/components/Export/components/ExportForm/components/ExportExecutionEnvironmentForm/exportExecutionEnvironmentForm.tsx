@@ -1,5 +1,5 @@
 import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import React, { Dispatch, SetStateAction } from "react";
+import { JSX, Dispatch, SetStateAction } from "react";
 import { RadioCheckedIcon } from "../../../../../common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 import {

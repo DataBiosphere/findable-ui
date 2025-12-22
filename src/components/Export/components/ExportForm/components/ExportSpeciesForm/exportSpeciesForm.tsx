@@ -5,7 +5,7 @@ import {
   FormHelperText,
   FormLabel,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { ErrorIcon } from "../../../../../common/CustomIcon/components/ErrorIcon/errorIcon";

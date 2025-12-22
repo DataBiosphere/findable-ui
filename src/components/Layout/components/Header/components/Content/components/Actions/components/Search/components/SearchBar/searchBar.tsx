@@ -1,7 +1,8 @@
 import { CloseRounded } from "@mui/icons-material";
 import { useSearchParams } from "next/navigation";
 import Router from "next/router";
-import React, {
+import {
+  JSX,
   ChangeEvent,
   FormEvent,
   useCallback,

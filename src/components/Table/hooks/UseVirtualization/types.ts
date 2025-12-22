@@ -4,6 +4,6 @@ import { RefObject } from "react";
 
 export interface UseVirtualizationProps<T extends RowData> {
   rows: Row<T>[];
-  scrollElementRef: RefObject<HTMLDivElement>;
+  scrollElementRef: RefObject<HTMLDivElement | null>;
   virtualizer: Virtualizer<HTMLDivElement, Element>;
 }

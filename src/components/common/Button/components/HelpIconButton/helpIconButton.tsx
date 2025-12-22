@@ -1,6 +1,6 @@
 import { SvgIconProps } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { JSX } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -22,15 +22,14 @@ export const HelpIconButton = ({
 }: HelpIconButtonProps): JSX.Element => {
   const isInternal = isClientSideNavigation(url);
   return isInternal ? (
-    <Link href={url} legacyBehavior passHref>
-      <Button
-        href="passHref"
-        rel={REL_ATTRIBUTE.NO_OPENER}
-        target={target || ANCHOR_TARGET.SELF}
-      >
-        <HelpIcon fontSize={size} />
-      </Button>
-    </Link>
+    <Button
+      component={Link}
+      href={url}
+      rel={REL_ATTRIBUTE.NO_OPENER}
+      target={target || ANCHOR_TARGET.SELF}
+    >
+      <HelpIcon fontSize={size} />
+    </Button>
   ) : (
     <Button
       href={url}

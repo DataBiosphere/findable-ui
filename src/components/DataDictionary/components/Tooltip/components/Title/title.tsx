@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { BaseComponentProps } from "../../../../../types";
 import { STACK_PROPS } from "./constants";

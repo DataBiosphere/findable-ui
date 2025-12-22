@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
 import { Accordion } from "./accordion";
 
 const meta = {

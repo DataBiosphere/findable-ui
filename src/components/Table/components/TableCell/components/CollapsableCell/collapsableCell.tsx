@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";

@@ -1,5 +1,5 @@
 import { TypographyProps } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { StyledTypography } from "./title.styles";
 

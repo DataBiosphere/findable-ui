@@ -1,5 +1,5 @@
 import { ToggleButton } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { TestIdProps } from "../../../../../../types";
 import { useEntityView } from "../../../context/hook";
 import { VIEW_MODE } from "./hooks/UseViewToggle/types";

@@ -11,7 +11,7 @@ import {
   TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { ANCHOR_TARGET } from "../../../../Links/common/entities";
 import { Link } from "../../../../Links/components/Link/link";
 
