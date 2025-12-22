@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { SessionController as DefaultSessionController } from "../../components/Authentication/components/SessionController/components/GoogleSessionController/SessionController";
 import { useAuthReducer } from "../../hooks/authentication/auth/useAuthReducer";
 import { useAuthenticationReducer } from "../../hooks/authentication/authentication/useAuthenticationReducer";

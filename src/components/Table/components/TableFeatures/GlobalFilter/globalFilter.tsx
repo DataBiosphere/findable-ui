@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { ClearInputAdornment } from "../../../../common/OutlinedInput/components/InputAdornment/components/ClearInputAdornment/clearInputAdornment";
 import { SearchInputAdornment } from "../../../../common/OutlinedInput/components/InputAdornment/components/SearchInputAdornment/searchInputAdornment";
 import { StyledOutlinedInput } from "../../../../common/OutlinedInput/outlinedInput.styles";

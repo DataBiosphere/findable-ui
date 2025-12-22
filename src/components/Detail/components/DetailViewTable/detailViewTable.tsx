@@ -1,5 +1,5 @@
 import { ColumnDef, RowData } from "@tanstack/react-table";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import {
   FlatPaper,
   FluidPaper,

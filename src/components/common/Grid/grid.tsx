@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 export interface GridProps {
   children: ReactNode | ReactNode[];

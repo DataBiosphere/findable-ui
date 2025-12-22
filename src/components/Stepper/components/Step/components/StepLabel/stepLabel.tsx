@@ -1,5 +1,5 @@
 import { StepLabelProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { STEP_LABEL_PROPS } from "./constants";
 import { StyledStepLabel } from "./stepLabel.styles";
 

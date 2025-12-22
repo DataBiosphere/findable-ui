@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 
 export interface NavigationButtonLabelProps {
   label: ReactNode;

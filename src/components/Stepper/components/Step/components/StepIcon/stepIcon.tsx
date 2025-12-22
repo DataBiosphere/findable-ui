@@ -1,5 +1,5 @@
 import { StepIconProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { TestIdProps } from "../../../../../types";
 import { CompletedIcon } from "./components/CompletedIcon/completedIcon";
 import { StyledStepIcon } from "./stepIcon.styles";

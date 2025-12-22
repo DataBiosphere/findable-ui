@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { updater } from "../../../../../components/TableFeatures/ColumnFilter/utils";
 import { StyledChip } from "./columnFilterTag.styles";
 import { CHIP_PROPS, SVG_ICON_PROPS } from "./constants";

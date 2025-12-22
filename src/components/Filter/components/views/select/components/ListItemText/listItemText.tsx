@@ -1,5 +1,5 @@
 import { ListItemTextProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { isValueString } from "../../../../../../../utils/typeGuards";
 import { BaseComponentProps } from "../../../../../../types";
 import { Count } from "./components/Count/count";

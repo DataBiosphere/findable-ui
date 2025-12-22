@@ -1,5 +1,5 @@
 import { AlertProps, Fade } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useSystemStatus } from "../../../../../hooks/useSystemStatus";
 import { BaseComponentProps, ContentProps } from "../../../../types";
 import { Banner } from "../../banner";

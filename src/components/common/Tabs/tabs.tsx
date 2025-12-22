@@ -3,7 +3,7 @@ import {
   Tabs as MTabs,
   TabsProps as MTabsProps,
 } from "@mui/material";
-import React, { ReactElement, ReactNode } from "react";
+import { JSX, ReactElement, ReactNode } from "react";
 import { DataDictionaryAnnotation } from "../../../common/entities";
 import { Tooltip } from "../../DataDictionary/components/Tooltip/tooltip";
 import { Tab, TabScrollFuzz } from "./tabs.styles";

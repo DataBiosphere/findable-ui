@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useState } from "react";
+import { createContext, JSX, ReactNode, useState } from "react";
 import { annotateSiteConfig } from "../components/DataDictionary/common/utils";
 import { EntityConfig, SiteConfig } from "../config/entities";
 import {

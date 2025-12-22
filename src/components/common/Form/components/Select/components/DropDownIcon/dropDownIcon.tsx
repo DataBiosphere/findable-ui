@@ -1,6 +1,6 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
 import { SvgIconProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 
 export const DropDownIcon = ({
   ...props /* MuiSvgIconProps */

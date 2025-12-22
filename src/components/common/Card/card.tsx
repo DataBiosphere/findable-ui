@@ -1,5 +1,5 @@
 import { Card as MCard } from "@mui/material";
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 import { FlatPaper, FluidPaper, RoundedPaper } from "../Paper/paper.styles";
 import { StaticImageProps } from "../StaticImage/staticImage";
 import { CardContent, CardSection } from "./card.styles";

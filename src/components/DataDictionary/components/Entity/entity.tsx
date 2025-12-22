@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { Attribute } from "../../../../common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { AnchorLink } from "../../../common/AnchorLink/anchorLink";

@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { formatCountSize } from "../../../../../../utils/formatCountSize";
 import { formatFileSize } from "../../../../../../utils/formatFileSize";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";

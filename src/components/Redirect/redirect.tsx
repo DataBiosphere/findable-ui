@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { JSX, useEffect } from "react";
 
 export interface RedirectProps {
   destination: string;

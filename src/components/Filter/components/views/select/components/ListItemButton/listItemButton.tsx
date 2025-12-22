@@ -1,5 +1,5 @@
 import { ListItemButtonProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { BaseComponentProps, TestIdProps } from "../../../../../../types";
 import { StyledListItemButton } from "./listItemButton.styles";
 

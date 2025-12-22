@@ -1,7 +1,7 @@
 import { TableBody as MTableBody } from "@mui/material";
 import { Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
-import React from "react";
+import { JSX } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
 import { CollapsableRows } from "../TableRows/components/CollapsableRows/collapsableRows";
 import { VirtualizedRow } from "../TableRows/components/VirtualizedRow/virtualizedRow";

@@ -1,6 +1,6 @@
 import { Button, Divider, Link as MLink } from "@mui/material";
 import Link from "next/link";
-import React, { CSSProperties, forwardRef, Fragment, ReactNode } from "react";
+import { CSSProperties, forwardRef, Fragment, JSX, ReactNode } from "react";
 import { BreakpointKey } from "../../../../../../../../hooks/useBreakpointHelper";
 import {
   ANCHOR_TARGET,

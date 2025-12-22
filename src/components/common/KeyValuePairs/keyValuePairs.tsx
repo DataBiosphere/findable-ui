@@ -1,4 +1,4 @@
-import React, { ElementType, Fragment, ReactNode } from "react";
+import { JSX, ElementType, Fragment, ReactNode } from "react";
 import { Stack } from "../Stack/stack";
 
 /**

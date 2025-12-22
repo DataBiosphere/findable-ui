@@ -1,6 +1,6 @@
 import { TableContainer } from "@mui/material";
 import { RowData, Table as TanStackTable } from "@tanstack/react-table";
-import React, { Fragment, useCallback } from "react";
+import { Fragment, JSX, useCallback } from "react";
 import { track } from "../../common/analytics/analytics";
 import {
   EVENT_NAME,

@@ -1,5 +1,5 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
-import React, { ReactNode, useCallback } from "react";
+import { JSX, ReactNode, useCallback } from "react";
 import { Button } from "../../../../../../../../../common/Button/button";
 import { BackArrowIcon } from "../../../../../../../../../common/CustomIcon/components/BackArrowIcon/backArrowIcon";
 import { useDialog } from "../../../../../../../../../common/Dialog/hooks/useDialog";

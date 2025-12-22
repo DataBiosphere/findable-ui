@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { DEFAULT_TAB_VALUE } from "./hooks/UseTabs/constants";
 import { useTabs } from "./hooks/UseTabs/hook";
 import { StyledTab, StyledTabs } from "./outline.styles";

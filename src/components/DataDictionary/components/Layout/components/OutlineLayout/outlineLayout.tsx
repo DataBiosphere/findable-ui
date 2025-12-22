@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { Layout, LayoutScroller } from "./outlineLayout.styles";
 import { OutlineLayoutProps } from "./types";
 

@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import { JSX, Fragment, useEffect, useRef, useState } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { CategoryTag } from "../../../../common/entities";

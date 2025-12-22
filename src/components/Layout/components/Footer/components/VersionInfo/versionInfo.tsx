@@ -1,5 +1,5 @@
 import { Tooltip } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useCatalog } from "../../../../../../hooks/useCatalog";
 import { BaseComponentProps } from "../../../../../types";
 import { Title } from "./components/Tooltip/components/Title/title";

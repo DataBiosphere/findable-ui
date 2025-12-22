@@ -1,6 +1,6 @@
 import { Chip, ChipProps } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { BaseComponentProps } from "../../../../../types";
 
 export const ChipCell = <

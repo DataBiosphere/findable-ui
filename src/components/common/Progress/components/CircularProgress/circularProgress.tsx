@@ -2,7 +2,7 @@ import {
   CircularProgress as MCircularProgress,
   CircularProgressProps as MCircularProgressProps,
 } from "@mui/material";
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { ProgressPositioner } from "./circularProgress.styles";
 import { CircularProgressTrack } from "./components/CircularProgressTrack/circularProgressTrack";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { SearchIcon } from "../../../../../CustomIcon/components/SearchIcon/searchIcon";
 import { StyledInputAdornment } from "../../inputAdornment.styles";
 import { SVG_ICON_PROPS } from "../constants";

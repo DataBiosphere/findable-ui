@@ -1,5 +1,5 @@
 import { ButtonProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { SouthIcon } from "../../../../../../common/CustomIcon/components/SouthIcon/southIcon";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";

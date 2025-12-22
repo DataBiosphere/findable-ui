@@ -1,5 +1,5 @@
 import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { FileManifestFormatState } from "../../../../../../hooks/useFileManifest/useFileManifestFormat";
 import { RadioCheckedIcon } from "../../../../../common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";

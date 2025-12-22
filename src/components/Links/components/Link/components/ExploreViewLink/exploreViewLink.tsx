@@ -1,6 +1,6 @@
 import { ColumnSort, GroupingState } from "@tanstack/react-table";
 import Link from "next/link";
-import React from "react";
+import { JSX } from "react";
 import { UrlObject } from "url";
 import { SelectedFilter } from "../../../../../../common/entities";
 import { useExploreState } from "../../../../../../hooks/useExploreState";

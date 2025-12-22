@@ -9,7 +9,7 @@ import {
   Table,
   TableOptions,
 } from "@tanstack/react-table";
-import { JSXElementConstructor, ReactNode } from "react";
+import { JSX, JSXElementConstructor, ReactNode } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { CategoryConfig } from "../common/categories/config/types";
 import {

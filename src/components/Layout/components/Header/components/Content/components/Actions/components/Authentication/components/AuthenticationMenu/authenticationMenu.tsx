@@ -1,5 +1,5 @@
 import { MenuItem } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { useAuth } from "../../../../../../../../../../../../providers/authentication/auth/hook";
 import { UserProfile } from "../../../../../../../../../../../../providers/authentication/authentication/types";
 import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";

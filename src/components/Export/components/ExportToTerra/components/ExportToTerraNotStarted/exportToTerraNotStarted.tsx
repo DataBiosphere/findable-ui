@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { FileManifestFormatState } from "../../../../../../hooks/useFileManifest/useFileManifestFormat";
 import { FileManifestState } from "../../../../../../providers/fileManifestState";
 import { PAPER_PANEL_STYLE } from "../../../../../common/Paper/paper";

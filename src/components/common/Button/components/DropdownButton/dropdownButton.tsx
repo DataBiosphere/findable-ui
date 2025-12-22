@@ -1,5 +1,5 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
-import React from "react";
+import { JSX } from "react";
 import { BUTTON_PROPS } from "../../constants";
 import { StyledButton } from "./dropdownButton.styles";
 import { DropdownButtonProps } from "./types";

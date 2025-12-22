@@ -1,10 +1,5 @@
 import { IconButtonProps as MIconButtonProps } from "@mui/material";
-import React, {
-  CSSProperties,
-  ElementType,
-  forwardRef,
-  ReactNode,
-} from "react";
+import { CSSProperties, ElementType, forwardRef, JSX, ReactNode } from "react";
 import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../Links/common/entities";
 import {
   IconButton as StyledIconButton,

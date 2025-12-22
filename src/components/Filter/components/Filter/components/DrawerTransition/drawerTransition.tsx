@@ -1,5 +1,5 @@
 import { Slide as MSlide, SlideProps as MSlideProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 
 export const DrawerTransition = forwardRef<Element, MSlideProps>(
   function DrawerTransition(

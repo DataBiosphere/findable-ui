@@ -3,7 +3,7 @@ import {
   MenuItem as MMenuItem,
   MenuItemProps as MMenuItemProps,
 } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 export interface MenuItemProps extends MMenuItemProps {
   children: ReactNode;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { Sections } from "../../../common/Sections/sections";
 
 export interface ExportSummaryProps {

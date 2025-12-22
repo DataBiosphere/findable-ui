@@ -9,7 +9,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { FilterViewTools } from "../FilterMenu/filterMenu.styles";
 import { ButtonBase } from "../surfaces/drawer/components/ButtonBase/buttonBase";

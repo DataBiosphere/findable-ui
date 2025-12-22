@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { ChangeEvent, ElementType } from "react";
+import { JSX, ChangeEvent, ElementType } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { SetSearchTermFn } from "../../Filter/common/entities";
 import { InputField, InputFormControl } from "./input.styles";

@@ -1,5 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
-import React, {
+import {
+  JSX,
   Dispatch,
   MouseEvent,
   ReactNode,

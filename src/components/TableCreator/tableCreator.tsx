@@ -1,5 +1,5 @@
 import { RowData, Table as TanStackTable } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { ListViewConfig } from "../../config/entities";
 import { Table } from "../Table/table";
 

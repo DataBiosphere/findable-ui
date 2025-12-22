@@ -4,7 +4,7 @@ import {
   Typography as MTypography,
 } from "@mui/material";
 import NLink from "next/link";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
