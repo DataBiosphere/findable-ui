@@ -3,10 +3,9 @@ import { useConfig } from "../useConfig";
 import { ExploreMode } from "./types";
 
 /**
- * Returns configured explore mode:
- * - Client-side fetch, client-side filtering.
- * - Server-side fetch, client-side filtering.
- * - Server-side fetch, server-side filtering.
+ * Returns configured explore mode.
+ * SS = Server-side
+ * CS = Client-side
  * @returns explore mode.
  */
 export const useExploreMode = (): ExploreMode => {

@@ -1,6 +1,5 @@
 import { Stack } from "@mui/material";
 import { JSX, useEffect, useMemo } from "react";
-import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
@@ -32,19 +31,19 @@ import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
+import { ExploreViewProps } from "./types";
+import { EntityListStrategy } from "./entityList/EntityListStrategy/entityListStrategy";
 
-export interface ExploreViewProps extends AzulEntitiesStaticResponse {
-  className?: string;
-}
-
-export const ExploreView = (props: ExploreViewProps): JSX.Element => {
+export const ExploreView = <T = unknown,>(
+  props: ExploreViewProps<T>,
+): JSX.Element => {
   const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
   const { label } = entityConfig;
   const { categoryGroups, categoryViews, loading } = exploreState;
-  useEntityList(props); // Fetch entities.
+  useEntityList(props); // Fetch SSFCSF or CSFCSF entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
@@ -134,43 +133,52 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <DrawerProvider>
-      {categoryViews && !!categoryViews.length && (
-        <Sidebar>
-          <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
-            <SidebarLabel label={"Filters"} />
-            <Stack direction="row" gap={4}>
-              <ClearAllFilters />
-              <FilterSort
-                enabled={filterSortEnabled}
-                filterSort={filterSort}
-                onFilterSortChange={onFilterSortChange}
-              />
-            </Stack>
-            <SearchAllFilters
-              categoryViews={categoryViews}
-              onFilter={onFilterChange.bind(null, true)}
-              surfaceType={
-                mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
-              }
+    <EntityListStrategy entityListType={entityListType}>
+      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- data is not used (yet) */}
+      {({ data }) => {
+        return (
+          <DrawerProvider>
+            {categoryViews && !!categoryViews.length && (
+              <Sidebar>
+                <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
+                  <SidebarLabel label={"Filters"} />
+                  <Stack direction="row" gap={4}>
+                    <ClearAllFilters />
+                    <FilterSort
+                      enabled={filterSortEnabled}
+                      filterSort={filterSort}
+                      onFilterSortChange={onFilterSortChange}
+                    />
+                  </Stack>
+                  <SearchAllFilters
+                    categoryViews={categoryViews}
+                    onFilter={onFilterChange.bind(null, true)}
+                    surfaceType={
+                      mdDown
+                        ? SURFACE_TYPE.POPPER_DRAWER
+                        : SURFACE_TYPE.POPPER_MENU
+                    }
+                  />
+                </SidebarTools>
+                <Filters
+                  categoryFilters={categoryFilters}
+                  onFilter={onFilterChange.bind(null, false)}
+                  surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
+                  trackFilterOpened={trackingConfig?.trackFilterOpened}
+                />
+              </Sidebar>
+            )}
+            <IndexView
+              className={props.className}
+              categoryFilters={categoryFilters}
+              entityListType={entityListType}
+              entityName={label}
+              loading={loading}
             />
-          </SidebarTools>
-          <Filters
-            categoryFilters={categoryFilters}
-            onFilter={onFilterChange.bind(null, false)}
-            surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-            trackFilterOpened={trackingConfig?.trackFilterOpened}
-          />
-        </Sidebar>
-      )}
-      <IndexView
-        className={props.className}
-        categoryFilters={categoryFilters}
-        entityListType={entityListType}
-        entityName={label}
-        loading={loading}
-      />
-    </DrawerProvider>
+          </DrawerProvider>
+        );
+      }}
+    </EntityListStrategy>
   );
 };
 
