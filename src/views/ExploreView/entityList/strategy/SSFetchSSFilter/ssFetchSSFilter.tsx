@@ -1,5 +1,5 @@
 import { Fragment, JSX } from "react";
-import { useSSFetchSSFilter } from "./hooks/UseSSFetchSSFilter/useSSFetchSSFilter";
+import { useSSFetchSSFilter } from "./hooks/UseSSFetchSSFilter/hook";
 import { EntityListStrategyProps } from "../../EntityListStrategy/types";
 
 /**
@@ -11,7 +11,7 @@ import { EntityListStrategyProps } from "../../EntityListStrategy/types";
  * @typeParam T - Entity type.
  * @param props - Component props.
  * @param props.children - Child component to render with fetched data.
- * @param props.entityListType - Entity list type.
+ * @param props.entityListType - Entity identifier.
  * @returns Rendered children with server-fetched data.
  */
 export const SSFetchSSFilter = <T = unknown,>({
