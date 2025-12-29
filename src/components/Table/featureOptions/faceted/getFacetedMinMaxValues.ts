@@ -4,7 +4,6 @@ import { getMemoOptions, memo, RowData, Table } from "@tanstack/react-table";
  * Returns an array of two numbers, the minimum and maximum values for the column, or undefined if the column does not exist or has no values.
  * Customized version of the default getFacetedMinMaxValues function from tanstack table handling mixed null and possible NaN values.
  * See https://tanstack.com/table/v8/docs/api/features/column-faceting#getfacetedminmaxvalues.
- * @deprecated - Use getFacetedMinMaxValues from /components/Table/featureOptions/faceted/getFacetedMinMaxValues instead.
  * @returns An array of two numbers, the minimum and maximum values for the column, or undefined if the column does not exist or has no values.
  */
 export function getFacetedMinMaxValues<TData extends RowData>(): (

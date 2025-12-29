@@ -99,6 +99,7 @@ export function getColumnHeader<T extends RowData>(column: Column<T>): string {
  * Custom function based off react table function getFacetedUniqueValues, see
  * https://tanstack.com/table/v8/docs/api/features/filters#getfaceteduniquevalues, and
  * https://github.com/TanStack/table/blob/6d4a91e74676da0b28fe07fcc1b7d26f535db0f4/packages/table-core/src/utils/getFacetedUniqueValues.ts.
+ * @deprecated - Use getFacetedUniqueValues from /components/Table/featureOptions/faceted/getFacetedUniqueValues instead.
  * @returns Unique category term counts keyed by category terms.
  */
 export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
