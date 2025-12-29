@@ -9,7 +9,9 @@ import { useMemo } from "react";
  * @param entityListType - Entity identifier.
  * @returns Entities (entity list) configuration.
  */
-export const useEntities = (entityListType: string): EntityConfig => {
+export const useEntities = <T = unknown>(
+  entityListType: string,
+): EntityConfig<T> => {
   const { config } = useConfig();
   const { entities } = config;
   return useMemo(

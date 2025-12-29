@@ -3,6 +3,10 @@ import { DrawerProvider } from "../../components/common/Drawer/provider/provider
 import { ExploreViewProps } from "./types";
 import { DataSelector } from "./entityList/data/selector/dataSelector";
 import { TableSelector } from "./entityList/table/selector/tableSelector";
+import { TableRows } from "../../components/Detail/components/Table/components/TableRows/tableRows";
+import { GridTable } from "../../components/Table/table.styles";
+import { getColumnTrackSizing } from "../../components/TableCreator/options/columnTrackSizing/utils";
+import { TableBody } from "@mui/material";
 
 /**
  * ExploreView Component
@@ -25,11 +29,15 @@ export const ExploreView = <T = unknown,>(
           {({ table }) => {
             return (
               <DrawerProvider>
-                <div>
-                  {data?.map((item, index) => (
-                    <span key={index}>{JSON.stringify(item)}</span>
-                  ))}
-                </div>
+                <GridTable
+                  gridTemplateColumns={getColumnTrackSizing(
+                    table.getVisibleFlatColumns(),
+                  )}
+                >
+                  <TableBody>
+                    <TableRows tableInstance={table} />
+                  </TableBody>
+                </GridTable>
               </DrawerProvider>
             );
           }}

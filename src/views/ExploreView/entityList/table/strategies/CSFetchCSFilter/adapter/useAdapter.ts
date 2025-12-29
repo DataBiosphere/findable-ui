@@ -1,6 +1,7 @@
 import { useTable } from "../table/useTable";
 import { useEntities } from "../../../../../hooks/UseEntities/hook";
 import { EntityListTable } from "../../../types";
+import { throwError } from "../../utils";
 
 /**
  * Creates an entity-aware table adapter using a client-side filter strategy.
@@ -16,17 +17,16 @@ export const useAdapter = <T = unknown>(
   entityListType: string,
   data: T[],
 ): EntityListTable<T> => {
-  const {
-    getId: getRowId,
-    list: { columns, tableOptions },
-  } = useEntities(entityListType);
+  const { table: tableOptions } = useEntities<T>(entityListType);
+  const { columns, ...options } = tableOptions || {};
 
-  const table = useTable({
+  if (!columns) throwError(entityListType);
+
+  const table = useTable<T>({
     columns,
     data,
-    getRowId,
     state: {},
-    ...tableOptions,
+    ...options,
   });
 
   return { table };

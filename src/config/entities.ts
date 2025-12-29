@@ -181,6 +181,7 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
   options?: Options;
   overrides?: Override[];
   staticLoadFile?: string;
+  table?: EntityTableOptions<T>;
   ui?: EntityUIConfig;
 }
 
@@ -188,6 +189,11 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
  * Entity mapper function.
  */
 export type EntityMapper<T, I> = (input: I) => T;
+
+export type EntityTableOptions<T = unknown> = Omit<
+  TableOptions<T>,
+  "data" | "getCoreRowModel"
+>;
 
 export interface EntityUIConfig {
   actionButton?: ReactNode; // Action button.
