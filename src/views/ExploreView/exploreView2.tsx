@@ -27,7 +27,6 @@ export const ExploreView = <T = unknown,>(
     <DataSelector {...props}>
       {({ data }) => (
         <TableSelector data={data} entityListType={entityListType}>
-          {/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- unused (for the moment) */}
           {({ table }) => {
             return (
               <DrawerProvider>
