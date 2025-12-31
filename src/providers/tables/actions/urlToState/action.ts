@@ -1,9 +1,8 @@
 import { buildNextTablesByGroupKey } from "../../state/tables/updater";
-import { parseJsonQueryParam } from "../../../../utils/parseJsonQueryParam";
-import { PARAM } from "../../state/queries/constants";
 import { TablesState } from "../../state/types";
 import { UrlToStatePayload } from "./types";
-import { ColumnFiltersState } from "@tanstack/react-table";
+import { assertRegistry } from "../../state/registries/utils";
+import { buildNextColumnFilters } from "./utils";
 
 /**
  * Reducer function to handle the "URL >> state sync" action.
@@ -15,14 +14,12 @@ export function urlToStateAction(
   state: TablesState,
   payload: UrlToStatePayload,
 ): TablesState {
-  if (typeof payload.query.dictionary !== "string") return state;
+  const tableKey = payload.tableKey;
+  assertRegistry(state, tableKey);
+  const columnFilters = buildNextColumnFilters(payload);
+  const groupKey = state.registry[tableKey].groupKey;
   return {
     ...state,
-    tables: buildNextTablesByGroupKey(state, payload.query.dictionary, {
-      columnFilters: parseJsonQueryParam<ColumnFiltersState>(
-        payload.query[PARAM.COLUMN_FILTERS],
-        [],
-      )!, // Non-null assertion safe: default value [] ensures return type is ColumnFiltersState.
-    }),
+    tables: buildNextTablesByGroupKey(state, groupKey, { columnFilters }),
   };
 }

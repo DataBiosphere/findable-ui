@@ -17,7 +17,7 @@ export function updateColumnFiltersAction(
   payload: UpdateColumnFiltersPayload,
 ): TablesState {
   const tableKey = payload.tableKey;
-  assertRegistry(tableKey);
+  assertRegistry(state, tableKey);
   const columnFilters = buildNextColumnFilters(state, payload);
   const groupKey = state.registry[tableKey].groupKey;
   return {
