@@ -1,4 +1,4 @@
-import { buildNextTablesByGroupKey } from "providers/tables/state/tables/updater";
+import { buildNextTablesByGroupKey } from "../../state/tables/updater";
 import { parseJsonQueryParam } from "../../../../utils/parseJsonQueryParam";
 import { PARAM } from "../../state/queries/constants";
 import { TablesState } from "../../state/types";

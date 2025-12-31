@@ -1,4 +1,4 @@
-import { BaseComponentProps } from "components/types";
+import { BaseComponentProps } from "../../../types";
 import { JSX, ClassAttributes, TableHTMLAttributes } from "react";
 import { StyledTable } from "./table.styles";
 

@@ -1,4 +1,4 @@
-import { ChildrenProps } from "components/types";
+import { ChildrenProps } from "../../../types";
 import { JSX, useEffect } from "react";
 import {
   BREAKPOINT_FN_NAME,

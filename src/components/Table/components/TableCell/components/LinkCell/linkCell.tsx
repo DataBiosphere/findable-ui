@@ -1,6 +1,6 @@
 import { LinkProps, Link as MLink, Typography } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
-import { BaseComponentProps } from "components/types";
+import { BaseComponentProps } from "../../../../../types";
 import { JSX } from "react";
 import { isValidUrl } from "../../../../../../common/utils";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
