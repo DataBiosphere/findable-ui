@@ -36,7 +36,7 @@ export const ROW_PREVIEW: TableFeature = {
       return getRowPreviewRow(table);
     };
     table.resetRowPreview = (): void => {
-      table.setRowPreview(undefined);
+      table.setRowPreview({});
     };
     table.setRowPreview = (updater: Updater<RowPreviewState>): void => {
       const safeUpdater: Updater<RowPreviewState> = (old: RowPreviewState) => {
@@ -58,8 +58,8 @@ export const ROW_PREVIEW: TableFeature = {
   },
   getInitialState: (initialState?: InitialTableState): Partial<TableState> => {
     return {
+      rowPreview: {},
       ...initialState,
-      rowPreview: undefined,
     } as Partial<TableState>;
   },
 };

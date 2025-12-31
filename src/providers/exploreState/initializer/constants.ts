@@ -41,6 +41,6 @@ export const INITIAL_STATE: ExploreState = {
   loading: true,
   meta: null,
   paginationState: DEFAULT_PAGINATION_STATE,
-  rowPreview: undefined,
+  rowPreview: {},
   tabValue: "",
 };

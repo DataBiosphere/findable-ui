@@ -7,6 +7,7 @@ import { TableRows } from "../../components/Detail/components/Table/components/T
 import { GridTable } from "../../components/Table/table.styles";
 import { getColumnTrackSizing } from "../../components/TableCreator/options/columnTrackSizing/utils";
 import { TableBody } from "@mui/material";
+import { useCatalogBootstrap } from "../../hooks/catalog/UseCatalogBootstrap/useCatalogBootstrap";
 
 /**
  * ExploreView Component
@@ -20,6 +21,7 @@ import { TableBody } from "@mui/material";
 export const ExploreView = <T = unknown,>(
   props: ExploreViewProps<T>,
 ): JSX.Element => {
+  useCatalogBootstrap();
   const { entityListType } = props;
   return (
     <DataSelector {...props}>

@@ -18,7 +18,7 @@ export interface RowPreviewRow {
   togglePreview: () => void;
 }
 
-export type RowPreviewState = { [id: string]: boolean } | undefined;
+export type RowPreviewState = { [id: string]: boolean };
 
 export interface RowPreviewTableState {
   rowPreview: RowPreviewState;

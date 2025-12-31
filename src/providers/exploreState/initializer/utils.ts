@@ -181,7 +181,7 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
         columnVisibility: initColumnVisibility(entity),
         enableRowSelection: initEnableRowSelection(entity),
         grouping: initGrouping(entity),
-        rowPreview: undefined,
+        rowPreview: {},
         rowSelection: {},
         sorting: initSorting(entity),
       },

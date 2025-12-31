@@ -2,6 +2,9 @@ import { useTable } from "../table/useTable";
 import { useEntities } from "../../../../../hooks/UseEntities/hook";
 import { EntityListTable } from "../../../types";
 import { throwError } from "../../utils";
+import { useAdapter as useStateAdapter } from "../../../state/adapter/useAdapter";
+import { useTableState } from "../../../../../../../providers/tables/hooks/UseTableState/hook";
+import * as resets from "./resets";
 
 /**
  * Creates an entity-aware table adapter using a server-side filter strategy.
@@ -19,14 +22,20 @@ export const useAdapter = <T = unknown>(
 ): EntityListTable<T> => {
   const { table: tableOptions } = useEntities<T>(entityListType);
   const { columns, ...options } = tableOptions || {};
+  const { state } = useTableState(entityListType);
+  const { adapter } = useStateAdapter(entityListType);
 
   if (!columns) throwError(entityListType);
 
   const table = useTable({
     columns,
     data,
-    state: {},
+    onColumnFiltersChange: (updaterOrValue) => {
+      adapter.onColumnFiltersChange(updaterOrValue);
+      resets.forColumnFiltersChange(table);
+    },
     ...options,
+    state,
   });
 
   return { table };

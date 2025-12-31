@@ -1,14 +1,14 @@
 import { useToken } from "../../../../../../../hooks/authentication/token/useToken";
-import { useCatalog } from "../../../../../../../hooks/useCatalog";
+import { useCatalog } from "../../../../../../../hooks/catalog/UseCatalog/useCatalog";
 import {
   DefaultError,
   useQuery as useReactQuery,
   UseQueryResult,
 } from "@tanstack/react-query";
 import { QueryKey } from "./types";
-import { useEntitiesState } from "../../../../../hooks/UseEntitiesState/hook";
 import { AzulEntitiesResponse } from "../../../../../../../apis/azul/common/entities";
 import { queryFn } from "./queryFn";
+import { useTableState } from "../../../../../../../providers/tables/hooks/UseTableState/hook";
 
 /**
  * Fetches entities from the server using React Query.
@@ -21,9 +21,10 @@ export const useQuery = <T = unknown>(
   apiPath: string | undefined,
   entityListType: string,
 ): UseQueryResult<AzulEntitiesResponse<T>, DefaultError> => {
+  const { catalog } = useCatalog();
   const { token } = useToken();
-  const { filterState, pagination, sorting } = useEntitiesState(entityListType);
-  const catalog = useCatalog();
+  const { state } = useTableState(entityListType);
+  const { columnFilters, pagination, sorting } = state;
 
   if (!apiPath) throw new Error("No API path found for entity");
 
@@ -37,7 +38,8 @@ export const useQuery = <T = unknown>(
     queryKey: [
       "entities",
       entityListType,
-      { catalog, filterState, pagination, sorting },
+      catalog,
+      { columnFilters, pagination, sorting },
     ],
   });
 };

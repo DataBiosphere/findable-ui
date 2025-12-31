@@ -56,8 +56,11 @@ function getRowPreviewKeyValue<T extends RowData>(
 ): [string, boolean] | undefined {
   const { getState } = table;
   const { rowPreview } = getState();
-  if (!rowPreview) return;
-  const [[key, value]] = Object.entries(rowPreview);
+
+  const entries = Object.entries(rowPreview);
+  if (!entries.length) return;
+
+  const [[key, value]] = entries;
   return [key, value];
 }
 
