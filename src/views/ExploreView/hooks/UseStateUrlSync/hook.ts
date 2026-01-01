@@ -3,27 +3,40 @@ import { useStateSyncManager } from "../../../../hooks/stateSyncManager/hook";
 import { clearMeta } from "../../../../providers/tables/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../../../providers/tables/actions/stateToUrl/dispatch";
 import { urlToState } from "../../../../providers/tables/actions/urlToState/dispatch";
-import { buildContext } from "./utils";
+import { StateUrlAdapter } from "./adapter/types";
+import { PARAM } from "./adapter/constants";
 
 /**
- * Synchronizes table state with URL query parameters.
+ * Synchronizes table state with URL query parameters using a custom adapter.
  *
  * This hook sets up bidirectional synchronization between:
  * - Table state (filters, pagination, sorting)
  * - URL query parameters
  *
- * @param entityListType - Entity identifier.
+ * @param tableKey - Table identifier for table state management.
+ * @param adapter - Adapter that handles URL <--> state conversion logic.
  */
-export function useStateUrlSync(entityListType: string): void {
+export function useStateUrlSync(
+  tableKey: string,
+  adapter: StateUrlAdapter,
+): void {
   const { dispatch, state } = useTables();
 
   useStateSyncManager({
     actions: {
       clearMeta,
       stateToUrl,
-      urlToState: urlToState(entityListType),
+      urlToState: (payload) =>
+        urlToState({
+          tableKey,
+          tableState: adapter.queryToState(payload.query),
+        }),
     },
     dispatch,
-    state: buildContext(state, entityListType),
+    state: {
+      command: state.meta?.command,
+      paramKeys: [PARAM.FILTER],
+      query: adapter.stateToQuery(state.tables[tableKey], tableKey),
+    },
   });
 }

@@ -3,7 +3,6 @@ import { buildNextTablesByGroupKey } from "../../state/tables/updater";
 import { UpdateColumnFiltersPayload } from "./types";
 import { buildNextColumnFilters } from "./utils";
 import { TablesState } from "../../state/types";
-import { buildNextQueriesByGroupKey } from "../../state/queries/updater";
 import { assertRegistry } from "../../state/registries/utils";
 
 /**
@@ -23,7 +22,6 @@ export function updateColumnFiltersAction(
   return {
     ...state,
     meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
-    queries: buildNextQueriesByGroupKey(state, groupKey, { columnFilters }),
     tables: buildNextTablesByGroupKey(state, groupKey, { columnFilters }),
   };
 }

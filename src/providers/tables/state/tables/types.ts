@@ -1,5 +1,7 @@
 import { TableState } from "@tanstack/react-table";
 
+export type PartialTableState = Partial<TableStates[TableKey]>;
+
 export type TableKey = string;
 
 export type TableStateKeys =

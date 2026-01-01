@@ -9,6 +9,7 @@ import { getColumnTrackSizing } from "../../components/TableCreator/options/colu
 import { TableBody } from "@mui/material";
 import { useCatalogBootstrap } from "../../hooks/catalog/UseCatalogBootstrap/useCatalogBootstrap";
 import { useStateUrlSync } from "./hooks/UseStateUrlSync/hook";
+import { stateUrlAdapter as adapter } from "./hooks/UseStateUrlSync/adapter/adapter";
 
 /**
  * ExploreView Component
@@ -23,7 +24,7 @@ export const ExploreView = <T = unknown,>(
   props: ExploreViewProps<T>,
 ): JSX.Element => {
   useCatalogBootstrap();
-  useStateUrlSync(props.entityListType);
+  useStateUrlSync(props.entityListType, adapter);
   return (
     <DataSelector {...props}>
       {({ data }) => (

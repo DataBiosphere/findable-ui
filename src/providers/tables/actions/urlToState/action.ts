@@ -1,8 +1,7 @@
-import { buildNextTablesByGroupKey } from "../../state/tables/updater";
+import { buildNextTables } from "../../state/tables/updater";
 import { TablesState } from "../../state/types";
 import { UrlToStatePayload } from "./types";
 import { assertRegistry } from "../../state/registries/utils";
-import { buildNextColumnFilters } from "./utils";
 
 /**
  * Reducer function to handle the "URL >> state sync" action.
@@ -16,10 +15,8 @@ export function urlToStateAction(
 ): TablesState {
   const tableKey = payload.tableKey;
   assertRegistry(state, tableKey);
-  const columnFilters = buildNextColumnFilters(payload);
-  const groupKey = state.registry[tableKey].groupKey;
   return {
     ...state,
-    tables: buildNextTablesByGroupKey(state, groupKey, { columnFilters }),
+    tables: buildNextTables(state, tableKey, payload.tableState),
   };
 }
