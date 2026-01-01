@@ -21,10 +21,7 @@ export const useCatalog = (): UseCatalog => {
 
   if (!catalog) throw new Error("No catalog found for data source");
 
-  const localCatalog = getLocalStorage(CATALOG_KEY);
+  const override = getLocalStorage(CATALOG_KEY);
 
-  return useMemo(
-    () => ({ catalog: localCatalog ?? catalog }),
-    [catalog, localCatalog],
-  );
+  return useMemo(() => ({ catalog: override ?? catalog }), [catalog, override]);
 };
