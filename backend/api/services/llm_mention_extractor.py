@@ -1,6 +1,6 @@
 """LLM-based mention extraction using Pydantic AI and tool calling."""
 
-from typing import List, Literal
+from typing import List, Literal, Optional
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
@@ -144,7 +144,7 @@ class MentionExtractionResult(BaseModel):
 class LLMMentionExtractor:
     """Extract mentions from queries using Pydantic AI and tool calling."""
 
-    def __init__(self, config: LLMConfig = None, facet_name_mapping: dict = None):
+    def __init__(self, config: Optional[LLMConfig] = None, facet_name_mapping: Optional[dict] = None):
         """Initialize the LLM mention extractor.
 
         Args:
@@ -210,10 +210,10 @@ class LLMMentionExtractor:
                 try:
                     usage = result.usage()
                     self.stats["total_queries"] += 1
-                    self.stats["total_input_tokens"] += usage.request_tokens
-                    self.stats["total_output_tokens"] += usage.response_tokens
+                    self.stats["total_input_tokens"] += usage.input_tokens
+                    self.stats["total_output_tokens"] += usage.output_tokens
                     self.stats["total_cost"] += self.config.estimate_cost(
-                        usage.request_tokens, usage.response_tokens
+                        usage.input_tokens, usage.output_tokens
                     )
                 except Exception:
                     pass  # Ignore usage tracking errors

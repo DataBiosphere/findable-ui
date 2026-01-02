@@ -40,7 +40,7 @@ class OpenSearchConfig:
         }
 
 
-def create_opensearch_resolver():
+def create_opensearch_resolver() -> "OpenSearchConceptResolver":
     """Factory function to create an OpenSearchConceptResolver with AnVIL config.
 
     Uses a singleton pattern to reuse the same resolver instance across requests,
