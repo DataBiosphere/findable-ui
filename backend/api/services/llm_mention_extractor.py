@@ -10,7 +10,15 @@ from services.llm_config import LLMConfig
 
 # Facet context for the LLM
 FACET_CONTEXT = """
-Facet definitions and guidance:
+You extract searchable facet values from genomic data queries.
+
+Extract ATTRIBUTES (searchable values), not entity names (context words).
+- Extract: "female" (attribute), "brain" (attribute), "RNA-seq" (attribute)
+- Ignore: "patients", "samples", "data", "files" (entity names provide context only)
+
+---
+
+Facet Definitions:
 
 - Consent Group:
   Consent group or consent groups related to a dataset.
@@ -25,90 +33,72 @@ Facet definitions and guidance:
   IMPORTANT: Pay attention to access modifiers - "private" and "public" have opposite meanings.
 
 - Data Modality:
-  Describes the biological nature of the information gathered as the result of an Activity,
-  independent of the technology or methods used to produce the information.
-  Common examples include:
-  * Sequencing types: whole genome, WGS, RNA-seq, scRNA-seq, snRNA-seq, ATAC-seq, scATAC-seq, snATAC-seq
-  * Technologies: PacBio sequencing, long-read sequencing, SHARE-seq
-  * Molecular data: genome, methylation, DNA methylation, genomic DNA, gdna
-  * Single-cell/nucleus variants: single-cell RNA sequencing, single-nucleus RNA sequencing
-  * Special values: none, unspecified
+  The molecular measurement or biological information type.
+  Common examples: "RNA-seq", "methylation", "whole genome", "ATAC-seq", "SHARE-seq".
 
-  IMPORTANT: Extract complete data modality terms as single mentions.
-  * When terms appear in isolation (e.g., "WGS", "methylation", "genome"), extract them.
-  * When terms are part of a longer specific phrase (e.g., "single-cell RNA sequencing assay"
-    or "PacBio whole genome sequencing"), extract the COMPLETE phrase as ONE mention.
-  * DO NOT split technology-specific phrases into parts - "PacBio whole genome sequencing"
-    should be ONE mention, not separate "PacBio" and "whole genome sequencing" mentions.
+  Include modifiers: "single-cell RNA-seq", "bulk transcriptome", "spatial ATAC-seq"
+  Extract complete phrases: "pacbio whole genome sequencing", "chromatin accessibility"
+  Extract standalone terms: "genome", "gdna", "methylation"
 
 - Diagnosis:
-  A disease or individual phenotypic feature.
-  This includes:
-  * Named diseases (e.g., diabetes, cancer, Alzheimer's disease, autism)
-  * MONDO disease terms
-  * Individual HPO phenotypic features (e.g., cleft palate, seizure, hypotonia)
-  * Single observable characteristics or abnormalities
-
-  IMPORTANT: Use Diagnosis for both named diseases AND individual phenotypic traits.
-  Only use Phenotype for complex phenotype syndromes.
+  Named diseases or individual phenotypic features.
+  Examples: "diabetes", "cancer", "seizure", "cleft palate", "autism"
 
 - Phenotype:
-  Complex phenotype syndromes and named phenotypic conditions.
-  This includes:
-  * Complex phenotype syndromes (e.g., Coffin-Siris syndrome, Epileptic Encephalopathy)
-  * Named phenotypic conditions (e.g., Agenesis of the Corpus Callosum)
-  * Multi-feature phenotypic presentations
-  * Specific syndrome names
-
-  IMPORTANT: Use Phenotype only for complex/named syndromes. For individual features
-  like "cleft palate" or "seizure", use Diagnosis instead.
+  Complex phenotype syndromes (multi-feature conditions).
+  Examples: "Coffin-Siris syndrome", "Epileptic Encephalopathy"
 
 - Organism Type:
-  A human-readable reference to the organism type.
+  The organism species. Examples: "human", "mouse", "rat"
 
 - Reported Ethnicity:
-  A property that reflects a Human Donor's reported ethnic origins.
-  Note this may contain both Race and Ethnicity information as defined by the
-  US Department of the Interior (DOI).
+  Donor's ethnic or racial origins.
+  Examples: "asian", "latino", "african american", "white", "hispanic", "european", "chicano"
 
 - Phenotypic Sex:
-  A reference to the BiologicalSex of the donor organism:
-  "An organismal quality inhering in a bearer by virtue of the bearer's physical
-  expression of sexual characteristics." [PATO_0001894]
-  Common notations: male/female, masculine/feminine, men/women, M/F, XY/XX
-  IMPORTANT: Extract single letters M or F when they appear with biological context words
-  like patients, subjects, donors, or samples (e.g., "M patients", "F donors")
+  Biological sex of donor.
+  Examples: "male", "female", "M", "F", "men", "women", "XY", "XX"
 
 - Anatomical Site:
-  The normal anatomical location within an organism from which a biosample was taken.
-  This refers to standard body parts/tissues where samples are collected, such as:
-  * Organs: brain, heart, liver, kidney
-  * Tissues: blood, tissue, muscle
-  * Body regions: oral cavity, chest
-
-  IMPORTANT: This is for NORMAL anatomy (sample collection sites), NOT abnormalities.
-  Abnormal anatomical features or conditions should be categorized as Diagnosis.
+  Normal body location where biosample was taken.
+  Examples: "brain", "liver", "kidney", "blood", "chest"
+  Note: Extract site without generic suffixes ("brain tissue" → "brain")
 
 - BioSample Type:
-  A human-readable reference to the type of biosample represented by the record.
+  Type of biosample.
+  Examples: "organoids", "biopsies", "cell lines"
 
 - File Format:
-  An indication of the format of an electronic file; include the full file extension
-  including compression extensions (e.g. bam, sam, csv, txt, etc.).
+  File extension including compression.
+  Examples: "bam", "fastq", "vcf.gz", "csv"
 
-Instructions:
-- Extract exact substrings from the query.
-- Assign mentions to the most appropriate facet listed above.
-- When extracting edge case phrases like "X not specified", "X unknown", "X not reported",
-  "X unspecified", extract the COMPLETE PHRASE (e.g., "sex not specified" not just "sex").
-  These phrases indicate missing/unknown data and should be treated as distinct mentions.
-- When choosing between Diagnosis and Phenotype: use Diagnosis for diseases AND individual
-  phenotypic features (like "cleft palate", "seizure"). Use Phenotype only for complex
-  syndrome names (like "Coffin-Siris syndrome", "Epileptic Encephalopathy").
-- When choosing between Diagnosis/Phenotype and Anatomical Site: use Diagnosis/Phenotype
-  for abnormalities, use Anatomical Site only for normal body parts where samples are collected.
-- If a meaningful term does not map to any facet, use facet = 'unmatched'.
-- Do not invent new facet names.
+---
+
+Extraction Rules:
+
+1. Extract exact substrings from the query
+2. Extract complete phrases with modifiers: "single-cell RNA-seq" (not just "RNA-seq")
+3. Extract edge case phrases completely: "ethnicity not specified", "data modality none"
+4. Extract synonyms and variants: "chicano", "european", "ispanic", "gdna", "genome"
+5. Ignore generic entity names: "patients", "subjects", "donors", "samples", "data", "files"
+6. Drop generic suffixes from anatomy: "brain tissue" → "brain"
+7. Don't extract anatomy from disease names: "lung cancer" → just "lung cancer"
+8. Extract disease without "patients": "diabetes patients" → "diabetes"
+9. If no facet matches, use 'unmatched'
+
+Examples:
+- "single cell rna sequencing" → Data Modality: "single cell rna sequencing"
+- "genome" → Data Modality: "genome"
+- "gdna" → Data Modality: "gdna"
+- "methylation" → Data Modality: "methylation"
+- "chicano subjects" → Reported Ethnicity: "chicano"
+- "european donors" → Reported Ethnicity: "european"
+- "ispanic patients" → Reported Ethnicity: "ispanic"
+- "ethnicity not specified" → Reported Ethnicity: "ethnicity not specified"
+- "data modality none" → Data Modality: "data modality none"
+- "female patients" → Phenotypic Sex: "female"
+- "brain tissue" → Anatomical Site: "brain"
+- "diabetes patients" → Diagnosis: "diabetes"
 """.strip()
 
 

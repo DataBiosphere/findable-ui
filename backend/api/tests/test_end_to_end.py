@@ -120,3 +120,81 @@ def test_end_to_end_complex_query() -> None:
     assert (
         expected_found >= 2
     ), f"Should find at least 2 expected mentions, found {expected_found}"
+
+
+def test_end_to_end_normalization_equivalence() -> None:
+    """Test that hyphen/underscore/space variants match the same concepts.
+
+    Demonstrates that normalization makes these queries equivalent:
+    - "single-cell" (hyphen)
+    - "single_cell" (underscore)
+    - "single cell" (space)
+    All should resolve to the same normalized concept via OpenSearch.
+    """
+    resolver = OpenSearchConceptResolver()
+
+    # Test 1: single-cell variants should all match the same concepts
+    facet_name = "files.data_modality"
+
+    results_hyphen = resolver.resolve_mention(facet_name, "single-cell", top_k=5)
+    results_underscore = resolver.resolve_mention(facet_name, "single_cell", top_k=5)
+    results_space = resolver.resolve_mention(facet_name, "single cell", top_k=5)
+
+    # All three should find results
+    assert len(results_hyphen) > 0, "Hyphen variant should find results"
+    assert len(results_underscore) > 0, "Underscore variant should find results"
+    assert len(results_space) > 0, "Space variant should find results"
+
+    # Extract normalized terms from each result set
+    terms_hyphen = {r["term"] for r in results_hyphen}
+    terms_underscore = {r["term"] for r in results_underscore}
+    terms_space = {r["term"] for r in results_space}
+
+    print(f"\nHyphen results: {terms_hyphen}")
+    print(f"Underscore results: {terms_underscore}")
+    print(f"Space results: {terms_space}")
+
+    # All three should resolve to the same concepts
+    assert (
+        terms_hyphen == terms_underscore == terms_space
+    ), "All separator variants should resolve to identical concepts"
+
+    # Test 2: More complex example with rna-seq variants
+    results_hyphen_rna = resolver.resolve_mention(facet_name, "rna-seq", top_k=5)
+    results_underscore_rna = resolver.resolve_mention(facet_name, "rna_seq", top_k=5)
+    results_space_rna = resolver.resolve_mention(facet_name, "rna seq", top_k=5)
+
+    assert len(results_hyphen_rna) > 0
+    assert len(results_underscore_rna) > 0
+    assert len(results_space_rna) > 0
+
+    terms_hyphen_rna = {r["term"] for r in results_hyphen_rna}
+    terms_underscore_rna = {r["term"] for r in results_underscore_rna}
+    terms_space_rna = {r["term"] for r in results_space_rna}
+
+    print(f"\nRNA-seq hyphen: {terms_hyphen_rna}")
+    print(f"RNA-seq underscore: {terms_underscore_rna}")
+    print(f"RNA-seq space: {terms_space_rna}")
+
+    # Should all be equivalent
+    assert (
+        terms_hyphen_rna == terms_underscore_rna == terms_space_rna
+    ), "RNA-seq variants should resolve to identical concepts"
+
+    # Test 3: Multiple spaces should collapse to single space
+    results_multi_space = resolver.resolve_mention(
+        facet_name, "single  cell  rna  seq", top_k=5
+    )
+    results_single_space = resolver.resolve_mention(
+        facet_name, "single cell rna seq", top_k=5
+    )
+
+    assert len(results_multi_space) > 0
+    assert len(results_single_space) > 0
+
+    terms_multi_space = {r["term"] for r in results_multi_space}
+    terms_single_space = {r["term"] for r in results_single_space}
+
+    assert (
+        terms_multi_space == terms_single_space
+    ), "Multiple spaces should collapse to single space and match"

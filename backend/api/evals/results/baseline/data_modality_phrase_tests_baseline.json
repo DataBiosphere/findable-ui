@@ -1,0 +1,319 @@
+{
+  "metadata": {
+    "date": "2025-12-23T02:44:54.208839",
+    "dataset": "data_modality_phrase_tests",
+    "total_tests": 14,
+    "passed": 12,
+    "failed": 2,
+    "pass_rate": 0.8571428571428571
+  },
+  "results": [
+    {
+      "test_id": "dmp_001",
+      "query": "single-cell gene expression analysis",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Multi-word synonym variant",
+      "category": "multi_word_phrase"
+    },
+    {
+      "test_id": "dmp_002",
+      "query": "single-cell rna profiling",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Multi-word synonym variant",
+      "category": "multi_word_phrase"
+    },
+    {
+      "test_id": "dmp_003",
+      "query": "whole transcriptome sequencing",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Multi-word synonym variant",
+      "category": "multi_word_phrase"
+    },
+    {
+      "test_id": "dmp_004",
+      "query": "bulk rna sequencing",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Multi-word with qualifier",
+      "category": "multi_word_phrase"
+    },
+    {
+      "test_id": "dmp_006",
+      "query": "chromatin accessibility sequencing",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
+      },
+      "error_type": null,
+      "notes": "Multi-word assay description",
+      "category": "multi_word_phrase"
+    },
+    {
+      "test_id": "dmp_007",
+      "query": "rnaseq",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Compound abbreviation - no separators",
+      "category": "compound_abbreviation"
+    },
+    {
+      "test_id": "dmp_008",
+      "query": "bulk rnaseq",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Compound abbreviation with qualifier",
+      "category": "compound_abbreviation"
+    },
+    {
+      "test_id": "dmp_009",
+      "query": "scrna seq",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Compound abbreviation - space variant",
+      "category": "compound_abbreviation"
+    },
+    {
+      "test_id": "dmp_010",
+      "query": "sc rna seq",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
+      },
+      "error_type": null,
+      "notes": "Super abbreviated form",
+      "category": "compound_abbreviation"
+    },
+    {
+      "test_id": "dmp_011",
+      "query": "atacseq",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell ATAC-seq",
+          "single-nucleus ATAC-seq"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "single-cell ATAC-seq",
+          "single-nucleus ATAC-seq"
+        ]
+      },
+      "error_type": null,
+      "notes": "Compound abbreviation - ATAC (ambiguous - accepts both cell and nucleus)",
+      "category": "compound_abbreviation"
+    },
+    {
+      "test_id": "dmp_012",
+      "query": "simultaneous high-throughput atac and rna expression",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "SHARE-seq"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "SHARE-seq"
+        ]
+      },
+      "error_type": null,
+      "notes": "Full technology expansion",
+      "category": "technology_expansion"
+    },
+    {
+      "test_id": "dmp_013",
+      "query": "multimodal single-cell sequencing",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "SHARE-seq"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "SHARE-seq"
+        ]
+      },
+      "error_type": null,
+      "notes": "Technology category description",
+      "category": "technology_expansion"
+    },
+    {
+      "test_id": "dmp_014",
+      "query": "pacific biosciences sequencing",
+      "passed": false,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "PacBio Whole Genome Sequencing",
+          "RNA sequencing assay",
+          "single-cell RNA sequencing assay",
+          "single-nucleus RNA sequencing assay"
+        ]
+      },
+      "error_type": "extra_terms",
+      "notes": "Full vendor name",
+      "category": "technology_expansion"
+    },
+    {
+      "test_id": "dmp_015",
+      "query": "single molecule real time sequencing",
+      "passed": false,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "PacBio Whole Genome Sequencing",
+          "RNA sequencing assay",
+          "single-cell ATAC-seq",
+          "single-cell RNA sequencing assay",
+          "single-nucleus ATAC-seq",
+          "single-nucleus RNA sequencing assay"
+        ]
+      },
+      "error_type": "extra_terms",
+      "notes": "Alternative technology name (SMRT)",
+      "category": "technology_expansion"
+    }
+  ],
+  "by_category": {
+    "multi_word_phrase": {
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "compound_abbreviation": {
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "technology_expansion": {
+      "passed": 2,
+      "failed": 2,
+      "pass_rate": 0.5
+    }
+  }
+}

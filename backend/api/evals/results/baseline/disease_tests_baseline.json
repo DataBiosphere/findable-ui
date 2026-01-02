@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-17T16:37:21.800207",
+    "date": "2025-12-23T02:44:55.954958",
     "dataset": "disease_tests",
     "total_tests": 15,
-    "passed": 15,
-    "failed": 0,
-    "pass_rate": 1.0
+    "passed": 13,
+    "failed": 2,
+    "pass_rate": 0.8666666666666667
   },
   "results": [
     {
@@ -14,11 +14,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Diabetes mellitus"]
+        "terms": [
+          "Diabetes mellitus"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Diabetes mellitus"]
+        "terms": [
+          "Diabetes mellitus"
+        ]
       },
       "error_type": null,
       "notes": "Common disease name",
@@ -30,11 +34,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Lung cancer"]
+        "terms": [
+          "Lung cancer"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Lung cancer"]
+        "terms": [
+          "Lung cancer"
+        ]
       },
       "error_type": null,
       "notes": "Specific cancer",
@@ -46,11 +54,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Bladder or urinary tract cancer"]
+        "terms": [
+          "Bladder or urinary tract cancer"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Bladder or urinary tract cancer"]
+        "terms": [
+          "Bladder or urinary tract cancer"
+        ]
       },
       "error_type": null,
       "notes": "Specific cancer - should not match all cancers",
@@ -62,11 +74,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Breast cancer"]
+        "terms": [
+          "Breast cancer"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Breast cancer"]
+        "terms": [
+          "Breast cancer"
+        ]
       },
       "error_type": null,
       "notes": "Specific cancer",
@@ -78,11 +94,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["CNS or brain cancer"]
+        "terms": [
+          "CNS or brain cancer"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["CNS or brain cancer"]
+        "terms": [
+          "CNS or brain cancer"
+        ]
       },
       "error_type": null,
       "notes": "Brain-specific cancer",
@@ -128,11 +148,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Alzheimer's disease"]
+        "terms": [
+          "Alzheimer's disease"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Alzheimer's disease"]
+        "terms": [
+          "Alzheimer's disease"
+        ]
       },
       "error_type": null,
       "notes": "Missing apostrophe - brain condition",
@@ -144,11 +168,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Alzheimer's disease"]
+        "terms": [
+          "Alzheimer's disease"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Alzheimer's disease"]
+        "terms": [
+          "Alzheimer's disease"
+        ]
       },
       "error_type": null,
       "notes": "Full name with apostrophe",
@@ -160,11 +188,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["HP:0001250"]
+        "terms": [
+          "HP:0001250"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["HP:0001250"]
+        "terms": [
+          "HP:0001250"
+        ]
       },
       "error_type": null,
       "notes": "Neurological symptom - phenotype code in data",
@@ -176,11 +208,17 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Epilepsy", "HP:0001250"]
+        "terms": [
+          "Epilepsy",
+          "HP:0001250"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["Epilepsy", "HP:0001250"]
+        "terms": [
+          "Epilepsy",
+          "HP:0001250"
+        ]
       },
       "error_type": null,
       "notes": "Seizure disorder - includes related phenotype",
@@ -192,11 +230,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["CNS or brain cancer"]
+        "terms": [
+          "CNS or brain cancer"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["CNS or brain cancer"]
+        "terms": [
+          "CNS or brain cancer"
+        ]
       },
       "error_type": null,
       "notes": "Brain growth",
@@ -208,11 +250,15 @@
       "passed": true,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["HP:0002099"]
+        "terms": [
+          "HP:0002099"
+        ]
       },
       "actual": {
         "facet": "diagnoses.disease",
-        "terms": ["HP:0002099"]
+        "terms": [
+          "HP:0002099"
+        ]
       },
       "error_type": null,
       "notes": "Respiratory disease - phenotype code in data",
@@ -237,32 +283,36 @@
     {
       "test_id": "dis_016",
       "query": "disease not specified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "diagnoses.disease",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Not specified variant",
       "category": "edge_case"
     },
     {
       "test_id": "dis_017",
       "query": "disease unspecified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "diagnoses.disease",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "diagnoses.disease",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Unspecified variant",
       "category": "edge_case"
     }
@@ -294,9 +344,9 @@
       "pass_rate": 1.0
     },
     "edge_case": {
-      "passed": 2,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 0,
+      "failed": 2,
+      "pass_rate": 0.0
     }
   }
 }

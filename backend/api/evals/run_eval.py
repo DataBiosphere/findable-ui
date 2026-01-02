@@ -27,11 +27,35 @@ def load_test_cases(csv_path: str) -> List[TestCase]:
 
     Returns:
         List of TestCase objects
+
+    Raises:
+        ValueError: If CSV has wrong schema (e.g., LLM extraction tests)
     """
     test_cases = []
 
     with open(csv_path, "r") as f:
         reader = csv.DictReader(f)
+
+        # Validate schema - check for required columns
+        required_columns = {"test_id", "query", "expected_facet", "expected_terms", "notes", "category"}
+        if reader.fieldnames:
+            actual_columns = set(reader.fieldnames)
+
+            # Check if this is an LLM extraction test (has expected_extractions instead)
+            if "expected_extractions" in actual_columns and "expected_terms" not in actual_columns:
+                raise ValueError(
+                    f"This appears to be an LLM extraction test file. "
+                    f"Please use run_llm_extraction_eval.py instead of run_eval.py"
+                )
+
+            # Check for other missing required columns
+            missing_columns = required_columns - actual_columns
+            if missing_columns:
+                raise ValueError(
+                    f"CSV is missing required columns: {missing_columns}. "
+                    f"Expected columns: {required_columns}"
+                )
+
         for row in reader:
             # Parse expected_terms - can be empty for negative tests
             expected_terms_str = row["expected_terms"].strip()

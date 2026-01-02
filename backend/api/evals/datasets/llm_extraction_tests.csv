@@ -1,0 +1,53 @@
+test_id,query,expected_extractions,notes,category
+llm_001,"transcriptomic data from lung cancer patients","files.data_modality:transcriptomic data|diagnoses.disease:lung cancer",Multi-facet with disease (lung cancer is single diagnosis not anatomy+disease),multi_facet
+llm_002,"single cell rna sequencing from brain tissue of alzheimer's patients","files.data_modality:single cell rna sequencing|biosamples.anatomical_site:brain|diagnoses.disease:alzheimer's",Data modality with brain (drop generic tissue suffix),multi_facet
+llm_003,"whole genome sequencing data for autism spectrum disorder","files.data_modality:whole genome sequencing|diagnoses.disease:autism spectrum disorder",WGS with complex diagnosis term,multi_facet
+llm_004,"bulk rna-seq samples from male and female kidney donors","files.data_modality:bulk rna-seq|donors.phenotypic_sex:male|donors.phenotypic_sex:female|biosamples.anatomical_site:kidney",Multiple sex values with anatomical site,multi_facet
+llm_005,"scRNA-seq and scATAC-seq multimodal data from heart","files.data_modality:scRNA-seq|files.data_modality:scATAC-seq|biosamples.anatomical_site:heart",Multiple data modalities from same query,multi_facet
+llm_006,"methylation analysis in breast cancer tissue samples","files.data_modality:methylation analysis|diagnoses.disease:breast cancer",Methylation with breast cancer (tissue is just context),multi_facet
+llm_007,"pacbio whole genome sequencing of children with developmental delay","files.data_modality:pacbio whole genome sequencing|diagnoses.disease:developmental delay",Technology-specific sequencing with diagnosis,multi_facet
+llm_008,"exome sequencing data from patients with cleft palate","files.data_modality:exome sequencing|diagnoses.disease:cleft palate",Exome with phenotypic feature,multi_facet
+llm_009,"spatial transcriptomics of liver samples from diabetic patients","files.data_modality:spatial transcriptomics|biosamples.anatomical_site:liver|diagnoses.disease:diabetic",Spatial data modality with anatomy and diagnosis,multi_facet
+llm_010,"SHARE-seq chromatin and RNA data from blood cells","files.data_modality:SHARE-seq|biosamples.anatomical_site:blood cells",Technology name with anatomical site,multi_facet
+llm_011,"show me fastq files with unrestricted access","files.file_format:fastq|datasets.consent_group:unrestricted access",File format and consent group,multi_facet
+llm_012,"bam files from controlled access datasets","files.file_format:bam|datasets.consent_group:controlled access",File format with controlled access,multi_facet
+llm_013,"single nucleus atac-seq from seizure patients","files.data_modality:single nucleus atac-seq|diagnoses.disease:seizure",snATAC-seq variant with diagnosis,multi_facet
+llm_014,"rnaseq data from asian female donors with HMB consent","files.data_modality:rnaseq|donors.reported_ethnicity:asian|donors.phenotypic_sex:female|datasets.consent_group:HMB consent",Four facets: modality ethnicity sex consent (keep consent compound),multi_facet
+llm_015,"long-read sequencing of genomic dna from brain organoids","files.data_modality:long-read sequencing|files.data_modality:genomic dna|biosamples.anatomical_site:brain organoids",Multiple data modality terms with brain organoids (keep organoid),multi_facet
+llm_016,"WES data with GRU consent","files.data_modality:WES|datasets.consent_group:GRU consent",Abbreviation with consent group (keep consent compound),multi_facet
+llm_017,"single cell gene expression profiling in oral cavity tissue","files.data_modality:single cell gene expression profiling|biosamples.anatomical_site:oral cavity",Alternative data modality phrasing,multi_facet
+llm_018,"vcf.gz files from whole genome studies","files.file_format:vcf.gz|files.data_modality:whole genome",Compressed file format with data modality,multi_facet
+llm_019,"snRNA-seq from M and F patients with hypotonia","files.data_modality:snRNA-seq|donors.phenotypic_sex:M|donors.phenotypic_sex:F|diagnoses.disease:hypotonia",Abbreviated sex notation with diagnosis,multi_facet
+llm_020,"chromatin accessibility data from human samples","files.data_modality:chromatin accessibility|donors.organism_type:human",Data modality with organism type,multi_facet
+llm_021,"bulk transcriptome sequencing from mouse liver","files.data_modality:bulk transcriptome sequencing|donors.organism_type:mouse|biosamples.anatomical_site:liver",Organism modality anatomy,multi_facet
+llm_022,"mrna sequencing assay data from consortia access datasets","files.data_modality:mrna sequencing assay|datasets.consent_group:consortia access",Specific RNA type with access level,multi_facet
+llm_023,"dna methylation in coffin-siris syndrome patients","files.data_modality:dna methylation|diagnoses.phenotype:coffin-siris syndrome",Data modality with complex phenotype syndrome,multi_facet
+llm_024,"atac-seq peaks from chest tissue","files.data_modality:atac-seq|biosamples.anatomical_site:chest",ATAC-seq with chest (should drop tissue),multi_facet
+llm_025,"private access whole genome data from epileptic encephalopathy cases","datasets.consent_group:private access|files.data_modality:whole genome|diagnoses.phenotype:epileptic encephalopathy",Access level with phenotype syndrome,multi_facet
+llm_026,"single-cell multiome data from kidney biopsies","files.data_modality:single-cell multiome|biosamples.anatomical_site:kidney|biosamples.biosample_type:biopsies",Multiome with anatomy and biosample type,multi_facet
+llm_027,"csv and tsv format files with open access","files.file_format:csv|files.file_format:tsv|datasets.consent_group:open access",Multiple file formats with access,multi_facet
+llm_028,"public rna-seq data from african american donors","datasets.consent_group:public|files.data_modality:rna-seq|donors.reported_ethnicity:african american",Public access with ethnicity,multi_facet
+llm_029,"wgs from unreported sex patients","files.data_modality:wgs|donors.phenotypic_sex:unreported sex",Edge case: unreported value,edge_case
+llm_030,"data modality unspecified samples from male subjects","files.data_modality:data modality unspecified|donors.phenotypic_sex:male",Edge case: unspecified data modality,edge_case
+llm_031,"whole genome","files.data_modality:whole genome",Single facet extraction baseline,single_facet
+llm_032,"scRNA-seq","files.data_modality:scRNA-seq",Single abbreviation extraction,single_facet
+llm_033,"methylation","files.data_modality:methylation",Single word data modality,single_facet
+llm_034,"lung cancer","diagnoses.disease:lung cancer",Single diagnosis term (lung cancer is one disease not anatomy+disease),single_facet
+llm_035,"female patients","donors.phenotypic_sex:female",Sex only,single_facet
+llm_036,"GRU consent","datasets.consent_group:GRU consent",Consent group only,single_facet
+llm_037,"exome sequencing","files.data_modality:exome sequencing",Exome extraction baseline,single_facet
+llm_038,"pacbio sequencing","files.data_modality:pacbio sequencing",Technology name extraction,single_facet
+llm_039,"bulk rna seq","files.data_modality:bulk rna seq",Data modality with qualifier,single_facet
+llm_040,"single cell transcriptomics","files.data_modality:single cell transcriptomics",Alternative terminology,single_facet
+llm_041,"ethnicity not specified","donors.reported_ethnicity:ethnicity not specified",Edge case: not specified with facet name,edge_case
+llm_042,"data modality none","files.data_modality:data modality none",Edge case: none value with facet name,edge_case
+llm_043,"unknown ethnicity","donors.reported_ethnicity:unknown ethnicity",Edge case: unknown with facet name,edge_case
+llm_044,"disease unspecified","diagnoses.disease:disease unspecified",Edge case: unspecified with facet name,edge_case
+llm_045,"genome","files.data_modality:genome",Simple single-word term (short form),single_facet
+llm_046,"gdna","files.data_modality:gdna",Abbreviation for genomic DNA,single_facet
+llm_047,"dna methylation","files.data_modality:dna methylation",Full form variant,single_facet
+llm_048,"genomic dna","files.data_modality:genomic dna",Full form variant,single_facet
+llm_049,"chicano subjects","donors.reported_ethnicity:chicano",Synonym for Hispanic,single_facet
+llm_050,"european donors","donors.reported_ethnicity:european",Geographic synonym for White,single_facet
+llm_051,"middle eastern patients","donors.reported_ethnicity:middle eastern",MENA full term,single_facet
+llm_052,"ispanic patients","donors.reported_ethnicity:ispanic",Typo - missing h,single_facet

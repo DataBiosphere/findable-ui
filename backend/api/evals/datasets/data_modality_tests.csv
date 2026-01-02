@@ -31,3 +31,7 @@ dm_029,rna seq,files.data_modality,RNA sequencing assay,Space variant,synonym
 dm_030,bulk rna-seq,files.data_modality,RNA sequencing assay,Bulk qualifier,synonym
 dm_031,transcriptome sequencing,files.data_modality,RNA sequencing assay,Alternative term,synonym
 dm_032,mrna sequencing,files.data_modality,RNA sequencing assay,Specific RNA type,synonym
+dm_033,whole exome,files.data_modality,Whole Exome,Exact term match,basic
+dm_034,WES,files.data_modality,Whole Exome,Common abbreviation,abbreviation
+dm_035,whole exome sequencing,files.data_modality,Whole Exome,Full name variant,synonym
+dm_036,exome,files.data_modality,Whole Exome,Short form,synonym

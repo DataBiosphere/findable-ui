@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-22T00:49:49.720620",
+    "date": "2025-12-23T02:45:15.296916",
     "dataset": "data_modality_tests",
-    "total_tests": 32,
-    "passed": 32,
-    "failed": 0,
-    "pass_rate": 1.0
+    "total_tests": 36,
+    "passed": 22,
+    "failed": 14,
+    "pass_rate": 0.6111111111111112
   },
   "results": [
     {
@@ -14,11 +14,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "Whole Genome"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "Whole Genome"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -30,11 +34,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "Whole Genome"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "Whole Genome"
+        ]
       },
       "error_type": null,
       "notes": "Common abbreviation",
@@ -43,16 +51,21 @@
     {
       "test_id": "dm_003",
       "query": "whole genome sequencing",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "Whole Genome"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["Whole Genome"]
+        "terms": [
+          "PacBio Whole Genome Sequencing",
+          "Whole Genome"
+        ]
       },
-      "error_type": null,
+      "error_type": "extra_terms",
       "notes": "Full name variant",
       "category": "synonym"
     },
@@ -62,11 +75,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -78,11 +95,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Common abbreviation",
@@ -94,11 +115,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Space/hyphen variant",
@@ -110,11 +135,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus RNA sequencing assay"]
+        "terms": [
+          "single-nucleus RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus RNA sequencing assay"]
+        "terms": [
+          "single-nucleus RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -126,11 +155,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus RNA sequencing assay"]
+        "terms": [
+          "single-nucleus RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus RNA sequencing assay"]
+        "terms": [
+          "single-nucleus RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Common abbreviation",
@@ -142,11 +175,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell ATAC-seq"]
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-cell ATAC-seq"]
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -158,11 +195,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell ATAC-seq"]
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-cell ATAC-seq"]
+        "terms": [
+          "single-cell ATAC-seq"
+        ]
       },
       "error_type": null,
       "notes": "Single-cell abbreviation",
@@ -174,11 +215,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus ATAC-seq"]
+        "terms": [
+          "single-nucleus ATAC-seq"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus ATAC-seq"]
+        "terms": [
+          "single-nucleus ATAC-seq"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -190,11 +235,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus ATAC-seq"]
+        "terms": [
+          "single-nucleus ATAC-seq"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["single-nucleus ATAC-seq"]
+        "terms": [
+          "single-nucleus ATAC-seq"
+        ]
       },
       "error_type": null,
       "notes": "Specific abbreviation",
@@ -206,11 +255,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
       },
       "error_type": null,
       "notes": "Full name variant",
@@ -219,208 +272,234 @@
     {
       "test_id": "dm_014",
       "query": "long-read sequencing",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Technology synonym",
       "category": "synonym"
     },
     {
       "test_id": "dm_015",
       "query": "pacbio sequencing",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "terms": [
+          "PacBio Whole Genome Sequencing"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["PacBio Whole Genome Sequencing"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Short form",
       "category": "synonym"
     },
     {
       "test_id": "dm_016",
       "query": "SHARE-seq",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["SHARE-seq"]
+        "terms": [
+          "SHARE-seq"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["SHARE-seq"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Exact term with caps",
       "category": "basic"
     },
     {
       "test_id": "dm_017",
       "query": "methylation",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["methylation"]
+        "terms": [
+          "methylation"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["methylation"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Exact term match",
       "category": "basic"
     },
     {
       "test_id": "dm_018",
       "query": "dna methylation",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["methylation"]
+        "terms": [
+          "methylation"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["methylation"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Full name variant",
       "category": "synonym"
     },
     {
       "test_id": "dm_019",
       "query": "genome",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["genome"]
+        "terms": [
+          "genome"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["genome"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Exact term match",
       "category": "basic"
     },
     {
       "test_id": "dm_020",
       "query": "genomic dna",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["genome"]
+        "terms": [
+          "genome"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["genome"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Synonym variant",
       "category": "synonym"
     },
     {
       "test_id": "dm_021",
       "query": "gdna",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["genome"]
+        "terms": [
+          "genome"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["genome"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Common abbreviation",
       "category": "abbreviation"
     },
     {
       "test_id": "dm_022",
       "query": "data modality not specified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Not specified variant",
       "category": "edge_case"
     },
     {
       "test_id": "dm_023",
       "query": "data modality unspecified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Unspecified variant",
       "category": "edge_case"
     },
     {
       "test_id": "dm_024",
       "query": "data modality none",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["None"]
+        "terms": [
+          "None"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["None"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "None value with context",
       "category": "edge_case"
     },
     {
       "test_id": "dm_025",
       "query": "single cell transcriptomics",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Alternative term",
       "category": "synonym"
     },
     {
       "test_id": "dm_026",
       "query": "scrnaseq",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "terms": [
+          "single-cell RNA sequencing assay"
+        ]
       },
       "actual": {
-        "facet": "files.data_modality",
-        "terms": ["single-cell RNA sequencing assay"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "No spaces/hyphens variant",
       "category": "abbreviation"
     },
@@ -430,11 +509,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Exact term match",
@@ -446,11 +529,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Common abbreviation",
@@ -462,11 +549,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Space variant",
@@ -478,11 +569,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Bulk qualifier",
@@ -494,11 +589,15 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Alternative term",
@@ -510,37 +609,121 @@
       "passed": true,
       "expected": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "actual": {
         "facet": "files.data_modality",
-        "terms": ["RNA sequencing assay"]
+        "terms": [
+          "RNA sequencing assay"
+        ]
       },
       "error_type": null,
       "notes": "Specific RNA type",
+      "category": "synonym"
+    },
+    {
+      "test_id": "dm_033",
+      "query": "whole exome",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "error_type": null,
+      "notes": "Exact term match",
+      "category": "basic"
+    },
+    {
+      "test_id": "dm_034",
+      "query": "WES",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "error_type": null,
+      "notes": "Common abbreviation",
+      "category": "abbreviation"
+    },
+    {
+      "test_id": "dm_035",
+      "query": "whole exome sequencing",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "error_type": null,
+      "notes": "Full name variant",
+      "category": "synonym"
+    },
+    {
+      "test_id": "dm_036",
+      "query": "exome",
+      "passed": true,
+      "expected": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "actual": {
+        "facet": "files.data_modality",
+        "terms": [
+          "Whole Exome"
+        ]
+      },
+      "error_type": null,
+      "notes": "Short form",
       "category": "synonym"
     }
   ],
   "by_category": {
     "basic": {
-      "passed": 9,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 7,
+      "failed": 3,
+      "pass_rate": 0.7
     },
     "abbreviation": {
-      "passed": 8,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 7,
+      "failed": 2,
+      "pass_rate": 0.7777777777777778
     },
     "synonym": {
-      "passed": 12,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 8,
+      "failed": 6,
+      "pass_rate": 0.5714285714285714
     },
     "edge_case": {
-      "passed": 3,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 0,
+      "failed": 3,
+      "pass_rate": 0.0
     }
   }
 }

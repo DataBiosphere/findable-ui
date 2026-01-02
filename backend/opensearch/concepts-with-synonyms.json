@@ -16331,7 +16331,8 @@
       "single-nucleus atac sequencing",
       "single-nucleus atac-seq",
       "single-nucleus assay for transposase-accessible chromatin using sequencing",
-      "snatac-seq"
+      "snatac-seq",
+      "atacseq"
     ],
     "metadata": {
       "count": 3
@@ -16385,7 +16386,8 @@
       "single-cell atac sequencing",
       "single-cell atac-seq",
       "single-cell assay for transposase-accessible chromatin using sequencing",
-      "single-cell chromatin accessibility sequencing"
+      "single-cell chromatin accessibility sequencing",
+      "atacseq"
     ],
     "metadata": {
       "count": 2
@@ -16486,6 +16488,36 @@
       "edam": {
         "id": "data_3498",
         "uri": "http://edamontology.org/data_3498"
+      }
+    }
+  },
+  {
+    "id": "data_modality-1a86f9b43827",
+    "facet_name": "files.data_modality",
+    "term": "whole exome",
+    "name": "whole exome",
+    "synonyms": [
+      "complete exome",
+      "entire exome",
+      "exome",
+      "exome sequencing",
+      "wes",
+      "whole exome",
+      "whole exome sequencing"
+    ],
+    "metadata": {
+      "count": 0
+    },
+    "display_name": "Whole Exome",
+    "ontology": {
+      "broad_modal": {
+        "category": "genomic",
+        "uri": "https://datamodel.terra.bio/BioCoreTerms#0000009"
+      },
+      "edam": {
+        "id": "topic_3676",
+        "uri": "http://edamontology.org/topic_3676",
+        "notes": "Using EDAM topic (not data type) - topic_3676 is 'Exome sequencing' methodology. This is treated as assay-level term in current data_modality facet (to be refactored to proper assay facet in future)."
       }
     }
   },
@@ -19040,7 +19072,8 @@
       "scatac-sequencing",
       "single-cell atac-seq",
       "single-cell assay for transposase-accessible chromatin using sequencing",
-      "single-cell chromatin accessibility sequencing"
+      "single-cell chromatin accessibility sequencing",
+      "atacseq"
     ],
     "metadata": {
       "count": 1

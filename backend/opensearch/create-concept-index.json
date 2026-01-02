@@ -67,6 +67,10 @@
           }
         }
       },
+      "synonyms_normalized": {
+        "type": "text",
+        "analyzer": "standard"
+      },
       "metadata": {
         "type": "object",
         "enabled": true

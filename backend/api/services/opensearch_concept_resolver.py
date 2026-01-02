@@ -48,12 +48,44 @@ class OpenSearchConceptResolver:
             http_compress=True,
             use_ssl=use_ssl,
             verify_certs=verify_certs,
+            pool_maxsize=20,  # Allow up to 20 concurrent connections
+            timeout=30,  # 30 second timeout for requests
+            max_retries=3,  # Retry failed requests up to 3 times
+            retry_on_timeout=True,  # Retry on timeout
         )
         self.index_name = "concepts"
         self.facet_name_mapping = facet_name_mapping or {}
         # Support both old and new parameter styles
         self.exact_min_score = exact_min_score if exact_min_score != 50.0 else min_score
         self.fuzzy_min_score = fuzzy_min_score
+
+    def _normalize_mention(self, mention: str) -> str:
+        """Normalize mention for consistent matching.
+
+        Handles:
+        - Lowercasing
+        - Hyphen/space/underscore equivalence (single-cell ↔ single_cell ↔ single cell)
+        - Whitespace normalization (trim and collapse)
+
+        Args:
+            mention: Raw mention text
+
+        Returns:
+            Normalized mention string
+        """
+        normalized = mention.lower().strip()
+
+        # Replace hyphens and underscores with spaces for phrase equivalence
+        # "single-cell" → "single cell"
+        # "rna_seq" → "rna seq"
+        # "single_cell_rna-seq" → "single cell rna seq"
+        normalized = normalized.replace('-', ' ')
+        normalized = normalized.replace('_', ' ')
+
+        # Collapse multiple spaces to single space
+        normalized = ' '.join(normalized.split())
+
+        return normalized
 
     def resolve_mention(
         self, facet_name: str, mention: str, top_k: int = 5
@@ -76,13 +108,13 @@ class OpenSearchConceptResolver:
         # Map facet name if mapping provided
         opensearch_facet = self.facet_name_mapping.get(facet_name, facet_name)
 
-        # Lowercase the mention for case-insensitive matching
-        mention_lower = mention.lower()
+        # Normalize the mention for consistent matching
+        mention_normalized = self._normalize_mention(mention)
 
         try:
             # Pass 1: Try exact matches only
             exact_query = self._build_search_query(
-                opensearch_facet, mention_lower, top_k, exact_only=True
+                opensearch_facet, mention_normalized, top_k, exact_only=True
             )
             exact_response = self.client.search(index=self.index_name, body=exact_query)
             exact_results = self._parse_results(
@@ -91,11 +123,17 @@ class OpenSearchConceptResolver:
 
             # If we found exact matches, filter and return them
             if exact_results:
+                # Apply score gap filter to remove weaker substring matches
+                # Use 60% threshold to keep valid synonyms (e.g., HP codes, related terms)
+                # while still filtering very weak substring matches
+                exact_results = self._apply_score_gap_filter(
+                    exact_results, max_score_gap_percent=60.0
+                )
                 return self._filter_negation_values(exact_results, mention)
 
             # Pass 2: Fall back to fuzzy matching if no exact matches
             fuzzy_query = self._build_search_query(
-                opensearch_facet, mention_lower, top_k, exact_only=False
+                opensearch_facet, mention_normalized, top_k, exact_only=False
             )
             fuzzy_response = self.client.search(index=self.index_name, body=fuzzy_query)
             fuzzy_results = self._parse_results(
@@ -103,8 +141,11 @@ class OpenSearchConceptResolver:
             )
 
             # Apply score gap filter to reduce false positives from fuzzy matching
+            # Use large gap (60%) for fuzzy matching to allow related terms
+            # (e.g., "diabtes" → all diabetes subtypes, "epilepsy" → Epilepsy + HP code)
+            # Higher than exact (20%) because fuzzy matches include related terms with varied scores
             fuzzy_results = self._apply_score_gap_filter(
-                fuzzy_results, max_score_gap_percent=3.0
+                fuzzy_results, max_score_gap_percent=60.0
             )
 
             # Filter negation values from fuzzy results
@@ -132,10 +173,20 @@ class OpenSearchConceptResolver:
             OpenSearch query dict.
         """
         should_clauses = [
-            # Exact matches (keyword matching)
+            # Exact matches (keyword matching) - highest priority
             {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
             {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
             {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            # Normalized phrase matches (benefits from hyphen/space normalization)
+            # Lower boost (5.0) so exact keyword matches score higher than substring matches
+            {
+                "match_phrase": {
+                    "synonyms_normalized": {
+                        "query": mention,
+                        "boost": 5.0,
+                    }
+                }
+            },
         ]
 
         # Add fuzzy matching clauses only if not exact_only

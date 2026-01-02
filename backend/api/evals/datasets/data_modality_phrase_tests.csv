@@ -1,0 +1,15 @@
+test_id,query,expected_facet,expected_terms,notes,category
+dmp_001,single-cell gene expression analysis,files.data_modality,single-cell RNA sequencing assay,Multi-word synonym variant,multi_word_phrase
+dmp_002,single-cell rna profiling,files.data_modality,single-cell RNA sequencing assay,Multi-word synonym variant,multi_word_phrase
+dmp_003,whole transcriptome sequencing,files.data_modality,RNA sequencing assay,Multi-word synonym variant,multi_word_phrase
+dmp_004,bulk rna sequencing,files.data_modality,RNA sequencing assay,Multi-word with qualifier,multi_word_phrase
+dmp_006,chromatin accessibility sequencing,files.data_modality,single-cell ATAC-seq,Multi-word assay description,multi_word_phrase
+dmp_007,rnaseq,files.data_modality,RNA sequencing assay,Compound abbreviation - no separators,compound_abbreviation
+dmp_008,bulk rnaseq,files.data_modality,RNA sequencing assay,Compound abbreviation with qualifier,compound_abbreviation
+dmp_009,scrna seq,files.data_modality,single-cell RNA sequencing assay,Compound abbreviation - space variant,compound_abbreviation
+dmp_010,sc rna seq,files.data_modality,single-cell RNA sequencing assay,Super abbreviated form,compound_abbreviation
+dmp_011,atacseq,files.data_modality,single-cell ATAC-seq;;;single-nucleus ATAC-seq,Compound abbreviation - ATAC (ambiguous - accepts both cell and nucleus),compound_abbreviation
+dmp_012,simultaneous high-throughput atac and rna expression,files.data_modality,SHARE-seq,Full technology expansion,technology_expansion
+dmp_013,multimodal single-cell sequencing,files.data_modality,SHARE-seq,Technology category description,technology_expansion
+dmp_014,pacific biosciences sequencing,files.data_modality,PacBio Whole Genome Sequencing,Full vendor name,technology_expansion
+dmp_015,single molecule real time sequencing,files.data_modality,PacBio Whole Genome Sequencing,Alternative technology name (SMRT),technology_expansion

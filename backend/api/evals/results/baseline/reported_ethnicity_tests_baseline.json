@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "date": "2025-12-17T16:38:37.753993",
+    "date": "2025-12-23T02:44:58.827467",
     "dataset": "reported_ethnicity_tests",
     "total_tests": 26,
-    "passed": 22,
-    "failed": 4,
-    "pass_rate": 0.8461538461538461
+    "passed": 13,
+    "failed": 13,
+    "pass_rate": 0.5
   },
   "results": [
     {
@@ -14,11 +14,17 @@
       "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Asia|White or European American|Hispanic/Latino(a)", "White"]
+        "terms": [
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "White"
+        ]
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Asia|White or European American|Hispanic/Latino(a)", "White"]
+        "terms": [
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "White"
+        ]
       },
       "error_type": null,
       "notes": "Includes combined ethnicities",
@@ -53,7 +59,7 @@
     {
       "test_id": "re_003",
       "query": "black participants",
-      "passed": false,
+      "passed": true,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -68,15 +74,13 @@
         "facet": "donors.reported_ethnicity",
         "terms": [
           "American Indian, Native American, Alaska Native|Asia|Black or African American",
-          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
           "Asia|Black or African American|White or European American",
           "Black or African American",
           "Black or African American|Hispanic/Latino(a)",
-          "Black or African American|White or European American",
-          "Black or African American|White or European American|Hispanic/Latino(a)"
+          "Black or African American|White or European American"
         ]
       },
-      "error_type": "extra_terms",
+      "error_type": null,
       "notes": "Includes combined ethnicities",
       "category": "basic"
     },
@@ -229,7 +233,9 @@
       },
       "actual": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["American Indian or Alaska Native"]
+        "terms": [
+          "American Indian or Alaska Native"
+        ]
       },
       "error_type": "wrong_term",
       "notes": "Includes combined ethnicities",
@@ -342,64 +348,73 @@
     {
       "test_id": "re_013",
       "query": "chicano subjects",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
+        "terms": [
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Includes variant naming",
       "category": "synonym"
     },
     {
       "test_id": "re_014",
       "query": "european donors",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["White"]
+        "terms": [
+          "White"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["White"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Geographic synonym",
       "category": "synonym"
     },
     {
       "test_id": "re_015",
       "query": "unknown ethnicity",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Unknown"]
+        "terms": [
+          "Unknown"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Unknown"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Unknown ethnicity",
       "category": "edge_case"
     },
     {
       "test_id": "re_016",
       "query": "ethnicity not reported",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Not reported variant",
       "category": "edge_case"
     },
@@ -454,16 +469,18 @@
     {
       "test_id": "re_020",
       "query": "middle eastern patients",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Middle Eastern or North African"]
+        "terms": [
+          "Middle Eastern or North African"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Middle Eastern or North African"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Full term variant",
       "category": "basic"
     },
@@ -473,28 +490,23 @@
       "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Hispanic or Latino", "Hispanic/Latino(a)"]
-      },
-      "actual": {
-        "facet": "donors.reported_ethnicity",
         "terms": [
-          "Asia|Hispanic/Latino(a)",
-          "Asia|White or European American|Hispanic/Latino(a)",
-          "Black or African American|Hispanic/Latino(a)",
           "Hispanic or Latino",
-          "Hispanic/Latino(a)",
-          "Hispanic/Latino(a)|Prefer not to answer",
-          "White or European American|Hispanic/Latino(a)"
+          "Hispanic/Latino(a)"
         ]
       },
-      "error_type": "extra_terms",
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": "facet_not_extracted",
       "notes": "Typo - missing h",
       "category": "typo"
     },
     {
       "test_id": "re_022",
       "query": "hispanic",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
         "terms": [
@@ -507,81 +519,82 @@
         ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": [
-          "Asia|Hispanic/Latino(a)",
-          "Asia|White or European American|Hispanic/Latino(a)",
-          "Black or African American|Hispanic/Latino(a)",
-          "Hispanic or Latino",
-          "Hispanic/Latino(a)",
-          "White or European American|Hispanic/Latino(a)"
-        ]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Should NOT match Not Hispanic or Latino",
       "category": "negative_precision"
     },
     {
       "test_id": "re_022a",
       "query": "non hispanic",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Not Hispanic or Latino"]
+        "terms": [
+          "Not Hispanic or Latino"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Not Hispanic or Latino"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Should match negated term with negation prefix",
       "category": "negative_precision"
     },
     {
       "test_id": "re_022b",
       "query": "non ispanic",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Not Hispanic or Latino"]
+        "terms": [
+          "Not Hispanic or Latino"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Not Hispanic or Latino"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Typo with negation prefix - should still match",
       "category": "negative_precision"
     },
     {
       "test_id": "re_023",
       "query": "ethnicity not specified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Not specified variant",
       "category": "edge_case"
     },
     {
       "test_id": "re_024",
       "query": "ethnicity unspecified",
-      "passed": true,
+      "passed": false,
       "expected": {
         "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "terms": [
+          "Unspecified"
+        ]
       },
       "actual": {
-        "facet": "donors.reported_ethnicity",
-        "terms": ["Unspecified"]
+        "facet": null,
+        "terms": []
       },
-      "error_type": null,
+      "error_type": "facet_not_extracted",
       "notes": "Unspecified variant",
       "category": "edge_case"
     }
@@ -593,9 +606,9 @@
       "pass_rate": 0.8
     },
     "synonym": {
-      "passed": 6,
-      "failed": 2,
-      "pass_rate": 0.75
+      "passed": 4,
+      "failed": 4,
+      "pass_rate": 0.5
     },
     "abbreviation": {
       "passed": 2,
@@ -603,9 +616,9 @@
       "pass_rate": 1.0
     },
     "edge_case": {
-      "passed": 5,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 1,
+      "failed": 4,
+      "pass_rate": 0.2
     },
     "negative_test": {
       "passed": 2,
@@ -618,9 +631,9 @@
       "pass_rate": 0.0
     },
     "negative_precision": {
-      "passed": 3,
-      "failed": 0,
-      "pass_rate": 1.0
+      "passed": 0,
+      "failed": 3,
+      "pass_rate": 0.0
     }
   }
 }

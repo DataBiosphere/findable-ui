@@ -37,6 +37,22 @@ def load_concepts(
 
     print(f"Loading {len(concepts)} concepts...")
 
+    # Add normalized synonyms for phrase matching
+    for concept in concepts:
+        if "synonyms" in concept:
+            # Keep original synonyms
+            original_synonyms = concept["synonyms"]
+
+            # Add normalized field for phrase matching
+            # Apply same normalization as query-time:
+            # - lowercase
+            # - replace hyphens and underscores with spaces
+            # - collapse whitespace
+            concept["synonyms_normalized"] = [
+                " ".join(syn.lower().replace("-", " ").replace("_", " ").split())
+                for syn in original_synonyms
+            ]
+
     # Prepare bulk actions
     actions = [
         {"_index": index_name, "_id": concept["id"], "_source": concept}
