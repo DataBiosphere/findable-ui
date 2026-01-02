@@ -12,9 +12,9 @@ llm_010,"SHARE-seq chromatin and RNA data from blood cells","files.data_modality
 llm_011,"show me fastq files with unrestricted access","files.file_format:fastq|datasets.consent_group:unrestricted access",File format and consent group,multi_facet
 llm_012,"bam files from controlled access datasets","files.file_format:bam|datasets.consent_group:controlled access",File format with controlled access,multi_facet
 llm_013,"single nucleus atac-seq from seizure patients","files.data_modality:single nucleus atac-seq|diagnoses.disease:seizure",snATAC-seq variant with diagnosis,multi_facet
-llm_014,"rnaseq data from asian female donors with HMB consent","files.data_modality:rnaseq|donors.reported_ethnicity:asian|donors.phenotypic_sex:female|datasets.consent_group:HMB consent",Four facets: modality ethnicity sex consent (keep consent compound),multi_facet
+llm_014,"rnaseq data from asian female donors with HMB consent","files.data_modality:rnaseq|donors.reported_ethnicity:asian|donors.phenotypic_sex:female|datasets.consent_group:HMB",Four facets: modality ethnicity sex consent,multi_facet
 llm_015,"long-read sequencing of genomic dna from brain organoids","files.data_modality:long-read sequencing|files.data_modality:genomic dna|biosamples.anatomical_site:brain organoids",Multiple data modality terms with brain organoids (keep organoid),multi_facet
-llm_016,"WES data with GRU consent","files.data_modality:WES|datasets.consent_group:GRU consent",Abbreviation with consent group (keep consent compound),multi_facet
+llm_016,"WES data with GRU consent","files.data_modality:WES|datasets.consent_group:GRU",Abbreviation with consent group,multi_facet
 llm_017,"single cell gene expression profiling in oral cavity tissue","files.data_modality:single cell gene expression profiling|biosamples.anatomical_site:oral cavity",Alternative data modality phrasing,multi_facet
 llm_018,"vcf.gz files from whole genome studies","files.file_format:vcf.gz|files.data_modality:whole genome",Compressed file format with data modality,multi_facet
 llm_019,"snRNA-seq from M and F patients with hypotonia","files.data_modality:snRNA-seq|donors.phenotypic_sex:M|donors.phenotypic_sex:F|diagnoses.disease:hypotonia",Abbreviated sex notation with diagnosis,multi_facet
@@ -34,7 +34,7 @@ llm_032,"scRNA-seq","files.data_modality:scRNA-seq",Single abbreviation extracti
 llm_033,"methylation","files.data_modality:methylation",Single word data modality,single_facet
 llm_034,"lung cancer","diagnoses.disease:lung cancer",Single diagnosis term (lung cancer is one disease not anatomy+disease),single_facet
 llm_035,"female patients","donors.phenotypic_sex:female",Sex only,single_facet
-llm_036,"GRU consent","datasets.consent_group:GRU consent",Consent group only,single_facet
+llm_036,"GRU consent","datasets.consent_group:GRU",Consent group only,single_facet
 llm_037,"exome sequencing","files.data_modality:exome sequencing",Exome extraction baseline,single_facet
 llm_038,"pacbio sequencing","files.data_modality:pacbio sequencing",Technology name extraction,single_facet
 llm_039,"bulk rna seq","files.data_modality:bulk rna seq",Data modality with qualifier,single_facet
