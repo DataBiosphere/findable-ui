@@ -10,6 +10,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Set, Tuple
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
 
@@ -175,18 +176,19 @@ def load_test_cases(csv_path: str) -> List[LLMExtractionTestCase]:
     return test_cases
 
 
-def call_llm_extraction_api(query: str) -> List[Dict]:
+def call_llm_extraction_api(query: str, timeout: int = 60) -> List[Dict]:
     """Call the LLM extraction API endpoint.
 
     Args:
         query: Natural language query
+        timeout: Request timeout in seconds
 
     Returns:
         List of mention dicts with 'text' and 'facet' keys
     """
     # Call the LLM mention extraction endpoint directly
     url = "http://localhost:8000/api/v0/extract-mentions"
-    response = requests.post(url, json={"query": query})
+    response = requests.post(url, json={"query": query}, timeout=timeout)
     response.raise_for_status()
     return response.json()
 
@@ -452,20 +454,17 @@ def main() -> None:
     test_cases = load_test_cases(str(dataset_path))
     print(f"Loaded {len(test_cases)} test cases\n")
 
-    # Run evaluations
+    # Run evaluations in parallel
     print(f"Running LLM extraction evaluations...")
     results = []
 
-    for i, test_case in enumerate(test_cases, 1):
-        print(f"  [{i}/{len(test_cases)}] {test_case.test_id}: {test_case.query}")
+    def run_single_test(test_case: LLMExtractionTestCase) -> LLMExtractionTestResult:
+        """Run a single test case and return the result."""
         try:
             api_response = call_llm_extraction_api(test_case.query)
-            result = compare_results(test_case, api_response)
-            results.append(result)
+            return compare_results(test_case, api_response)
         except Exception as e:
-            print(f"    ERROR: {e}")
-            # Create a failed result
-            result = LLMExtractionTestResult(
+            return LLMExtractionTestResult(
                 test_id=test_case.test_id,
                 query=test_case.query,
                 passed=False,
@@ -481,7 +480,22 @@ def main() -> None:
                 notes=f"API error: {e}",
                 category=test_case.category,
             )
+
+    # Run tests in parallel with ThreadPoolExecutor
+    # Use 5 workers to avoid hitting OpenAI rate limits
+    max_workers = 5
+    completed = 0
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_test = {
+            executor.submit(run_single_test, tc): tc for tc in test_cases
+        }
+        for future in as_completed(future_to_test):
+            test_case = future_to_test[future]
+            completed += 1
+            result = future.result()
             results.append(result)
+            status = "PASS" if result.passed else "FAIL"
+            print(f"  [{completed}/{len(test_cases)}] {status}: {test_case.test_id}")
 
     print()
 

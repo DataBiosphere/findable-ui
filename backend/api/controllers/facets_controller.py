@@ -1,5 +1,5 @@
 import os
-from typing import List, Dict
+from typing import List, Dict, Optional
 from fastapi import APIRouter, Query as QueryParam, HTTPException
 
 from services.facets_service import (
@@ -10,6 +10,43 @@ from services.models import FacetsResponse
 from controllers.models import FacetsRequest
 
 router = APIRouter(prefix="/api/v0", tags=["facets"])
+
+# Cached LLM extractor instance (created on first use)
+_llm_extractor: Optional["LLMMentionExtractor"] = None  # noqa: F821
+
+
+def get_llm_extractor() -> "LLMMentionExtractor":  # noqa: F821
+    """Get or create the cached LLM extractor instance.
+
+    Returns:
+        Cached LLMMentionExtractor instance.
+
+    Raises:
+        HTTPException: If OPENAI_API_KEY is not set.
+    """
+    global _llm_extractor
+
+    if _llm_extractor is None:
+        from services.llm_mention_extractor import LLMMentionExtractor
+        from services.llm_config import LLMConfig
+        from services.anvil_config import get_anvil_facet_mapping
+
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+
+        _llm_extractor = LLMMentionExtractor(
+            LLMConfig(), facet_name_mapping=get_anvil_facet_mapping()
+        )
+
+    return _llm_extractor
 
 
 @router.post("/facets")
@@ -68,26 +105,8 @@ def extract_mentions(payload: FacetsRequest) -> List[Dict[str, str]]:
     Returns:
         List of mention dicts with 'text' and 'facet' keys
     """
-    from services.llm_mention_extractor import LLMMentionExtractor
-    from services.llm_config import LLMConfig
-    from services.anvil_config import get_anvil_facet_mapping
-
-    # Check for API key
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise HTTPException(
-            status_code=400,
-            detail={
-                "error": "Missing OpenAI API key",
-                "message": "OPENAI_API_KEY environment variable is not set. "
-                "Please set it in backend/opensearch/.env",
-            },
-        )
-
-    # Extract mentions using real LLM
-    llm_extractor = LLMMentionExtractor(
-        LLMConfig(), facet_name_mapping=get_anvil_facet_mapping()
-    )
+    # Use cached extractor (raises HTTPException if API key missing)
+    llm_extractor = get_llm_extractor()
 
     try:
         mentions = llm_extractor.extract_mentions(payload.query)

@@ -185,11 +185,12 @@ class LLMMentionExtractor:
             "total_cost": 0.0,
         }
 
-    def extract_mentions(self, query: str) -> List[Mention]:
+    def extract_mentions(self, query: str, timeout: float = 60.0) -> List[Mention]:
         """Extract mentions from a natural language query.
 
         Args:
             query: Natural language query string.
+            timeout: Request timeout in seconds.
 
         Returns:
             List of Mention objects with extracted text and facet assignments.
@@ -198,8 +199,8 @@ class LLMMentionExtractor:
             return []
 
         try:
-            # Run the agent
-            result = self.agent.run_sync(query)
+            # Run the agent with timeout
+            result = self.agent.run_sync(query, model_settings={"timeout": timeout})
 
             # In pydantic-ai 1.x, the output is accessed via .output attribute
             extraction = result.output
