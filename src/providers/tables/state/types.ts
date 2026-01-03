@@ -5,5 +5,6 @@ import { Meta } from "./meta/types";
 export interface TablesState {
   meta: Meta | null;
   registry: Registries;
+  revision?: string;
   tables: TableStates;
 }

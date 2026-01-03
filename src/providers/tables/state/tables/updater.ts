@@ -54,3 +54,20 @@ export function buildNextTablesByGroupKey(
 
   return nextTables;
 }
+
+/**
+ * Builds the next table state by table key.
+ * @param state - State.
+ * @param tableKey - Table key.
+ * @param nextTableState - Next table state.
+ * @returns Table state.
+ */
+export function buildNextTablesByTableKey(
+  state: TablesState,
+  tableKey: TableKey,
+  nextTableState: PartialTableState,
+): TablesState["tables"] {
+  const nextTables: TablesState["tables"] = { ...state.tables };
+  nextTables[tableKey] = { ...nextTables[tableKey], ...nextTableState };
+  return nextTables;
+}

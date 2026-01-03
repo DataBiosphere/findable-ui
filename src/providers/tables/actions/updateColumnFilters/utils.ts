@@ -15,21 +15,6 @@ export function buildNextColumnFilters(
 ): ColumnFiltersState {
   return functionalUpdate(
     payload.updaterOrValue,
-    getOldColumnFilters(state, payload),
+    state.tables[payload.tableKey].columnFilters,
   );
-}
-
-/**
- * Retrieves the current "old" column filters state.
- * @param state - State.
- * @param payload - Payload.
- * @returns old column filters state.
- */
-function getOldColumnFilters(
-  state: TablesState,
-  payload: UpdateColumnFiltersPayload,
-): ColumnFiltersState {
-  const { tableKey } = payload;
-  const { columnFilters = [] } = state.tables[tableKey];
-  return columnFilters;
 }

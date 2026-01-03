@@ -9,6 +9,9 @@ import { QueryKey } from "./types";
 import { AzulEntitiesResponse } from "../../../../../../../apis/azul/common/entities";
 import { queryFn } from "./queryFn";
 import { useTableState } from "../../../../../../../providers/tables/hooks/UseTableState/hook";
+import { useCursor } from "../cursor/useCursor";
+import { useEffect } from "react";
+import { useRevision } from "../../../../../../../providers/revision/hook";
 
 /**
  * Fetches entities from the server using React Query.
@@ -22,19 +25,22 @@ export const useQuery = <T = unknown>(
   entityListType: string,
 ): UseQueryResult<AzulEntitiesResponse<T>, DefaultError> => {
   const { catalog } = useCatalog();
+  const { revision } = useRevision();
   const { token } = useToken();
-  const { state } = useTableState(entityListType);
+  const { state } = useTableState(entityListType, revision);
   const { columnFilters, pagination, sorting } = state;
+  const { pageIndex } = pagination;
+  const { cursor, onUpdateCursor } = useCursor<T>(pageIndex);
 
   if (!apiPath) throw new Error("No API path found for entity");
 
-  return useReactQuery<
+  const queryResult = useReactQuery<
     AzulEntitiesResponse<T>,
     DefaultError,
     AzulEntitiesResponse<T>,
     QueryKey
   >({
-    queryFn: queryFn(apiPath, token),
+    queryFn: queryFn(apiPath, token, cursor),
     queryKey: [
       "entities",
       entityListType,
@@ -42,4 +48,11 @@ export const useQuery = <T = unknown>(
       { columnFilters, pagination, sorting },
     ],
   });
+
+  useEffect(() => {
+    if (queryResult.status !== "success") return;
+    onUpdateCursor(queryResult.data);
+  }, [onUpdateCursor, queryResult]);
+
+  return queryResult;
 };

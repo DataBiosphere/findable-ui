@@ -10,6 +10,7 @@ import { TableBody } from "@mui/material";
 import { useCatalogBootstrap } from "../../hooks/catalog/UseCatalogBootstrap/useCatalogBootstrap";
 import { useStateUrlSync } from "./hooks/UseStateUrlSync/hook";
 import { stateUrlAdapter as adapter } from "./hooks/UseStateUrlSync/adapter/adapter";
+import { RevisionProvider } from "../../providers/revision/provider";
 
 /**
  * ExploreView Component
@@ -26,26 +27,28 @@ export const ExploreView = <T = unknown,>(
   useCatalogBootstrap();
   useStateUrlSync(props.entityListType, adapter);
   return (
-    <DataSelector {...props}>
-      {({ data }) => (
-        <TableSelector data={data} entityListType={props.entityListType}>
-          {({ table }) => {
-            return (
-              <DrawerProvider>
-                <GridTable
-                  gridTemplateColumns={getColumnTrackSizing(
-                    table.getVisibleFlatColumns(),
-                  )}
-                >
-                  <TableBody>
-                    <TableRows tableInstance={table} />
-                  </TableBody>
-                </GridTable>
-              </DrawerProvider>
-            );
-          }}
-        </TableSelector>
-      )}
-    </DataSelector>
+    <RevisionProvider revisionKey={props.entityListType}>
+      <DataSelector {...props}>
+        {({ data }) => (
+          <TableSelector data={data} entityListType={props.entityListType}>
+            {({ table }) => {
+              return (
+                <DrawerProvider>
+                  <GridTable
+                    gridTemplateColumns={getColumnTrackSizing(
+                      table.getVisibleFlatColumns(),
+                    )}
+                  >
+                    <TableBody>
+                      <TableRows tableInstance={table} />
+                    </TableBody>
+                  </GridTable>
+                </DrawerProvider>
+              );
+            }}
+          </TableSelector>
+        )}
+      </DataSelector>
+    </RevisionProvider>
   );
 };

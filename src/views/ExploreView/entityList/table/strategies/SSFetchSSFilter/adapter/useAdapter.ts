@@ -5,6 +5,8 @@ import { throwError } from "../../utils";
 import { useAdapter as useStateAdapter } from "../../../state/adapter/useAdapter";
 import { useTableState } from "../../../../../../../providers/tables/hooks/UseTableState/hook";
 import * as resets from "./resets";
+import { useServerData } from "../../../../data/strategies/SSFetchSSFilter/provider/hook";
+import { useRevision } from "../../../../../../../providers/revision/hook";
 
 /**
  * Creates an entity-aware table adapter using a server-side filter strategy.
@@ -22,8 +24,10 @@ export const useAdapter = <T = unknown>(
 ): EntityListTable<T> => {
   const { table: tableOptions } = useEntities<T>(entityListType);
   const { columns, ...options } = tableOptions || {};
-  const { state } = useTableState(entityListType);
+  const { revision } = useRevision();
+  const { state } = useTableState(entityListType, revision);
   const { adapter } = useStateAdapter(entityListType);
+  const { pageCount } = useServerData();
 
   if (!columns) throwError(entityListType);
 
@@ -31,10 +35,14 @@ export const useAdapter = <T = unknown>(
     columns,
     data,
     onColumnFiltersChange: (updaterOrValue) => {
-      adapter.onColumnFiltersChange(updaterOrValue);
       resets.forColumnFiltersChange(table);
+      adapter.onColumnFiltersChange(updaterOrValue);
+    },
+    onPaginationChange: (updaterOrValue) => {
+      adapter.onPaginationChange(updaterOrValue);
     },
     ...options,
+    pageCount,
     state,
   });
 
