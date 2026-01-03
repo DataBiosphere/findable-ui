@@ -1,7 +1,7 @@
 fastapi>=0.115.0
 uvicorn[standard]>=0.38.0
 pydantic>=2.12.5
-pydantic-ai[openai]==1.32.0
+pydantic-ai[openai]==1.39.0
 python-dotenv>=1.2.1
 black==24.10.0
 opensearch-py==2.8.0
