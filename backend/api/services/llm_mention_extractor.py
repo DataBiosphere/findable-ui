@@ -121,9 +121,7 @@ FacetName = Literal[
 class FacetMention(BaseModel):
     """Mentions grouped by facet."""
 
-    facet: FacetName = Field(
-        description=("Facet name for the extracted mentions.\n\n" + FACET_CONTEXT)
-    )
+    facet: FacetName = Field(description="Facet category for the extracted mentions.")
     mentions: List[str] = Field(
         description=(
             "List of extracted mentions (exact strings) found in the query. "
@@ -144,7 +142,11 @@ class MentionExtractionResult(BaseModel):
 class LLMMentionExtractor:
     """Extract mentions from queries using Pydantic AI and tool calling."""
 
-    def __init__(self, config: Optional[LLMConfig] = None, facet_name_mapping: Optional[dict] = None):
+    def __init__(
+        self,
+        config: Optional[LLMConfig] = None,
+        facet_name_mapping: Optional[dict] = None,
+    ):
         """Initialize the LLM mention extractor.
 
         Args:
@@ -166,11 +168,7 @@ class LLMMentionExtractor:
         self.agent = Agent(
             model=model_name,
             output_type=MentionExtractionResult,
-            instructions=(
-                "You are a genomic data query parser for the AnVIL platform. "
-                "Extract search terms from user queries and categorize them into facets. "
-                "Return structured results with the query and extracted facet mentions."
-            ),
+            instructions=FACET_CONTEXT,
         )
 
         # Override the model's API key if provided
