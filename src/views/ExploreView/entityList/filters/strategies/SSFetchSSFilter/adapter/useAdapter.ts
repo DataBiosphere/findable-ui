@@ -4,6 +4,7 @@ import { EntityListFilter } from "../../../types";
 import { Table } from "@tanstack/react-table";
 import { buildCategoryFilters } from "./utils";
 import { useMemo } from "react";
+import { useUpdateFilterSort } from "../../../../../hooks/UseUpdateFilterSort/hook";
 
 /**
  * Creates an entity-aware filter adapter using a server-side filter strategy.
@@ -22,11 +23,19 @@ export const useAdapter = <T = unknown>(
   const { categoryDefinition } = useDefinition(entityListType);
   const { termFacets } = useServerData();
   const { getState } = table;
+  const { filterSort, onFilterSortChange } = useUpdateFilterSort();
   const { columnFilters } = getState();
+  const { categoryGroups } = categoryDefinition;
 
   const categoryFilters = useMemo(
-    () => buildCategoryFilters(categoryDefinition, columnFilters, termFacets),
-    [categoryDefinition, columnFilters, termFacets],
+    () =>
+      buildCategoryFilters(
+        categoryGroups,
+        filterSort,
+        columnFilters,
+        termFacets,
+      ),
+    [categoryGroups, columnFilters, filterSort, termFacets],
   );
 
   return { categoryFilters };
