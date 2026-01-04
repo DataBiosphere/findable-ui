@@ -12,6 +12,9 @@ import { useStateUrlSync } from "./hooks/UseStateUrlSync/hook";
 import { stateUrlAdapter as adapter } from "./hooks/UseStateUrlSync/adapter/adapter";
 import { RevisionProvider } from "../../providers/revision/provider";
 import { FilterSelector } from "./entityList/filters/selector/filterSelector";
+import { FilterSort } from "../../components/Filter/components/controls/Controls/components/FilterSort/filterSort";
+import { Filters } from "../../components/Filter/components/Filters/filters";
+import { FilterController } from "./entityList/filters/controller/filterController";
 
 /**
  * ExploreView Component
@@ -33,26 +36,39 @@ export const ExploreView = <T = unknown,>(
         {({ data }) => (
           <TableSelector data={data} entityListType={props.entityListType}>
             {({ table }) => (
-              <FilterSelector
-                entityListType={props.entityListType}
-                table={table}
-              >
-                {({ categoryFilters }) => {
-                  return (
-                    <DrawerProvider>
-                      <GridTable
-                        gridTemplateColumns={getColumnTrackSizing(
-                          table.getVisibleFlatColumns(),
-                        )}
-                      >
-                        <TableBody>
-                          <TableRows tableInstance={table} />
-                        </TableBody>
-                      </GridTable>
-                    </DrawerProvider>
-                  );
-                }}
-              </FilterSelector>
+              <FilterController table={table}>
+                {({ actions, filterSort }) => (
+                  <FilterSelector
+                    entityListType={props.entityListType}
+                    filterSort={filterSort}
+                    table={table}
+                  >
+                    {({ categoryFilters }) => {
+                      return (
+                        <DrawerProvider>
+                          <FilterSort
+                            filterSort={filterSort}
+                            onFilterSortChange={actions.onFilterSortChange}
+                          />
+                          <Filters
+                            categoryFilters={categoryFilters}
+                            onFilter={actions.onFilter.bind(null, false)}
+                          />
+                          <GridTable
+                            gridTemplateColumns={getColumnTrackSizing(
+                              table.getVisibleFlatColumns(),
+                            )}
+                          >
+                            <TableBody>
+                              <TableRows tableInstance={table} />
+                            </TableBody>
+                          </GridTable>
+                        </DrawerProvider>
+                      );
+                    }}
+                  </FilterSelector>
+                )}
+              </FilterController>
             )}
           </TableSelector>
         )}

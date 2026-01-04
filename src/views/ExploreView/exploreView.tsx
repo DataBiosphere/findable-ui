@@ -50,11 +50,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews],
   );
-  const {
-    enabled: filterSortEnabled,
-    filterSort,
-    onFilterSortChange,
-  } = useUpdateFilterSort();
+  const { filterSort, onFilterSortChange } = useUpdateFilterSort();
 
   /**
    * State sync manager.
@@ -142,7 +138,6 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
             <Stack direction="row" gap={4}>
               <ClearAllFilters />
               <FilterSort
-                enabled={filterSortEnabled}
                 filterSort={filterSort}
                 onFilterSortChange={onFilterSortChange}
               />

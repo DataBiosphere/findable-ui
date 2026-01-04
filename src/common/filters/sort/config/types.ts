@@ -12,3 +12,8 @@ export enum FILTER_SORT {
 export interface FilterSortConfig {
   sortBy?: FILTER_SORT;
 }
+
+/**
+ * Callback fired when the filter sort type is changed.
+ */
+export type OnFilterSortChange = (filterSort: FILTER_SORT) => void;

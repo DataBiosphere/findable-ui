@@ -40,6 +40,10 @@ export const useQuery = <T = unknown>(
     AzulEntitiesResponse<T>,
     QueryKey
   >({
+    placeholderData: (previousData, previousQuery) => {
+      if (previousQuery?.queryKey[1] !== entityListType) return undefined;
+      return previousData;
+    },
     queryFn: queryFn(apiPath, token, cursor),
     queryKey: [
       "entities",

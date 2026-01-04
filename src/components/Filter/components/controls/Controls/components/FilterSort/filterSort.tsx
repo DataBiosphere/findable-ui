@@ -17,7 +17,7 @@ import { StyledIconButton, StyledMenu } from "./filterSort.styles";
 import { FilterSortProps } from "./types";
 
 export const FilterSort = ({
-  enabled = false,
+  enabled,
   filterSort = FILTER_SORT.ALPHA,
   onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {

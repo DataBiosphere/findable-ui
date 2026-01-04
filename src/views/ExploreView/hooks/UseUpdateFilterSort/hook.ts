@@ -16,5 +16,7 @@ export const useUpdateFilterSort = (): UseUpdateFilterSort => {
     [exploreDispatch],
   );
 
-  return { enabled, filterSort, onFilterSortChange };
+  if (enabled) return { filterSort, onFilterSortChange };
+
+  return { filterSort: FILTER_SORT.ALPHA, onFilterSortChange: undefined };
 };
