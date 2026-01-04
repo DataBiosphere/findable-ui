@@ -11,6 +11,7 @@ import { useCatalogBootstrap } from "../../hooks/catalog/UseCatalogBootstrap/use
 import { useStateUrlSync } from "./hooks/UseStateUrlSync/hook";
 import { stateUrlAdapter as adapter } from "./hooks/UseStateUrlSync/adapter/adapter";
 import { RevisionProvider } from "../../providers/revision/provider";
+import { FilterSelector } from "./entityList/filters/selector/filterSelector";
 
 /**
  * ExploreView Component
@@ -31,21 +32,28 @@ export const ExploreView = <T = unknown,>(
       <DataSelector {...props}>
         {({ data }) => (
           <TableSelector data={data} entityListType={props.entityListType}>
-            {({ table }) => {
-              return (
-                <DrawerProvider>
-                  <GridTable
-                    gridTemplateColumns={getColumnTrackSizing(
-                      table.getVisibleFlatColumns(),
-                    )}
-                  >
-                    <TableBody>
-                      <TableRows tableInstance={table} />
-                    </TableBody>
-                  </GridTable>
-                </DrawerProvider>
-              );
-            }}
+            {({ table }) => (
+              <FilterSelector
+                entityListType={props.entityListType}
+                table={table}
+              >
+                {({ categoryFilters }) => {
+                  return (
+                    <DrawerProvider>
+                      <GridTable
+                        gridTemplateColumns={getColumnTrackSizing(
+                          table.getVisibleFlatColumns(),
+                        )}
+                      >
+                        <TableBody>
+                          <TableRows tableInstance={table} />
+                        </TableBody>
+                      </GridTable>
+                    </DrawerProvider>
+                  );
+                }}
+              </FilterSelector>
+            )}
           </TableSelector>
         )}
       </DataSelector>

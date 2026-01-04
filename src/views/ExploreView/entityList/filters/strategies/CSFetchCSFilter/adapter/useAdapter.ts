@@ -18,5 +18,5 @@ export const useAdapter = <T = unknown>(
 ): EntityListFilter => {
   const { categoryGroupConfig } = useEntities<T>(entityListType);
 
-  return { filters: [] };
+  return { categoryFilters: [] };
 };

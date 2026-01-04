@@ -1,7 +1,9 @@
 import { useServerData } from "../../../../../entityList/data/strategies/SSFetchSSFilter/provider/hook";
-import { useEntities } from "../../../../../hooks/UseEntities/hook";
+import { useDefinition } from "../../../definition/useDefinition";
 import { EntityListFilter } from "../../../types";
 import { Table } from "@tanstack/react-table";
+import { buildCategoryFilters } from "./utils";
+import { useMemo } from "react";
 
 /**
  * Creates an entity-aware filter adapter using a server-side filter strategy.
@@ -17,7 +19,15 @@ export const useAdapter = <T = unknown>(
   entityListType: string,
   table: Table<T>,
 ): EntityListFilter => {
-  const { categoryGroupConfig } = useEntities(entityListType);
+  const { categoryDefinition } = useDefinition(entityListType);
   const { termFacets } = useServerData();
-  return { filters: [] };
+  const { getState } = table;
+  const { columnFilters } = getState();
+
+  const categoryFilters = useMemo(
+    () => buildCategoryFilters(categoryDefinition, columnFilters, termFacets),
+    [categoryDefinition, columnFilters, termFacets],
+  );
+
+  return { categoryFilters };
 };

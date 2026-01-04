@@ -18,6 +18,6 @@ export const SSFetchCSFilter = <T = unknown,>({
   entityListType,
   table,
 }: FilterSelectorProps<T>): JSX.Element => {
-  const { filters } = useAdapter<T>(entityListType, table);
-  return <Fragment>{children({ filters })}</Fragment>;
+  const { categoryFilters } = useAdapter<T>(entityListType, table);
+  return <Fragment>{children({ categoryFilters })}</Fragment>;
 };
