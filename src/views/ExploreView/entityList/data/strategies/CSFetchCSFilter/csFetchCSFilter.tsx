@@ -21,5 +21,5 @@ export const CSFetchCSFilter = <T = unknown,>({
   data,
 }: DataSelectorProps<T>): JSX.Element => {
   if (!data) throw new Error("Client-side data required for CSFetchCSFilter.");
-  return <Fragment>{children({ data })}</Fragment>;
+  return <Fragment>{children({ data, isFetching: false })}</Fragment>;
 };

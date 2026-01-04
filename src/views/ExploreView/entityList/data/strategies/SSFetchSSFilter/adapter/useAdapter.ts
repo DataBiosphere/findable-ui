@@ -16,8 +16,8 @@ export const useAdapter = <T = unknown>(
   entityListType: string,
 ): UseAdapter<T> => {
   const { apiPath } = useEntities(entityListType);
-  const { data } = useQuery<T>(apiPath, entityListType);
+  const { data, isFetching } = useQuery<T>(apiPath, entityListType);
   const { hits, pagination, termFacets } = data ?? {};
   const { pages: pageCount = 0 } = pagination ?? {};
-  return { data: hits, pageCount, termFacets };
+  return { data: hits, isFetching, pageCount, termFacets };
 };

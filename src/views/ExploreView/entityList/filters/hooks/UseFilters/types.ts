@@ -12,9 +12,9 @@ export type OnFilterWithTracking = (
 
 export interface ParsedFilterArgs {
   categoryKey: CategoryKey;
-  categorySection?: string;
+  categorySection: string;
   fromSearchAll: boolean;
-  searchTerm?: string;
+  searchTerm: string;
   selected: boolean;
   value: CategoryValueKey;
   viewKind?: VIEW_KIND;

@@ -21,10 +21,11 @@ export const SSFetchSSFilter = <T = unknown,>({
   children,
   entityListType,
 }: DataSelectorProps<T>): JSX.Element => {
-  const { data, ...otherServerData } = useAdapter<T>(entityListType);
+  const { data, isFetching, ...otherServerData } =
+    useAdapter<T>(entityListType);
   return (
     <ServerDataContext.Provider value={otherServerData}>
-      {children({ data })}
+      {children({ data, isFetching })}
     </ServerDataContext.Provider>
   );
 };
