@@ -27,7 +27,7 @@ export function buildCategoryFilters(
 ): CategoryFilter[] {
   const categoryFilters: CategoryFilter[] = [];
 
-  for (const { label, categoryConfigs } of categoryDefinition.categoryGroups) {
+  for (const { categoryConfigs, label } of categoryDefinition.categoryGroups) {
     // Build the category views.
     const categoryViews: CategoryView[] = [];
 
@@ -85,7 +85,7 @@ export function buildCategoryFilters(
     }
 
     // Push the category filter to the category filters array.
-    categoryFilters.push({ label, categoryViews });
+    categoryFilters.push({ categoryViews, label });
   }
 
   return categoryFilters;
