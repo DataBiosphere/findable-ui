@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Row, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { ComponentsConfig } from "../../../../../../config/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { ComponentCreator } from "../../../../../ComponentCreator/ComponentCreator";

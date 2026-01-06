@@ -1,5 +1,5 @@
 import * as Plot from "@observablehq/plot";
-import React, { useEffect, useRef } from "react";
+import { JSX, useEffect, useRef } from "react";
 import { BarXProps } from "./types";
 
 export const BarX = ({

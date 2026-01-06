@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useMemo } from "react";
+import { createContext, JSX, ReactNode, useEffect, useMemo } from "react";
 import { fetchSystemStatusFromURL } from "../entity/api/service";
 import { useAsync } from "../hooks/useAsync";
 import { useCatalog } from "../hooks/useCatalog";

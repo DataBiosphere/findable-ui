@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { IconButtonProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
 import { BaseComponentProps } from "../../../../../../types";
 import { ICON_BUTTON_PROPS, SVG_ICON_PROPS } from "./constants";

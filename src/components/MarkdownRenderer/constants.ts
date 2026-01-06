@@ -1,8 +1,8 @@
+import { Components } from "rehype-react";
 import { Anchor } from "./components/Anchor/anchor";
 import { Table } from "./components/Table/table";
-import { MarkdownRendererComponents } from "./types";
 
-export const COMPONENTS: MarkdownRendererComponents = {
+export const COMPONENTS: Components = {
   a: Anchor,
   table: Table,
 };

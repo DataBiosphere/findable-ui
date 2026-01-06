@@ -1,5 +1,5 @@
 import { FilterListRounded } from "@mui/icons-material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { Badge, SidebarButton as Button } from "./sidebarButton.styles";
 
 export interface SidebarButtonProps {

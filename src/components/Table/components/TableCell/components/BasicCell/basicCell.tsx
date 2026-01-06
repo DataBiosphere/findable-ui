@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 import { LABEL } from "../../../../../../apis/azul/common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";

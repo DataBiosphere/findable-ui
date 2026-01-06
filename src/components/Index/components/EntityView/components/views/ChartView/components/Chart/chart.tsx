@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { BUTTON_PROPS } from "../../../../../../../../common/Button/constants";
 import { StyledBarX, StyledButton } from "./chart.styles";
 import { useBarCount } from "./hooks/UseBarCount/hook";

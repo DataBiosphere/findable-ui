@@ -1,6 +1,6 @@
 import NextHead from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import { JSX } from "react";
 import { useConfig } from "../../hooks/useConfig";
 
 const FAV_ICONS = {

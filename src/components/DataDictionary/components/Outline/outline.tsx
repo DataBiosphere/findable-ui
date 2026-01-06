@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { ContentsTab } from "./components/ContentsTab/contentsTab";
 import { StyledOutline } from "./outline.styles";
 import { OutlineProps } from "./types";

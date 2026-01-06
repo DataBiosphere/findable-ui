@@ -5,7 +5,7 @@ import {
   ListSubheader,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import { CSSProperties, JSX, useEffect, useRef } from "react";
 import { VIEW_KIND } from "../../../../../../common/categories/views/types";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
@@ -21,7 +21,7 @@ interface Props {
   onFilter: OnFilterFn;
   onUpdateItemSizeByItemKey: (key: string, size: number) => void;
   searchTerm?: string;
-  style: React.CSSProperties;
+  style: CSSProperties;
 }
 
 export default function VariableSizeListItem({
@@ -32,10 +32,10 @@ export default function VariableSizeListItem({
   style,
 }: Props): JSX.Element {
   const { key } = item;
-  const listItemRef = useRef<HTMLElement>();
+  const listItemRef = useRef<HTMLElement | null>(null);
 
   const setRef = (e: HTMLElement | null): void => {
-    listItemRef.current = e || undefined;
+    listItemRef.current = e;
   };
 
   // Sets map of list item key to its height.

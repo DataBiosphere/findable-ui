@@ -1,5 +1,5 @@
 import { HTTPError } from "ky";
-import React from "react";
+import { JSX } from "react";
 import { ErrorBox } from "./components/errorBox";
 
 interface TempErrorProps {

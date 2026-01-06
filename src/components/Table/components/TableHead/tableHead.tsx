@@ -6,7 +6,7 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import { flexRender, RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import {
   getTableCellAlign,

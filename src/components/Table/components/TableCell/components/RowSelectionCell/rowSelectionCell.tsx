@@ -1,6 +1,6 @@
 import { Checkbox as MCheckbox, Tooltip } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedDisabledIcon } from "../../../../../common/CustomIcon/components/UncheckedDisabledIcon/uncheckedDisabledIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";

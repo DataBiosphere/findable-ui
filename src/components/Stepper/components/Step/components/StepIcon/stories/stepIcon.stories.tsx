@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { StepIcon } from "../stepIcon";
 
 const meta: Meta<typeof StepIcon> = {

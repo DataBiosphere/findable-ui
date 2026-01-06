@@ -1,5 +1,5 @@
 import { Card as MCard } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { RoundedPaper } from "../../../Paper/paper.styles";
 
 export interface RoundedCardProps {

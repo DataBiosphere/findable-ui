@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Column } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { BIONETWORK } from "../../../../../../../DataDictionary/components/Filters/stories/constants";
 import { ColumnFilterTag } from "../columnFilterTag";
 

@@ -1,5 +1,5 @@
 import { CheckboxProps, Checkbox as MCheckbox } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { CheckedIcon } from "../../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedIcon } from "../../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { BaseComponentProps } from "../../../../../../types";

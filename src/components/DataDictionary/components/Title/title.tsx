@@ -1,5 +1,5 @@
 import { TypographyProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { StyledTitle } from "./title.styles";
 
 export const Title = ({

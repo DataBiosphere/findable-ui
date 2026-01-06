@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { BUTTON_PROPS } from "../../../../common/Button/constants";
 import { DownloadIcon } from "../../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { StyledButton } from "./tableDownload.styles";

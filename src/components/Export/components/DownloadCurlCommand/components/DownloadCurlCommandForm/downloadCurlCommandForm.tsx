@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { JSX, Dispatch, SetStateAction } from "react";
 import { ExecutionEnvironment, FormFacet } from "../../../../common/entities";
 import { ExportButton } from "../../../ExportForm/components/ExportButton/exportButton";
 import { ExportExecutionEnvironmentForm } from "../../../ExportForm/components/ExportExecutionEnvironmentForm/exportExecutionEnvironmentForm";

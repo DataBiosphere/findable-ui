@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef, JSX } from "react";
 import { Button, ButtonProps } from "../../button";
 
 export const ButtonSecondary = forwardRef<HTMLButtonElement, ButtonProps>(

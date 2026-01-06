@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { SectionTitle } from "../../../../../common/Section/components/SectionTitle/sectionTitle";
 import { GridPaperSection } from "../../../../../common/Section/section.styles";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../../Loading/loading";

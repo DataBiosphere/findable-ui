@@ -1,5 +1,5 @@
 import { SvgIcon, SvgIconProps } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 
 /**
  * Custom search icon.

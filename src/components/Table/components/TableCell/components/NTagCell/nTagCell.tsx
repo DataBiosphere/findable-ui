@@ -3,7 +3,7 @@ import {
   ChipProps as MChipProps,
   Typography,
 } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";
 import { NTag } from "./components/NTag/nTag";

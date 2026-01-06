@@ -11,7 +11,7 @@ export interface WindowSize {
  * @returns window height and width values.
  */
 export const useWindowResize = (timeout = 200): WindowSize => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>(undefined);
   const [windowSize, setWindowSize] = useState<WindowSize>(getWindowSize());
 
   useEffect(() => {

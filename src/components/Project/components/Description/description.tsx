@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { CollapsableSection } from "../../../common/Section/components/CollapsableSection/collapsableSection";
 import { Description as ProjectDescription } from "../../common/entities";
 

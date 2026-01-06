@@ -1,6 +1,6 @@
 import { Fade, Toolbar } from "@mui/material";
 import { usePathname } from "next/navigation";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { SELECTOR } from "../../../../common/selectors";
 import { ComponentsConfig } from "../../../../config/entities";
 import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";

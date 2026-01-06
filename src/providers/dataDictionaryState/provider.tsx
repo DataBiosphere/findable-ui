@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { DataDictionaryStateContext } from "./context";
 import { useDataDictionaryReducer } from "./hooks/UseDataDictionaryReducer/hook";
 

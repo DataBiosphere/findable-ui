@@ -1,6 +1,6 @@
 import { ListItemText, MenuItem } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import {
   handleClearGroupingState,
   handleToggleGrouping,

@@ -1,5 +1,5 @@
 import { CellContext, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { ComponentCreator } from "../../../../../components/ComponentCreator/ComponentCreator";
 import { ColumnConfig } from "../../../../../config/entities";
 

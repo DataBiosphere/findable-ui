@@ -1,5 +1,5 @@
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
-import React, { useMemo } from "react";
+import { JSX, useMemo } from "react";
 
 export interface VirtualizedRowProps {
   isUpperRow: boolean;

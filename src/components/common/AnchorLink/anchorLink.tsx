@@ -1,6 +1,6 @@
 import { LinkRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import React, { MouseEvent } from "react";
+import { JSX, MouseEvent } from "react";
 import { StyledNextLink } from "./anchorLink.styles";
 
 /**

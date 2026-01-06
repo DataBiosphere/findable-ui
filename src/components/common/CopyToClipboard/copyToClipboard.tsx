@@ -1,7 +1,7 @@
 import { ContentCopyRounded } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
-import React, { useEffect } from "react";
+import { JSX, useEffect, useState } from "react";
 
 export interface CopyToClipboardProps {
   copyStr: string;
@@ -10,7 +10,7 @@ export interface CopyToClipboardProps {
 export const CopyToClipboard = ({
   copyStr,
 }: CopyToClipboardProps): JSX.Element => {
-  const [showTooltip, setShowTooltip] = React.useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   /**
    * Copies string to clipboard and sets showTooltip state to true.

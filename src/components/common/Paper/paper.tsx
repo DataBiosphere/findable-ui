@@ -1,5 +1,5 @@
 import { Paper as MPaper, PaperProps as MPaperProps } from "@mui/material";
-import React, { forwardRef, ReactNode } from "react";
+import { JSX, forwardRef, ReactNode } from "react";
 import { TestIdProps } from "../../types";
 
 /**

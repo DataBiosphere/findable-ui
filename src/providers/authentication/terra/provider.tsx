@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, JSX } from "react";
 import { authComplete } from "../auth/dispatch";
 import { useAuth } from "../auth/hook";
 import { authenticationComplete } from "../authentication/dispatch";

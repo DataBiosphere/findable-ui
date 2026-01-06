@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { Checkbox } from "../components/Checkbox/checkbox";
 import { ListItemButton } from "../components/ListItemButton/listItemButton";
 import { ListItemText } from "../components/ListItemText/listItemText";

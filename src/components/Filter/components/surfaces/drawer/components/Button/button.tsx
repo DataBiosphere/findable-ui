@@ -1,6 +1,6 @@
 import { FilterListRounded } from "@mui/icons-material";
 import { ButtonProps, Button as MButton } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";

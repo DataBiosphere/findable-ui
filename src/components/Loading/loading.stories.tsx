@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { PAPER_PANEL_STYLE } from "../common/Paper/paper";
 import { Loading } from "./loading";
 

@@ -1,6 +1,6 @@
 import { TableCell } from "@mui/material";
 import { flexRender, Row, RowData, Table } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import {
   getTableCellAlign,
   getTableCellPadding,

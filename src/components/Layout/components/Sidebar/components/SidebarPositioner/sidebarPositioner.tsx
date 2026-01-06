@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { SELECTOR } from "../../../../../../common/selectors";
 import { useLayoutDimensions } from "../../../../../../providers/layoutDimensions/hook";
 import { SidebarPositioner as Positioner } from "./sidebarPositioner.styles";

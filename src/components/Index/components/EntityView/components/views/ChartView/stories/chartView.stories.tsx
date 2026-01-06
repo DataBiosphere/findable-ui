@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { GridPaper } from "../../../../../../../common/Paper/paper.styles";
 import { ChartView } from "../chartView";
 import { CHART_VIEW_ARGS } from "./args";

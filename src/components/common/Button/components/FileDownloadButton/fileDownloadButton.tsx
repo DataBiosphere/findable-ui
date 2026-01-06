@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import { JSX, useEffect, useRef } from "react";
 
 export interface FileDownloadButtonProps {
   fileName?: string;

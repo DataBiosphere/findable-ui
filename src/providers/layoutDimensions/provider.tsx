@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { JSX, useRef } from "react";
 import {
   getBorderBoxSizeHeight,
   useResizeObserver,

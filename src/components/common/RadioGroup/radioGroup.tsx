@@ -4,7 +4,7 @@ import {
   RadioGroup as MRadioGroup,
   RadioGroupProps as MRadioGroupProps,
 } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { RadioCheckedIcon } from "../CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 

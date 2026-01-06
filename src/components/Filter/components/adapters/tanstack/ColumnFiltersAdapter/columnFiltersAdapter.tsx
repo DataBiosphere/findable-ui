@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import { useCallback } from "react";
+import { JSX, useCallback } from "react";
 import { VIEW_KIND } from "../../../../../../common/categories/views/types";
 import {
   CategoryKey,

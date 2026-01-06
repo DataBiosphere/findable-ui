@@ -1,5 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { isCollapsableRowDisabled } from "../../../../../../../Table/common/utils";
 import { CollapsableCell } from "../../../../../../../Table/components/TableCell/components/CollapsableCell/collapsableCell";
 import { StyledTableRow } from "../../../../../../../Table/components/TableRow/tableRow.styles";

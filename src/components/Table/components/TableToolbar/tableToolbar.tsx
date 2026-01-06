@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import { RowData, Table } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { ListViewConfig } from "../../../../config/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { ViewToggle } from "../../../Index/components/EntityView/components/controls/ViewToggle/viewToggle";

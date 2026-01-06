@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { CollapsableSection } from "../../../common/Section/components/CollapsableSection/collapsableSection";
 import { SectionDetailsEmpty } from "../../../common/Section/components/SectionDetailsEmpty/sectionDetailsEmpty";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";

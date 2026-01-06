@@ -1,5 +1,5 @@
 import { AlertProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { forwardRef, JSX } from "react";
 import { BaseComponentProps } from "../../types";
 import { StyledAlert } from "./banner.styles";
 import { ALERT_PROPS } from "./constants";

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import { JSX, Fragment, useEffect } from "react";
 import { authComplete } from "../../../../../../providers/authentication/auth/dispatch";
 import { useAuth } from "../../../../../../providers/authentication/auth/hook";
 import { authenticationComplete } from "../../../../../../providers/authentication/authentication/dispatch";

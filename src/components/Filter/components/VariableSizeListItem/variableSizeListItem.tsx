@@ -4,7 +4,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import React, { CSSProperties, useEffect, useRef } from "react";
+import { JSX, CSSProperties, useEffect, useRef } from "react";
 import { VIEW_KIND } from "../../../../common/categories/views/types";
 import { CategoryKey } from "../../../../common/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";

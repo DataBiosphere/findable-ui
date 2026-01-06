@@ -1,6 +1,6 @@
 import { Tooltip, Typography } from "@mui/material";
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { useDownloadStatus } from "../../../../hooks/useDownloadStatus";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { FluidPaper } from "../../../common/Paper/paper.styles";
@@ -44,20 +44,14 @@ export const ExportMethod = ({
         <SectionActions>
           <Tooltip arrow title={message}>
             <span>
-              <Link href={route} legacyBehavior passHref>
-                {trackingId ? (
-                  <ExportButton
-                    disabled={disabled || !isAccessible}
-                    id={trackingId}
-                  >
-                    {buttonLabel}
-                  </ExportButton>
-                ) : (
-                  <ExportButton disabled={disabled || !isAccessible}>
-                    {buttonLabel}
-                  </ExportButton>
-                )}
-              </Link>
+              <ExportButton
+                component={Link}
+                disabled={disabled || !isAccessible}
+                href={route}
+                id={trackingId}
+              >
+                {buttonLabel}
+              </ExportButton>
             </span>
           </Tooltip>
         </SectionActions>

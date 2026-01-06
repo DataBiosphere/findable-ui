@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { Filters } from "../../../../../../common/entities";
 import { FileManifestType } from "../../../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../../../hooks/useFileManifest/useFileManifest";

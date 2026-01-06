@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { TestIdProps } from "../../../types";
 import { FilterMenuSearchMatchRange } from "../../common/entities";
 import { MatchHighlight } from "./highlightedLabel.styles";
