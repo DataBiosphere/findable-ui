@@ -14,7 +14,7 @@ import { NextRouter } from "next/router";
  * @returns A query object compatible with NextRouter.
  */
 export function stateToUrlQuery<
-  S extends Record<string, string | unknown[] | undefined>
+  S extends Record<string, string | unknown[] | undefined>,
 >(state: S): NextRouter["query"] {
   const query: NextRouter["query"] = {};
 

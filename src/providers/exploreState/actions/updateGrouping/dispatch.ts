@@ -7,7 +7,7 @@ import { UpdateGroupingAction, UpdateGroupingPayload } from "./types";
  * @returns Action with payload and action type.
  */
 export function updateGrouping(
-  payload: UpdateGroupingPayload
+  payload: UpdateGroupingPayload,
 ): UpdateGroupingAction {
   return {
     payload,

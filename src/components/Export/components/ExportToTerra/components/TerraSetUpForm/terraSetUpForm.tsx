@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import {
   ONBOARDING_STEP,
   OnboardingStatus,
@@ -43,22 +43,22 @@ export const TerraSetUpForm = (): JSX.Element | null => {
         <CreateTerraAccount
           active={isStepActive(
             onboardingStatusByStep,
-            ONBOARDING_STEP.TERRA_ACCOUNT
+            ONBOARDING_STEP.TERRA_ACCOUNT,
           )}
           completed={isStepCompleted(
             onboardingStatusByStep,
-            ONBOARDING_STEP.TERRA_ACCOUNT
+            ONBOARDING_STEP.TERRA_ACCOUNT,
           )}
           step={ONBOARDING_STEP.TERRA_ACCOUNT}
         />
         <AcceptTerraTOS
           active={isStepActive(
             onboardingStatusByStep,
-            ONBOARDING_STEP.TERRA_TOS
+            ONBOARDING_STEP.TERRA_TOS,
           )}
           completed={isStepCompleted(
             onboardingStatusByStep,
-            ONBOARDING_STEP.TERRA_TOS
+            ONBOARDING_STEP.TERRA_TOS,
           )}
           step={ONBOARDING_STEP.TERRA_TOS}
         />
@@ -66,11 +66,11 @@ export const TerraSetUpForm = (): JSX.Element | null => {
           <ConnectTerraToNIHAccount
             active={isStepActive(
               onboardingStatusByStep,
-              ONBOARDING_STEP.NIH_ACCOUNT
+              ONBOARDING_STEP.NIH_ACCOUNT,
             )}
             completed={isStepCompleted(
               onboardingStatusByStep,
-              ONBOARDING_STEP.NIH_ACCOUNT
+              ONBOARDING_STEP.NIH_ACCOUNT,
             )}
             step={ONBOARDING_STEP.NIH_ACCOUNT}
           />
@@ -88,7 +88,7 @@ export const TerraSetUpForm = (): JSX.Element | null => {
  */
 function isStepActive(
   onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>,
-  onboardingStep: ONBOARDING_STEP
+  onboardingStep: ONBOARDING_STEP,
 ): boolean {
   return onboardingStatusByStep.get(onboardingStep)?.active || false;
 }
@@ -101,7 +101,7 @@ function isStepActive(
  */
 function isStepCompleted(
   onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>,
-  onboardingStep: ONBOARDING_STEP
+  onboardingStep: ONBOARDING_STEP,
 ): boolean {
   return onboardingStatusByStep.get(onboardingStep)?.completed || false;
 }

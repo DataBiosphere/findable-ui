@@ -1,5 +1,5 @@
 import { ClientSafeProvider } from "next-auth/react";
-import React from "react";
+import { JSX } from "react";
 import { Login } from "../../components/Login/login";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 

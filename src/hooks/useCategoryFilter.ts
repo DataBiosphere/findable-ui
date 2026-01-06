@@ -35,7 +35,7 @@ export type OnFilterFn = (
   selected: boolean,
   categorySection?: string,
   viewKind?: VIEW_KIND,
-  searchTerm?: string
+  searchTerm?: string,
 ) => void;
 
 /**
@@ -46,12 +46,12 @@ export type OnFilterFn = (
  */
 function buildCategoryValueView(
   categoryValue: SelectCategoryValue,
-  categorySelectedFilter?: SelectedFilter
+  categorySelectedFilter?: SelectedFilter,
 ): SelectCategoryValueView {
   // Determine if the category value is currently selected.
   const selected = isCategoryValueSelected(
     categoryValue.key,
-    categorySelectedFilter
+    categorySelectedFilter,
   );
 
   // Build view model.
@@ -73,11 +73,11 @@ function buildCategoryValueView(
 function buildCategoryView(
   selectCategory: SelectCategory,
   selectCategoryValueViews: SelectCategoryValueView[],
-  categoryConfigs: CategoryConfig[]
+  categoryConfigs: CategoryConfig[],
 ): SelectCategoryView {
   const selectCategoryConfig = findSelectCategoryConfig(
     selectCategory.key,
-    categoryConfigs
+    categoryConfigs,
   );
   const mapSelectCategoryValue =
     selectCategoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
@@ -103,7 +103,7 @@ export function buildCategoryViews(
   categories: Category[],
   categoryConfigs: CategoryConfig[] | undefined,
   filterState: FilterState,
-  filterSort: FILTER_SORT
+  filterSort: FILTER_SORT,
 ): CategoryView[] {
   if (!categories || !categoryConfigs) {
     return [];
@@ -111,7 +111,7 @@ export function buildCategoryViews(
 
   // Determine the set of categories to display.
   const acceptListCategories = categories.filter((category) =>
-    isCategoryAcceptListed(category, categoryConfigs)
+    isCategoryAcceptListed(category, categoryConfigs),
   );
 
   // Build view models for each category.
@@ -119,7 +119,7 @@ export function buildCategoryViews(
     // Get the set of selected values for this category, if any.
     const categorySelectedFilter = getCategorySelectedFilter(
       category.key,
-      filterState
+      filterState,
     );
 
     // Build view model for range categories.
@@ -127,13 +127,13 @@ export function buildCategoryViews(
       return buildRangeCategoryView(
         category,
         categoryConfigs,
-        categorySelectedFilter
+        categorySelectedFilter,
       );
     }
 
     // Build view model for single or multiselect categories.
     const categoryValueViews = category.values.map((categoryValue) =>
-      buildCategoryValueView(categoryValue, categorySelectedFilter)
+      buildCategoryValueView(categoryValue, categorySelectedFilter),
     );
 
     // Sort category value views based on filter sort configuration.
@@ -162,18 +162,18 @@ export function buildNextFilterState(
   categoryKey: CategoryKey,
   selectedValue: CategoryValueKey,
   selected: boolean,
-  viewKind?: VIEW_KIND
+  viewKind?: VIEW_KIND,
 ): FilterState {
   // Check if the selected category already has selected values.
   const categorySelectedFilter = getCategorySelectedFilter(
     categoryKey,
-    filterState
+    filterState,
   );
 
   // Create a copy of the current filter state. Remove the selected filter for the selected category, if any.
   const nextFilterState = filterState.filter(
     (selectedFilter: SelectedFilter) =>
-      selectedFilter !== categorySelectedFilter
+      selectedFilter !== categorySelectedFilter,
   );
 
   // Create new selected filter for this category. Copy values currently selected for this category, if any.
@@ -188,14 +188,14 @@ export function buildNextFilterState(
     buildNextRangeFilterState(
       nextCategorySelectedFilter,
       selectedValue,
-      selected
+      selected,
     );
   } else {
     // Handle select category.
     buildNextSelectFilterState(
       nextCategorySelectedFilter,
       selectedValue,
-      selected
+      selected,
     );
   }
 
@@ -215,7 +215,7 @@ export function buildNextFilterState(
  */
 function getCategorySelectedFilter(
   categoryKey: CategoryKey,
-  filterState: FilterState
+  filterState: FilterState,
 ): SelectedFilter | undefined {
   return filterState.find((filter) => filter.categoryKey === categoryKey);
 }
@@ -228,7 +228,7 @@ function getCategorySelectedFilter(
  */
 function getCategoryLabel(
   key: string,
-  categoryConfig?: CategoryConfig
+  categoryConfig?: CategoryConfig,
 ): string {
   if (!categoryConfig) {
     return key;
@@ -242,7 +242,7 @@ function getCategoryLabel(
  * @returns original select category value.
  */
 export function getSelectCategoryValue(
-  selectCategoryValue: SelectCategoryValue
+  selectCategoryValue: SelectCategoryValue,
 ): SelectCategoryValue {
   return selectCategoryValue;
 }
@@ -255,7 +255,7 @@ export function getSelectCategoryValue(
  */
 function isCategoryValueSelected(
   categoryValueKey: CategoryValueKey,
-  categorySelectedFilter?: SelectedFilter
+  categorySelectedFilter?: SelectedFilter,
 ): boolean {
   if (!categorySelectedFilter) {
     return false;
@@ -271,10 +271,10 @@ function isCategoryValueSelected(
  */
 function isCategoryAcceptListed(
   category: Category,
-  categoryConfigs: CategoryConfig[]
+  categoryConfigs: CategoryConfig[],
 ): boolean {
   return categoryConfigs.some(
-    (categoryConfig) => categoryConfig.key === category.key
+    (categoryConfig) => categoryConfig.key === category.key,
   );
 }
 

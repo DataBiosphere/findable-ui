@@ -34,7 +34,7 @@ export function isSortDisabled<T extends RowData>(table: Table<T>): boolean {
  */
 export function shouldSortColumn<T extends RowData>(
   table: Table<T>,
-  column: Column<T>
+  column: Column<T>,
 ): boolean {
   const { enableSortingInteraction } = table.options;
   const canSort = column.getCanSort();

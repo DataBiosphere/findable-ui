@@ -3,7 +3,6 @@ import { SelectCategoryValueView } from "../../../../../../../../../common/entit
 import { TestIdProps } from "../../../../../../../../types";
 
 export interface ChartProps
-  extends Required<Pick<PlotOptions, "width">>,
-    TestIdProps {
+  extends Required<Pick<PlotOptions, "width">>, TestIdProps {
   selectCategoryValueViews: SelectCategoryValueView[];
 }

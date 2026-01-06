@@ -1,11 +1,11 @@
 import { CellContext, RowData } from "@tanstack/react-table";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { BaseComponentProps, ChildrenProps } from "../../../../../types";
 import { getTokens, getTokensRegex, isRankedCell } from "./utils";
 
 export const RankedCell = <
   T extends RowData,
-  TValue = string | undefined | null
+  TValue = string | undefined | null,
 >({
   /* children - e.g. AnchorLink component */
   children,

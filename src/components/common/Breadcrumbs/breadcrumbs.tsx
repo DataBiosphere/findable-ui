@@ -1,7 +1,7 @@
 import { ChevronRightRounded } from "@mui/icons-material";
 import { Link, Breadcrumbs as MBreadcrumbs, Typography } from "@mui/material";
 import NLink from "next/link";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { BaseComponentProps } from "../../types";
 import { LINK_PROPS } from "./constants";
 
@@ -33,7 +33,7 @@ export const Breadcrumbs = ({
               <Typography key={`${path}${b}`} maxWidth={180} noWrap>
                 {text}
               </Typography>
-            )
+            ),
           )}
         </MBreadcrumbs>
       ) : null}

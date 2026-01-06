@@ -9,7 +9,7 @@ import {
   Table,
   TableOptions,
 } from "@tanstack/react-table";
-import { JSXElementConstructor, ReactNode } from "react";
+import { JSX, JSXElementConstructor, ReactNode } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { CategoryConfig } from "../common/categories/config/types";
 import {
@@ -98,7 +98,7 @@ export type ColumnConfig<
   T extends RowData,
   TValue = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
-  C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any
+  C extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any,
 > = Omit<ColumnDef<T, TValue>, "enableMultiSort"> & {
   // @deprecated - Use `meta.columnPinned` instead.
   columnPinned?: boolean; // Column is pinned to the top when table rows are collapsable.
@@ -119,14 +119,14 @@ export interface ComponentConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
   T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any> = any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This config model is part of a generic array
-  D = any
+  D = any,
 > {
   children?: ComponentConfig[];
   component: React.FC<React.ComponentProps<T>>;
   props?: React.ComponentProps<T>;
   viewBuilder?: (
     model: D,
-    viewContext?: ViewContext<D>
+    viewContext?: ViewContext<D>,
   ) => React.ComponentProps<T>;
 }
 
@@ -338,7 +338,7 @@ export interface TrackFilterAppliedPayload {
  * Filter applied tracking function
  */
 export type TrackFilterAppliedFunction = (
-  payload: TrackFilterAppliedPayload
+  payload: TrackFilterAppliedPayload,
 ) => void;
 
 /**
@@ -352,7 +352,7 @@ export interface TrackFilterOpenedPayload {
  * Filter opened tracking function
  */
 export type TrackFilterOpenedFunction = (
-  payload: TrackFilterOpenedPayload
+  payload: TrackFilterOpenedPayload,
 ) => void;
 
 interface TrackingConfig {
@@ -412,7 +412,7 @@ export interface SummaryConfig {
  * System status bind response function.
  */
 export type SystemStatusBindResponseFn = <R>(
-  response?: R
+  response?: R,
 ) => SystemStatusResponse | undefined;
 
 /**

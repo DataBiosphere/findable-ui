@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { BackPageView } from "../Layout/components/BackPage/backPageView";
 
 export interface DetailProps {

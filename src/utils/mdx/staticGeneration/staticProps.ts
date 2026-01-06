@@ -13,10 +13,10 @@ export async function buildStaticProps<F extends object, P extends object>(
   fileName: string | undefined,
   slug: string[] | undefined,
   frontmatterFn = (
-    frontmatter: FrontmatterProps<F> | undefined
+    frontmatter: FrontmatterProps<F> | undefined,
   ): FrontmatterProps<F> | undefined => frontmatter,
   serializeOptions: Parameters<typeof serialize>[1] = {},
-  otherProps: P = {} as P
+  otherProps: P = {} as P,
 ): Promise<
   GetStaticPropsResult<StaticProps<FrontmatterProps<F>, P>> | undefined
 > {

@@ -9,7 +9,7 @@ import { RowData, Table, VisibilityState } from "@tanstack/react-table";
  * @param table - Table.
  */
 export function handleResetVisibilityState<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): void {
   const { getState, initialState, resetColumnVisibility, setColumnVisibility } =
     table;

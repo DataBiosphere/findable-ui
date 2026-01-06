@@ -12,7 +12,7 @@ import { ExploreState } from "../../../exploreState";
  */
 export function sortCategoryViews(
   state: ExploreState,
-  filterSort: FILTER_SORT
+  filterSort: FILTER_SORT,
 ): CategoryView[] {
   return [...state.categoryViews].map((categoryView) => {
     // Skip range categories.

@@ -4,7 +4,7 @@ import {
   Typography as MTypography,
 } from "@mui/material";
 import NLink from "next/link";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
@@ -19,8 +19,7 @@ import {
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
 
 export interface LinkProps
-  extends BaseComponentProps,
-    Omit<MLinkProps, "children" | "component"> {
+  extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
   copyable?: boolean;
   label: ReactNode /* link label may be an element */;
   target?: ANCHOR_TARGET;

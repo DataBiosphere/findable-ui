@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { SearchIcon } from "../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { SetSearchTermFn } from "../../common/entities";
 import { SURFACE_TYPE } from "../surfaces/types";

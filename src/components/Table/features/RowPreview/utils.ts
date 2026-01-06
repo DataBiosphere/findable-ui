@@ -8,7 +8,7 @@ import { Row, RowData, Table } from "@tanstack/react-table";
  */
 export function getIsPreview<T extends RowData>(
   row: Row<T>,
-  table: Table<T>
+  table: Table<T>,
 ): boolean {
   const keyValue = getRowPreviewKeyValue(table);
   if (!keyValue) return false;
@@ -35,7 +35,7 @@ export function getIsRowPreview<T extends RowData>(table: Table<T>): boolean {
  * @returns row selected for preview.
  */
 export function getRowPreviewRow<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): Row<T> | undefined {
   const keyValue = getRowPreviewKeyValue(table);
   if (!keyValue) return;
@@ -52,7 +52,7 @@ export function getRowPreviewRow<T extends RowData>(
  * @returns row preview key, value tuple.
  */
 function getRowPreviewKeyValue<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): [string, boolean] | undefined {
   const { getState } = table;
   const { rowPreview } = getState();
@@ -70,7 +70,7 @@ function getRowPreviewKeyValue<T extends RowData>(
  */
 export function togglePreview<T extends RowData>(
   row: Row<T>,
-  table: Table<T>
+  table: Table<T>,
 ): void {
   if (row.getIsPreview()) {
     table.toggleRowPreview();

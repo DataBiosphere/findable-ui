@@ -1,13 +1,15 @@
 import { Typography } from "@mui/material";
-import React, {
-  Fragment,
-  createElement,
+import {
+  JSX,
   useEffect,
   useMemo,
   useState,
+  isValidElement,
+  ReactElement,
 } from "react";
 import rehypeRaw from "rehype-raw";
-import rehypeReact from "rehype-react";
+import rehypeReact, { Components } from "rehype-react";
+import * as production from "react/jsx-runtime";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
@@ -17,20 +19,8 @@ import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
 import { rehypeHighlight } from "./rehypeHighlight";
-import { MarkdownRendererComponents, MarkdownRendererProps } from "./types";
-
-/**
- * Markdown Rendering - Pipeline Version Constraints
- *
- * next-mdx-remote and @next/mdx currently embed MDX v3. MDX v3 is compiled
- * for the "Unified 10" tool-chain and therefore only functions with unified
- * 10.x, remark-parse 10.x, remark-rehype 10.x and, critically, remark-gfm 3.x.
- *
- * Because remark-gfm 3.x is required, migrating to Unified 11 is not yet possible.
- *
- * rehype plug-ins are chosen from versions that still target Unified 10:
- * rehype-raw 7.x, rehype-sanitize 5.x and rehype-react 7.x.
- */
+import { MarkdownRendererProps } from "./types";
+import type { VFile } from "vfile";
 
 export const MarkdownRenderer = ({
   className,
@@ -38,9 +28,9 @@ export const MarkdownRenderer = ({
   regex: markdownRegex,
   value,
 }: MarkdownRendererProps): JSX.Element => {
-  const [element, setElement] = useState<JSX.Element | null>(null);
+  const [element, setElement] = useState<ReactElement | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [components] = useState<MarkdownRendererComponents>(componentOptions);
+  const [components] = useState<Components>(componentOptions);
   const regex = useMemo(() => markdownRegex, [markdownRegex]);
 
   useEffect(() => {
@@ -54,14 +44,20 @@ export const MarkdownRenderer = ({
       .use(rehypeRaw)
       .use(rehypeSanitize)
       .use(rehypeHighlight, { regex })
-      .use(rehypeReact, { Fragment, components, createElement });
+      .use(rehypeReact, {
+        Fragment: production.Fragment,
+        components,
+        jsx: production.jsx,
+        jsxs: production.jsxs,
+      });
 
     processor
       .process(value)
-      .then(({ result }) => {
-        if (!cancelled) setElement(result);
+      .then((file: VFile) => {
+        if (cancelled) return;
+        if (isValidElement(file.result)) setElement(file.result);
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         if (!cancelled) setError(err.message);
       });
 

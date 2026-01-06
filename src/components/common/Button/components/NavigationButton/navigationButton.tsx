@@ -1,10 +1,12 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
-import React from "react";
+import { JSX } from "react";
 import { ButtonProps } from "../../button";
 import { Button } from "./navigationButton.styles";
 
-export interface NavigationButtonProps
-  extends Exclude<ButtonProps, "StartIcon"> {
+export interface NavigationButtonProps extends Exclude<
+  ButtonProps,
+  "StartIcon"
+> {
   isActive: boolean;
 }
 

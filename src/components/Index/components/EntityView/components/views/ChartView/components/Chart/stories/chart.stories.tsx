@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
 import { Chart } from "../chart";
 import { CHART_ARGS, SELECT_CHART_ARGS } from "./args";

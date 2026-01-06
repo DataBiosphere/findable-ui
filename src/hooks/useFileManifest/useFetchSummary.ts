@@ -21,7 +21,7 @@ import { FetchFileSummary } from "./common/entities";
 export const useFetchSummary = (
   filters: Filters,
   catalog: string,
-  isEnabled: boolean
+  isEnabled: boolean,
 ): FetchFileSummary => {
   const { token } = useToken();
   // Build request params.

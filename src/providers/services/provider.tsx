@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { usePopStateBus } from "../../services/beforePopState/usePopStateBus";
 import { WasPopProvider } from "./wasPop/provider";
 

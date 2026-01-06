@@ -28,7 +28,7 @@ export function buildFetchFileUrl(url?: string): string | undefined {
     const urlObj = new URL(url);
     urlObj.pathname = urlObj.pathname.replace(
       NOT_PREPENDED_WITH_FETCH_REGEX,
-      "/fetch/"
+      "/fetch/",
     );
     return urlObj.href;
   } catch {

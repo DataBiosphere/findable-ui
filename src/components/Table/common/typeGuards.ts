@@ -6,7 +6,7 @@ import { Column, RowData } from "@tanstack/react-table";
  * @returns true if the column has a string header.
  */
 export function isStringHeaderColumn<T extends RowData>(
-  column: Column<T>
+  column: Column<T>,
 ): column is Column<T> & { columnDef: { header: string } } {
   return typeof column.columnDef.header === "string";
 }

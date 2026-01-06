@@ -4,7 +4,7 @@ import {
   ToggleButtonGroupProps as MToggleButtonGroupProps,
   ToggleButtonProps as MToggleButtonProps,
 } from "@mui/material";
-import React, { MouseEvent, useState } from "react";
+import { JSX, MouseEvent, useState } from "react";
 
 /**
  * An extension of the basic Mui ToggleButtonGroup component with available ToggleButtonGroup props.
@@ -32,7 +32,7 @@ export interface ToggleButtonGroupProps {
  */
 function getSelectedToggleButtonAction(
   toggleButtons: ToggleButton[],
-  toggleValue: ToggleButtonGroupValue
+  toggleValue: ToggleButtonGroupValue,
 ): OnToggleButtonFn | undefined {
   return toggleButtons.find(({ value }) => value === toggleValue)?.onToggle;
 }
@@ -42,7 +42,7 @@ export const ToggleButtonGroup = ({
   ...props
 }: ToggleButtonGroupProps): JSX.Element => {
   const [toggleValue, setToggleValue] = useState<ToggleButtonGroupValue>(
-    toggleButtons[0]?.value
+    toggleButtons[0]?.value,
   );
 
   /**
@@ -56,7 +56,7 @@ export const ToggleButtonGroup = ({
   const onChangeToggleButton = (
     mouseEvent: MouseEvent<HTMLElement>,
     newToggleValue: ToggleButtonGroupValue,
-    onToggleFn: OnToggleButtonFn | undefined
+    onToggleFn: OnToggleButtonFn | undefined,
   ): void => {
     if (newToggleValue) {
       setToggleValue(newToggleValue);
@@ -71,7 +71,7 @@ export const ToggleButtonGroup = ({
         onChangeToggleButton(
           e,
           value,
-          getSelectedToggleButtonAction(toggleButtons, value)
+          getSelectedToggleButtonAction(toggleButtons, value),
         )
       }
       value={toggleValue}

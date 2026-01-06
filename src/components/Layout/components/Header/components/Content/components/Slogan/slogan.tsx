@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { CSSProperties, forwardRef, ReactNode } from "react";
+import { JSX, CSSProperties, forwardRef, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { Slogan as CatchPhrase } from "./slogan.styles";
 
@@ -11,7 +11,7 @@ export interface SloganProps {
 
 export const Slogan = forwardRef<HTMLDivElement, SloganProps>(function Slogan(
   { className, slogan, style }: SloganProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <CatchPhrase ref={ref} style={style}>

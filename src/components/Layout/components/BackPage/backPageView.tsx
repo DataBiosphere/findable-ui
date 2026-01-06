@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 import {
   BackPageContent,
   BackPageContentMainColumn,
@@ -32,8 +32,8 @@ export const BackPageView = ({
   const MainColumn = isDetailOverview
     ? DetailPageOverviewContentMainColumn
     : sideColumn
-    ? BackPageContentMainColumn
-    : Fragment;
+      ? BackPageContentMainColumn
+      : Fragment;
   const SideColumn = isDetailOverview
     ? DetailPageOverviewContentSideColumn
     : BackPageContentSideColumn;

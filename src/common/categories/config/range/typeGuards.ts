@@ -8,7 +8,7 @@ import { CategoryConfig } from "../types";
  * @returns True if the category config is a range category, false otherwise.
  */
 export function isRangeCategoryConfig(
-  categoryConfig: CategoryConfig
+  categoryConfig: CategoryConfig,
 ): categoryConfig is RangeCategoryView {
   return categoryConfig.viewKind === VIEW_KIND.RANGE;
 }

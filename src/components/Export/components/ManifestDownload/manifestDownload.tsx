@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
@@ -47,11 +47,11 @@ export const ManifestDownload = ({
   } = useExploreState();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const manifestURL = getManifestDownloadURL(data);
   return manifestURL ? (
@@ -80,7 +80,7 @@ export const ManifestDownload = ({
  * @returns manifest download URL.
  */
 function getManifestDownloadURL(
-  fileLocation?: FileLocation
+  fileLocation?: FileLocation,
 ): string | undefined {
   const { location } = fileLocation || {};
   return location;

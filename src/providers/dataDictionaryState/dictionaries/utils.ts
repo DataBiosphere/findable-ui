@@ -15,7 +15,7 @@ import { DATA_DICTIONARY_URL_PARAMS } from "./constants";
  */
 export function extractDictionaryUrlState(
   dictionary: string,
-  state: Partial<TableState>
+  state: Partial<TableState>,
 ): Record<string, string | ColumnFiltersState | undefined> {
   return {
     dictionary,

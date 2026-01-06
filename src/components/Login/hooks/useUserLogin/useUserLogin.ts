@@ -18,7 +18,7 @@ export const useUserLogin = (): UseUserLogin => {
       }
       requestLogin?.(providerId);
     },
-    [handleError, isDisabled, isValid, requestLogin]
+    [handleError, isDisabled, isValid, requestLogin],
   );
 
   return {

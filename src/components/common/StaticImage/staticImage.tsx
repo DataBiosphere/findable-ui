@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { JSX } from "react";
 
 /**
  * This component should be used only for images from the /images folder, and the URL should be

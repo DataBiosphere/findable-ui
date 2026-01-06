@@ -8,7 +8,7 @@ import { EVENT_NAME, EVENT_PARAM } from "../../../common/analytics/entities";
  */
 export function trackBulkDownloadRequested(
   entity_name: string,
-  toolName: string
+  toolName: string,
 ): void {
   // Track the bulk download requested event.
   track(EVENT_NAME.BULK_DOWNLOAD_REQUESTED, {
@@ -48,7 +48,7 @@ export function trackExportToTerraRequested(entity_name: string): void {
 export function trackFileDownloaded(
   entity_name: string,
   related_entity_id: string,
-  related_entity_name: string
+  related_entity_name: string,
 ): void {
   // Track the file downloaded event.
   track(EVENT_NAME.FILE_DOWNLOADED, {

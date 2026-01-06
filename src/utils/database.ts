@@ -30,7 +30,7 @@ export const database = (<T>(): DatabaseReturn<T> => {
       const entityDetailById = entityDetailByEntityListType.get(entityListType);
       if (!entityDetailById) {
         throw new Error(
-          "No database entry for entityListType: " + entityListType
+          "No database entry for entityListType: " + entityListType,
         );
       }
       return entityDetailById.get(entityId);
@@ -39,7 +39,7 @@ export const database = (<T>(): DatabaseReturn<T> => {
       const { getId } = getEntityConfigFromConfig(entityListType);
       if (!getId) {
         throw new Error(
-          "No getId function configured for entity: " + entityListType
+          "No getId function configured for entity: " + entityListType,
         );
       }
 

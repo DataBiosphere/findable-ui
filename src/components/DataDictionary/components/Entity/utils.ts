@@ -10,7 +10,7 @@ import { ClassMeta } from "../Table/types";
  */
 export function getClassMeta<T extends RowData = Attribute>(
   classKey: string | undefined,
-  table: Table<T>
+  table: Table<T>,
 ): Pick<Class<T>, "description" | "title"> | undefined {
   if (!classKey) return;
 

@@ -18,7 +18,7 @@ export function downloadData<T extends RowData>(table: Table<T>): void {
  */
 export function getCanTableDownload<T extends RowData, TValue>(
   column: Column<T, TValue>,
-  table: Table<T>
+  table: Table<T>,
 ): boolean {
   return (
     (column.columnDef.enableTableDownload ?? true) &&

@@ -1,5 +1,5 @@
 import { MenuProps as MMenuProps } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { useMenu } from "../Menu/hooks/useMenu";
 import { DEFAULT_DROPDOWN_MENU_PROPS } from "./common/constants";
 import {
@@ -9,12 +9,14 @@ import {
 } from "./common/entities";
 import { StyledMenu } from "./dropdownMenu.styles";
 
-export interface DropdownMenuProps
-  extends Omit<MMenuProps, "children" | "open"> {
+export interface DropdownMenuProps extends Omit<
+  MMenuProps,
+  "children" | "open"
+> {
   button: (
     props:
       | Pick<DropdownMenuButtonProps, "onClick" | "open">
-      | Pick<DropdownMenuIconButtonProps, "onClick" | "open">
+      | Pick<DropdownMenuIconButtonProps, "onClick" | "open">,
   ) => JSX.Element;
   children?: ({ closeMenu }: DropdownMenuItemProps) => JSX.Element[];
   className?: string;

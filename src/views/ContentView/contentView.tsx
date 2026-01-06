@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { LayoutStyle } from "../../components/Layout/components/ContentLayout/common/entities";
 import { ContentLayout } from "../../components/Layout/components/ContentLayout/contentLayout";
 import { BaseComponentProps } from "../../components/types";

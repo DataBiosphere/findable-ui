@@ -1,6 +1,6 @@
 import { SettingsOutlined } from "@mui/icons-material";
 import { ListItem, ListItemButton, ListItemText, Radio } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { FILTER_SORT } from "../../../../../../../common/filters/sort/config/types";
 import { ICON_BUTTON_PROPS } from "../../../../../../../styles/common/mui/iconButton";
 import { TEST_IDS } from "../../../../../../../tests/testIds";

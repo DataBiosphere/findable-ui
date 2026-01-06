@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { TableDownload } from "../TableFeatures/TableDownload/tableDownload";
 import { StyledStack, StyledToolbar } from "./tableToolbar2.styles";
 import { TableToolbar2Props } from "./types";

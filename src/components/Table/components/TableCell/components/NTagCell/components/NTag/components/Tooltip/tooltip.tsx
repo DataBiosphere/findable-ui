@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import { detectOverflow } from "@popperjs/core";
 import { State } from "@popperjs/core/lib/types";
-import React, { useMemo, useState } from "react";
+import { JSX, useMemo, useState } from "react";
 import { TooltipContent } from "./tooltip.styles";
 
 const DEFAULT_FLIP_MODIFIER = {
@@ -47,7 +47,7 @@ export const Tooltip = ({
       DEFAULT_FLIP_MODIFIER,
       DEFAULT_PREVENT_OVERFLOW_MODIFIER,
     ],
-    []
+    [],
   );
   return (
     <MTooltip

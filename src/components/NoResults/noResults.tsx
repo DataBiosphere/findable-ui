@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { SearchOffIcon } from "../common/CustomIcon/components/SearchOffIcon/searchOffIcon";
 import { SectionTitle } from "../common/Section/components/SectionTitle/sectionTitle";

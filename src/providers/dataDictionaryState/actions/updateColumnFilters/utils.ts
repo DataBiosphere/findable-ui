@@ -11,11 +11,11 @@ import { UpdateColumnFiltersPayload } from "./types";
  */
 export function buildNextColumnFilters(
   state: DataDictionaryState,
-  payload: UpdateColumnFiltersPayload
+  payload: UpdateColumnFiltersPayload,
 ): ColumnFiltersState {
   return functionalUpdate(
     payload.updaterOrValue,
-    getOldColumnFilters(state, payload)
+    getOldColumnFilters(state, payload),
   );
 }
 
@@ -27,7 +27,7 @@ export function buildNextColumnFilters(
  */
 function getOldColumnFilters(
   state: DataDictionaryState,
-  payload: UpdateColumnFiltersPayload
+  payload: UpdateColumnFiltersPayload,
 ): ColumnFiltersState {
   // Grab the dictionary.
   const dictionary = state.dictionaries[payload.dictionary];

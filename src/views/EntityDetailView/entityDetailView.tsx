@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
+import { JSX, Fragment } from "react";
 import { PARAMS_INDEX_UUID } from "../../common/constants";
 import { Tab, Tabs, TabValue } from "../../components/common/Tabs/tabs";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
@@ -30,7 +30,7 @@ function getTabs(entity: EntityConfig): Tab[] {
       iconPosition,
       label,
       value: route,
-    })
+    }),
   );
 }
 

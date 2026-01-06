@@ -12,14 +12,14 @@ import { CategoryConfig } from "./types";
 export function findCategoryConfig<V extends VIEW_KIND>(
   viewKind: V,
   key: Category["key"],
-  configs: CategoryConfig[]
+  configs: CategoryConfig[],
 ): Extract<CategoryConfig, { viewKind?: V }> | undefined {
   return configs.find(
     (c): c is Extract<CategoryConfig, { viewKind?: V }> =>
       // When `viewKind` is undefined, it corresponds to a `SelectCategoryConfig`.
       // This predicate ensures that `viewKind` is either explicitly matched or treated as undefined
       // for compatibility with `SelectCategoryConfig` and other explicitly defined view kinds.
-      (c.viewKind === undefined || c.viewKind === viewKind) && c.key === key
+      (c.viewKind === undefined || c.viewKind === viewKind) && c.key === key,
   );
 }
 
@@ -31,7 +31,7 @@ export function findCategoryConfig<V extends VIEW_KIND>(
  */
 export function findRangeCategoryConfig(
   key: Category["key"],
-  configs: CategoryConfig[]
+  configs: CategoryConfig[],
 ): Extract<CategoryConfig, { viewKind: VIEW_KIND.RANGE }> | undefined {
   return findCategoryConfig(VIEW_KIND.RANGE, key, configs);
 }
@@ -44,7 +44,7 @@ export function findRangeCategoryConfig(
  */
 export function findSelectCategoryConfig(
   key: Category["key"],
-  configs: CategoryConfig[]
+  configs: CategoryConfig[],
 ): Extract<CategoryConfig, { viewKind?: VIEW_KIND.SELECT }> | undefined {
   return findCategoryConfig(VIEW_KIND.SELECT, key, configs);
 }

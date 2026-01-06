@@ -1,5 +1,5 @@
 import { FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
-import React, { Dispatch, SetStateAction } from "react";
+import { JSX, Dispatch, SetStateAction } from "react";
 import { RadioCheckedIcon } from "../../../../../common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 import {
@@ -28,7 +28,7 @@ export const ExportExecutionEnvironmentForm = ({
               icon={<RadioUncheckedIcon />}
               onChange={(): void =>
                 setExecutionEnvironment(
-                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH
+                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH,
                 )
               }
               size="small"
@@ -44,7 +44,7 @@ export const ExportExecutionEnvironmentForm = ({
               icon={<RadioUncheckedIcon />}
               onChange={(): void =>
                 setExecutionEnvironment(
-                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.CMD_EXE
+                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.CMD_EXE,
                 )
               }
               size="small"

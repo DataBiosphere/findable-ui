@@ -12,7 +12,7 @@ import { useDataDictionaryState } from "../../../../../../providers/dataDictiona
 import { COLUMN_FILTERS_OPTIONS } from "./constants";
 
 export const useColumnFiltersOptions = <
-  T extends RowData = Attribute
+  T extends RowData = Attribute,
 >(): ColumnFiltersOptions<T> => {
   const { dictionary } = useDataDictionary();
   const { dataDictionaryDispatch } = useDataDictionaryState();
@@ -20,10 +20,10 @@ export const useColumnFiltersOptions = <
   const onColumnFiltersChange = useCallback(
     (updaterOrValue: Updater<ColumnFiltersState>): void => {
       dataDictionaryDispatch?.(
-        updateColumnFilters({ dictionary, updaterOrValue })
+        updateColumnFilters({ dictionary, updaterOrValue }),
       );
     },
-    [dataDictionaryDispatch, dictionary]
+    [dataDictionaryDispatch, dictionary],
   );
 
   return {

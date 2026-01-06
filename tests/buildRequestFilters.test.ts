@@ -19,7 +19,7 @@ describe("buildRequestFilters", () => {
       const fileManifestState = getFileManifestState(FILTERS.FORM_INITIAL_SET);
       const result = buildRequestFilters(
         fileManifestState,
-        FORM_FACET.INITIAL_SET
+        FORM_FACET.INITIAL_SET,
       );
       expect(result).toEqual(fileManifestState.filters);
     });
@@ -28,7 +28,7 @@ describe("buildRequestFilters", () => {
       const fileManifestState = getFileManifestState(FILTERS.FORM_COMPLETE_SET);
       const result = buildRequestFilters(
         { ...fileManifestState, summary: { fileCount: 9 } },
-        FORM_FACET.COMPLETE_SET
+        FORM_FACET.COMPLETE_SET,
       );
       expect(result).toEqual(fileManifestState.filters);
     });
@@ -39,7 +39,7 @@ describe("buildRequestFilters", () => {
       const fileManifestState = getFileManifestState(FILTERS.FORM_COMPLETE_SET);
       const result = buildRequestFilters(
         fileManifestState,
-        FORM_FACET.COMPLETE_SET
+        FORM_FACET.COMPLETE_SET,
       );
       expect(result).not.toEqual(fileManifestState.filters);
       expect(result).toEqual(FILTERS.FORM_INITIAL_SET);

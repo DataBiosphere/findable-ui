@@ -15,7 +15,7 @@ export const ROW_POSITION: TableFeature = {
     cell: Cell<T, TValue>,
     column: Column<T>,
     row: Row<T>,
-    table: Table<T>
+    table: Table<T>,
   ): void => {
     row.getRowPosition = (): number => {
       return getRowPosition(row.id, table);

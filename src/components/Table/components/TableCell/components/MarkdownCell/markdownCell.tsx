@@ -1,5 +1,5 @@
 import { CellContext, RowData } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { COMPONENTS } from "../../../../../MarkdownRenderer/constants";
 import { BaseComponentProps } from "../../../../../types";
 import { getTokens, getTokensRegex, isRankedCell } from "../RankedCell/utils";
@@ -7,7 +7,7 @@ import { StyledMarkdownRenderer } from "./markdownCell.styles";
 
 export const MarkdownCell = <
   T extends RowData,
-  TValue extends string = string
+  TValue extends string = string,
 >({
   className,
   column,

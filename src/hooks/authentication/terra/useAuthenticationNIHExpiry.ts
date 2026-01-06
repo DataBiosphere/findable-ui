@@ -54,7 +54,7 @@ function hasLinkedNIHAccountExpired(expireTime?: number): boolean | undefined {
  * @returns true if the linked NIH account will expire in less than a week.
  */
 function isLinkedNIHAccountWillExpire(
-  expireTime?: number
+  expireTime?: number,
 ): boolean | undefined {
   if (!expireTime) return;
   return expireTimeInSeconds(expireTime) < WARNING_WINDOW_SECONDS;

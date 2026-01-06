@@ -16,7 +16,7 @@ export interface SearchParams {
 export const fetchQueryParams = (
   filters: Filters,
   catalog: string,
-  searchParams: SearchParams | undefined
+  searchParams: SearchParams | undefined,
 ): URLSearchParams => {
   // Build request params.
   return new URLSearchParams({

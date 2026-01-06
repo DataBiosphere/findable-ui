@@ -22,7 +22,7 @@ export const useBeforePopState = (): void => {
       });
       return false;
     },
-    []
+    [],
   );
 
   // Pop state related side effects.

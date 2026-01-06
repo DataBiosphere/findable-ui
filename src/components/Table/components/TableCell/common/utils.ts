@@ -9,7 +9,7 @@ import { COLUMN_IDENTIFIER } from "../../../common/columnIdentifier";
  * @returns table cell alignment.
  */
 export function getTableCellAlign<T extends RowData, TValue>(
-  column: Column<T, TValue>
+  column: Column<T, TValue>,
 ): TableCellProps["align"] {
   return column.columnDef.meta?.align;
 }
@@ -20,7 +20,7 @@ export function getTableCellAlign<T extends RowData, TValue>(
  * @returns table cell padding.
  */
 export function getTableCellPadding<T extends RowData, TValue>(
-  id: CoreHeader<T, TValue>["id"] | CoreCell<T, TValue>["id"]
+  id: CoreHeader<T, TValue>["id"] | CoreCell<T, TValue>["id"],
 ): TableCellProps["padding"] {
   switch (id) {
     case COLUMN_IDENTIFIER.ROW_POSITION:

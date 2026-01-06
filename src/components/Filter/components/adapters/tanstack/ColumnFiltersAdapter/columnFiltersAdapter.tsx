@@ -1,5 +1,5 @@
 import { RowData } from "@tanstack/react-table";
-import { useCallback } from "react";
+import { JSX, useCallback } from "react";
 import { VIEW_KIND } from "../../../../../../common/categories/views/types";
 import {
   CategoryKey,
@@ -33,7 +33,7 @@ export const ColumnFiltersAdapter = <T extends RowData>({
       _selected: boolean,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `categorySection` is not required by TanStack adapter.
       _categorySection?: string,
-      viewKind?: VIEW_KIND
+      viewKind?: VIEW_KIND,
     ) => {
       if (categoryKey === CLEAR_ALL) {
         table.resetColumnFilters(true);
@@ -51,7 +51,7 @@ export const ColumnFiltersAdapter = <T extends RowData>({
         .getColumn(categoryKey)
         ?.setFilterValue(updater(selectedCategoryValue));
     },
-    [table]
+    [table],
   );
 
   return renderSurface({

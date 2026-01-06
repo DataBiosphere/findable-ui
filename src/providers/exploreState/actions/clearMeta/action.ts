@@ -9,7 +9,7 @@ import { ClearMetaPayload } from "./types";
  */
 export function clearMetaAction(
   state: ExploreState,
-  payload: ClearMetaPayload
+  payload: ClearMetaPayload,
 ): ExploreState {
   return {
     ...state,

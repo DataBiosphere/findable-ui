@@ -1,5 +1,5 @@
 import { Chip as MChip, ChipProps as MChipProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 
 export enum STATUS_BADGE_COLOR {
   DEFAULT = "default",
@@ -19,7 +19,7 @@ export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
       label,
       ...props /* Spread props to allow for Mui ChipProps specific prop overrides e.g. "onDelete". */
     }: MChipProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <MChip
@@ -31,5 +31,5 @@ export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
         {...props}
       />
     );
-  }
+  },
 );

@@ -10,7 +10,7 @@ import { PAGINATION_PAGE_SIZE } from "../../shared/constants";
 import { database } from "../../utils/database";
 
 export const fetchEntitiesFromQuery = async (
-  entityListType: string
+  entityListType: string,
 ): Promise<AzulEntitiesResponse> => {
   const entities = database.get().all(entityListType);
   return Promise.resolve({
@@ -26,20 +26,20 @@ export const fetchEntitiesFromQuery = async (
 };
 
 export const fetchEntitiesFromURL = async (
-  entityListType: string
+  entityListType: string,
 ): Promise<AzulEntitiesResponse> => {
   return fetchEntitiesFromQuery(entityListType);
 };
 
 export const fetchAllEntities = async (
-  entityListType: string
+  entityListType: string,
 ): Promise<AzulEntitiesResponse> => {
   return fetchEntitiesFromQuery(entityListType);
 };
 
 export const fetchEntityDetail = async (
   entityListType: string,
-  entityId: string
+  entityId: string,
 ): Promise<unknown> => {
   return database.get().find(entityId, entityListType);
 };

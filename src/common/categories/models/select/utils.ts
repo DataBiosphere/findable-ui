@@ -9,7 +9,7 @@ import { CategoryValueKey, SelectedFilter } from "../../../entities";
 export function buildNextSelectFilterState(
   nextCategorySelectedFilter: SelectedFilter,
   selectedValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
 ): void {
   if (selected) {
     // Set the selected value.
@@ -17,7 +17,7 @@ export function buildNextSelectFilterState(
   } else {
     // Remove the selected value from the selected set of values.
     nextCategorySelectedFilter.value = nextCategorySelectedFilter.value.filter(
-      (value: CategoryValueKey) => value !== selectedValue
+      (value: CategoryValueKey) => value !== selectedValue,
     );
   }
 }

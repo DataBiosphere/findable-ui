@@ -12,18 +12,18 @@ import { buildNextColumnVisibility } from "./utils";
  */
 export function updateColumnVisibilityAction(
   state: ExploreState,
-  payload: UpdateColumnVisibilityPayload
+  payload: UpdateColumnVisibilityPayload,
 ): ExploreState {
   const columnVisibility = buildNextColumnVisibility(
     state,
-    payload.updaterOrValue
+    payload.updaterOrValue,
   );
   return {
     ...state,
     entityPageState: updateEntityPageState(
       state.tabValue,
       state.entityPageState,
-      { columnVisibility }
+      { columnVisibility },
     ),
   };
 }

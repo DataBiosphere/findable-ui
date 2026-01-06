@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import { JSX, useCallback, useState } from "react";
 import { DrawerContext } from "./context";
 import { DrawerProviderProps } from "./types";
 

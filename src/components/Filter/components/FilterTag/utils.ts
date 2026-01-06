@@ -13,7 +13,7 @@ import { getRangeOperator } from "../FilterRange/utils";
  */
 export function buildRangeTag(
   categoryView: RangeCategoryView,
-  onFilter: OnFilterFn
+  onFilter: OnFilterFn,
 ): CategoryTag[] {
   const rangeOperator = getRangeOperator(categoryView);
   if (!rangeOperator) return [];
@@ -26,7 +26,7 @@ export function buildRangeTag(
           undefined,
           false,
           undefined,
-          VIEW_KIND.RANGE
+          VIEW_KIND.RANGE,
         ),
       superseded: false,
     },
@@ -41,7 +41,7 @@ export function buildRangeTag(
  */
 function buildRangeTagLabel(
   categoryView: RangeCategoryView,
-  rangeOperator: RANGE_OPERATOR
+  rangeOperator: RANGE_OPERATOR,
 ): string {
   const { selectedMax, selectedMin } = categoryView;
   switch (rangeOperator) {

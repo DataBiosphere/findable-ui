@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { ButtonTextPrimary } from "../../../common/Button/components/ButtonTextPrimary/buttonTextPrimary";
 import { FilterNoResultsFound as FilterNoResults } from "./filterNoResultsFound.styles";
@@ -15,7 +15,7 @@ export const FilterNoResultsFound = forwardRef<
   FilterNoResultsFoundProps
 >(function FilterNoResultsFound(
   { onClearSearchTerm }: FilterNoResultsFoundProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <FilterNoResults ref={ref}>

@@ -22,7 +22,7 @@ export function resetState(): ResetStateAction {
  * @returns Action.
  */
 export function updateCredentials(
-  payload: UpdateCredentialsPayload
+  payload: UpdateCredentialsPayload,
 ): UpdateCredentialsAction {
   return {
     payload,

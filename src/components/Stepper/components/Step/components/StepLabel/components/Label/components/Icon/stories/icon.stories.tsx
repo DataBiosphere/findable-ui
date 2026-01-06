@@ -9,7 +9,7 @@ import { DISABLED_CONTROLS } from "./contants";
 const meta: Meta<typeof Icon> = {
   argTypes: configureControls<ComponentProps<typeof Icon>>(
     DISABLED_CONTROLS,
-    CONTROL_TYPE.DISABLED
+    CONTROL_TYPE.DISABLED,
   ),
   component: Icon,
   title: "Components/Stepper/StepLabel/Icon",

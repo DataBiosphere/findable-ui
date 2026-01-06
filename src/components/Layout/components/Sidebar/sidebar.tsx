@@ -1,5 +1,5 @@
 import { ChildrenProps } from "components/types";
-import React, { useEffect } from "react";
+import { JSX, useEffect } from "react";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { Filters } from "../filters";
 import { DEFAULT_ARGS } from "./args";
 

@@ -24,7 +24,7 @@ export interface UseFetchProfiles {
 
 export const useFetchProfiles = (token?: string): UseFetchProfiles => {
   const [status, setStatus] = useState<TERRA_PROFILE_STATUS>(
-    TERRA_PROFILE_STATUS.PENDING
+    TERRA_PROFILE_STATUS.PENDING,
   );
   const {
     authenticationState: { profile },
@@ -40,8 +40,8 @@ export const useFetchProfiles = (token?: string): UseFetchProfiles => {
         isUserAuthenticated,
         terraNIHProfileLoginStatus,
         terraProfileLoginStatus,
-        terraTOSLoginStatus
-      )
+        terraTOSLoginStatus,
+      ),
     );
   }, [
     isUserAuthenticated,

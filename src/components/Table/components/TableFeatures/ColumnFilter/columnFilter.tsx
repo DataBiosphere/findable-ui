@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React, { Fragment, useCallback } from "react";
+import { JSX, Fragment, useCallback } from "react";
 import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
@@ -42,7 +42,7 @@ export const ColumnFilter = <T extends RowData>({
     (value: unknown) => {
       column.setFilterValue(updater(value));
     },
-    [column]
+    [column],
   );
 
   return (

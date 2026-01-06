@@ -6,7 +6,7 @@ import {
   MenuItem as MMenuItem,
 } from "@mui/material";
 import Link from "next/link";
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import {
   ANCHOR_TARGET,
@@ -48,7 +48,7 @@ export const NavigationMenuItems = ({
             target = ANCHOR_TARGET.SELF,
             url,
           },
-          i
+          i,
         ) => {
           const isClientSide = isClientSideNavigation(url);
           return nestedMenuItems ? (
@@ -96,7 +96,7 @@ export const NavigationMenuItems = ({
               {divider && <Divider />}
             </Fragment>
           );
-        }
+        },
       )}
     </>
   );

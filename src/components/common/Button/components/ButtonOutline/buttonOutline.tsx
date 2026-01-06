@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef, JSX } from "react";
 import { ButtonProps } from "../../button";
 import { ButtonOutline as Button } from "./buttonOutline.styles";
 
@@ -8,7 +8,7 @@ export const ButtonOutline = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       ...props /* Spread props to allow for Mui ButtonProps specific prop overrides e.g. "onClick". */
     }: ButtonProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <Button
@@ -19,5 +19,5 @@ export const ButtonOutline = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       />
     );
-  }
+  },
 );

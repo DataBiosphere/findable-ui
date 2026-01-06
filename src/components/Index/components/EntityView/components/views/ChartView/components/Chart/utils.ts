@@ -8,7 +8,7 @@ import { SelectCategoryValueView } from "../../../../../../../../../common/entit
  */
 export function renderButtonText(
   maxBarCount: number | undefined,
-  selectCategoryValueViews: SelectCategoryValueView[]
+  selectCategoryValueViews: SelectCategoryValueView[],
 ): string {
   if (!maxBarCount) return "Show less";
 

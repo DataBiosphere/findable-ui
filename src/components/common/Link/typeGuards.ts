@@ -6,13 +6,13 @@ import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../Links/common/entities";
  * @throws Error if the value is not a valid REL_ATTRIBUTE.
  */
 export function assertAnchorRelAttribute(
-  value: string
+  value: string,
 ): asserts value is REL_ATTRIBUTE {
   if (!Object.values(REL_ATTRIBUTE).includes(value as REL_ATTRIBUTE)) {
     throw new Error(
       `Expecting rel attribute: ${value} to be one of ${Object.values(
-        REL_ATTRIBUTE
-      )}`
+        REL_ATTRIBUTE,
+      )}`,
     );
   }
 }
@@ -23,13 +23,13 @@ export function assertAnchorRelAttribute(
  * @throws Error if the value is not a valid ANCHOR_TARGET.
  */
 export function assertAnchorTargetAttribute(
-  value: string
+  value: string,
 ): asserts value is ANCHOR_TARGET {
   if (!Object.values(ANCHOR_TARGET).includes(value as ANCHOR_TARGET)) {
     throw new Error(
       `Expecting anchor target: ${value} to be one of ${Object.values(
-        ANCHOR_TARGET
-      )}`
+        ANCHOR_TARGET,
+      )}`,
     );
   }
 }

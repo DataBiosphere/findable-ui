@@ -107,8 +107,8 @@ describe("getProfileStatus", () => {
         false,
         LOGIN_STATUS_NIH_NOT_STARTED,
         LOGIN_STATUS_TERRA_NOT_STARTED,
-        LOGIN_STATUS_TOS_NOT_STARTED
-      )
+        LOGIN_STATUS_TOS_NOT_STARTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -118,8 +118,8 @@ describe("getProfileStatus", () => {
         false,
         LOGIN_STATUS_NIH_UNSUPPORTED,
         LOGIN_STATUS_TERRA_UNSUPPORTED,
-        LOGIN_STATUS_TOS_UNSUPPORTED
-      )
+        LOGIN_STATUS_TOS_UNSUPPORTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -129,8 +129,8 @@ describe("getProfileStatus", () => {
         false,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -140,8 +140,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_NOT_STARTED,
         LOGIN_STATUS_TERRA_NOT_STARTED,
-        LOGIN_STATUS_TOS_NOT_STARTED
-      )
+        LOGIN_STATUS_TOS_NOT_STARTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -151,8 +151,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_PENDING,
         LOGIN_STATUS_TERRA_PENDING,
-        LOGIN_STATUS_TOS_PENDING
-      )
+        LOGIN_STATUS_TOS_PENDING,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -162,8 +162,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_PENDING,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -173,8 +173,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_PENDING,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -184,8 +184,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_PENDING
-      )
+        LOGIN_STATUS_TOS_PENDING,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -195,8 +195,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_PENDING,
-        LOGIN_STATUS_TOS_NOT_STARTED
-      )
+        LOGIN_STATUS_TOS_NOT_STARTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -206,8 +206,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_NOT_STARTED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_PENDING
-      )
+        LOGIN_STATUS_TOS_PENDING,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -217,8 +217,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_PENDING,
         LOGIN_STATUS_TERRA_NOT_STARTED,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.PENDING);
   });
 
@@ -228,8 +228,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_UNSUPPORTED,
         LOGIN_STATUS_TERRA_UNSUPPORTED,
-        LOGIN_STATUS_TOS_UNSUPPORTED
-      )
+        LOGIN_STATUS_TOS_UNSUPPORTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.AUTHENTICATED);
   });
 
@@ -239,8 +239,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED_UNSUCCESSFUL
-      )
+        LOGIN_STATUS_TOS_COMPLETED_UNSUCCESSFUL,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.UNAUTHENTICATED);
   });
 
@@ -250,8 +250,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_UNSUPPORTED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED_UNSUCCESSFUL
-      )
+        LOGIN_STATUS_TOS_COMPLETED_UNSUCCESSFUL,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.UNAUTHENTICATED);
   });
 
@@ -261,8 +261,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_UNSUPPORTED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.AUTHENTICATED);
   });
 
@@ -272,8 +272,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_UNSUPPORTED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_UNSUPPORTED
-      )
+        LOGIN_STATUS_TOS_UNSUPPORTED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.UNAUTHENTICATED);
   });
 
@@ -283,8 +283,8 @@ describe("getProfileStatus", () => {
         true,
         LOGIN_STATUS_NIH_COMPLETED,
         LOGIN_STATUS_TERRA_COMPLETED,
-        LOGIN_STATUS_TOS_COMPLETED
-      )
+        LOGIN_STATUS_TOS_COMPLETED,
+      ),
     ).toBe(TERRA_PROFILE_STATUS.AUTHENTICATED);
   });
 });

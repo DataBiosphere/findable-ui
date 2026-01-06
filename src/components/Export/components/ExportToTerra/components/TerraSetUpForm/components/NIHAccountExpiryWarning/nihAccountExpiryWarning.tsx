@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import {
   expireTimeInSeconds,
   useAuthenticationNIHExpiry,
@@ -55,6 +55,6 @@ function getExpiryMessage(linkExpired?: boolean, expireTime?: number): string {
     return "Your NIH account link has expired.";
   }
   return `Your NIH account link will expire in ${getExpireTimeInDays(
-    expireTime
+    expireTime,
   )} days.`;
 }

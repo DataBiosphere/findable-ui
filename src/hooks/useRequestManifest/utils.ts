@@ -39,7 +39,7 @@ export function areAllFilesSelected(state: FileManifestState): boolean {
  */
 export function buildRequestFilters(
   state: FileManifestState,
-  formFacet: FormFacet
+  formFacet: FormFacet,
 ): Filters {
   // Return filters from state excluding form filters if all files are selected.
   if (areAllFilesSelected(state)) {
@@ -62,7 +62,7 @@ export function buildRequestManifest(
   endpointUrl: string,
   catalog: string,
   filters: Filters,
-  manifestFormat: ManifestDownloadFormat
+  manifestFormat: ManifestDownloadFormat,
 ): Required<UseRequestManifest> {
   const requestParams = new URLSearchParams({
     [AZUL_PARAM.CATALOG]: catalog,
@@ -85,7 +85,7 @@ export function buildRequestManifest(
  */
 export function excludeFullySelectedFormFilters(
   state: FileManifestState,
-  formFacet: FormFacet
+  formFacet: FormFacet,
 ): Filters {
   const filters: Filters = [];
   const formFacetNames = getFormFacetNamesSet(formFacet);
@@ -105,7 +105,7 @@ function getFormFacetNamesSet(formFacet: FormFacet): Set<string> {
   return new Set(
     Object.values(formFacet)
       .filter(Boolean)
-      .map(({ name }: FileFacet) => name)
+      .map(({ name }: FileFacet) => name),
   );
 }
 
@@ -131,7 +131,7 @@ export function isCatalogReady(catalog: string | undefined): boolean {
  * @returns true if the file manifest state is ready.
  */
 export function isFileManifestStateReady(
-  fileManifestState: FileManifestState
+  fileManifestState: FileManifestState,
 ): boolean {
   return (
     fileManifestState.isEnabled &&
@@ -147,7 +147,7 @@ export function isFileManifestStateReady(
  * @returns `true` if the `fileManifestFormat` is defined.
  */
 export function isFileManifestFormatReady(
-  fileManifestFormat: ManifestDownloadFormat | undefined
+  fileManifestFormat: ManifestDownloadFormat | undefined,
 ): boolean {
   if (!fileManifestFormat) return false;
   return Object.values(MANIFEST_DOWNLOAD_FORMAT).includes(fileManifestFormat);

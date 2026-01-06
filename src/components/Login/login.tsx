@@ -1,5 +1,5 @@
 import { Checkbox, Typography } from "@mui/material";
-import React, { ChangeEvent, useCallback, useState } from "react";
+import { JSX, ChangeEvent, useCallback, useState } from "react";
 import { useAuth } from "../../providers/authentication/auth/hook";
 import { ProviderId } from "../../providers/authentication/common/types";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
@@ -39,7 +39,7 @@ export const Login = <P,>({
       }
       requestLogin?.(providerId);
     },
-    [isInAgreement, requestLogin]
+    [isInAgreement, requestLogin],
   );
 
   // Callback fired when the checkbox value is changed.

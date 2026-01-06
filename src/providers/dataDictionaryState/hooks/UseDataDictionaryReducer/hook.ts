@@ -10,7 +10,7 @@ export const useDataDictionaryReducer = (): DataDictionaryStateContextProps => {
   const [dataDictionaryState, dataDictionaryDispatch] = useReducer(
     dataDictionaryReducer,
     initialArgs,
-    initializer
+    initializer,
   );
 
   return { dataDictionaryDispatch, dataDictionaryState };

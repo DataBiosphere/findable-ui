@@ -8,7 +8,7 @@ import { CategoryKeyLabel } from "./entities";
  */
 export function mapCategoryKeyLabel(
   CATEGORY_KEY: Record<string, string>,
-  CATEGORY_LABEL: Record<string, string>
+  CATEGORY_LABEL: Record<string, string>,
 ): CategoryKeyLabel {
   const categoryKeyLabel: CategoryKeyLabel = new Map();
   for (const [key, categoryKey] of Object.entries(CATEGORY_KEY)) {

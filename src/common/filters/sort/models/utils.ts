@@ -10,7 +10,7 @@ import { FILTER_SORT } from "../config/types";
  */
 export function sortCategoryValueViews(
   categoryValueViews: SelectCategoryValueView[],
-  filterSort: FILTER_SORT
+  filterSort: FILTER_SORT,
 ): void {
   const sortFn =
     filterSort === FILTER_SORT.ALPHA
@@ -29,7 +29,7 @@ export function sortCategoryValueViews(
 
 export function sortCategoryValueViewsAlpha(
   cvv0: SelectCategoryValueView,
-  cvv1: SelectCategoryValueView
+  cvv1: SelectCategoryValueView,
 ): number {
   // Handle empty labels.
   if (!cvv0.label) return 1;
@@ -46,7 +46,7 @@ export function sortCategoryValueViewsAlpha(
  */
 export function sortCategoryValueViewsCount(
   cvv0: SelectCategoryValueView,
-  cvv1: SelectCategoryValueView
+  cvv1: SelectCategoryValueView,
 ): number {
   // Sort by count descending, then alphabetically.
   const countDiff = cvv1.count - cvv0.count;

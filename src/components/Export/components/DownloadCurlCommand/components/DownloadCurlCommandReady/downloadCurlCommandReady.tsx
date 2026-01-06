@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { Code } from "../../../../../common/Code/code";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";
 import { Section, SectionContent } from "../../../../export.styles";

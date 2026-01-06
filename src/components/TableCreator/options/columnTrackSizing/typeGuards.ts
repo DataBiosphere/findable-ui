@@ -6,7 +6,7 @@ import { GridTrackMinMax, GridTrackSize } from "../../../../config/entities";
  * @returns `true` if the given grid track size is a `GridTrackMinMax`, otherwise `false`.
  */
 export function isGridTrackMinMax(
-  width?: GridTrackSize
+  width?: GridTrackSize,
 ): width is GridTrackMinMax {
   return (width as GridTrackMinMax)?.min !== undefined;
 }

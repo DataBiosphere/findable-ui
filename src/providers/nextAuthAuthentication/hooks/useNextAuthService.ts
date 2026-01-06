@@ -12,14 +12,14 @@ export const useNextAuthService = (): Service => {
     (providerId: ProviderId) => {
       service.login(providerId, { callbackUrl: callbackUrl(transformRoute) });
     },
-    [callbackUrl]
+    [callbackUrl],
   );
 
   const onLogout = useCallback(
     (options?: { callbackUrl?: string; redirect?: boolean }) => {
       service.logout(options);
     },
-    []
+    [],
   );
 
   return { requestLogin: onLogin, requestLogout: onLogout };

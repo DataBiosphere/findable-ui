@@ -11,7 +11,7 @@ import { ExploreState } from "../../../exploreState";
  */
 export function buildNextColumnVisibility(
   state: ExploreState,
-  updaterOrValue: Updater<VisibilityState>
+  updaterOrValue: Updater<VisibilityState>,
 ): VisibilityState {
   return resolveUpdater(updaterOrValue, getOldColumnVisibility(state));
 }

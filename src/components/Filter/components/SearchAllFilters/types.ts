@@ -5,7 +5,8 @@ import { BaseComponentProps } from "../../../types";
 import { SURFACE_TYPE } from "../surfaces/types";
 
 export interface SearchAllFiltersProps
-  extends Omit<
+  extends
+    Omit<
       AutocompleteProps<string, false, false, true>,
       "options" | "renderInput"
     >,

@@ -8,7 +8,9 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
   code {
     all: unset;
     font: inherit;
-    font-family: Roboto Mono, monospace;
+    font-family:
+      Roboto Mono,
+      monospace;
   }
 
   h2,

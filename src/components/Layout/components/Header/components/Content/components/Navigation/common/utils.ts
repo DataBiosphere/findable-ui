@@ -7,7 +7,7 @@
  */
 export function isNavigationLinkSelected(
   pathname?: string,
-  selectedPatterns?: string[]
+  selectedPatterns?: string[],
 ): boolean {
   if (!pathname) return false;
   for (const selectedPattern of selectedPatterns ?? []) {

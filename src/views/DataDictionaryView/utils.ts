@@ -13,7 +13,7 @@ import { DataDictionaryState } from "../../providers/dataDictionaryState/types";
  */
 export function buildStateSyncManagerContext(
   dataDictionaryState: DataDictionaryState,
-  dictionary: string
+  dictionary: string,
 ): StateSyncManagerContext {
   return {
     command: dataDictionaryState.meta?.command,

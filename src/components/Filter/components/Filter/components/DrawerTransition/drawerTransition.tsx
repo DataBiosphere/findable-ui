@@ -1,5 +1,5 @@
 import { Slide as MSlide, SlideProps as MSlideProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 
 export const DrawerTransition = forwardRef<Element, MSlideProps>(
   function DrawerTransition(
@@ -7,7 +7,7 @@ export const DrawerTransition = forwardRef<Element, MSlideProps>(
       children,
       ...props /* Spread props to allow for Mui SlideProps specific prop overrides. */
     }: MSlideProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <MSlide
@@ -20,5 +20,5 @@ export const DrawerTransition = forwardRef<Element, MSlideProps>(
         {children}
       </MSlide>
     );
-  }
+  },
 );

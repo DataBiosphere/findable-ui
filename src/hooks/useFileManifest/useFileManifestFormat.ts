@@ -14,7 +14,7 @@ export interface FileManifestFormatState {
  * @returns The file manifest format state and a function to set the file manifest format.
  */
 export const useFileManifestFormat = (
-  manifestDownloadFormat?: ManifestDownloadFormat
+  manifestDownloadFormat?: ManifestDownloadFormat,
 ): FileManifestFormatState => {
   const [fileManifestFormat, setFileManifestFormat] = useState<
     ManifestDownloadFormat | undefined

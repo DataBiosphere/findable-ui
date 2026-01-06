@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { JSX } from "react";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
 import { ExportMethodConfig } from "../../config/entities";
@@ -36,7 +36,7 @@ export const ExportMethodView = (): JSX.Element => {
  */
 function getExportMethodConfig(
   exportMethods: ExportMethodConfig[],
-  pathname: string
+  pathname: string,
 ): ExportMethodConfig | undefined {
   return exportMethods.find(({ route }) => route === pathname);
 }

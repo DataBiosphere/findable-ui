@@ -22,7 +22,7 @@ export function assertIsRange(value: unknown): asserts value is SelectedRange {
 export function buildNextRangeFilterState(
   nextCategorySelectedFilter: SelectedFilter,
   selectedValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
 ): void {
   if (selected) {
     // Assert that the selected value is a range.
@@ -43,7 +43,7 @@ export function buildNextRangeFilterState(
  * @returns The selected filter (i.e. the set of selected values) for the given category.
  */
 export function getRangeSelectedValue(
-  categorySelectedFilter?: SelectedFilter
+  categorySelectedFilter?: SelectedFilter,
 ): SelectedRange {
   return isSelectedRange(categorySelectedFilter?.value)
     ? categorySelectedFilter?.value

@@ -5,12 +5,12 @@ import { AuthContextProps } from "../../../providers/authentication/auth/types";
 import { initializer } from "../../../providers/authentication/common/utils";
 
 export const useAuthReducer = (
-  initialState = DEFAULT_AUTH_STATE
+  initialState = DEFAULT_AUTH_STATE,
 ): Omit<AuthContextProps, "service"> => {
   const [authState, authDispatch] = useReducer(
     authReducer,
     initialState,
-    initializer
+    initializer,
   );
   return { authDispatch, authState };
 };

@@ -21,7 +21,7 @@ export const useEntityHeadTitle = <T>(response: T): string | undefined => {
 
   return useMemo(
     () => getTitle(appTitle, tabName, entityTitle),
-    [appTitle, tabName, entityTitle]
+    [appTitle, tabName, entityTitle],
   );
 };
 
@@ -46,7 +46,7 @@ function getTabName(tab: TabConfig): string | undefined {
 function getTitle(
   appTitle: string,
   tabName?: string,
-  entityTitle?: string
+  entityTitle?: string,
 ): string | undefined {
   const titles = [];
   if (entityTitle) {

@@ -41,7 +41,7 @@ export function getEffectiveTerms(fileFacet: FileFacet): Term[] {
  */
 export function listSelectedTermsOfFacet(
   fileFacets: FileFacet[],
-  facetName: string
+  facetName: string,
 ): Term[] {
   if (fileFacets.length) {
     const facet = fileFacets.find(({ name }) => name === facetName);

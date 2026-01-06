@@ -13,7 +13,7 @@ import {
  * @returns Action.
  */
 export function authComplete(
-  payload: UpdateAuthStatePayload
+  payload: UpdateAuthStatePayload,
 ): UpdateAuthStateAction {
   return {
     payload: { ...payload, status: AUTH_STATUS.SETTLED },
@@ -49,7 +49,7 @@ export function resetState(): ResetStateAction {
  * @returns Action.
  */
 export function updateAuthState(
-  payload: UpdateAuthStatePayload
+  payload: UpdateAuthStatePayload,
 ): UpdateAuthStateAction {
   return {
     payload,

@@ -1,7 +1,7 @@
 import { TableCell } from "@mui/material";
 import { flexRender, Row, RowData } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { TEST_IDS } from "../../../../tests/testIds";
 import {
   getTableCellAlign,

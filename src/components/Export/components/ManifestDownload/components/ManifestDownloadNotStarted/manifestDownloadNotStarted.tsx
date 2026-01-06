@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { FileManifestState } from "../../../../../../providers/fileManifestState";
 import { PAPER_PANEL_STYLE } from "../../../../../common/Paper/paper";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";

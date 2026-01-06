@@ -6,7 +6,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
  * @returns current state the setter function
  */
 export const useResetableState = <T>(
-  defaultState: T
+  defaultState: T,
 ): [T, Dispatch<SetStateAction<T>>] => {
   const [state, setState] = useState<T>(defaultState);
 

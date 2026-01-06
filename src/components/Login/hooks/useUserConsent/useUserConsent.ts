@@ -17,7 +17,7 @@ export const useUserConsent = (): UseUserConsent => {
       handleError(false);
       setIsValid(changeEvent.target.checked);
     },
-    [handleError]
+    [handleError],
   );
 
   return {

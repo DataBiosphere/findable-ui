@@ -258,7 +258,7 @@ declare module "@tanstack/react-table" {
     align?: TableCellProps["align"];
     annotation?: DataDictionaryAnnotation;
     columnPinned?: boolean;
-    components?: Partial<Components>; // For `MarkdownRendererCell` component.
+    components?: Components; // For `MarkdownRendererCell` component.
     header?: string;
     width?: GridTrackSize;
   }
@@ -282,8 +282,9 @@ declare module "@tanstack/react-table" {
   interface Table<TData extends RowData> extends CustomFeatureInstance<TData> {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- empty interface is needed for extending.
-  interface TableOptionsResolved<TData extends RowData>
-    extends CustomFeatureOptions<TData> {}
+  interface TableOptionsResolved<
+    TData extends RowData,
+  > extends CustomFeatureOptions<TData> {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- empty interface is needed for extending.
   interface TableState extends CustomFeatureTableState {}

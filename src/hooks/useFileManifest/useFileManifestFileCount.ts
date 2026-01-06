@@ -16,7 +16,7 @@ import { useFetchSummary } from "./useFetchSummary";
 export const useFileManifestFileCount = (
   initialFilters: Filters | undefined,
   speciesFacetName: string,
-  fileFacetName: string
+  fileFacetName: string,
 ): void => {
   // Initial file manifest filter.
   const [initFilters] = useState(() => initialFilters);
@@ -37,7 +37,7 @@ export const useFileManifestFileCount = (
   const { summary: { fileCount } = {} } = useFetchSummary(
     filters,
     catalog,
-    true
+    true,
   );
 
   useEffect(() => {
@@ -57,9 +57,9 @@ export const useFileManifestFileCount = (
  */
 function excludeFacetsFromFilters(
   filters: Filters | undefined,
-  facetNames: string[]
+  facetNames: string[],
 ): Filters {
   return (filters || []).filter(
-    ({ categoryKey }) => !facetNames.includes(categoryKey)
+    ({ categoryKey }) => !facetNames.includes(categoryKey),
   );
 }

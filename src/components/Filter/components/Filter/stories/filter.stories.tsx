@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
+import { JSX } from "react";
 import { Filter } from "../filter";
 import { DISABLED_SELECT_ARGS, RANGE_ARGS, SELECT_ARGS } from "./args";
 

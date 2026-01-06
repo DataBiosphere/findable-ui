@@ -1,10 +1,12 @@
 import { MenuItem, SelectChangeEvent, Typography } from "@mui/material";
-import React, {
+import {
+  useEffect,
   ChangeEvent,
   Dispatch,
   FocusEvent,
   SetStateAction,
   useState,
+  JSX,
 } from "react";
 import { FileRejection } from "react-dropzone";
 import { ValidationError } from "yup";
@@ -49,7 +51,7 @@ export const SupportRequestForm = ({
   const [errorFields, setErrorFields] = useState<Set<string>>();
 
   // Validate form state when it changes.
-  React.useEffect(() => {
+  useEffect(() => {
     VALIDATION_SCHEMA.validate(buildSupportRequest(formState), {
       abortEarly: false,
     })
@@ -75,7 +77,7 @@ export const SupportRequestForm = ({
 
   // Upload file to add as attachment to request.
   const onAttachmentDropped = async <T extends File>(
-    files: T[]
+    files: T[],
   ): Promise<void> => {
     try {
       setFormState((formState) => ({
@@ -203,7 +205,7 @@ export const SupportRequestForm = ({
               error={isFieldError(
                 formState,
                 errorFields,
-                FORM_CONTROL_NAME.NAME
+                FORM_CONTROL_NAME.NAME,
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.NAME])}
               label={FORM_CONTROL_LABEL.NAME}
@@ -215,7 +217,7 @@ export const SupportRequestForm = ({
               error={isFieldError(
                 formState,
                 errorFields,
-                FORM_CONTROL_NAME.EMAIL
+                FORM_CONTROL_NAME.EMAIL,
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.EMAIL])}
               label={FORM_CONTROL_LABEL.EMAIL}
@@ -228,7 +230,7 @@ export const SupportRequestForm = ({
               error={isFieldError(
                 formState,
                 errorFields,
-                FORM_CONTROL_NAME.TYPE
+                FORM_CONTROL_NAME.TYPE,
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.TYPE])}
               label={FORM_CONTROL_LABEL.TYPE}
@@ -249,7 +251,7 @@ export const SupportRequestForm = ({
               error={isFieldError(
                 formState,
                 errorFields,
-                FORM_CONTROL_NAME.SUBJECT
+                FORM_CONTROL_NAME.SUBJECT,
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.SUBJECT])}
               label={FORM_CONTROL_LABEL.SUBJECT}
@@ -261,7 +263,7 @@ export const SupportRequestForm = ({
               error={isFieldError(
                 formState,
                 errorFields,
-                FORM_CONTROL_NAME.DESCRIPTION
+                FORM_CONTROL_NAME.DESCRIPTION,
               )}
               isFilled={Boolean(formState[FORM_CONTROL_NAME.DESCRIPTION])}
               label={FORM_CONTROL_LABEL.DESCRIPTION}
@@ -326,7 +328,7 @@ function buildSupportRequest(formState: FormState): RequestValue {
 function isFieldError(
   formState: FormState,
   errorFields: Set<string> | undefined,
-  fieldName: FORM_CONTROL_NAME
+  fieldName: FORM_CONTROL_NAME,
 ): boolean {
   return Boolean(formState.touched[fieldName] && errorFields?.has(fieldName));
 }

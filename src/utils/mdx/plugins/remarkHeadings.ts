@@ -2,7 +2,7 @@ import { Heading, PhrasingContent, Root } from "mdast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
 import { OutlineItem } from "../../../components/Layout/components/Outline/types";
-import { generateUniqueId, slugifyHeading } from "./utils";
+import { generateUniqueId, isTextNode, slugifyHeading } from "./utils";
 
 interface Options {
   depth?: { max?: number; min?: number };
@@ -19,15 +19,14 @@ interface Options {
  * @param options.outline - Outline items.
  * @returns plugin to generate an outline from MDX content.
  */
-export function remarkHeadings({
+export const remarkHeadings: Plugin<[Options]> = ({
   depth: { max = 3, min = 2 } = {},
   outline,
-}: Options): Plugin {
+}: Options) => {
   return (tree: Root): void => {
     const setOfIds = new Set<string>();
-    visit(tree, "heading", (node) => {
-      const heading = node as Heading;
-      const { children, depth } = heading;
+    visit(tree, "heading", (node: Heading) => {
+      const { children, depth } = node;
 
       if (depth < min || depth > max) return;
 
@@ -41,7 +40,7 @@ export function remarkHeadings({
       });
     });
   };
-}
+};
 
 /**
  * Returns the value of the heading.
@@ -51,13 +50,13 @@ export function remarkHeadings({
  */
 export function getHeadingTextValue(
   children: PhrasingContent[],
-  value: string[] = []
+  value: string[] = [],
 ): string {
   for (const child of children) {
-    if ("value" in child) {
+    if (isTextNode(child)) {
       value.push(child.value);
     }
-    if ("children" in child) {
+    if ("children" in child && Array.isArray(child.children)) {
       // Recurse into nested children, accumulating text into the shared `value` array.
       // The return value is ignored here because accumulation happens via in-place mutation.
       getHeadingTextValue(child.children, value);

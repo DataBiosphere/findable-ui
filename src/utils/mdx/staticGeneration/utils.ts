@@ -9,7 +9,7 @@ import { resolveRelativeDirs } from "../files/resolveRelativeDirs";
  */
 export function buildMDXFilePath(
   dirs: string[],
-  slug: string[] | undefined
+  slug: string[] | undefined,
 ): string | undefined {
   if (!slug) return;
   return resolveRelativeDirs(dirs.concat(slug)).concat(".mdx");
@@ -23,7 +23,7 @@ export function buildMDXFilePath(
  */
 export function buildMDXSlug(
   props: GetStaticPropsContext,
-  section?: string
+  section?: string,
 ): string[] | undefined {
   const slug = props.params?.slug;
   if (!slug || typeof slug === "string") return;

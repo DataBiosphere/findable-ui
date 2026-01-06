@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
 import { Link } from "../../../../../../../../../Links/components/Link/link";

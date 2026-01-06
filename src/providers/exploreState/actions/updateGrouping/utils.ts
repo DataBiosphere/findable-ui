@@ -11,7 +11,7 @@ import { ExploreState } from "../../../exploreState";
  */
 export function buildNextGrouping(
   state: ExploreState,
-  updaterOrValue: Updater<GroupingState>
+  updaterOrValue: Updater<GroupingState>,
 ): GroupingState {
   const grouping = resolveUpdater(updaterOrValue, getOldGrouping(state));
   if (grouping.length > 1) {

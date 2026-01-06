@@ -17,7 +17,7 @@ export const useCurrentBreakpoint = (): UseCurrentBreakpoint => {
   const lg = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "lg");
   const breakpoints: Record<Breakpoint, boolean> = useMemo(
     () => ({ lg, md, sm, xs }),
-    [lg, md, sm, xs]
+    [lg, md, sm, xs],
   );
   return breakpointKeys.find((key) => breakpoints[key]);
 };

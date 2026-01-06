@@ -1,5 +1,5 @@
 import { CircularProgressProps as MCircularProgressProps } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { CircularProgress } from "./circularProgressTrack.styles";
 
 export interface CircularProgressTrackProps extends MCircularProgressProps {

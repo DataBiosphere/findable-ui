@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { JSX, ReactElement } from "react";
 import { Tooltip } from "./components/Tooltip/tooltip";
 
 export interface NTagProps {

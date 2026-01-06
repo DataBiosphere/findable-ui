@@ -8,7 +8,7 @@ import { Updater } from "@tanstack/react-table";
  * @returns True if the value is a function, false otherwise.
  */
 function isUpdaterFunction<T>(
-  updaterOrValue: Updater<T>
+  updaterOrValue: Updater<T>,
 ): updaterOrValue is (old: T) => T {
   return typeof updaterOrValue === "function";
 }

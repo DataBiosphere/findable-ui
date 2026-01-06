@@ -20,7 +20,7 @@ function isMdxFile(fileName: string): boolean {
 export function mapMDXSlugByFilePaths(
   docsDirectory: string,
   dirPath = docsDirectory,
-  slugByFilePaths: Map<string, string[]> = new Map()
+  slugByFilePaths: Map<string, string[]> = new Map(),
 ): Map<string, string[]> {
   const dirents = fs.readdirSync(dirPath, { withFileTypes: true });
   return dirents.reduce((acc, dirent) => {
@@ -40,7 +40,7 @@ export function mapMDXSlugByFilePaths(
       mapMDXSlugByFilePaths(
         docsDirectory,
         path.resolve(dirPath, dirent.name),
-        acc
+        acc,
       );
     }
     return acc;

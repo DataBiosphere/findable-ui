@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";
@@ -48,11 +48,11 @@ export const ExportToTerra = ({
   const fileManifestFormatState = useFileManifestFormat(manifestDownloadFormat);
   const { requestMethod, requestParams, requestUrl } = useRequestManifest(
     fileManifestFormatState.fileManifestFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const exportURL = useExportToTerraResponseURL(requestParams, data);
   return exportURL ? (

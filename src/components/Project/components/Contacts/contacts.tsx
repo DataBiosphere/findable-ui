@@ -1,6 +1,5 @@
-import { Link as EmailLink, Typography } from "@mui/material";
-import Link from "next/link";
-import React from "react";
+import { Link, Typography } from "@mui/material";
+import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CollapsableSection } from "../../../common/Section/components/CollapsableSection/collapsableSection";
 import { SectionDetailsEmpty } from "../../../common/Section/components/SectionDetailsEmpty/sectionDetailsEmpty";
@@ -24,11 +23,7 @@ export const Contacts = ({ contacts }: ContactsProps): JSX.Element => {
               {name}
             </Typography>
             {institution && <span>{institution}</span>}
-            {email && (
-              <Link href={`mailto:${email}`} legacyBehavior passHref>
-                <EmailLink>{email}</EmailLink>
-              </Link>
-            )}
+            {email && <Link href={`mailto:${email}`}>{email}</Link>}
           </SectionContentListItem>
         ))
       ) : (

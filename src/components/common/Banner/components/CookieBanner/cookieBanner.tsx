@@ -1,5 +1,5 @@
 import { AlertProps, Button, Fade } from "@mui/material";
-import React, { Fragment, ReactNode, useEffect } from "react";
+import { JSX, Fragment, ReactNode, useEffect } from "react";
 import { FLAG } from "../../../../../hooks/useFeatureFlag/common/entities";
 import { setLocalStorage } from "../../../../../hooks/useLocalStorage/common/utils";
 import { useLocalStorage } from "../../../../../hooks/useLocalStorage/useLocalStorage";
@@ -9,8 +9,7 @@ import { ALERT_PROPS } from "./constants";
 import { StyledAlert } from "./cookieBanner.styles";
 
 export interface CookieBannerProps
-  extends Omit<AlertProps, "children">,
-    BaseComponentProps {
+  extends Omit<AlertProps, "children">, BaseComponentProps {
   localStorageKey: string;
   message?: ReactNode;
   secondaryAction?: ReactNode;

@@ -15,7 +15,7 @@ export function useVisibilityOptions(): VisibilityOptions {
     (updaterOrValue: Updater<VisibilityState>): void => {
       exploreDispatch(updateVisibility({ updaterOrValue }));
     },
-    [exploreDispatch]
+    [exploreDispatch],
   );
 
   return { ...VISIBILITY_OPTIONS, onColumnVisibilityChange };

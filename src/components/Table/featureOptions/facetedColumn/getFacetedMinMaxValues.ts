@@ -8,12 +8,12 @@ import { getMemoOptions, memo, RowData, Table } from "@tanstack/react-table";
  */
 export function getFacetedMinMaxValues<TData extends RowData>(): (
   table: Table<TData>,
-  columnId: string
+  columnId: string,
 ) => () => undefined | [number, number] {
-  // eslint-disable-next-line sonarjs/cognitive-complexity -- Customized copy of tanstack table function.
   return (table, columnId) =>
     memo(
       () => [table.getColumn(columnId)?.getFacetedRowModel()],
+      // eslint-disable-next-line sonarjs/cognitive-complexity -- Customized copy of tanstack table function.
       (facetedRowModel) => {
         if (!facetedRowModel) return undefined;
 
@@ -59,6 +59,6 @@ export function getFacetedMinMaxValues<TData extends RowData>(): (
 
         return facetedMinMaxValues;
       },
-      getMemoOptions(table.options, "debugTable", "getFacetedMinMaxValues")
+      getMemoOptions(table.options, "debugTable", "getFacetedMinMaxValues"),
     );
 }

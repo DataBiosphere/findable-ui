@@ -1,6 +1,6 @@
 import { ButtonGroup, Theme, useMediaQuery } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import React, { ComponentProps } from "react";
+import { JSX, ComponentProps } from "react";
 import { Attribute } from "../../../../../../common/entities";
 import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
 import { BUTTON_GROUP_PROPS } from "../../../../../common/ButtonGroup/constants";

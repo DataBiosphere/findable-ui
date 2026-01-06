@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
 import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import {
@@ -26,7 +26,7 @@ export const CreateTerraAccount = ({
       window.open(
         exportToTerraUrl,
         ANCHOR_TARGET.BLANK,
-        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
       );
     }
   };

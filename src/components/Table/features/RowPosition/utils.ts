@@ -8,7 +8,7 @@ import { RowData, RowModel, Table } from "@tanstack/react-table";
  */
 export function getRowModel<T extends RowData>(
   table: Table<T>,
-  rowModel: RowModel<T>
+  rowModel: RowModel<T>,
 ): RowModel<T> {
   let i = 0;
   rowModel.flatRows.forEach(({ getIsGrouped, id }) => {
@@ -30,7 +30,7 @@ export function getRowModel<T extends RowData>(
  */
 export function getRowPosition<T extends RowData>(
   rowId: string,
-  table: Table<T>
+  table: Table<T>,
 ): number {
   const { getRowModel } = table;
   const { rowsById } = getRowModel();
@@ -45,7 +45,7 @@ export function getRowPosition<T extends RowData>(
  */
 function calculateRowPosition<T extends RowData>(
   table: Table<T>,
-  index: number
+  index: number,
 ): number {
   if (index < 0) return index; // Grouped rows have a position of -1.
   const { getState } = table;

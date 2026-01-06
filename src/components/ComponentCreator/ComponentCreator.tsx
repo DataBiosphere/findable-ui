@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX, createElement } from "react";
 import { ComponentsConfig, ViewContext } from "../../config/entities";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
@@ -63,11 +63,9 @@ export const ComponentCreator = <T,>({
               systemStatus,
             })
           : {};
-        return React.createElement(
-          c.component,
-          { ...c.props, ...props, key: k },
-          [children ?? props.children]
-        );
+        return createElement(c.component, { ...c.props, ...props, key: k }, [
+          children ?? props.children,
+        ]);
       })}
     </>
   );

@@ -1,5 +1,5 @@
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
-import React, { useMemo } from "react";
+import { JSX, useMemo } from "react";
 
 export interface VirtualizedRowProps {
   isUpperRow: boolean;
@@ -14,11 +14,11 @@ export const VirtualizedRow = ({
   const virtualSize = virtualizer.getTotalSize();
   const topPadding = useMemo(
     () => calculateTopPadding(virtualItems),
-    [virtualItems]
+    [virtualItems],
   );
   const bottomPadding = useMemo(
     () => calculateBottomPadding(virtualItems, virtualSize),
-    [virtualItems, virtualSize]
+    [virtualItems, virtualSize],
   );
   const padding = isUpperRow ? topPadding : bottomPadding;
   return (
@@ -40,7 +40,7 @@ export const VirtualizedRow = ({
  */
 function calculateBottomPadding(
   virtualItems: VirtualItem[],
-  virtualSize: number
+  virtualSize: number,
 ): number {
   if (virtualItems.length === 0) {
     return 0;

@@ -4,14 +4,16 @@ import {
   Typography as MTypography,
 } from "@mui/material";
 import { RowData, Table } from "@tanstack/react-table";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { DrawerContent } from "../../../../../../../common/Drawer/components/drawer.styles";
 import { DEFAULT_DRAWER_PROPS } from "./common/constants";
 import { Drawer, DrawerTitle } from "./rowDrawer.styles";
 
-export interface RowDrawerProps<T extends RowData>
-  extends Omit<MDrawerProps, "content" | "title"> {
+export interface RowDrawerProps<T extends RowData> extends Omit<
+  MDrawerProps,
+  "content" | "title"
+> {
   className?: string;
   tableInstance?: Table<T>;
   title: ReactNode;

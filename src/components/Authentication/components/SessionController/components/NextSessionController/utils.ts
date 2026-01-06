@@ -29,14 +29,14 @@ export function mapAuth(session: SessionContextValue): UpdateAuthStatePayload {
  * @returns authentication profile and status.
  */
 export function mapAuthentication(
-  session: SessionContextValue
+  session: SessionContextValue,
 ): UpdateAuthenticationPayload {
   return {
     profile: mapProfile(session.data),
     status: mapStatus(
       session.status,
       AUTHENTICATION_STATUS_MAP,
-      AUTHENTICATION_STATUS.SETTLED
+      AUTHENTICATION_STATUS.SETTLED,
     ),
   };
 }
@@ -68,7 +68,7 @@ function mapProfile(sessionData: Session | null): UserProfile | undefined {
 function mapStatus<S>(
   status: SessionContextValue["status"],
   statusBySessionStatus: Record<SessionContextValue["status"], S>,
-  defaultStatus: S
+  defaultStatus: S,
 ): S {
   return statusBySessionStatus[status] || defaultStatus;
 }

@@ -8,7 +8,7 @@ import { FieldValues, RANGE_OPERATOR } from "./types";
  */
 export function getFormValues(
   e: HTMLFormElement,
-  rangeOperator: RANGE_OPERATOR
+  rangeOperator: RANGE_OPERATOR,
 ): FieldValues {
   const formData = new FormData(e);
   const fieldValues = {} as FieldValues;
@@ -25,7 +25,7 @@ export function getFormValues(
  * @returns The parsed value, or null if the value is null or empty string.
  */
 export function parseMinMaxValue(
-  value: FormDataEntryValue | null
+  value: FormDataEntryValue | null,
 ): FormDataEntryValue | null {
   if (value === null || value === "") return null;
   return value;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { JSX, useState } from "react";
 import {
   CategoryKey,
   SelectCategoryValueView,
@@ -76,7 +76,7 @@ export const FilterMenu = ({
 
 export function applyMenuFilter(
   values: SelectCategoryValueView[],
-  searchTerm: string
+  searchTerm: string,
 ): FilterMenuSearchMatch[] {
   return getSortMatchesFn(searchTerm)(values);
 }

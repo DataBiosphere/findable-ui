@@ -1,4 +1,4 @@
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";
 import {
@@ -24,7 +24,7 @@ export const ExportToTerraReady = ({
     window.open(
       exportURL,
       ANCHOR_TARGET.BLANK,
-      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
     );
   };
   return (

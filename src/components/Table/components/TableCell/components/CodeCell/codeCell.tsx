@@ -1,12 +1,12 @@
 import { CellContext, RowData } from "@tanstack/react-table";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { CHIP_PROPS } from "../../../../../../styles/common/mui/chip";
 import { BaseComponentProps } from "../../../../../types";
 import { StyledChip } from "./codeCell.styles";
 
 export const CodeCell = <
   T extends RowData,
-  TValue extends ReactNode = ReactNode
+  TValue extends ReactNode = ReactNode,
 >({
   className,
   getValue,

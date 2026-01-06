@@ -1,5 +1,5 @@
 import { Paper as MPaper, PaperProps as MPaperProps } from "@mui/material";
-import React, { forwardRef, ReactNode } from "react";
+import { JSX, forwardRef, ReactNode } from "react";
 import { TestIdProps } from "../../types";
 
 /**
@@ -29,7 +29,7 @@ export interface PaperProps extends TestIdProps {
 
 export const Paper = forwardRef<HTMLDivElement, PaperProps>(function Paper(
   { children, className, testId, variant = "panel" }: PaperProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <MPaper

@@ -69,7 +69,7 @@ UseTableProps): UseTable<T> => {
   const clientFiltering = isClientFilteringEnabled(exploreMode);
   const pagination = useMemo(
     () => getTableStatePagination(currentPage - 1, pageSize),
-    [currentPage, pageSize]
+    [currentPage, pageSize],
   );
 
   const columnDefs: ColumnDef<T>[] = useMemo(
@@ -88,7 +88,7 @@ UseTableProps): UseTable<T> => {
              */
             filterFn = "arrIncludesSome",
             ...columnConfig
-          }
+          },
         ) => {
           acc.push({
             ...buildBaseColumnDef<T>(columnConfig),
@@ -103,9 +103,9 @@ UseTableProps): UseTable<T> => {
           COLUMN_DEF.ROW_POSITION,
           /* Initialize column definitions with the "row selection" column */
           COLUMN_DEF.ROW_SELECTION,
-        ] as ColumnDef<T>[]
+        ] as ColumnDef<T>[],
       ),
-    [columnsConfig]
+    [columnsConfig],
   );
 
   const onSortingChange = (updater: Updater<ColumnSort[]>): void => {
@@ -134,7 +134,7 @@ UseTableProps): UseTable<T> => {
         type: ExploreActionKind.UpdateRowPreview,
       });
     },
-    [exploreDispatch, rowPreview]
+    [exploreDispatch, rowPreview],
   );
 
   const onRowSelectionChange = useCallback(
@@ -146,7 +146,7 @@ UseTableProps): UseTable<T> => {
         type: ExploreActionKind.UpdateRowSelection,
       });
     },
-    [exploreDispatch, rowSelection]
+    [exploreDispatch, rowSelection],
   );
 
   const state: Partial<TableState> = {
@@ -213,7 +213,7 @@ UseTableProps): UseTable<T> => {
         filterState.map(({ categoryKey, value }) => ({
           id: categoryKey,
           value,
-        }))
+        })),
       );
     }
   }, [clientFiltering, filterState, table]);

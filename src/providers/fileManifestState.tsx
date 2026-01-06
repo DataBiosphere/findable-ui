@@ -1,6 +1,7 @@
-import React, {
+import {
   createContext,
   Dispatch,
+  JSX,
   ReactNode,
   useEffect,
   useReducer,
@@ -67,7 +68,7 @@ export function FileManifestStateProvider({
   // File manifest state.
   const [fileManifestState, fileManifestDispatch] = useReducer(
     (s: FileManifestState, a: FileManifestAction) => fileManifestReducer(s, a),
-    FILE_MANIFEST_STATE
+    FILE_MANIFEST_STATE,
   );
 
   const { fileSummaryFacetName, fileSummaryFilters, filters, isEnabled } =
@@ -84,7 +85,7 @@ export function FileManifestStateProvider({
   const { isLoading: isSummaryLoading, summary } = useFetchSummary(
     filters,
     catalog,
-    isEnabled
+    isEnabled,
   );
 
   // Fetch file summary.
@@ -245,7 +246,7 @@ export type UpdateFilterPayload = {
  */
 function fileManifestReducer(
   state: FileManifestState,
-  action: FileManifestAction
+  action: FileManifestAction,
 ): FileManifestState {
   const { payload, type } = action;
   switch (type) {
@@ -262,7 +263,7 @@ function fileManifestReducer(
       // Get file summary filters.
       const fileSummaryFilters = buildNextFileSummaryFilterState(
         payload.filters,
-        payload.fileSummaryFacetName
+        payload.fileSummaryFacetName,
       );
       return {
         ...state,
@@ -286,12 +287,12 @@ function fileManifestReducer(
         state.filters,
         payload.categoryKey,
         getFilterParameterValue(payload.selectedValue),
-        payload.selected
+        payload.selected,
       );
       // Get file summary filters.
       const fileSummaryFilters = buildNextFileSummaryFilterState(
         filters,
-        state.fileSummaryFacetName
+        state.fileSummaryFacetName,
       );
       return {
         ...state,
@@ -305,12 +306,12 @@ function fileManifestReducer(
       const filters = updateCategoryFilterState(
         state.filters,
         payload,
-        state.filesFacets
+        state.filesFacets,
       );
       // Get file summary filters.
       const fileSummaryFilters = buildNextFileSummaryFilterState(
         filters,
-        state.fileSummaryFacetName
+        state.fileSummaryFacetName,
       );
       return {
         ...state,
@@ -331,7 +332,7 @@ function fileManifestReducer(
  */
 function buildNextFileSummaryFilterState(
   filters: Filters,
-  facetName?: string
+  facetName?: string,
 ): Filters {
   if (!facetName) {
     return [];
@@ -358,7 +359,7 @@ function getFileFacetTerms(fileFacet: FileFacet): SelectedFilterValue {
 function updateCategoryFilterState(
   filters: Filters,
   categoryKey: CategoryKey,
-  filesFacets: FileFacet[]
+  filesFacets: FileFacet[],
 ): Filters {
   // Find the selected category facet.
   const categoryFacet = filesFacets.find(({ name }) => name === categoryKey);
@@ -371,7 +372,7 @@ function updateCategoryFilterState(
 
   // Create a copy of the current filter state. Remove the selected filter for the selected category, if any.
   const nextFilterState = filters.filter(
-    ({ categoryKey: key }) => key !== categoryKey
+    ({ categoryKey: key }) => key !== categoryKey,
   );
 
   // If the selected category already has all selected values, return the next filter state with removed selected category.

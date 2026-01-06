@@ -1,7 +1,7 @@
 import { LinkProps, Link as MLink, Typography } from "@mui/material";
 import { CellContext, RowData } from "@tanstack/react-table";
 import { BaseComponentProps } from "components/types";
-import React from "react";
+import { JSX } from "react";
 import { isValidUrl } from "../../../../../../common/utils";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { isClientSideNavigation } from "../../../../../Links/common/utils";
@@ -9,7 +9,7 @@ import { getComponent, getRelAttribute, getTargetAttribute } from "./utils";
 
 export const LinkCell = <
   T extends RowData,
-  TValue extends LinkProps = LinkProps
+  TValue extends LinkProps = LinkProps,
 >({
   className,
   getValue,

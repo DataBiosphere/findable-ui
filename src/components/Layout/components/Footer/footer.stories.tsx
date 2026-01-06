@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import React from "react";
 import logo from "../../../../images/logo.svg";
 import { DiscourseIcon } from "../../../common/CustomIcon/components/DiscourseIcon/discourseIcon";
 import { FacebookIcon } from "../../../common/CustomIcon/components/FacebookIcon/facebookIcon";

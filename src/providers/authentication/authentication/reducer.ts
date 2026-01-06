@@ -15,7 +15,7 @@ import {
  */
 export function authenticationReducer(
   state: AuthenticationState,
-  action: AuthenticationAction
+  action: AuthenticationAction,
 ): AuthenticationState {
   const { payload, type } = action;
   switch (type) {

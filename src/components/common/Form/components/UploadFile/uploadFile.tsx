@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { FormHelperText, Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { DropzoneState } from "react-dropzone";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { Loading, LOADING_PANEL_STYLE } from "../../../../Loading/loading";
@@ -81,10 +81,10 @@ export const UploadFile = ({
  * @returns error message.
  */
 function getErrorMessage(
-  attachmentRejections: FormState["attachmentRejections"]
+  attachmentRejections: FormState["attachmentRejections"],
 ): string {
   const fileSizeError = attachmentRejections.find(
-    (rejection) => rejection.code === "file-too-large"
+    (rejection) => rejection.code === "file-too-large",
   );
   return fileSizeError
     ? "File must be less than 20 MB."

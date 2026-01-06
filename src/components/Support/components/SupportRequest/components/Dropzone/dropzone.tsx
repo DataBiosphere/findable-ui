@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import {
   DropzoneProps as ReactDropzoneProps,
   useDropzone,

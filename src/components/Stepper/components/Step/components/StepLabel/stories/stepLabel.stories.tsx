@@ -3,7 +3,7 @@ import {
   type Meta,
   type StoryObj,
 } from "@storybook/nextjs-vite";
-import React, { ComponentProps } from "react";
+import { ComponentProps } from "react";
 import { CONTROL_TYPE } from "../../../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../../../storybook/controls/utils";
 import * as stories from "../components/Label/stories/label.stories";
@@ -16,7 +16,7 @@ const { Default: Label, WithIcon: LabelWithIcon } = composeStories(stories);
 const meta: Meta<typeof StepLabel> = {
   argTypes: configureControls<ComponentProps<typeof StepLabel>>(
     DISABLED_CONTROLS,
-    CONTROL_TYPE.DISABLED
+    CONTROL_TYPE.DISABLED,
   ),
   component: StepLabel,
   parameters: { controls: { exclude: EXCLUDED_CONTROLS } },

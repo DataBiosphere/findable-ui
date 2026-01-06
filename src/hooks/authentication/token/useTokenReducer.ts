@@ -13,7 +13,7 @@ export const useTokenReducer = (): TokenContextProps => {
   const [tokenState, tokenDispatch] = useReducer(
     tokenReducer,
     undefined,
-    () => DEFAULT_TOKEN_STATE
+    () => DEFAULT_TOKEN_STATE,
   );
   return { tokenDispatch, tokenState };
 };

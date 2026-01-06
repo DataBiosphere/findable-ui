@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { Main as ContentMain } from "../../../Main/main.styles";
 
 export interface MainProps {

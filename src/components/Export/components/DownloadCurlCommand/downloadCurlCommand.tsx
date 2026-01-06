@@ -1,4 +1,4 @@
-import React, { ElementType, useState } from "react";
+import { JSX, ElementType, useState } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
@@ -54,11 +54,11 @@ export const DownloadCurlCommand = ({
   } = useExploreState();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const curlCommand = getBulkDownloadCurlCommand(data, executionEnvironment);
   return curlCommand ? (
@@ -93,7 +93,7 @@ export const DownloadCurlCommand = ({
  */
 function getBulkDownloadCurlCommand(
   fileLocation?: FileLocation,
-  executionEnvironment?: ExecutionEnvironment
+  executionEnvironment?: ExecutionEnvironment,
 ): string | undefined {
   const { commandLine } = fileLocation || {};
   if (!commandLine || !executionEnvironment) {

@@ -52,9 +52,8 @@ jest.unstable_mockModule("../src/hooks/useRouteHistory", () => ({
 
 const Router = (await import("next/router")).default;
 const { useRouteHistory } = await import("../src/hooks/useRouteHistory");
-const { useSessionActive } = await import(
-  "../src/hooks/authentication/session/useSessionActive"
-);
+const { useSessionActive } =
+  await import("../src/hooks/authentication/session/useSessionActive");
 
 const MOCK_USE_ROUTE_HISTORY = useRouteHistory as jest.MockedFunction<
   typeof useRouteHistory
@@ -66,21 +65,21 @@ describe("useSessionActive", () => {
     MOCK_USE_ROUTE_HISTORY.mockReturnValue({
       callbackUrl: jest.fn(
         (transformFn?: TransformRouteFn | undefined) =>
-          transformFn?.(ROUTES) ?? ROOT_PATH
+          transformFn?.(ROUTES) ?? ROOT_PATH,
       ),
     });
   });
 
   test("does not redirect if auth status and authentication status is PENDING", () => {
     renderHook(() =>
-      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_PENDING)
+      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_PENDING),
     );
     expect(Router.push).not.toHaveBeenCalled();
   });
 
   test("does not redirect if auth status is PENDING and authentication status is SETTLED", () => {
     renderHook(() =>
-      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_SETTLED)
+      useSessionActive(AUTH_STATE_PENDING, AUTHENTICATION_STATE_SETTLED),
     );
     expect(Router.push).not.toHaveBeenCalled();
   });
@@ -89,8 +88,8 @@ describe("useSessionActive", () => {
     renderHook(() =>
       useSessionActive(
         AUTH_STATE_UNAUTHENTICATED_SETTLED,
-        AUTHENTICATION_STATE_SETTLED
-      )
+        AUTHENTICATION_STATE_SETTLED,
+      ),
     );
     expect(Router.push).toHaveBeenCalled();
   });
@@ -99,8 +98,8 @@ describe("useSessionActive", () => {
     renderHook(() =>
       useSessionActive(
         AUTH_STATE_AUTHENTICATED_SETTLED,
-        AUTHENTICATION_STATE_SETTLED
-      )
+        AUTHENTICATION_STATE_SETTLED,
+      ),
     );
     expect(Router.push).toHaveBeenCalledWith(ROUTES[1]);
   });

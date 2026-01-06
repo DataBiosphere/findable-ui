@@ -57,7 +57,7 @@ export function getBlob<T extends RowData>(table: Table<T>): Blob | undefined {
 
   // Get row data but only for downloadable columns.
   const tableData = rows.map((row) =>
-    downloadableColumnIds.map((columnId) => row.getValue(columnId))
+    downloadableColumnIds.map((columnId) => row.getValue(columnId)),
   );
 
   const tsv = formatDataToTSV([tableHeaders, ...tableData]);
@@ -70,7 +70,7 @@ export function getBlob<T extends RowData>(table: Table<T>): Blob | undefined {
  * @returns Columns configured to be downloadable.
  */
 export function getDownloadableColumns<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): Column<T>[] {
   return table.getAllColumns().filter((column) => column.getCanTableDownload());
 }

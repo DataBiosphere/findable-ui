@@ -8,7 +8,7 @@ import { isStringHeaderColumn } from "../../../../../../common/typeGuards";
  * @returns columns that are enabled to be grouped.
  */
 export function getCanGroupColumns<T extends RowData>(
-  columns: Column<T>[]
+  columns: Column<T>[],
 ): (Column<T> & { columnDef: { header: string } })[] {
   return columns
     .filter(isStringHeaderColumn)
@@ -21,7 +21,7 @@ export function getCanGroupColumns<T extends RowData>(
  * @returns number of visible columns.
  */
 export function getVisibleColumnCount<T extends RowData>(
-  columns: Column<T>[]
+  columns: Column<T>[],
 ): number {
   return columns
     .filter((column) => !isSystemColumn(column))
@@ -51,7 +51,7 @@ function isSystemColumn<T extends RowData>(column: Column<T>): boolean {
  */
 export function isToggleGroupingDisabled<T extends RowData>(
   column: Column<T>,
-  visibleCount: number
+  visibleCount: number,
 ): boolean {
   if (!column.getCanGroup() || !column.getIsVisible()) return true;
   return visibleCount === 1; // We should not be able to group the last visible column; at least one un-grouped column should be visible.

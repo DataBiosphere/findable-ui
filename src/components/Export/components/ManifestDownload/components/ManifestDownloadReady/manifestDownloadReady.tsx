@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { ElementType } from "react";
+import { JSX, ElementType } from "react";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";
 import {
   Section,

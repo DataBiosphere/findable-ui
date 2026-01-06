@@ -30,7 +30,7 @@ export function getComponent(href: string, isClientSide: boolean): ElementType {
  */
 export function getRelAttribute(
   rel: string | undefined,
-  isClientSideNavigation: boolean
+  isClientSideNavigation: boolean,
 ): string {
   if (rel) {
     assertAnchorRelAttribute(rel);
@@ -49,7 +49,7 @@ export function getRelAttribute(
  */
 export function getTargetAttribute(
   target: string | undefined,
-  isClientSideNavigation: boolean
+  isClientSideNavigation: boolean,
 ): string {
   if (target) {
     assertAnchorTargetAttribute(target);

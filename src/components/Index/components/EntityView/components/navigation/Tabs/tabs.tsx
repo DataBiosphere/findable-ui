@@ -1,5 +1,5 @@
 import Router from "next/router";
-import React, { useCallback, useMemo } from "react";
+import { JSX, useCallback, useMemo } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { useExploreState } from "../../../../../../../hooks/useExploreState";
 import { TabValue } from "../../../../../../common/Tabs/tabs";

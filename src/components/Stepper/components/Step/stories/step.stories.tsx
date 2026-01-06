@@ -4,7 +4,7 @@ import {
   type StoryObj,
   composeStories,
 } from "@storybook/nextjs-vite";
-import React, { ComponentProps } from "react";
+import { JSX, ComponentProps } from "react";
 import { CONTROL_TYPE } from "../../../../../storybook/controls/types";
 import { configureControls } from "../../../../../storybook/controls/utils";
 import { LOREM_IPSUM } from "../../../../../storybook/loremIpsum";
@@ -24,11 +24,11 @@ const meta: Meta<typeof Step> = {
   argTypes: {
     ...configureControls<ComponentProps<typeof Step>>(
       DISABLED_CONTROLS,
-      CONTROL_TYPE.DISABLED
+      CONTROL_TYPE.DISABLED,
     ),
     ...configureControls<ComponentProps<typeof Step>>(
       BOOLEAN_CONTROLS,
-      CONTROL_TYPE.BOOLEAN
+      CONTROL_TYPE.BOOLEAN,
     ),
     index: { control: { type: "number" } },
   },

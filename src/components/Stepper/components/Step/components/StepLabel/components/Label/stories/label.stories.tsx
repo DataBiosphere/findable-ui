@@ -3,7 +3,6 @@ import {
   type Meta,
   type StoryObj,
 } from "@storybook/nextjs-vite";
-import React from "react";
 import * as stories from "../components/Icon/stories/icon.stories";
 import { Label } from "../label";
 

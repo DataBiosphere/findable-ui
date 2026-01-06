@@ -1,6 +1,6 @@
 import { CardActionArea as MCardActionArea } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -28,7 +28,7 @@ export const CardActionArea = ({
         window.open(
           url,
           ANCHOR_TARGET.BLANK,
-          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
         );
       }
     }

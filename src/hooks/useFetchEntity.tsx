@@ -21,7 +21,7 @@ interface UseEntityDetailResponse<T> {
  * @returns Object with the loaded data and a flag indicating is the data is loading.
  */
 export const useFetchEntity = <T,>(
-  detailViewProps?: EntityDetailViewProps
+  detailViewProps?: EntityDetailViewProps,
 ): UseEntityDetailResponse<T> => {
   const { data: staticData, entityListType } = detailViewProps || {};
   const { token } = useToken();
@@ -40,9 +40,9 @@ export const useFetchEntity = <T,>(
         exploreMode !== EXPLORE_MODE.CS_FETCH_CS_FILTERING,
         Boolean(token), // TODO(cc), note a fetch is required if the token is true, but is unable to re-fetch on logout when token is undefined! Page is required to reload!
         Boolean(catalogState),
-        Boolean(entityResponse)
+        Boolean(entityResponse),
       ),
-    [catalogState, entityResponse, exploreMode, token]
+    [catalogState, entityResponse, exploreMode, token],
   );
   const isResponseLoading = shouldFetchEntity ? isIdle || isLoading : false;
 
@@ -73,7 +73,7 @@ function isFetchRequired(
   isServerSideFetch: boolean,
   isAuthenticated: boolean,
   isCatalogState: boolean,
-  hasEntityReponse: boolean
+  hasEntityReponse: boolean,
 ): boolean {
   if (isServerSideFetch) {
     return isAuthenticated || isCatalogState || !hasEntityReponse;

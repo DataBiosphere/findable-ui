@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { ComponentsConfig } from "../../../../config/entities";
 import { ComponentCreator } from "../../../ComponentCreator/ComponentCreator";
 

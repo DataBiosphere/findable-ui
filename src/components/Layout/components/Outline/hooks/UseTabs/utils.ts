@@ -10,7 +10,7 @@ import { DEFAULT_TAB_VALUE } from "./constants";
  */
 export function getNextValue(
   hash: string,
-  outlineItems: OutlineItem[]
+  outlineItems: OutlineItem[],
 ): TabsProps["value"] {
   const item = outlineItems.find((item) => item.hash === hash);
   if (!item || item.disabled) return DEFAULT_TAB_VALUE;

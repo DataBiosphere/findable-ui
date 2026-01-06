@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import { LoginDialog } from "../../components/common/LoginDialog/loginDialog";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 import { useConfig } from "../../hooks/useConfig";
@@ -64,7 +64,7 @@ export function LoginGuardProvider({
         cb?.();
       }
     },
-    [authConfig, exportsRequireAuth, isAuthenticated]
+    [authConfig, exportsRequireAuth, isAuthenticated],
   );
 
   return (

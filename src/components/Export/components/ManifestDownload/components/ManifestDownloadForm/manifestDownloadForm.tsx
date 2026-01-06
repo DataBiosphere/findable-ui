@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { FormFacet } from "../../../../common/entities";
 import { ExportButton } from "../../../ExportForm/components/ExportButton/exportButton";
 import {

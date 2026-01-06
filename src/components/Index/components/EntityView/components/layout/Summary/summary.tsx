@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import { Fragment, JSX } from "react";
 import { useSummary } from "../../../../../../../hooks/useSummary";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../../../../tests/testIds";

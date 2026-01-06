@@ -175,14 +175,14 @@ describe("Theme Configuration", () => {
 
           // Check ends with font-family.
           expect(fontValue).toMatch(
-            new RegExp(`${typographyValue.fontFamily}\\)$`)
+            new RegExp(`${typographyValue.fontFamily}\\)$`),
           );
 
           // Full pattern test.
           expect(fontValue).toMatch(
             new RegExp(
-              `^var\\(--font-${variant},\\s+\\d+\\s+\\d+px\\/\\d+px\\s+${typographyValue.fontFamily}\\)$`
-            )
+              `^var\\(--font-${variant},\\s+\\d+\\s+\\d+px\\/\\d+px\\s+${typographyValue.fontFamily}\\)$`,
+            ),
           );
         });
     });
@@ -209,7 +209,7 @@ describe("Theme Configuration", () => {
 
           // Full pattern test.
           expect((vars.palette as any)[color][shade]).toEqual(
-            `var(--palette-${color}-${shade}, ${value})`
+            `var(--palette-${color}-${shade}, ${value})`,
           );
         });
       });
@@ -270,10 +270,10 @@ describe("Theme Configuration", () => {
 
         // Confirm that breakpoint-based custom styles are present.
         expect(
-          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.xs)
+          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.xs),
         ).toBeTruthy();
         expect(
-          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.lg)
+          hasBreakpointKey(styleKeys, CUSTOM_BREAKPOINTS.values.lg),
         ).toBeTruthy();
       }
     });
@@ -291,7 +291,7 @@ describe("Theme Configuration", () => {
 
     it("should apply default background color", () => {
       expect(theme.palette.background.default).toEqual(
-        DEFAULT_PALETTE_BACKGROUND.default
+        DEFAULT_PALETTE_BACKGROUND.default,
       );
     });
 
@@ -328,7 +328,7 @@ describe("Theme Configuration", () => {
 
     it("should apply custom primary color when specified", () => {
       expect(customTheme.palette.primary.main).toEqual(
-        CUSTOM_PALETTE_PRIMARY.main
+        CUSTOM_PALETTE_PRIMARY.main,
       );
       // Validate that primary dark and lightest are not overridden.
       validatePaletteColor(customTheme.palette.primary, {
@@ -376,7 +376,7 @@ describe("Theme Configuration", () => {
       expect("body-400" in customTheme.typography).toBe(true);
       validateTypographyStyle(
         customTheme.typography["body-400"],
-        CUSTOM_BODY_400
+        CUSTOM_BODY_400,
       );
     });
 
@@ -403,7 +403,7 @@ describe("Theme Configuration", () => {
  */
 function filterTypographyVariants(value: string): boolean {
   return !/fontFamily|fontSize|fontWeightLight|fontWeightRegular|fontWeightMedium|fontWeightBold|htmlFontSize|allVariants/.test(
-    value
+    value,
   );
 }
 
@@ -415,7 +415,7 @@ function filterTypographyVariants(value: string): boolean {
  */
 function hasBreakpointKey(keys: string[], breakpoint: number): boolean {
   return keys.some(
-    (key) => /^@media/.test(key) && key.includes(String(breakpoint))
+    (key) => /^@media/.test(key) && key.includes(String(breakpoint)),
   );
 }
 
@@ -441,7 +441,7 @@ function isPaletteColor(color: unknown): color is PaletteColor {
  */
 function validatePaletteColor(
   actual: unknown,
-  expected: Record<string, string>
+  expected: Record<string, string>,
 ): void {
   expect(isPaletteColor(actual)).toBe(true);
   for (const [key, value] of Object.entries(expected)) {
@@ -457,7 +457,7 @@ function validatePaletteColor(
  */
 export function validateTypographyStyle(
   actual: TypographyStyle,
-  expected: TypographyStyle
+  expected: TypographyStyle,
 ): void {
   for (const [key, value] of Object.entries(expected)) {
     expect(actual[key]).toEqual(value);

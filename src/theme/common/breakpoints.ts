@@ -7,7 +7,7 @@ import { ThemeOptions } from "@mui/material";
  * @returns Breakpoint configuration object with values for xs, sm, md, lg breakpoints.
  */
 export const breakpoints = (
-  themeOptions: ThemeOptions
+  themeOptions: ThemeOptions,
 ): ThemeOptions["breakpoints"] => ({
   values: {
     lg: 1440,

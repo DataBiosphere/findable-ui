@@ -1,5 +1,5 @@
 import { Button as MButton, Typography } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { CLEAR_ALL } from "../../../../../common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { BUTTON_PROPS } from "../../../../common/Button/constants";

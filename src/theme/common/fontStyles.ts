@@ -7,7 +7,7 @@ import { ThemeOptions, TypographyVariantsOptions } from "@mui/material";
  * @returns Object containing fontFamily (custom or default "Inter").
  */
 export const fontStyles = (
-  themeOptions: ThemeOptions
+  themeOptions: ThemeOptions,
 ): Pick<TypographyVariantsOptions, "fontFamily"> => {
   const typography = themeOptions.typography || {};
 

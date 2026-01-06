@@ -1,6 +1,6 @@
 import { TableBody as MTableBody } from "@mui/material";
 import { Row, RowData, Table } from "@tanstack/react-table";
-import React from "react";
+import { JSX } from "react";
 import { ROW_DIRECTION } from "../../../../../Table/common/entities";
 import { TableView } from "../../table";
 import { CollapsableRows } from "../TableRows/components/CollapsableRows/collapsableRows";

@@ -1,5 +1,5 @@
 import { ListItemButtonProps } from "@mui/material";
-import React, { forwardRef } from "react";
+import { JSX, forwardRef } from "react";
 import { BaseComponentProps, TestIdProps } from "../../../../../../types";
 import { StyledListItemButton } from "./listItemButton.styles";
 
@@ -12,7 +12,7 @@ export const ListItemButton = forwardRef<
     testId,
     ...props /* MuiListItemButtonProps */
   }: BaseComponentProps & ListItemButtonProps & TestIdProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <StyledListItemButton

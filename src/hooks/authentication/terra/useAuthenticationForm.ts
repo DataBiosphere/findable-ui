@@ -43,7 +43,7 @@ export const useAuthenticationForm = (): UseAuthenticationForm => {
  * @returns true if all authentication steps are complete.
  */
 function isAuthenticationComplete(
-  onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>
+  onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>,
 ): boolean {
   for (const { completed } of onboardingStatusByStep.values()) {
     if (!completed) {
@@ -59,7 +59,7 @@ function isAuthenticationComplete(
  * @returns login statuses.
  */
 function concatLoginStatuses(
-  terraProfile: TerraProfileContextProps
+  terraProfile: TerraProfileContextProps,
 ): LoginStatus<LoginResponse>[] {
   const {
     terraNIHProfileLoginStatus,
@@ -88,7 +88,7 @@ function filterLoginStatus(loginStatus: LoginStatus<LoginResponse>): boolean {
  * @returns map of onboarding steps and their status.
  */
 function getOnboardingStatusByStep(
-  loginStatuses: LoginStatus<LoginResponse>[]
+  loginStatuses: LoginStatus<LoginResponse>[],
 ): Map<ONBOARDING_STEP, OnboardingStatus> {
   const onboardingStatusByStep = new Map();
   for (let i = 0; i < loginStatuses.length; i++) {
@@ -109,7 +109,7 @@ function getOnboardingStatusByStep(
  */
 function isStepActive(
   isSuccess: boolean,
-  onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>
+  onboardingStatusByStep: Map<ONBOARDING_STEP, OnboardingStatus>,
 ): boolean {
   for (const { active } of onboardingStatusByStep.values()) {
     if (active) {

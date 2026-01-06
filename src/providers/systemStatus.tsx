@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useMemo } from "react";
+import { createContext, JSX, ReactNode, useEffect, useMemo } from "react";
 import { fetchSystemStatusFromURL } from "../entity/api/service";
 import { useAsync } from "../hooks/useAsync";
 import { useCatalog } from "../hooks/useCatalog";
@@ -41,7 +41,7 @@ export interface SystemStatus {
  * System status context.
  */
 export const SystemStatusContext = createContext<SystemStatus>(
-  DEFAULT_SYSTEM_STATUS
+  DEFAULT_SYSTEM_STATUS,
 );
 
 export interface SystemStatusProps {
@@ -59,7 +59,7 @@ export function SystemStatusProvider<R>({
   // Build system status URL.
   const url = useMemo(
     () => getSystemStatusURL(apiPath, catalog),
-    [apiPath, catalog]
+    [apiPath, catalog],
   );
 
   // System status (raw) response.
@@ -103,7 +103,7 @@ export function SystemStatusProvider<R>({
  */
 function getSystemStatusURL(
   path: string | undefined,
-  catalog: string | undefined
+  catalog: string | undefined,
 ): string | undefined {
   if (!path || !catalog) return;
   const url = new URL(path);

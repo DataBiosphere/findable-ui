@@ -12,5 +12,5 @@ interface BaseStaticProps<F extends object> {
 
 export type StaticProps<
   F extends object,
-  P extends object
+  P extends object,
 > = BaseStaticProps<F> & P;

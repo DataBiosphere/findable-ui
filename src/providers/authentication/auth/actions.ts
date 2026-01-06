@@ -8,7 +8,7 @@ import { AuthState, UpdateAuthStatePayload } from "./types";
  */
 export function updateAuthState(
   state: AuthState,
-  payload: UpdateAuthStatePayload
+  payload: UpdateAuthStatePayload,
 ): AuthState {
   return {
     ...state,

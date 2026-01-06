@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import { JSX } from "react";
 import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
 import { ActionButton } from "./components/EntityView/components/controls/ActionButton/actionButton";
 import { ExportButton } from "./components/EntityView/components/controls/ExportButton/exportButton";

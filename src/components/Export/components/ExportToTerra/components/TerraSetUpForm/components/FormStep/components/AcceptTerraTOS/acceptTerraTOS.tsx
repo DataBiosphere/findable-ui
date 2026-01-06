@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
 import { useTerraProfile } from "../../../../../../../../../../providers/authentication/terra/hook";
 import { LoginStatus } from "../../../../../../../../../../providers/authentication/terra/hooks/common/entities";
@@ -31,7 +31,7 @@ export const AcceptTerraTOS = ({
       window.open(
         exportToTerraUrl,
         ANCHOR_TARGET.BLANK,
-        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
       );
     }
   };
@@ -68,7 +68,7 @@ export const AcceptTerraTOS = ({
  * @returns true if the terms of service have been accepted.
  */
 function isTermsOfServiceAccepted(
-  terraProfileLoginStatus: LoginStatus<TerraResponse>
+  terraProfileLoginStatus: LoginStatus<TerraResponse>,
 ): boolean {
   return Boolean(terraProfileLoginStatus.response?.enabled?.tosAccepted);
 }

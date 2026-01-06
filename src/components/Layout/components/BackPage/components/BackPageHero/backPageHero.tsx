@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from "react";
+import { JSX, Fragment, ReactNode } from "react";
 import {
   Breadcrumb,
   Breadcrumbs,

@@ -6,7 +6,7 @@ import { ColumnDef, RowData } from "@tanstack/react-table";
  * @returns generated column definitions.
  */
 export function generateColumnDefinitions<T extends RowData>(
-  columns: ColumnDef<T>[]
+  columns: ColumnDef<T>[],
 ): ColumnDef<T>[] {
   return columns.map((column) => {
     return {

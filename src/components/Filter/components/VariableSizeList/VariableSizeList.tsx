@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import {
   VariableSizeList as List,
   ListChildComponentProps,
@@ -78,7 +78,7 @@ export const VariableSizeList = ({
   const onUpdateItemSizeByItemKey = useCallback(
     (key: string, size: number): void =>
       updateItemSizeByItemKey(itemSizeByItemKeyRef.current, key, size),
-    []
+    [],
   );
 
   // Sets height of list.
@@ -90,8 +90,8 @@ export const VariableSizeList = ({
         itemSizeByItemKeyRef.current,
         surfaceType,
         windowHeight,
-        outerRef.current
-      )
+        outerRef.current,
+      ),
     );
   }, [initHeight, matchedItems, surfaceType, windowHeight]);
 
@@ -144,7 +144,7 @@ function calculateListHeight(
   itemSizeByItemKey: ItemSizeByItemKey,
   surfaceType: SURFACE_TYPE,
   windowHeight: number,
-  outerListElem: HTMLDivElement | null
+  outerListElem: HTMLDivElement | null,
 ): number {
   if (surfaceType === SURFACE_TYPE.DRAWER && outerListElem) {
     return windowHeight - outerListElem.getBoundingClientRect().top;
@@ -157,7 +157,7 @@ function calculateListHeight(
       acc += itemSizeByItemKey.get(key) || LIST_ITEM_HEIGHT;
       return acc;
     }, LIST_MARGIN * 2),
-    height
+    height,
   );
 }
 
@@ -170,7 +170,7 @@ function calculateListHeight(
 function updateItemSizeByItemKey(
   itemSizeByItemKey: ItemSizeByItemKey,
   key: string,
-  size: number
+  size: number,
 ): void {
   if (itemSizeByItemKey.has(key)) {
     return;

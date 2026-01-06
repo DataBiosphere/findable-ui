@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { StyledFluidPaper, StyledMarkdownRenderer } from "./description.styles";
 import { DescriptionProps } from "./types";
 

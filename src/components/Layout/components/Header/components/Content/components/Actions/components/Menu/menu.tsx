@@ -1,6 +1,6 @@
 import { MenuRounded } from "@mui/icons-material";
 import { Fade, IconButton, Dialog as MDialog } from "@mui/material";
-import React, { CSSProperties, forwardRef, Fragment, useEffect } from "react";
+import { JSX, CSSProperties, forwardRef, Fragment, useEffect } from "react";
 import { getMenuNavigationLinks } from "../../../../../../common/utils";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
@@ -32,7 +32,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
       pathname,
       style,
     }: MenuProps,
-    ref
+    ref,
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
 
@@ -75,5 +75,5 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
         </MDialog>
       </Fragment>
     );
-  }
+  },
 );

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { JSX, ReactNode, useEffect, useRef, useState } from "react";
 import {
   getBorderBoxSizeHeight,
   useResizeObserver,
@@ -77,7 +77,7 @@ export const EllipsisContent = ({
  * @returns line count of text rendered.
  */
 function calculateRenderedLineCount(
-  element: HTMLDivElement | null
+  element: HTMLDivElement | null,
 ): number | undefined {
   if (!element) {
     return;
@@ -119,7 +119,7 @@ function calculateRenderedLineCount(
 function getEllipsisMode(
   element: HTMLDivElement | null,
   maxLineCount: number,
-  currentMode: EllipsisMode = EllipsisMode.NONE
+  currentMode: EllipsisMode = EllipsisMode.NONE,
 ): EllipsisMode {
   // Calculate line count.
   const lineCount = calculateRenderedLineCount(element);

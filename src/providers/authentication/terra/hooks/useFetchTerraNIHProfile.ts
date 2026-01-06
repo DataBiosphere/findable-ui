@@ -41,7 +41,7 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
   const { services } = useAuthenticationConfig() || {};
   const endpoint = getServiceEndpoint(services, TERRA_SERVICE_ID, ENDPOINT_ID);
   const [loginStatus, setLoginStatus] = useState<Status>(
-    initLoginStatus(endpoint) as Status
+    initLoginStatus(endpoint) as Status,
   );
 
   // Fetch Terra NIH account profile.
@@ -71,7 +71,7 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
           setLoginStatus(LOGIN_STATUS_FAILED as Status);
         });
     },
-    []
+    [],
   );
 
   // Fetches Terra NIH account profile.
@@ -89,7 +89,7 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
  * @returns true if response is an error response.
  */
 function isResponseError(
-  response: TerraNIHResponse | LoginResponseError
+  response: TerraNIHResponse | LoginResponseError,
 ): response is LoginResponseError {
   return Boolean((response as LoginResponseError).statusCode);
 }

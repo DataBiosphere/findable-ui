@@ -6,7 +6,7 @@ import { ColumnFiltersState } from "@tanstack/react-table";
  * @returns The column filters.
  */
 export function buildColumnFilters(
-  filterStore: Record<string, unknown>
+  filterStore: Record<string, unknown>,
 ): ColumnFiltersState {
   return Object.entries(filterStore).reduce((acc, [id, value]) => {
     if (!value) return acc;

@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { PopoverPosition, PopoverProps } from "@mui/material";
-import React, { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { DrawerTransition } from "../../../../../Filter/components/Filter/components/DrawerTransition/drawerTransition";
 import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";

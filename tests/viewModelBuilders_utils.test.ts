@@ -43,7 +43,7 @@ test("sanitize string array containing null, undefined, and empty string values"
       null,
       "d",
       "e",
-    ] as any)
+    ] as any),
   ).toStrictEqual([
     "a",
     "Unspecified",
