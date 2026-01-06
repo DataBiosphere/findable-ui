@@ -11,8 +11,9 @@ export interface ColumnFiltersAdapterProps<T extends RowData> {
   renderSurface: (props: SurfaceProps) => JSX.Element | null;
   table: Table<T>;
 }
-export interface ColumnFiltersTableMeta<T extends RowData>
-  extends TanStackTableMeta<T> {
+export interface ColumnFiltersTableMeta<
+  T extends RowData,
+> extends TanStackTableMeta<T> {
   categoryGroups?: CategoryGroup[];
   filterSort?: FILTER_SORT;
 }

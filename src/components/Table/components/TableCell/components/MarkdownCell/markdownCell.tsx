@@ -7,7 +7,7 @@ import { StyledMarkdownRenderer } from "./markdownCell.styles";
 
 export const MarkdownCell = <
   T extends RowData,
-  TValue extends string = string
+  TValue extends string = string,
 >({
   className,
   column,

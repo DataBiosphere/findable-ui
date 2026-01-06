@@ -34,13 +34,13 @@ export const fetchEntitiesFromQuery = async (
   apiPath: string,
   listParams: AzulListParams,
   catalog: string | undefined,
-  accessToken: string | undefined
+  accessToken: string | undefined,
 ): Promise<AzulEntitiesResponse> => {
   const catalogParam = catalog ? { [AZUL_PARAM.CATALOG]: catalog } : undefined;
   const params = { ...getDefaultListParams(), ...catalogParam, ...listParams };
   const response = await fetchEntitiesFromURL(
     `${apiPath}?${convertUrlParams(params)}`,
-    accessToken
+    accessToken,
   );
   response.apiPath = apiPath;
   return response;
@@ -58,13 +58,13 @@ export const fetchAllEntities = async (
   apiPath: string,
   accessToken: string | undefined,
   catalog?: string,
-  listParams?: AzulListParams
+  listParams?: AzulListParams,
 ): Promise<AzulEntitiesResponse> => {
   const result = await fetchEntitiesFromQuery(
     apiPath,
     listParams ?? {},
     catalog,
-    accessToken
+    accessToken,
   );
   let hits = result.hits;
   let nextPage = result.pagination.next;
@@ -103,7 +103,7 @@ export const fetchEntityDetail = async (
   catalog: string | undefined,
   accessToken: string | undefined,
   defaultParams = getDefaultDetailParams(),
-  swallow404 = false
+  swallow404 = false,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- this response type can't be determined beforehand
 ): Promise<any> => {
   const catalogParam = catalog ? { [AZUL_PARAM.CATALOG]: catalog } : undefined;
@@ -113,7 +113,7 @@ export const fetchEntityDetail = async (
       ...defaultParams,
       ...catalogParam,
     })}`,
-    options
+    options,
   )
     .then((res) => {
       return res.json();
@@ -138,7 +138,7 @@ export const fetchEntityDetail = async (
 export const fetchSummary = async (
   filterState: FilterState,
   catalog: string | undefined,
-  accessToken: string | undefined
+  accessToken: string | undefined,
 ): Promise<AzulSummaryResponse> => {
   const { summaryConfig } = getConfig();
 
@@ -162,7 +162,7 @@ export const fetchSummary = async (
   const options = getKyRequestOptions(accessToken);
   const res = await fetchApi<AzulSummaryResponse>(
     `${apiPath}?${convertUrlParams({ ...summaryParams })}`,
-    options
+    options,
   );
   return await res.json();
 };
@@ -175,11 +175,11 @@ export const fetchSummary = async (
  */
 export const fetchSummaryFromURL = async (
   path: string,
-  accessToken: string | undefined
+  accessToken: string | undefined,
 ): Promise<AzulSummaryResponse> => {
   const res = await fetchApi<AzulSummaryResponse>(
     path,
-    getKyRequestOptions(accessToken)
+    getKyRequestOptions(accessToken),
   );
   return await res.json();
 };

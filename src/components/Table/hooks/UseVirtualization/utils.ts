@@ -10,7 +10,7 @@ import { ROW_DIRECTION } from "../../common/entities";
  */
 export function getRowsForVirtualization<T extends RowData>(
   table: Table<T>,
-  rowDirection: ROW_DIRECTION
+  rowDirection: ROW_DIRECTION,
 ): Row<T>[] {
   const { getRowModel, getState } = table;
   const { rows } = getRowModel();

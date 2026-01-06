@@ -14,7 +14,7 @@ import {
  */
 function getRegExpMatchRanges(
   str: string,
-  regExp: RegExp
+  regExp: RegExp,
 ): FilterMenuSearchMatchRange[] {
   return Array.from(str.matchAll(regExp), (match) => {
     const i = match.index as number; // type assertion to get around a TypeScript bug: https://github.com/microsoft/TypeScript/issues/36788
@@ -31,7 +31,7 @@ function getRegExpMatchRanges(
  * @returns a function for matching, or null if the search term doesn't limit search results (namely, if it's empty string)
  */
 function getMatchStringFn(
-  searchTerm: string
+  searchTerm: string,
 ): FilterMenuSearchMatchStringFn | null {
   if (!searchTerm) return null;
   const wordRegExps = searchTerm
@@ -62,7 +62,7 @@ function getMatchStringFn(
  * @returns a function for searching SelectCategoryValueView arrays
  */
 export function getSortMatchesFn(
-  searchTerm: string
+  searchTerm: string,
 ): FilterMenuSearchSortMatchesFn {
   const matchString = getMatchStringFn(searchTerm);
   if (!matchString) {

@@ -23,7 +23,7 @@ export interface UseHeaderVisibility {
  * @returns header component visibility.
  */
 export const useHeaderVisibility = (
-  headerProps: HeaderProps
+  headerProps: HeaderProps,
 ): UseHeaderVisibility => {
   const { breakpoint, lgUp, mdUp, smDown, smUp } = useBreakpoint();
   // Header configuration.

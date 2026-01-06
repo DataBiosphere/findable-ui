@@ -50,7 +50,6 @@ To enable trusted publishing for this package on npm, you need to:
 
 1. **Log in to npm** and navigate to the package settings for `@databiosphere/findable-ui`
 2. **Add a GitHub Actions Publishing Workflow**:
-
    - Go to the package's publishing settings
    - Click "Add GitHub Actions Publishing Workflow"
    - Configure the trusted publisher with:

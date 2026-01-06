@@ -7,7 +7,7 @@ import { UpdateGlobalFilterAction, UpdateGlobalFilterPayload } from "./types";
  * @returns Action with payload and action type.
  */
 export function updateGlobalFilter(
-  payload: UpdateGlobalFilterPayload
+  payload: UpdateGlobalFilterPayload,
 ): UpdateGlobalFilterAction {
   return {
     payload,

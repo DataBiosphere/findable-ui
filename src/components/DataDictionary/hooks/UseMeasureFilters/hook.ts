@@ -16,7 +16,7 @@ export const useMeasureFilters = (): UseMeasureFilters => {
   const filtersRect = useResizeObserver(
     filtersRef,
     getBorderBoxSizeHeight,
-    header.height > 0 // Only measure filters height, when header measurement is available.
+    header.height > 0, // Only measure filters height, when header measurement is available.
   );
   const { height = 0 } = filtersRect || {};
 

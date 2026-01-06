@@ -22,7 +22,7 @@ import {
 export function getPlotOptions(
   selectCategoryValueViews: SelectCategoryValueView[],
   totalCount: number,
-  width: number
+  width: number,
 ): PlotOptions {
   const isCategorySelected = isAnyValueSelected(selectCategoryValueViews);
   return {

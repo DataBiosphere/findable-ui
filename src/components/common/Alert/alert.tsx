@@ -8,7 +8,7 @@ export const Alert = forwardRef<
   AlertProps & BaseComponentProps
 >(function Alert(
   { children, className, ...props }: AlertProps & BaseComponentProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <StyledAlert className={className} ref={ref} {...props}>

@@ -6,7 +6,7 @@ import { CategoryKey, CategoryValueKey } from "../../../../../common/entities";
 export type OnFilterFn = (
   categoryKey: CategoryKey,
   selectedCategoryValue: CategoryValueKey,
-  selected: boolean
+  selected: boolean,
 ) => void;
 
 // Function invoked to update file manifest filters when selected state of a category is toggled.

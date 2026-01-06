@@ -5,8 +5,7 @@ import { BaseComponentProps } from "../../../types";
 import { SURFACE_TYPE } from "../surfaces/types";
 
 export interface FilterRangeProps
-  extends Omit<RangeCategoryView, "key" | "label">,
-    BaseComponentProps {
+  extends Omit<RangeCategoryView, "key" | "label">, BaseComponentProps {
   categoryKey: CategoryKey;
   categoryLabel: string;
   categorySection?: string;

@@ -28,7 +28,7 @@ export function parseSearchTerms(value: unknown): string[] {
 export function rankColumnValue<T extends RowData>(
   row: Row<T>,
   columnId: string,
-  terms: string[]
+  terms: string[],
 ): boolean {
   // Get the column value.
   const columnValue = row.getValue(columnId);
@@ -39,7 +39,7 @@ export function rankColumnValue<T extends RowData>(
   // Check if each term matches the column value.
   // Ranking from CASE_SENSITIVE_EQUAL to CONTAINS (excludes `ACRONYM`, `MATCHES` threshold).
   const rankings = terms.map((term) =>
-    rankItem(String(columnValue), term, RANK_ITEM_OPTIONS)
+    rankItem(String(columnValue), term, RANK_ITEM_OPTIONS),
   );
 
   return rankings.every(({ passed }) => passed);
@@ -55,7 +55,7 @@ export function rankColumnValue<T extends RowData>(
 export function rankRowColumns<T extends RowData>(
   row: Row<T>,
   columnId: string,
-  terms: string[]
+  terms: string[],
 ): void {
   // Process other columns.
   for (const { column } of row.getAllCells()) {

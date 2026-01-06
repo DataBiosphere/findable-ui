@@ -12,7 +12,7 @@ import { UrlToStatePayload } from "./types";
  */
 export function urlToStateAction(
   state: DataDictionaryState,
-  payload: UrlToStatePayload
+  payload: UrlToStatePayload,
 ): DataDictionaryState {
   if (typeof payload.query.dictionary !== "string") return state;
   return {
@@ -20,7 +20,7 @@ export function urlToStateAction(
     dictionaries: buildNextDictionaries(state, payload.query.dictionary, {
       columnFilters: parseJsonQueryParam(
         payload.query[DATA_DICTIONARY_URL_PARAMS.COLUMN_FILTERS],
-        []
+        [],
       ),
       globalFilter: payload.query[DATA_DICTIONARY_URL_PARAMS.GLOBAL_FILTER],
     }),

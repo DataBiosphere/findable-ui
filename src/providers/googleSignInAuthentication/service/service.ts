@@ -25,7 +25,7 @@ export const service = {
     dispatch: Pick<
       SessionDispatch,
       "authDispatch" | "authenticationDispatch" | "tokenDispatch"
-    >
+    >,
   ): void => {
     const client = google.accounts.oauth2.initTokenClient({
       callback: (response: TokenSetParameters) => {
@@ -41,7 +41,7 @@ export const service = {
               updateAuthentication({
                 profile: undefined,
                 status: AUTHENTICATION_STATUS.SETTLED,
-              })
+              }),
             );
             dispatch.tokenDispatch?.(resetTokenState());
           },
@@ -50,7 +50,7 @@ export const service = {
               updateAuthentication({
                 profile: profile(r),
                 status: AUTHENTICATION_STATUS.PENDING, // Authentication is pending until session controller is resolved.
-              })
+              }),
             ),
         });
       },

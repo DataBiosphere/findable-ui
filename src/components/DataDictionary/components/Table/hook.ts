@@ -13,7 +13,7 @@ import { buildClassMeta, buildTableData } from "./utils";
 export const useTable = <T extends RowData = Attribute>(
   dictionary: string,
   classes: Class<T>[],
-  tableOptions: Omit<TableOptions<T>, "data" | "getCoreRowModel">
+  tableOptions: Omit<TableOptions<T>, "data" | "getCoreRowModel">,
 ): Table<T> => {
   // Table data.
   const data = useMemo(() => buildTableData(classes), [classes]);

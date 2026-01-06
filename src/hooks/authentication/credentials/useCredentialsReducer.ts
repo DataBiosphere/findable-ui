@@ -7,7 +7,7 @@ export const useCredentialsReducer = (): CredentialsContextProps => {
   const [credentialsState, credentialsDispatch] = useReducer(
     credentialsReducer,
     undefined,
-    () => DEFAULT_CREDENTIALS_STATE
+    () => DEFAULT_CREDENTIALS_STATE,
   );
   return { credentialsDispatch, credentialsState };
 };

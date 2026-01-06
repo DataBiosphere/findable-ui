@@ -36,7 +36,7 @@ type RejectFn = (reason: FileLocation) => void;
  */
 function createFetchOptions(
   accessToken: string | undefined,
-  method: Method
+  method: Method,
 ): RequestInit {
   return {
     headers: accessToken ? { Authorization: "Bearer " + accessToken } : {},
@@ -54,7 +54,7 @@ function createFetchOptions(
 export const getFileLocation = async (
   url: string,
   accessToken: string | undefined,
-  method: Method
+  method: Method,
 ): Promise<FileLocation> => {
   const options = createFetchOptions(accessToken, method);
   const res = await fetch(url, options);
@@ -84,7 +84,7 @@ const scheduleFileLocation = (
   reject: RejectFn,
   active: MutableRefObject<boolean>,
   retryAfter = 0,
-  method: Method = METHOD.GET
+  method: Method = METHOD.GET,
 ): void => {
   setTimeout(() => {
     getFileLocation(url, accessToken, method).then((result: FileLocation) => {
@@ -102,7 +102,7 @@ const scheduleFileLocation = (
           resolve,
           reject,
           active,
-          result.retryAfter
+          result.retryAfter,
         );
       } else if (result.status === FILE_LOCATION_SUCCESSFULLY) {
         resolve(result);
@@ -121,7 +121,7 @@ const scheduleFileLocation = (
  */
 export const useRequestFileLocation = (
   url?: string,
-  method?: Method
+  method?: Method,
 ): UseRequestFileLocationResult => {
   const { token } = useToken();
   const {
@@ -145,7 +145,7 @@ export const useRequestFileLocation = (
       runAsync(
         new Promise<FileLocation>((resolve, reject) => {
           scheduleFileLocation(url, token, resolve, reject, active, 0, method);
-        })
+        }),
       );
     }
   }, [runAsync, token, url, method]);

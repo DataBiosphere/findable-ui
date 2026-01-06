@@ -196,8 +196,8 @@ export function ExploreStateProvider({
       entityList,
       decodedFilterParam,
       decodedCatalogParam,
-      decodedFeatureFlagParam
-    )
+      decodedFeatureFlagParam,
+    ),
   );
 
   const [exploreState, exploreDispatch] = useReducer(
@@ -206,7 +206,7 @@ export function ExploreStateProvider({
         config,
         entityList,
       }),
-    initializerArg
+    initializerArg,
   );
 
   // does this help? https://hswolff.com/blog/how-to-usecontext-with-usereducer/
@@ -402,7 +402,7 @@ export type UpdateSortingAction = {
 function exploreReducer(
   state: ExploreState,
   action: ExploreAction,
-  exploreContext: ExploreContext
+  exploreContext: ExploreContext,
 ): ExploreState {
   const { payload, type } = action;
   const { config, entityList } = exploreContext;
@@ -415,26 +415,26 @@ function exploreReducer(
       const filterState = buildNextSavedFilterState(
         state,
         payload.selectedValue,
-        payload.selected
+        payload.selected,
       );
       const rowPreview = closeRowPreview(state.rowPreview);
       const rowSelection: RowSelectionState = {};
       const savedFilterState = buildEntityStateSavedFilterState(
         payload.categoryKey,
         payload.selectedValue,
-        payload.selected
+        payload.selected,
       );
       const savedGrouping = getEntityStateSavedProperty(
         state,
         payload.selectedValue,
         payload.selected,
-        "grouping"
+        "grouping",
       );
       const savedSorting = getEntityStateSavedProperty(
         state,
         payload.selectedValue,
         payload.selected,
-        "sorting"
+        "sorting",
       );
       const grouping = savedGrouping || []; // Reset grouping to default if saved grouping is not available.
       const sorting = savedSorting || []; // Reset sorting to default if saved sorting is not available.
@@ -447,7 +447,7 @@ function exploreReducer(
         entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { grouping, rowPreview, rowSelection, sorting }
+          { grouping, rowPreview, rowSelection, sorting },
         ),
         filterCount: getFilterCount(filterState),
         filterState,
@@ -474,7 +474,7 @@ function exploreReducer(
         entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection }
+          { rowPreview, rowSelection },
         ),
         filterCount,
         filterState,
@@ -507,7 +507,7 @@ function exploreReducer(
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowPreview }
+          { rowPreview },
         ),
         paginationState: nextPaginationState,
         rowPreview,
@@ -522,12 +522,12 @@ function exploreReducer(
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowSelection: {} }
+          { rowSelection: {} },
         ),
         listItems: patchEntityListItems(
           state.listItems,
           payload.updatedListItems,
-          payload.listItemKey
+          payload.listItemKey,
         ),
       };
     }
@@ -545,7 +545,7 @@ function exploreReducer(
             ],
             entityState.categoryConfigs,
             [...state.filterState, ...entityState.savedFilterState],
-            state.filterSort
+            state.filterSort,
           )
         : state.categoryViews;
       const rowPreview = entityPageState.rowPreview;
@@ -590,7 +590,7 @@ function exploreReducer(
       }
       const entityState = getEntityState(
         state,
-        getEntityCategoryGroupConfigKey(payload, state.entityPageState)
+        getEntityCategoryGroupConfigKey(payload, state.entityPageState),
       );
       const rowPreview = closeRowPreview(state.rowPreview); // Close row preview, without updating the entity page state row preview.
       return {
@@ -638,10 +638,10 @@ function exploreReducer(
       } = payload;
       const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
         entityListType,
-        state.entityPageState
+        state.entityPageState,
       );
       const rowPreview = closeRowPreview(
-        state.entityPageState[entityListType].rowPreview
+        state.entityPageState[entityListType].rowPreview,
       );
       const rowSelection: RowSelectionState = {};
       const savedFilterState: SelectedFilter[] = [];
@@ -651,7 +651,7 @@ function exploreReducer(
           filterState,
           savedFilterState,
         },
-        categoryGroupConfigKey
+        categoryGroupConfigKey,
       );
       return {
         ...state,
@@ -659,7 +659,7 @@ function exploreReducer(
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
           { grouping, rowPreview, rowSelection, sorting },
-          categoryGroupConfigKey
+          categoryGroupConfigKey,
         ),
         rowPreview: closeRowPreview(state.rowPreview),
         ...(payload.entityListType === state.tabValue
@@ -689,7 +689,7 @@ function exploreReducer(
         payload.categoryKey,
         payload.selectedValue,
         payload.selected,
-        payload.viewKind
+        payload.viewKind,
       );
       const rowPreview = closeRowPreview(state.rowPreview);
       const rowSelection: RowSelectionState = {};
@@ -703,7 +703,7 @@ function exploreReducer(
         entities: buildNextEntities(state, state.tabValue, { filterState }),
         entityPageState: updateEntityPageStateWithCommonCategoryGroupConfigKey(
           state,
-          { rowPreview, rowSelection }
+          { rowPreview, rowSelection },
         ),
         filterCount: getFilterCount(filterState),
         filterState,
@@ -734,7 +734,7 @@ function exploreReducer(
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowPreview }
+          { rowPreview },
         ),
         rowPreview,
       };
@@ -749,7 +749,7 @@ function exploreReducer(
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowSelection }
+          { rowSelection },
         ),
       };
     }
@@ -764,7 +764,7 @@ function exploreReducer(
         entityPageState: updateEntityPageState(
           state.tabValue,
           state.entityPageState,
-          { rowPreview, sorting }
+          { rowPreview, sorting },
         ),
         paginationState: resetPage(state.paginationState),
         rowPreview,

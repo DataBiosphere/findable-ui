@@ -21,7 +21,7 @@ export function getProfileStatus(
   isUserAuthenticated: boolean,
   terraNIHProfileLoginStatus: LoginStatus<TerraNIHResponse>,
   terraProfileLoginStatus: LoginStatus<TerraResponse>,
-  terraTOSLoginStatus: LoginStatus<TerraTermsOfServiceResponse>
+  terraTOSLoginStatus: LoginStatus<TerraTermsOfServiceResponse>,
 ): TERRA_PROFILE_STATUS {
   if (!isUserAuthenticated) return TERRA_PROFILE_STATUS.PENDING;
 
@@ -35,7 +35,7 @@ export function getProfileStatus(
     ({ isSupported, requestStatus }) =>
       isSupported &&
       (requestStatus === REQUEST_STATUS.NOT_STARTED ||
-        requestStatus === REQUEST_STATUS.PENDING)
+        requestStatus === REQUEST_STATUS.PENDING),
   );
   if (isAnyServicePending) return TERRA_PROFILE_STATUS.PENDING;
 

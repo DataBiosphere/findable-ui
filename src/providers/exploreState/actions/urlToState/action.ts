@@ -21,7 +21,7 @@ import { decodeFilterParamValue } from "./utils";
  */
 export function urlToStateAction(
   state: ExploreState,
-  payload: UrlToStatePayload
+  payload: UrlToStatePayload,
 ): ExploreState {
   const { query } = payload;
 
@@ -45,14 +45,14 @@ export function urlToStateAction(
   // Grab the category group config key for the entityListType.
   const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     entityListType,
-    state.entityPageState
+    state.entityPageState,
   );
 
   // Update the entity state by category group config key.
   updateEntityStateByCategoryGroupConfigKey(
     state,
     { filterState, savedFilterState: [] },
-    categoryGroupConfigKey
+    categoryGroupConfigKey,
   );
 
   return {
@@ -61,7 +61,7 @@ export function urlToStateAction(
     entities: buildNextEntities(
       { ...state, catalogState, featureFlagState },
       entityListType,
-      { filterState }
+      { filterState },
     ),
     featureFlagState,
     filterCount:

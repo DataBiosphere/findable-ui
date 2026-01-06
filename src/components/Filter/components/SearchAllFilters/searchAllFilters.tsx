@@ -21,26 +21,25 @@ import { useAutocomplete } from "./context/hook";
 import { StyledAutocomplete } from "./searchAllFilters.styles";
 import { SearchAllFiltersProps } from "./types";
 
-const Listbox = React.forwardRef<HTMLUListElement, MListProps>(function Listbox(
-  props,
-  ref
-): JSX.Element {
-  props = Object.assign({}, props, {
-    children: undefined, // Content is controlled by VariableSizeList
-  });
-  const { onFilter, searchTerm, selectCategoryViews, surfaceType } =
-    useAutocomplete();
-  return (
-    <VariableSizeList
-      autocompleteListProps={props}
-      onFilter={onFilter}
-      ref={ref}
-      searchTerm={searchTerm}
-      selectCategoryViews={selectCategoryViews}
-      surfaceType={surfaceType}
-    />
-  );
-});
+const Listbox = React.forwardRef<HTMLUListElement, MListProps>(
+  function Listbox(props, ref): JSX.Element {
+    props = Object.assign({}, props, {
+      children: undefined, // Content is controlled by VariableSizeList
+    });
+    const { onFilter, searchTerm, selectCategoryViews, surfaceType } =
+      useAutocomplete();
+    return (
+      <VariableSizeList
+        autocompleteListProps={props}
+        onFilter={onFilter}
+        ref={ref}
+        searchTerm={searchTerm}
+        selectCategoryViews={selectCategoryViews}
+        surfaceType={surfaceType}
+      />
+    );
+  },
+);
 
 export const SearchAllFilters = ({
   categoryViews,
@@ -63,11 +62,11 @@ export const SearchAllFilters = ({
             document.querySelector(SELECTOR.BODY),
             document.getElementById(SELECTOR.SIDEBAR_POSITIONER),
           ],
-          overflowStyle
+          overflowStyle,
         );
       }
     },
-    [surfaceType]
+    [surfaceType],
   );
 
   const onClose = useCallback((): void => {

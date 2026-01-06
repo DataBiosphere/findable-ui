@@ -8,7 +8,7 @@ import { CredentialsState, UpdateCredentialsPayload } from "./types";
  */
 export function updateCredentialsAction(
   state: CredentialsState,
-  payload: UpdateCredentialsPayload
+  payload: UpdateCredentialsPayload,
 ): CredentialsState {
   return {
     ...state,

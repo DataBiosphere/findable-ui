@@ -48,11 +48,11 @@ export const ExportToTerra = ({
   const fileManifestFormatState = useFileManifestFormat(manifestDownloadFormat);
   const { requestMethod, requestParams, requestUrl } = useRequestManifest(
     fileManifestFormatState.fileManifestFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const exportURL = useExportToTerraResponseURL(requestParams, data);
   return exportURL ? (

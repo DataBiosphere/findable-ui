@@ -7,7 +7,7 @@ import { FrontmatterProps } from "./types";
  * @returns Frontmatter.
  */
 export function validateMatter<F extends object>(
-  data: matter.GrayMatterFile<string>["data"]
+  data: matter.GrayMatterFile<string>["data"],
 ): FrontmatterProps<F> | undefined {
   if (
     "title" in data &&

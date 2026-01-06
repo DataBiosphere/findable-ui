@@ -37,7 +37,7 @@ export const useFetchTerraTermsOfService = (token?: string): Status => {
   const { services } = useAuthenticationConfig() || {};
   const endpoint = getServiceEndpoint(services, TERRA_SERVICE_ID, ENDPOINT_ID);
   const [loginStatus, setLoginStatus] = useState<Status>(
-    initLoginStatus(endpoint) as Status
+    initLoginStatus(endpoint) as Status,
   );
 
   // Fetch Terra terms of service.
@@ -67,7 +67,7 @@ export const useFetchTerraTermsOfService = (token?: string): Status => {
           setLoginStatus(LOGIN_STATUS_FAILED as Status);
         });
     },
-    []
+    [],
   );
 
   // Fetches Terra terms of service.
@@ -85,7 +85,7 @@ export const useFetchTerraTermsOfService = (token?: string): Status => {
  * @returns true if response is an error response.
  */
 function isResponseError(
-  response: TerraTermsOfServiceResponse | LoginResponseError
+  response: TerraTermsOfServiceResponse | LoginResponseError,
 ): response is LoginResponseError {
   return Boolean((response as LoginResponseError).statusCode);
 }

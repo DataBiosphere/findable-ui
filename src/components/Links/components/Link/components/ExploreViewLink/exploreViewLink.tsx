@@ -19,8 +19,10 @@ const PARAM_FILTER = "filter";
 const PARAM_GROUPING = "grouping";
 const PARAM_SORTING = "sorting";
 
-export interface ExploreViewLinkProps
-  extends Omit<LinkProps, "copyable" | "noWrap" | "TypographyProps" | "url"> {
+export interface ExploreViewLinkProps extends Omit<
+  LinkProps,
+  "copyable" | "noWrap" | "TypographyProps" | "url"
+> {
   url: UrlObjectWithHrefAndQuery;
 }
 
@@ -76,7 +78,7 @@ function getEntityListType(href: UrlObjectWithHrefAndQuery["href"]): string {
  * @returns grouping.
  */
 function getGrouping(
-  query: UrlObjectWithHrefAndQuery["query"]
+  query: UrlObjectWithHrefAndQuery["query"],
 ): GroupingState | undefined {
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
@@ -89,7 +91,7 @@ function getGrouping(
  * @returns selected filters.
  */
 function getSelectedFilters(
-  query: UrlObjectWithHrefAndQuery["query"]
+  query: UrlObjectWithHrefAndQuery["query"],
 ): SelectedFilter[] {
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
@@ -102,7 +104,7 @@ function getSelectedFilters(
  * @returns sorting.
  */
 function getSorting(
-  query: UrlObjectWithHrefAndQuery["query"]
+  query: UrlObjectWithHrefAndQuery["query"],
 ): ColumnSort[] | undefined {
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
@@ -145,7 +147,7 @@ function isValidJsonString(query: string): boolean {
  */
 function isValidExploreURL(
   url: UrlObjectWithHrefAndQuery,
-  exploreState: ExploreState
+  exploreState: ExploreState,
 ): boolean {
   const validHref = isValidHref(url, exploreState);
   const validQuery = isValidQuery(url);
@@ -160,7 +162,7 @@ function isValidExploreURL(
  */
 function isValidHref(
   url: UrlObjectWithHrefAndQuery,
-  exploreState: ExploreState
+  exploreState: ExploreState,
 ): boolean {
   const { entityPageState } = exploreState;
   const { href } = url;
@@ -201,6 +203,6 @@ function isValidQuery(url: UrlObjectWithHrefAndQuery): boolean {
  */
 function throwError(url: UrlObject): never {
   throw new Error(
-    `Invalid explore URL href or query: ${url.href}, ${url.query}`
+    `Invalid explore URL href or query: ${url.href}, ${url.query}`,
   );
 }

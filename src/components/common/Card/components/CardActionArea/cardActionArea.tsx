@@ -28,7 +28,7 @@ export const CardActionArea = ({
         window.open(
           url,
           ANCHOR_TARGET.BLANK,
-          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+          REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
         );
       }
     }

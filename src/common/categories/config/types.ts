@@ -24,8 +24,7 @@ export interface CommonCategoryConfig {
  * Range category config.
  */
 export interface RangeCategoryConfig
-  extends CommonCategoryConfig,
-    RangeViewKind {
+  extends CommonCategoryConfig, RangeViewKind {
   unit?: string; // e.g. "kg"
 }
 
@@ -33,10 +32,9 @@ export interface RangeCategoryConfig
  * Select category config.
  */
 export interface SelectCategoryConfig
-  extends CommonCategoryConfig,
-    SelectViewKind {
+  extends CommonCategoryConfig, SelectViewKind {
   enableChartView?: boolean;
   mapSelectCategoryValue?: (
-    selectCategoryValue: SelectCategoryValueView
+    selectCategoryValue: SelectCategoryValueView,
   ) => SelectCategoryValueView;
 }

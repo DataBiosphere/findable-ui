@@ -16,7 +16,7 @@ export function fuzzy<T extends RowData>(
   row: Row<T>,
   columnId: string,
   value: unknown,
-  addMeta: (meta: FilterMeta) => void
+  addMeta: (meta: FilterMeta) => void,
 ): boolean {
   // Split the search term into terms.
   const terms = parseSearchTerms(value);

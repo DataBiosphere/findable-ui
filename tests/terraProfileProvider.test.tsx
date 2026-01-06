@@ -27,33 +27,29 @@ jest.unstable_mockModule(
   "../src/providers/authentication/authentication/hook",
   () => ({
     useAuthentication: jest.fn(),
-  })
+  }),
 );
 jest.unstable_mockModule(
   "../src/providers/authentication/credentials/hook",
   () => ({
     useCredentials: jest.fn(),
-  })
+  }),
 );
 jest.unstable_mockModule(
   "../src/providers/authentication/terra/hooks/useFetchProfiles",
   () => ({
     useFetchProfiles: jest.fn(),
-  })
+  }),
 );
 
-const { useAuthentication } = await import(
-  "../src/providers/authentication/authentication/hook"
-);
-const { useCredentials } = await import(
-  "../src/providers/authentication/credentials/hook"
-);
-const { useFetchProfiles } = await import(
-  "../src/providers/authentication/terra/hooks/useFetchProfiles"
-);
-const { TerraProfileProvider } = await import(
-  "../src/providers/authentication/terra/provider"
-);
+const { useAuthentication } =
+  await import("../src/providers/authentication/authentication/hook");
+const { useCredentials } =
+  await import("../src/providers/authentication/credentials/hook");
+const { useFetchProfiles } =
+  await import("../src/providers/authentication/terra/hooks/useFetchProfiles");
+const { TerraProfileProvider } =
+  await import("../src/providers/authentication/terra/provider");
 
 const MOCK_AUTHENTICATION_DISPATCH = jest.fn();
 const MOCK_CREDENTIALS_DISPATCH = jest.fn();
@@ -85,7 +81,7 @@ describe("TerraProfileProvider", () => {
     render(
       <TerraProfileProvider token={TOKEN}>
         <div>Child Component</div>
-      </TerraProfileProvider>
+      </TerraProfileProvider>,
     );
     expect(MOCK_AUTHENTICATION_DISPATCH).not.toHaveBeenCalled();
     expect(MOCK_CREDENTIALS_DISPATCH).not.toHaveBeenCalled();
@@ -96,10 +92,10 @@ describe("TerraProfileProvider", () => {
     render(
       <TerraProfileProvider token={TOKEN}>
         <div>Child Component</div>
-      </TerraProfileProvider>
+      </TerraProfileProvider>,
     );
     expect(MOCK_AUTHENTICATION_DISPATCH).toHaveBeenCalledWith(
-      authenticationComplete()
+      authenticationComplete(),
     );
     expect(MOCK_CREDENTIALS_DISPATCH).not.toHaveBeenCalled();
   });
@@ -109,13 +105,13 @@ describe("TerraProfileProvider", () => {
     render(
       <TerraProfileProvider token={TOKEN}>
         <div>Child Component</div>
-      </TerraProfileProvider>
+      </TerraProfileProvider>,
     );
     expect(MOCK_AUTHENTICATION_DISPATCH).toHaveBeenCalledWith(
-      authenticationComplete()
+      authenticationComplete(),
     );
     expect(MOCK_CREDENTIALS_DISPATCH).toHaveBeenCalledWith(
-      updateCredentials(TOKEN)
+      updateCredentials(TOKEN),
     );
   });
 });

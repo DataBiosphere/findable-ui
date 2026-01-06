@@ -9,7 +9,7 @@ import { RowData } from "@tanstack/react-table";
  */
 export function rowHasKey<T extends RowData, K extends PropertyKey, TValue>(
   row: T,
-  key: K
+  key: K,
 ): row is T & Record<K, TValue> {
   return row != null && typeof row === "object" && key in row;
 }

@@ -12,7 +12,7 @@ import { buildNextColumnFilters } from "./utils";
  */
 export function updateColumnFiltersAction(
   state: DataDictionaryState,
-  payload: UpdateColumnFiltersPayload
+  payload: UpdateColumnFiltersPayload,
 ): DataDictionaryState {
   return {
     ...state,

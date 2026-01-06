@@ -24,7 +24,7 @@ export const useFetchFilesFacets = (
   filters: Filters,
   catalog: string,
   searchParams: SearchParams | undefined,
-  isEnabled: boolean
+  isEnabled: boolean,
 ): FetchFilesFacets => {
   const { token } = useToken();
   // Build request params.
@@ -37,7 +37,7 @@ export const useFetchFilesFacets = (
   // Bind facets.
   const { facets } = useMemo(
     () => bindEntitySearchResultsResponse(data, filters),
-    [data, filters]
+    [data, filters],
   );
 
   // Fetch facets from files endpoint.

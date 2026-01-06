@@ -53,7 +53,7 @@ export default function SearchBar({
    * @param event - Change event on input element.
    */
   const handleChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
   ): void => {
     setSearchTerm(event.target.value);
   };
@@ -76,7 +76,7 @@ export default function SearchBar({
     (
       formEvent: FormEvent<HTMLFormElement>,
       searchStr: string,
-      url?: string
+      url?: string,
     ): void => {
       formEvent.preventDefault();
       if (searchStr && url) {
@@ -98,7 +98,7 @@ export default function SearchBar({
         throw new Error("Invalid search URL.");
       }
     },
-    [closeMenu, closeSearch, searchParams]
+    [closeMenu, closeSearch, searchParams],
   );
 
   return (

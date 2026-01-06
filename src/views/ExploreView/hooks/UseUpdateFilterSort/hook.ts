@@ -13,7 +13,7 @@ export const useUpdateFilterSort = (): UseUpdateFilterSort => {
 
   const onFilterSortChange = useCallback(
     (filterSort: FILTER_SORT) => exploreDispatch(updateFilterSort(filterSort)),
-    [exploreDispatch]
+    [exploreDispatch],
   );
 
   return { enabled, filterSort, onFilterSortChange };

@@ -26,7 +26,7 @@ export interface ManifestSpreadsheet {
  * @returns file manifest spreadsheet.
  */
 export const useFileManifestSpreadsheet = (
-  filters: Filters
+  filters: Filters,
 ): Omit<ManifestSpreadsheet, "fileUrl"> => {
   // Determine catalog.
   const catalog = useCatalog() as string; // catalog should be defined.
@@ -45,7 +45,7 @@ export const useFileManifestSpreadsheet = (
   // Grab manifest spreadsheet.
   const { fileName, fileUrl } = useMemo(
     () => getManifestSpreadsheet(files?.hits),
-    [files]
+    [files],
   );
 
   // Fetch file manifest.
@@ -93,7 +93,7 @@ function buildFetchFileUrl(fileUrl?: string): string | undefined {
  * @returns manifest spreadsheet.
  */
 function getManifestSpreadsheet(
-  files?: AzulEntitiesResponse["hits"]
+  files?: AzulEntitiesResponse["hits"],
 ): Pick<ManifestSpreadsheet, "fileName" | "fileUrl"> {
   if (!files) return { fileName: undefined, fileUrl: undefined };
 

@@ -9,8 +9,7 @@ import { ALERT_PROPS } from "./constants";
 import { StyledAlert } from "./cookieBanner.styles";
 
 export interface CookieBannerProps
-  extends Omit<AlertProps, "children">,
-    BaseComponentProps {
+  extends Omit<AlertProps, "children">, BaseComponentProps {
   localStorageKey: string;
   message?: ReactNode;
   secondaryAction?: ReactNode;

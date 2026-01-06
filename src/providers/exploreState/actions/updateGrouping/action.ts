@@ -12,7 +12,7 @@ import { buildNextGrouping } from "./utils";
  */
 export function updateGroupingAction(
   state: ExploreState,
-  payload: UpdateGroupingPayload
+  payload: UpdateGroupingPayload,
 ): ExploreState {
   const grouping = buildNextGrouping(state, payload.updaterOrValue);
   return {
@@ -20,7 +20,7 @@ export function updateGroupingAction(
     entityPageState: updateEntityPageState(
       state.tabValue,
       state.entityPageState,
-      { grouping }
+      { grouping },
     ),
   };
 }

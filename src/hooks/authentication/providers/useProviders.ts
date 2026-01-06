@@ -16,7 +16,7 @@ export const useProviders = (): UseProviders => {
     (providerId: ProviderId) => {
       return providers?.find(({ id }) => id === providerId);
     },
-    [providers]
+    [providers],
   );
 
   return { findProvider, providers };

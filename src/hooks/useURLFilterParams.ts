@@ -11,7 +11,7 @@ interface UseURLFilterParamsResult {
   updateFilterQueryString: (
     catalogState: CatalogState,
     featureFlagState: FeatureFlagState,
-    filterState: SelectedFilter[]
+    filterState: SelectedFilter[],
   ) => void;
 }
 
@@ -32,7 +32,7 @@ export const useURLFilterParams = (): UseURLFilterParamsResult => {
     (
       catalogState: CatalogState,
       featureFlagState: FeatureFlagState,
-      filterState: SelectedFilter[]
+      filterState: SelectedFilter[],
     ) => {
       if (
         catalogParam !== catalogState ||
@@ -51,12 +51,12 @@ export const useURLFilterParams = (): UseURLFilterParamsResult => {
           undefined,
           {
             shallow: true,
-          }
+          },
         );
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- push method isn't memoized and shouldn't be added as deps https://github.com/vercel/next.js/issues/18127
-    [catalogParam, featureFlagParam, filterParam, href]
+    [catalogParam, featureFlagParam, filterParam, href],
   );
 
   return {

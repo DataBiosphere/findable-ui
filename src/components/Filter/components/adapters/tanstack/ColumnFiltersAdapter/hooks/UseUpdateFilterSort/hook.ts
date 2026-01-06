@@ -5,17 +5,17 @@ import { UseUpdateFilterSort } from "./types";
 import { initFilterSort, isFilterSortEnabled } from "./utils";
 
 export const useUpdateFilterSort = <T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): UseUpdateFilterSort => {
   const [filterSort, setFilterSort] = useState<FILTER_SORT>(
-    initFilterSort(table)
+    initFilterSort(table),
   );
 
   const enabled = useMemo(() => isFilterSortEnabled(table), [table]);
 
   const onFilterSortChange = useCallback(
     (value: FILTER_SORT) => setFilterSort(value),
-    []
+    [],
   );
 
   return { enabled, filterSort, onFilterSortChange };

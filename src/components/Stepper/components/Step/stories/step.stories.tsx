@@ -24,11 +24,11 @@ const meta: Meta<typeof Step> = {
   argTypes: {
     ...configureControls<ComponentProps<typeof Step>>(
       DISABLED_CONTROLS,
-      CONTROL_TYPE.DISABLED
+      CONTROL_TYPE.DISABLED,
     ),
     ...configureControls<ComponentProps<typeof Step>>(
       BOOLEAN_CONTROLS,
-      CONTROL_TYPE.BOOLEAN
+      CONTROL_TYPE.BOOLEAN,
     ),
     index: { control: { type: "number" } },
   },

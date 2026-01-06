@@ -5,7 +5,7 @@ import { StyledTable } from "./table.styles";
 export const Table = (
   props: BaseComponentProps &
     ClassAttributes<HTMLTableElement> &
-    TableHTMLAttributes<HTMLTableElement>
+    TableHTMLAttributes<HTMLTableElement>,
 ): JSX.Element => {
   return (
     <StyledTable className={props.className}>{props.children}</StyledTable>

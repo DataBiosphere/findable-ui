@@ -15,7 +15,7 @@ import { INACTIVITY_PARAM } from "./useSessionTimeout";
 
 export const useSessionActive = (
   authState: AuthState,
-  authenticationState: AuthenticationState
+  authenticationState: AuthenticationState,
 ): void => {
   const { status: authStatus } = authState;
   const { status: authenticationStatus } = authenticationState;
@@ -45,7 +45,7 @@ export function transformRoute(routes: string[]): string | undefined {
     }
     return route?.replace(
       new RegExp(`\\?${escapeRegExp(INACTIVITY_PARAM)}(?:$|[=&].*)`),
-      ""
+      "",
     );
   }
 }

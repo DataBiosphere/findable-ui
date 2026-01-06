@@ -5,7 +5,7 @@ import { getTokens, getTokensRegex, isRankedCell } from "./utils";
 
 export const RankedCell = <
   T extends RowData,
-  TValue = string | undefined | null
+  TValue = string | undefined | null,
 >({
   /* children - e.g. AnchorLink component */
   children,

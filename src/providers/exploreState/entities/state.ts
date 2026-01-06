@@ -12,7 +12,7 @@ import { EntitiesContext, EntityState } from "./types";
 export function buildNextEntities(
   state: ExploreState,
   entityListType: string,
-  nextEntityState: Pick<EntityState, "filterState">
+  nextEntityState: Pick<EntityState, "filterState">,
 ): EntitiesContext {
   // Get the entity key for the current entity.
   // Other entities may share the same key and therefore filter state.

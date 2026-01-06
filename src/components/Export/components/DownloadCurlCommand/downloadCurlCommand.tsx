@@ -54,11 +54,11 @@ export const DownloadCurlCommand = ({
   } = useExploreState();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
-    formFacet
+    formFacet,
   );
   const { data, isLoading, run } = useRequestFileLocation(
     requestUrl,
-    requestMethod
+    requestMethod,
   );
   const curlCommand = getBulkDownloadCurlCommand(data, executionEnvironment);
   return curlCommand ? (
@@ -93,7 +93,7 @@ export const DownloadCurlCommand = ({
  */
 function getBulkDownloadCurlCommand(
   fileLocation?: FileLocation,
-  executionEnvironment?: ExecutionEnvironment
+  executionEnvironment?: ExecutionEnvironment,
 ): string | undefined {
   const { commandLine } = fileLocation || {};
   if (!commandLine || !executionEnvironment) {

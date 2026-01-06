@@ -16,7 +16,7 @@ const { Default: Label, WithIcon: LabelWithIcon } = composeStories(stories);
 const meta: Meta<typeof StepLabel> = {
   argTypes: configureControls<ComponentProps<typeof StepLabel>>(
     DISABLED_CONTROLS,
-    CONTROL_TYPE.DISABLED
+    CONTROL_TYPE.DISABLED,
   ),
   component: StepLabel,
   parameters: { controls: { exclude: EXCLUDED_CONTROLS } },

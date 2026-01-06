@@ -8,7 +8,7 @@ import { Row, RowData, Table } from "@tanstack/react-table";
  */
 export function getSelectionValidation<T extends RowData>(
   row: Row<T>,
-  table: Table<T>
+  table: Table<T>,
 ): string | undefined {
   if (!table.options.enableRowSelectionValidation) return;
   return table.options.getRowSelectionValidation?.(row);

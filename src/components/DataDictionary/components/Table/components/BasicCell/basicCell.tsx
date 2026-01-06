@@ -6,7 +6,7 @@ import { parseValue } from "./utils";
 
 export const BasicCell = <
   T extends RowData,
-  TValue extends ReactNode = ReactNode
+  TValue extends ReactNode = ReactNode,
 >({
   getValue,
 }: CellContext<T, TValue>): JSX.Element | null => {

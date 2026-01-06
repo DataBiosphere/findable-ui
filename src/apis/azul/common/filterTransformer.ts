@@ -52,7 +52,7 @@ export function transformFilters(filters: Filters): string {
 }
 
 export function transformAzulPagination(
-  azulPagination: AzulPaginationResponse | undefined
+  azulPagination: AzulPaginationResponse | undefined,
 ): PaginationResponse {
   if (!azulPagination) {
     return {
@@ -74,7 +74,7 @@ export function transformAzulPagination(
 
 function extractIndex(
   type: AzulSearchIndex,
-  urlString: string | undefined
+  urlString: string | undefined,
 ): PaginationIndex | null {
   if (!urlString) {
     return null;
@@ -95,7 +95,7 @@ function extractIndex(
  */
 export function transformTermFacets(
   termFacets: AzulTermFacets,
-  filterState: SelectedFilter[]
+  filterState: SelectedFilter[],
 ): SelectCategory[] {
   const categories: SelectCategory[] = [];
 
@@ -104,7 +104,7 @@ export function transformTermFacets(
     const termFacet = termFacets[key];
     // Build a set of filter state category values for the category.
     const setOfFilterStateValues = new Set(
-      filterState.find(({ categoryKey }) => categoryKey === key)?.value
+      filterState.find(({ categoryKey }) => categoryKey === key)?.value,
     );
 
     // Build category values from terms of term facet.
@@ -121,7 +121,7 @@ export function transformTermFacets(
           label: term.term ?? LABEL.UNSPECIFIED,
           selected: false, // Selected state updated in filter hook.
         };
-      }
+      },
     );
 
     // Add remaining filter state category values to the category values. This allows us to maintain the selected

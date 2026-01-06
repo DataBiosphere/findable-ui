@@ -28,7 +28,7 @@ import { useExploreState } from "./useExploreState";
  * @returns Model of the entities list including pagination, sort, filter and loading indicator.
  */
 export const useEntityList = (
-  staticResponse: AzulEntitiesStaticResponse
+  staticResponse: AzulEntitiesStaticResponse,
 ): void => {
   const { data: staticData, entityListType } = staticResponse;
   const { token } = useToken();
@@ -51,7 +51,7 @@ export const useEntityList = (
   const shouldDispatchResponse = isDispatchable(
     exploreMode,
     data?.apiPath === apiPath,
-    entityListType === tabValue
+    entityListType === tabValue,
   );
   const isFetching = isIdle || isLoading;
 
@@ -164,7 +164,7 @@ export const useEntityList = (
  */
 function getEntities<T>(
   staticData?: AzulEntitiesResponse<T>,
-  serverData?: AzulEntitiesResponse<T>
+  serverData?: AzulEntitiesResponse<T>,
 ): AzulEntitiesResponse<T>["hits"] | undefined {
   if (staticData && staticData.hits.length > 0) {
     return staticData.hits;
@@ -182,7 +182,7 @@ function getEntities<T>(
 function isDispatchable(
   exploreMode: ExploreMode,
   shouldDispatchServerResponse: boolean,
-  shouldDispatchStaticResponse: boolean
+  shouldDispatchStaticResponse: boolean,
 ): boolean {
   return exploreMode === EXPLORE_MODE.CS_FETCH_CS_FILTERING
     ? shouldDispatchStaticResponse
@@ -197,7 +197,7 @@ function isDispatchable(
  */
 function mapEntities<T, I>(
   entities: (T | I)[],
-  entityMapper?: EntityMapper<T, I>
+  entityMapper?: EntityMapper<T, I>,
 ): T[] {
   if (entityMapper) {
     return (entities as I[]).map(entityMapper);

@@ -7,7 +7,7 @@ import { SelectListItemProps } from "./types";
 export const SelectListItem = forwardRef<HTMLDivElement, SelectListItemProps>(
   function SelectListItem(
     { slotProps }: SelectListItemProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <ListItemButton ref={ref} {...slotProps.listItemButton}>
@@ -15,5 +15,5 @@ export const SelectListItem = forwardRef<HTMLDivElement, SelectListItemProps>(
         <ListItemText {...slotProps.listItemText} />
       </ListItemButton>
     );
-  }
+  },
 );

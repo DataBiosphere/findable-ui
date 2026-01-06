@@ -7,7 +7,7 @@ import { isStringHeaderColumn } from "../../../../common/typeGuards";
  * @returns button label.
  */
 export function getButtonLabel<T extends RowData>(
-  columns: Column<T>[]
+  columns: Column<T>[],
 ): string {
   const headers = columns
     .filter(isColumnGrouped)
@@ -32,7 +32,7 @@ function isColumnGrouped<T extends RowData>(column: Column<T>): boolean {
  * @returns header.
  */
 function mapGroupedHeader<T extends RowData>(
-  column: Column<T> & { columnDef: { header: string } }
+  column: Column<T> & { columnDef: { header: string } },
 ): string {
   return column.columnDef.header;
 }

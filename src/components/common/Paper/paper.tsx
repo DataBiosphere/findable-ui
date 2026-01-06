@@ -29,7 +29,7 @@ export interface PaperProps extends TestIdProps {
 
 export const Paper = forwardRef<HTMLDivElement, PaperProps>(function Paper(
   { children, className, testId, variant = "panel" }: PaperProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <MPaper

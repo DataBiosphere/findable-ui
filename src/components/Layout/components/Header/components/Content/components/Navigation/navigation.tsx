@@ -51,7 +51,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
       style,
       testId,
     }: NavigationProps,
-    ref
+    ref,
   ): JSX.Element {
     return (
       <Links
@@ -71,7 +71,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
               target = ANCHOR_TARGET.SELF,
               url,
             },
-            i
+            i,
           ) => {
             const isClientSide = isClientSideNavigation(url);
             return menuItems ? (
@@ -83,7 +83,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                     isMenuIn={isMenuIn}
                     isSelected={isNavigationLinkSelected(
                       pathname,
-                      selectedPatterns
+                      selectedPatterns,
                     )}
                     menuItems={menuItems}
                     menuLabel={label}
@@ -94,7 +94,7 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                     closeAncestor={closeAncestor}
                     isSelected={isNavigationLinkSelected(
                       pathname,
-                      selectedPatterns
+                      selectedPatterns,
                     )}
                     menuItems={menuItems}
                     menuLabel={label}
@@ -127,9 +127,9 @@ export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
                 {divider && <Divider />}
               </Fragment>
             );
-          }
+          },
         )}
       </Links>
     );
-  }
+  },
 );

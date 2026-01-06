@@ -3,7 +3,6 @@ import { Column, RowData } from "@tanstack/react-table";
 import { BaseComponentProps } from "../../../../../../types";
 
 export interface ColumnFilterTagProps<T extends RowData>
-  extends BaseComponentProps,
-    ChipProps {
+  extends BaseComponentProps, ChipProps {
   column: Column<T>;
 }

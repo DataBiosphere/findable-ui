@@ -7,7 +7,7 @@ import { escapeRegExp } from "../common/utils";
  * @returns The button element.
  */
 export function getButton<T extends HTMLElement = HTMLElement>(
-  name: string | RegExp
+  name: string | RegExp,
 ): T {
   return screen.getByRole("button", { name });
 }
@@ -18,7 +18,7 @@ export function getButton<T extends HTMLElement = HTMLElement>(
  * @returns The input element.
  */
 export function getLabelText<T extends HTMLElement = HTMLElement>(
-  text: string
+  text: string,
 ): T {
   return screen.getByLabelText(text);
 }
@@ -47,7 +47,7 @@ export function getRole<T extends HTMLElement = HTMLElement>(role: string): T {
  * @returns The element.
  */
 export function getText<T extends HTMLElement = HTMLElement>(
-  text: string | RegExp
+  text: string | RegExp,
 ): T {
   return screen.getByText(text);
 }

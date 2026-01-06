@@ -19,8 +19,7 @@ import {
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
 
 export interface LinkProps
-  extends BaseComponentProps,
-    Omit<MLinkProps, "children" | "component"> {
+  extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
   copyable?: boolean;
   label: ReactNode /* link label may be an element */;
   target?: ANCHOR_TARGET;

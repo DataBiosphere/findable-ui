@@ -19,20 +19,18 @@ import {
 export type CustomFeatureColumn = TableDownloadColumn;
 
 export interface CustomFeatureInstance<T extends RowData>
-  extends TableDownloadInstance,
-    RowPreviewInstance<T> {}
+  extends TableDownloadInstance, RowPreviewInstance<T> {}
 
 export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
 
 export interface CustomFeatureOptions<T extends RowData>
-  extends TableDownloadOptions<T>,
+  extends
+    TableDownloadOptions<T>,
     RowPositionOptions,
     RowPreviewOptions,
     RowSelectionValidationOptions<T> {}
 
 export interface CustomFeatureRow
-  extends RowPositionRow,
-    RowPreviewRow,
-    RowSelectionValidationRow {}
+  extends RowPositionRow, RowPreviewRow, RowSelectionValidationRow {}
 
 export type CustomFeatureTableState = RowPreviewTableState;

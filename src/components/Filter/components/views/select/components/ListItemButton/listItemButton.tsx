@@ -12,7 +12,7 @@ export const ListItemButton = forwardRef<
     testId,
     ...props /* MuiListItemButtonProps */
   }: BaseComponentProps & ListItemButtonProps & TestIdProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <StyledListItemButton

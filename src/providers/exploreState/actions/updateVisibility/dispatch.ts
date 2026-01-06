@@ -10,7 +10,7 @@ import {
  * @returns Action with payload and action type.
  */
 export function updateVisibility(
-  payload: UpdateColumnVisibilityPayload
+  payload: UpdateColumnVisibilityPayload,
 ): UpdateColumnVisibilityAction {
   return {
     payload,

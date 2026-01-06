@@ -7,7 +7,7 @@ import { MAX_BAR_COUNT } from "./constants";
  * @returns Initial bar count.
  */
 export function initBarCount(
-  selectCategoryValueViews: SelectCategoryValueView[]
+  selectCategoryValueViews: SelectCategoryValueView[],
 ): number | undefined {
   return isChartExpandable(selectCategoryValueViews)
     ? MAX_BAR_COUNT
@@ -21,7 +21,7 @@ export function initBarCount(
  * @returns True if the chart is expandable.
  */
 export function isChartExpandable(
-  selectCategoryValueViews: SelectCategoryValueView[]
+  selectCategoryValueViews: SelectCategoryValueView[],
 ): boolean {
   return selectCategoryValueViews.length > MAX_BAR_COUNT;
 }
@@ -32,7 +32,7 @@ export function isChartExpandable(
  * @returns Updated bar count.
  */
 export function updateBarCount(
-  barCount: number | undefined
+  barCount: number | undefined,
 ): number | undefined {
   return barCount === undefined ? MAX_BAR_COUNT : undefined;
 }

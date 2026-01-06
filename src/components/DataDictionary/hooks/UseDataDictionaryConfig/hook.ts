@@ -6,7 +6,7 @@ import { UseDataDictionaryConfig } from "./types";
 import { throwDictionaryConfigNotFoundError } from "./utils";
 
 export const useDataDictionaryConfig = <T extends RowData = Attribute>(
-  dictionary: string
+  dictionary: string,
 ): UseDataDictionaryConfig<T> => {
   const {
     config: { dataDictionaries: dataDictionaryConfigs },
@@ -18,7 +18,7 @@ export const useDataDictionaryConfig = <T extends RowData = Attribute>(
     // Find the data dictionary with a path that matches the current route
     // We check if the current path starts with the dictionary path to handle nested routes
     return dataDictionaryConfigs.find(
-      (config) => config.path === dictionary
+      (config) => config.path === dictionary,
     ) as DataDictionaryConfig<T> | undefined;
   }, [dataDictionaryConfigs, dictionary]);
 

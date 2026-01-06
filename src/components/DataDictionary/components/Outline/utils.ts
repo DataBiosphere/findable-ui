@@ -9,7 +9,7 @@ import { ClassMeta } from "../Table/types";
  * @returns Outline items.
  */
 export function buildClassesOutline<T extends RowData = Attribute>(
-  table: Table<T>
+  table: Table<T>,
 ): OutlineItem[] {
   const meta = table.options.meta;
   if (!meta) return [];
@@ -22,7 +22,7 @@ export function buildClassesOutline<T extends RowData = Attribute>(
         hash: classKey,
         value: title,
       };
-    }
+    },
   );
 }
 
@@ -34,7 +34,7 @@ export function buildClassesOutline<T extends RowData = Attribute>(
  */
 function hasGroupedRow<T extends RowData = Attribute>(
   table: Table<T>,
-  classKey: string
+  classKey: string,
 ): boolean {
   const groupRow = table
     .getGroupedRowModel()

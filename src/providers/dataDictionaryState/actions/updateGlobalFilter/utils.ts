@@ -10,7 +10,7 @@ import { UpdateGlobalFilterPayload } from "./types";
  * @returns global filter state.
  */
 export function buildNextGlobalFilter(
-  payload: UpdateGlobalFilterPayload
+  payload: UpdateGlobalFilterPayload,
 ): string | undefined {
   return functionalUpdate(payload.updaterOrValue, undefined) || undefined;
 }
@@ -25,7 +25,7 @@ export function buildNextGlobalFilter(
 export function buildNextMeta(
   state: DataDictionaryState,
   payload: UpdateGlobalFilterPayload,
-  nextGlobalFilter: string | undefined
+  nextGlobalFilter: string | undefined,
 ): DataDictionaryState["meta"] {
   const currentGlobalFilter = getCurrentGlobalFilter(state, payload);
   // Use PUSH method with adding or removing the global filter.
@@ -44,7 +44,7 @@ export function buildNextMeta(
  */
 function getCurrentGlobalFilter(
   state: DataDictionaryState,
-  payload: UpdateGlobalFilterPayload
+  payload: UpdateGlobalFilterPayload,
 ): string | undefined {
   return state.dictionaries[payload.dictionary].state.globalFilter;
 }

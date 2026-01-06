@@ -16,9 +16,9 @@ export type BreakpointKey = Breakpoint;
 
 export const useBreakpointHelper = (
   fnName: BreakpointFnName,
-  breakpointKey: BreakpointKey
+  breakpointKey: BreakpointKey,
 ): boolean => {
   return useMediaQuery((theme: Theme) =>
-    theme.breakpoints[fnName](breakpointKey)
+    theme.breakpoints[fnName](breakpointKey),
   );
 };

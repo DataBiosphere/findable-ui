@@ -11,7 +11,7 @@ export interface SloganProps {
 
 export const Slogan = forwardRef<HTMLDivElement, SloganProps>(function Slogan(
   { className, slogan, style }: SloganProps,
-  ref
+  ref,
 ): JSX.Element {
   return (
     <CatchPhrase ref={ref} style={style}>

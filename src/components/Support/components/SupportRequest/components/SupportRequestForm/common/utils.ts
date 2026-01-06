@@ -10,11 +10,11 @@ import { REQUEST_FIELD_ID, RequestValue, UploadResponse } from "./entities";
 export async function createSupportRequest(
   url: string,
   requestValue: RequestValue,
-  FIELD_ID: Record<REQUEST_FIELD_ID, number>
+  FIELD_ID: Record<REQUEST_FIELD_ID, number>,
 ): Promise<Response> {
   return await fetchWithErrorRejection(
     url,
-    getSupportRequestOptions(requestValue, FIELD_ID)
+    getSupportRequestOptions(requestValue, FIELD_ID),
   );
 }
 
@@ -26,7 +26,7 @@ export async function createSupportRequest(
  */
 export function getSupportRequestOptions(
   requestValue: RequestValue,
-  FIELD_ID: Record<REQUEST_FIELD_ID, number>
+  FIELD_ID: Record<REQUEST_FIELD_ID, number>,
 ): RequestInit {
   const { attachmentToken, description, email, name, subject, type } =
     requestValue;
@@ -65,7 +65,7 @@ export function getSupportRequestOptions(
  */
 export async function uploadAttachment<T extends File>(
   url: string,
-  file: T
+  file: T,
 ): Promise<UploadResponse> {
   const res = await fetchWithErrorRejection(`${url}?filename=${file.name}`, {
     body: file,
@@ -86,7 +86,7 @@ export async function uploadAttachment<T extends File>(
  */
 async function fetchWithErrorRejection(
   input: string,
-  options?: RequestInit
+  options?: RequestInit,
 ): Promise<Response> {
   const res = await fetch(input, options);
   if (res.ok) {

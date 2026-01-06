@@ -39,7 +39,7 @@ export const Login = <P,>({
       }
       requestLogin?.(providerId);
     },
-    [isInAgreement, requestLogin]
+    [isInAgreement, requestLogin],
   );
 
   // Callback fired when the checkbox value is changed.

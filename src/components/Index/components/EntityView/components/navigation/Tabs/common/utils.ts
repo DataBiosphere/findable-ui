@@ -20,6 +20,6 @@ export function getEntityListTabs(entities: EntityConfig[]): Tab[] {
       iconPosition,
       label,
       value: route,
-    })
+    }),
   );
 }

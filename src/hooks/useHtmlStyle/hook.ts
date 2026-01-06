@@ -3,7 +3,7 @@ import { CSSPropHyphen } from "./types";
 
 export const useHtmlStyle = (
   property: CSSPropHyphen,
-  value: string | null
+  value: string | null,
 ): void => {
   useLayoutEffect(() => {
     // Get the HTML element.

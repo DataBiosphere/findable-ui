@@ -16,7 +16,7 @@ interface FetcherResponse<T, I> extends EntityService {
 
 export const getEntityService = <T, I>(
   entityConfig: EntityConfig,
-  catalog: string | undefined
+  catalog: string | undefined,
 ): FetcherResponse<T, I> => {
   if (entityConfig.apiPath) {
     // Server-side fetch and filtering.
@@ -51,7 +51,7 @@ export const getEntityService = <T, I>(
     };
   }
   throw Error(
-    `There's no data path for the entity ${entityConfig.label}. Define a tsvPath or an apiPath`
+    `There's no data path for the entity ${entityConfig.label}. Define a tsvPath or an apiPath`,
   );
 };
 
@@ -62,14 +62,14 @@ export const getEntityService = <T, I>(
  * @returns @see FetcherResponse
  */
 export const useEntityService = <T, I>(
-  entityListType?: string
+  entityListType?: string,
 ): FetcherResponse<T, I> => {
   const { config } = useConfig();
   const catalog = useCatalog();
   const { exploreState } = useExploreState();
   const entityConfig = getEntityConfig(
     config.entities,
-    entityListType || exploreState.tabValue // if entity list type is undefined, use the current state's tab value.
+    entityListType || exploreState.tabValue, // if entity list type is undefined, use the current state's tab value.
   );
   return getEntityService(entityConfig, catalog);
 };

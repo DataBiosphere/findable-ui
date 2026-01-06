@@ -30,7 +30,7 @@ export const ListItemText = ({
  * @returns primary prop.
  */
 function renderPrimary(
-  primary: ListItemTextProps["primary"]
+  primary: ListItemTextProps["primary"],
 ): ListItemTextProps["primary"] {
   return isValueString(primary) ? <Term>{primary}</Term> : primary;
 }
@@ -42,7 +42,7 @@ function renderPrimary(
  * @returns secondary prop.
  */
 function renderSecondary(
-  secondary: ListItemTextProps["secondary"]
+  secondary: ListItemTextProps["secondary"],
 ): ListItemTextProps["secondary"] {
   return isValueString(secondary) ? <Count>{secondary}</Count> : secondary;
 }

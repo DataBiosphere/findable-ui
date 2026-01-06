@@ -26,7 +26,7 @@ export const CreateTerraAccount = ({
       window.open(
         exportToTerraUrl,
         ANCHOR_TARGET.BLANK,
-        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
       );
     }
   };

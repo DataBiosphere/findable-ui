@@ -10,9 +10,9 @@ import { CONTROL_TYPE } from "./types";
  */
 export function configureControls<TArg = Args>(
   keys: (keyof TArg)[],
-  controlType: CONTROL_TYPE
+  controlType: CONTROL_TYPE,
 ): Partial<ArgTypes<TArg>> {
   return Object.fromEntries(
-    keys.map((key) => [key, { control: CONTROL_CONFIG_MAP[controlType] }])
+    keys.map((key) => [key, { control: CONTROL_CONFIG_MAP[controlType] }]),
   ) as Partial<ArgTypes<TArg>>;
 }

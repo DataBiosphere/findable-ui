@@ -143,7 +143,7 @@ export const Outline = styled.div`
  * @returns background color for the panel.
  */
 function getPanelBackgroundColor(
-  panelColor?: PanelBackgroundColor
+  panelColor?: PanelBackgroundColor,
 ): string | undefined {
   return panelColor ? COLOR[panelColor] : undefined;
 }

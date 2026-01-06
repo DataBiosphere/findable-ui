@@ -14,7 +14,7 @@ import {
  */
 export function credentialsReducer(
   state: CredentialsState,
-  action: CredentialsAction
+  action: CredentialsAction,
 ): CredentialsState {
   const { payload, type } = action;
   switch (type) {

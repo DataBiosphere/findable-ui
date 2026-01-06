@@ -33,7 +33,7 @@ export const useFileManifestDownload = (filters: Filters): ManifestDownload => {
     endpointUrl,
     catalog,
     filters,
-    MANIFEST_DOWNLOAD_FORMAT.COMPACT
+    MANIFEST_DOWNLOAD_FORMAT.COMPACT,
   );
   const {
     data,
@@ -59,7 +59,7 @@ export const useFileManifestDownload = (filters: Filters): ManifestDownload => {
  * @returns manifest download URL.
  */
 function getManifestDownloadURL(
-  fileLocation?: FileLocation
+  fileLocation?: FileLocation,
 ): string | undefined {
   const { location } = fileLocation || {};
   return location;
@@ -71,7 +71,7 @@ function getManifestDownloadURL(
  * @returns manifest download file name.
  */
 function getManifestDownloadFileName(
-  fileLocation?: FileLocation
+  fileLocation?: FileLocation,
 ): string | undefined {
   if (!fileLocation) {
     return;
@@ -89,7 +89,7 @@ function getManifestDownloadFileName(
  * @returns file name.
  */
 function getFileNameFromBash(
-  commandLine?: FileLocation["commandLine"]
+  commandLine?: FileLocation["commandLine"],
 ): string | undefined {
   if (!commandLine) {
     return;
@@ -106,7 +106,7 @@ function getFileNameFromBash(
  * @returns file name.
  */
 function getFileNameFromLocation(
-  location: FileLocation["location"]
+  location: FileLocation["location"],
 ): string | undefined {
   const searchParams = new URL(location).searchParams;
   const paramValue = searchParams.get("response-content-disposition");

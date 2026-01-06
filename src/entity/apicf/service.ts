@@ -24,7 +24,7 @@ export const fetchEntitiesFromQuery =
  */
 export const fetchAllEntities = async (
   apiPath: string,
-  accessToken: string | undefined
+  accessToken: string | undefined,
 ): Promise<AzulEntitiesResponse> => {
   const response = await fetchEntitiesFromURL(apiPath, accessToken);
   const entities = Object.values(response);
@@ -51,7 +51,7 @@ export const fetchAllEntities = async (
 export const fetchEntity = async <T, I>(
   id: string,
   apiPath: string,
-  entityMapper?: EntityMapper<T, I>
+  entityMapper?: EntityMapper<T, I>,
 ): Promise<T> => {
   const entity = await fetchEntityFromURL(`${apiPath}/${id}`);
   return entityMapper?.(entity as I) || (entity as T);

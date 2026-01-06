@@ -25,7 +25,7 @@ import { ColumnFiltersTableMeta } from "./types";
  * @returns Category configs.
  */
 function buildCategoryConfigs<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): CategoryConfig[] {
   return table
     .getAllColumns()
@@ -43,19 +43,19 @@ function buildCategoryConfigs<T extends RowData>(
 function buildCategoryFilters<T extends RowData>(
   table: Table<T>,
   filterSort: FILTER_SORT,
-  categoryGroups: CategoryGroup[]
+  categoryGroups: CategoryGroup[],
 ): SurfaceProps["categoryFilters"] {
   return categoryGroups.reduce<SurfaceProps["categoryFilters"]>(
     (acc, categoryGroup) => {
       const categoryFilter = mapCategoryFilter(
         table,
         filterSort,
-        categoryGroup
+        categoryGroup,
       );
       if (categoryFilter) acc.push(categoryFilter);
       return acc;
     },
-    []
+    [],
   );
 }
 
@@ -67,7 +67,7 @@ function buildCategoryFilters<T extends RowData>(
  */
 export function buildColumnFilters<T extends RowData>(
   table: Table<T>,
-  filterSort = FILTER_SORT.ALPHA
+  filterSort = FILTER_SORT.ALPHA,
 ): SurfaceProps["categoryFilters"] {
   const { options } = table;
   const { meta = {} } = options;
@@ -92,13 +92,13 @@ export function buildColumnFilters<T extends RowData>(
  * @returns Selected count.
  */
 export function getColumnFiltersCount<T extends RowData>(
-  table: Table<T>
+  table: Table<T>,
 ): number {
   return table
     .getState()
     .columnFilters.reduce(
       (acc, columnFilter) => acc + (columnFilter.value as unknown[]).length,
-      0
+      0,
     );
 }
 
@@ -108,7 +108,7 @@ export function getColumnFiltersCount<T extends RowData>(
  * @returns Category config.
  */
 function mapCategoryConfig<T extends RowData>(
-  column: Column<T>
+  column: Column<T>,
 ): CategoryConfig {
   return {
     key: column.id,
@@ -126,7 +126,7 @@ function mapCategoryConfig<T extends RowData>(
 function mapCategoryFilter<T extends RowData>(
   table: Table<T>,
   filterSort: FILTER_SORT,
-  categoryGroup: CategoryGroup
+  categoryGroup: CategoryGroup,
 ): CategoryFilter | undefined {
   const { categoryConfigs, label } = categoryGroup;
 
@@ -146,13 +146,13 @@ function mapCategoryFilter<T extends RowData>(
         categoryView = mapColumnToSelectCategoryView(
           column,
           filterSort,
-          categoryConfig as SelectCategoryConfig
+          categoryConfig as SelectCategoryConfig,
         );
       }
 
       return [...acc, categoryView];
     },
-    []
+    [],
   );
 
   if (categoryViews.length === 0) return;
@@ -168,7 +168,7 @@ function mapCategoryFilter<T extends RowData>(
  */
 function mapColumnToRangeCategoryView<T extends RowData>(
   column: Column<T>,
-  categoryConfig?: CategoryConfig
+  categoryConfig?: CategoryConfig,
 ): RangeCategoryView {
   const minMax = column.getFacetedMinMaxValues();
   const isDisabled = !minMax;
@@ -176,7 +176,7 @@ function mapColumnToRangeCategoryView<T extends RowData>(
   // Selected values for the column.
   const filterValue = (column.getFilterValue() || [null, null]) as [
     number | null,
-    number | null
+    number | null,
   ];
 
   return {
@@ -202,7 +202,7 @@ function mapColumnToRangeCategoryView<T extends RowData>(
 function mapColumnToSelectCategoryView<T extends RowData>(
   column: Column<T>,
   filterSort: FILTER_SORT,
-  categoryConfig?: SelectCategoryConfig
+  categoryConfig?: SelectCategoryConfig,
 ): SelectCategoryView {
   const facetedUniqueValues = column.getFacetedUniqueValues();
 
@@ -217,7 +217,7 @@ function mapColumnToSelectCategoryView<T extends RowData>(
 
   const isDisabled = facetedUniqueValues.size === 0;
   const values = mapColumnToSelectCategoryValueView(column, filterSort).map(
-    categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue
+    categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue,
   );
   return {
     annotation: undefined,
@@ -238,7 +238,7 @@ function mapColumnToSelectCategoryView<T extends RowData>(
  */
 function mapColumnToSelectCategoryValueView<T extends RowData>(
   column: Column<T>,
-  filterSort: FILTER_SORT
+  filterSort: FILTER_SORT,
 ): SelectCategoryValueView[] {
   // Get the faceted unique values and sort them.
   const facetedUniqueValues = column.getFacetedUniqueValues();

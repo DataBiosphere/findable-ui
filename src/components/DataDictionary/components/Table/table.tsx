@@ -22,7 +22,7 @@ export const Table = <T extends RowData>({
         <GridTable
           collapsable
           gridTemplateColumns={getColumnTrackSizing(
-            table.getVisibleFlatColumns()
+            table.getVisibleFlatColumns(),
           )}
         >
           <TableHead tableInstance={table} />

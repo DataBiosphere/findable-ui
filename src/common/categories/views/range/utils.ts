@@ -15,11 +15,11 @@ import { RangeCategoryView } from "../../views/range/types";
 export function buildRangeCategoryView(
   category: RangeCategory,
   categoryConfigs: CategoryConfig[],
-  categorySelectedFilter?: SelectedFilter
+  categorySelectedFilter?: SelectedFilter,
 ): RangeCategoryView {
   const categoryConfig = findRangeCategoryConfig(category.key, categoryConfigs);
   const [selectedMin, selectedMax] = getRangeSelectedValue(
-    categorySelectedFilter
+    categorySelectedFilter,
   );
   return {
     annotation: categoryConfig?.annotation,

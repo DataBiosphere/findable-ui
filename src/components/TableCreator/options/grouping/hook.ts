@@ -10,7 +10,7 @@ export function useGroupingOptions(): GroupingOptions {
   const onGroupingChange = useCallback(
     (updaterOrValue: Updater<GroupingState>): void =>
       exploreDispatch(updateGrouping({ updaterOrValue })),
-    [exploreDispatch]
+    [exploreDispatch],
   );
 
   return { ...GROUPING_OPTIONS, onGroupingChange };

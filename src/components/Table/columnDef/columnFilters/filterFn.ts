@@ -14,7 +14,7 @@ import { Row, RowData } from "@tanstack/react-table";
 export function arrIncludesSome<T extends RowData>(
   row: Row<T>,
   columnId: string,
-  filterValue: unknown[]
+  filterValue: unknown[],
 ): boolean {
   return filterValue.some((val) => {
     const columnValue = row.getValue<unknown[]>(columnId);

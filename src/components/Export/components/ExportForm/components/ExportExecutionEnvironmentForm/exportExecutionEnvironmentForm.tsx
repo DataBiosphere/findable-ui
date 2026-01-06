@@ -28,7 +28,7 @@ export const ExportExecutionEnvironmentForm = ({
               icon={<RadioUncheckedIcon />}
               onChange={(): void =>
                 setExecutionEnvironment(
-                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH
+                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH,
                 )
               }
               size="small"
@@ -44,7 +44,7 @@ export const ExportExecutionEnvironmentForm = ({
               icon={<RadioUncheckedIcon />}
               onChange={(): void =>
                 setExecutionEnvironment(
-                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.CMD_EXE
+                  BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.CMD_EXE,
                 )
               }
               size="small"

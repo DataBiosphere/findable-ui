@@ -12,9 +12,8 @@ jest.unstable_mockModule("../src/hooks/useFileLocation", () => ({
   useFileLocation: jest.fn(),
 }));
 
-const { AzulFileDownload } = await import(
-  "../src/components/Index/components/AzulFileDownload/azulFileDownload"
-);
+const { AzulFileDownload } =
+  await import("../src/components/Index/components/AzulFileDownload/azulFileDownload");
 const { useFileLocation } = await import("../src/hooks/useFileLocation");
 
 describe("AzulFileDownload", () => {
@@ -71,12 +70,12 @@ describe("AzulFileDownload", () => {
       fireEvent.click(buttonEl);
       await waitFor(() => {
         const pendingEl = getButtonById(
-          AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID
+          AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
         );
         expect(pendingEl).not.toBeNull();
       });
       expect(
-        screen.queryByTestId(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID)
+        screen.queryByTestId(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID),
       ).toBeNull();
     });
     test("should initiate download when fileUrl is available", () => {

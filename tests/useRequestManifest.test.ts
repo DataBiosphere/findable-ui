@@ -24,12 +24,10 @@ jest.unstable_mockModule("../src/hooks/useFileManifestState", () => ({
 
 const { useConfig } = await import("../src/hooks/useConfig");
 const { useCatalog } = await import("../src/hooks/useCatalog");
-const { useFileManifestState } = await import(
-  "../src/hooks/useFileManifestState"
-);
-const { useRequestManifest } = await import(
-  "../src/hooks/useRequestManifest/useRequestManifest"
-);
+const { useFileManifestState } =
+  await import("../src/hooks/useFileManifestState");
+const { useRequestManifest } =
+  await import("../src/hooks/useRequestManifest/useRequestManifest");
 
 const MOCK_USE_CATALOG = useCatalog as jest.MockedFunction<typeof useCatalog>;
 const MOCK_USE_CONFIG = useConfig as jest.MockedFunction<
@@ -57,7 +55,7 @@ describe("useRequestManifest", () => {
     test("requestMethod is always METHOD.PUT regardless of conditions", () => {
       MOCK_USE_CATALOG.mockReturnValue(undefined);
       const { result } = renderHook(() =>
-        useRequestManifest(undefined, FORM_FACET.INITIAL_SET)
+        useRequestManifest(undefined, FORM_FACET.INITIAL_SET),
       );
       expect(result.current.requestMethod).toEqual(METHOD.PUT);
       expect(result.current.requestParams).toBeUndefined();
@@ -148,8 +146,8 @@ describe("useRequestManifest", () => {
       const { result } = renderHook(() =>
         useRequestManifest(
           MANIFEST_DOWNLOAD_FORMAT.VERBATIM_PFB,
-          FORM_FACET.SUBSET
-        )
+          FORM_FACET.SUBSET,
+        ),
       );
       expect(result.current.requestMethod).toEqual(METHOD.PUT);
       expect(result.current.requestParams).toBeDefined();
@@ -160,8 +158,8 @@ describe("useRequestManifest", () => {
       const { result } = renderHook(() =>
         useRequestManifest(
           MANIFEST_DOWNLOAD_FORMAT.VERBATIM_PFB,
-          FORM_FACET.COMPLETE_SET
-        )
+          FORM_FACET.COMPLETE_SET,
+        ),
       );
       expect(result.current.requestMethod).toEqual(METHOD.PUT);
       expect(result.current.requestParams).toBeDefined();
@@ -195,7 +193,7 @@ function testRequestManifest({
   formFacet?: FormFacet;
 }): void {
   const { result } = renderHook(() =>
-    useRequestManifest(fileManifestFormat, formFacet)
+    useRequestManifest(fileManifestFormat, formFacet),
   );
   expect(result.current.requestMethod).toEqual(expectedMethod);
   expect(result.current.requestParams).toEqual(expectedParams);

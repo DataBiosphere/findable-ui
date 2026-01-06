@@ -10,7 +10,7 @@ import { AuthService } from "../../../../config/entities";
 export function getServiceEndpoint(
   services: AuthService[] | undefined,
   serviceId: string,
-  endpointId: string
+  endpointId: string,
 ): string | undefined {
   return findService(services, serviceId)?.endpoint[endpointId];
 }
@@ -23,7 +23,7 @@ export function getServiceEndpoint(
  */
 export function findService(
   services: AuthService[] | undefined,
-  serviceId: string
+  serviceId: string,
 ): AuthService | undefined {
   return services?.find(({ id }) => id === serviceId);
 }

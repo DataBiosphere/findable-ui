@@ -4,8 +4,6 @@ import { SurfaceProps } from "../../types";
 import { Button } from "../components/Button/button";
 
 export interface DrawerProps
-  extends BaseComponentProps,
-    Omit<MDrawerProps, "children">,
-    SurfaceProps {
+  extends BaseComponentProps, Omit<MDrawerProps, "children">, SurfaceProps {
   Button?: typeof Button;
 }

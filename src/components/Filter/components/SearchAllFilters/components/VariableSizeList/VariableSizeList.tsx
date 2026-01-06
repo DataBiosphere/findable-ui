@@ -94,7 +94,7 @@ const OuterElementContext = createContext<OuterElementContextValue>({
 
 const OuterElement = forwardRef<HTMLDivElement>(function OuterElement(
   { children, ...props }: HTMLAttributes<HTMLElement>,
-  ref
+  ref,
 ): JSX.Element {
   const { autocompleteListProps, autocompleteListRef } =
     useContext(OuterElementContext);
@@ -126,7 +126,7 @@ export const VariableSizeList = forwardRef<
     surfaceType,
     width = "100%",
   }: VariableSizeListProps,
-  autocompleteListRef
+  autocompleteListRef,
 ): JSX.Element {
   const filteredItems = applyMenuFilter(selectCategoryViews, searchTerm);
   let resizeRequired = true;
@@ -140,7 +140,7 @@ export const VariableSizeList = forwardRef<
   const onUpdateItemSizeByItemKey = useCallback(
     (key: string, size: number): void =>
       updateItemSizeByItemKey(itemSizeByItemKeyRef.current, key, size),
-    []
+    [],
   );
 
   // Sets height of list.
@@ -151,8 +151,8 @@ export const VariableSizeList = forwardRef<
           outerRef.current,
           innerRef.current,
           windowHeight,
-          surfaceType
-        )
+          surfaceType,
+        ),
       );
   }, [surfaceType, windowHeight]);
 
@@ -196,8 +196,8 @@ export const VariableSizeList = forwardRef<
                   outerRef.current,
                   innerRef.current,
                   windowHeight,
-                  surfaceType
-                )
+                  surfaceType,
+                ),
               );
             }
             listRef.current?.resetAfterIndex(0); // Facilitates correct positioning of list items when list scrolls.
@@ -223,7 +223,7 @@ export const VariableSizeList = forwardRef<
  */
 function applyMenuFilter(
   selectCategoryViews: SelectCategoryView[],
-  inputValue: string
+  inputValue: string,
 ): SearchAllFiltersItem[] {
   const sortMatches = getSortMatchesFn(inputValue);
   const filteredItems = selectCategoryViews.reduce(
@@ -238,7 +238,7 @@ function applyMenuFilter(
             matchRanges: match.labelRanges,
             type: ITEM_TYPE.VALUE,
             value: match.value,
-          })
+          }),
         );
         if (filteredCategoryValues.length) {
           if (filteredItems.length) filteredItems.push(DIVIDER_ITEM);
@@ -252,7 +252,7 @@ function applyMenuFilter(
       }
       return filteredItems;
     },
-    [] as SearchAllFiltersItem[]
+    [] as SearchAllFiltersItem[],
   );
   if (filteredItems.length === 0) filteredItems.push(NO_RESULTS_ITEM);
   return filteredItems;
@@ -271,7 +271,7 @@ function calculateListHeight(
   outerListElem: HTMLDivElement,
   innerListElem: HTMLUListElement,
   windowHeight: number,
-  surfaceType: SURFACE_TYPE
+  surfaceType: SURFACE_TYPE,
 ): number {
   // Calculate max possible list height, based on window height and top position of the list element.
   const maxHeight = windowHeight - outerListElem.getBoundingClientRect().top;
@@ -302,7 +302,7 @@ function calculateListHeight(
 function updateItemSizeByItemKey(
   itemSizeByItemKey: ItemSizeByItemKey,
   key: string,
-  size: number
+  size: number,
 ): void {
   if (itemSizeByItemKey.has(key)) {
     return;

@@ -7,7 +7,7 @@ import { isStringHeaderColumn } from "../../../../../../common/typeGuards";
  * @returns columns that are enabled to be hidden.
  */
 export function getCanHideColumns<T extends RowData>(
-  columns: Column<T>[]
+  columns: Column<T>[],
 ): (Column<T> & { columnDef: { header: string } })[] {
   return columns
     .filter(isStringHeaderColumn) // Currently, headers are configured as strings. Only include columns that have a string header (for now).
@@ -20,10 +20,10 @@ export function getCanHideColumns<T extends RowData>(
  * @returns number of visible, un-grouped columns.
  */
 export function getVisibleColumnCount<T extends RowData>(
-  columns: Column<T>[]
+  columns: Column<T>[],
 ): number {
   return columns.filter(
-    ({ getIsGrouped, getIsVisible }) => getIsVisible() && !getIsGrouped()
+    ({ getIsGrouped, getIsVisible }) => getIsVisible() && !getIsGrouped(),
   ).length;
 }
 
@@ -37,7 +37,7 @@ export function getVisibleColumnCount<T extends RowData>(
  */
 export function isToggleVisibilityDisabled<T extends RowData>(
   column: Column<T>,
-  visibleCount: number
+  visibleCount: number,
 ): boolean {
   if (column.getIsGrouped()) return true;
   return column.getIsVisible() && visibleCount === 1;

@@ -31,7 +31,7 @@ export const AcceptTerraTOS = ({
       window.open(
         exportToTerraUrl,
         ANCHOR_TARGET.BLANK,
-        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+        REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
       );
     }
   };
@@ -68,7 +68,7 @@ export const AcceptTerraTOS = ({
  * @returns true if the terms of service have been accepted.
  */
 function isTermsOfServiceAccepted(
-  terraProfileLoginStatus: LoginStatus<TerraResponse>
+  terraProfileLoginStatus: LoginStatus<TerraResponse>,
 ): boolean {
   return Boolean(terraProfileLoginStatus.response?.enabled?.tosAccepted);
 }

@@ -33,7 +33,7 @@ export interface UseFilterRange {
   formState: { errors: FieldErrors };
   handleSubmit: (
     onSubmit: OnSubmitFn,
-    parameters: SubmitParams
+    parameters: SubmitParams,
   ) => FormEventHandler;
   onChange: ToggleButtonGroupProps["onChange"];
   value: RANGE_OPERATOR;

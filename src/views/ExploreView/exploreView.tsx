@@ -48,7 +48,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
-    [categoryGroups, categoryViews]
+    [categoryGroups, categoryViews],
   );
   const {
     enabled: filterSortEnabled,
@@ -83,7 +83,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     selected: boolean,
     categorySection?: string,
     viewKind?: VIEW_KIND,
-    searchTerm?: string
+    searchTerm?: string,
   ): void => {
     const dispatchType =
       categoryKey === SELECT_CATEGORY_KEY.SAVED_FILTERS
@@ -182,7 +182,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
  */
 function buildCategoryFilters(
   categoryViews: CategoryView[],
-  categoryGroups?: CategoryGroup[]
+  categoryGroups?: CategoryGroup[],
 ): CategoryFilter[] {
   if (!categoryGroups) {
     return [{ categoryViews }];

@@ -46,7 +46,7 @@ export const Authentication = ({
  */
 export function renderButton(
   props: MButtonProps,
-  pathname: string
+  pathname: string,
 ): JSX.Element {
   return (
     <StyledButton

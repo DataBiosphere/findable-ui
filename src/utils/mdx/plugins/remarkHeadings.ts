@@ -51,7 +51,7 @@ export function remarkHeadings({
  */
 export function getHeadingTextValue(
   children: PhrasingContent[],
-  value: string[] = []
+  value: string[] = [],
 ): string {
   for (const child of children) {
     if ("value" in child) {

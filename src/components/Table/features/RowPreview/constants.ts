@@ -49,7 +49,7 @@ export const ROW_PREVIEW: TableFeature = {
     };
   },
   getDefaultOptions: <T extends RowData>(
-    table: Table<T>
+    table: Table<T>,
   ): Partial<TableOptionsResolved<T>> => {
     return {
       enableRowPreview: false,

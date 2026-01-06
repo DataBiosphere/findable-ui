@@ -15,7 +15,7 @@ jest.unstable_mockModule(
   "../src/hooks/authentication/config/useAuthenticationConfig",
   () => ({
     useAuthenticationConfig: jest.fn(),
-  })
+  }),
 );
 
 const TEST_ID_LOGIN_DIALOG = "login-dialog";
@@ -29,18 +29,16 @@ jest.unstable_mockModule(
         {open ? TEXT_DIALOG_OPEN : TEXT_DIALOG_CLOSED}
       </div>
     ),
-  })
+  }),
 );
 
 const { useConfig } = await import("../src/hooks/useConfig");
 const { useAuth } = await import("../src/providers/authentication/auth/hook");
-const { useAuthenticationConfig } = await import(
-  "../src/hooks/authentication/config/useAuthenticationConfig"
-);
+const { useAuthenticationConfig } =
+  await import("../src/hooks/authentication/config/useAuthenticationConfig");
 
-const { LoginGuardProvider } = await import(
-  "../src/providers/loginGuard/provider"
-);
+const { LoginGuardProvider } =
+  await import("../src/providers/loginGuard/provider");
 
 const TEXT_BUTTON_EXPORT = "export";
 
@@ -64,12 +62,12 @@ describe("LoginGuardProvider", () => {
     render(
       <LoginGuardProvider>
         <div data-testid="child">child component</div>
-      </LoginGuardProvider>
+      </LoginGuardProvider>,
     );
 
     expect(screen.getByTestId("child")).toBeTruthy();
     expect(screen.getByTestId(TEST_ID_LOGIN_DIALOG).textContent).toBe(
-      TEXT_DIALOG_CLOSED
+      TEXT_DIALOG_CLOSED,
     );
   });
 
@@ -90,7 +88,7 @@ describe("LoginGuardProvider", () => {
             </button>
           )}
         </LoginGuardContext.Consumer>
-      </LoginGuardProvider>
+      </LoginGuardProvider>,
     );
 
     // Click button requiring login.
@@ -103,7 +101,7 @@ describe("LoginGuardProvider", () => {
 
     // Login dialog should not be open.
     expect(screen.getByTestId(TEST_ID_LOGIN_DIALOG).textContent).toBe(
-      TEXT_DIALOG_CLOSED
+      TEXT_DIALOG_CLOSED,
     );
   });
 
@@ -126,7 +124,7 @@ describe("LoginGuardProvider", () => {
             </button>
           )}
         </LoginGuardContext.Consumer>
-      </LoginGuardProvider>
+      </LoginGuardProvider>,
     );
 
     // Click button requiring login.
@@ -139,7 +137,7 @@ describe("LoginGuardProvider", () => {
 
     // Login dialog should not be open.
     expect(screen.getByTestId(TEST_ID_LOGIN_DIALOG).textContent).toBe(
-      TEXT_DIALOG_CLOSED
+      TEXT_DIALOG_CLOSED,
     );
   });
 
@@ -155,7 +153,7 @@ describe("LoginGuardProvider", () => {
             </button>
           )}
         </LoginGuardContext.Consumer>
-      </LoginGuardProvider>
+      </LoginGuardProvider>,
     );
 
     // Click button requiring login.
@@ -168,7 +166,7 @@ describe("LoginGuardProvider", () => {
 
     // User is not authenticated; login dialog should be open.
     expect(screen.getByTestId(TEST_ID_LOGIN_DIALOG).textContent).toBe(
-      TEXT_DIALOG_OPEN
+      TEXT_DIALOG_OPEN,
     );
 
     // Simulate user authentication.
@@ -182,7 +180,7 @@ describe("LoginGuardProvider", () => {
     rerender(
       <LoginGuardProvider>
         <div />
-      </LoginGuardProvider>
+      </LoginGuardProvider>,
     );
 
     // Callback should be called (in useEffect called on re-render).

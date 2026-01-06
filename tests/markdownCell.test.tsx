@@ -28,7 +28,7 @@ describe("MarkdownCell", () => {
     expect(anchorEl.getAttribute("href")).toBe("https://www.example.com");
     expect(anchorEl.getAttribute("target")).toBe(ANCHOR_TARGET.BLANK);
     expect(anchorEl.getAttribute("rel")).toBe(
-      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER
+      REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
     );
     expect(anchorEl).toHaveClass("MuiLink-root");
   });
@@ -42,7 +42,7 @@ describe("MarkdownCell", () => {
             columnDef: { meta: { components: { a: STYLED_ANCHOR } } },
           } as unknown as Column<unknown, string>
         }
-      />
+      />,
     );
     const anchorEl = await screen.findByText("example link");
     expect(anchorEl).toHaveStyleRule("background-color", "green");

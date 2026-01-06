@@ -4,7 +4,7 @@
  * @returns An updater function that returns the new filter value.
  */
 export function updater(
-  value: unknown
+  value: unknown,
 ): (old: unknown[] | undefined) => unknown[] | undefined {
   return (old: unknown[] | undefined) => {
     // If no old value, return new value.

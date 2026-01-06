@@ -12,7 +12,7 @@ export function fetchProfile<R, E>(
   callback?: {
     onError: (error: E) => void;
     onSuccess: (response: R) => void;
-  }
+  },
 ): void {
   fetch(endpoint, options)
     .then((response) => response.json())

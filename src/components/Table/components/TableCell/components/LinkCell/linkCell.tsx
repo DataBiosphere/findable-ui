@@ -9,7 +9,7 @@ import { getComponent, getRelAttribute, getTargetAttribute } from "./utils";
 
 export const LinkCell = <
   T extends RowData,
-  TValue extends LinkProps = LinkProps
+  TValue extends LinkProps = LinkProps,
 >({
   className,
   getValue,

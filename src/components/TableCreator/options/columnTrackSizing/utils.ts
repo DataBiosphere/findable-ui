@@ -13,7 +13,7 @@ import { isGridTrackMinMax } from "./typeGuards";
  * @returns string defining the CSS `grid-template-columns` value for the table.
  */
 export function getColumnTrackSizing<T extends RowData>(
-  visibleColumns: Column<T>[]
+  visibleColumns: Column<T>[],
 ): string {
   // Precompute track sizing.
   const trackSizing: string[] = [];
@@ -62,7 +62,7 @@ export function getColumnTrackSizing<T extends RowData>(
  * @returns A string representing the CSS track size for the column. This can be a `minmax()` function or a fixed/flexible value (e.g., `auto`, `1fr`, `200px`).
  */
 export function getColumnTrackSize<T extends RowData>(
-  column: Column<T>
+  column: Column<T>,
 ): string {
   const width = column.columnDef.meta?.width || "1fr";
   if (isGridTrackMinMax(width)) {

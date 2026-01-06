@@ -47,7 +47,7 @@ export const Tooltip = ({
       DEFAULT_FLIP_MODIFIER,
       DEFAULT_PREVENT_OVERFLOW_MODIFIER,
     ],
-    []
+    [],
   );
   return (
     <MTooltip

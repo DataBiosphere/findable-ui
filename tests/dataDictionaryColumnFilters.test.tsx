@@ -87,8 +87,8 @@ describe("DataDictionaryColumnFilters", () => {
     // Wait for options to be deselected.
     await waitFor(() =>
       optionEls.forEach((el) =>
-        expect(el).not.toHaveClass(MUI_CLASSES.SELECTED)
-      )
+        expect(el).not.toHaveClass(MUI_CLASSES.SELECTED),
+      ),
     );
   });
 

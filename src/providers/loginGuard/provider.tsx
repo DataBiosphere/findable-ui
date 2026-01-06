@@ -64,7 +64,7 @@ export function LoginGuardProvider({
         cb?.();
       }
     },
-    [authConfig, exportsRequireAuth, isAuthenticated]
+    [authConfig, exportsRequireAuth, isAuthenticated],
   );
 
   return (

@@ -7,7 +7,7 @@ import { ThemeProps } from "../../../theme/types";
  * @returns Typography styles.
  */
 export function typographyToCSS(
-  variant: keyof ThemeProps["theme"]["typography"]
+  variant: keyof ThemeProps["theme"]["typography"],
 ) {
   return (props: ThemeProps): SerializedStyles => {
     return css(props.theme.typography[variant]);

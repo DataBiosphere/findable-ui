@@ -15,26 +15,26 @@ export interface EntityService {
     apiPath: string,
     accessToken: string | undefined,
     catalog?: string,
-    listParams?: AzulListParams
+    listParams?: AzulListParams,
   ) => Promise<AzulEntitiesResponse>;
 
   fetchEntitiesFromQuery: (
     apiPath: string,
     listParams: AzulListParams,
     catalog: string | undefined,
-    accessToken: string | undefined
+    accessToken: string | undefined,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This type can't be known before hand
   ) => Promise<AzulEntitiesResponse>;
 
   fetchEntitiesFromURL: (
     url: string,
-    accessToken: string | undefined
+    accessToken: string | undefined,
   ) => Promise<AzulEntitiesResponse>;
 
   fetchEntity?: <T, I>(
     id: string,
     apiPath: string,
-    entityMapper?: EntityMapper<T, I>
+    entityMapper?: EntityMapper<T, I>,
   ) => Promise<T>;
 
   fetchEntityDetail: (
@@ -46,14 +46,14 @@ export interface EntityService {
       | DataSourceConfig["defaultDetailParams"]
       | DataSourceConfig["defaultParams"]
       | undefined,
-    swallow404?: boolean
+    swallow404?: boolean,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This type can't be known before hand
   ) => Promise<any>;
 
   fetchSummary: (
     filterState: FilterState,
     catalog: string | undefined,
-    accessToken: string | undefined
+    accessToken: string | undefined,
   ) => Promise<AzulSummaryResponse>;
 }
 

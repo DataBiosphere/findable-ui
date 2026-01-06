@@ -14,7 +14,7 @@ import { extractDictionaryUrlState as extractUrlState } from "./utils";
 export function buildNextDictionaries(
   state: DataDictionaryState,
   dictionaryKey: string,
-  nextDictionaryState: Partial<TableState>
+  nextDictionaryState: Partial<TableState>,
 ): DictionariesContext {
   // Clone the dictionaries.
   const dictionaries: DictionariesContext = { ...state.dictionaries };
@@ -33,7 +33,7 @@ export function buildNextDictionaries(
 
       // Update the dictionary query.
       dictionaryContext.query = stateToUrlQuery(
-        extractUrlState(key, { columnFilters, globalFilter })
+        extractUrlState(key, { columnFilters, globalFilter }),
       );
     }
 

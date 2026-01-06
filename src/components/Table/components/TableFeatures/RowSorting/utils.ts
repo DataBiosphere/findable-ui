@@ -7,7 +7,7 @@ import { MouseEvent } from "react";
  * @returns `ColumnSort` object with sorting direction and column ID.
  */
 export function buildColumnSort<T extends RowData>(
-  column: Column<T>
+  column: Column<T>,
 ): ColumnSort {
   return { desc: column.getFirstSortDir() === "desc", id: column.id };
 }
@@ -35,7 +35,7 @@ export function buildColumnSort<T extends RowData>(
 export function handleToggleSorting<T extends RowData>(
   mouseEvent: MouseEvent,
   table: Table<T>,
-  column: Column<T>
+  column: Column<T>,
 ): void {
   const {
     getColumn,
