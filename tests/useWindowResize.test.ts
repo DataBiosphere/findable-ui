@@ -122,7 +122,7 @@ describe("useWindowResize", () => {
 
     expect(removeEventListenerSpy).toHaveBeenCalledWith(
       "resize",
-      expect.any(Function)
+      expect.any(Function),
     );
 
     removeEventListenerSpy.mockRestore();
