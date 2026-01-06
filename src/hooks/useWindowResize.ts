@@ -15,7 +15,7 @@ export const useWindowResize = (timeout = 200): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>(getWindowSize());
 
   useEffect(() => {
-    // Skip event listener setup on server.
+    // Skip event listener setup during static build when window is not available.
     if (typeof window === "undefined") return;
     /**
      * Resize event fired; window size recalculated.
