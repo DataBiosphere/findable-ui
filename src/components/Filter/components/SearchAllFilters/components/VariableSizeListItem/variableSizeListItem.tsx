@@ -32,7 +32,7 @@ export default function VariableSizeListItem({
   style,
 }: Props): JSX.Element {
   const { key } = item;
-  const listItemRef = useRef<HTMLElement>(null);
+  const listItemRef = useRef<HTMLElement | null>(null);
 
   const setRef = (e: HTMLElement | null): void => {
     listItemRef.current = e;
