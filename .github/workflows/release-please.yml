@@ -56,14 +56,11 @@ jobs:
           echo "Token URL available: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
           echo "=== Requesting OIDC token for npm ==="
           if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
-            OIDC_RESPONSE=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm")
-            echo "OIDC Response (first 200 chars): ${OIDC_RESPONSE:0:200}"
-            if echo "$OIDC_RESPONSE" | grep -q "value"; then
-              echo "✓ OIDC token successfully obtained"
+            if OIDC_RESPONSE=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm"); then
+              echo "✓ OIDC token request succeeded"
             else
               echo "✗ Failed to get OIDC token"
-              echo "Full response: $OIDC_RESPONSE"
             fi
           else
             echo "✗ ACTIONS_ID_TOKEN_REQUEST_URL is not set - id-token permission may be missing"
