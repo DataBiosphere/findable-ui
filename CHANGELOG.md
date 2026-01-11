@@ -1,5 +1,12 @@
 # Changelog
 
+## [48.1.1](https://github.com/DataBiosphere/findable-ui/compare/v48.1.0...v48.1.1) (2026-01-11)
+
+
+### Chores
+
+* remove debug code ([#762](https://github.com/DataBiosphere/findable-ui/issues/762)) ([#765](https://github.com/DataBiosphere/findable-ui/issues/765)) ([6a6b8f5](https://github.com/DataBiosphere/findable-ui/commit/6a6b8f5087bf972397fa4104f946b41eae03a0da))
+
 ## [48.1.0](https://github.com/DataBiosphere/findable-ui/compare/v48.0.0...v48.1.0) (2026-01-11)
 
 
