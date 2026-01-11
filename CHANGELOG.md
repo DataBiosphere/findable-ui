@@ -1,5 +1,12 @@
 # Changelog
 
+## [48.1.0](https://github.com/DataBiosphere/findable-ui/compare/v48.0.0...v48.1.0) (2026-01-11)
+
+
+### Features
+
+* add debug messages to rp ([#762](https://github.com/DataBiosphere/findable-ui/issues/762)) ([#763](https://github.com/DataBiosphere/findable-ui/issues/763)) ([eb1454a](https://github.com/DataBiosphere/findable-ui/commit/eb1454a22bc27efa85e3b672330a32a775ae9763))
+
 ## [48.0.0](https://github.com/DataBiosphere/findable-ui/compare/v47.0.2...v48.0.0) (2026-01-06)
 
 
