@@ -57,7 +57,7 @@ jobs:
           echo "=== Requesting OIDC token for npm ==="
           if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
             if OIDC_RESPONSE=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm"); then
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm" 2>/dev/null); then
               echo "✓ OIDC token request succeeded"
             else
               echo "✗ Failed to get OIDC token"
