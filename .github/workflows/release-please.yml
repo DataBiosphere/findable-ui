@@ -44,28 +44,6 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: npx tsc
 
-      - name: Debug OIDC Token
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          echo "=== OIDC Debug Info ==="
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Workflow: $GITHUB_WORKFLOW"
-          echo "Job: $GITHUB_JOB"
-          echo "Run ID: $GITHUB_RUN_ID"
-          echo "Ref: $GITHUB_REF"
-          echo "Token URL available: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
-          echo "=== Requesting OIDC token for npm ==="
-          if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
-            if OIDC_RESPONSE=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=npm" 2>/dev/null); then
-              echo "✓ OIDC token request succeeded"
-            else
-              echo "✗ Failed to get OIDC token"
-            fi
-          else
-            echo "✗ ACTIONS_ID_TOKEN_REQUEST_URL is not set - id-token permission may be missing"
-          fi
-
       - name: Publish to NPM
         if: ${{ steps.release.outputs.release_created }}
         run: npm publish --provenance --access public
