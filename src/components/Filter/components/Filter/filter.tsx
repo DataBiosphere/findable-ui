@@ -12,6 +12,8 @@ import { IconButton } from "../surfaces/drawer/components/IconButton/iconButton"
 import { SURFACE_TYPE } from "../surfaces/types";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
 import { StyledPopover } from "./filter.styles";
+import { getFilterLabelCount } from "./utils";
+import { isPresetCategoryView } from "../../../../common/categories/views/preset/typeGuards";
 
 /**
  * Filter component.
@@ -55,6 +57,7 @@ export const Filter = ({
   const transitionDuration = isOpen ? 250 : 300;
   const TransitionDuration = isDrawer ? transitionDuration : undefined;
   const isRangeView = isRangeCategoryView(categoryView);
+  const isPresetView = isPresetCategoryView(categoryView);
 
   /**
    * Closes filter popover.
@@ -90,7 +93,7 @@ export const Filter = ({
     <>
       <FilterLabel
         annotation={categoryView.annotation}
-        count={isRangeView ? undefined : categoryView.values.length}
+        count={getFilterLabelCount(categoryView)}
         disabled={categoryView.isDisabled}
         isOpen={isOpen}
         label={categoryView.label}
@@ -124,7 +127,7 @@ export const Filter = ({
             surfaceType={surfaceType}
             unit={categoryView.unit}
           />
-        ) : (
+        ) : isPresetView ? null : (
           <FilterMenu
             categoryKey={categoryView.key}
             categoryLabel={categoryView.label}

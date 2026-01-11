@@ -1,4 +1,5 @@
-import { isRangeCategory } from "../../../../common/categories/models/range/typeGuards";
+import { isPresetCategoryView } from "../../../../common/categories/views/preset/typeGuards";
+import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { FILTER_SORT } from "../../../../common/filters/sort/config/types";
 import { sortCategoryValueViews } from "../../../../common/filters/sort/models/utils";
@@ -15,8 +16,9 @@ export function sortCategoryViews(
   filterSort: FILTER_SORT,
 ): CategoryView[] {
   return [...state.categoryViews].map((categoryView) => {
-    // Skip range categories.
-    if (isRangeCategory(categoryView)) return categoryView;
+    // Skip range and preset categories.
+    if (isRangeCategoryView(categoryView)) return categoryView;
+    if (isPresetCategoryView(categoryView)) return categoryView;
 
     // Use structural clone for select categories that need sorting.
     const nextCategoryView = {

@@ -1,5 +1,6 @@
 import { Divider } from "@mui/material";
 import { JSX, Fragment, useEffect, useRef, useState } from "react";
+import { isPresetCategoryView } from "../../../../common/categories/views/preset/typeGuards";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { CategoryTag } from "../../../../common/entities";
@@ -39,9 +40,14 @@ function buildFilterTags(
   categoryView: CategoryView,
   onFilter: OnFilterFn,
 ): CategoryTag[] {
-  // Handle range category views
+  // Handle range category views.
   if (isRangeCategoryView(categoryView)) {
     return buildRangeTag(categoryView, onFilter);
+  }
+
+  // Handle preset category views.
+  if (isPresetCategoryView(categoryView)) {
+    return [];
   }
 
   // Handle select category views.

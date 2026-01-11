@@ -3,13 +3,18 @@ import {
   DataDictionaryAnnotation,
   SelectCategoryValueView,
 } from "../../entities";
+import { PresetDefinition } from "./preset/types";
+import { PresetViewKind } from "../views/preset/types";
 import { RangeViewKind } from "../views/range/types";
 import { SelectViewKind } from "../views/select/types";
 
 /**
  * Category config.
  */
-export type CategoryConfig = RangeCategoryConfig | SelectCategoryConfig;
+export type CategoryConfig =
+  | PresetCategoryConfig
+  | RangeCategoryConfig
+  | SelectCategoryConfig;
 
 /**
  * Common category config.
@@ -18,6 +23,14 @@ export interface CommonCategoryConfig {
   annotation?: DataDictionaryAnnotation;
   key: CategoryKey;
   label: string; // human readable label
+}
+
+/**
+ * Preset category config.
+ */
+export interface PresetCategoryConfig
+  extends CommonCategoryConfig, PresetViewKind {
+  presets: PresetDefinition[];
 }
 
 /**

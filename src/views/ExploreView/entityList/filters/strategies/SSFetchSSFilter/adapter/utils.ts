@@ -4,14 +4,22 @@ import { CategoryGroup } from "../../../../../../../config/entities";
 import { ColumnFilter } from "@tanstack/react-table";
 import { CategoryView } from "../../../../../../../common/categories/views/types";
 import {
+  SelectCategoryValue,
   SelectCategoryValueView,
   SelectCategoryView,
 } from "../../../../../../../common/entities";
 import { assertNoRangeCategoryConfig } from "../../../../../../../common/categories/config/assertions";
+import { isPresetCategoryConfig } from "../../../../../../../common/categories/config/preset/typeGuards";
+import { PresetDefinition } from "../../../../../../../common/categories/config/preset/types";
 import {
   CategoryConfig,
+  PresetCategoryConfig,
   SelectCategoryConfig,
 } from "../../../../../../../common/categories/config/types";
+import {
+  PresetCategoryView,
+  PresetValueView,
+} from "../../../../../../../common/categories/views/preset/types";
 import { sortCategoryValueViews } from "../../../../../../../common/filters/sort/models/utils";
 import { FILTER_SORT } from "../../../../../../../common/filters/sort/config/types";
 import {
@@ -28,18 +36,26 @@ import {
  * @param filterSort - Filter sort.
  * @param columnFilters - Column filters.
  * @param termFacets - Term facets.
+ * @param presetKey - Preset key (pre-configured preset).
  * @returns Category filter.
  */
 function buildCategoryFilter(
   categoryGroup: CategoryGroup,
   filterSort: FILTER_SORT,
   columnFilters: ColumnFilter[],
-  termFacets?: ServerDataContextProps["termFacets"],
+  termFacets: ServerDataContextProps["termFacets"] | undefined,
+  presetKey: string | null,
 ): CategoryFilter {
   const { categoryConfigs, label } = categoryGroup;
 
   const categoryViews = categoryConfigs.reduce<CategoryView[]>(
     (acc, categoryConfig) => {
+      // Preset category views are built from config, not server data.
+      if (isPresetCategoryConfig(categoryConfig)) {
+        acc.push(getPresetCategoryView(categoryConfig, presetKey));
+        return acc;
+      }
+
       // Grab the facet filter values.
       const filterValue = getFilterValue(categoryConfig, columnFilters);
 
@@ -77,16 +93,24 @@ function buildCategoryFilter(
  * @param filterSort - Filter sort.
  * @param columnFilters - Column filters.
  * @param termFacets - Term facets.
+ * @param presetKey - Preset key (pre-configured preset).
  * @returns Category filters.
  */
 export function buildCategoryFilters(
   categoryGroups: CategoryGroup[],
   filterSort: FILTER_SORT,
   columnFilters: ColumnFilter[],
-  termFacets?: ServerDataContextProps["termFacets"],
+  termFacets: ServerDataContextProps["termFacets"] | undefined,
+  presetKey: string | null,
 ): CategoryFilter[] {
   return categoryGroups.map((categoryGroup) =>
-    buildCategoryFilter(categoryGroup, filterSort, columnFilters, termFacets),
+    buildCategoryFilter(
+      categoryGroup,
+      filterSort,
+      columnFilters,
+      termFacets,
+      presetKey,
+    ),
   );
 }
 
@@ -123,12 +147,12 @@ function getFacetTerms(
 function buildFacetTermState(
   terms: AzulTerm[],
   filterValue: string[],
-): Map<string, { count: number; selected: boolean }> {
+): Map<string, Pick<SelectCategoryValue, "count" | "selected">> {
   const selectedValues = new Set(filterValue);
 
   const facetTermState = new Map<
     string,
-    { count: number; selected: boolean }
+    Pick<SelectCategoryValue, "count" | "selected">
   >();
 
   for (const { count, term } of terms) {
@@ -174,6 +198,42 @@ function getFilterValue(
 }
 
 /**
+ * Builds a preset category view from configuration and current preset selection.
+ * @param presetCategoryConfig - Preset category config.
+ * @param presetKey - Currently selected preset key.
+ * @returns Preset category view.
+ */
+function getPresetCategoryView(
+  presetCategoryConfig: PresetCategoryConfig,
+  presetKey: string | null,
+): PresetCategoryView {
+  return {
+    annotation: presetCategoryConfig.annotation,
+    isDisabled: presetCategoryConfig.presets.length === 0,
+    key: presetCategoryConfig.key,
+    label: presetCategoryConfig.label,
+    presets: getPresetValueViews(presetCategoryConfig.presets, presetKey),
+  };
+}
+
+/**
+ * Maps preset definitions to preset value views with selection state.
+ * @param presetDefinitions - Preset definitions from config.
+ * @param presetKey - Currently selected preset key.
+ * @returns Preset value views.
+ */
+function getPresetValueViews(
+  presetDefinitions: PresetDefinition[],
+  presetKey: string | null,
+): PresetValueView[] {
+  return presetDefinitions.map((preset) => ({
+    key: preset.key,
+    label: preset.label,
+    selected: preset.key === presetKey,
+  }));
+}
+
+/**
  * Maps facet term state to select category value views, applying sorting and
  * optional value mapping.
  *
@@ -185,15 +245,15 @@ function getFilterValue(
 function getSelectCategoryValueViews(
   selectCategoryConfig: SelectCategoryConfig,
   filterSort: FILTER_SORT,
-  facetTermState: Map<string, { count: number; selected: boolean }>,
+  facetTermState: Map<string, Pick<SelectCategoryValue, "count" | "selected">>,
 ): SelectCategoryValueView[] {
   const categoryValueViews: SelectCategoryValueView[] = [];
 
-  for (const [label, { count, selected }] of [...facetTermState]) {
+  for (const [term, { count, selected }] of [...facetTermState]) {
     categoryValueViews.push({
       count,
-      key: String(label),
-      label: String(label ?? LABEL.UNSPECIFIED),
+      key: term,
+      label: String(term ?? LABEL.UNSPECIFIED),
       selected,
     });
   }
@@ -220,7 +280,7 @@ function getSelectCategoryValueViews(
 function getSelectCategoryView(
   selectCategoryConfig: SelectCategoryConfig,
   filterSort: FILTER_SORT,
-  facetTermState: Map<string, { count: number; selected: boolean }>,
+  facetTermState: Map<string, Pick<SelectCategoryValue, "count" | "selected">>,
 ): SelectCategoryView {
   return {
     annotation: selectCategoryConfig.annotation,
