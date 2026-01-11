@@ -18,4 +18,5 @@ export interface EntityListFilterController {
 
 export interface FilterControllerProps<T = unknown> extends EntityListTable<T> {
   children: (props: EntityListFilterController) => ReactNode;
+  entityListType: string;
 }

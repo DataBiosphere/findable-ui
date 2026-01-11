@@ -36,7 +36,10 @@ export const ExploreView = <T = unknown,>(
         {({ data }) => (
           <TableSelector data={data} entityListType={props.entityListType}>
             {({ table }) => (
-              <FilterController table={table}>
+              <FilterController
+                entityListType={props.entityListType}
+                table={table}
+              >
                 {({ actions, filterSort }) => (
                   <FilterSelector
                     entityListType={props.entityListType}
