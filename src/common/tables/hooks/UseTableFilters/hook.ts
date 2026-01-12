@@ -1,14 +1,29 @@
-import { CategoryKey, CategoryValueKey } from "../../../entities";
-import { useCallback } from "react";
 import { Table } from "@tanstack/react-table";
-import { UseTableFilters } from "./types";
+import { useCallback } from "react";
 import { VIEW_KIND } from "../../../categories/views/types";
+import { CategoryKey, CategoryValueKey } from "../../../entities";
+import { usePreset } from "../../../../views/ExploreView/entityList/filters/hooks/UsePreset/hook";
+import { UseTableFilters, UseTableFiltersOptions } from "./types";
 import { updater } from "./updater";
 
+/**
+ * Hook to manage table filters including select, range, and preset filtering.
+ * @param table - TanStack Table instance.
+ * @param entityListType - Entity identifier for preset state management.
+ * @param options - Options including presetMap for preset handling.
+ * @returns Object containing onFilterChange and onFilterReset functions.
+ */
 export const useTableFilters = <T = unknown>(
   table: Table<T>,
-  options?: { onClearPreset?: () => void },
+  entityListType: string,
+  options?: UseTableFiltersOptions,
 ): UseTableFilters => {
+  const { onPreset } = usePreset(
+    table,
+    entityListType,
+    options?.getPresetTableState,
+  );
+
   /**
    * Apply filter value to table column by category key.
    */
@@ -18,6 +33,12 @@ export const useTableFilters = <T = unknown>(
       selectedCategoryValue: CategoryValueKey,
       viewKind?: VIEW_KIND,
     ) => {
+      // Preset filtering.
+      if (viewKind === VIEW_KIND.PRESET) {
+        onPreset(String(selectedCategoryValue));
+        return;
+      }
+
       const column = table.getColumn(categoryKey);
 
       if (!column) {
@@ -36,7 +57,7 @@ export const useTableFilters = <T = unknown>(
       column.setFilterValue(updater(selectedCategoryValue));
       options?.onClearPreset?.();
     },
-    [options, table],
+    [onPreset, options, table],
   );
 
   /**
