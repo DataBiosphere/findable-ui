@@ -1,4 +1,4 @@
-"""Configuration for LLM services (OpenAI)."""
+"""Configuration for LLM agents (OpenAI)."""
 
 import os
 from typing import Optional

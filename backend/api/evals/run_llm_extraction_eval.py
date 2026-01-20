@@ -176,21 +176,40 @@ def load_test_cases(csv_path: str) -> List[LLMExtractionTestCase]:
     return test_cases
 
 
-def call_llm_extraction_api(query: str, timeout: int = 60) -> List[Dict]:
+def call_llm_extraction_api(
+    query: str, timeout: int = 120, mode: str = "llm"
+) -> List[Dict]:
     """Call the LLM extraction API endpoint.
 
     Args:
         query: Natural language query
         timeout: Request timeout in seconds
+        mode: API mode - "llm" for extract-mentions, "multistage" for facets endpoint
 
     Returns:
         List of mention dicts with 'text' and 'facet' keys
     """
-    # Call the LLM mention extraction endpoint directly
-    url = "http://localhost:8000/api/v0/extract-mentions"
-    response = requests.post(url, json={"query": query}, timeout=timeout)
-    response.raise_for_status()
-    return response.json()
+    if mode == "multistage":
+        # Call the multistage facets endpoint and extract mentions from response
+        url = "http://localhost:8000/api/v0/facets?mode=multistage"
+        response = requests.post(url, json={"query": query}, timeout=timeout)
+        response.raise_for_status()
+        data = response.json()
+        # Convert FacetsResponse to list of mention dicts
+        mentions = []
+        for facet_selection in data.get("facets", []):
+            facet = facet_selection.get("facet", "")
+            for selected_value in facet_selection.get("selectedValues", []):
+                mention = selected_value.get("mention", "")
+                if facet and mention:
+                    mentions.append({"text": mention, "facet": facet})
+        return mentions
+    else:
+        # Call the LLM mention extraction endpoint directly
+        url = "http://localhost:8000/api/v0/extract-mentions"
+        response = requests.post(url, json={"query": query}, timeout=timeout)
+        response.raise_for_status()
+        return response.json()
 
 
 def compare_results(
@@ -253,9 +272,7 @@ def compare_results(
                 extra_mentions.append((actual_facet, mention))
 
     # Test passes if no discrepancies
-    passed = (
-        not missing_mentions and not extra_mentions and not wrong_facet_assignments
-    )
+    passed = not missing_mentions and not extra_mentions and not wrong_facet_assignments
 
     return LLMExtractionTestResult(
         test_id=test_case.test_id,
@@ -341,7 +358,11 @@ def generate_report(results: List[LLMExtractionTestResult], dataset_name: str) -
                 lines.append(
                     f"  Wrong Facet Assignments ({len(result.wrong_facet_assignments)}):"
                 )
-                for mention, expected_facet, actual_facet in result.wrong_facet_assignments:
+                for (
+                    mention,
+                    expected_facet,
+                    actual_facet,
+                ) in result.wrong_facet_assignments:
                     lines.append(
                         f'    "{mention}": expected [{expected_facet}] but got [{actual_facet}]'
                     )
@@ -405,9 +426,7 @@ def save_results_json(
             "failed": total - passed,
             "pass_rate": passed / total if total > 0 else 0.0,
             "error_summary": {
-                "total_missing_mentions": sum(
-                    len(r.missing_mentions) for r in results
-                ),
+                "total_missing_mentions": sum(len(r.missing_mentions) for r in results),
                 "total_extra_mentions": sum(len(r.extra_mentions) for r in results),
                 "total_wrong_facet_assignments": sum(
                     len(r.wrong_facet_assignments) for r in results
@@ -438,6 +457,12 @@ def main() -> None:
     parser.add_argument(
         "--output", help="Output JSON file path (default: auto-generated)"
     )
+    parser.add_argument(
+        "--mode",
+        default="llm",
+        choices=["llm", "multistage"],
+        help="API mode: 'llm' (extract-mentions) or 'multistage' (4-stage pipeline)",
+    )
 
     args = parser.parse_args()
 
@@ -455,13 +480,14 @@ def main() -> None:
     print(f"Loaded {len(test_cases)} test cases\n")
 
     # Run evaluations in parallel
-    print(f"Running LLM extraction evaluations...")
+    print(f"Running LLM extraction evaluations (mode={args.mode})...")
     results = []
+    api_mode = args.mode
 
     def run_single_test(test_case: LLMExtractionTestCase) -> LLMExtractionTestResult:
         """Run a single test case and return the result."""
         try:
-            api_response = call_llm_extraction_api(test_case.query)
+            api_response = call_llm_extraction_api(test_case.query, mode=api_mode)
             return compare_results(test_case, api_response)
         except Exception as e:
             return LLMExtractionTestResult(
@@ -483,12 +509,10 @@ def main() -> None:
 
     # Run tests in parallel with ThreadPoolExecutor
     # Use 5 workers to avoid hitting OpenAI rate limits
-    max_workers = 5
+    max_workers = 3  # Reduced from 5 to avoid pydantic-ai timeouts
     completed = 0
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_test = {
-            executor.submit(run_single_test, tc): tc for tc in test_cases
-        }
+        future_to_test = {executor.submit(run_single_test, tc): tc for tc in test_cases}
         for future in as_completed(future_to_test):
             test_case = future_to_test[future]
             completed += 1
@@ -501,7 +525,8 @@ def main() -> None:
 
     # Generate report
     dataset_name = args.dataset.replace(".csv", "")
-    report = generate_report(results, dataset_name)
+    report_name = f"{dataset_name} (mode={args.mode})"
+    report = generate_report(results, report_name)
     print(report)
 
     # Save JSON results
@@ -514,7 +539,9 @@ def main() -> None:
                 script_dir / "results" / "baseline" / f"{dataset_name}_baseline.json"
             )
         else:
-            output_path = script_dir / "results" / f"{dataset_name}_{timestamp}.json"
+            output_path = (
+                script_dir / "results" / f"{dataset_name}_{args.mode}_{timestamp}.json"
+            )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     save_results_json(results, dataset_name, str(output_path))

@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 from pydantic_ai import Agent
 
 from services.normalization_service import Mention
-from services.llm_config import LLMConfig
+from agents.llm_config import LLMConfig
 
 
 # Facet context for the LLM

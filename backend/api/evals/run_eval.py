@@ -37,12 +37,22 @@ def load_test_cases(csv_path: str) -> List[TestCase]:
         reader = csv.DictReader(f)
 
         # Validate schema - check for required columns
-        required_columns = {"test_id", "query", "expected_facet", "expected_terms", "notes", "category"}
+        required_columns = {
+            "test_id",
+            "query",
+            "expected_facet",
+            "expected_terms",
+            "notes",
+            "category",
+        }
         if reader.fieldnames:
             actual_columns = set(reader.fieldnames)
 
             # Check if this is an LLM extraction test (has expected_extractions instead)
-            if "expected_extractions" in actual_columns and "expected_terms" not in actual_columns:
+            if (
+                "expected_extractions" in actual_columns
+                and "expected_terms" not in actual_columns
+            ):
                 raise ValueError(
                     f"This appears to be an LLM extraction test file. "
                     f"Please use run_llm_extraction_eval.py instead of run_eval.py"

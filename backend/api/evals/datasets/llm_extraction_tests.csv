@@ -50,4 +50,4 @@ llm_048,"genomic dna","files.data_modality:genomic dna",Full form variant,single
 llm_049,"chicano subjects","donors.reported_ethnicity:chicano",Synonym for Hispanic,single_facet
 llm_050,"european donors","donors.reported_ethnicity:european",Geographic synonym for White,single_facet
 llm_051,"middle eastern patients","donors.reported_ethnicity:middle eastern",MENA full term,single_facet
-llm_052,"ispanic patients","donors.reported_ethnicity:ispanic",Typo - missing h,single_facet
+llm_052,"ispanic patients","donors.reported_ethnicity:Hispanic",Typo - should normalize to Hispanic,single_facet

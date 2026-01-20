@@ -28,7 +28,9 @@ def test_normalize_trim_whitespace(resolver: OpenSearchConceptResolver) -> None:
     assert resolver._normalize_mention(" rna seq ") == "rna seq"
 
 
-def test_normalize_collapse_multiple_spaces(resolver: OpenSearchConceptResolver) -> None:
+def test_normalize_collapse_multiple_spaces(
+    resolver: OpenSearchConceptResolver,
+) -> None:
     """Test that multiple spaces are collapsed to single space."""
     assert resolver._normalize_mention("single  cell") == "single cell"
     assert resolver._normalize_mention("rna   seq") == "rna seq"
@@ -50,13 +52,17 @@ def test_normalize_underscore_to_space(resolver: OpenSearchConceptResolver) -> N
     assert resolver._normalize_mention("whole_genome") == "whole genome"
 
 
-def test_normalize_combined_hyphen_underscore(resolver: OpenSearchConceptResolver) -> None:
+def test_normalize_combined_hyphen_underscore(
+    resolver: OpenSearchConceptResolver,
+) -> None:
     """Test normalization with both hyphens and underscores."""
     assert resolver._normalize_mention("single-cell_rna-seq") == "single cell rna seq"
     assert resolver._normalize_mention("single_cell-rna_seq") == "single cell rna seq"
 
 
-def test_normalize_hyphen_underscore_equivalence(resolver: OpenSearchConceptResolver) -> None:
+def test_normalize_hyphen_underscore_equivalence(
+    resolver: OpenSearchConceptResolver,
+) -> None:
     """Test that hyphen and underscore variants normalize to the same result."""
     # All three should normalize to the same thing
     hyphen_result = resolver._normalize_mention("single-cell-rna-seq")
@@ -103,8 +109,12 @@ def test_normalize_real_world_examples(resolver: OpenSearchConceptResolver) -> N
     assert resolver._normalize_mention("sc-RNA-seq") == "sc rna seq"
 
     # Disease names
-    assert resolver._normalize_mention("Alzheimer's") == "alzheimer's"  # Preserves apostrophe
-    assert resolver._normalize_mention("coffin-siris syndrome") == "coffin siris syndrome"
+    assert (
+        resolver._normalize_mention("Alzheimer's") == "alzheimer's"
+    )  # Preserves apostrophe
+    assert (
+        resolver._normalize_mention("coffin-siris syndrome") == "coffin siris syndrome"
+    )
 
     # File formats
     assert resolver._normalize_mention("vcf.gz") == "vcf.gz"  # Preserves period

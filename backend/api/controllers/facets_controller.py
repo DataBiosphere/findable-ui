@@ -5,6 +5,7 @@ from fastapi import APIRouter, Query as QueryParam, HTTPException
 from services.facets_service import (
     compute_facets_from_query,
     compute_facets_with_llm_and_opensearch,
+    compute_facets_multistage,
 )
 from services.models import FacetsResponse
 from controllers.models import FacetsRequest
@@ -27,8 +28,8 @@ def get_llm_extractor() -> "LLMMentionExtractor":  # noqa: F821
     global _llm_extractor
 
     if _llm_extractor is None:
-        from services.llm_mention_extractor import LLMMentionExtractor
-        from services.llm_config import LLMConfig
+        from agents.llm_mention_extractor import LLMMentionExtractor
+        from agents.llm_config import LLMConfig
         from services.anvil_config import get_anvil_facet_mapping
 
         api_key = os.getenv("OPENAI_API_KEY")
@@ -54,21 +55,36 @@ def get_facets(
     payload: FacetsRequest,
     mode: str = QueryParam(
         default="stub",
-        description="Mode: 'stub' (hardcoded data), 'mock' (pattern matching + OpenSearch), 'llm' (OpenAI + OpenSearch)",
+        description="Mode: 'stub' (hardcoded data), 'mock' (pattern matching + OpenSearch), 'llm' (OpenAI + OpenSearch), 'multistage' (4-stage pipeline)",
     ),
 ) -> FacetsResponse:
     """Extract facets from a natural language query.
 
-    Supports three modes via the 'mode' query parameter:
+    Supports four modes via the 'mode' query parameter:
     - **stub**: Returns hardcoded stub data (default, for backwards compatibility)
     - **mock**: Uses pattern matching for extraction + real OpenSearch for normalization (no API cost)
     - **llm**: Uses real OpenAI LLM + real OpenSearch (requires API key, costs money)
+    - **multistage**: 4-stage pipeline: simple extraction → OpenSearch → LLM normalization → re-lookup
 
     Example queries:
         - "latino patients with diabetes"
         - "bam files for brain tissue"
         - "female patients with type 2 diabetes from blood samples"
     """
+    if mode == "multistage":
+        # Multi-stage pipeline: extraction → lookup → normalize → re-lookup
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+        return compute_facets_multistage(query=payload.query)
+
     if mode == "llm":
         # Check for API key before proceeding
         api_key = os.getenv("OPENAI_API_KEY")
@@ -113,5 +129,6 @@ def extract_mentions(payload: FacetsRequest) -> List[Dict[str, str]]:
         return [{"text": m.text, "facet": m.facet} for m in mentions]
     except Exception as e:
         raise HTTPException(
-            status_code=500, detail={"error": "LLM extraction failed", "message": str(e)}
+            status_code=500,
+            detail={"error": "LLM extraction failed", "message": str(e)},
         )

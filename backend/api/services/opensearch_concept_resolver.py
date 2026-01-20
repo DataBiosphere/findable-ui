@@ -79,11 +79,11 @@ class OpenSearchConceptResolver:
         # "single-cell" → "single cell"
         # "rna_seq" → "rna seq"
         # "single_cell_rna-seq" → "single cell rna seq"
-        normalized = normalized.replace('-', ' ')
-        normalized = normalized.replace('_', ' ')
+        normalized = normalized.replace("-", " ")
+        normalized = normalized.replace("_", " ")
 
         # Collapse multiple spaces to single space
-        normalized = ' '.join(normalized.split())
+        normalized = " ".join(normalized.split())
 
         return normalized
 
@@ -349,6 +349,111 @@ class OpenSearchConceptResolver:
             filtered_results.append(r)
 
         return filtered_results
+
+    def resolve_mention_any_facet(self, mention: str, top_k: int = 5) -> List[Dict]:
+        """Resolve a mention searching across ALL facets.
+
+        Used in multi-stage pipeline when facet is unknown.
+        Returns the best matches across all facets with their facet names.
+
+        Args:
+            mention: The user's query string.
+            top_k: Number of top results to return.
+
+        Returns:
+            List of matching concepts with scores, including facet_name.
+        """
+        mention_normalized = self._normalize_mention(mention)
+
+        try:
+            # Build query without facet filter
+            query = self._build_search_query_any_facet(mention_normalized, top_k)
+            response = self.client.search(index=self.index_name, body=query)
+
+            # Try exact matches first
+            exact_results = self._parse_results(
+                response, min_score=self.exact_min_score
+            )
+
+            if exact_results:
+                exact_results = self._apply_score_gap_filter(
+                    exact_results, max_score_gap_percent=60.0
+                )
+                return self._filter_negation_values(exact_results, mention)
+
+            # Fall back to fuzzy matching
+            fuzzy_query = self._build_search_query_any_facet(
+                mention_normalized, top_k, exact_only=False
+            )
+            fuzzy_response = self.client.search(index=self.index_name, body=fuzzy_query)
+            fuzzy_results = self._parse_results(
+                fuzzy_response, min_score=self.fuzzy_min_score
+            )
+
+            fuzzy_results = self._apply_score_gap_filter(
+                fuzzy_results, max_score_gap_percent=60.0
+            )
+
+            return self._filter_negation_values(fuzzy_results, mention)
+
+        except Exception as e:
+            print(f"Error querying OpenSearch (any facet): {e}")
+            return []
+
+    def _build_search_query_any_facet(
+        self, mention: str, top_k: int, exact_only: bool = True
+    ) -> Dict:
+        """Build OpenSearch query without facet filter.
+
+        Args:
+            mention: The search query string.
+            top_k: Number of results to return.
+            exact_only: If True, only include exact keyword matches.
+
+        Returns:
+            OpenSearch query dict.
+        """
+        should_clauses = [
+            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            {"match_phrase": {"synonyms_normalized": {"query": mention, "boost": 5.0}}},
+        ]
+
+        if not exact_only:
+            should_clauses.extend(
+                [
+                    {
+                        "match": {
+                            "term": {
+                                "query": mention,
+                                "fuzziness": "AUTO",
+                                "boost": 2.0,
+                            }
+                        }
+                    },
+                    {
+                        "match": {
+                            "name": {
+                                "query": mention,
+                                "fuzziness": "AUTO",
+                                "boost": 1.5,
+                            }
+                        }
+                    },
+                    {"match": {"synonyms": {"query": mention, "fuzziness": "AUTO"}}},
+                ]
+            )
+
+        return {
+            "query": {
+                "bool": {
+                    "should": should_clauses,
+                    "minimum_should_match": 1,
+                }
+            },
+            "size": top_k,
+        }
 
     def health_check(self) -> bool:
         """Check if OpenSearch is accessible and the concepts index exists.

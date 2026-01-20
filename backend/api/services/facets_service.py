@@ -168,6 +168,53 @@ def compute_facets_with_opensearch(query: str) -> FacetsResponse:
     return FacetsResponse(query=query, facets=facet_selections)
 
 
+def compute_facets_multistage(query: str) -> FacetsResponse:
+    """Multi-stage extraction pipeline.
+
+    Stage 1: Simple LLM extraction (no facet classification)
+    Stage 2: OpenSearch lookup across all facets
+    Stage 3: LLM normalization for unmatched terms
+    Stage 4: Re-lookup normalized terms
+
+    Args:
+        query: Natural language query from user.
+
+    Returns:
+        FacetsResponse with extracted and normalized facets.
+    """
+    from services.config import create_opensearch_resolver
+    from agents.simple_mention_extractor import SimpleMentionExtractor
+    from agents.llm_mention_normalizer import LLMMentionNormalizer
+
+    # Stage 1: Simple extraction (no facet classification)
+    extractor = SimpleMentionExtractor()
+    try:
+        text_spans = extractor.extract(query)
+        if not text_spans:
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error in Stage 1 extraction: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Stages 2-4: Normalize with OpenSearch + LLM fallback
+    try:
+        resolver = create_opensearch_resolver()
+
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+
+        llm_normalizer = LLMMentionNormalizer()
+        normalizer = MentionNormalizer(resolver, llm_normalizer)
+        facet_selections = normalizer.normalize_mentions_any_facet(text_spans)
+
+        return FacetsResponse(query=query, facets=facet_selections)
+
+    except Exception as e:
+        print(f"Error in normalization: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+
 def compute_facets_with_llm_and_opensearch(
     query: str, use_mock_llm: bool = False
 ) -> FacetsResponse:
@@ -200,8 +247,8 @@ def compute_facets_with_llm_and_opensearch(
             facet_name_mapping=get_anvil_facet_mapping()
         )
     else:
-        from services.llm_mention_extractor import LLMMentionExtractor
-        from services.llm_config import LLMConfig
+        from agents.llm_mention_extractor import LLMMentionExtractor
+        from agents.llm_config import LLMConfig
 
         llm_extractor = LLMMentionExtractor(
             LLMConfig(), facet_name_mapping=get_anvil_facet_mapping()

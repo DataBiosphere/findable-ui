@@ -212,3 +212,47 @@ describe("ComponentName", () => {
 - **Release Management:** Uses release-please for automated versioning and changelog
 - **Storybook:** Available for component development and visual testing
 - **Import Paths:** Base URL is `./src` (configured in tsconfig.json), allowing absolute imports within src
+
+---
+
+## Backend (Python/FastAPI)
+
+The `backend/api/` directory contains a Python FastAPI backend for AI-powered facet selection.
+
+### Python Code Style
+
+**Naming Conventions (PEP 8):**
+
+- **Classes:** PascalCase (e.g., `LLMMentionExtractor`, `SimpleMentionExtractor`)
+- **Files/Modules:** snake_case, matching the main class name (e.g., `llm_mention_extractor.py` for `LLMMentionExtractor`)
+- **Functions/Variables:** snake_case (e.g., `extract_mentions`, `facet_name`)
+- **Constants:** UPPER_SNAKE_CASE (e.g., `FACET_CONTEXT`, `MAX_RETRIES`)
+
+**File Naming Rule:** When a module contains a primary class, the file name should be the snake_case version of the class name:
+
+| Class Name                  | File Name                        |
+| --------------------------- | -------------------------------- |
+| `LLMMentionExtractor`       | `llm_mention_extractor.py`       |
+| `SimpleMentionExtractor`    | `simple_mention_extractor.py`    |
+| `OpenSearchConceptResolver` | `opensearch_concept_resolver.py` |
+
+### Backend Directory Structure
+
+```
+backend/api/
+├── agents/           # LLM agents (pydantic-ai wrappers)
+├── services/         # Business logic, clients, orchestration
+├── controllers/      # FastAPI route handlers
+├── tests/            # pytest tests
+├── evals/            # Evaluation scripts and datasets
+└── main.py           # FastAPI app entry point
+```
+
+### Running the Backend
+
+```bash
+cd backend/api
+source .venv/bin/activate
+make dev              # Start API with auto-reload
+make test             # Run pytest
+```

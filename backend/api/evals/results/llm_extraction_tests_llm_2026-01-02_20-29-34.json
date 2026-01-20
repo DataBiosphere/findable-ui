@@ -1,0 +1,1448 @@
+{
+  "metadata": {
+    "date": "2026-01-02T20:29:34.250466",
+    "dataset": "llm_extraction_tests",
+    "total_tests": 52,
+    "passed": 41,
+    "failed": 11,
+    "pass_rate": 0.7884615384615384,
+    "error_summary": {
+      "total_missing_mentions": 10,
+      "total_extra_mentions": 13,
+      "total_wrong_facet_assignments": 2
+    }
+  },
+  "results": [
+    {
+      "test_id": "llm_001",
+      "query": "transcriptomic data from lung cancer patients",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "transcriptomic data"
+        ],
+        "diagnoses.disease": [
+          "lung cancer"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "transcriptomic"
+        ],
+        "diagnoses.disease": [
+          "lung cancer"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "transcriptomic data"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "transcriptomic"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Multi-facet with disease (lung cancer is single diagnosis not anatomy+disease)",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_003",
+      "query": "whole genome sequencing data for autism spectrum disorder",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "whole genome sequencing"
+        ],
+        "diagnoses.disease": [
+          "autism spectrum disorder"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "whole genome sequencing"
+        ],
+        "diagnoses.disease": [
+          "autism spectrum disorder"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "WGS with complex diagnosis term",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_005",
+      "query": "scRNA-seq and scATAC-seq multimodal data from heart",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "scRNA-seq",
+          "scATAC-seq"
+        ],
+        "biosamples.anatomical_site": [
+          "heart"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "scRNA-seq",
+          "scATAC-seq"
+        ],
+        "biosamples.anatomical_site": [
+          "heart"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Multiple data modalities from same query",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_006",
+      "query": "methylation analysis in breast cancer tissue samples",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "methylation analysis"
+        ],
+        "diagnoses.disease": [
+          "breast cancer"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "methylation"
+        ],
+        "diagnoses.disease": [
+          "breast cancer"
+        ],
+        "biosamples.anatomical_site": [
+          "breast"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "methylation analysis"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "methylation"
+        },
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "breast"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Methylation with breast cancer (tissue is just context)",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_002",
+      "query": "single cell rna sequencing from brain tissue of alzheimer's patients",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "single cell rna sequencing"
+        ],
+        "biosamples.anatomical_site": [
+          "brain"
+        ],
+        "diagnoses.disease": [
+          "alzheimer's"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "single cell rna sequencing"
+        ],
+        "biosamples.anatomical_site": [
+          "brain"
+        ],
+        "diagnoses.disease": [
+          "alzheimer's"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Data modality with brain (drop generic tissue suffix)",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_007",
+      "query": "pacbio whole genome sequencing of children with developmental delay",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "pacbio whole genome sequencing"
+        ],
+        "diagnoses.disease": [
+          "developmental delay"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "pacbio whole genome sequencing"
+        ],
+        "diagnoses.disease": [
+          "developmental delay"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Technology-specific sequencing with diagnosis",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_009",
+      "query": "spatial transcriptomics of liver samples from diabetic patients",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "spatial transcriptomics"
+        ],
+        "biosamples.anatomical_site": [
+          "liver"
+        ],
+        "diagnoses.disease": [
+          "diabetic"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "spatial transcriptomics"
+        ],
+        "biosamples.anatomical_site": [
+          "liver"
+        ],
+        "diagnoses.disease": [
+          "diabetes"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "diagnoses.disease",
+          "mention": "diabetic"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "diagnoses.disease",
+          "mention": "diabetes"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Spatial data modality with anatomy and diagnosis",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_010",
+      "query": "SHARE-seq chromatin and RNA data from blood cells",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "SHARE-seq"
+        ],
+        "biosamples.anatomical_site": [
+          "blood cells"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "chromatin",
+          "SHARE-seq",
+          "RNA"
+        ],
+        "biosamples.anatomical_site": [
+          "blood"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "blood cells"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "chromatin"
+        },
+        {
+          "facet": "files.data_modality",
+          "mention": "RNA"
+        },
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "blood"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Technology name with anatomical site",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_011",
+      "query": "show me fastq files with unrestricted access",
+      "passed": true,
+      "expected": {
+        "files.file_format": [
+          "fastq"
+        ],
+        "datasets.consent_group": [
+          "unrestricted access"
+        ]
+      },
+      "actual": {
+        "files.file_format": [
+          "fastq"
+        ],
+        "datasets.consent_group": [
+          "unrestricted access"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "File format and consent group",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_012",
+      "query": "bam files from controlled access datasets",
+      "passed": true,
+      "expected": {
+        "files.file_format": [
+          "bam"
+        ],
+        "datasets.consent_group": [
+          "controlled access"
+        ]
+      },
+      "actual": {
+        "files.file_format": [
+          "bam"
+        ],
+        "datasets.consent_group": [
+          "controlled access"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "File format with controlled access",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_004",
+      "query": "bulk rna-seq samples from male and female kidney donors",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "bulk rna-seq"
+        ],
+        "donors.phenotypic_sex": [
+          "male",
+          "female"
+        ],
+        "biosamples.anatomical_site": [
+          "kidney"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "bulk rna-seq"
+        ],
+        "donors.phenotypic_sex": [
+          "male",
+          "female"
+        ],
+        "biosamples.anatomical_site": [
+          "kidney"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Multiple sex values with anatomical site",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_013",
+      "query": "single nucleus atac-seq from seizure patients",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "single nucleus atac-seq"
+        ],
+        "diagnoses.disease": [
+          "seizure"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "single nucleus atac-seq"
+        ],
+        "diagnoses.disease": [
+          "seizure"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "snATAC-seq variant with diagnosis",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_014",
+      "query": "rnaseq data from asian female donors with HMB consent",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "rnaseq"
+        ],
+        "donors.reported_ethnicity": [
+          "asian"
+        ],
+        "donors.phenotypic_sex": [
+          "female"
+        ],
+        "datasets.consent_group": [
+          "HMB"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "rnaseq"
+        ],
+        "donors.reported_ethnicity": [
+          "asian"
+        ],
+        "donors.phenotypic_sex": [
+          "female"
+        ],
+        "datasets.consent_group": [
+          "HMB"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Four facets: modality ethnicity sex consent",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_016",
+      "query": "WES data with GRU consent",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "WES"
+        ],
+        "datasets.consent_group": [
+          "GRU"
+        ]
+      },
+      "actual": {
+        "datasets.consent_group": [
+          "GRU"
+        ],
+        "files.data_modality": [
+          "WES"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Abbreviation with consent group",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_008",
+      "query": "exome sequencing data from patients with cleft palate",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "exome sequencing"
+        ],
+        "diagnoses.disease": [
+          "cleft palate"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "exome sequencing"
+        ],
+        "diagnoses.disease": [
+          "cleft palate"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Exome with phenotypic feature",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_018",
+      "query": "vcf.gz files from whole genome studies",
+      "passed": true,
+      "expected": {
+        "files.file_format": [
+          "vcf.gz"
+        ],
+        "files.data_modality": [
+          "whole genome"
+        ]
+      },
+      "actual": {
+        "files.file_format": [
+          "vcf.gz"
+        ],
+        "files.data_modality": [
+          "whole genome"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Compressed file format with data modality",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_019",
+      "query": "snRNA-seq from M and F patients with hypotonia",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "snRNA-seq"
+        ],
+        "donors.phenotypic_sex": [
+          "F",
+          "M"
+        ],
+        "diagnoses.disease": [
+          "hypotonia"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "snRNA-seq"
+        ],
+        "donors.phenotypic_sex": [
+          "F",
+          "M"
+        ],
+        "diagnoses.disease": [
+          "hypotonia"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Abbreviated sex notation with diagnosis",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_020",
+      "query": "chromatin accessibility data from human samples",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "chromatin accessibility"
+        ],
+        "donors.organism_type": [
+          "human"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "chromatin accessibility"
+        ],
+        "donors.organism_type": [
+          "human"
+        ],
+        "unmatched": [
+          "samples"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [
+        {
+          "facet": "unmatched",
+          "mention": "samples"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Data modality with organism type",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_021",
+      "query": "bulk transcriptome sequencing from mouse liver",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "bulk transcriptome sequencing"
+        ],
+        "donors.organism_type": [
+          "mouse"
+        ],
+        "biosamples.anatomical_site": [
+          "liver"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "bulk transcriptome sequencing"
+        ],
+        "donors.organism_type": [
+          "mouse"
+        ],
+        "biosamples.anatomical_site": [
+          "liver"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Organism modality anatomy",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_015",
+      "query": "long-read sequencing of genomic dna from brain organoids",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "long-read sequencing",
+          "genomic dna"
+        ],
+        "biosamples.anatomical_site": [
+          "brain organoids"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "long-read sequencing",
+          "genomic dna"
+        ],
+        "biosamples.anatomical_site": [
+          "brain"
+        ],
+        "biosamples.biosample_type": [
+          "organoids"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "brain organoids"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "brain"
+        },
+        {
+          "facet": "biosamples.biosample_type",
+          "mention": "organoids"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Multiple data modality terms with brain organoids (keep organoid)",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_023",
+      "query": "dna methylation in coffin-siris syndrome patients",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "dna methylation"
+        ],
+        "diagnoses.phenotype": [
+          "coffin-siris syndrome"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "dna methylation"
+        ],
+        "diagnoses.phenotype": [
+          "Coffin-Siris syndrome"
+        ],
+        "diagnoses.disease": [
+          "Coffin-Siris syndrome"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "diagnoses.phenotype",
+          "mention": "coffin-siris syndrome"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "diagnoses.phenotype",
+          "mention": "Coffin-Siris syndrome"
+        },
+        {
+          "facet": "diagnoses.disease",
+          "mention": "Coffin-Siris syndrome"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Data modality with complex phenotype syndrome",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_017",
+      "query": "single cell gene expression profiling in oral cavity tissue",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "single cell gene expression profiling"
+        ],
+        "biosamples.anatomical_site": [
+          "oral cavity"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "single cell gene expression profiling"
+        ],
+        "biosamples.anatomical_site": [
+          "oral cavity"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Alternative data modality phrasing",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_024",
+      "query": "atac-seq peaks from chest tissue",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "atac-seq"
+        ],
+        "biosamples.anatomical_site": [
+          "chest"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "atac-seq"
+        ],
+        "biosamples.anatomical_site": [
+          "chest"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "ATAC-seq with chest (should drop tissue)",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_025",
+      "query": "private access whole genome data from epileptic encephalopathy cases",
+      "passed": false,
+      "expected": {
+        "datasets.consent_group": [
+          "private access"
+        ],
+        "files.data_modality": [
+          "whole genome"
+        ],
+        "diagnoses.phenotype": [
+          "epileptic encephalopathy"
+        ]
+      },
+      "actual": {
+        "datasets.consent_group": [
+          "private access"
+        ],
+        "files.data_modality": [
+          "whole genome"
+        ],
+        "diagnoses.disease": [
+          "epileptic encephalopathy"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [
+        {
+          "mention": "epileptic encephalopathy",
+          "expected_facet": "diagnoses.phenotype",
+          "actual_facet": "diagnoses.disease"
+        }
+      ],
+      "notes": "Access level with phenotype syndrome",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_027",
+      "query": "csv and tsv format files with open access",
+      "passed": true,
+      "expected": {
+        "files.file_format": [
+          "csv",
+          "tsv"
+        ],
+        "datasets.consent_group": [
+          "open access"
+        ]
+      },
+      "actual": {
+        "files.file_format": [
+          "csv",
+          "tsv"
+        ],
+        "datasets.consent_group": [
+          "open access"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Multiple file formats with access",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_028",
+      "query": "public rna-seq data from african american donors",
+      "passed": true,
+      "expected": {
+        "datasets.consent_group": [
+          "public"
+        ],
+        "files.data_modality": [
+          "rna-seq"
+        ],
+        "donors.reported_ethnicity": [
+          "african american"
+        ]
+      },
+      "actual": {
+        "datasets.consent_group": [
+          "public"
+        ],
+        "files.data_modality": [
+          "rna-seq"
+        ],
+        "donors.reported_ethnicity": [
+          "african american"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Public access with ethnicity",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_029",
+      "query": "wgs from unreported sex patients",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "wgs"
+        ],
+        "donors.phenotypic_sex": [
+          "unreported sex"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "wgs"
+        ],
+        "donors.phenotypic_sex": [
+          "unreported sex"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Edge case: unreported value",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_030",
+      "query": "data modality unspecified samples from male subjects",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "data modality unspecified"
+        ],
+        "donors.phenotypic_sex": [
+          "male"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "data modality unspecified"
+        ],
+        "donors.phenotypic_sex": [
+          "male"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Edge case: unspecified data modality",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_031",
+      "query": "whole genome",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "whole genome"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "whole genome"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Single facet extraction baseline",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_032",
+      "query": "scRNA-seq",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "scRNA-seq"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "scRNA-seq"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Single abbreviation extraction",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_033",
+      "query": "methylation",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "methylation"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "methylation"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Single word data modality",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_034",
+      "query": "lung cancer",
+      "passed": true,
+      "expected": {
+        "diagnoses.disease": [
+          "lung cancer"
+        ]
+      },
+      "actual": {
+        "diagnoses.disease": [
+          "lung cancer"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Single diagnosis term (lung cancer is one disease not anatomy+disease)",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_035",
+      "query": "female patients",
+      "passed": true,
+      "expected": {
+        "donors.phenotypic_sex": [
+          "female"
+        ]
+      },
+      "actual": {
+        "donors.phenotypic_sex": [
+          "female"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Sex only",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_036",
+      "query": "GRU consent",
+      "passed": true,
+      "expected": {
+        "datasets.consent_group": [
+          "GRU"
+        ]
+      },
+      "actual": {
+        "datasets.consent_group": [
+          "GRU"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Consent group only",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_037",
+      "query": "exome sequencing",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "exome sequencing"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "exome sequencing"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Exome extraction baseline",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_038",
+      "query": "pacbio sequencing",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "pacbio sequencing"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "pacbio sequencing"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Technology name extraction",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_039",
+      "query": "bulk rna seq",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "bulk rna seq"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "bulk rna seq"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Data modality with qualifier",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_040",
+      "query": "single cell transcriptomics",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "single cell transcriptomics"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "single cell transcriptomics"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Alternative terminology",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_022",
+      "query": "mrna sequencing assay data from consortia access datasets",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "mrna sequencing assay"
+        ],
+        "datasets.consent_group": [
+          "consortia access"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "mrna sequencing"
+        ],
+        "datasets.consent_group": [
+          "consortia access"
+        ]
+      },
+      "missing_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "mrna sequencing assay"
+        }
+      ],
+      "extra_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "mrna sequencing"
+        }
+      ],
+      "wrong_facet_assignments": [],
+      "notes": "Specific RNA type with access level",
+      "category": "multi_facet"
+    },
+    {
+      "test_id": "llm_041",
+      "query": "ethnicity not specified",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "ethnicity not specified"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "ethnicity not specified"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Edge case: not specified with facet name",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_042",
+      "query": "data modality none",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "data modality none"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "data modality none"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Edge case: none value with facet name",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_043",
+      "query": "unknown ethnicity",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "unknown ethnicity"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "unknown ethnicity"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Edge case: unknown with facet name",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_044",
+      "query": "disease unspecified",
+      "passed": false,
+      "expected": {
+        "diagnoses.disease": [
+          "disease unspecified"
+        ]
+      },
+      "actual": {
+        "unmatched": [
+          "disease unspecified"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [
+        {
+          "mention": "disease unspecified",
+          "expected_facet": "diagnoses.disease",
+          "actual_facet": "unmatched"
+        }
+      ],
+      "notes": "Edge case: unspecified with facet name",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "llm_045",
+      "query": "genome",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "genome"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "genome"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Simple single-word term (short form)",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_046",
+      "query": "gdna",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "gdna"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "gdna"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Abbreviation for genomic DNA",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_047",
+      "query": "dna methylation",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "dna methylation"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "dna methylation"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Full form variant",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_048",
+      "query": "genomic dna",
+      "passed": true,
+      "expected": {
+        "files.data_modality": [
+          "genomic dna"
+        ]
+      },
+      "actual": {
+        "files.data_modality": [
+          "genomic dna"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Full form variant",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_049",
+      "query": "chicano subjects",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "chicano"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "chicano"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Synonym for Hispanic",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_050",
+      "query": "european donors",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "european"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "european"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Geographic synonym for White",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_051",
+      "query": "middle eastern patients",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "middle eastern"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "middle eastern"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "MENA full term",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_052",
+      "query": "ispanic patients",
+      "passed": true,
+      "expected": {
+        "donors.reported_ethnicity": [
+          "ispanic"
+        ]
+      },
+      "actual": {
+        "donors.reported_ethnicity": [
+          "ispanic"
+        ]
+      },
+      "missing_mentions": [],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "Typo - missing h",
+      "category": "single_facet"
+    },
+    {
+      "test_id": "llm_026",
+      "query": "single-cell multiome data from kidney biopsies",
+      "passed": false,
+      "expected": {
+        "files.data_modality": [
+          "single-cell multiome"
+        ],
+        "biosamples.anatomical_site": [
+          "kidney"
+        ],
+        "biosamples.biosample_type": [
+          "biopsies"
+        ]
+      },
+      "actual": {},
+      "missing_mentions": [
+        {
+          "facet": "files.data_modality",
+          "mention": "single-cell multiome"
+        },
+        {
+          "facet": "biosamples.anatomical_site",
+          "mention": "kidney"
+        },
+        {
+          "facet": "biosamples.biosample_type",
+          "mention": "biopsies"
+        }
+      ],
+      "extra_mentions": [],
+      "wrong_facet_assignments": [],
+      "notes": "API error: HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=120)",
+      "category": "multi_facet"
+    }
+  ],
+  "by_category": {
+    "multi_facet": {
+      "passed": 18,
+      "failed": 10,
+      "pass_rate": 0.6428571428571429
+    },
+    "edge_case": {
+      "passed": 5,
+      "failed": 1,
+      "pass_rate": 0.8333333333333334
+    },
+    "single_facet": {
+      "passed": 18,
+      "failed": 0,
+      "pass_rate": 1.0
+    }
+  }
+}
