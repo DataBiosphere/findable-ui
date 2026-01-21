@@ -418,7 +418,7 @@ class OpenSearchConceptResolver:
                 "bool": {
                     "must": [{"term": {"facet_name.keyword": facet_name}}],
                     "should": [
-                        # Direct matches (the parent concept)
+                        # Direct matches using original mention
                         {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
                         {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
                         {
@@ -431,6 +431,8 @@ class OpenSearchConceptResolver:
                                 "synonyms_normalized": {"query": mention, "boost": 5.0}
                             }
                         },
+                        # Direct matches using resolved name (for typo handling)
+                        {"term": {"name.exact": {"value": matched_name, "boost": 8.0}}},
                         # Descendants (concepts that have matched_name as ancestor)
                         {"term": {"ancestors": {"value": matched_name, "boost": 3.0}}},
                     ],
