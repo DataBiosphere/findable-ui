@@ -248,6 +248,7 @@ class OpenSearchConceptResolver:
                 "facet_name": hit["_source"]["facet_name"],
                 "metadata": hit["_source"].get("metadata", {}),
                 "modifier_role": hit["_source"].get("modifier_role"),
+                "ontology_id": hit["_source"].get("ontology_id"),
             }
             for hit in hits
             if hit["_score"] >= min_score
@@ -379,14 +380,19 @@ class OpenSearchConceptResolver:
         if not direct_results:
             return []
 
-        # Get the matched term's name (human-readable label)
+        # Get the matched term's name and ontology_id for expansion
         matched_name = direct_results[0]["name"]
+        matched_ontology_id = direct_results[0].get("ontology_id")
 
         try:
             # Query for concepts that have this term as an ancestor (descendants)
             # Also include the original match
             expansion_query = self._build_expansion_query(
-                opensearch_facet, mention_normalized, matched_name, top_k
+                opensearch_facet,
+                mention_normalized,
+                matched_name,
+                matched_ontology_id,
+                top_k,
             )
             response = self.client.search(index=self.index_name, body=expansion_query)
             results = self._parse_results(response, min_score=0.0)
@@ -400,7 +406,12 @@ class OpenSearchConceptResolver:
             return direct_results
 
     def _build_expansion_query(
-        self, facet_name: str, mention: str, matched_name: str, top_k: int
+        self,
+        facet_name: str,
+        mention: str,
+        matched_name: str,
+        matched_ontology_id: str | None,
+        top_k: int,
     ) -> Dict:
         """Build query to find a concept and its descendants.
 
@@ -408,34 +419,40 @@ class OpenSearchConceptResolver:
             facet_name: The OpenSearch facet name.
             mention: The normalized search query string.
             matched_name: The human-readable name of the matched concept.
+            matched_ontology_id: The ontology ID of the matched concept (e.g., MONDO:0005015).
             top_k: Number of results to return.
 
         Returns:
             OpenSearch query dict.
         """
+        should_clauses = [
+            # Direct matches using original mention
+            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            {"match_phrase": {"synonyms_normalized": {"query": mention, "boost": 5.0}}},
+            # Direct matches using resolved name (for typo handling)
+            {"term": {"name.exact": {"value": matched_name, "boost": 8.0}}},
+            # Match concepts containing the resolved name (for typo expansion)
+            {"match_phrase": {"name": {"query": matched_name, "boost": 4.0}}},
+            {
+                "match_phrase": {
+                    "synonyms_normalized": {"query": matched_name, "boost": 3.0}
+                }
+            },
+        ]
+
+        # Add ancestor matching by ontology_id if available
+        if matched_ontology_id:
+            should_clauses.append(
+                {"term": {"ancestors": {"value": matched_ontology_id, "boost": 3.0}}}
+            )
+
         return {
             "query": {
                 "bool": {
                     "must": [{"term": {"facet_name.keyword": facet_name}}],
-                    "should": [
-                        # Direct matches using original mention
-                        {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
-                        {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-                        {
-                            "term": {
-                                "synonyms.keyword": {"value": mention, "boost": 10.0}
-                            }
-                        },
-                        {
-                            "match_phrase": {
-                                "synonyms_normalized": {"query": mention, "boost": 5.0}
-                            }
-                        },
-                        # Direct matches using resolved name (for typo handling)
-                        {"term": {"name.exact": {"value": matched_name, "boost": 8.0}}},
-                        # Descendants (concepts that have matched_name as ancestor)
-                        {"term": {"ancestors": {"value": matched_name, "boost": 3.0}}},
-                    ],
+                    "should": should_clauses,
                     "minimum_should_match": 1,
                 }
             },
@@ -518,11 +535,16 @@ class OpenSearchConceptResolver:
         # Get matched term info
         matched_name = direct_results[0]["name"]
         matched_facet = direct_results[0]["facet_name"]
+        matched_ontology_id = direct_results[0].get("ontology_id")
 
         try:
             # Query for concepts in the same facet with this term as ancestor
             expansion_query = self._build_expansion_query(
-                matched_facet, mention_normalized, matched_name, top_k
+                matched_facet,
+                mention_normalized,
+                matched_name,
+                matched_ontology_id,
+                top_k,
             )
             response = self.client.search(index=self.index_name, body=expansion_query)
             results = self._parse_results(response, min_score=0.0)
