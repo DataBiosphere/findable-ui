@@ -39,7 +39,7 @@ class OpenSearchConceptResolver:
             min_score: Deprecated. Use exact_min_score and fuzzy_min_score instead.
                 Kept for backward compatibility.
             exact_min_score: Minimum score for exact matches (default: 50.0).
-                Exact matches use term.keyword matching with boost=10.0.
+                Exact matches use term.exact matching with boost=10.0.
             fuzzy_min_score: Minimum score for fuzzy matches (default: 15.0).
                 Only used if no exact matches found (two-pass query).
         """
@@ -174,9 +174,9 @@ class OpenSearchConceptResolver:
         """
         should_clauses = [
             # Exact matches (keyword matching) - highest priority
-            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"term.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.exact": {"value": mention, "boost": 10.0}}},
             # Normalized phrase matches (benefits from hyphen/space normalization)
             # Lower boost (5.0) so exact keyword matches score higher than substring matches
             {
@@ -427,9 +427,9 @@ class OpenSearchConceptResolver:
         """
         should_clauses = [
             # Direct matches using original mention
-            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"term.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.exact": {"value": mention, "boost": 10.0}}},
             {"match_phrase": {"synonyms_normalized": {"query": mention, "boost": 5.0}}},
             # Direct matches using resolved name (for typo handling)
             {"term": {"name.exact": {"value": matched_name, "boost": 8.0}}},
@@ -569,9 +569,9 @@ class OpenSearchConceptResolver:
             OpenSearch query dict.
         """
         should_clauses = [
-            {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
-            {"term": {"synonyms.keyword": {"value": mention, "boost": 10.0}}},
+            {"term": {"term.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"name.exact": {"value": mention, "boost": 10.0}}},
+            {"term": {"synonyms.exact": {"value": mention, "boost": 10.0}}},
             {"match_phrase": {"synonyms_normalized": {"query": mention, "boost": 5.0}}},
         ]
 
