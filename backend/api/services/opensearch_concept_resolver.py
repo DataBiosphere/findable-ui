@@ -350,6 +350,96 @@ class OpenSearchConceptResolver:
 
         return filtered_results
 
+    def resolve_mention_with_expansion(
+        self, facet_name: str, mention: str, top_k: int = 10
+    ) -> List[Dict]:
+        """Resolve mention and expand to include descendants via ontology hierarchy.
+
+        First finds a direct match, then queries for concepts that have the matched
+        term as an ancestor (i.e., descendants of the matched concept).
+
+        Args:
+            facet_name: The facet name (will be mapped if mapping provided).
+            mention: The user's query string (e.g., "diabetes").
+            top_k: Number of top results to return (default: 10).
+
+        Returns:
+            List of matching concepts including descendants, sorted by relevance.
+            Returns empty list if no matches found.
+        """
+        # Map facet name if mapping provided
+        opensearch_facet = self.facet_name_mapping.get(facet_name, facet_name)
+
+        # Normalize the mention for consistent matching
+        mention_normalized = self._normalize_mention(mention)
+
+        # First, find direct matches to get the matched term
+        direct_results = self.resolve_mention(facet_name, mention, top_k=1)
+
+        if not direct_results:
+            return []
+
+        # Get the matched term's name (human-readable label)
+        matched_name = direct_results[0]["name"]
+
+        try:
+            # Query for concepts that have this term as an ancestor (descendants)
+            # Also include the original match
+            expansion_query = self._build_expansion_query(
+                opensearch_facet, mention_normalized, matched_name, top_k
+            )
+            response = self.client.search(index=self.index_name, body=expansion_query)
+            results = self._parse_results(response, min_score=0.0)
+
+            # Filter negation values
+            return self._filter_negation_values(results, mention)
+
+        except Exception as e:
+            print(f"Error in expansion query: {e}")
+            # Fall back to direct results
+            return direct_results
+
+    def _build_expansion_query(
+        self, facet_name: str, mention: str, matched_name: str, top_k: int
+    ) -> Dict:
+        """Build query to find a concept and its descendants.
+
+        Args:
+            facet_name: The OpenSearch facet name.
+            mention: The normalized search query string.
+            matched_name: The human-readable name of the matched concept.
+            top_k: Number of results to return.
+
+        Returns:
+            OpenSearch query dict.
+        """
+        return {
+            "query": {
+                "bool": {
+                    "must": [{"term": {"facet_name.keyword": facet_name}}],
+                    "should": [
+                        # Direct matches (the parent concept)
+                        {"term": {"term.keyword": {"value": mention, "boost": 10.0}}},
+                        {"term": {"name.keyword": {"value": mention, "boost": 10.0}}},
+                        {
+                            "term": {
+                                "synonyms.keyword": {"value": mention, "boost": 10.0}
+                            }
+                        },
+                        {
+                            "match_phrase": {
+                                "synonyms_normalized": {"query": mention, "boost": 5.0}
+                            }
+                        },
+                        # Descendants (concepts that have matched_name as ancestor)
+                        {"term": {"ancestors": {"value": matched_name, "boost": 3.0}}},
+                    ],
+                    "minimum_should_match": 1,
+                }
+            },
+            "size": top_k,
+        }
+
     def resolve_mention_any_facet(self, mention: str, top_k: int = 5) -> List[Dict]:
         """Resolve a mention searching across ALL facets.
 
@@ -399,6 +489,47 @@ class OpenSearchConceptResolver:
         except Exception as e:
             print(f"Error querying OpenSearch (any facet): {e}")
             return []
+
+    def resolve_mention_any_facet_with_expansion(
+        self, mention: str, top_k: int = 10
+    ) -> List[Dict]:
+        """Resolve mention with expansion, searching across ALL facets.
+
+        First finds a direct match, then expands to include descendants
+        via ontology hierarchy.
+
+        Args:
+            mention: The user's query string.
+            top_k: Number of top results to return.
+
+        Returns:
+            List of matching concepts including descendants.
+        """
+        mention_normalized = self._normalize_mention(mention)
+
+        # First, find direct matches
+        direct_results = self.resolve_mention_any_facet(mention, top_k=1)
+
+        if not direct_results:
+            return []
+
+        # Get matched term info
+        matched_name = direct_results[0]["name"]
+        matched_facet = direct_results[0]["facet_name"]
+
+        try:
+            # Query for concepts in the same facet with this term as ancestor
+            expansion_query = self._build_expansion_query(
+                matched_facet, mention_normalized, matched_name, top_k
+            )
+            response = self.client.search(index=self.index_name, body=expansion_query)
+            results = self._parse_results(response, min_score=0.0)
+
+            return self._filter_negation_values(results, mention)
+
+        except Exception as e:
+            print(f"Error in expansion query (any facet): {e}")
+            return direct_results
 
     def _build_search_query_any_facet(
         self, mention: str, top_k: int, exact_only: bool = True

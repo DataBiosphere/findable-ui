@@ -32,7 +32,12 @@
         "type": "keyword"
       },
       "facet_name": {
-        "type": "keyword"
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "term": {
         "type": "text",
@@ -74,6 +79,9 @@
       "metadata": {
         "type": "object",
         "enabled": true
+      },
+      "ancestors": {
+        "type": "keyword"
       }
     }
   }

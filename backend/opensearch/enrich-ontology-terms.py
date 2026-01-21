@@ -25,10 +25,23 @@ import urllib.error
 class OntologyEnricher:
     """Enrich ontology terms using EBI OLS API."""
 
-    def __init__(self):
+    def __init__(self, fetch_ancestors: bool = False):
+        """Initialize the enricher.
+
+        Args:
+            fetch_ancestors: If True, fetch ancestor chain for ontology terms.
+        """
         self.cache = {}
+        self.ancestors_cache = {}
         self.api_base = "https://www.ebi.ac.uk/ols/api"
-        self.stats = {"total": 0, "enriched": 0, "failed": 0, "cached": 0}
+        self.fetch_ancestors = fetch_ancestors
+        self.stats = {
+            "total": 0,
+            "enriched": 0,
+            "failed": 0,
+            "cached": 0,
+            "ancestors": 0,
+        }
 
     def is_ontology_id(self, term: str) -> bool:
         """Check if term looks like an ontology ID."""
@@ -123,6 +136,86 @@ class OntologyEnricher:
 
         return None
 
+    def lookup_ancestors(self, ontology_id: str) -> List[str]:
+        """Fetch all ancestors for an ontology term from EBI OLS.
+
+        Args:
+            ontology_id: Ontology ID like "HP:0001250"
+
+        Returns:
+            List of ancestor labels (human-readable names).
+        """
+        # Check cache first
+        if ontology_id in self.ancestors_cache:
+            return self.ancestors_cache[ontology_id]
+
+        if ":" not in ontology_id:
+            return []
+
+        prefix, term_id = ontology_id.split(":", 1)
+
+        # Map prefixes to OLS ontology names
+        ontology_map = {
+            "HP": "hp",
+            "MONDO": "mondo",
+            "OMIM": "omim",
+            "ORPHA": "ordo",
+            "UBERON": "uberon",
+            "CL": "cl",
+            "OBI": "obi",
+            "HGNC": "hgnc",
+        }
+
+        ontology_name = ontology_map.get(prefix)
+        if not ontology_name:
+            return []
+
+        # Construct OLS API URL for ancestors
+        # Double-encode the IRI (OLS requirement)
+        iri = f"http://purl.obolibrary.org/obo/{prefix}_{term_id}"
+        encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=""), safe="")
+        url = (
+            f"{self.api_base}/ontologies/{ontology_name}/terms/{encoded_iri}/ancestors"
+        )
+
+        try:
+            for attempt in range(3):
+                try:
+                    with urllib.request.urlopen(url, timeout=10) as response:
+                        data = json.loads(response.read().decode("utf-8"))
+
+                    # Extract ancestor labels
+                    ancestors = []
+                    for term in data.get("_embedded", {}).get("terms", []):
+                        label = term.get("label")
+                        if label:
+                            ancestors.append(label)
+
+                    # Cache the result
+                    self.ancestors_cache[ontology_id] = ancestors
+                    return ancestors
+
+                except urllib.error.HTTPError as e:
+                    if e.code == 404:
+                        return []
+                    elif e.code == 429:
+                        time.sleep(2**attempt)
+                        continue
+                    else:
+                        raise
+
+                except urllib.error.URLError:
+                    if attempt < 2:
+                        time.sleep(1)
+                        continue
+                    return []
+
+        except Exception as e:
+            print(f"  ⚠ Error fetching ancestors for {ontology_id}: {e}")
+            return []
+
+        return []
+
     def enrich_concept(self, concept: Dict) -> Dict:
         """Enrich a single concept if it has an ontology ID."""
         term = concept["term"]
@@ -150,6 +243,13 @@ class OntologyEnricher:
                 if "metadata" not in concept:
                     concept["metadata"] = {}
                 concept["metadata"]["description"] = ontology_data["description"]
+
+            # Fetch ancestors if enabled
+            if self.fetch_ancestors:
+                ancestors = self.lookup_ancestors(term)
+                if ancestors:
+                    concept["ancestors"] = ancestors
+                    self.stats["ancestors"] += 1
 
             self.stats["enriched"] += 1
             return concept
@@ -196,6 +296,8 @@ class OntologyEnricher:
         print(f"Successfully enriched: {self.stats['enriched']}")
         print(f"Failed to enrich: {self.stats['failed']}")
         print(f"Cache hits: {self.stats['cached']}")
+        if self.fetch_ancestors:
+            print(f"Terms with ancestors: {self.stats['ancestors']}")
 
 
 def main():
@@ -213,6 +315,11 @@ def main():
         help="Output enriched concepts file",
     )
     parser.add_argument("--limit", type=int, help="Limit to N concepts (for testing)")
+    parser.add_argument(
+        "--ancestors",
+        action="store_true",
+        help="Fetch ancestor chain from OLS for ontology hierarchy support",
+    )
 
     args = parser.parse_args()
 
@@ -225,8 +332,11 @@ def main():
         concepts = concepts[: args.limit]
         print(f"Limiting to first {args.limit} concepts for testing")
 
+    if args.ancestors:
+        print("Ancestor fetching ENABLED - will query OLS for is_a hierarchy")
+
     # Enrich
-    enricher = OntologyEnricher()
+    enricher = OntologyEnricher(fetch_ancestors=args.ancestors)
     enriched_concepts = enricher.enrich_concepts(concepts)
 
     # Save

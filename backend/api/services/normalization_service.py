@@ -36,9 +36,15 @@ class MentionNormalizer:
     - Stage 2: OpenSearch lookup
     - Stage 3: LLM normalization (if no match found)
     - Stage 4: Re-lookup with normalized term
+
+    Also supports ontology hierarchy expansion:
+    - When enabled, matching "diabetes" also returns all diabetes subtypes
+      (Type 1, Type 2, etc.) via is_a relationships from the ontology.
     """
 
-    def __init__(self, concept_resolver, llm_normalizer=None):
+    def __init__(
+        self, concept_resolver, llm_normalizer=None, expand_hierarchy: bool = True
+    ):
         """Initialize the normalizer.
 
         Args:
@@ -47,9 +53,59 @@ class MentionNormalizer:
                 or a mock resolver for testing.
             llm_normalizer: Optional LLM-based normalizer for Stage 3.
                 If provided, unmatched terms will be normalized and re-looked up.
+            expand_hierarchy: If True, expand matches to include descendants via
+                ontology hierarchy (is_a relationships). Default: True.
         """
         self.resolver = concept_resolver
         self.llm_normalizer = llm_normalizer
+        self.expand_hierarchy = expand_hierarchy
+
+    def _resolve_with_optional_expansion(
+        self, facet_name: str, mention_text: str, top_k: int = 20
+    ) -> List[Dict]:
+        """Resolve mention, optionally with hierarchy expansion.
+
+        Args:
+            facet_name: The facet name to search within.
+            mention_text: The mention text to resolve.
+            top_k: Number of results to return.
+
+        Returns:
+            List of matching concepts.
+        """
+        # Use expansion if enabled and resolver supports it
+        if self.expand_hierarchy and hasattr(
+            self.resolver, "resolve_mention_with_expansion"
+        ):
+            return self.resolver.resolve_mention_with_expansion(
+                facet_name=facet_name, mention=mention_text, top_k=top_k
+            )
+        return self.resolver.resolve_mention(
+            facet_name=facet_name, mention=mention_text, top_k=top_k
+        )
+
+    def _resolve_any_facet_with_optional_expansion(
+        self, mention_text: str, top_k: int = 20
+    ) -> List[Dict]:
+        """Resolve mention across all facets, optionally with hierarchy expansion.
+
+        Args:
+            mention_text: The mention text to resolve.
+            top_k: Number of results to return.
+
+        Returns:
+            List of matching concepts.
+        """
+        # Use expansion if enabled and resolver supports it
+        if self.expand_hierarchy and hasattr(
+            self.resolver, "resolve_mention_any_facet_with_expansion"
+        ):
+            return self.resolver.resolve_mention_any_facet_with_expansion(
+                mention=mention_text, top_k=top_k
+            )
+        return self.resolver.resolve_mention_any_facet(
+            mention=mention_text, top_k=top_k
+        )
 
     def normalize_mentions(self, mentions: List[Mention]) -> List[FacetSelection]:
         """Normalize a list of mentions to canonical facet values.
@@ -66,8 +122,8 @@ class MentionNormalizer:
         for mention in mentions:
             # Resolve the mention using the concept resolver
             # Request up to 20 results - will get all matches above min_score threshold
-            results = self.resolver.resolve_mention(
-                facet_name=mention.facet, mention=mention.text, top_k=20
+            results = self._resolve_with_optional_expansion(
+                facet_name=mention.facet, mention_text=mention.text, top_k=20
             )
 
             # Stage 3-4: LLM normalization fallback if no results
@@ -75,8 +131,8 @@ class MentionNormalizer:
                 normalized_text = self.llm_normalizer.normalize(mention.text)
                 # Only re-lookup if normalization changed the text
                 if normalized_text.lower() != mention.text.lower():
-                    results = self.resolver.resolve_mention(
-                        facet_name=mention.facet, mention=normalized_text, top_k=20
+                    results = self._resolve_with_optional_expansion(
+                        facet_name=mention.facet, mention_text=normalized_text, top_k=20
                     )
 
             # Determine the normalized terms and actual facet name
@@ -123,16 +179,18 @@ class MentionNormalizer:
         facet_groups: Dict[str, List[SelectedValue]] = defaultdict(list)
 
         for span in text_spans:
-            # Stage 2: OpenSearch lookup across all facets
-            results = self.resolver.resolve_mention_any_facet(mention=span, top_k=20)
+            # Stage 2: OpenSearch lookup across all facets (with optional expansion)
+            results = self._resolve_any_facet_with_optional_expansion(
+                mention_text=span, top_k=20
+            )
 
             # Stage 3-4: LLM normalization fallback if no results
             if not results and self.llm_normalizer:
                 normalized_text = self.llm_normalizer.normalize(span)
                 # Only re-lookup if normalization changed the text
                 if normalized_text.lower() != span.lower():
-                    results = self.resolver.resolve_mention_any_facet(
-                        mention=normalized_text, top_k=20
+                    results = self._resolve_any_facet_with_optional_expansion(
+                        mention_text=normalized_text, top_k=20
                     )
 
             if results:
