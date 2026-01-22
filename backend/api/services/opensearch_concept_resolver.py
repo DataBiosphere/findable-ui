@@ -615,6 +615,86 @@ class OpenSearchConceptResolver:
             "size": top_k,
         }
 
+    def get_all_descendants(
+        self, facet_name: str, ontology_id: str, include_self: bool = True
+    ) -> List[Dict]:
+        """Get ALL concepts that have the given ontology_id as an ancestor.
+
+        This returns the complete set of descendants in the ontology hierarchy,
+        not limited by top_k. Useful for expanding a parent concept to all its
+        subtypes.
+
+        Args:
+            facet_name: The facet to search within (e.g., "diagnoses.disease").
+            ontology_id: The ontology ID to find descendants of (e.g., "MONDO:0005015").
+            include_self: If True, also returns the concept with this ontology_id.
+
+        Returns:
+            List of concept dicts representing all descendants.
+        """
+        # Map facet name if mapping provided
+        opensearch_facet = self.facet_name_mapping.get(facet_name, facet_name)
+
+        try:
+            should_clauses = [
+                # Find concepts that have this ontology_id in their ancestors
+                {"term": {"ancestors": {"value": ontology_id}}}
+            ]
+
+            if include_self:
+                # Also include the concept itself
+                should_clauses.append(
+                    {"term": {"ontology_id.keyword": {"value": ontology_id}}}
+                )
+
+            query = {
+                "query": {
+                    "bool": {
+                        "must": [{"term": {"facet_name.keyword": opensearch_facet}}],
+                        "should": should_clauses,
+                        "minimum_should_match": 1,
+                    }
+                },
+                "size": 1000,  # Get all descendants (adjust if needed)
+            }
+
+            response = self.client.search(index=self.index_name, body=query)
+            return self._parse_results(response, min_score=0.0)
+
+        except Exception as e:
+            print(f"Error getting descendants: {e}")
+            return []
+
+    def expand_to_descendants(self, facet_name: str, term: str) -> List[Dict]:
+        """Expand a term to include all its descendants via ontology hierarchy.
+
+        First looks up the term to get its ontology_id, then finds all concepts
+        that have that ontology_id as an ancestor.
+
+        Args:
+            facet_name: The facet to search within.
+            term: The term to expand (will be looked up to get ontology_id).
+
+        Returns:
+            List of concept dicts including the original and all descendants.
+            Returns list with just the original term if no ontology_id found.
+        """
+        # First, look up the term to get its ontology_id
+        results = self.resolve_mention(facet_name, term, top_k=1)
+
+        if not results:
+            return []
+
+        matched = results[0]
+        ontology_id = matched.get("ontology_id")
+
+        if not ontology_id:
+            # No ontology_id, can't expand - return just the original
+            return results
+
+        # Get all descendants
+        return self.get_all_descendants(facet_name, ontology_id, include_self=True)
+
     def health_check(self) -> bool:
         """Check if OpenSearch is accessible and the concepts index exists.
 

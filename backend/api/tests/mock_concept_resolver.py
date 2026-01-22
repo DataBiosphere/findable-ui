@@ -106,3 +106,81 @@ class MockConceptResolver:
 
         # Add a mock score
         return [{"score": 1.0, **result}]
+
+    def resolve_mention_any_facet(self, mention: str, top_k: int = 5) -> List[Dict]:
+        """Resolve a mention searching across ALL facets in fixtures.
+
+        Used in agentic pipeline when facet is unknown.
+
+        Args:
+            mention: The user's query string.
+            top_k: Number of top results to return (ignored in mock).
+
+        Returns:
+            List of matching concepts with scores from any facet.
+        """
+        mention_lower = mention.lower()
+        results = []
+
+        # Search through all fixtures for matches on the mention
+        for (facet_name, fixture_mention), concept in self.fixtures.items():
+            if fixture_mention == mention_lower and concept is not None:
+                results.append({"score": 1.0, **concept})
+
+        return results[:top_k]
+
+    def resolve_mention_any_facet_with_expansion(
+        self, mention: str, top_k: int = 10
+    ) -> List[Dict]:
+        """Resolve a mention with ontology hierarchy expansion.
+
+        In the mock, this behaves the same as resolve_mention_any_facet
+        since we don't have real ontology hierarchy data in fixtures.
+
+        Args:
+            mention: The user's query string.
+            top_k: Number of top results to return.
+
+        Returns:
+            List of matching concepts with scores from any facet.
+        """
+        return self.resolve_mention_any_facet(mention, top_k)
+
+    def get_all_descendants(
+        self, facet_name: str, ontology_id: str, include_self: bool = True
+    ) -> List[Dict]:
+        """Get all descendants of a concept by ontology_id.
+
+        In the mock, returns empty list since we don't have hierarchy data.
+
+        Args:
+            facet_name: The facet to search within.
+            ontology_id: The ontology ID to find descendants of.
+            include_self: If True, also returns the concept with this ontology_id.
+
+        Returns:
+            Empty list (no hierarchy data in mock).
+        """
+        return []
+
+    def expand_to_descendants(self, facet_name: str, term: str) -> List[Dict]:
+        """Expand a term to include all its descendants.
+
+        In the mock, returns just the direct match since we don't have hierarchy.
+
+        Args:
+            facet_name: The facet to search within.
+            term: The term to expand.
+
+        Returns:
+            List with just the matched term (no expansion in mock).
+        """
+        return self.resolve_mention(facet_name, term, top_k=1)
+
+    def health_check(self) -> bool:
+        """Check if the resolver is healthy.
+
+        Returns:
+            Always True for mock resolver.
+        """
+        return True

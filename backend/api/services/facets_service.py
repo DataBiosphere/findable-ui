@@ -189,7 +189,9 @@ def compute_facets_multistage(query: str) -> FacetsResponse:
     # Stage 1: Simple extraction (no facet classification)
     extractor = SimpleMentionExtractor()
     try:
-        text_spans = extractor.extract(query)
+        extraction_result = extractor.extract(query)
+        # Extract just the text strings from mentions
+        text_spans = [m.text for m in extraction_result.mentions]
         if not text_spans:
             return FacetsResponse(query=query, facets=[])
     except Exception as e:
@@ -280,3 +282,107 @@ def compute_facets_with_llm_and_opensearch(
     except Exception as e:
         print(f"Error normalizing mentions: {e}")
         return FacetsResponse(query=query, facets=[])
+
+
+def _expand_response_to_descendants(
+    resolver,
+    response: FacetsResponse,
+) -> FacetsResponse:
+    """Post-process response to expand terms to ALL their descendants.
+
+    Uses the resolver's expand_to_descendants method to find all concepts
+    that have the matched term as an ancestor in the ontology hierarchy.
+
+    Args:
+        resolver: OpenSearch concept resolver with expand_to_descendants method.
+        response: The agent's FacetsResponse.
+
+    Returns:
+        FacetsResponse with all descendants included for each matched term.
+    """
+    from services.models import FacetSelection, SelectedValue
+
+    expanded_facets = []
+
+    for facet_selection in response.facets:
+        expanded_values = []
+        seen_terms = set()
+
+        for selected_value in facet_selection.selectedValues:
+            # Expand this term to include all descendants
+            descendants = resolver.expand_to_descendants(
+                facet_selection.facet,
+                selected_value.term,
+            )
+
+            for desc in descendants:
+                display_term = desc.get("term", "")
+                if display_term and display_term not in seen_terms:
+                    seen_terms.add(display_term)
+                    expanded_values.append(
+                        SelectedValue(
+                            term=display_term,
+                            mention=selected_value.mention,
+                            recognized=True,
+                        )
+                    )
+
+            # Ensure we have at least the original term
+            if selected_value.term not in seen_terms:
+                seen_terms.add(selected_value.term)
+                expanded_values.append(selected_value)
+
+        expanded_facets.append(
+            FacetSelection(facet=facet_selection.facet, selectedValues=expanded_values)
+        )
+
+    return FacetsResponse(
+        query=response.query,
+        facets=expanded_facets,
+        suggested_synonyms=response.suggested_synonyms,
+    )
+
+
+def compute_facets_agentic(
+    query: str,
+    config=None,
+) -> FacetsResponse:
+    """Agentic facet extraction using tool-calling LLM.
+
+    Uses an LLM agent that iteratively searches OpenSearch and reasons
+    about results until it finds satisfactory facet matches. After the agent
+    returns, terms are expanded to include ALL descendants via ontology hierarchy.
+
+    Args:
+        query: Natural language query from user.
+        config: Optional AgenticFacetConfig. If None, uses defaults.
+
+    Returns:
+        FacetsResponse with extracted facets expanded to all descendants.
+    """
+    from services.config import create_opensearch_resolver
+    from agents.agentic_facet_selector import AgenticFacetSelector
+    from agents.agentic_facet_config import AgenticFacetConfig
+
+    # Use default config if not provided
+    if config is None:
+        config = AgenticFacetConfig()
+
+    # Create resolver and check health
+    try:
+        resolver = create_opensearch_resolver()
+
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+
+    except Exception as e:
+        print(f"Error connecting to OpenSearch: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Create agent and select facets
+    selector = AgenticFacetSelector(resolver, config)
+    agent_response = selector.select_facets(query)
+
+    # Post-process: expand each matched term to ALL descendants
+    return _expand_response_to_descendants(resolver, agent_response)
