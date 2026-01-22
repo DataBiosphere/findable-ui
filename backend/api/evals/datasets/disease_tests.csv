@@ -1,16 +1,16 @@
 test_id,query,expected_facet,expected_terms,notes,category
-dis_001,diabetes,diagnoses.disease,Diabetes mellitus,Common disease name,basic
-dis_002,lung cancer,diagnoses.disease,Lung cancer,Specific cancer,cancer
-dis_003,bladder cancer,diagnoses.disease,Bladder or urinary tract cancer,Specific cancer - should not match all cancers,cancer
-dis_004,breast cancer,diagnoses.disease,Breast cancer,Specific cancer,cancer
+dis_001,diabetes,diagnoses.disease,Diabetes mellitus;;;Type 1 diabetes mellitus;;;Type 2 diabetes mellitus,Common disease name - returns parent + MONDO descendants,basic
+dis_002,lung cancer,diagnoses.disease,Lung cancer;;;ORPHA:64742;;;ORPHA:70573,Specific cancer with ORPHA subtypes via hierarchy,cancer
+dis_003,bladder cancer,diagnoses.disease,Bladder or urinary tract cancer,Specific cancer - no subtypes in hierarchy,cancer
+dis_004,breast cancer,diagnoses.disease,Breast cancer,Specific cancer - no subtypes in hierarchy,cancer
 dis_006,brain cancer,diagnoses.disease,CNS or brain cancer,Brain-specific cancer,cancer
-dis_007,diabtes,diagnoses.disease,Diabetes mellitus;;;Diabetes mellitus type 1 without retinopathy;;;Diabetes mellitus type 2 without retinopathy;;;Retinopathy due to diabetes mellitus;;;Retinopathy due to type 1 diabetes mellitus;;;Retinopathy due to type 2 diabetes mellitus;;;Type 1 diabetes mellitus;;;Type 2 diabetes mellitus,Typo - missing e - fuzzy matches related terms,typo
-dis_008,alzheimers,diagnoses.disease,Alzheimer's disease,Missing apostrophe - brain condition,brain
+dis_007,diabtes,diagnoses.disease,Diabetes mellitus;;;Type 1 diabetes mellitus;;;Type 2 diabetes mellitus,Typo - fuzzy match to diabetes + MONDO descendants,typo
+dis_008,alzheimers,diagnoses.disease,Alzheimer's disease,Missing apostrophe - no descendants in hierarchy,brain
 dis_009,alzheimer's disease,diagnoses.disease,Alzheimer's disease,Full name with apostrophe,brain
-dis_010,seizures,diagnoses.disease,HP:0001250,Neurological symptom - phenotype code in data,brain
-dis_011,epilepsy,diagnoses.disease,Epilepsy;;;HP:0001250,Seizure disorder - includes related phenotype,brain
-dis_012,brain tumor,diagnoses.disease,CNS or brain cancer,Brain growth,brain
+dis_010,seizures,diagnoses.disease,HP:0001250;;;HP:0002121;;;HP:0012469;;;HP:0031951,Neurological symptom - HP phenotype codes with descendants,brain
+dis_011,epilepsy,diagnoses.disease,Epilepsy;;;OMIM:235730;;;OMIM:607208;;;OMIM:612621;;;OMIM:615369;;;OMIM:615476;;;OMIM:616211;;;OMIM:617938;;;OMIM:618004;;;OMIM:618285,Seizure disorder - MONDO with OMIM descendants,brain
+dis_012,brain tumor,diagnoses.disease,CNS or brain cancer,Synonym for brain cancer,brain
 dis_014,asthma,diagnoses.disease,HP:0002099,Respiratory disease - phenotype code in data,basic
 dis_015,patients,,,Should not extract disease,negative_test
-dis_016,disease not specified,diagnoses.disease,Unspecified,Not specified variant,edge_case
-dis_017,disease unspecified,diagnoses.disease,Unspecified,Unspecified variant,edge_case
+dis_016,disease not specified,,,Edge case - generic phrase should not match,edge_case
+dis_017,disease unspecified,diagnoses.disease,Unspecified,Unspecified variant matches concept,edge_case
