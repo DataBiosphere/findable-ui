@@ -31,6 +31,7 @@ class OntologyEnricher:
         fetch_ancestors: bool = False,
         map_to_mondo: bool = False,
         map_text_to_mondo: bool = False,
+        fuzzy_match: bool = False,
     ):
         """Initialize the enricher.
 
@@ -38,6 +39,7 @@ class OntologyEnricher:
             fetch_ancestors: If True, fetch ancestor chain for ontology terms.
             map_to_mondo: If True, map OMIM/ORPHA codes to MONDO IDs via OxO.
             map_text_to_mondo: If True, map plain text disease names to MONDO IDs.
+            fuzzy_match: If True, try fuzzy matching for text names after exact fails.
         """
         self.cache = {}
         self.ancestors_cache = {}
@@ -49,6 +51,7 @@ class OntologyEnricher:
         self.fetch_ancestors = fetch_ancestors
         self.map_to_mondo = map_to_mondo
         self.map_text_to_mondo = map_text_to_mondo
+        self.fuzzy_match = fuzzy_match
         self.stats = {
             "total": 0,
             "enriched": 0,
@@ -57,6 +60,7 @@ class OntologyEnricher:
             "ancestors": 0,
             "mondo_mapped": 0,
             "text_to_mondo": 0,
+            "text_to_mondo_fuzzy": 0,
             "case_normalized": 0,
         }
 
@@ -161,7 +165,7 @@ class OntologyEnricher:
             ontology_id: Ontology ID like "HP:0001250"
 
         Returns:
-            List of ancestor labels (human-readable names).
+            List of ancestor ontology IDs (e.g., ["MONDO:0005027", "HP:0001250"]).
         """
         # Check cache first
         if ontology_id in self.ancestors_cache:
@@ -311,33 +315,125 @@ class OntologyEnricher:
 
         return None
 
-    def lookup_mondo_by_name(self, name: str) -> Optional[str]:
-        """Look up MONDO ID by exact label match using OLS4 search API.
+    def normalize_for_comparison(self, text: str) -> str:
+        """Normalize text for fuzzy comparison.
 
-        Only returns a MONDO ID if there's exactly one exact match.
-        Returns None if no match or ambiguous (multiple matches).
+        Removes punctuation differences (hyphens, apostrophes) and normalizes whitespace.
+        Also handles possessive forms (alzheimer's → alzheimer).
+        """
+        # Lowercase
+        text = text.lower()
+        # Remove possessive 's (alzheimer's → alzheimer)
+        text = re.sub(r"'s\b", "", text)
+        text = re.sub(r"'s\b", "", text)  # curly apostrophe
+        # Remove remaining apostrophes and hyphens
+        text = text.replace("'", "").replace("'", "").replace("-", " ")
+        # Normalize whitespace
+        text = " ".join(text.split())
+        return text
+
+    def is_subtype_name(self, name: str) -> bool:
+        """Check if name looks like a numbered subtype (e.g., 'disease 17', 'type 1')."""
+        name_lower = name.lower()
+        # Trailing numbers like "disease 17"
+        if re.search(r"\s+\d+$", name_lower):
+            return True
+        # "type X" or "susceptibility to X" patterns
+        if re.search(r"\b(susceptibility|subtype)\s+(to\s+)?\d", name_lower):
+            return True
+        return False
+
+    def compute_similarity(self, query: str, candidate: str) -> float:
+        """Compute similarity score between query and candidate.
+
+        Returns a score from 0 to 1, where 1 is identical after normalization.
+        """
+        query_norm = self.normalize_for_comparison(query)
+        candidate_norm = self.normalize_for_comparison(candidate)
+
+        # Exact match after normalization
+        if query_norm == candidate_norm:
+            return 1.0
+
+        # Word-based Jaccard similarity
+        query_words = set(query_norm.split())
+        candidate_words = set(candidate_norm.split())
+
+        if not query_words or not candidate_words:
+            return 0.0
+
+        intersection = len(query_words & candidate_words)
+        union = len(query_words | candidate_words)
+
+        return intersection / union if union > 0 else 0.0
+
+    def find_best_fuzzy_match(
+        self, query: str, candidates: List[Dict]
+    ) -> Optional[Dict]:
+        """Find the best fuzzy match from candidates, preferring parent concepts.
+
+        Args:
+            query: The search query (e.g., "alzheimer's disease")
+            candidates: List of OLS search result dicts with 'label' and 'obo_id'
+
+        Returns:
+            Best matching candidate dict, or None if no good match
+        """
+        scored_candidates = []
+
+        for c in candidates:
+            label = c.get("label", "")
+            similarity = self.compute_similarity(query, label)
+
+            # Require minimum 70% similarity
+            if similarity < 0.7:
+                continue
+
+            # Penalize subtypes - we want parent concepts for hierarchy expansion
+            is_subtype = self.is_subtype_name(label)
+            # Subtypes get a penalty but aren't rejected
+            adjusted_score = similarity - (0.3 if is_subtype else 0)
+
+            scored_candidates.append((adjusted_score, similarity, is_subtype, c))
+
+        if not scored_candidates:
+            return None
+
+        # Sort by adjusted score (descending), then by original similarity
+        scored_candidates.sort(key=lambda x: (-x[0], -x[1]))
+
+        # Return the best match
+        return scored_candidates[0][3]
+
+    def lookup_mondo_by_name(
+        self, name: str, allow_fuzzy: bool = False
+    ) -> Optional[str]:
+        """Look up MONDO ID by label match using OLS4 search API.
 
         Args:
             name: Disease name like "diabetes mellitus" or "epilepsy"
+            allow_fuzzy: If True, accept fuzzy matches (normalized string comparison)
 
         Returns:
-            MONDO ID like "MONDO:0005015" if exact match found, None otherwise
+            MONDO ID like "MONDO:0005015" if match found, None otherwise
         """
         # Check cache first
         name_lower = name.lower()
-        if name_lower in self.mondo_name_cache:
-            return self.mondo_name_cache[name_lower]
+        cache_key = f"{name_lower}:fuzzy={allow_fuzzy}"
+        if cache_key in self.mondo_name_cache:
+            return self.mondo_name_cache[cache_key]
 
         # Skip special values
         if name_lower in ("none", "other", "unknown", "unspecified", ""):
-            self.mondo_name_cache[name_lower] = None
+            self.mondo_name_cache[cache_key] = None
             return None
 
-        # OLS4 search API with exact matching
+        # OLS4 search API - exact=true for exact matching, omit for fuzzy
         encoded_name = urllib.parse.quote(name)
-        url = (
-            f"{self.ols4_base}/search?q={encoded_name}&ontology=mondo&exact=true&rows=5"
-        )
+        if allow_fuzzy:
+            url = f"{self.ols4_base}/search?q={encoded_name}&ontology=mondo&rows=5"
+        else:
+            url = f"{self.ols4_base}/search?q={encoded_name}&ontology=mondo&exact=true&rows=5"
 
         try:
             for attempt in range(3):
@@ -347,27 +443,42 @@ class OntologyEnricher:
 
                     docs = data.get("response", {}).get("docs", [])
 
-                    # Find exact label matches that are MONDO IDs (case-insensitive)
-                    exact_mondo_matches = [
-                        d
-                        for d in docs
-                        if d.get("label", "").lower() == name_lower
-                        and d.get("obo_id", "").startswith("MONDO:")
+                    # Filter to MONDO IDs only
+                    mondo_docs = [
+                        d for d in docs if d.get("obo_id", "").startswith("MONDO:")
                     ]
 
-                    # Only accept if exactly one MONDO match
-                    if len(exact_mondo_matches) == 1:
-                        mondo_id = exact_mondo_matches[0].get("obo_id")
-                        self.mondo_name_cache[name_lower] = mondo_id
-                        return mondo_id
+                    if allow_fuzzy:
+                        # Find best fuzzy match, preferring parent concepts
+                        best_match = self.find_best_fuzzy_match(name, mondo_docs)
+                        if best_match:
+                            mondo_id = best_match.get("obo_id")
+                            self.mondo_name_cache[cache_key] = mondo_id
+                            return mondo_id
+                        # No fuzzy match found
+                        self.mondo_name_cache[cache_key] = None
+                        return None
+                    else:
+                        # Find exact label matches (case-insensitive)
+                        exact_matches = [
+                            d
+                            for d in mondo_docs
+                            if d.get("label", "").lower() == name_lower
+                        ]
 
-                    # No match or ambiguous
-                    self.mondo_name_cache[name_lower] = None
-                    return None
+                        # Only accept if exactly one exact match
+                        if len(exact_matches) == 1:
+                            mondo_id = exact_matches[0].get("obo_id")
+                            self.mondo_name_cache[cache_key] = mondo_id
+                            return mondo_id
+
+                        # No match or ambiguous
+                        self.mondo_name_cache[cache_key] = None
+                        return None
 
                 except urllib.error.HTTPError as e:
                     if e.code == 404:
-                        self.mondo_name_cache[name_lower] = None
+                        self.mondo_name_cache[cache_key] = None
                         return None
                     elif e.code == 429:
                         time.sleep(2**attempt)
@@ -379,15 +490,15 @@ class OntologyEnricher:
                     if attempt < 2:
                         time.sleep(1)
                         continue
-                    self.mondo_name_cache[name_lower] = None
+                    self.mondo_name_cache[cache_key] = None
                     return None
 
         except Exception as e:
             print(f"  ⚠ Error looking up MONDO for '{name}': {e}")
-            self.mondo_name_cache[name_lower] = None
+            self.mondo_name_cache[cache_key] = None
             return None
 
-        self.mondo_name_cache[name_lower] = None
+        self.mondo_name_cache[cache_key] = None
         return None
 
     def normalize_ontology_id(self, term: str) -> str:
@@ -397,12 +508,17 @@ class OntologyEnricher:
             return f"{prefix.upper()}:{num}"
         return term
 
-    def enrich_concept(self, concept: Dict) -> Dict:
+    def enrich_concept(self, concept: Dict, skip_enriched: bool = False) -> Dict:
         """Enrich a single concept with ontology data."""
         term = concept["term"]
         mondo_id = None
 
+        # Skip if already enriched
+        if skip_enriched and (concept.get("ontology_id") or concept.get("ancestors")):
+            return concept
+
         # Handle ontology IDs (HP:, OMIM:, ORPHA:, etc.)
+        ontology_id_for_ancestors = None
         if self.is_ontology_id(term):
             # Normalize to uppercase (e.g., hp:0001388 -> HP:0001388)
             normalized = self.normalize_ontology_id(term)
@@ -420,8 +536,13 @@ class OntologyEnricher:
                 mondo_id = self.lookup_mondo_mapping(term)
                 if mondo_id:
                     concept["ontology_id"] = mondo_id
+                    ontology_id_for_ancestors = mondo_id
                     self.stats["mondo_mapped"] += 1
                     print(f"  ✓ Mapped {term} → {mondo_id}")
+            else:
+                # For HP, MONDO, etc. - the term itself is the ontology ID
+                concept["ontology_id"] = term
+                ontology_id_for_ancestors = term
 
             # Look up the term from OLS
             ontology_data = self.lookup_term(term)
@@ -448,40 +569,61 @@ class OntologyEnricher:
 
         # Handle plain text terms - try to map to MONDO by name
         elif self.map_text_to_mondo:
-            mondo_id = self.lookup_mondo_by_name(term)
+            # First try exact matching
+            mondo_id = self.lookup_mondo_by_name(term, allow_fuzzy=False)
             if mondo_id:
                 concept["ontology_id"] = mondo_id
                 self.stats["text_to_mondo"] += 1
                 print(f"  ✓ Text → MONDO: {term} → {mondo_id}")
+            # If exact fails and fuzzy is enabled, try fuzzy matching
+            elif self.fuzzy_match:
+                mondo_id = self.lookup_mondo_by_name(term, allow_fuzzy=True)
+                if mondo_id:
+                    concept["ontology_id"] = mondo_id
+                    self.stats["text_to_mondo_fuzzy"] += 1
+                    print(f"  ✓ Text → MONDO (fuzzy): {term} → {mondo_id}")
 
-        # Fetch ancestors if enabled - prefer MONDO ID for hierarchy
+        # Fetch ancestors if enabled - works for HP, MONDO, OMIM→MONDO, etc.
         # This runs even if OLS lookup failed (e.g., for OMIM/ORPHA mapped to MONDO)
-        if self.fetch_ancestors and mondo_id:
-            ancestors = self.lookup_ancestors(mondo_id)
+        ancestor_id = ontology_id_for_ancestors or mondo_id
+        if self.fetch_ancestors and ancestor_id:
+            ancestors = self.lookup_ancestors(ancestor_id)
             if ancestors:
                 concept["ancestors"] = ancestors
                 self.stats["ancestors"] += 1
 
         return concept
 
-    def enrich_concepts(self, concepts: List[Dict], batch_size: int = 10) -> List[Dict]:
+    def enrich_concepts(
+        self, concepts: List[Dict], batch_size: int = 10, skip_enriched: bool = False
+    ) -> List[Dict]:
         """
         Enrich a list of concepts.
 
         Args:
             concepts: List of concept dictionaries
             batch_size: Print progress every N concepts
+            skip_enriched: Skip concepts that already have ontology_id or ancestors
 
         Returns:
             Enriched concepts list
         """
         enriched = []
         total = len(concepts)
+        skipped = 0
 
-        print(f"Enriching {total} concepts...")
+        if skip_enriched:
+            skipped = sum(
+                1 for c in concepts if c.get("ontology_id") or c.get("ancestors")
+            )
+            print(
+                f"Enriching {total} concepts ({skipped} already enriched, will skip)..."
+            )
+        else:
+            print(f"Enriching {total} concepts...")
 
         for i, concept in enumerate(concepts):
-            enriched_concept = self.enrich_concept(concept)
+            enriched_concept = self.enrich_concept(concept, skip_enriched=skip_enriched)
             enriched.append(enriched_concept)
 
             # Print progress
@@ -508,7 +650,11 @@ class OntologyEnricher:
         if self.map_to_mondo:
             print(f"OMIM/ORPHA mapped to MONDO: {self.stats['mondo_mapped']}")
         if self.map_text_to_mondo:
-            print(f"Text names mapped to MONDO: {self.stats['text_to_mondo']}")
+            print(f"Text names mapped to MONDO (exact): {self.stats['text_to_mondo']}")
+        if self.fuzzy_match:
+            print(
+                f"Text names mapped to MONDO (fuzzy): {self.stats['text_to_mondo_fuzzy']}"
+            )
         if self.fetch_ancestors:
             print(f"Terms with ancestors: {self.stats['ancestors']}")
 
@@ -543,6 +689,16 @@ def main():
         action="store_true",
         help="Map plain text disease names to MONDO IDs via OLS search",
     )
+    parser.add_argument(
+        "--fuzzy",
+        action="store_true",
+        help="Enable fuzzy matching for text names (use with --map-text-to-mondo)",
+    )
+    parser.add_argument(
+        "--skip-enriched",
+        action="store_true",
+        help="Skip concepts that already have ontology_id or ancestors",
+    )
 
     args = parser.parse_args()
 
@@ -563,14 +719,23 @@ def main():
         print(
             "Text-to-MONDO ENABLED - will map plain text names to MONDO via OLS search"
         )
+    if args.fuzzy:
+        print("Fuzzy matching ENABLED - will try fuzzy match if exact match fails")
+    if args.skip_enriched:
+        print(
+            "Skip enriched ENABLED - will skip concepts with existing ontology_id/ancestors"
+        )
 
     # Enrich
     enricher = OntologyEnricher(
         fetch_ancestors=args.ancestors,
         map_to_mondo=args.map_to_mondo,
         map_text_to_mondo=args.map_text_to_mondo,
+        fuzzy_match=args.fuzzy,
     )
-    enriched_concepts = enricher.enrich_concepts(concepts)
+    enriched_concepts = enricher.enrich_concepts(
+        concepts, skip_enriched=args.skip_enriched
+    )
 
     # Save
     print(f"\nWriting enriched concepts to {args.output}...")
