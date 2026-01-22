@@ -10,6 +10,7 @@ This script:
 
 APIs used:
 - EBI OLS (Ontology Lookup Service): https://www.ebi.ac.uk/ols/
+- EBI OxO (Ontology Xref Service): https://www.ebi.ac.uk/spot/oxo/
 - Supports: HP, MONDO, UBERON, CL, OBI, and many more
 """
 
@@ -23,30 +24,35 @@ import urllib.error
 
 
 class OntologyEnricher:
-    """Enrich ontology terms using EBI OLS API."""
+    """Enrich ontology terms using EBI OLS and OxO APIs."""
 
-    def __init__(self, fetch_ancestors: bool = False):
+    def __init__(self, fetch_ancestors: bool = False, map_to_mondo: bool = False):
         """Initialize the enricher.
 
         Args:
             fetch_ancestors: If True, fetch ancestor chain for ontology terms.
+            map_to_mondo: If True, map OMIM/ORPHA codes to MONDO IDs via OxO.
         """
         self.cache = {}
         self.ancestors_cache = {}
-        self.api_base = "https://www.ebi.ac.uk/ols/api"
+        self.mondo_cache = {}
+        self.ols_base = "https://www.ebi.ac.uk/ols/api"
+        self.oxo_base = "https://www.ebi.ac.uk/spot/oxo/api"
         self.fetch_ancestors = fetch_ancestors
+        self.map_to_mondo = map_to_mondo
         self.stats = {
             "total": 0,
             "enriched": 0,
             "failed": 0,
             "cached": 0,
             "ancestors": 0,
+            "mondo_mapped": 0,
         }
 
     def is_ontology_id(self, term: str) -> bool:
         """Check if term looks like an ontology ID."""
-        # Pattern: PREFIX:NUMBER (e.g., HP:0001250, OMIM:614231)
-        return bool(re.match(r"^[A-Z]+:\d+$", term))
+        # Pattern: PREFIX:NUMBER (e.g., HP:0001250, OMIM:614231, omim:117000)
+        return bool(re.match(r"^[A-Za-z]+:\d+$", term))
 
     def lookup_term(self, ontology_id: str) -> Optional[Dict]:
         """
@@ -68,6 +74,7 @@ class OntologyEnricher:
             return None
 
         prefix, term_id = ontology_id.split(":", 1)
+        prefix_upper = prefix.upper()
 
         # Map prefixes to OLS ontology names
         ontology_map = {
@@ -81,15 +88,15 @@ class OntologyEnricher:
             "HGNC": "hgnc",
         }
 
-        ontology_name = ontology_map.get(prefix)
+        ontology_name = ontology_map.get(prefix_upper)
         if not ontology_name:
             return None
 
         # Construct OLS API URL
         # Double-encode the IRI (OLS requirement)
-        iri = f"http://purl.obolibrary.org/obo/{prefix}_{term_id}"
+        iri = f"http://purl.obolibrary.org/obo/{prefix_upper}_{term_id}"
         encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=""), safe="")
-        url = f"{self.api_base}/ontologies/{ontology_name}/terms/{encoded_iri}"
+        url = f"{self.ols_base}/ontologies/{ontology_name}/terms/{encoded_iri}"
 
         try:
             # Make API request with retry
@@ -153,6 +160,7 @@ class OntologyEnricher:
             return []
 
         prefix, term_id = ontology_id.split(":", 1)
+        prefix_upper = prefix.upper()
 
         # Map prefixes to OLS ontology names
         ontology_map = {
@@ -166,16 +174,16 @@ class OntologyEnricher:
             "HGNC": "hgnc",
         }
 
-        ontology_name = ontology_map.get(prefix)
+        ontology_name = ontology_map.get(prefix_upper)
         if not ontology_name:
             return []
 
         # Construct OLS API URL for ancestors
         # Double-encode the IRI (OLS requirement)
-        iri = f"http://purl.obolibrary.org/obo/{prefix}_{term_id}"
+        iri = f"http://purl.obolibrary.org/obo/{prefix_upper}_{term_id}"
         encoded_iri = urllib.parse.quote(urllib.parse.quote(iri, safe=""), safe="")
         url = (
-            f"{self.api_base}/ontologies/{ontology_name}/terms/{encoded_iri}/ancestors"
+            f"{self.ols_base}/ontologies/{ontology_name}/terms/{encoded_iri}/ancestors"
         )
 
         try:
@@ -184,12 +192,18 @@ class OntologyEnricher:
                     with urllib.request.urlopen(url, timeout=10) as response:
                         data = json.loads(response.read().decode("utf-8"))
 
-                    # Extract ancestor labels
+                    # Extract ancestor ontology IDs (e.g., MONDO:0005027)
                     ancestors = []
                     for term in data.get("_embedded", {}).get("terms", []):
-                        label = term.get("label")
-                        if label:
-                            ancestors.append(label)
+                        # OLS returns obo_id like "MONDO:0005027" or short_form like "MONDO_0005027"
+                        obo_id = term.get("obo_id")
+                        if obo_id:
+                            ancestors.append(obo_id)
+                        else:
+                            # Fallback to short_form, converting underscore to colon
+                            short_form = term.get("short_form", "")
+                            if "_" in short_form:
+                                ancestors.append(short_form.replace("_", ":", 1))
 
                     # Cache the result
                     self.ancestors_cache[ontology_id] = ancestors
@@ -216,6 +230,76 @@ class OntologyEnricher:
 
         return []
 
+    def lookup_mondo_mapping(self, ontology_id: str) -> Optional[str]:
+        """Map OMIM or ORPHA code to MONDO ID via OxO API.
+
+        Args:
+            ontology_id: Ontology ID like "OMIM:117000" or "ORPHA:319"
+
+        Returns:
+            MONDO ID like "MONDO:0007294" if mapping found, None otherwise
+        """
+        # Check cache first
+        if ontology_id in self.mondo_cache:
+            return self.mondo_cache[ontology_id]
+
+        if ":" not in ontology_id:
+            return None
+
+        prefix = ontology_id.split(":")[0].upper()
+        if prefix not in ("OMIM", "ORPHA"):
+            return None
+
+        # Normalize to uppercase and convert ORPHA: to Orphanet: for OxO
+        term_id = ontology_id.split(":")[1]
+        if prefix == "ORPHA":
+            oxo_id = f"Orphanet:{term_id}"
+        else:
+            oxo_id = f"{prefix}:{term_id}"
+
+        # OxO API URL - search for mappings from this ID
+        url = f"{self.oxo_base}/mappings?fromId={urllib.parse.quote(oxo_id)}"
+
+        try:
+            for attempt in range(3):
+                try:
+                    with urllib.request.urlopen(url, timeout=10) as response:
+                        data = json.loads(response.read().decode("utf-8"))
+
+                    # Look for MONDO mapping in results
+                    mappings = data.get("_embedded", {}).get("mappings", [])
+                    for mapping in mappings:
+                        from_term = mapping.get("fromTerm", {})
+                        curie = from_term.get("curie", "")
+                        if curie.startswith("MONDO:"):
+                            self.mondo_cache[ontology_id] = curie
+                            return curie
+
+                    # No MONDO mapping found
+                    self.mondo_cache[ontology_id] = None
+                    return None
+
+                except urllib.error.HTTPError as e:
+                    if e.code == 404:
+                        return None
+                    elif e.code == 429:
+                        time.sleep(2**attempt)
+                        continue
+                    else:
+                        raise
+
+                except urllib.error.URLError:
+                    if attempt < 2:
+                        time.sleep(1)
+                        continue
+                    return None
+
+        except Exception as e:
+            print(f"  ⚠ Error looking up MONDO mapping for {ontology_id}: {e}")
+            return None
+
+        return None
+
     def enrich_concept(self, concept: Dict) -> Dict:
         """Enrich a single concept if it has an ontology ID."""
         term = concept["term"]
@@ -225,7 +309,18 @@ class OntologyEnricher:
 
         self.stats["total"] += 1
 
-        # Look up the term
+        prefix = term.split(":")[0].upper()
+        mondo_id = None
+
+        # Map OMIM/ORPHA to MONDO if enabled
+        if self.map_to_mondo and prefix in ("OMIM", "ORPHA"):
+            mondo_id = self.lookup_mondo_mapping(term)
+            if mondo_id:
+                concept["ontology_id"] = mondo_id
+                self.stats["mondo_mapped"] += 1
+                print(f"  ✓ Mapped {term} → {mondo_id}")
+
+        # Look up the term from OLS
         ontology_data = self.lookup_term(term)
 
         if ontology_data:
@@ -244,18 +339,20 @@ class OntologyEnricher:
                     concept["metadata"] = {}
                 concept["metadata"]["description"] = ontology_data["description"]
 
-            # Fetch ancestors if enabled
-            if self.fetch_ancestors:
-                ancestors = self.lookup_ancestors(term)
-                if ancestors:
-                    concept["ancestors"] = ancestors
-                    self.stats["ancestors"] += 1
-
             self.stats["enriched"] += 1
-            return concept
         else:
             self.stats["failed"] += 1
-            return concept
+
+        # Fetch ancestors if enabled - prefer MONDO ID for hierarchy
+        # This runs even if OLS lookup failed (e.g., for OMIM/ORPHA mapped to MONDO)
+        if self.fetch_ancestors:
+            ancestor_id = mondo_id if mondo_id else term
+            ancestors = self.lookup_ancestors(ancestor_id)
+            if ancestors:
+                concept["ancestors"] = ancestors
+                self.stats["ancestors"] += 1
+
+        return concept
 
     def enrich_concepts(self, concepts: List[Dict], batch_size: int = 10) -> List[Dict]:
         """
@@ -296,6 +393,8 @@ class OntologyEnricher:
         print(f"Successfully enriched: {self.stats['enriched']}")
         print(f"Failed to enrich: {self.stats['failed']}")
         print(f"Cache hits: {self.stats['cached']}")
+        if self.map_to_mondo:
+            print(f"OMIM/ORPHA mapped to MONDO: {self.stats['mondo_mapped']}")
         if self.fetch_ancestors:
             print(f"Terms with ancestors: {self.stats['ancestors']}")
 
@@ -320,6 +419,11 @@ def main():
         action="store_true",
         help="Fetch ancestor chain from OLS for ontology hierarchy support",
     )
+    parser.add_argument(
+        "--map-to-mondo",
+        action="store_true",
+        help="Map OMIM/ORPHA codes to MONDO IDs via OxO API",
+    )
 
     args = parser.parse_args()
 
@@ -334,9 +438,13 @@ def main():
 
     if args.ancestors:
         print("Ancestor fetching ENABLED - will query OLS for is_a hierarchy")
+    if args.map_to_mondo:
+        print("MONDO mapping ENABLED - will map OMIM/ORPHA to MONDO via OxO")
 
     # Enrich
-    enricher = OntologyEnricher(fetch_ancestors=args.ancestors)
+    enricher = OntologyEnricher(
+        fetch_ancestors=args.ancestors, map_to_mondo=args.map_to_mondo
+    )
     enriched_concepts = enricher.enrich_concepts(concepts)
 
     # Save

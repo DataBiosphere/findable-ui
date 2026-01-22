@@ -442,7 +442,12 @@ class OpenSearchConceptResolver:
             },
         ]
 
-        # Add ancestor matching by ontology_id if available
+        # Add ancestor matching - find descendants by matching ancestors field
+        # Match by name (ancestors are stored as human-readable names)
+        should_clauses.append(
+            {"term": {"ancestors": {"value": matched_name, "boost": 3.0}}}
+        )
+        # Also match by ontology_id if available
         if matched_ontology_id:
             should_clauses.append(
                 {"term": {"ancestors": {"value": matched_ontology_id, "boost": 3.0}}}
