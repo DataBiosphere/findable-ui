@@ -57,6 +57,7 @@ class OntologyEnricher:
             "ancestors": 0,
             "mondo_mapped": 0,
             "text_to_mondo": 0,
+            "case_normalized": 0,
         }
 
     def is_ontology_id(self, term: str) -> bool:
@@ -389,6 +390,13 @@ class OntologyEnricher:
         self.mondo_name_cache[name_lower] = None
         return None
 
+    def normalize_ontology_id(self, term: str) -> str:
+        """Normalize ontology ID to uppercase prefix (e.g., hp:0001388 -> HP:0001388)."""
+        if ":" in term:
+            prefix, num = term.split(":", 1)
+            return f"{prefix.upper()}:{num}"
+        return term
+
     def enrich_concept(self, concept: Dict) -> Dict:
         """Enrich a single concept with ontology data."""
         term = concept["term"]
@@ -396,6 +404,13 @@ class OntologyEnricher:
 
         # Handle ontology IDs (HP:, OMIM:, ORPHA:, etc.)
         if self.is_ontology_id(term):
+            # Normalize to uppercase (e.g., hp:0001388 -> HP:0001388)
+            normalized = self.normalize_ontology_id(term)
+            if normalized != term:
+                self.stats["case_normalized"] += 1
+                print(f"  ✓ Normalized: {term} → {normalized}")
+            term = normalized
+            concept["term"] = term
             self.stats["total"] += 1
 
             prefix = term.split(":")[0].upper()
@@ -488,6 +503,8 @@ class OntologyEnricher:
         print(f"Successfully enriched: {self.stats['enriched']}")
         print(f"Failed to enrich: {self.stats['failed']}")
         print(f"Cache hits: {self.stats['cached']}")
+        if self.stats["case_normalized"] > 0:
+            print(f"Case normalized: {self.stats['case_normalized']}")
         if self.map_to_mondo:
             print(f"OMIM/ORPHA mapped to MONDO: {self.stats['mondo_mapped']}")
         if self.map_text_to_mondo:
