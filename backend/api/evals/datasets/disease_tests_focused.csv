@@ -1,6 +1,6 @@
 test_id,query,expected_facet,expected_terms,notes,category
 dis_001,diabetes,diagnoses.disease,Diabetes mellitus;;;Diabetes mellitus type 1 without retinopathy;;;Diabetes mellitus type 2 without retinopathy;;;HP:0004904;;;HP:0100651;;;Retinopathy due to diabetes mellitus;;;Retinopathy due to type 1 diabetes mellitus;;;Retinopathy due to type 2 diabetes mellitus;;;Type 1 diabetes mellitus;;;Type 2 diabetes mellitus,Common disease name - returns parent + all descendants via ontology + name match,basic
-dis_002,lung cancer,diagnoses.disease,Lung cancer,Specific cancer,cancer
+dis_002,lung cancer,diagnoses.disease,Lung cancer;;;ORPHA:64742;;;ORPHA:70573,Specific cancer with subtypes via ontology hierarchy,cancer
 dis_003,bladder cancer,diagnoses.disease,Bladder or urinary tract cancer,Specific cancer - should not match all cancers,cancer
 dis_004,breast cancer,diagnoses.disease,Breast cancer,Specific cancer,cancer
 dis_006,brain cancer,diagnoses.disease,CNS or brain cancer,Brain-specific cancer,cancer
