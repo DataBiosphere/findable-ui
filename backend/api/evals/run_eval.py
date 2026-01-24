@@ -278,13 +278,21 @@ def generate_report(results: List[TestResult], dataset_name: str) -> str:
     return "\n".join(lines)
 
 
-def save_results_json(results: List[TestResult], dataset_name: str, output_path: str):
+def save_results_json(
+    results: List[TestResult],
+    dataset_name: str,
+    output_path: str,
+    mode: str,
+    model: Optional[str] = None,
+):
     """Save detailed results as JSON.
 
     Args:
         results: List of test results
         dataset_name: Name of the dataset
         output_path: Path to save JSON file
+        mode: API mode used (llm, mock, multistage, agentic)
+        model: OpenAI model used (if applicable)
     """
     # Calculate summary stats
     total = len(results)
@@ -307,15 +315,20 @@ def save_results_json(results: List[TestResult], dataset_name: str, output_path:
             category_stats[category]["passed"] / total_cat if total_cat > 0 else 0.0
         )
 
+    metadata = {
+        "date": datetime.now().isoformat(),
+        "dataset": dataset_name,
+        "mode": mode,
+        "total_tests": total,
+        "passed": passed,
+        "failed": total - passed,
+        "pass_rate": passed / total if total > 0 else 0.0,
+    }
+    if model:
+        metadata["model"] = model
+
     output = {
-        "metadata": {
-            "date": datetime.now().isoformat(),
-            "dataset": dataset_name,
-            "total_tests": total,
-            "passed": passed,
-            "failed": total - passed,
-            "pass_rate": passed / total if total > 0 else 0.0,
-        },
+        "metadata": metadata,
         "results": [r.to_dict() for r in results],
         "by_category": dict(category_stats),
     }
@@ -407,13 +420,20 @@ def main():
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         if args.save_baseline:
             output_path = (
-                script_dir / "results" / "baseline" / f"{dataset_name}_baseline.json"
+                script_dir
+                / "results"
+                / "baseline"
+                / f"{dataset_name}_{args.mode}_baseline.json"
             )
         else:
-            output_path = script_dir / "results" / f"{dataset_name}_{timestamp}.json"
+            output_path = (
+                script_dir / "results" / f"{dataset_name}_{args.mode}_{timestamp}.json"
+            )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    save_results_json(results, dataset_name, str(output_path))
+    save_results_json(
+        results, dataset_name, str(output_path), mode=args.mode, model=args.model
+    )
     print(f"\nResults saved to: {output_path}")
 
 
