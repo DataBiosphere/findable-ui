@@ -121,9 +121,9 @@ class MentionNormalizer:
 
         for mention in mentions:
             # Resolve the mention using the concept resolver
-            # Request up to 20 results - will get all matches above min_score threshold
+            # Use top_k=1 to get only the best match - post-expansion will find descendants
             results = self._resolve_with_optional_expansion(
-                facet_name=mention.facet, mention_text=mention.text, top_k=20
+                facet_name=mention.facet, mention_text=mention.text, top_k=1
             )
 
             # Stage 3-4: LLM normalization fallback if no results
@@ -132,13 +132,11 @@ class MentionNormalizer:
                 # Only re-lookup if normalization changed the text
                 if normalized_text.lower() != mention.text.lower():
                     results = self._resolve_with_optional_expansion(
-                        facet_name=mention.facet, mention_text=normalized_text, top_k=20
+                        facet_name=mention.facet, mention_text=normalized_text, top_k=1
                     )
 
             # Determine the normalized terms and actual facet name
             if results:
-                # Use all matches above the min_score threshold
-                # All results are already filtered by min_score in the resolver
                 for result in results:
                     term = result["term"]
                     database_facet_name = result["facet_name"]

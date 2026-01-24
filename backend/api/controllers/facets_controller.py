@@ -6,6 +6,7 @@ from services.facets_service import (
     compute_facets_from_query,
     compute_facets_with_llm_and_opensearch,
     compute_facets_multistage,
+    compute_facets_agentic,
 )
 from services.models import FacetsResponse
 from controllers.models import FacetsRequest
@@ -55,22 +56,57 @@ def get_facets(
     payload: FacetsRequest,
     mode: str = QueryParam(
         default="stub",
-        description="Mode: 'stub' (hardcoded data), 'mock' (pattern matching + OpenSearch), 'llm' (OpenAI + OpenSearch), 'multistage' (4-stage pipeline)",
+        description="Mode: 'stub' (hardcoded data), 'mock' (pattern matching + OpenSearch), 'llm' (OpenAI + OpenSearch), 'multistage' (4-stage pipeline), 'agentic' (tool-calling agent)",
+    ),
+    enable_cot: bool = QueryParam(
+        default=True,
+        description="Enable chain-of-thought reasoning (agentic mode only)",
+    ),
+    capture_trace: bool = QueryParam(
+        default=False,
+        description="Capture tool call trace for debugging (agentic mode only)",
+    ),
+    model: str = QueryParam(
+        default="gpt-4o-mini",
+        description="OpenAI model to use (agentic mode only): 'gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo'",
     ),
 ) -> FacetsResponse:
     """Extract facets from a natural language query.
 
-    Supports four modes via the 'mode' query parameter:
+    Supports five modes via the 'mode' query parameter:
     - **stub**: Returns hardcoded stub data (default, for backwards compatibility)
     - **mock**: Uses pattern matching for extraction + real OpenSearch for normalization (no API cost)
     - **llm**: Uses real OpenAI LLM + real OpenSearch (requires API key, costs money)
     - **multistage**: 4-stage pipeline: simple extraction → OpenSearch → LLM normalization → re-lookup
+    - **agentic**: Tool-calling agent that iteratively searches and reasons (requires API key)
 
     Example queries:
         - "latino patients with diabetes"
         - "bam files for brain tissue"
         - "female patients with type 2 diabetes from blood samples"
     """
+    if mode == "agentic":
+        # Agentic mode: tool-calling LLM
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+
+        from agents.agentic_facet_config import AgenticFacetConfig
+
+        config = AgenticFacetConfig(
+            enable_cot=enable_cot,
+            capture_trace=capture_trace,
+            model=model,
+        )
+        return compute_facets_agentic(query=payload.query, config=config)
+
     if mode == "multistage":
         # Multi-stage pipeline: extraction → lookup → normalize → re-lookup
         api_key = os.getenv("OPENAI_API_KEY")

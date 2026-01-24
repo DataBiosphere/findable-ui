@@ -88,17 +88,20 @@ def load_test_cases(csv_path: str) -> List[TestCase]:
     return test_cases
 
 
-def run_query(query: str, mode: str = "llm") -> dict:
+def run_query(query: str, mode: str = "llm", model: str = None) -> dict:
     """Run query against the API.
 
     Args:
         query: Natural language query
-        mode: API mode (llm or mock)
+        mode: API mode (llm, mock, multistage, agentic)
+        model: OpenAI model for agentic mode (e.g., gpt-4o-mini, gpt-4o)
 
     Returns:
         API response as dict
     """
     url = f"http://localhost:8000/api/v0/facets?mode={mode}"
+    if model:
+        url += f"&model={model}"
     response = requests.post(url, json={"query": query})
     response.raise_for_status()
     return response.json()
@@ -330,7 +333,15 @@ def main():
         "--dataset", required=True, help="CSV dataset filename (in evals/datasets/)"
     )
     parser.add_argument(
-        "--mode", default="llm", choices=["llm", "mock"], help="API mode"
+        "--mode",
+        default="llm",
+        choices=["llm", "mock", "multistage", "agentic"],
+        help="API mode",
+    )
+    parser.add_argument(
+        "--model",
+        default=None,
+        help="OpenAI model for agentic mode (e.g., gpt-4o-mini, gpt-4o)",
     )
     parser.add_argument(
         "--save-baseline", action="store_true", help="Save results as baseline"
@@ -355,13 +366,14 @@ def main():
     print(f"Loaded {len(test_cases)} test cases\n")
 
     # Run evaluations
-    print(f"Running evaluations (mode={args.mode})...")
+    model_str = f", model={args.model}" if args.model else ""
+    print(f"Running evaluations (mode={args.mode}{model_str})...")
     results = []
 
     for i, test_case in enumerate(test_cases, 1):
         print(f"  [{i}/{len(test_cases)}] {test_case.test_id}: {test_case.query}")
         try:
-            api_response = run_query(test_case.query, mode=args.mode)
+            api_response = run_query(test_case.query, mode=args.mode, model=args.model)
             result = compare_results(test_case, api_response)
             results.append(result)
         except Exception as e:

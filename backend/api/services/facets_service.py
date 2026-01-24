@@ -277,7 +277,10 @@ def compute_facets_with_llm_and_opensearch(
         normalizer = MentionNormalizer(resolver)
         facet_selections = normalizer.normalize_mentions(mentions)
 
-        return FacetsResponse(query=query, facets=facet_selections)
+        response = FacetsResponse(query=query, facets=facet_selections)
+
+        # Post-process: expand each matched term to ALL descendants
+        return _expand_response_to_descendants(resolver, response)
 
     except Exception as e:
         print(f"Error normalizing mentions: {e}")
