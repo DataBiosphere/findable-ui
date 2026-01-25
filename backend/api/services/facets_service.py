@@ -389,3 +389,255 @@ def compute_facets_agentic(
 
     # Post-process: expand each matched term to ALL descendants
     return _expand_response_to_descendants(resolver, agent_response)
+
+
+def compute_facets_llm2(
+    query: str,
+    model: str = "gpt-4o-mini",
+    min_score: float = 50.0,
+) -> FacetsResponse:
+    """LLM2 pipeline: query normalization + OpenSearch lookup.
+
+    Uses LLM to normalize and structure the query:
+    1. LLM fixes typos, expands abbreviations, identifies facets
+    2. OpenSearch searches each normalized value
+    3. Best matches above threshold are returned
+    4. Results expanded to include descendants
+
+    Args:
+        query: Natural language query from user.
+        model: OpenAI model for query normalization.
+        min_score: Minimum OpenSearch score to accept a match.
+
+    Returns:
+        FacetsResponse with normalized and matched facets.
+    """
+    from services.config import create_opensearch_resolver
+    from services.models import FacetSelection, SelectedValue
+    from agents.query_normalizer import QueryNormalizer
+
+    # Step 1: Normalize query using LLM
+    normalizer = QueryNormalizer(model=model)
+    try:
+        normalized = normalizer.normalize(query)
+        if not normalized.mentions:
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error normalizing query: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Step 2: Create OpenSearch resolver
+    try:
+        resolver = create_opensearch_resolver()
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error connecting to OpenSearch: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Step 3: Search each normalized mention
+    facet_groups: dict[str, list[SelectedValue]] = {}
+
+    for mention in normalized.mentions:
+        # Search using the normalized value (typos fixed, abbreviations expanded)
+        results = resolver.resolve_mention_any_facet(mention.value, top_k=5)
+
+        if not results:
+            # Fallback: try searching with original text
+            results = resolver.resolve_mention_any_facet(mention.original, top_k=5)
+
+        if not results:
+            continue
+
+        # Take the best match if it meets the threshold
+        best = results[0]
+        score = best.get("score", 0)
+
+        if score >= min_score:
+            facet_name = best.get("facet_name", "unknown")
+            term = best.get("term", "")
+
+            if facet_name not in facet_groups:
+                facet_groups[facet_name] = []
+
+            facet_groups[facet_name].append(
+                SelectedValue(
+                    term=term,
+                    mention=mention.original,  # Keep original for display
+                    recognized=True,
+                )
+            )
+
+    # Step 4: Convert to FacetSelection list
+    facet_selections = [
+        FacetSelection(facet=name, selectedValues=values)
+        for name, values in facet_groups.items()
+    ]
+
+    response = FacetsResponse(query=query, facets=facet_selections)
+
+    # Step 5: Expand to descendants
+    return _expand_response_to_descendants(resolver, response)
+
+
+def compute_facets_grounded(
+    query: str,
+    model: str = "gpt-4o-mini",
+    min_score: float = 50.0,
+) -> FacetsResponse:
+    """Grounded pipeline: phrase extraction + cross-facet search.
+
+    Option C architecture:
+    1. LLM extracts meaningful phrases (no facet guessing)
+    2. Each phrase searched across ALL facets in OpenSearch
+    3. Best matches returned with their discovered facets
+    4. Results expanded to include descendants
+
+    This approach lets the search layer determine facet assignment,
+    which handles rare facets automatically.
+
+    Args:
+        query: Natural language query from user.
+        model: OpenAI model for phrase extraction.
+        min_score: Minimum OpenSearch score to accept a match.
+
+    Returns:
+        FacetsResponse with grounded facet matches.
+    """
+    from services.config import create_opensearch_resolver
+    from services.models import FacetSelection, SelectedValue
+    from agents.phrase_extractor import PhraseExtractor
+
+    # Step 1: Extract meaningful phrases using LLM
+    extractor = PhraseExtractor(model=model)
+    try:
+        extracted = extractor.extract(query)
+        if not extracted.phrases:
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error extracting phrases: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Step 2: Create OpenSearch resolver
+    try:
+        resolver = create_opensearch_resolver()
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error connecting to OpenSearch: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Step 3: Search each phrase across ALL facets
+    facet_groups: dict[str, list[SelectedValue]] = {}
+
+    for phrase in extracted.phrases:
+        # Search across all facets - let OpenSearch determine the facet
+        results = resolver.resolve_mention_any_facet(phrase, top_k=5)
+
+        if not results:
+            continue
+
+        # Take the best match if it meets the threshold
+        best = results[0]
+        score = best.get("score", 0)
+
+        if score >= min_score:
+            facet_name = best.get("facet_name", "unknown")
+            term = best.get("term", "")
+
+            if facet_name not in facet_groups:
+                facet_groups[facet_name] = []
+
+            # Avoid duplicates
+            existing_terms = [v.term for v in facet_groups[facet_name]]
+            if term not in existing_terms:
+                facet_groups[facet_name].append(
+                    SelectedValue(
+                        term=term,
+                        mention=phrase,
+                        recognized=True,
+                    )
+                )
+
+    # Step 4: Convert to FacetSelection list
+    facet_selections = [
+        FacetSelection(facet=name, selectedValues=values)
+        for name, values in facet_groups.items()
+    ]
+
+    response = FacetsResponse(query=query, facets=facet_selections)
+
+    # Step 5: Expand to descendants
+    return _expand_response_to_descendants(resolver, response)
+
+
+def compute_facets_search_agent(
+    query: str,
+    model: str = "gpt-4o-mini",
+) -> FacetsResponse:
+    """Search agent pipeline: one search tool, iterative discovery.
+
+    Like how Claude Code works:
+    1. Agent has ONE search(text) tool that searches all facets
+    2. Agent iterates - tries variations if first search fails
+    3. Facets discovered from results, not guessed upfront
+
+    Args:
+        query: Natural language query from user.
+        model: OpenAI model for the agent.
+
+    Returns:
+        FacetsResponse with discovered facets.
+    """
+    from services.config import create_opensearch_resolver
+    from services.models import FacetSelection, SelectedValue
+    from agents.search_agent import run_search_agent
+
+    # Create resolver
+    try:
+        resolver = create_opensearch_resolver()
+        if not resolver.health_check():
+            print("Warning: OpenSearch is not available")
+            return FacetsResponse(query=query, facets=[])
+    except Exception as e:
+        print(f"Error connecting to OpenSearch: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Run the search agent
+    try:
+        result = run_search_agent(query=query, model=model, resolver=resolver)
+    except Exception as e:
+        print(f"Error running search agent: {e}")
+        return FacetsResponse(query=query, facets=[])
+
+    # Group matches by facet
+    facet_groups: dict[str, list[SelectedValue]] = {}
+
+    for match in result.matches:
+        facet_name = match.facet
+        if facet_name not in facet_groups:
+            facet_groups[facet_name] = []
+
+        # Avoid duplicates
+        existing_terms = [v.term for v in facet_groups[facet_name]]
+        if match.term not in existing_terms:
+            facet_groups[facet_name].append(
+                SelectedValue(
+                    term=match.term,
+                    mention=match.original_query,
+                    recognized=True,
+                )
+            )
+
+    # Convert to FacetSelection list
+    facet_selections = [
+        FacetSelection(facet=name, selectedValues=values)
+        for name, values in facet_groups.items()
+    ]
+
+    response = FacetsResponse(query=query, facets=facet_selections)
+
+    # Expand to descendants
+    return _expand_response_to_descendants(resolver, response)

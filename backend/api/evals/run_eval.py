@@ -348,7 +348,15 @@ def main():
     parser.add_argument(
         "--mode",
         default="llm",
-        choices=["llm", "mock", "multistage", "agentic"],
+        choices=[
+            "llm",
+            "mock",
+            "multistage",
+            "agentic",
+            "llm2",
+            "grounded",
+            "search_agent",
+        ],
         help="API mode",
     )
     parser.add_argument(

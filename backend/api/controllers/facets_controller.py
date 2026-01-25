@@ -7,6 +7,9 @@ from services.facets_service import (
     compute_facets_with_llm_and_opensearch,
     compute_facets_multistage,
     compute_facets_agentic,
+    compute_facets_llm2,
+    compute_facets_grounded,
+    compute_facets_search_agent,
 )
 from services.models import FacetsResponse
 from controllers.models import FacetsRequest
@@ -56,7 +59,7 @@ def get_facets(
     payload: FacetsRequest,
     mode: str = QueryParam(
         default="stub",
-        description="Mode: 'stub' (hardcoded data), 'mock' (pattern matching + OpenSearch), 'llm' (OpenAI + OpenSearch), 'multistage' (4-stage pipeline), 'agentic' (tool-calling agent)",
+        description="Mode: 'stub' (hardcoded), 'mock' (pattern matching), 'llm' (LLM extraction), 'multistage' (4-stage), 'agentic' (tool-calling), 'llm2' (query normalization), 'grounded' (phrase extraction + cross-facet search)",
     ),
     enable_cot: bool = QueryParam(
         default=True,
@@ -73,12 +76,13 @@ def get_facets(
 ) -> FacetsResponse:
     """Extract facets from a natural language query.
 
-    Supports five modes via the 'mode' query parameter:
+    Supports six modes via the 'mode' query parameter:
     - **stub**: Returns hardcoded stub data (default, for backwards compatibility)
     - **mock**: Uses pattern matching for extraction + real OpenSearch for normalization (no API cost)
     - **llm**: Uses real OpenAI LLM + real OpenSearch (requires API key, costs money)
     - **multistage**: 4-stage pipeline: simple extraction → OpenSearch → LLM normalization → re-lookup
     - **agentic**: Tool-calling agent that iteratively searches and reasons (requires API key)
+    - **llm2**: Span extraction + OpenSearch lookup (simpler than agentic, requires API key)
 
     Example queries:
         - "latino patients with diabetes"
@@ -106,6 +110,48 @@ def get_facets(
             model=model,
         )
         return compute_facets_agentic(query=payload.query, config=config)
+
+    if mode == "llm2":
+        # LLM2 mode: span extraction + OpenSearch lookup
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+        return compute_facets_llm2(query=payload.query, model=model)
+
+    if mode == "grounded":
+        # Grounded mode: phrase extraction + cross-facet search
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+        return compute_facets_grounded(query=payload.query, model=model)
+
+    if mode == "search_agent":
+        # Search agent mode: one tool, iterative discovery (like Claude Code)
+        api_key = os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "error": "Missing OpenAI API key",
+                    "message": "OPENAI_API_KEY environment variable is not set. "
+                    "Please set it in backend/opensearch/.env",
+                },
+            )
+        return compute_facets_search_agent(query=payload.query, model=model)
 
     if mode == "multistage":
         # Multi-stage pipeline: extraction → lookup → normalize → re-lookup
