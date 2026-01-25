@@ -9,6 +9,12 @@ venv/
 concepts-from-datasets.json
 concepts-enriched.json
 concepts-fully-enriched.json
+concepts-disease-*.json
+concepts-merged.json
+concepts-normalized.json
+concepts-with-mondo*.json
+concepts-with-text-mondo.json
+enrichment*.log
 
 # Test files
 *-test.json

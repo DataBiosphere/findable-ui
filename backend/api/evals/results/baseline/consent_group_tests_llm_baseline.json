@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "date": "2026-01-24T00:25:57.406645",
+    "dataset": "consent_group_tests",
+    "mode": "llm",
+    "total_tests": 11,
+    "passed": 11,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "results": [
+    {
+      "test_id": "cg_001",
+      "query": "open access",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "error_type": null,
+      "notes": "Open access with space",
+      "category": "basic"
+    },
+    {
+      "test_id": "cg_002",
+      "query": "open-access",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "error_type": null,
+      "notes": "Open access with hyphen",
+      "category": "basic"
+    },
+    {
+      "test_id": "cg_003",
+      "query": "public access",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "error_type": null,
+      "notes": "Public access variant",
+      "category": "synonym"
+    },
+    {
+      "test_id": "cg_004",
+      "query": "unrestricted access",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unrestricted access"
+        ]
+      },
+      "error_type": null,
+      "notes": "Exact term match",
+      "category": "basic"
+    },
+    {
+      "test_id": "cg_005",
+      "query": "GRU",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "GRU"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "GRU"
+        ]
+      },
+      "error_type": null,
+      "notes": "General Research Use abbreviation",
+      "category": "abbreviation"
+    },
+    {
+      "test_id": "cg_006",
+      "query": "datasets consented for general research use",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "GRU"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "GRU"
+        ]
+      },
+      "error_type": null,
+      "notes": "General Research Use with context",
+      "category": "synonym"
+    },
+    {
+      "test_id": "cg_007",
+      "query": "consortia access only",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Consortia Access Only"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Consortia Access Only"
+        ]
+      },
+      "error_type": null,
+      "notes": "Restricted access",
+      "category": "basic"
+    },
+    {
+      "test_id": "cg_008",
+      "query": "restricted access",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Consortia Access Only"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Consortia Access Only"
+        ]
+      },
+      "error_type": null,
+      "notes": "Restricted access synonym",
+      "category": "synonym"
+    },
+    {
+      "test_id": "cg_009",
+      "query": "HMB",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "HMB"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "HMB"
+        ]
+      },
+      "error_type": null,
+      "notes": "Health/Medical/Biomedical abbreviation",
+      "category": "abbreviation"
+    },
+    {
+      "test_id": "cg_010",
+      "query": "consent group not specified",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "error_type": null,
+      "notes": "Not specified variant",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "cg_011",
+      "query": "consent group unspecified",
+      "passed": true,
+      "expected": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": "datasets.consent_group",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "error_type": null,
+      "notes": "Unspecified variant",
+      "category": "edge_case"
+    }
+  ],
+  "by_category": {
+    "basic": {
+      "passed": 4,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "synonym": {
+      "passed": 3,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "abbreviation": {
+      "passed": 2,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "edge_case": {
+      "passed": 2,
+      "failed": 0,
+      "pass_rate": 1.0
+    }
+  }
+}

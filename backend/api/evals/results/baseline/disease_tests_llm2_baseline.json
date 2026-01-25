@@ -1,0 +1,371 @@
+{
+  "metadata": {
+    "date": "2026-01-24T01:24:53.822439",
+    "dataset": "disease_tests",
+    "mode": "llm2",
+    "total_tests": 15,
+    "passed": 14,
+    "failed": 1,
+    "pass_rate": 0.9333333333333333
+  },
+  "results": [
+    {
+      "test_id": "dis_001",
+      "query": "diabetes",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus",
+          "Type 1 diabetes mellitus",
+          "Type 2 diabetes mellitus"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus",
+          "Type 1 diabetes mellitus",
+          "Type 2 diabetes mellitus"
+        ]
+      },
+      "error_type": null,
+      "notes": "Common disease name - returns parent + MONDO descendants",
+      "category": "basic"
+    },
+    {
+      "test_id": "dis_002",
+      "query": "lung cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Lung cancer",
+          "ORPHA:64742",
+          "ORPHA:70573"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Lung cancer",
+          "ORPHA:64742",
+          "ORPHA:70573"
+        ]
+      },
+      "error_type": null,
+      "notes": "Specific cancer with ORPHA subtypes via hierarchy",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_003",
+      "query": "bladder cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Bladder or urinary tract cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Bladder or urinary tract cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Specific cancer - no subtypes in hierarchy",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_004",
+      "query": "breast cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Breast cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Breast cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Specific cancer - no subtypes in hierarchy",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_006",
+      "query": "brain cancer",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Brain-specific cancer",
+      "category": "cancer"
+    },
+    {
+      "test_id": "dis_007",
+      "query": "diabtes",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus",
+          "Type 1 diabetes mellitus",
+          "Type 2 diabetes mellitus"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Diabetes mellitus",
+          "Type 1 diabetes mellitus",
+          "Type 2 diabetes mellitus"
+        ]
+      },
+      "error_type": null,
+      "notes": "Typo - fuzzy match to diabetes + MONDO descendants",
+      "category": "typo"
+    },
+    {
+      "test_id": "dis_008",
+      "query": "alzheimers",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "error_type": null,
+      "notes": "Missing apostrophe - no descendants in hierarchy",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_009",
+      "query": "alzheimer's disease",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Alzheimer's disease"
+        ]
+      },
+      "error_type": null,
+      "notes": "Full name with apostrophe",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_010",
+      "query": "seizures",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0001250",
+          "HP:0002121",
+          "HP:0012469",
+          "HP:0031951"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0001250",
+          "HP:0002121",
+          "HP:0012469",
+          "HP:0031951"
+        ]
+      },
+      "error_type": null,
+      "notes": "Neurological symptom - HP phenotype codes with descendants",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_011",
+      "query": "epilepsy",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Epilepsy",
+          "OMIM:235730",
+          "OMIM:607208",
+          "OMIM:612621",
+          "OMIM:615369",
+          "OMIM:615476",
+          "OMIM:616211",
+          "OMIM:617938",
+          "OMIM:618004",
+          "OMIM:618285"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Epilepsy",
+          "OMIM:235730",
+          "OMIM:607208",
+          "OMIM:612621",
+          "OMIM:615369",
+          "OMIM:615476",
+          "OMIM:616211",
+          "OMIM:617938",
+          "OMIM:618004",
+          "OMIM:618285"
+        ]
+      },
+      "error_type": null,
+      "notes": "Seizure disorder - MONDO with OMIM descendants",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_012",
+      "query": "brain tumor",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "CNS or brain cancer"
+        ]
+      },
+      "error_type": null,
+      "notes": "Synonym for brain cancer",
+      "category": "brain"
+    },
+    {
+      "test_id": "dis_014",
+      "query": "asthma",
+      "passed": true,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0002099"
+        ]
+      },
+      "actual": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "HP:0002099"
+        ]
+      },
+      "error_type": null,
+      "notes": "Respiratory disease - phenotype code in data",
+      "category": "basic"
+    },
+    {
+      "test_id": "dis_015",
+      "query": "patients",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "Should not extract disease",
+      "category": "negative_test"
+    },
+    {
+      "test_id": "dis_016",
+      "query": "disease not specified",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "Edge case - generic phrase should not match",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "dis_017",
+      "query": "disease unspecified",
+      "passed": false,
+      "expected": {
+        "facet": "diagnoses.disease",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": "facet_not_extracted",
+      "notes": "Unspecified variant matches concept",
+      "category": "edge_case"
+    }
+  ],
+  "by_category": {
+    "basic": {
+      "passed": 2,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "cancer": {
+      "passed": 4,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "typo": {
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "brain": {
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "negative_test": {
+      "passed": 1,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "edge_case": {
+      "passed": 1,
+      "failed": 1,
+      "pass_rate": 0.5
+    }
+  }
+}

@@ -1,0 +1,616 @@
+{
+  "metadata": {
+    "date": "2026-01-24T00:30:11.699316",
+    "dataset": "reported_ethnicity_tests",
+    "mode": "llm",
+    "total_tests": 26,
+    "passed": 10,
+    "failed": 16,
+    "pass_rate": 0.38461538461538464
+  },
+  "results": [
+    {
+      "test_id": "re_001",
+      "query": "white patients",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "White"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "White"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "basic"
+    },
+    {
+      "test_id": "re_002",
+      "query": "asian donors",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asia",
+          "Asian",
+          "Asia|Black or African American|White or European American",
+          "Asia|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asian"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "basic"
+    },
+    {
+      "test_id": "re_003",
+      "query": "black participants",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian, Native American, Alaska Native|Asia|Black or African American",
+          "Asia|Black or African American|White or European American",
+          "Black or African American",
+          "Black or African American|Hispanic/Latino(a)",
+          "Black or African American|White or European American"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Black or African American"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "basic"
+    },
+    {
+      "test_id": "re_004",
+      "query": "hispanic subjects",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asia|Hispanic/Latino(a)",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Black or African American|Hispanic/Latino(a)",
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)",
+          "White or European American|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "basic"
+    },
+    {
+      "test_id": "re_005",
+      "query": "caucasian patients",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian, Native American, Alaska Native|Asia|White or European American|Hispanic/Latino(a)",
+          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
+          "Asia|Black or African American|White or European American",
+          "Asia|White or European American",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Black or African American|White or European American",
+          "Black or African American|White or European American|Hispanic/Latino(a)",
+          "Native Hawaiian/Pacific Islander|White or European American",
+          "White",
+          "White or European American",
+          "White or European American|Hispanic/Latino(a)",
+          "White or European American|Middle Eastern of North African/Mediterranean",
+          "White or European American|Unknown/none of these fully describe me"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "White"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Many combined caucasian matches",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_006",
+      "query": "african american donors",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian, Native American, Alaska Native|Asia|Black or African American",
+          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
+          "Asia|Black or African American|White or European American",
+          "Black or African American",
+          "Black or African American|Hispanic/Latino(a)",
+          "Black or African American|White or European American",
+          "Black or African American|White or European American|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Black or African American|Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_007",
+      "query": "latino participants",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asia|Hispanic/Latino(a)",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)",
+          "Hispanic/Latino(a)|Prefer not to answer",
+          "White or European American|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic or Latino"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_008",
+      "query": "native american subjects",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian or Alaska Native",
+          "American Indian, Native American, Alaska Native",
+          "American Indian, Native American, Alaska Native|Asia|Black or African American",
+          "American Indian, Native American, Alaska Native|Black or African American|White or European American"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian or Alaska Native"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes combined ethnicities",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_009",
+      "query": "pacific islander patients",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Native Hawaiian or Other Pacific Islander",
+          "Native Hawaiian/Pacific Islander",
+          "Native Hawaiian/Pacific Islander|White or European American"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Native Hawaiian/Pacific Islander"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes variant naming",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_010",
+      "query": "MENA donors",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Middle Eastern of North African/Mediterranean",
+          "Middle Eastern or North African"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Middle Eastern or North African"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes variant naming",
+      "category": "abbreviation"
+    },
+    {
+      "test_id": "re_011",
+      "query": "NHPI patients",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Native Hawaiian or Other Pacific Islander",
+          "Native Hawaiian/Pacific Islander",
+          "Native Hawaiian/Pacific Islander|White or European American"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Native Hawaiian/Pacific Islander"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes variant naming",
+      "category": "abbreviation"
+    },
+    {
+      "test_id": "re_012",
+      "query": "first nations participants",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian or Alaska Native",
+          "American Indian, Native American, Alaska Native",
+          "American Indian, Native American, Alaska Native|Asia",
+          "American Indian, Native American, Alaska Native|Asia|Black or African American",
+          "American Indian, Native American, Alaska Native|Asia|White or European American|Hispanic/Latino(a)",
+          "American Indian, Native American, Alaska Native|Black or African American|White or European American",
+          "American Indian, Native American, Alaska Native|White or European American",
+          "American Indian, Native American, Alaska Native|White or European American|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "American Indian or Alaska Native"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Many combined Native American matches",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_013",
+      "query": "chicano subjects",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Includes variant naming",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_014",
+      "query": "european donors",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "White"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "White"
+        ]
+      },
+      "error_type": null,
+      "notes": "Geographic synonym",
+      "category": "synonym"
+    },
+    {
+      "test_id": "re_015",
+      "query": "unknown ethnicity",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unknown"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unknown"
+        ]
+      },
+      "error_type": null,
+      "notes": "Unknown ethnicity",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "re_016",
+      "query": "ethnicity not reported",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "error_type": null,
+      "notes": "Not reported variant",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "re_017",
+      "query": "prefer not to answer ethnicity",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "LLM extraction issue - should improve",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "re_018",
+      "query": "patients",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "Should not extract ethnicity",
+      "category": "negative_test"
+    },
+    {
+      "test_id": "re_019",
+      "query": "diabetic participants",
+      "passed": true,
+      "expected": {
+        "facet": null,
+        "terms": []
+      },
+      "actual": {
+        "facet": null,
+        "terms": []
+      },
+      "error_type": null,
+      "notes": "Should not extract ethnicity",
+      "category": "negative_test"
+    },
+    {
+      "test_id": "re_020",
+      "query": "middle eastern patients",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Middle Eastern or North African"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Middle Eastern or North African"
+        ]
+      },
+      "error_type": null,
+      "notes": "Full term variant",
+      "category": "basic"
+    },
+    {
+      "test_id": "re_021",
+      "query": "ispanic patients",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Typo - missing h",
+      "category": "typo"
+    },
+    {
+      "test_id": "re_022",
+      "query": "hispanic",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Asia|Hispanic/Latino(a)",
+          "Asia|White or European American|Hispanic/Latino(a)",
+          "Black or African American|Hispanic/Latino(a)",
+          "Hispanic or Latino",
+          "Hispanic/Latino(a)",
+          "White or European American|Hispanic/Latino(a)"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Should NOT match Not Hispanic or Latino",
+      "category": "negative_precision"
+    },
+    {
+      "test_id": "re_022a",
+      "query": "non hispanic",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Not Hispanic or Latino"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Not Hispanic or Latino"
+        ]
+      },
+      "error_type": null,
+      "notes": "Should match negated term with negation prefix",
+      "category": "negative_precision"
+    },
+    {
+      "test_id": "re_022b",
+      "query": "non ispanic",
+      "passed": false,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Not Hispanic or Latino"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Hispanic/Latino(a)"
+        ]
+      },
+      "error_type": "wrong_term",
+      "notes": "Typo with negation prefix - should still match",
+      "category": "negative_precision"
+    },
+    {
+      "test_id": "re_023",
+      "query": "ethnicity not specified",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "error_type": null,
+      "notes": "Not specified variant",
+      "category": "edge_case"
+    },
+    {
+      "test_id": "re_024",
+      "query": "ethnicity unspecified",
+      "passed": true,
+      "expected": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "actual": {
+        "facet": "donors.reported_ethnicity",
+        "terms": [
+          "Unspecified"
+        ]
+      },
+      "error_type": null,
+      "notes": "Unspecified variant",
+      "category": "edge_case"
+    }
+  ],
+  "by_category": {
+    "basic": {
+      "passed": 1,
+      "failed": 4,
+      "pass_rate": 0.2
+    },
+    "synonym": {
+      "passed": 1,
+      "failed": 7,
+      "pass_rate": 0.125
+    },
+    "abbreviation": {
+      "passed": 0,
+      "failed": 2,
+      "pass_rate": 0.0
+    },
+    "edge_case": {
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "negative_test": {
+      "passed": 2,
+      "failed": 0,
+      "pass_rate": 1.0
+    },
+    "typo": {
+      "passed": 0,
+      "failed": 1,
+      "pass_rate": 0.0
+    },
+    "negative_precision": {
+      "passed": 1,
+      "failed": 2,
+      "pass_rate": 0.3333333333333333
+    }
+  }
+}
