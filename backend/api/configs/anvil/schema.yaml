@@ -1,0 +1,247 @@
+# AnVIL Entity Schema Configuration
+# Defines entities, their fields, types, and relationships
+
+entities:
+  datasets:
+    index: anvil_datasets
+    id_field: dataset_id
+    description: "Research datasets containing genomic data and metadata"
+    fields:
+      - name: dataset_id
+        type: keyword
+        sortable: true
+      - name: title
+        type: text
+        searchable: true
+      - name: description
+        type: text
+        searchable: true
+      - name: consent_group
+        type: keyword
+        facet: true
+      - name: data_use_permission
+        type: keyword
+        facet: true
+      - name: registered_identifier
+        type: keyword
+      - name: principal_investigator
+        type: keyword
+        facet: true
+        sortable: true
+      - name: source_repository
+        type: keyword
+        facet: true
+      - name: duos_id
+        type: keyword
+    relationships:
+      - entity: donors
+        type: one-to-many
+        field: dataset_id
+        description: "Donors belonging to this dataset"
+      - entity: files
+        type: one-to-many
+        field: dataset_id
+        description: "Files belonging to this dataset"
+
+  donors:
+    index: anvil_donors
+    id_field: donor_id
+    description: "Individual donors who contributed samples"
+    fields:
+      - name: donor_id
+        type: keyword
+        sortable: true
+      - name: dataset_id
+        type: keyword
+      - name: organism_type
+        type: keyword
+        facet: true
+      - name: phenotypic_sex
+        type: keyword
+        facet: true
+      - name: reported_ethnicity
+        type: keyword
+        facet: true
+      - name: genetic_ancestry
+        type: keyword
+        facet: true
+    relationships:
+      - entity: datasets
+        type: many-to-one
+        field: dataset_id
+        description: "Dataset this donor belongs to"
+      - entity: biosamples
+        type: one-to-many
+        field: donor_id
+        description: "Biosamples from this donor"
+      - entity: diagnoses
+        type: one-to-many
+        field: donor_id
+        description: "Diagnoses for this donor"
+
+  biosamples:
+    index: anvil_biosamples
+    id_field: biosample_id
+    description: "Biological samples collected from donors"
+    fields:
+      - name: biosample_id
+        type: keyword
+        sortable: true
+      - name: donor_id
+        type: keyword
+      - name: dataset_id
+        type: keyword
+      - name: anatomical_site
+        type: keyword
+        facet: true
+      - name: biosample_type
+        type: keyword
+        facet: true
+      - name: disease
+        type: keyword
+        facet: true
+      - name: donor_age_at_collection_lower_bound
+        type: integer
+        sortable: true
+      - name: donor_age_at_collection_upper_bound
+        type: integer
+        sortable: true
+      - name: donor_age_at_collection_unit
+        type: keyword
+    relationships:
+      - entity: donors
+        type: many-to-one
+        field: donor_id
+        description: "Donor this sample was collected from"
+      - entity: files
+        type: one-to-many
+        field: biosample_id
+        description: "Files derived from this sample"
+
+  files:
+    index: anvil_files
+    id_field: file_id
+    description: "Data files including genomic sequences and analysis results"
+    fields:
+      - name: file_id
+        type: keyword
+        sortable: true
+      - name: file_name
+        type: text
+        searchable: true
+      - name: file_format
+        type: keyword
+        facet: true
+      - name: file_size
+        type: long
+        sortable: true
+      - name: file_type
+        type: keyword
+        facet: true
+      - name: data_modality
+        type: keyword
+        facet: true
+        source: meta-disco
+        description: "Enriched from meta-disco"
+      - name: assay_type
+        type: keyword
+        facet: true
+        source: meta-disco
+        description: "Enriched from meta-disco"
+      - name: data_type
+        type: keyword
+        facet: true
+        source: meta-disco
+        description: "Enriched from meta-disco"
+      - name: drs_uri
+        type: keyword
+      - name: is_supplementary
+        type: boolean
+        facet: true
+      - name: dataset_id
+        type: keyword
+      - name: biosample_id
+        type: keyword
+      - name: donor_id
+        type: keyword
+    relationships:
+      - entity: datasets
+        type: many-to-one
+        field: dataset_id
+        description: "Dataset this file belongs to"
+      - entity: biosamples
+        type: many-to-one
+        field: biosample_id
+        description: "Biosample this file was derived from"
+      - entity: activities
+        type: many-to-one
+        field: activity_id
+        description: "Activity that produced this file"
+
+  diagnoses:
+    index: anvil_diagnoses
+    id_field: diagnosis_id
+    description: "Medical diagnoses associated with donors or biosamples"
+    fields:
+      - name: diagnosis_id
+        type: keyword
+        sortable: true
+      - name: donor_id
+        type: keyword
+      - name: biosample_id
+        type: keyword
+      - name: disease
+        type: keyword
+        facet: true
+      - name: disease_label
+        type: text
+        searchable: true
+      - name: phenotype
+        type: keyword
+        facet: true
+      - name: phenotype_label
+        type: text
+        searchable: true
+      - name: onset_age_lower_bound
+        type: integer
+      - name: onset_age_upper_bound
+        type: integer
+      - name: onset_age_unit
+        type: keyword
+    relationships:
+      - entity: donors
+        type: many-to-one
+        field: donor_id
+        description: "Donor with this diagnosis"
+      - entity: biosamples
+        type: many-to-one
+        field: biosample_id
+        description: "Biosample associated with this diagnosis"
+
+  activities:
+    index: anvil_activities
+    id_field: activity_id
+    description: "Activities/processes that generated files (sequencing, analysis)"
+    fields:
+      - name: activity_id
+        type: keyword
+        sortable: true
+      - name: activity_type
+        type: keyword
+        facet: true
+      - name: assay_type
+        type: keyword
+        facet: true
+      - name: data_modality
+        type: keyword
+        facet: true
+      - name: reference_assembly
+        type: keyword
+        facet: true
+      - name: dataset_id
+        type: keyword
+    relationships:
+      - entity: files
+        type: one-to-many
+        field: activity_id
+        description: "Files produced by this activity"

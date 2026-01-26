@@ -63,3 +63,40 @@ eval-multistage:
 
 # Run all evals
 eval-all: eval-simple eval-llm eval-multistage
+
+# ============================================================================
+# ETL Pipeline Commands
+# ============================================================================
+
+# Create OpenSearch indices from config
+etl-create-indices:
+	PYTHONPATH=.:.. .venv/bin/python -m etl create-indices --scope anvil
+
+# Delete all OpenSearch indices
+etl-delete-indices:
+	PYTHONPATH=.:.. .venv/bin/python -m etl delete-indices --scope anvil
+
+# List OpenSearch indices with stats
+etl-list-indices:
+	PYTHONPATH=.:.. .venv/bin/python -m etl list-indices
+
+# Recreate indices (delete + create)
+etl-recreate-indices:
+	PYTHONPATH=.:.. .venv/bin/python -m etl create-indices --scope anvil --recreate
+
+# Run ETL pipeline (dry run)
+etl-dry-run:
+	PYTHONPATH=.:.. .venv/bin/python -m etl --scope anvil --dry-run
+
+# Run ETL pipeline (full refresh)
+etl-full-refresh:
+	PYTHONPATH=.:.. .venv/bin/python -m etl --scope anvil --full-refresh
+
+# Run ETL for specific entity
+etl-entity:
+	@echo "Usage: make etl-entity ENTITY=files"
+	PYTHONPATH=.:.. .venv/bin/python -m etl --scope anvil --entity $(ENTITY)
+
+# Run ETL with limited pages (for testing)
+etl-test:
+	PYTHONPATH=.:.. .venv/bin/python -m etl --scope anvil --max-pages 2 --dry-run -v

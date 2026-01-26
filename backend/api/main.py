@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from controllers.explore_controller import router as explore_router
 from controllers.facets_controller import router as facets_router
 from controllers.health_controller import router as health_router
 
@@ -22,3 +23,4 @@ app.add_middleware(
 # Register controllers
 app.include_router(health_router)
 app.include_router(facets_router)
+app.include_router(explore_router)

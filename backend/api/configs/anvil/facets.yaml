@@ -1,0 +1,184 @@
+# AnVIL Facet Configuration
+# Defines facets for filtering and aggregation
+
+facets:
+  # Dataset facets
+  - name: datasets.consent_group
+    display_name: "Consent Group"
+    type: keyword
+    operators: [OR]
+    entity_path: datasets.consent_group
+    description: "Data use consent classification"
+
+  - name: datasets.data_use_permission
+    display_name: "Data Use Permission"
+    type: keyword
+    operators: [OR]
+    entity_path: datasets.data_use_permission
+    description: "Permitted uses of the data"
+
+  - name: datasets.principal_investigator
+    display_name: "Principal Investigator"
+    type: keyword
+    operators: [OR]
+    entity_path: datasets.principal_investigator
+    description: "Lead researcher for the dataset"
+
+  - name: datasets.source_repository
+    display_name: "Source Repository"
+    type: keyword
+    operators: [OR]
+    entity_path: datasets.source_repository
+    description: "Repository where data originated"
+
+  # Donor facets
+  - name: donors.organism_type
+    display_name: "Organism"
+    type: keyword
+    operators: [OR]
+    entity_path: donors.organism_type
+    values: ["Homo sapiens"]
+    description: "Species of the donor"
+
+  - name: donors.phenotypic_sex
+    display_name: "Sex"
+    type: keyword
+    operators: [OR]
+    entity_path: donors.phenotypic_sex
+    values: ["Female", "Male", "Unknown"]
+    description: "Phenotypic sex of the donor"
+
+  - name: donors.reported_ethnicity
+    display_name: "Ethnicity"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: donors.reported_ethnicity
+    description: "Self-reported ethnicity"
+
+  - name: donors.genetic_ancestry
+    display_name: "Genetic Ancestry"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: donors.genetic_ancestry
+    description: "Genetic ancestry grouping"
+
+  # Biosample facets
+  - name: biosamples.anatomical_site
+    display_name: "Anatomical Site"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: biosamples.anatomical_site
+    description: "Body location where sample was collected"
+
+  - name: biosamples.biosample_type
+    display_name: "Sample Type"
+    type: keyword
+    operators: [OR]
+    entity_path: biosamples.biosample_type
+    description: "Type of biological sample"
+
+  - name: biosamples.disease
+    display_name: "Sample Disease"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: biosamples.disease
+    description: "Disease associated with the sample"
+
+  # Diagnosis facets
+  - name: diagnoses.disease
+    display_name: "Disease"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: diagnoses.disease
+    description: "Diagnosed disease or condition"
+
+  - name: diagnoses.phenotype
+    display_name: "Phenotype"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: diagnoses.phenotype
+    description: "Observable phenotypic characteristic"
+
+  # File facets
+  - name: files.file_format
+    display_name: "File Format"
+    type: keyword
+    operators: [OR]
+    entity_path: files.file_format
+    values:
+      [
+        ".bam",
+        ".cram",
+        ".vcf",
+        ".vcf.gz",
+        ".fastq",
+        ".fastq.gz",
+        ".bed",
+        ".txt",
+        ".csv",
+        ".tsv",
+      ]
+    description: "File format extension"
+
+  - name: files.file_type
+    display_name: "File Type"
+    type: keyword
+    operators: [OR]
+    entity_path: files.file_type
+    description: "General file type category"
+
+  - name: files.data_modality
+    display_name: "Data Modality"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: files.data_modality
+    values:
+      [
+        "WGS",
+        "WES",
+        "RNA-seq",
+        "scRNA-seq",
+        "ATAC-seq",
+        "Hi-C",
+        "Methylation",
+        "Genotype",
+      ]
+    description: "Type of genomic data (enriched from meta-disco)"
+
+  - name: files.assay_type
+    display_name: "Assay Type"
+    type: keyword
+    operators: [AND, OR]
+    entity_path: files.assay_type
+    description: "Experimental assay type (enriched from meta-disco)"
+
+  - name: files.data_type
+    display_name: "Data Type"
+    type: keyword
+    operators: [OR]
+    entity_path: files.data_type
+    description: "Type of data contained in file (enriched from meta-disco)"
+
+  - name: files.is_supplementary
+    display_name: "Supplementary File"
+    type: keyword
+    operators: [OR]
+    entity_path: files.is_supplementary
+    values: ["true", "false"]
+    description: "Whether the file is supplementary"
+
+  # Activity facets
+  - name: activities.activity_type
+    display_name: "Activity Type"
+    type: keyword
+    operators: [OR]
+    entity_path: activities.activity_type
+    description: "Type of processing activity"
+
+  - name: activities.reference_assembly
+    display_name: "Reference Assembly"
+    type: keyword
+    operators: [OR]
+    entity_path: activities.reference_assembly
+    values: ["GRCh38", "GRCh37", "hg19", "hg38"]
+    description: "Genome reference assembly version"

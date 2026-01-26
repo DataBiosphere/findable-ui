@@ -1,0 +1,197 @@
+# AnVIL OpenSearch Index Configuration
+# Defines index settings and field mappings for each entity
+
+indexes:
+  anvil_datasets:
+    name: anvil_datasets
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+      analysis:
+        analyzer:
+          default:
+            type: standard
+    mappings:
+      dataset_id:
+        type: keyword
+      title:
+        type: text
+        fields:
+          keyword:
+            type: keyword
+            ignore_above: 256
+      description:
+        type: text
+      consent_group:
+        type: keyword
+      data_use_permission:
+        type: keyword
+      registered_identifier:
+        type: keyword
+      principal_investigator:
+        type: keyword
+      source_repository:
+        type: keyword
+      duos_id:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
+
+  anvil_donors:
+    name: anvil_donors
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+    mappings:
+      donor_id:
+        type: keyword
+      dataset_id:
+        type: keyword
+      organism_type:
+        type: keyword
+      phenotypic_sex:
+        type: keyword
+      reported_ethnicity:
+        type: keyword
+      genetic_ancestry:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
+
+  anvil_biosamples:
+    name: anvil_biosamples
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+    mappings:
+      biosample_id:
+        type: keyword
+      donor_id:
+        type: keyword
+      dataset_id:
+        type: keyword
+      anatomical_site:
+        type: keyword
+      biosample_type:
+        type: keyword
+      disease:
+        type: keyword
+      donor_age_at_collection_lower_bound:
+        type: integer
+      donor_age_at_collection_upper_bound:
+        type: integer
+      donor_age_at_collection_unit:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
+
+  anvil_files:
+    name: anvil_files
+    settings:
+      number_of_shards: 2
+      number_of_replicas: 0
+    mappings:
+      file_id:
+        type: keyword
+      file_name:
+        type: text
+        fields:
+          keyword:
+            type: keyword
+            ignore_above: 256
+      file_format:
+        type: keyword
+      file_size:
+        type: long
+      file_type:
+        type: keyword
+      data_modality:
+        type: keyword
+      assay_type:
+        type: keyword
+      data_type:
+        type: keyword
+      drs_uri:
+        type: keyword
+      is_supplementary:
+        type: boolean
+      dataset_id:
+        type: keyword
+      biosample_id:
+        type: keyword
+      donor_id:
+        type: keyword
+      activity_id:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
+
+  anvil_diagnoses:
+    name: anvil_diagnoses
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+    mappings:
+      diagnosis_id:
+        type: keyword
+      donor_id:
+        type: keyword
+      biosample_id:
+        type: keyword
+      disease:
+        type: keyword
+      disease_label:
+        type: text
+        fields:
+          keyword:
+            type: keyword
+            ignore_above: 256
+      phenotype:
+        type: keyword
+      phenotype_label:
+        type: text
+        fields:
+          keyword:
+            type: keyword
+            ignore_above: 256
+      onset_age_lower_bound:
+        type: integer
+      onset_age_upper_bound:
+        type: integer
+      onset_age_unit:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
+
+  anvil_activities:
+    name: anvil_activities
+    settings:
+      number_of_shards: 1
+      number_of_replicas: 0
+    mappings:
+      activity_id:
+        type: keyword
+      activity_type:
+        type: keyword
+      assay_type:
+        type: keyword
+      data_modality:
+        type: keyword
+      reference_assembly:
+        type: keyword
+      dataset_id:
+        type: keyword
+      created_at:
+        type: date
+      updated_at:
+        type: date
