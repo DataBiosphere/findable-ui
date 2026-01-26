@@ -146,7 +146,12 @@
     },
     "display_name": "HP:0001250",
     "ontology_id": "HP:0001250",
-    "ancestors": ["HP:0012638", "HP:0000707", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012638",
+      "HP:0000707",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-41ba0d6de152",
@@ -971,7 +976,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000717",
     "name": "Autism",
-    "synonyms": ["Autism", "autism", "HP:0000717", "hp:0000717"],
+    "synonyms": [
+      "Autism",
+      "autism",
+      "HP:0000717",
+      "hp:0000717"
+    ],
     "metadata": {
       "count": 3,
       "description": "Autism is a neurodevelopmental disorder characterized by impaired social interaction and communication, and by restricted and repetitive behavior. Autism begins in childhood. It is marked by the presence of markedly abnormal or impaired development in social interaction and communication and a markedly restricted repertoire of activity and interest. Manifestations of the disorder vary greatly depending on the developmental level and chronological age of the individual (DSM-IV)."
@@ -994,7 +1004,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000767",
     "name": "Pectus excavatum",
-    "synonyms": ["Funnel chest", "funnel chest", "hp:0000767", "HP:0000767"],
+    "synonyms": [
+      "Funnel chest",
+      "funnel chest",
+      "hp:0000767",
+      "HP:0000767"
+    ],
     "metadata": {
       "count": 3,
       "description": "A defect of the chest wall characterized by a depression of the sternum, giving the chest (\"pectus\") a caved-in (\"excavatum\") appearance."
@@ -1396,7 +1411,11 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0006785",
     "name": "Limb-girdle muscular dystrophy",
-    "synonyms": ["hp:0006785", "limb girdle muscular dystrophy", "HP:0006785"],
+    "synonyms": [
+      "hp:0006785",
+      "limb girdle muscular dystrophy",
+      "HP:0006785"
+    ],
     "metadata": {
       "count": 3,
       "description": "Muscular dystrophy affecting the muscles of the limb girdle (the hips and shoulders)."
@@ -1436,7 +1455,11 @@
     },
     "display_name": "HP:0012337",
     "ontology_id": "HP:0012337",
-    "ancestors": ["HP:0001939", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0001939",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-16203d8e6334",
@@ -1739,6 +1762,39 @@
     "display_name": "22q13.3 deletion syndrome"
   },
   {
+    "id": "disease-a99dca559318",
+    "facet_name": "diagnoses.disease",
+    "term": "cancer",
+    "name": "cancer",
+    "synonyms": [
+      "cancer",
+      "malignant neoplasm",
+      "malignancy",
+      "neoplasm",
+      "tumor",
+      "tumour",
+      "carcinoma",
+      "oncology"
+    ],
+    "metadata": {
+      "count": 0
+    },
+    "display_name": "Cancer",
+    "ontology_id": "MONDO:0004992",
+    "ancestors": [
+      "MONDO:0005070",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
+  },
+  {
     "id": "disease-45b85752e137",
     "facet_name": "diagnoses.disease",
     "term": "adrenal gland cancer",
@@ -1833,7 +1889,52 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Ampullary cancer"
+    "display_name": "Ampullary cancer",
+    "ontology_id": "MONDO:0000919",
+    "ancestors": [
+      "MONDO:0021321",
+      "MONDO:0000921",
+      "MONDO:0000920",
+      "MONDO:0021385",
+      "MONDO:0003059",
+      "MONDO:0021375",
+      "MONDO:0006709",
+      "MONDO:0000956",
+      "MONDO:0021662",
+      "MONDO:0003060",
+      "MONDO:0004251",
+      "MONDO:0002866",
+      "MONDO:0002886",
+      "MONDO:0005814",
+      "MONDO:0005304",
+      "MONDO:0002887",
+      "MONDO:0002691",
+      "MONDO:0024635",
+      "MONDO:0021118",
+      "MONDO:0002516",
+      "MONDO:0024477",
+      "MONDO:0004868",
+      "MONDO:0021069",
+      "MONDO:0005020",
+      "MONDO:0021223",
+      "MONDO:0004992",
+      "MONDO:0004335",
+      "MONDO:0005154",
+      "MONDO:0002514",
+      "MONDO:0002082",
+      "MONDO:0002515",
+      "MONDO:0005070",
+      "MONDO:0700096",
+      "MONDO:0005151",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-83fded55e4be",
@@ -1963,7 +2064,26 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Bladder or urinary tract cancer"
+    "display_name": "Bladder or urinary tract cancer",
+    "ontology_id": "MONDO:0001187",
+    "ancestors": [
+      "MONDO:0006295",
+      "MONDO:0004987",
+      "MONDO:0021066",
+      "MONDO:0004992",
+      "MONDO:0006026",
+      "MONDO:0005070",
+      "MONDO:0002118",
+      "MONDO:0023370",
+      "MONDO:0700096",
+      "MONDO:0045024",
+      "MONDO:0000001",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-d495be26031a",
@@ -1981,7 +2101,21 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Blood cancer"
+    "display_name": "Blood cancer",
+    "ontology_id": "MONDO:0002334",
+    "ancestors": [
+      "MONDO:0005570",
+      "MONDO:0005070",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-7b8068315e01",
@@ -2038,7 +2172,29 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Bowel cancer"
+    "display_name": "Bowel cancer",
+    "ontology_id": "MONDO:0005575",
+    "ancestors": [
+      "MONDO:0005814",
+      "MONDO:0005335",
+      "MONDO:0021118",
+      "MONDO:0002516",
+      "MONDO:0024634",
+      "MONDO:0021223",
+      "MONDO:0005020",
+      "MONDO:0004992",
+      "MONDO:0004335",
+      "MONDO:0005070",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-df5e194ccf82",
@@ -2094,7 +2250,29 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "CNS or brain cancer"
+    "display_name": "CNS or brain cancer",
+    "ontology_id": "MONDO:0001657",
+    "ancestors": [
+      "MONDO:0021211",
+      "MONDO:0002714",
+      "MONDO:0006130",
+      "MONDO:0005560",
+      "MONDO:0005872",
+      "MONDO:0021248",
+      "MONDO:0002602",
+      "MONDO:0004992",
+      "MONDO:0005071",
+      "MONDO:0005070",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-9de2a19638d8",
@@ -2260,7 +2438,27 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Esophageal or stomach cancer"
+    "display_name": "Esophageal or stomach cancer",
+    "ontology_id": "MONDO:0007576",
+    "ancestors": [
+      "MONDO:0021355",
+      "MONDO:0002516",
+      "MONDO:0021223",
+      "MONDO:0003749",
+      "MONDO:0004992",
+      "MONDO:0004335",
+      "MONDO:0005070",
+      "MONDO:0044991",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-01e5f8139f27",
@@ -2278,7 +2476,31 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Eye cancer"
+    "display_name": "Eye cancer",
+    "ontology_id": "MONDO:0002236",
+    "ancestors": [
+      "MONDO:0021220",
+      "MONDO:0005627",
+      "MONDO:0000649",
+      "MONDO:0005586",
+      "MONDO:0005328",
+      "MONDO:0004992",
+      "MONDO:0005872",
+      "MONDO:0005070",
+      "MONDO:0024458",
+      "MONDO:0002022",
+      "MONDO:0021248",
+      "MONDO:0023370",
+      "MONDO:0700096",
+      "MONDO:0005071",
+      "MONDO:0045024",
+      "MONDO:0000001",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-1f53cd7898ca",
@@ -2628,7 +2850,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0000651",
     "name": "Diplopia",
-    "synonyms": ["hp:0000651", "Double vision", "double vision", "HP:0000651"],
+    "synonyms": [
+      "hp:0000651",
+      "Double vision",
+      "double vision",
+      "HP:0000651"
+    ],
     "metadata": {
       "count": 2,
       "description": "Diplopia is a condition in which a single object is perceived as two images, it is also known as double vision."
@@ -2765,7 +2992,11 @@
     },
     "display_name": "HP:0000951",
     "ontology_id": "HP:0000951",
-    "ancestors": ["HP:0001574", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0001574",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-468f7f2efc20",
@@ -3342,7 +3573,12 @@
     },
     "display_name": "HP:0001903",
     "ontology_id": "HP:0001903",
-    "ancestors": ["HP:0001877", "HP:0001871", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0001877",
+      "HP:0001871",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-c35a890c28da",
@@ -3547,7 +3783,12 @@
     },
     "display_name": "HP:0002315",
     "ontology_id": "HP:0002315",
-    "ancestors": ["HP:0012638", "HP:0000707", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012638",
+      "HP:0000707",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-de9db9317855",
@@ -3668,7 +3909,12 @@
     },
     "display_name": "HP:0003326",
     "ontology_id": "HP:0003326",
-    "ancestors": ["HP:0012531", "HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012531",
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-f10396906d20",
@@ -4060,7 +4306,11 @@
     },
     "display_name": "HP:0012378",
     "ontology_id": "HP:0012378",
-    "ancestors": ["HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-1aa5ea4d29db",
@@ -4112,7 +4362,12 @@
     },
     "display_name": "HP:0032321",
     "ontology_id": "HP:0032321",
-    "ancestors": ["HP:0032319", "HP:0032316", "HP:0032443", "HP:0000001"]
+    "ancestors": [
+      "HP:0032319",
+      "HP:0032316",
+      "HP:0032443",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-89df7a0f8575",
@@ -4134,7 +4389,12 @@
     },
     "display_name": "HP:0032322",
     "ontology_id": "HP:0032322",
-    "ancestors": ["HP:0032319", "HP:0032316", "HP:0032443", "HP:0000001"]
+    "ancestors": [
+      "HP:0032319",
+      "HP:0032316",
+      "HP:0032443",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-aead4b50b095",
@@ -4394,7 +4654,25 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Lymphatic cancer"
+    "display_name": "Lymphatic cancer",
+    "ontology_id": "MONDO:0000612",
+    "ancestors": [
+      "MONDO:0005833",
+      "MONDO:0000621",
+      "MONDO:0044986",
+      "MONDO:0005046",
+      "MONDO:0004992",
+      "MONDO:0700096",
+      "MONDO:0005070",
+      "MONDO:0000001",
+      "MONDO:0023370",
+      "BFO:0000016",
+      "MONDO:0045024",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-964f7a34b231",
@@ -4827,7 +5105,31 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Ovarian or fallopian tube cancer"
+    "display_name": "Ovarian or fallopian tube cancer",
+    "ontology_id": "MONDO:0008170",
+    "ancestors": [
+      "MONDO:0021068",
+      "MONDO:0001416",
+      "MONDO:0021148",
+      "MONDO:0005558",
+      "MONDO:0002149",
+      "MONDO:0006054",
+      "MONDO:0002263",
+      "MONDO:0002259",
+      "MONDO:0004992",
+      "MONDO:0005070",
+      "MONDO:0005039",
+      "MONDO:0005151",
+      "MONDO:0023370",
+      "MONDO:0700096",
+      "MONDO:0045024",
+      "MONDO:0000001",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-3744d78e4560",
@@ -4845,7 +5147,27 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Pancreatic cancer"
+    "display_name": "Pancreatic cancer",
+    "ontology_id": "MONDO:0009831",
+    "ancestors": [
+      "MONDO:0021040",
+      "MONDO:0002516",
+      "MONDO:0021223",
+      "MONDO:0002356",
+      "MONDO:0004992",
+      "MONDO:0004335",
+      "MONDO:0005070",
+      "MONDO:0005151",
+      "MONDO:0700096",
+      "MONDO:0023370",
+      "MONDO:0000001",
+      "MONDO:0045024",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-3fda1e8c60b1",
@@ -5125,7 +5447,25 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Soft tissue cancer"
+    "display_name": "Soft tissue cancer",
+    "ontology_id": "MONDO:0018078",
+    "ancestors": [
+      "MONDO:0024637",
+      "MONDO:0005089",
+      "MONDO:0006424",
+      "MONDO:0004992",
+      "MONDO:0044334",
+      "MONDO:0005070",
+      "MONDO:0023370",
+      "MONDO:0045024",
+      "MONDO:0700096",
+      "MONDO:0000001",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-d4564dec6f06",
@@ -5300,7 +5640,29 @@
     "metadata": {
       "count": 2
     },
-    "display_name": "Vulvar or vaginal cancer"
+    "display_name": "Vulvar or vaginal cancer",
+    "ontology_id": "MONDO:0001528",
+    "ancestors": [
+      "MONDO:0021049",
+      "MONDO:0001416",
+      "MONDO:0021148",
+      "MONDO:0002187",
+      "MONDO:0002149",
+      "MONDO:0006054",
+      "MONDO:0002263",
+      "MONDO:0004992",
+      "MONDO:0005070",
+      "MONDO:0005039",
+      "MONDO:0023370",
+      "MONDO:0700096",
+      "MONDO:0045024",
+      "MONDO:0000001",
+      "BFO:0000016",
+      "BFO:0000017",
+      "BFO:0000020",
+      "BFO:0000002",
+      "BFO:0000001"
+    ]
   },
   {
     "id": "disease-019fb6635f51",
@@ -6807,7 +7169,12 @@
     },
     "display_name": "HP:0000271",
     "ontology_id": "HP:0000271",
-    "ancestors": ["HP:0000234", "HP:0000152", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0000234",
+      "HP:0000152",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-d17eb4823869",
@@ -7310,7 +7677,12 @@
     },
     "display_name": "HP:0000501",
     "ontology_id": "HP:0000501",
-    "ancestors": ["HP:0012373", "HP:0000478", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012373",
+      "HP:0000478",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-192ff952dacf",
@@ -7333,7 +7705,12 @@
     },
     "display_name": "HP:0000504",
     "ontology_id": "HP:0000504",
-    "ancestors": ["HP:0012373", "HP:0000478", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012373",
+      "HP:0000478",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-ce2b29de9881",
@@ -7760,7 +8137,12 @@
     },
     "display_name": "HP:0000589",
     "ontology_id": "HP:0000589",
-    "ancestors": ["HP:0012372", "HP:0000478", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012372",
+      "HP:0000478",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-353971fc85e6",
@@ -8524,7 +8906,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0001025",
     "name": "Urticaria",
-    "synonyms": ["hp:0001025", "hives", "Hives", "HP:0001025"],
+    "synonyms": [
+      "hp:0001025",
+      "hives",
+      "Hives",
+      "HP:0001025"
+    ],
     "metadata": {
       "count": 1,
       "description": "Raised, well-circumscribed areas of erythema and edema involving the dermis and epidermis. Urticaria is intensely pruritic, and blanches completely with pressure."
@@ -9058,7 +9445,12 @@
     },
     "display_name": "HP:0001298",
     "ontology_id": "HP:0001298",
-    "ancestors": ["HP:0012638", "HP:0000707", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012638",
+      "HP:0000707",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-7dceb87ba04d",
@@ -9400,7 +9792,12 @@
     },
     "display_name": "HP:0001511",
     "ontology_id": "HP:0001511",
-    "ancestors": ["HP:0001510", "HP:0001507", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0001510",
+      "HP:0001507",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-67dd4964e219",
@@ -9576,7 +9973,12 @@
     },
     "display_name": "HP:0001561",
     "ontology_id": "HP:0001561",
-    "ancestors": ["HP:0001560", "HP:0001197", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0001560",
+      "HP:0001197",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-1de41c75feed",
@@ -10333,7 +10735,12 @@
     },
     "display_name": "HP:0002011",
     "ontology_id": "HP:0002011",
-    "ancestors": ["HP:0012639", "HP:0000707", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012639",
+      "HP:0000707",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-b919b1ea688a",
@@ -11261,7 +11668,12 @@
     },
     "display_name": "HP:0002721",
     "ontology_id": "HP:0002721",
-    "ancestors": ["HP:0010978", "HP:0002715", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0010978",
+      "HP:0002715",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-83ce68681d3d",
@@ -11342,7 +11754,12 @@
     },
     "display_name": "HP:0002829",
     "ontology_id": "HP:0002829",
-    "ancestors": ["HP:0012531", "HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012531",
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-c8b7a8e2c219",
@@ -11485,7 +11902,11 @@
     },
     "display_name": "HP:0003011",
     "ontology_id": "HP:0003011",
-    "ancestors": ["HP:0033127", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0033127",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-ebb7830c5eda",
@@ -12230,7 +12651,12 @@
     },
     "display_name": "HP:0004325",
     "ontology_id": "HP:0004325",
-    "ancestors": ["HP:0004323", "HP:0001507", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0004323",
+      "HP:0001507",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-1ab19c970fbb",
@@ -13911,7 +14337,12 @@
     },
     "display_name": "HP:0012432",
     "ontology_id": "HP:0012432",
-    "ancestors": ["HP:0012378", "HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012378",
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-0315ad03e0c4",
@@ -13978,14 +14409,23 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012531",
     "name": "Pain",
-    "synonyms": ["Pain", "pain", "HP:0012531", "hp:0012531"],
+    "synonyms": [
+      "Pain",
+      "pain",
+      "HP:0012531",
+      "hp:0012531"
+    ],
     "metadata": {
       "count": 1,
       "description": "An unpleasant sensory and emotional experience associated with actual or potential tissue damage, or described in terms of such damage."
     },
     "display_name": "HP:0012531",
     "ontology_id": "HP:0012531",
-    "ancestors": ["HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-304815c8f1a1",
@@ -14143,7 +14583,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0012758",
     "name": "Neurodevelopmental delay",
-    "synonyms": ["ndd", "NDD", "HP:0012758", "hp:0012758"],
+    "synonyms": [
+      "ndd",
+      "NDD",
+      "HP:0012758",
+      "hp:0012758"
+    ],
     "metadata": {
       "count": 1,
       "description": "Neurodevelopmental delay (NDD) refers to delays in the maturation of the brain and central nervous system; infants and young children with NDD may experience delays in the development of one or more skills including gross motor abilities, fine-motor coordination, language abilities and ability to solve increasingly complex problems."
@@ -14275,7 +14720,12 @@
     },
     "display_name": "HP:0030157",
     "ontology_id": "HP:0030157",
-    "ancestors": ["HP:0012531", "HP:0025142", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012531",
+      "HP:0025142",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-f1cfcc4aa672",
@@ -14361,7 +14811,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0030828",
     "name": "Wheezing",
-    "synonyms": ["wheezing", "Wheezing", "hp:0030828", "HP:0030828"],
+    "synonyms": [
+      "wheezing",
+      "Wheezing",
+      "hp:0030828",
+      "HP:0030828"
+    ],
     "metadata": {
       "count": 1,
       "description": "A high-pitched whistling sound associated with labored breathing."
@@ -14495,7 +14950,12 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0032379",
     "name": "Polymorphous light eruption",
-    "synonyms": ["Sun allergy", "HP:0032379", "sun allergy", "hp:0032379"],
+    "synonyms": [
+      "Sun allergy",
+      "HP:0032379",
+      "sun allergy",
+      "hp:0032379"
+    ],
     "metadata": {
       "count": 1,
       "description": "The cardinal symptom is severely pruritic skin lesions. Macular, papular, papulovesicular, urticarial, multiforme- and plaque-like variants are differentiated morphologically, hence the name polymorphous. Usually one morphology dominates in a single individual (monomorphous). The skin lesions develop a few hours to several days after sun exposure. Initially, patchy erythema develops, accompanied by pruritus. Distinct lesions then develop. The upper chest, upper arms, backs of the hands, thighs, and the sides of the face are the primary localizations. The skin lesions resolve spontaneously within several days of ceasing sun exposure and do not leave behind any traces."
@@ -14709,7 +15169,12 @@
     },
     "display_name": "HP:0100022",
     "ontology_id": "HP:0100022",
-    "ancestors": ["HP:0012638", "HP:0000707", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0012638",
+      "HP:0000707",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-d798d8008d90",
@@ -14866,13 +15331,23 @@
     "facet_name": "diagnoses.disease",
     "term": "HP:0100790",
     "name": "Hernia",
-    "synonyms": ["Hernias", "hp:0100790", "HP:0100790", "hernias"],
+    "synonyms": [
+      "Hernias",
+      "hp:0100790",
+      "HP:0100790",
+      "hernias"
+    ],
     "metadata": {
       "count": 1
     },
     "display_name": "HP:0100790",
     "ontology_id": "HP:0100790",
-    "ancestors": ["HP:0003549", "HP:0033127", "HP:0000118", "HP:0000001"]
+    "ancestors": [
+      "HP:0003549",
+      "HP:0033127",
+      "HP:0000118",
+      "HP:0000001"
+    ]
   },
   {
     "id": "disease-e2efae7791fa",
@@ -38674,7 +39149,10 @@
     "facet_name": "biosamples.anatomical_site",
     "term": "unknown",
     "name": "unknown",
-    "synonyms": ["n/a", "unknown"],
+    "synonyms": [
+      "n/a",
+      "unknown"
+    ],
     "metadata": {
       "count": 133
     },
@@ -42269,7 +42747,11 @@
     "facet_name": "donors.phenotypic_sex",
     "term": "none",
     "name": "none",
-    "synonyms": ["none", "not recorded", "not specified"],
+    "synonyms": [
+      "none",
+      "not recorded",
+      "not specified"
+    ],
     "metadata": {
       "count": 198
     },
@@ -42718,7 +43200,14 @@
     "facet_name": "files.file_format",
     "term": ".crai",
     "name": ".crai",
-    "synonyms": [".crai", ".crf", ".csv", ".data", ".txt", ".xml"],
+    "synonyms": [
+      ".crai",
+      ".crf",
+      ".csv",
+      ".data",
+      ".txt",
+      ".xml"
+    ],
     "metadata": {
       "count": 226
     },
@@ -42729,7 +43218,13 @@
     "facet_name": "files.file_format",
     "term": ".md5",
     "name": ".md5",
-    "synonyms": [".md5", "md5 checksum", "md5 digest", "md5 file", "md5 hash"],
+    "synonyms": [
+      ".md5",
+      "md5 checksum",
+      "md5 digest",
+      "md5 file",
+      "md5 hash"
+    ],
     "metadata": {
       "count": 194
     },
@@ -42776,7 +43271,14 @@
     "facet_name": "files.file_format",
     "term": ".idat",
     "name": ".idat",
-    "synonyms": [".dat", ".data", ".idat", ".idata", ".idatafile", ".idatfile"],
+    "synonyms": [
+      ".dat",
+      ".data",
+      ".idat",
+      ".idata",
+      ".idatafile",
+      ".idatfile"
+    ],
     "metadata": {
       "count": 108
     },
@@ -42787,7 +43289,13 @@
     "facet_name": "files.file_format",
     "term": ".egt",
     "name": ".egt",
-    "synonyms": [".egt", ".egtd", ".egtf", ".egtr", ".egtx"],
+    "synonyms": [
+      ".egt",
+      ".egtd",
+      ".egtf",
+      ".egtr",
+      ".egtx"
+    ],
     "metadata": {
       "count": 107
     },
@@ -43618,7 +44126,13 @@
     "facet_name": "files.file_format",
     "term": ".fast5",
     "name": ".fast5",
-    "synonyms": [".fast5", "fast5", "fast5 file", "fast5 data", "fast5 format"],
+    "synonyms": [
+      ".fast5",
+      "fast5",
+      "fast5 file",
+      "fast5 data",
+      "fast5 format"
+    ],
     "metadata": {
       "count": 2
     },
@@ -43664,7 +44178,14 @@
     "facet_name": "files.file_format",
     "term": ".pgen",
     "name": ".pgen",
-    "synonyms": [".pgen", "p-gen", "pgen", "pgn", "pgen", "pgen file"],
+    "synonyms": [
+      ".pgen",
+      "p-gen",
+      "pgen",
+      "pgn",
+      "pgen",
+      "pgen file"
+    ],
     "metadata": {
       "count": 2
     },
@@ -43745,7 +44266,13 @@
     "facet_name": "files.file_format",
     "term": ".bed",
     "name": ".bed",
-    "synonyms": [".bed", "bam", "bed file", "bed format", "binary end data"],
+    "synonyms": [
+      ".bed",
+      "bam",
+      "bed file",
+      "bed format",
+      "binary end data"
+    ],
     "metadata": {
       "count": 1
     },
@@ -43791,7 +44318,14 @@
     "facet_name": "files.file_format",
     "term": ".bw",
     "name": ".bw",
-    "synonyms": [".bw", ".bwd", ".bwf", ".bwi", ".bws", ".bwt"],
+    "synonyms": [
+      ".bw",
+      ".bwd",
+      ".bwf",
+      ".bwi",
+      ".bws",
+      ".bwt"
+    ],
     "metadata": {
       "count": 1
     },
@@ -43838,7 +44372,14 @@
     "facet_name": "files.file_format",
     "term": ".counts",
     "name": ".counts",
-    "synonyms": [".counts", ".csv", ".dat", ".data", ".txt", ".xlsx"],
+    "synonyms": [
+      ".counts",
+      ".csv",
+      ".dat",
+      ".data",
+      ".txt",
+      ".xlsx"
+    ],
     "metadata": {
       "count": 1
     },
@@ -43955,7 +44496,13 @@
     "facet_name": "files.file_format",
     "term": ".hist",
     "name": ".hist",
-    "synonyms": [".data", ".hdf", ".hist", ".histo", ".histogram"],
+    "synonyms": [
+      ".data",
+      ".hdf",
+      ".hist",
+      ".histo",
+      ".histogram"
+    ],
     "metadata": {
       "count": 1
     },
@@ -44109,7 +44656,13 @@
     "facet_name": "files.file_format",
     "term": ".qv",
     "name": ".qv",
-    "synonyms": [".qv", ".qvd", ".qvdf", ".qvds", ".qvx"],
+    "synonyms": [
+      ".qv",
+      ".qvd",
+      ".qvdf",
+      ".qvds",
+      ".qvx"
+    ],
     "metadata": {
       "count": 1
     },
@@ -44156,7 +44709,14 @@
     "facet_name": "files.file_format",
     "term": ".stats",
     "name": ".stats",
-    "synonyms": [".csv", ".dat", ".data", ".stats", ".txt", ".xlsx"],
+    "synonyms": [
+      ".csv",
+      ".dat",
+      ".data",
+      ".stats",
+      ".txt",
+      ".xlsx"
+    ],
     "metadata": {
       "count": 1
     },
@@ -45226,7 +45786,14 @@
     "facet_name": "accessible",
     "term": "true",
     "name": "true",
-    "synonyms": ["actual", "authentic", "genuine", "real", "true", "veritable"],
+    "synonyms": [
+      "actual",
+      "authentic",
+      "genuine",
+      "real",
+      "true",
+      "veritable"
+    ],
     "metadata": {
       "count": 11
     },

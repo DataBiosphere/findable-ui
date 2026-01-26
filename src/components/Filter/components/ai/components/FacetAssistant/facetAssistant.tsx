@@ -37,7 +37,7 @@ export const FacetAssistant = (): JSX.Element => {
 
       try {
         const res = await fetch(
-          "http://localhost:8000/api/v0/facets?mode=llm",
+          "http://localhost:8000/api/v0/facets?mode=search_agent",
           {
             body: JSON.stringify({ query: formValue }),
             headers: {
