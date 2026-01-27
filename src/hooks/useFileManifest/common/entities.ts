@@ -34,17 +34,6 @@ export interface FileFacet {
   total: number;
 }
 
-export enum FILE_MANIFEST_TYPE {
-  BULK_DOWNLOAD = "BULK_DOWNLOAD",
-  DOWNLOAD_MANIFEST = "DOWNLOAD_MANIFEST",
-  ENTITY_BULK_DOWNLOAD = "ENTITY_BULK_DOWNLOAD",
-  ENTITY_DOWNLOAD_MANIFEST = "ENTITY_DOWNLOAD_MANIFEST",
-  ENTITY_EXPORT_TO_TERRA = "ENTITY_EXPORT_TO_TERRA",
-  EXPORT_TO_TERRA = "EXPORT_TO_TERRA",
-}
-
-export type FileManifestType = FILE_MANIFEST_TYPE;
-
 export type SelectedSearchTermsBySearchKey = Map<
   CategoryKey,
   Set<CategoryValueKey>
