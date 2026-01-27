@@ -2,7 +2,6 @@ import { JSX, ElementType } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
-import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
@@ -18,7 +17,6 @@ import { ManifestDownloadReady } from "./components/ManifestDownloadReady/manife
 
 export interface ManifestDownloadProps {
   fileManifestState: FileManifestState;
-  fileManifestType: FileManifestType;
   fileSummaryFacetName: string;
   filters: Filters; // Initializes manifest download filters.
   formFacet: FormFacet;
