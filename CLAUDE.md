@@ -256,3 +256,30 @@ source .venv/bin/activate
 make dev              # Start API with auto-reload
 make test             # Run pytest
 ```
+
+### ETL Pipeline & Azul API Data Format
+
+The ETL pipeline (`backend/etl/`) fetches data from the **Azul API** (`/index/datasets` endpoint) and loads it into local OpenSearch indexes. The chat feature queries our local OpenSearch — it does **NOT** call the Azul API at runtime.
+
+**Azul `/index/datasets` response structure:** Each hit contains aggregated summaries across entity types. ALL fields use **array values** (even single values are wrapped in arrays). Child entities (donors, biosamples, files, activities, diagnoses) have **no individual IDs** — they are per-dataset summaries.
+
+```json
+{
+  "entryId": "...",
+  "datasets": [{"dataset_id": "abc", "consent_group": ["GRU"], "title": "...", ...}],
+  "donors": [{"organism_type": ["Human"], "phenotypic_sex": ["Female", "Male"], "reported_ethnicity": ["Asian", "White"], ...}],
+  "biosamples": [{"anatomical_site": ["Unknown"], "disease": [null], ...}],
+  "files": [{"file_format": [".vcf.gz"], "file_size": 117027877144, "count": 849, ...}],
+  "activities": [{"activity_type": ["Unknown"], "data_modality": [null], ...}],
+  "diagnoses": [{"disease": ["OMIM:253601", "OMIM:253700"], "phenotype": ["..."], ...}]
+}
+```
+
+**Key rules for the ETL transformer (`entity_transformer.py`):**
+
+- Extract datasets from `hit["datasets"]` (NOT `sources` or `projects`)
+- Unwrap single-element arrays to scalars, filter null-only arrays to None
+- Generate deterministic synthetic IDs (uuid5) for all child entities
+- Store multi-valued arrays as-is — OpenSearch handles them for `terms` queries
+
+**OpenSearch indexes:** `anvil_datasets`, `anvil_donors`, `anvil_biosamples`, `anvil_files`, `anvil_diagnoses`, `anvil_activities`

@@ -34,6 +34,10 @@ indexes:
         type: keyword
       duos_id:
         type: keyword
+      disease:
+        type: keyword
+      phenotype:
+        type: keyword
       created_at:
         type: date
       updated_at:
@@ -56,6 +60,18 @@ indexes:
       reported_ethnicity:
         type: keyword
       genetic_ancestry:
+        type: keyword
+      # Cross-entity: biosamples
+      biosample_anatomical_site:
+        type: keyword
+      biosample_biosample_type:
+        type: keyword
+      biosample_disease:
+        type: keyword
+      # Cross-entity: diagnoses
+      diagnosis_disease:
+        type: keyword
+      diagnosis_phenotype:
         type: keyword
       created_at:
         type: date
@@ -85,6 +101,20 @@ indexes:
       donor_age_at_collection_upper_bound:
         type: integer
       donor_age_at_collection_unit:
+        type: keyword
+      # Cross-entity: donors
+      donor_organism_type:
+        type: keyword
+      donor_phenotypic_sex:
+        type: keyword
+      donor_reported_ethnicity:
+        type: keyword
+      donor_genetic_ancestry:
+        type: keyword
+      # Cross-entity: diagnoses
+      diagnosis_disease:
+        type: keyword
+      diagnosis_phenotype:
         type: keyword
       created_at:
         type: date
@@ -129,44 +159,29 @@ indexes:
         type: keyword
       activity_id:
         type: keyword
-      created_at:
-        type: date
-      updated_at:
-        type: date
-
-  anvil_diagnoses:
-    name: anvil_diagnoses
-    settings:
-      number_of_shards: 1
-      number_of_replicas: 0
-    mappings:
-      diagnosis_id:
+      # Cross-entity: donors
+      donor_organism_type:
         type: keyword
-      donor_id:
+      donor_phenotypic_sex:
         type: keyword
-      biosample_id:
+      donor_reported_ethnicity:
         type: keyword
-      disease:
+      donor_genetic_ancestry:
         type: keyword
-      disease_label:
-        type: text
-        fields:
-          keyword:
-            type: keyword
-            ignore_above: 256
-      phenotype:
+      # Cross-entity: biosamples
+      biosample_anatomical_site:
         type: keyword
-      phenotype_label:
-        type: text
-        fields:
-          keyword:
-            type: keyword
-            ignore_above: 256
-      onset_age_lower_bound:
-        type: integer
-      onset_age_upper_bound:
-        type: integer
-      onset_age_unit:
+      biosample_biosample_type:
+        type: keyword
+      biosample_disease:
+        type: keyword
+      # Cross-entity: activities
+      activity_activity_type:
+        type: keyword
+      # Cross-entity: diagnoses
+      diagnosis_disease:
+        type: keyword
+      diagnosis_phenotype:
         type: keyword
       created_at:
         type: date
@@ -190,6 +205,27 @@ indexes:
       reference_assembly:
         type: keyword
       dataset_id:
+        type: keyword
+      # Cross-entity: donors
+      donor_organism_type:
+        type: keyword
+      donor_phenotypic_sex:
+        type: keyword
+      donor_reported_ethnicity:
+        type: keyword
+      donor_genetic_ancestry:
+        type: keyword
+      # Cross-entity: biosamples
+      biosample_anatomical_site:
+        type: keyword
+      biosample_biosample_type:
+        type: keyword
+      biosample_disease:
+        type: keyword
+      # Cross-entity: diagnoses
+      diagnosis_disease:
+        type: keyword
+      diagnosis_phenotype:
         type: keyword
       created_at:
         type: date

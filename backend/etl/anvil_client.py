@@ -28,7 +28,7 @@ class AnVILClient:
         base_url: str = DEFAULT_ANVIL_API_URL,
         catalog: str = DEFAULT_ANVIL_CATALOG,
         timeout: float = 30.0,
-        page_size: int = 100,
+        page_size: int = 250,
     ):
         """
         Initialize the AnVIL client.
@@ -112,17 +112,25 @@ class AnVILClient:
         """
         Fetch all records for an entity with automatic pagination.
 
+        The Azul API returns a ``pagination.next`` URL for the next page.
+        We follow that URL directly for subsequent pages.
+
         @param entity - Entity type to fetch.
         @param filters - Optional filters to apply.
         @param max_pages - Maximum number of pages to fetch (for testing).
         @yields Individual entity records (hits).
         """
-        search_after = None
+        next_url: Optional[str] = None
         page_count = 0
         total_count = 0
 
         while True:
-            page_data = self.fetch_page(entity, search_after, filters)
+            if next_url:
+                # Follow the next URL directly for subsequent pages
+                page_data = self._fetch_url(next_url)
+            else:
+                # First page uses fetch_page with params
+                page_data = self.fetch_page(entity, filters=filters)
 
             hits = page_data.get("hits", [])
             if not hits:
@@ -139,14 +147,27 @@ class AnVILClient:
                 logger.info(f"Reached max_pages limit ({max_pages})")
                 break
 
-            # Get pagination cursor for next page
+            # Get next page URL from pagination
             pagination = page_data.get("pagination", {})
-            search_after = pagination.get("search_after")
+            next_url = pagination.get("next")
 
-            if not search_after:
+            if not next_url:
                 break
 
         logger.info(f"Completed fetching {entity}: {total_count} total records")
+
+    def _fetch_url(self, url: str) -> dict[str, Any]:
+        """
+        Fetch a URL directly (used for pagination next links).
+
+        @param url - Full URL to fetch.
+        @returns API response JSON.
+        """
+        client = self._get_client()
+        logger.debug(f"Fetching page from {url}")
+        response = client.get(url)
+        response.raise_for_status()
+        return response.json()
 
     def fetch_summary(self, entity: str) -> dict[str, Any]:
         """

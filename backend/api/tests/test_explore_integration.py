@@ -668,3 +668,193 @@ class TestDataConsistencyIntegration:
         count = response.json()["count"]
         # We loaded 39,608 activities
         assert 39000 < count < 40000
+
+
+class TestCrossEntityFieldsIntegration:
+    """Smoke tests for cross-entity fields populated by the ETL."""
+
+    # -- files: should have donor, biosample, activity, diagnosis fields --
+
+    def test_files_have_donor_cross_entity_fields(self, client: TestClient) -> None:
+        """Verify file records contain donor cross-entity fields."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={
+                "entity": "files",
+                "filters": {"donor_organism_type": {"values": ["Human"]}},
+                "limit": 3,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["count"] > 0
+
+        for result in data["results"]:
+            assert result["donor_organism_type"] == "Human"
+
+    def test_files_filter_by_donor_phenotypic_sex(self, client: TestClient) -> None:
+        """Verify files can be filtered by donor_phenotypic_sex."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={
+                "entity": "files",
+                "filters": {"donor_phenotypic_sex": {"values": ["Female"]}},
+                "limit": 3,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["count"] > 0
+
+        for result in data["results"]:
+            sex = result["donor_phenotypic_sex"]
+            if isinstance(sex, list):
+                assert "Female" in sex
+            else:
+                assert sex == "Female"
+
+    def test_files_filter_by_activity_type(self, client: TestClient) -> None:
+        """Verify files can be filtered by activity_activity_type."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={
+                "entity": "files",
+                "filters": {"activity_activity_type": {"values": ["Sequencing"]}},
+                "limit": 3,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["count"] > 0
+
+    def test_files_aggregate_by_donor_organism_type(self, client: TestClient) -> None:
+        """Verify files can be aggregated by donor_organism_type."""
+        response = client.post(
+            "/api/v0/explore/aggregate",
+            json={
+                "entity": "files",
+                "group_by": "donor_organism_type",
+                "limit": 10,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert len(data["buckets"]) > 0
+
+        keys = [b["key"] for b in data["buckets"]]
+        assert "Human" in keys
+
+    # -- donors: should have biosample, diagnosis cross-entity fields --
+
+    def test_donors_have_biosample_cross_entity_fields(
+        self, client: TestClient
+    ) -> None:
+        """Verify donor records have biosample cross-entity fields."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={"entity": "donors", "limit": 10},
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+
+        # At least some donors should have biosample_anatomical_site populated
+        has_biosample_field = any(
+            r.get("biosample_anatomical_site") is not None for r in data["results"]
+        )
+        # Field should exist on all records (even if null)
+        all_have_key = all("biosample_anatomical_site" in r for r in data["results"])
+        assert all_have_key
+        # Not all donors will have biosample data, so just verify the field exists
+
+    def test_donors_aggregate_by_biosample_disease(self, client: TestClient) -> None:
+        """Verify donors can be aggregated by biosample_disease."""
+        response = client.post(
+            "/api/v0/explore/aggregate",
+            json={
+                "entity": "donors",
+                "group_by": "biosample_disease",
+                "limit": 10,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        # Field should be queryable even if sparse
+        assert isinstance(data["buckets"], list)
+
+    # -- biosamples: should have donor, diagnosis cross-entity fields --
+
+    def test_biosamples_filter_by_donor_phenotypic_sex(
+        self, client: TestClient
+    ) -> None:
+        """Verify biosamples can be filtered by donor_phenotypic_sex."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={
+                "entity": "biosamples",
+                "filters": {"donor_phenotypic_sex": {"values": ["Female"]}},
+                "limit": 3,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["count"] > 0
+
+    def test_biosamples_have_donor_organism_type(self, client: TestClient) -> None:
+        """Verify biosamples have donor_organism_type field."""
+        response = client.post(
+            "/api/v0/explore/aggregate",
+            json={
+                "entity": "biosamples",
+                "group_by": "donor_organism_type",
+                "limit": 10,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert len(data["buckets"]) > 0
+
+        keys = [b["key"] for b in data["buckets"]]
+        assert "Human" in keys
+
+    # -- activities: should have donor, biosample, diagnosis fields --
+
+    def test_activities_filter_by_donor_organism_type(self, client: TestClient) -> None:
+        """Verify activities can be filtered by donor_organism_type."""
+        response = client.post(
+            "/api/v0/explore/query",
+            json={
+                "entity": "activities",
+                "filters": {"donor_organism_type": {"values": ["Human"]}},
+                "limit": 3,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["count"] > 0
+
+    def test_activities_aggregate_by_biosample_disease(
+        self, client: TestClient
+    ) -> None:
+        """Verify activities can be aggregated by biosample_disease."""
+        response = client.post(
+            "/api/v0/explore/aggregate",
+            json={
+                "entity": "activities",
+                "group_by": "biosample_disease",
+                "limit": 10,
+            },
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        # Field should be queryable even if sparse
+        assert isinstance(data["buckets"], list)

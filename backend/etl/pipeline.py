@@ -173,22 +173,30 @@ class ETLPipeline:
             name: [] for name in entities_to_process
         }
 
-        # Process API hits
-        # Note: AnVIL API returns denormalized data, so we fetch 'projects' or similar
-        # and extract all entity types from each hit
+        # Fetch data from per-entity Azul endpoints
         logger.info("Fetching data from AnVIL API...")
 
         hit_count = 0
-        for hit in client.fetch_all("projects", max_pages=max_pages):
-            hit_count += 1
 
-            # Transform hit into entity records
-            transformed = transformer.transform_hit(hit)
+        # Datasets from /index/datasets (uses original extraction logic)
+        if "datasets" in entities_to_process:
+            logger.info("Fetching datasets from /index/datasets...")
+            for hit in client.fetch_all("datasets", max_pages=max_pages):
+                hit_count += 1
+                datasets = transformer._extract_datasets(hit)
+                all_entities["datasets"].extend(datasets)
 
-            # Accumulate records by entity type
-            for entity_name in entities_to_process:
-                if entity_name in transformed:
-                    all_entities[entity_name].extend(transformed[entity_name])
+        # Other entities from their own /index/<entity> endpoints
+        per_entity_types = ["donors", "biosamples", "files", "activities"]
+        for entity_name in per_entity_types:
+            if entity_name not in entities_to_process:
+                continue
+            logger.info(f"Fetching {entity_name} from /index/{entity_name}...")
+            for hit in client.fetch_all(entity_name, max_pages=max_pages):
+                hit_count += 1
+                record = transformer.transform_entity_hit(entity_name, hit)
+                if record:
+                    all_entities[entity_name].append(record)
 
         logger.info(f"Processed {hit_count} API hits")
 

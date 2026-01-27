@@ -1,25 +1,65 @@
 """
 Entity transformer for normalizing AnVIL API data.
 
-Transforms raw AnVIL API responses into normalized entity records
-suitable for indexing in OpenSearch.
+Transforms raw AnVIL API responses into normalized entity records suitable
+for indexing in OpenSearch.
+
+Each entity type is fetched from its own Azul endpoint (``/index/files``,
+``/index/donors``, etc.) which returns the entity's native fields plus
+cross-entity aggregation arrays.  This transformer extracts native fields
+with real IDs and flattens cross-entity arrays into prefixed keyword fields
+(e.g. ``donor_phenotypic_sex``, ``diagnosis_disease``) so that a single
+index can be filtered across entity boundaries.
+
+Datasets are still fetched from ``/index/datasets`` using the original
+``_extract_datasets()`` logic.
 """
 
 import logging
-import uuid
 from datetime import datetime
 from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
+
+# Maps source entity -> {source_field: target_field} for cross-entity fields.
+CROSS_ENTITY_FIELDS: dict[str, dict[str, str]] = {
+    "donors": {
+        "organism_type": "donor_organism_type",
+        "phenotypic_sex": "donor_phenotypic_sex",
+        "reported_ethnicity": "donor_reported_ethnicity",
+        "genetic_ancestry": "donor_genetic_ancestry",
+    },
+    "biosamples": {
+        "anatomical_site": "biosample_anatomical_site",
+        "biosample_type": "biosample_biosample_type",
+        "disease": "biosample_disease",
+    },
+    "activities": {
+        "activity_type": "activity_activity_type",
+    },
+    "diagnoses": {
+        "disease": "diagnosis_disease",
+        "phenotype": "diagnosis_phenotype",
+    },
+}
+
+# Maps target entity -> list of source entity keys from CROSS_ENTITY_FIELDS.
+ENTITY_CROSS_SOURCES: dict[str, list[str]] = {
+    "files": ["donors", "biosamples", "activities", "diagnoses"],
+    "donors": ["biosamples", "diagnoses"],
+    "biosamples": ["donors", "diagnoses"],
+    "activities": ["donors", "biosamples", "diagnoses"],
+}
 
 
 class EntityTransformer:
     """
     Transforms raw AnVIL API data into normalized entity records.
 
-    The AnVIL API returns denormalized data where each "hit" contains nested
-    data across multiple entity types. This transformer extracts and normalizes
-    individual entity records.
+    Per-entity endpoints return hits with native fields and cross-entity
+    aggregation arrays.  ``transform_entity_hit`` extracts native fields
+    (with real IDs), adds cross-entity keyword fields, and attaches the
+    parent ``dataset_id``.
     """
 
     def __init__(self, scope: str = "anvil"):
@@ -31,289 +71,110 @@ class EntityTransformer:
         self.scope = scope
         self._now = datetime.utcnow().isoformat()
 
-    def transform_hit(self, hit: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
-        """
-        Transform a single API hit into multiple entity records.
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
 
-        @param hit - Raw API hit containing nested entity data.
-        @returns Dict mapping entity names to lists of extracted records.
+    def transform_entity_hit(
+        self, entity_name: str, hit: dict[str, Any]
+    ) -> Optional[dict[str, Any]]:
         """
-        result: dict[str, list[dict[str, Any]]] = {
-            "datasets": [],
-            "donors": [],
-            "biosamples": [],
-            "files": [],
-            "diagnoses": [],
-            "activities": [],
+        Transform a single per-entity API hit into a record.
+
+        Dispatches to the native extractor for *entity_name*, adds
+        cross-entity keyword fields, and attaches ``dataset_id``.
+
+        @param entity_name - Entity type (files, donors, biosamples, activities).
+        @param hit - Raw API hit from the per-entity endpoint.
+        @returns Normalized record, or None if no native data found.
+        """
+        extractors = {
+            "files": self._extract_file_native,
+            "donors": self._extract_donor_native,
+            "biosamples": self._extract_biosample_native,
+            "activities": self._extract_activity_native,
         }
 
-        # Extract dataset info (usually one per hit)
-        datasets = self._extract_datasets(hit)
-        result["datasets"].extend(datasets)
+        extractor = extractors.get(entity_name)
+        if extractor is None:
+            logger.warning(f"No native extractor for entity: {entity_name}")
+            return None
 
-        # Get dataset_id for linking
-        dataset_id = datasets[0]["dataset_id"] if datasets else None
+        record = extractor(hit)
+        if record is None:
+            return None
 
-        # Extract nested entities
-        donors = self._extract_donors(hit, dataset_id)
-        result["donors"].extend(donors)
+        # Add cross-entity fields
+        self._add_cross_entity_fields(record, hit, entity_name)
 
-        biosamples = self._extract_biosamples(hit, dataset_id)
-        result["biosamples"].extend(biosamples)
+        # Attach dataset_id
+        record["dataset_id"] = self._extract_dataset_id(hit)
 
-        files = self._extract_files(hit, dataset_id)
-        result["files"].extend(files)
+        # Timestamps
+        record["created_at"] = self._now
+        record["updated_at"] = self._now
 
-        diagnoses = self._extract_diagnoses(hit)
-        result["diagnoses"].extend(diagnoses)
-
-        activities = self._extract_activities(hit, dataset_id)
-        result["activities"].extend(activities)
-
-        return result
+        return record
 
     def _extract_datasets(self, hit: dict[str, Any]) -> list[dict[str, Any]]:
         """
-        Extract dataset records from a hit.
+        Extract dataset records from a /index/datasets hit.
+
+        Merges disease and phenotype values from the hit's diagnoses array
+        onto the dataset record so they can be queried as dataset facets.
 
         @param hit - Raw API hit.
         @returns List of dataset records.
         """
+        # Collect disease/phenotype from the diagnoses array
+        disease_values: list[Any] = []
+        phenotype_values: list[Any] = []
+        for dx in hit.get("diagnoses", []):
+            dv = self._unwrap(dx.get("disease"))
+            if dv is not None:
+                if isinstance(dv, list):
+                    disease_values.extend(dv)
+                else:
+                    disease_values.append(dv)
+            pv = self._unwrap(dx.get("phenotype"))
+            if pv is not None:
+                if isinstance(pv, list):
+                    phenotype_values.extend(pv)
+                else:
+                    phenotype_values.append(pv)
+
+        disease = disease_values if disease_values else None
+        phenotype = phenotype_values if phenotype_values else None
+
         datasets = []
 
-        # Datasets may be in different locations depending on API structure
-        sources = hit.get("sources", [])
-        for source in sources:
-            dataset_id = source.get("id") or source.get("source_id")
+        for ds in hit.get("datasets", []):
+            dataset_id = ds.get("dataset_id")
             if dataset_id:
                 datasets.append(
                     {
                         "dataset_id": dataset_id,
-                        "title": source.get("source_name", ""),
-                        "description": source.get("description", ""),
-                        "consent_group": source.get("consent_group"),
-                        "data_use_permission": source.get("data_use_permission"),
-                        "principal_investigator": source.get("principal_investigator"),
-                        "source_repository": source.get("source_repository"),
-                        "registered_identifier": source.get("registered_identifier"),
-                        "duos_id": source.get("duos_id"),
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        # Also check for project-level dataset info
-        project_info = hit.get("projects", [])
-        for project in project_info:
-            dataset_id = project.get("project_id")
-            if dataset_id and not any(d["dataset_id"] == dataset_id for d in datasets):
-                datasets.append(
-                    {
-                        "dataset_id": dataset_id,
-                        "title": project.get("project_title", ""),
-                        "description": project.get("project_description", ""),
-                        "consent_group": project.get("consent_group"),
+                        "title": ds.get("title", ""),
+                        "description": ds.get("description", ""),
+                        "consent_group": self._unwrap(ds.get("consent_group")),
+                        "data_use_permission": self._unwrap(
+                            ds.get("data_use_permission")
+                        ),
+                        "principal_investigator": self._unwrap(
+                            ds.get("principal_investigator")
+                        ),
+                        "registered_identifier": self._unwrap(
+                            ds.get("registered_identifier")
+                        ),
+                        "duos_id": ds.get("duos_id"),
+                        "disease": disease,
+                        "phenotype": phenotype,
                         "created_at": self._now,
                         "updated_at": self._now,
                     }
                 )
 
         return datasets
-
-    def _extract_donors(
-        self, hit: dict[str, Any], dataset_id: Optional[str]
-    ) -> list[dict[str, Any]]:
-        """
-        Extract donor records from a hit.
-
-        @param hit - Raw API hit.
-        @param dataset_id - ID of parent dataset.
-        @returns List of donor records.
-        """
-        donors = []
-
-        donor_data = hit.get("donors", [])
-        for donor in donor_data:
-            donor_id = donor.get("donor_id")
-            if donor_id:
-                donors.append(
-                    {
-                        "donor_id": donor_id,
-                        "dataset_id": dataset_id,
-                        "organism_type": donor.get("organism_type"),
-                        "phenotypic_sex": donor.get("phenotypic_sex"),
-                        "reported_ethnicity": self._normalize_list(
-                            donor.get("reported_ethnicity")
-                        ),
-                        "genetic_ancestry": self._normalize_list(
-                            donor.get("genetic_ancestry")
-                        ),
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        return donors
-
-    def _extract_biosamples(
-        self, hit: dict[str, Any], dataset_id: Optional[str]
-    ) -> list[dict[str, Any]]:
-        """
-        Extract biosample records from a hit.
-
-        @param hit - Raw API hit.
-        @param dataset_id - ID of parent dataset.
-        @returns List of biosample records.
-        """
-        biosamples = []
-
-        biosample_data = hit.get("biosamples", [])
-        for biosample in biosample_data:
-            biosample_id = biosample.get("biosample_id")
-            if biosample_id:
-                biosamples.append(
-                    {
-                        "biosample_id": biosample_id,
-                        "donor_id": biosample.get("donor_id"),
-                        "dataset_id": dataset_id,
-                        "anatomical_site": biosample.get("anatomical_site"),
-                        "biosample_type": biosample.get("biosample_type"),
-                        "disease": self._normalize_list(biosample.get("disease")),
-                        "donor_age_at_collection_lower_bound": biosample.get(
-                            "donor_age_at_collection_lower_bound"
-                        ),
-                        "donor_age_at_collection_upper_bound": biosample.get(
-                            "donor_age_at_collection_upper_bound"
-                        ),
-                        "donor_age_at_collection_unit": biosample.get(
-                            "donor_age_at_collection_unit"
-                        ),
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        return biosamples
-
-    def _extract_files(
-        self, hit: dict[str, Any], dataset_id: Optional[str]
-    ) -> list[dict[str, Any]]:
-        """
-        Extract file records from a hit.
-
-        @param hit - Raw API hit.
-        @param dataset_id - ID of parent dataset.
-        @returns List of file records.
-        """
-        files = []
-
-        file_data = hit.get("files", [])
-        for file in file_data:
-            file_id = file.get("file_id") or file.get("uuid")
-            if file_id:
-                files.append(
-                    {
-                        "file_id": file_id,
-                        "file_name": file.get("file_name", file.get("name", "")),
-                        "file_format": file.get("file_format", file.get("format")),
-                        "file_size": file.get("file_size", file.get("size")),
-                        "file_type": file.get("file_type"),
-                        "drs_uri": file.get("drs_uri"),
-                        "is_supplementary": file.get("is_supplementary", False),
-                        "dataset_id": dataset_id,
-                        "biosample_id": file.get("biosample_id"),
-                        "donor_id": file.get("donor_id"),
-                        "activity_id": file.get("activity_id"),
-                        # Meta-disco fields (may be added by enricher)
-                        "data_modality": file.get("data_modality"),
-                        "assay_type": file.get("assay_type"),
-                        "data_type": file.get("data_type"),
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        return files
-
-    def _extract_diagnoses(self, hit: dict[str, Any]) -> list[dict[str, Any]]:
-        """
-        Extract diagnosis records from a hit.
-
-        @param hit - Raw API hit.
-        @returns List of diagnosis records.
-        """
-        diagnoses = []
-
-        # Diagnoses may be attached to donors
-        donors = hit.get("donors", [])
-        for donor in donors:
-            donor_id = donor.get("donor_id")
-            donor_diagnoses = donor.get("diagnoses", [])
-
-            for diagnosis in donor_diagnoses:
-                diagnosis_id = diagnosis.get("diagnosis_id") or str(uuid.uuid4())
-                diagnoses.append(
-                    {
-                        "diagnosis_id": diagnosis_id,
-                        "donor_id": donor_id,
-                        "biosample_id": diagnosis.get("biosample_id"),
-                        "disease": diagnosis.get("disease"),
-                        "disease_label": diagnosis.get("disease_label"),
-                        "phenotype": diagnosis.get("phenotype"),
-                        "phenotype_label": diagnosis.get("phenotype_label"),
-                        "onset_age_lower_bound": diagnosis.get("onset_age_lower_bound"),
-                        "onset_age_upper_bound": diagnosis.get("onset_age_upper_bound"),
-                        "onset_age_unit": diagnosis.get("onset_age_unit"),
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        return diagnoses
-
-    def _extract_activities(
-        self, hit: dict[str, Any], dataset_id: Optional[str]
-    ) -> list[dict[str, Any]]:
-        """
-        Extract activity records from a hit.
-
-        @param hit - Raw API hit.
-        @param dataset_id - ID of parent dataset.
-        @returns List of activity records.
-        """
-        activities = []
-
-        activity_data = hit.get("activities", [])
-        for activity in activity_data:
-            activity_id = activity.get("activity_id")
-            if activity_id:
-                activities.append(
-                    {
-                        "activity_id": activity_id,
-                        "activity_type": activity.get("activity_type"),
-                        "assay_type": activity.get("assay_type"),
-                        "data_modality": activity.get("data_modality"),
-                        "reference_assembly": activity.get("reference_assembly"),
-                        "dataset_id": dataset_id,
-                        "created_at": self._now,
-                        "updated_at": self._now,
-                    }
-                )
-
-        return activities
-
-    def _normalize_list(self, value: Any) -> Any:
-        """
-        Normalize a value that might be a list or single value.
-
-        @param value - Value to normalize.
-        @returns First element if list with one item, else original value.
-        """
-        if isinstance(value, list):
-            if len(value) == 1:
-                return value[0]
-            return value
-        return value
 
     def deduplicate_entities(
         self, entities: dict[str, list[dict[str, Any]]]
@@ -329,15 +190,14 @@ class EntityTransformer:
             "donors": "donor_id",
             "biosamples": "biosample_id",
             "files": "file_id",
-            "diagnoses": "diagnosis_id",
             "activities": "activity_id",
         }
 
         result = {}
         for entity_name, records in entities.items():
             id_field = id_fields.get(entity_name, "id")
-            seen = set()
-            unique = []
+            seen: set[str] = set()
+            unique: list[dict[str, Any]] = []
 
             for record in records:
                 record_id = record.get(id_field)
@@ -348,3 +208,185 @@ class EntityTransformer:
             result[entity_name] = unique
 
         return result
+
+    # ------------------------------------------------------------------
+    # Native extractors (per-entity endpoint hits)
+    # ------------------------------------------------------------------
+
+    def _extract_file_native(self, hit: dict[str, Any]) -> Optional[dict[str, Any]]:
+        """
+        Extract native file fields from a /index/files hit.
+
+        @param hit - Raw API hit.
+        @returns File record with native fields, or None.
+        """
+        files = hit.get("files", [])
+        if not files:
+            return None
+        f = files[0]
+        return {
+            "file_id": f.get("file_id") or hit.get("entryId"),
+            "file_format": self._unwrap(f.get("file_format")),
+            "file_size": f.get("file_size"),
+            "file_name": self._unwrap(f.get("file_name")),
+            "file_type": self._unwrap(f.get("file_type")),
+            "data_modality": self._unwrap(f.get("data_modality")),
+            "reference_assembly": self._unwrap(f.get("reference_assembly")),
+            "is_supplementary": self._unwrap(f.get("is_supplementary")),
+            "drs_uri": self._unwrap(f.get("drs_uri")),
+        }
+
+    def _extract_donor_native(self, hit: dict[str, Any]) -> Optional[dict[str, Any]]:
+        """
+        Extract native donor fields from a /index/donors hit.
+
+        @param hit - Raw API hit.
+        @returns Donor record with native fields, or None.
+        """
+        donors = hit.get("donors", [])
+        if not donors:
+            return None
+        d = donors[0]
+        return {
+            "donor_id": d.get("donor_id") or hit.get("entryId"),
+            "organism_type": self._unwrap(d.get("organism_type")),
+            "phenotypic_sex": self._unwrap(d.get("phenotypic_sex")),
+            "reported_ethnicity": self._unwrap(d.get("reported_ethnicity")),
+            "genetic_ancestry": self._unwrap(d.get("genetic_ancestry")),
+        }
+
+    def _extract_biosample_native(
+        self, hit: dict[str, Any]
+    ) -> Optional[dict[str, Any]]:
+        """
+        Extract native biosample fields from a /index/biosamples hit.
+
+        @param hit - Raw API hit.
+        @returns Biosample record with native fields, or None.
+        """
+        biosamples = hit.get("biosamples", [])
+        if not biosamples:
+            return None
+        bs = biosamples[0]
+        age_range = bs.get("donor_age_at_collection", {}) or {}
+        return {
+            "biosample_id": bs.get("biosample_id") or hit.get("entryId"),
+            "anatomical_site": self._unwrap(bs.get("anatomical_site")),
+            "biosample_type": self._unwrap(bs.get("biosample_type")),
+            "disease": self._unwrap(bs.get("disease")),
+            "donor_age_at_collection_lower_bound": age_range.get("gte"),
+            "donor_age_at_collection_upper_bound": age_range.get("lte"),
+            "donor_age_at_collection_unit": self._unwrap(
+                bs.get("donor_age_at_collection_unit")
+            ),
+        }
+
+    def _extract_activity_native(self, hit: dict[str, Any]) -> Optional[dict[str, Any]]:
+        """
+        Extract native activity fields from a /index/activities hit.
+
+        @param hit - Raw API hit.
+        @returns Activity record with native fields, or None.
+        """
+        activities = hit.get("activities", [])
+        if not activities:
+            return None
+        act = activities[0]
+        return {
+            "activity_id": act.get("activity_id") or hit.get("entryId"),
+            "activity_type": self._unwrap(act.get("activity_type")),
+            "assay_type": self._unwrap(act.get("assay_type")),
+            "data_modality": self._unwrap(act.get("data_modality")),
+            "reference_assembly": self._unwrap(act.get("reference_assembly")),
+        }
+
+    # ------------------------------------------------------------------
+    # Cross-entity helpers
+    # ------------------------------------------------------------------
+
+    def _add_cross_entity_fields(
+        self, record: dict[str, Any], hit: dict[str, Any], entity_name: str
+    ) -> None:
+        """
+        Populate cross-entity keyword fields on *record*.
+
+        For each source entity configured in ``ENTITY_CROSS_SOURCES``,
+        iterates over the aggregation array in *hit*, unwraps each
+        source field, deduplicates, and stores the result as the prefixed
+        target field.
+
+        @param record - Mutable record to update.
+        @param hit - Raw API hit containing cross-entity arrays.
+        @param entity_name - The target entity being built.
+        """
+        sources = ENTITY_CROSS_SOURCES.get(entity_name, [])
+
+        for source_entity in sources:
+            field_mapping = CROSS_ENTITY_FIELDS.get(source_entity, {})
+            source_items = hit.get(source_entity, [])
+
+            for source_field, target_field in field_mapping.items():
+                collected: list[Any] = []
+
+                for item in source_items:
+                    val = self._unwrap(item.get(source_field))
+                    if val is None:
+                        continue
+                    if isinstance(val, list):
+                        collected.extend(val)
+                    else:
+                        collected.append(val)
+
+                # Deduplicate while preserving order
+                seen: set[Any] = set()
+                deduped: list[Any] = []
+                for v in collected:
+                    if v not in seen:
+                        seen.add(v)
+                        deduped.append(v)
+
+                if not deduped:
+                    record[target_field] = None
+                elif len(deduped) == 1:
+                    record[target_field] = deduped[0]
+                else:
+                    record[target_field] = deduped
+
+    def _extract_dataset_id(self, hit: dict[str, Any]) -> Optional[str]:
+        """
+        Extract dataset_id from a per-entity hit.
+
+        The hit's ``datasets`` array contains the parent dataset(s).
+
+        @param hit - Raw API hit.
+        @returns Dataset ID string, or None.
+        """
+        datasets = hit.get("datasets", [])
+        if not datasets:
+            return None
+        ds = datasets[0]
+        raw = ds.get("dataset_id")
+        return self._unwrap(raw) if isinstance(raw, list) else raw
+
+    # ------------------------------------------------------------------
+    # Utility
+    # ------------------------------------------------------------------
+
+    def _unwrap(self, value: Any) -> Any:
+        """
+        Unwrap array fields from the Azul API response.
+
+        Single-element arrays become scalars, null-only arrays become None,
+        and multi-element arrays are kept with nulls filtered out.
+
+        @param value - Value that may be a list, scalar, or None.
+        @returns Unwrapped value.
+        """
+        if not isinstance(value, list):
+            return value
+        non_null = [v for v in value if v is not None]
+        if not non_null:
+            return None
+        if len(non_null) == 1:
+            return non_null[0]
+        return non_null

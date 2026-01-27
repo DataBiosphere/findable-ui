@@ -33,6 +33,12 @@ entities:
         facet: true
       - name: duos_id
         type: keyword
+      - name: disease
+        type: keyword
+        facet: true
+      - name: phenotype
+        type: keyword
+        facet: true
     relationships:
       - entity: donors
         type: one-to-many
@@ -63,6 +69,23 @@ entities:
         type: keyword
         facet: true
       - name: genetic_ancestry
+        type: keyword
+        facet: true
+      # Cross-entity: biosamples
+      - name: biosample_anatomical_site
+        type: keyword
+        facet: true
+      - name: biosample_biosample_type
+        type: keyword
+        facet: true
+      - name: biosample_disease
+        type: keyword
+        facet: true
+      # Cross-entity: diagnoses
+      - name: diagnosis_disease
+        type: keyword
+        facet: true
+      - name: diagnosis_phenotype
         type: keyword
         facet: true
     relationships:
@@ -108,6 +131,26 @@ entities:
         sortable: true
       - name: donor_age_at_collection_unit
         type: keyword
+      # Cross-entity: donors
+      - name: donor_organism_type
+        type: keyword
+        facet: true
+      - name: donor_phenotypic_sex
+        type: keyword
+        facet: true
+      - name: donor_reported_ethnicity
+        type: keyword
+        facet: true
+      - name: donor_genetic_ancestry
+        type: keyword
+        facet: true
+      # Cross-entity: diagnoses
+      - name: diagnosis_disease
+        type: keyword
+        facet: true
+      - name: diagnosis_phenotype
+        type: keyword
+        facet: true
     relationships:
       - entity: donors
         type: many-to-one
@@ -164,6 +207,40 @@ entities:
         type: keyword
       - name: donor_id
         type: keyword
+      # Cross-entity: donors
+      - name: donor_organism_type
+        type: keyword
+        facet: true
+      - name: donor_phenotypic_sex
+        type: keyword
+        facet: true
+      - name: donor_reported_ethnicity
+        type: keyword
+        facet: true
+      - name: donor_genetic_ancestry
+        type: keyword
+        facet: true
+      # Cross-entity: biosamples
+      - name: biosample_anatomical_site
+        type: keyword
+        facet: true
+      - name: biosample_biosample_type
+        type: keyword
+        facet: true
+      - name: biosample_disease
+        type: keyword
+        facet: true
+      # Cross-entity: activities
+      - name: activity_activity_type
+        type: keyword
+        facet: true
+      # Cross-entity: diagnoses
+      - name: diagnosis_disease
+        type: keyword
+        facet: true
+      - name: diagnosis_phenotype
+        type: keyword
+        facet: true
     relationships:
       - entity: datasets
         type: many-to-one
@@ -177,46 +254,6 @@ entities:
         type: many-to-one
         field: activity_id
         description: "Activity that produced this file"
-
-  diagnoses:
-    index: anvil_diagnoses
-    id_field: diagnosis_id
-    description: "Medical diagnoses associated with donors or biosamples"
-    fields:
-      - name: diagnosis_id
-        type: keyword
-        sortable: true
-      - name: donor_id
-        type: keyword
-      - name: biosample_id
-        type: keyword
-      - name: disease
-        type: keyword
-        facet: true
-      - name: disease_label
-        type: text
-        searchable: true
-      - name: phenotype
-        type: keyword
-        facet: true
-      - name: phenotype_label
-        type: text
-        searchable: true
-      - name: onset_age_lower_bound
-        type: integer
-      - name: onset_age_upper_bound
-        type: integer
-      - name: onset_age_unit
-        type: keyword
-    relationships:
-      - entity: donors
-        type: many-to-one
-        field: donor_id
-        description: "Donor with this diagnosis"
-      - entity: biosamples
-        type: many-to-one
-        field: biosample_id
-        description: "Biosample associated with this diagnosis"
 
   activities:
     index: anvil_activities
@@ -240,6 +277,36 @@ entities:
         facet: true
       - name: dataset_id
         type: keyword
+      # Cross-entity: donors
+      - name: donor_organism_type
+        type: keyword
+        facet: true
+      - name: donor_phenotypic_sex
+        type: keyword
+        facet: true
+      - name: donor_reported_ethnicity
+        type: keyword
+        facet: true
+      - name: donor_genetic_ancestry
+        type: keyword
+        facet: true
+      # Cross-entity: biosamples
+      - name: biosample_anatomical_site
+        type: keyword
+        facet: true
+      - name: biosample_biosample_type
+        type: keyword
+        facet: true
+      - name: biosample_disease
+        type: keyword
+        facet: true
+      # Cross-entity: diagnoses
+      - name: diagnosis_disease
+        type: keyword
+        facet: true
+      - name: diagnosis_phenotype
+        type: keyword
+        facet: true
     relationships:
       - entity: files
         type: one-to-many
