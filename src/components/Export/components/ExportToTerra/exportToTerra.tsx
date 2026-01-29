@@ -2,7 +2,6 @@ import { JSX, ElementType } from "react";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";
-import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import { useFileManifestFormat } from "../../../../hooks/useFileManifest/useFileManifestFormat";
@@ -19,7 +18,6 @@ export interface ExportToTerraProps {
   ExportToTerraStart: ElementType;
   ExportToTerraSuccess: ElementType;
   fileManifestState: FileManifestState;
-  fileManifestType: FileManifestType;
   fileSummaryFacetName: string;
   filters: Filters; // Initializes export to terra filters.
   formFacet: FormFacet;

@@ -2,7 +2,6 @@ import { JSX, ElementType, useState } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
-import { FileManifestType } from "../../../../hooks/useFileManifest/common/entities";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
@@ -26,7 +25,6 @@ interface DownloadCurlCommandProps {
   DownloadCurlStart: ElementType;
   DownloadCurlSuccess: ElementType;
   fileManifestState: FileManifestState;
-  fileManifestType: FileManifestType;
   fileSummaryFacetName: string;
   filters: Filters; // Initializes bulk download filters.
   formFacet: FormFacet;
