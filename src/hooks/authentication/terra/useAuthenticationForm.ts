@@ -1,9 +1,7 @@
-import { useTerraProfile } from "../../../providers/authentication/terra/hook";
-import {
-  LoginResponse,
-  LoginStatus,
-} from "../../../providers/authentication/terra/hooks/common/entities";
-import { TerraProfileContextProps } from "../../../providers/authentication/terra/types";
+import { LoginResponse } from "../../../terra/constants";
+import { useTerraProfile } from "../../../terra/hooks/useTerraProfile";
+import { LoginStatus } from "../../../terra/types/common";
+import { TerraProfileContextProps } from "../../../terra/types/context";
 
 export interface OnboardingStatus {
   active: boolean;

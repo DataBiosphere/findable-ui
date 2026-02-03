@@ -9,5 +9,4 @@ __pycache__/
 
 databiosphere-findable-ui*.tgz
 
-.claude/plans*
-.claude/rules*
+.claude/

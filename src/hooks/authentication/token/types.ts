@@ -1,4 +1,4 @@
-import { Credentials } from "../../../providers/authentication/credentials/types";
+import { Credentials } from "../../../auth/types/credentials";
 
 export interface UseToken {
   token: Credentials;

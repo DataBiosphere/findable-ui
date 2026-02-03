@@ -1,14 +1,11 @@
 import { jest } from "@jest/globals";
 import { renderHook } from "@testing-library/react";
-import { TransformRouteFn } from "../src/hooks/useRouteHistory";
-import {
-  AUTH_STATUS,
-  AuthState,
-} from "../src/providers/authentication/auth/types";
+import { AUTH_STATUS, AuthState } from "../src/auth/types/auth";
 import {
   AUTHENTICATION_STATUS,
   AuthenticationState,
-} from "../src/providers/authentication/authentication/types";
+} from "../src/auth/types/authentication";
+import { TransformRouteFn } from "../src/hooks/useRouteHistory";
 
 const AUTH_STATE_AUTHENTICATED_SETTLED: AuthState = {
   isAuthenticated: true,
