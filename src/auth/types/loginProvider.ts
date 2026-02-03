@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { ProviderId } from "./common";
 
 /**
  * Login provider interface - provider-agnostic representation of an auth provider.
@@ -6,6 +7,6 @@ import { ReactNode } from "react";
  */
 export interface LoginProvider {
   icon?: ReactNode;
-  id: string;
+  id: ProviderId;
   name: string;
 }
