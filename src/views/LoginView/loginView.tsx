@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { LoginProvider } from "../../auth/types/login-provider";
+import { LoginProvider } from "../../auth/types/loginProvider";
 import { Login } from "../../components/Login/login";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { LoginProvider } from "../../auth/types/login-provider";
+import { LoginProvider } from "../../auth/types/loginProvider";
 
 export interface Props {
   providers?: LoginProvider[];
