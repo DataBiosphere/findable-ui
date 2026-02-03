@@ -1,12 +1,12 @@
 import {
   LoginStatus,
   REQUEST_STATUS,
-} from "../src/providers/authentication/terra/hooks/common/entities";
-import { TerraNIHResponse } from "../src/providers/authentication/terra/hooks/useFetchTerraNIHProfile";
-import { TerraResponse } from "../src/providers/authentication/terra/hooks/useFetchTerraProfile";
-import { TerraTermsOfServiceResponse } from "../src/providers/authentication/terra/hooks/useFetchTerraTermsOfService";
-import { TERRA_PROFILE_STATUS } from "../src/providers/authentication/terra/types";
-import { getProfileStatus } from "../src/providers/authentication/terra/utils";
+  TERRA_PROFILE_STATUS,
+} from "../src/terra/types/common";
+import { TerraNIHResponse } from "../src/terra/types/terra-nih";
+import { TerraResponse } from "../src/terra/types/terra-profile";
+import { TerraTermsOfServiceResponse } from "../src/terra/types/terra-tos";
+import { getProfileStatus } from "../src/terra/utils";
 
 const LOGIN_STATUS_NIH_COMPLETED: LoginStatus<TerraNIHResponse> = {
   isSuccess: true,

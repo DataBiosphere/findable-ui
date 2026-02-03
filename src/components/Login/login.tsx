@@ -1,7 +1,7 @@
 import { Checkbox, Typography } from "@mui/material";
-import { JSX, ChangeEvent, useCallback, useState } from "react";
-import { useAuth } from "../../providers/authentication/auth/hook";
-import { ProviderId } from "../../providers/authentication/common/types";
+import { ChangeEvent, JSX, useCallback, useState } from "react";
+import { useAuth } from "../../auth/hooks/useAuth";
+import { ProviderId } from "../../auth/types/common";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { CheckedIcon } from "../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { UncheckedErrorIcon } from "../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
@@ -18,13 +18,13 @@ import {
 } from "./login.styles";
 import { Props } from "./types";
 
-export const Login = <P,>({
+export const Login = ({
   providers = [],
   termsOfService,
   text,
   title,
   warning,
-}: Props<P>): JSX.Element => {
+}: Props): JSX.Element => {
   const { service: { requestLogin } = {} } = useAuth();
   const [isError, setIsError] = useState<boolean>(false);
   const [isInAgreement, setIsInAgreement] = useState<boolean>(!termsOfService);

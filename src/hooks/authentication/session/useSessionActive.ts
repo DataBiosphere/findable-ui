@@ -1,14 +1,11 @@
 import Router from "next/router";
 import { useEffect } from "react";
-import { escapeRegExp } from "../../../common/utils";
-import {
-  AUTH_STATUS,
-  AuthState,
-} from "../../../providers/authentication/auth/types";
+import { AUTH_STATUS, AuthState } from "../../../auth/types/auth";
 import {
   AUTHENTICATION_STATUS,
   AuthenticationState,
-} from "../../../providers/authentication/authentication/types";
+} from "../../../auth/types/authentication";
+import { escapeRegExp } from "../../../common/utils";
 import { ROUTE } from "../../../routes/constants";
 import { useRouteHistory } from "../../useRouteHistory";
 import { INACTIVITY_PARAM } from "./useSessionTimeout";

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { ProviderId } from "../../../providers/authentication/common/types";
+import { ProviderId } from "../../../auth/types/common";
 import { useConfig } from "../../useConfig";
 import { UseProviders } from "./types";
 

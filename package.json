@@ -21,6 +21,30 @@
   },
   "homepage": "https://github.com/DataBiosphere/findable-ui/tree/main/#readme",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./auth/*": {
+      "types": "./lib/auth/*.d.ts",
+      "import": "./lib/auth/*.js"
+    },
+    "./google/*": {
+      "types": "./lib/google/*.d.ts",
+      "import": "./lib/google/*.js"
+    },
+    "./nextauth/*": {
+      "types": "./lib/nextauth/*.d.ts",
+      "import": "./lib/nextauth/*.js"
+    },
+    "./terra/*": {
+      "types": "./lib/terra/*.d.ts",
+      "import": "./lib/terra/*.js"
+    },
+    "./lib/*": "./lib/*"
+  },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
@@ -88,6 +112,11 @@
     "unified": "^11.0.5",
     "uuid": "^13.0.0",
     "yup": "^1.7.1"
+  },
+  "peerDependenciesMeta": {
+    "next-auth": {
+      "optional": true
+    }
   },
   "overrides": {
     "glob": "^11.0.4"

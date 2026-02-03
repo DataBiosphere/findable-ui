@@ -1,13 +1,13 @@
 import { jest } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react";
-import React from "react";
+import { JSX } from "react";
 import { LoginGuardContext } from "../src/providers/loginGuard/context";
 
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
   useConfig: jest.fn(),
 }));
 
-jest.unstable_mockModule("../src/providers/authentication/auth/hook", () => ({
+jest.unstable_mockModule("../src/auth/hooks/useAuth", () => ({
   useAuth: jest.fn(),
 }));
 
@@ -33,7 +33,7 @@ jest.unstable_mockModule(
 );
 
 const { useConfig } = await import("../src/hooks/useConfig");
-const { useAuth } = await import("../src/providers/authentication/auth/hook");
+const { useAuth } = await import("../src/auth/hooks/useAuth");
 const { useAuthenticationConfig } =
   await import("../src/hooks/authentication/config/useAuthenticationConfig");
 
