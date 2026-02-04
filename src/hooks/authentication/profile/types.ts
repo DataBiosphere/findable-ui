@@ -1,7 +1,4 @@
-import {
-  Profile,
-  UserProfile,
-} from "../../../providers/authentication/authentication/types";
+import { Profile, UserProfile } from "../../../auth/types/authentication";
 
 export interface UseProfile {
   isLoading: boolean;

@@ -1,8 +1,8 @@
 import { JSX, ReactNode } from "react";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
-import { useTerraProfile } from "../../../../../../../../../../providers/authentication/terra/hook";
-import { LoginStatus } from "../../../../../../../../../../providers/authentication/terra/hooks/common/entities";
-import { TerraResponse } from "../../../../../../../../../../providers/authentication/terra/hooks/useFetchTerraProfile";
+import { useTerraProfile } from "../../../../../../../../../../terra/hooks/useTerraProfile";
+import { LoginStatus } from "../../../../../../../../../../terra/types/common";
+import { TerraResponse } from "../../../../../../../../../../terra/types/terra-profile";
 import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 import {
   ANCHOR_TARGET,

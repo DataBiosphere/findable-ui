@@ -1,4 +1,4 @@
-import { ProviderId } from "../../../../providers/authentication/common/types";
+import { ProviderId } from "../../../../auth/types/common";
 import { UseUserConsent } from "../useUserConsent/types";
 
 export interface UseUserLogin extends Omit<
