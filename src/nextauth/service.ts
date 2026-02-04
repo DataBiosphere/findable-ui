@@ -11,7 +11,7 @@ export const service = {
    * @param options - Sign in options.
    */
   login: (providerId: ProviderId, options?: SignInOptions): void => {
-    signIn(providerId, options).catch((e) => console.error(e));
+    signIn(providerId, options).catch((e: unknown) => console.error(e));
   },
   /**
    * Logout the user.
@@ -21,6 +21,6 @@ export const service = {
     signOut({
       callbackUrl: options?.callbackUrl,
       redirect: options?.redirect || false,
-    }).catch((e) => console.error(e));
+    }).catch((e: unknown) => console.error(e));
   },
 };
