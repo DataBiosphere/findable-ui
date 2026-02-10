@@ -79,9 +79,7 @@ export const EntityDetailView = (props: EntityDetailViewProps): JSX.Element => {
           ) : undefined
         }
         Tabs={
-          hideTabs ? (
-            <></>
-          ) : (
+          hideTabs ? null : (
             <Tabs onTabChange={onTabChange} tabs={tabs} value={tabRoute} />
           )
         }
