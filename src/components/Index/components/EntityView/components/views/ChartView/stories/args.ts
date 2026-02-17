@@ -6,7 +6,7 @@ export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
     {
       categoryViews: [
         {
-          enableChartView: true,
+          chart: { enable: true },
           key: "biological-sex",
           label: "Biological Sex",
           values: [
@@ -43,7 +43,7 @@ export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
           ],
         },
         {
-          enableChartView: true,
+          chart: { enable: true },
           key: "genusSpecies",
           label: "Genus Species",
           values: [
@@ -74,7 +74,7 @@ export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
           ],
         },
         {
-          enableChartView: false,
+          chart: { enable: false },
           key: "pairedEnd",
           label: "Paired End",
           values: [

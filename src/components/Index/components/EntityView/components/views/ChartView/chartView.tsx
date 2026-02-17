@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { Fragment, JSX } from "react";
+import { getChartSortFn } from "../../../../../../../common/chart/sort/utils";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 import {
   Loading,
@@ -33,12 +34,17 @@ export const ChartView = ({
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
       <StyledGrid data-testid={testId} ref={chartViewRef}>
-        {selectCategoryViews.map(({ key, label, values }) => (
+        {selectCategoryViews.map(({ chart, key, label, values }) => (
           <StyledGridPaperSection key={key}>
             <Typography variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}>
               {entityName} by {label}
             </Typography>
-            <Chart selectCategoryValueViews={values} width={width} />
+            <Chart
+              selectCategoryValueViews={[...values].sort(
+                getChartSortFn(chart?.sortBy),
+              )}
+              width={width}
+            />
           </StyledGridPaperSection>
         ))}
       </StyledGrid>

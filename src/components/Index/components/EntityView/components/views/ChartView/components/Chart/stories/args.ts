@@ -16,12 +16,6 @@ export const CHART_ARGS: ComponentProps<typeof Chart> = {
       selected: false,
     },
     {
-      count: 240,
-      key: "mixed",
-      label: "mixed",
-      selected: false,
-    },
-    {
       count: 78715,
       key: "unknown",
       label: "unknown",
@@ -31,6 +25,12 @@ export const CHART_ARGS: ComponentProps<typeof Chart> = {
       count: 1561,
       key: null,
       label: "Unspecified",
+      selected: false,
+    },
+    {
+      count: 240,
+      key: "mixed",
+      label: "mixed",
       selected: false,
     },
   ],
@@ -52,12 +52,6 @@ export const SELECT_CHART_ARGS: ComponentProps<typeof Chart> = {
       selected: true,
     },
     {
-      count: 240,
-      key: "mixed",
-      label: "mixed",
-      selected: false,
-    },
-    {
       count: 78715,
       key: "unknown",
       label: "unknown",
@@ -68,6 +62,12 @@ export const SELECT_CHART_ARGS: ComponentProps<typeof Chart> = {
       key: null,
       label: "Unspecified",
       selected: true,
+    },
+    {
+      count: 240,
+      key: "mixed",
+      label: "mixed",
+      selected: false,
     },
   ],
   width: 800,

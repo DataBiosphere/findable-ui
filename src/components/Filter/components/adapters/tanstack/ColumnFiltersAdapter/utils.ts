@@ -221,7 +221,7 @@ function mapColumnToSelectCategoryView<T extends RowData>(
   );
   return {
     annotation: undefined,
-    enableChartView: false,
+    chart: undefined,
     isDisabled,
     key: column.id,
     label: getColumnHeader(column),

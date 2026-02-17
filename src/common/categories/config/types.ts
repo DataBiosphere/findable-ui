@@ -1,3 +1,4 @@
+import { Chart } from "../../chart/types";
 import {
   CategoryKey,
   DataDictionaryAnnotation,
@@ -33,7 +34,7 @@ export interface RangeCategoryConfig
  */
 export interface SelectCategoryConfig
   extends CommonCategoryConfig, SelectViewKind {
-  enableChartView?: boolean;
+  chart?: Chart;
   mapSelectCategoryValue?: (
     selectCategoryValue: SelectCategoryValueView,
   ) => SelectCategoryValueView;
