@@ -13,7 +13,7 @@ export function getSelectCategoryViews(
   return categoryFilters
     .flatMap(({ categoryViews }) => categoryViews)
     .filter(isSelectCategoryView)
-    .filter(({ enableChartView = true }) => enableChartView)
+    .filter(({ chart }) => chart?.enable)
     .filter(({ values }) => values.length > 0);
 }
 

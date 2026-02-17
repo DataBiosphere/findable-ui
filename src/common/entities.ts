@@ -1,4 +1,5 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
+import { Chart } from "./chart/types";
 
 /**
  * Model of a value of a metadata class.
@@ -152,7 +153,7 @@ export interface SelectCategoryValueView {
  */
 export interface SelectCategoryView {
   annotation?: DataDictionaryAnnotation;
-  enableChartView?: boolean;
+  chart?: Chart;
   isDisabled?: boolean;
   key: CategoryKey;
   label: string;
