@@ -1,5 +1,32 @@
 # Changelog
 
+## [49.0.0](https://github.com/DataBiosphere/findable-ui/compare/v48.1.0...v49.0.0) (2026-02-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* chartview: add configurable bar sort order ([#772](https://github.com/DataBiosphere/findable-ui/issues/772)) (#773)
+* remove unused filemanifesttype prop and type definitions from export components ([#767](https://github.com/DataBiosphere/findable-ui/issues/767)) (#768)
+
+### Features
+
+* chartview: add configurable bar sort order ([#772](https://github.com/DataBiosphere/findable-ui/issues/772)) ([#773](https://github.com/DataBiosphere/findable-ui/issues/773)) ([bea776a](https://github.com/DataBiosphere/findable-ui/commit/bea776a987a612d30a0010f29af128946f4aad48))
+
+
+### Bug Fixes
+
+* remove unused filemanifesttype prop and type definitions from export components ([#767](https://github.com/DataBiosphere/findable-ui/issues/767)) ([#768](https://github.com/DataBiosphere/findable-ui/issues/768)) ([4da929f](https://github.com/DataBiosphere/findable-ui/commit/4da929fcfd3acaccdb60f269bbffa8be033fdec3))
+
+
+### Chores
+
+* remove debug code ([#762](https://github.com/DataBiosphere/findable-ui/issues/762)) ([#765](https://github.com/DataBiosphere/findable-ui/issues/765)) ([6a6b8f5](https://github.com/DataBiosphere/findable-ui/commit/6a6b8f5087bf972397fa4104f946b41eae03a0da))
+
+
+### Code Refactoring
+
+* render null instead of empty fragment when hideTabs is true ([#770](https://github.com/DataBiosphere/findable-ui/issues/770)) ([#771](https://github.com/DataBiosphere/findable-ui/issues/771)) ([62733b7](https://github.com/DataBiosphere/findable-ui/commit/62733b7fb271fa6be4a29b7c7d545272a1c3e9ef))
+
 ## [48.1.0](https://github.com/DataBiosphere/findable-ui/compare/v48.0.0...v48.1.0) (2026-01-11)
 
 
