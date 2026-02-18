@@ -5,6 +5,7 @@ import { FilterLabel } from "./filterLabel";
 
 const meta = {
   argTypes: {
+    annotation: { control: "object" },
     count: { control: "number" },
     disabled: { control: "boolean" },
     isOpen: { control: "boolean" },
@@ -27,6 +28,11 @@ type Story = StoryObj<typeof meta>;
 
 export const FilterLabelStory: Story = {
   args: {
+    annotation: {
+      description:
+        "This is a description of the filter label that provides additional context to the user.",
+      label: "Label",
+    },
     count: 123,
     disabled: false,
     isOpen: false,
