@@ -13,6 +13,7 @@ export const TEST_IDS = {
   FILTER_SORT_MENU: "filter-sort-menu",
   FILTER_TERM: "filter-term",
   SEARCH_ALL_FILTERS: "search-all-filters",
+  SEARCH_CONTROLS: "search-controls",
   SIDEBAR: "sidebar",
   SIDEBAR_DRAWER: "sidebar-drawer",
   TABLE_FIRST_CELL: "table-first-cell",

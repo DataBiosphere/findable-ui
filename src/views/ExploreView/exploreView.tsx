@@ -16,7 +16,6 @@ import { SearchAllFilters } from "../../components/Filter/components/SearchAllFi
 import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
-import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
 import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
@@ -34,6 +33,8 @@ import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 import { ModeProvider } from "./mode/provider/provider";
 import { ToggleButtonGroup } from "./mode/components/ToggleButtonGroup/toggleButtonGroup";
+import { StyledGrid } from "./search/filters/filters.styles";
+import { StyledStack } from "./search/sidebar/sidebar.styles";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -141,30 +142,32 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         <DrawerProvider>
           {categoryViews && !!categoryViews.length && (
             <Sidebar>
-              <ToggleButtonGroup
-                onChange={modeProps.onChange}
-                value={modeProps.value}
-              />
-              <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
-                <SidebarLabel label={"Filters"} />
-                <Stack direction="row" gap={4}>
-                  <ClearAllFilters />
-                  <FilterSort
-                    enabled={filterSortEnabled}
-                    filterSort={filterSort}
-                    onFilterSortChange={onFilterSortChange}
-                  />
-                </Stack>
-                <SearchAllFilters
-                  categoryViews={categoryViews}
-                  onFilter={onFilterChange.bind(null, true)}
-                  surfaceType={
-                    mdDown
-                      ? SURFACE_TYPE.POPPER_DRAWER
-                      : SURFACE_TYPE.POPPER_MENU
-                  }
+              <StyledStack data-testid={TEST_IDS.SEARCH_CONTROLS} useFlexGap>
+                <ToggleButtonGroup
+                  onChange={modeProps.onChange}
+                  value={modeProps.value}
                 />
-              </SidebarTools>
+                <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
+                  <SidebarLabel label={"Filters"} />
+                  <Stack direction="row" gap={4}>
+                    <ClearAllFilters />
+                    <FilterSort
+                      enabled={filterSortEnabled}
+                      filterSort={filterSort}
+                      onFilterSortChange={onFilterSortChange}
+                    />
+                  </Stack>
+                  <SearchAllFilters
+                    categoryViews={categoryViews}
+                    onFilter={onFilterChange.bind(null, true)}
+                    surfaceType={
+                      mdDown
+                        ? SURFACE_TYPE.POPPER_DRAWER
+                        : SURFACE_TYPE.POPPER_MENU
+                    }
+                  />
+                </StyledGrid>
+              </StyledStack>
               <Filters
                 categoryFilters={categoryFilters}
                 onFilter={onFilterChange.bind(null, false)}

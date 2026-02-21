@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { bpUpMd } from "../../../../../../styles/common/mixins/breakpoints";
 
+/**
+ * Container for sidebar tools, including the mode toggle and filter controls.
+ * @deprecated - This styled component is deprecated and will be removed in a future release.
+ */
 export const SidebarTools = styled.div`
   display: grid;
   gap: 8px 0;
