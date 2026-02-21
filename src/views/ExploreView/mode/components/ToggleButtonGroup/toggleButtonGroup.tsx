@@ -3,6 +3,13 @@ import { JSX } from "react";
 import { TOGGLE_BUTTON_GROUP_PROPS, TOGGLE_BUTTONS } from "./constants";
 import { StyledToggleButtonGroup } from "./toggleButtonGroup.styles";
 
+/**
+ * ToggleButtonGroup component for ExploreView. Renders a group of toggle buttons based on the provided props.
+ * Switches between "Search" mode for filter-driven exploration and "Research" mode for AI-assisted discovery.
+ * @param props - MUI toggle button group props.
+ * @param props.className - Optional class name.
+ * @returns Rendered component or null if onChange prop is not provided.
+ */
 export const ToggleButtonGroup = ({
   className,
   ...props /* ToggleButtonGroupProps */
