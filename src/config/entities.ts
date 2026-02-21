@@ -29,6 +29,13 @@ import { FileManifestState } from "../providers/fileManifestState";
 import { SystemStatus, SystemStatusResponse } from "../providers/systemStatus";
 
 /**
+ * AI configuration.
+ */
+export interface AiConfig {
+  enabled: boolean;
+}
+
+/**
  * Interface to define the analytics configuration for a given site.
  */
 export interface AnalyticsConfig {
@@ -364,6 +371,7 @@ interface TrackingConfig {
  * Interface that will hold the whole configuration for a given site.
  */
 export interface SiteConfig {
+  ai?: AiConfig;
   analytics?: AnalyticsConfig;
   appTitle: string;
   authentication?: AuthenticationConfig;

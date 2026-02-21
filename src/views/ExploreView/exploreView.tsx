@@ -32,6 +32,8 @@ import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
+import { ModeProvider } from "./mode/provider/provider";
+import { ToggleButtonGroup } from "./mode/components/ToggleButtonGroup/toggleButtonGroup";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -134,43 +136,53 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <DrawerProvider>
-      {categoryViews && !!categoryViews.length && (
-        <Sidebar>
-          <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
-            <SidebarLabel label={"Filters"} />
-            <Stack direction="row" gap={4}>
-              <ClearAllFilters />
-              <FilterSort
-                enabled={filterSortEnabled}
-                filterSort={filterSort}
-                onFilterSortChange={onFilterSortChange}
+    <ModeProvider>
+      {(modeProps) => (
+        <DrawerProvider>
+          {categoryViews && !!categoryViews.length && (
+            <Sidebar>
+              <ToggleButtonGroup
+                onChange={modeProps.onChange}
+                value={modeProps.value}
               />
-            </Stack>
-            <SearchAllFilters
-              categoryViews={categoryViews}
-              onFilter={onFilterChange.bind(null, true)}
-              surfaceType={
-                mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
-              }
-            />
-          </SidebarTools>
-          <Filters
+              <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
+                <SidebarLabel label={"Filters"} />
+                <Stack direction="row" gap={4}>
+                  <ClearAllFilters />
+                  <FilterSort
+                    enabled={filterSortEnabled}
+                    filterSort={filterSort}
+                    onFilterSortChange={onFilterSortChange}
+                  />
+                </Stack>
+                <SearchAllFilters
+                  categoryViews={categoryViews}
+                  onFilter={onFilterChange.bind(null, true)}
+                  surfaceType={
+                    mdDown
+                      ? SURFACE_TYPE.POPPER_DRAWER
+                      : SURFACE_TYPE.POPPER_MENU
+                  }
+                />
+              </SidebarTools>
+              <Filters
+                categoryFilters={categoryFilters}
+                onFilter={onFilterChange.bind(null, false)}
+                surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
+                trackFilterOpened={trackingConfig?.trackFilterOpened}
+              />
+            </Sidebar>
+          )}
+          <IndexView
+            className={props.className}
             categoryFilters={categoryFilters}
-            onFilter={onFilterChange.bind(null, false)}
-            surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-            trackFilterOpened={trackingConfig?.trackFilterOpened}
+            entityListType={entityListType}
+            entityName={label}
+            loading={loading}
           />
-        </Sidebar>
+        </DrawerProvider>
       )}
-      <IndexView
-        className={props.className}
-        categoryFilters={categoryFilters}
-        entityListType={entityListType}
-        entityName={label}
-        loading={loading}
-      />
-    </DrawerProvider>
+    </ModeProvider>
   );
 };
 
