@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { UseQuery } from "./types";
 import { FIELD_NAME } from "./constants";
 import { getFormValues } from "./utils";
@@ -57,6 +57,13 @@ export const useQuery = (url?: string): UseQuery => {
     },
     [loading, url],
   );
+
+  // Abort any in-flight request on unmount.
+  useEffect(() => {
+    return (): void => {
+      abortRef.current?.abort();
+    };
+  }, []);
 
   return { actions: { onSubmit }, status: { loading } };
 };
