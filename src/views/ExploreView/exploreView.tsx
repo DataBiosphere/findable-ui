@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { JSX, useEffect, useMemo } from "react";
+import { Fragment, JSX, useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
@@ -18,7 +18,6 @@ import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
-import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
 import { useExploreState } from "../../hooks/useExploreState";
@@ -33,13 +32,17 @@ import { ModeProvider } from "./mode/provider/provider";
 import { ToggleButtonGroup } from "./mode/components/ToggleButtonGroup/toggleButtonGroup";
 import { PanelSelector } from "./mode/selector/panelSelector";
 import { Drawer } from "./components/Drawer/drawer";
+import { TEST_IDS } from "../../tests/testIds";
+import { StyledGrid, StyledStack } from "./search/panel/panel.styles";
+import { DRAWER_PROPS } from "../../styles/common/mui/drawer";
+
+const VARIANT = DRAWER_PROPS.VARIANT;
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
 }
 
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
-  const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
   const { trackingConfig } = config;
@@ -140,36 +143,48 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         <DrawerProvider>
           {categoryViews && !!categoryViews.length && (
             <Drawer>
-              <ToggleButtonGroup
-                onChange={modeProps.onChange}
-                value={modeProps.value}
-              />
-              <PanelSelector>
-                <SidebarLabel label={"Filters"} />
-                <Stack direction="row" gap={4}>
-                  <ClearAllFilters />
-                  <FilterSort
-                    enabled={filterSortEnabled}
-                    filterSort={filterSort}
-                    onFilterSortChange={onFilterSortChange}
+              {({ variant }) => (
+                <Fragment>
+                  <ToggleButtonGroup
+                    onChange={modeProps.onChange}
+                    value={modeProps.value}
                   />
-                </Stack>
-                <SearchAllFilters
-                  categoryViews={categoryViews}
-                  onFilter={onFilterChange.bind(null, true)}
-                  surfaceType={
-                    mdDown
-                      ? SURFACE_TYPE.POPPER_DRAWER
-                      : SURFACE_TYPE.POPPER_MENU
-                  }
-                />
-                <Filters
-                  categoryFilters={categoryFilters}
-                  onFilter={onFilterChange.bind(null, false)}
-                  surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-                  trackFilterOpened={trackingConfig?.trackFilterOpened}
-                />
-              </PanelSelector>
+                  <PanelSelector>
+                    <StyledStack>
+                      <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
+                        <SidebarLabel label={"Filters"} />
+                        <Stack direction="row" gap={4}>
+                          <ClearAllFilters />
+                          <FilterSort
+                            enabled={filterSortEnabled}
+                            filterSort={filterSort}
+                            onFilterSortChange={onFilterSortChange}
+                          />
+                        </Stack>
+                      </StyledGrid>
+                      <SearchAllFilters
+                        categoryViews={categoryViews}
+                        onFilter={onFilterChange.bind(null, true)}
+                        surfaceType={
+                          variant === VARIANT.TEMPORARY
+                            ? SURFACE_TYPE.POPPER_DRAWER
+                            : SURFACE_TYPE.POPPER_MENU
+                        }
+                      />
+                    </StyledStack>
+                    <Filters
+                      categoryFilters={categoryFilters}
+                      onFilter={onFilterChange.bind(null, false)}
+                      surfaceType={
+                        variant === VARIANT.TEMPORARY
+                          ? SURFACE_TYPE.DRAWER
+                          : SURFACE_TYPE.MENU
+                      }
+                      trackFilterOpened={trackingConfig?.trackFilterOpened}
+                    />
+                  </PanelSelector>
+                </Fragment>
+              )}
             </Drawer>
           )}
           <IndexView

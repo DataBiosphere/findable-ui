@@ -1,5 +1,5 @@
 import { Grow, PopoverPosition, PopoverProps } from "@mui/material";
-import { JSX, MouseEvent, ReactNode, useState } from "react";
+import { JSX, MouseEvent, ReactNode, useCallback, useState } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { CategoryView } from "../../../../common/categories/views/types";
 import { TrackFilterOpenedFunction } from "../../../../config/entities";
@@ -66,10 +66,12 @@ export const Filter = ({
   /**
    * Closes filter and all open ancestors e.g. filter drawer.
    */
-  const onCloseFilters = (): void => {
-    closeAncestor?.();
+  const onCloseFilters = useCallback((): void => {
+    if (isDrawer) {
+      closeAncestor?.();
+    }
     onCloseFilter();
-  };
+  }, [closeAncestor, isDrawer]);
 
   /**
    * Opens filter popover and sets popover position.

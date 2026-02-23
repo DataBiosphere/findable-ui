@@ -1,6 +1,6 @@
-import { MODE } from "../../mode/types";
-import { ChildrenProps } from "../../../../components/types";
+import { ReactNode } from "react";
+import { DrawerTransitionContextProps } from "./provider/types";
 
-export interface DrawerProps extends ChildrenProps {
-  mode: MODE;
+export interface DrawerProps {
+  children: ReactNode | ((props: DrawerTransitionContextProps) => ReactNode);
 }
