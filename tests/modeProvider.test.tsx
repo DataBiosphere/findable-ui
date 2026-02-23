@@ -68,7 +68,7 @@ describe("ModeProvider", () => {
     expect(screen.getByTestId("child")).toBeTruthy();
   });
 
-  it("should provide empty context when feature flag is disabled and config.ai is undefined", () => {
+  it("should provide SEARCH value without onChange when disabled", () => {
     (useFeatureFlag as jest.Mock).mockReturnValue(false);
     (useConfig as jest.Mock).mockReturnValue({
       config: {},
@@ -80,7 +80,7 @@ describe("ModeProvider", () => {
       </ModeProvider>,
     );
 
-    expect(screen.getByTestId(TEST_ID_VALUE).textContent).toBe("undefined");
+    expect(screen.getByTestId(TEST_ID_VALUE).textContent).toBe(MODE.SEARCH);
     expect(screen.getByTestId(TEST_ID_HAS_ONCHANGE).textContent).toBe("false");
   });
 
@@ -169,7 +169,7 @@ describe("ModeProvider", () => {
     expect(screen.getByTestId(TEST_ID_VALUE).textContent).toBe(MODE.SEARCH);
   });
 
-  it("should pass empty object to render function children when disabled", () => {
+  it("should pass SEARCH value to render function children when disabled", () => {
     (useFeatureFlag as jest.Mock).mockReturnValue(false);
     (useConfig as jest.Mock).mockReturnValue({
       config: {},
@@ -183,6 +183,6 @@ describe("ModeProvider", () => {
       </ModeProvider>,
     );
 
-    expect(screen.getByTestId(TEST_ID_VALUE).textContent).toBe("undefined");
+    expect(screen.getByTestId(TEST_ID_VALUE).textContent).toBe(MODE.SEARCH);
   });
 });

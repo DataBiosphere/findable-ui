@@ -9,8 +9,10 @@ import { useDrawer } from "../../../common/Drawer/provider/hook";
 import { SidebarDrawer } from "./components/SidebarDrawer/sidebarDrawer";
 import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositioner";
 import { Sidebar as PermanentSidebar } from "./sidebar.styles";
+import { useMode } from "../../../../views/ExploreView/mode/provider/hook";
 
 export const Sidebar = ({ children }: ChildrenProps): JSX.Element => {
+  const { value: mode } = useMode();
   const { onClose, open } = useDrawer();
   const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
   const drawerSidebar = bpDownMd;
@@ -27,7 +29,7 @@ export const Sidebar = ({ children }: ChildrenProps): JSX.Element => {
   }, [bpDownMd, onClose, open]);
 
   return (
-    <Bar {...barProps}>
+    <Bar {...barProps} mode={mode}>
       <SidebarPositioner>{children}</SidebarPositioner>
     </Bar>
   );
