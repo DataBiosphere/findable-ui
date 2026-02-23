@@ -22,13 +22,18 @@ export function ModeProvider({ children }: ModeProviderProps): JSX.Element {
   const enabled = flagEnabled || ai?.enabled;
   return (
     <ToggleButtonGroupProvider<MODE> initialValue={MODE.SEARCH}>
-      {(props) => (
-        <ModeContext.Provider value={enabled ? props : {}}>
-          {typeof children === "function"
-            ? children(enabled ? props : {})
-            : children}
-        </ModeContext.Provider>
-      )}
+      {(props) => {
+        const value = props.value ?? MODE.SEARCH;
+        return (
+          <ModeContext.Provider
+            value={enabled ? { ...props, value } : { value }}
+          >
+            {typeof children === "function"
+              ? children(enabled ? { ...props, value } : { value })
+              : children}
+          </ModeContext.Provider>
+        );
+      }}
     </ToggleButtonGroupProvider>
   );
 }

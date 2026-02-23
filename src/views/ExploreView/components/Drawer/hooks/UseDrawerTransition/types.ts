@@ -1,0 +1,18 @@
+export const PHASE = {
+  PERSISTENT_CLOSING: "PERSISTENT_CLOSING",
+  PERSISTENT_OPEN: "PERSISTENT_OPEN",
+  PERSISTENT_OPENING: "PERSISTENT_OPENING",
+  TEMPORARY_CLOSED: "TEMPORARY_CLOSED",
+  TEMPORARY_CLOSING: "TEMPORARY_CLOSING",
+  TEMPORARY_OPEN: "TEMPORARY_OPEN",
+  TEMPORARY_OPENING: "TEMPORARY_OPENING",
+} as const;
+
+export type Phase = (typeof PHASE)[keyof typeof PHASE];
+
+export const VARIANT = {
+  PERSISTENT: "persistent",
+  TEMPORARY: "temporary",
+} as const;
+
+export type Variant = (typeof VARIANT)[keyof typeof VARIANT];

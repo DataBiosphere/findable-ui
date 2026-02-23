@@ -3,7 +3,6 @@ import { MODE } from "../../types";
 
 export const TOGGLE_BUTTON_GROUP_PROPS: ToggleButtonGroupProps = {
   exclusive: true,
-  fullWidth: true,
 };
 
 export const TOGGLE_BUTTONS: (Omit<ToggleButtonOwnProps, "value"> & {
