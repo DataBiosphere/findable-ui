@@ -7,6 +7,11 @@ import { ICON_BUTTON_PROPS } from "../../../../../../styles/common/mui/iconButto
 import { SVG_ICON_PROPS } from "../../../../../../styles/common/mui/svgIcon";
 import { STACK_PROPS } from "../../../../../../styles/common/mui/stack";
 
+/**
+ * Renders an input component for the research panel.
+ * @param props - Input component props.
+ * @returns Research panel input component.
+ */
 export const Input = (props: InputBaseProps): JSX.Element => {
   return (
     <StyledPaper elevation={0}>
