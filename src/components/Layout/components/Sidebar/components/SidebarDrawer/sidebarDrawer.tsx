@@ -4,6 +4,7 @@ import { JSX, ReactNode } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { DrawerTransition } from "../../../../../Filter/components/Filter/components/DrawerTransition/drawerTransition";
 import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";
+import { MODE } from "../../../../../../views/ExploreView/mode/types";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
@@ -13,6 +14,7 @@ const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
 
 export interface SidebarDrawerProps {
   children: ReactNode | ReactNode[];
+  mode: MODE;
   onClose?: () => void;
   open?: boolean;
 }

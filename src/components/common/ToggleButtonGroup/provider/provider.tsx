@@ -20,7 +20,10 @@ export function ToggleButtonGroupProvider<
   const [value, setValue] = useState<T | null>(initialValue);
 
   const onChange = useCallback(
-    (_: MouseEvent<HTMLElement>, value: T) => setValue(value),
+    (_: MouseEvent<HTMLElement>, value: T | null) => {
+      if (value === null) return;
+      setValue(value);
+    },
     [],
   );
 

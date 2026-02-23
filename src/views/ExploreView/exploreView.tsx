@@ -33,8 +33,8 @@ import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
 import { ModeProvider } from "./mode/provider/provider";
 import { ToggleButtonGroup } from "./mode/components/ToggleButtonGroup/toggleButtonGroup";
-import { StyledGrid } from "./search/filters/filters.styles";
-import { StyledStack } from "./search/sidebar/sidebar.styles";
+import { PanelSelector } from "./mode/selector/panelSelector";
+import { StyledGrid, StyledStack } from "./search/panel/panel.styles";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -142,21 +142,23 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
         <DrawerProvider>
           {categoryViews && !!categoryViews.length && (
             <Sidebar>
-              <StyledStack data-testid={TEST_IDS.SEARCH_CONTROLS} useFlexGap>
-                <ToggleButtonGroup
-                  onChange={modeProps.onChange}
-                  value={modeProps.value}
-                />
-                <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
-                  <SidebarLabel label={"Filters"} />
-                  <Stack direction="row" gap={4}>
-                    <ClearAllFilters />
-                    <FilterSort
-                      enabled={filterSortEnabled}
-                      filterSort={filterSort}
-                      onFilterSortChange={onFilterSortChange}
-                    />
-                  </Stack>
+              <ToggleButtonGroup
+                onChange={modeProps.onChange}
+                value={modeProps.value}
+              />
+              <PanelSelector>
+                <StyledStack>
+                  <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
+                    <SidebarLabel label={"Filters"} />
+                    <Stack direction="row" gap={4}>
+                      <ClearAllFilters />
+                      <FilterSort
+                        enabled={filterSortEnabled}
+                        filterSort={filterSort}
+                        onFilterSortChange={onFilterSortChange}
+                      />
+                    </Stack>
+                  </StyledGrid>
                   <SearchAllFilters
                     categoryViews={categoryViews}
                     onFilter={onFilterChange.bind(null, true)}
@@ -166,14 +168,14 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
                         : SURFACE_TYPE.POPPER_MENU
                     }
                   />
-                </StyledGrid>
-              </StyledStack>
-              <Filters
-                categoryFilters={categoryFilters}
-                onFilter={onFilterChange.bind(null, false)}
-                surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-                trackFilterOpened={trackingConfig?.trackFilterOpened}
-              />
+                </StyledStack>
+                <Filters
+                  categoryFilters={categoryFilters}
+                  onFilter={onFilterChange.bind(null, false)}
+                  surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
+                  trackFilterOpened={trackingConfig?.trackFilterOpened}
+                />
+              </PanelSelector>
             </Sidebar>
           )}
           <IndexView
