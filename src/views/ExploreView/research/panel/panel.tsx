@@ -1,12 +1,10 @@
 import { JSX } from "react";
-import { useMode } from "../../mode/provider/hook";
-import { MODE } from "../../mode/types";
 import { TEST_IDS } from "../../../../tests/testIds";
 
-export const Panel = (): JSX.Element | null => {
-  const { value } = useMode();
-
-  if (value === MODE.SEARCH) return null;
-
+/**
+ * Renders the research panel.
+ * @returns The research panel container element.
+ */
+export const Panel = (): JSX.Element => {
   return <div data-testid={TEST_IDS.RESEARCH_PANEL}>research panel</div>;
 };
