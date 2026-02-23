@@ -10,6 +10,6 @@ export const INPUT_BASE_PROPS: InputBaseProps = {
   maxRows: 4,
   minRows: 1,
   multiline: true,
-  name: "ai-promt",
+  name: "ai-prompt",
   placeholder: "Ask anything",
 };
