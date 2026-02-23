@@ -12,6 +12,7 @@ export const TEST_IDS = {
   FILTER_SORT_BUTTON: "filter-sort-button",
   FILTER_SORT_MENU: "filter-sort-menu",
   FILTER_TERM: "filter-term",
+  RESEARCH_FORM: "research-form",
   RESEARCH_PANEL: "research-panel",
   SEARCH_ALL_FILTERS: "search-all-filters",
   SEARCH_PANEL: "search-panel",

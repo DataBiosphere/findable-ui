@@ -33,6 +33,7 @@ import { SystemStatus, SystemStatusResponse } from "../providers/systemStatus";
  */
 export interface AiConfig {
   enabled: boolean;
+  url: string;
 }
 
 /**

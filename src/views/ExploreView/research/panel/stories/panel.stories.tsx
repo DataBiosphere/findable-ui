@@ -20,7 +20,7 @@ const meta: Meta<typeof Panel> = {
       </Box>
     ),
   ],
-  parameters: { layout: "padding" },
+  parameters: { layout: "none" },
 };
 
 export default meta;
