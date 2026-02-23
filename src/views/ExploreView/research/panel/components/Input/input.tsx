@@ -1,8 +1,7 @@
-import { IconButton, InputBase, InputBaseProps } from "@mui/material";
+import { IconButton, InputBase, InputBaseProps, Stack } from "@mui/material";
 import { JSX } from "react";
 import { INPUT_BASE_PROPS } from "./constants";
 import { StyledPaper } from "./input.styles";
-import { Stack } from "@mui/material";
 import { UpArrowIcon } from "../../../../../../components/common/CustomIcon/components/UpArrowIcon/upArrowIcon";
 import { ICON_BUTTON_PROPS } from "../../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../../styles/common/mui/svgIcon";
