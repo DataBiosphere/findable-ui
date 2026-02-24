@@ -1,5 +1,5 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import { UseQuery } from "./types";
+import { OnSubmitOptions, UseQuery } from "./types";
 import { FIELD_NAME } from "./constants";
 import { getFormValues } from "./utils";
 import { fetchResponse } from "./fetch";
@@ -15,7 +15,7 @@ export const useQuery = (url?: string): UseQuery => {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
+    async (e: FormEvent<HTMLFormElement>, options?: OnSubmitOptions) => {
       e.preventDefault();
 
       const form = e.currentTarget;
@@ -28,7 +28,8 @@ export const useQuery = (url?: string): UseQuery => {
 
       setLoading(true);
 
-      // TODO: handle dispatching query to store
+      // Call onMutate callback
+      options?.onMutate?.(query);
 
       // Reset the form
       form.reset();
@@ -41,17 +42,16 @@ export const useQuery = (url?: string): UseQuery => {
       await fetchResponse(url, query, {
         controller,
         onError: (error) => {
-          // TODO: handle dispatching error to store
-          console.error("Research query error:", error);
+          options?.onError?.(error);
         },
         onSettled: () => {
           setLoading(false);
           const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
           if (input instanceof HTMLElement) input.focus();
+          options?.onSettled?.();
         },
         onSuccess: (data) => {
-          // TODO: handle dispatching response to store
-          console.log("Research query response:", data);
+          options?.onSuccess?.(data);
         },
       });
     },
