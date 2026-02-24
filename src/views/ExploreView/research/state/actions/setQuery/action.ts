@@ -1,22 +1,22 @@
 import { ChatState, MESSAGE_TYPE } from "../../types";
-import { SetMessagePayload } from "./types";
+import { SetQueryPayload } from "./types";
 
 /**
- * Reducer action to set a message in the chat.
+ * Reducer action to set a query in the chat.
  *
  * @param state - State.
  * @param payload - Payload.
  * @returns State.
  */
-export function setMessageAction(
+export function setQueryAction(
   state: ChatState,
-  payload: SetMessagePayload,
+  payload: SetQueryPayload,
 ): ChatState {
   return {
     ...state,
     messages: [
       ...state.messages,
-      { response: payload.response, type: MESSAGE_TYPE.ASSISTANT },
+      { text: payload.query, type: MESSAGE_TYPE.USER },
     ],
   };
 }
