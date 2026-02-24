@@ -21,16 +21,8 @@ export interface OnSubmitOptions {
 }
 
 /**
- * Status returned by the useQuery hook.
- */
-export interface Status {
-  loading: boolean;
-}
-
-/**
  * Return type for the useQuery hook.
  */
 export interface UseQuery {
   actions: Actions;
-  status: Status;
 }

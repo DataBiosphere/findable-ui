@@ -45,7 +45,7 @@ describe("setMessage action creator", () => {
 
 describe("setMessageAction", () => {
   it("should append message to empty array", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const response = mockResponse("First response");
     const result = setMessageAction(state, { response });
 
@@ -57,11 +57,11 @@ describe("setMessageAction", () => {
   it("should append message to existing messages", () => {
     const existingResponse = mockResponse("Second");
     const state: ChatState = {
-      loading: false,
       messages: [
         { text: "First", type: MESSAGE_TYPE.USER },
         { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
       ],
+      status: { loading: false },
     };
     const newResponse = mockResponse("Third");
     const result = setMessageAction(state, { response: newResponse });
@@ -75,8 +75,8 @@ describe("setMessageAction", () => {
 
   it("should not mutate original state", () => {
     const state: ChatState = {
-      loading: false,
       messages: [{ text: "Original", type: MESSAGE_TYPE.USER }],
+      status: { loading: false },
     };
     const response = mockResponse("New");
     const result = setMessageAction(state, { response });
@@ -102,7 +102,7 @@ describe("setQuery action creator", () => {
 
 describe("setQueryAction", () => {
   it("should append query to empty array", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const result = setQueryAction(state, { query: "First query" });
 
     expect(result.messages).toEqual([
@@ -113,11 +113,11 @@ describe("setQueryAction", () => {
   it("should append query to existing messages", () => {
     const existingResponse = mockResponse("Response");
     const state: ChatState = {
-      loading: false,
       messages: [
         { text: "First", type: MESSAGE_TYPE.USER },
         { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
       ],
+      status: { loading: false },
     };
     const result = setQueryAction(state, { query: "Second query" });
 
@@ -131,8 +131,8 @@ describe("setQueryAction", () => {
   it("should not mutate original state", () => {
     const response = mockResponse("Original response");
     const state: ChatState = {
-      loading: false,
       messages: [{ response, type: MESSAGE_TYPE.ASSISTANT }],
+      status: { loading: false },
     };
     const result = setQueryAction(state, { query: "New query" });
 
@@ -157,27 +157,27 @@ describe("setStatus action creator", () => {
 
 describe("setStatusAction", () => {
   it("should set loading to true", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const result = setStatusAction(state, { loading: true });
 
-    expect(result.loading).toBe(true);
+    expect(result.status.loading).toBe(true);
   });
 
   it("should set loading to false", () => {
-    const state: ChatState = { loading: true, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: true } };
     const result = setStatusAction(state, { loading: false });
 
-    expect(result.loading).toBe(false);
+    expect(result.status.loading).toBe(false);
   });
 
   it("should preserve messages when setting loading", () => {
     const response = mockResponse("Test");
     const state: ChatState = {
-      loading: false,
       messages: [
         { text: "Query", type: MESSAGE_TYPE.USER },
         { response, type: MESSAGE_TYPE.ASSISTANT },
       ],
+      status: { loading: false },
     };
     const result = setStatusAction(state, { loading: true });
 
@@ -185,17 +185,17 @@ describe("setStatusAction", () => {
   });
 
   it("should not mutate original state", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const result = setStatusAction(state, { loading: true });
 
-    expect(state.loading).toBe(false);
+    expect(state.status.loading).toBe(false);
     expect(result).not.toBe(state);
   });
 });
 
 describe("chatReducer", () => {
   it("should return initial state for unknown action", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const unknownAction = { payload: {}, type: "UNKNOWN" } as never;
 
     const result = chatReducer(state, unknownAction);
@@ -204,7 +204,7 @@ describe("chatReducer", () => {
   });
 
   it("should handle SetMessage action", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const response = mockResponse("Test response");
     const action = setMessage({ response });
 
@@ -216,7 +216,7 @@ describe("chatReducer", () => {
   });
 
   it("should handle SetQuery action", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const action = setQuery({ query: "Test query" });
 
     const result = chatReducer(state, action);
@@ -227,7 +227,7 @@ describe("chatReducer", () => {
   });
 
   it("should return new state reference on SetMessage", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const response = mockResponse("Test");
     const action = setMessage({ response });
 
@@ -237,7 +237,7 @@ describe("chatReducer", () => {
   });
 
   it("should return new state reference on SetQuery", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const action = setQuery({ query: "Test" });
 
     const result = chatReducer(state, action);
@@ -246,16 +246,16 @@ describe("chatReducer", () => {
   });
 
   it("should handle SetStatus action", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const action = setStatus({ loading: true });
 
     const result = chatReducer(state, action);
 
-    expect(result.loading).toBe(true);
+    expect(result.status.loading).toBe(true);
   });
 
   it("should return new state reference on SetStatus", () => {
-    const state: ChatState = { loading: false, messages: [] };
+    const state: ChatState = { messages: [], status: { loading: false } };
     const action = setStatus({ loading: true });
 
     const result = chatReducer(state, action);

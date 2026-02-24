@@ -21,8 +21,8 @@ export interface ChatContextValue {
  * State for the Chat feature.
  */
 export interface ChatState {
-  loading: boolean;
   messages: Message[];
+  status: Status;
 }
 
 /**
@@ -75,6 +75,10 @@ export interface MessageResponse {
     pipelineMs: number;
     totalMs: number;
   };
+}
+
+export interface Status {
+  loading: boolean;
 }
 
 /**

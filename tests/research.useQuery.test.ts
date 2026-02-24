@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { act, renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { FormEvent } from "react";
 import { FIELD_NAME } from "../src/views/ExploreView/research/query/constants";
 
@@ -61,12 +61,6 @@ describe("useQuery", () => {
   });
 
   describe("initial state", () => {
-    it("should return loading as false initially", () => {
-      const { result } = renderHook(() => useQuery("https://api.example.com"));
-
-      expect(result.current.status.loading).toBe(false);
-    });
-
     it("should return onSubmit function", () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
 
@@ -108,34 +102,6 @@ describe("useQuery", () => {
       });
 
       expect(event.preventDefault).toHaveBeenCalled();
-    });
-
-    it("should set loading to true during submit", async () => {
-      let resolveCallback: (() => void) | undefined;
-      mockFetchResponse.mockImplementation(
-        () =>
-          new Promise<void>((resolve) => {
-            resolveCallback = resolve;
-          }),
-      );
-
-      const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
-
-      // Start submit but don't await
-      act(() => {
-        result.current.actions.onSubmit(event);
-      });
-
-      // Check loading is true while request is in flight
-      await waitFor(() => {
-        expect(result.current.status.loading).toBe(true);
-      });
-
-      // Resolve the request
-      await act(async () => {
-        resolveCallback?.();
-      });
     });
 
     it("should call fetchResponse with correct arguments", async () => {
@@ -187,23 +153,6 @@ describe("useQuery", () => {
   });
 
   describe("after fetch completes", () => {
-    it("should set loading to false after fetch settles", async () => {
-      mockFetchResponse.mockImplementation(
-        async (_url: unknown, _query: unknown, callbacks: unknown) => {
-          (callbacks as FetchCallbacks).onSettled();
-        },
-      );
-
-      const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
-
-      await act(async () => {
-        await result.current.actions.onSubmit(event);
-      });
-
-      expect(result.current.status.loading).toBe(false);
-    });
-
     it("should refocus input after fetch settles", async () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
       const event = createMockFormEvent("diabetes studies");

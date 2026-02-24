@@ -14,6 +14,6 @@ export function setStatusAction(
 ): ChatState {
   return {
     ...state,
-    loading: payload.loading,
+    status: { ...state.status, loading: payload.loading },
   };
 }

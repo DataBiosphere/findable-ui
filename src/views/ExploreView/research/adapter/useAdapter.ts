@@ -4,7 +4,7 @@ import { useQuery } from "../query/useQuery";
 
 /**
  * Adapter hook that wires AI query to app config.
- * @returns AI query interface with actions and status.
+ * @returns AI query interface with actions.
  */
 export function useAdapter(): UseQuery {
   const { config } = useConfig();

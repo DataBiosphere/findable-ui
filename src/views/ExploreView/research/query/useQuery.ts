@@ -1,18 +1,16 @@
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef } from "react";
 import { OnSubmitOptions, UseQuery } from "./types";
 import { FIELD_NAME } from "./constants";
 import { getFormValues } from "./utils";
 import { fetchResponse } from "./fetch";
 
 /**
- * Custom hook for managing the state and actions of an AI-chat query form.
+ * Custom hook for managing the actions of an AI-chat query form.
  * @param url - The URL to send the query to.
- * @returns An object containing the actions and status of the query.
+ * @returns An object containing the actions of the query.
  */
 export const useQuery = (url?: string): UseQuery => {
   const abortRef = useRef<AbortController>(null);
-
-  const [loading, setLoading] = useState(false);
 
   const onSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>, options?: OnSubmitOptions) => {
@@ -24,9 +22,6 @@ export const useQuery = (url?: string): UseQuery => {
       // Get the query value from the AI input field
       const query = formValues[FIELD_NAME.AI_PROMPT];
       if (!query) return;
-      if (loading) return;
-
-      setLoading(true);
 
       // Call onMutate callback
       options?.onMutate?.(query);
@@ -45,7 +40,6 @@ export const useQuery = (url?: string): UseQuery => {
           options?.onError?.(error);
         },
         onSettled: () => {
-          setLoading(false);
           const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
           if (input instanceof HTMLElement) input.focus();
           options?.onSettled?.();
@@ -55,7 +49,7 @@ export const useQuery = (url?: string): UseQuery => {
         },
       });
     },
-    [loading, url],
+    [url],
   );
 
   // Abort any in-flight request on unmount.
@@ -65,5 +59,5 @@ export const useQuery = (url?: string): UseQuery => {
     };
   }, []);
 
-  return { actions: { onSubmit }, status: { loading } };
+  return { actions: { onSubmit } };
 };
