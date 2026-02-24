@@ -22,10 +22,28 @@ export const getFormValues = (
 
 /**
  * Returns the payload for the query form submission.
+ * If the submitter has a data-query attribute (e.g. a suggestion chip), uses that as the query.
+ * Otherwise, falls back to the form input value.
  * @param e - Form event.
  * @returns The payload object containing the query value.
  */
 export const getPayload = (e: FormEvent<HTMLFormElement>): OnSubmitPayload => {
+  // Check for a query from the submitter's data-query attribute first
+  const query = getSubmitterQuery(e);
+
+  if (query) return { query };
+
+  // If no submitter query, fall back to form values
   const formValues = getFormValues(e.currentTarget);
   return { query: formValues[FIELD_NAME.AI_PROMPT] || "" };
 };
+
+/**
+ * Returns the query from the form submitter's data-query attribute, if present.
+ * @param e - Form event.
+ * @returns The query string, or undefined if the submitter has no data-query.
+ */
+function getSubmitterQuery(e: FormEvent<HTMLFormElement>): string | undefined {
+  const submitter = (e.nativeEvent as SubmitEvent).submitter;
+  return submitter?.dataset.query;
+}
