@@ -1,5 +1,6 @@
 import { setMessageAction } from "./actions/setMessage/action";
 import { setQueryAction } from "./actions/setQuery/action";
+import { setStatusAction } from "./actions/setStatus/action";
 import { ChatAction, ChatActionKind } from "./actions/types";
 import { ChatState } from "./types";
 
@@ -18,6 +19,9 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
     }
     case ChatActionKind.SetQuery: {
       return setQueryAction(state, payload);
+    }
+    case ChatActionKind.SetStatus: {
+      return setStatusAction(state, payload);
     }
     default: {
       return state;

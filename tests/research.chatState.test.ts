@@ -3,6 +3,8 @@ import { setMessageAction } from "../src/views/ExploreView/research/state/action
 import { setMessage } from "../src/views/ExploreView/research/state/actions/setMessage/dispatch";
 import { setQueryAction } from "../src/views/ExploreView/research/state/actions/setQuery/action";
 import { setQuery } from "../src/views/ExploreView/research/state/actions/setQuery/dispatch";
+import { setStatusAction } from "../src/views/ExploreView/research/state/actions/setStatus/action";
+import { setStatus } from "../src/views/ExploreView/research/state/actions/setStatus/dispatch";
 import { ChatActionKind } from "../src/views/ExploreView/research/state/actions/types";
 import {
   ChatState,
@@ -142,6 +144,55 @@ describe("setQueryAction", () => {
   });
 });
 
+describe("setStatus action creator", () => {
+  it("should return correct action shape", () => {
+    const action = setStatus({ loading: true });
+
+    expect(action).toEqual({
+      payload: { loading: true },
+      type: ChatActionKind.SetStatus,
+    });
+  });
+});
+
+describe("setStatusAction", () => {
+  it("should set loading to true", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const result = setStatusAction(state, { loading: true });
+
+    expect(result.loading).toBe(true);
+  });
+
+  it("should set loading to false", () => {
+    const state: ChatState = { loading: true, messages: [] };
+    const result = setStatusAction(state, { loading: false });
+
+    expect(result.loading).toBe(false);
+  });
+
+  it("should preserve messages when setting loading", () => {
+    const response = mockResponse("Test");
+    const state: ChatState = {
+      loading: false,
+      messages: [
+        { text: "Query", type: MESSAGE_TYPE.USER },
+        { response, type: MESSAGE_TYPE.ASSISTANT },
+      ],
+    };
+    const result = setStatusAction(state, { loading: true });
+
+    expect(result.messages).toEqual(state.messages);
+  });
+
+  it("should not mutate original state", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const result = setStatusAction(state, { loading: true });
+
+    expect(state.loading).toBe(false);
+    expect(result).not.toBe(state);
+  });
+});
+
 describe("chatReducer", () => {
   it("should return initial state for unknown action", () => {
     const state: ChatState = { loading: false, messages: [] };
@@ -188,6 +239,24 @@ describe("chatReducer", () => {
   it("should return new state reference on SetQuery", () => {
     const state: ChatState = { loading: false, messages: [] };
     const action = setQuery({ query: "Test" });
+
+    const result = chatReducer(state, action);
+
+    expect(result).not.toBe(state);
+  });
+
+  it("should handle SetStatus action", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const action = setStatus({ loading: true });
+
+    const result = chatReducer(state, action);
+
+    expect(result.loading).toBe(true);
+  });
+
+  it("should return new state reference on SetStatus", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const action = setStatus({ loading: true });
 
     const result = chatReducer(state, action);
 
