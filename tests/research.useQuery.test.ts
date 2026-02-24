@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 import { FormEvent } from "react";
-import { FIELD_NAME } from "../src/views/ExploreView/research/panel/components/Form/constants";
 
 /**
  * Fetch callbacks passed to fetchResponse.
@@ -28,21 +27,13 @@ const { useQuery } =
 
 /**
  * Creates a mock form event for testing.
- * @param query - The query value for the AI prompt field.
  * @returns Mock FormEvent.
  */
-function createMockFormEvent(query: string): FormEvent<HTMLFormElement> {
-  const mockInput = document.createElement("input");
-  mockInput.name = FIELD_NAME.AI_PROMPT;
-  mockInput.value = query;
-
+function createMockFormEvent(): FormEvent<HTMLFormElement> {
   const mockForm = document.createElement("form");
-  mockForm.appendChild(mockInput);
 
   // Mock reset
-  mockForm.reset = jest.fn(() => {
-    mockInput.value = "";
-  });
+  mockForm.reset = jest.fn();
 
   return {
     currentTarget: mockForm,
@@ -71,34 +62,36 @@ describe("useQuery", () => {
   describe("submit guards", () => {
     it("should not submit if query is empty", async () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, { query: "" });
       });
 
       expect(mockFetchResponse).not.toHaveBeenCalled();
     });
 
-    it("should not submit if query is only whitespace", async () => {
+    it("should submit if query is provided", async () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("   ");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, { query: "valid query" });
       });
 
-      expect(mockFetchResponse).not.toHaveBeenCalled();
+      expect(mockFetchResponse).toHaveBeenCalled();
     });
   });
 
   describe("submit behavior", () => {
     it("should call preventDefault on form event", async () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, {
+          query: "diabetes studies",
+        });
       });
 
       expect(event.preventDefault).toHaveBeenCalled();
@@ -106,10 +99,12 @@ describe("useQuery", () => {
 
     it("should call fetchResponse with correct arguments", async () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, {
+          query: "diabetes studies",
+        });
       });
 
       expect(mockFetchResponse).toHaveBeenCalledWith(
@@ -127,10 +122,12 @@ describe("useQuery", () => {
     it("should pass url to fetchResponse", async () => {
       const testUrl = "https://custom-api.example.com/search";
       const { result } = renderHook(() => useQuery(testUrl));
-      const event = createMockFormEvent("cancer studies");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, {
+          query: "cancer studies",
+        });
       });
 
       expect(mockFetchResponse).toHaveBeenCalledWith(
@@ -154,11 +151,15 @@ describe("useQuery", () => {
       const { result } = renderHook(() => useQuery("https://api.example.com"));
 
       await act(async () => {
-        await result.current.actions.onSubmit(createMockFormEvent("query 1"));
+        await result.current.actions.onSubmit(createMockFormEvent(), {
+          query: "query 1",
+        });
       });
 
       await act(async () => {
-        await result.current.actions.onSubmit(createMockFormEvent("query 2"));
+        await result.current.actions.onSubmit(createMockFormEvent(), {
+          query: "query 2",
+        });
       });
 
       expect(controllers).toHaveLength(2);
@@ -169,10 +170,12 @@ describe("useQuery", () => {
   describe("undefined url", () => {
     it("should pass undefined url to fetchResponse when not provided", async () => {
       const { result } = renderHook(() => useQuery());
-      const event = createMockFormEvent("diabetes studies");
+      const event = createMockFormEvent();
 
       await act(async () => {
-        await result.current.actions.onSubmit(event);
+        await result.current.actions.onSubmit(event, {
+          query: "diabetes studies",
+        });
       });
 
       expect(mockFetchResponse).toHaveBeenCalledWith(

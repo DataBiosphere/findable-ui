@@ -6,6 +6,7 @@ import { FormEvent } from "react";
 export interface Actions {
   onSubmit: (
     e: FormEvent<HTMLFormElement>,
+    payload: OnSubmitPayload,
     options?: OnSubmitOptions,
   ) => Promise<void>;
 }
@@ -18,6 +19,13 @@ export interface OnSubmitOptions {
   onMutate?: (form: HTMLFormElement, query: string) => void;
   onSettled?: (form: HTMLFormElement) => void;
   onSuccess?: (data: unknown) => void;
+}
+
+/**
+ * Payload for the onSubmit action.
+ */
+export interface OnSubmitPayload {
+  query: string;
 }
 
 /**

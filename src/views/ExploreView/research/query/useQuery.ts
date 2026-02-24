@@ -1,11 +1,9 @@
 import { FormEvent, useCallback, useEffect, useRef } from "react";
-import { FIELD_NAME } from "../panel/components/Form/constants";
-import { OnSubmitOptions, UseQuery } from "./types";
+import { OnSubmitOptions, OnSubmitPayload, UseQuery } from "./types";
 import { fetchResponse } from "./fetch";
-import { getFormValues } from "./utils";
 
 /**
- * Custom hook for managing the actions of an AI-chat query form.
+ * Custom hook for managing the actions of a chat query form.
  * @param url - The URL to send the query to.
  * @returns An object containing the actions of the query.
  */
@@ -13,14 +11,16 @@ export const useQuery = (url?: string): UseQuery => {
   const abortRef = useRef<AbortController>(null);
 
   const onSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>, options?: OnSubmitOptions) => {
+    async (
+      e: FormEvent<HTMLFormElement>,
+      payload: OnSubmitPayload,
+      options?: OnSubmitOptions,
+    ) => {
       e.preventDefault();
 
       const form = e.currentTarget;
-      const formValues = getFormValues(form);
+      const { query } = payload;
 
-      // Get the query value from the AI input field
-      const query = formValues[FIELD_NAME.AI_PROMPT];
       if (!query) return;
 
       // Call onMutate callback

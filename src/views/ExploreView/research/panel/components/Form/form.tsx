@@ -4,6 +4,7 @@ import { useChatDispatch } from "../../../state/hooks/UseChatDispatch/hook";
 import { MessageResponse } from "../../../state/types";
 import { FIELD_NAME } from "./constants";
 import { FormProps } from "./types";
+import { getPayload } from "./utils";
 
 /**
  * Renders the research form.
@@ -20,7 +21,7 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={(e) => {
         if (status.loading) return;
-        actions.onSubmit(e, {
+        actions.onSubmit(e, getPayload(e), {
           onError: (error) => {
             dispatch.onSetError(error.message);
           },
