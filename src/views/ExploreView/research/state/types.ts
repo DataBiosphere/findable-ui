@@ -34,6 +34,18 @@ export interface ErrorMessage {
 }
 
 /**
+ * Intent values for the research API response.
+ */
+export const INTENT = {
+  AUTO: "auto",
+} as const;
+
+/**
+ * Intent type for the research API response.
+ */
+export type Intent = (typeof INTENT)[keyof typeof INTENT] | (string & {});
+
+/**
  * Union type for messages in the chat.
  */
 export type Message<R extends MessageResponse = MessageResponse> =
@@ -64,7 +76,7 @@ export interface Mention {
  * Response from the research API.
  */
 export interface MessageResponse {
-  intent: "auto" | "study" | "variable";
+  intent: Intent;
   message: string | null;
   query: {
     mentions: Mention[];
