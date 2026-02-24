@@ -1,6 +1,7 @@
 import { useCallback, useContext } from "react";
 import { setMessage } from "../../actions/setMessage/dispatch";
 import { setQuery } from "../../actions/setQuery/dispatch";
+import { setStatus } from "../../actions/setStatus/dispatch";
 import { ChatContext } from "../../context";
 import { MessageResponse } from "../../types";
 import { UseChatDispatch } from "./types";
@@ -26,5 +27,12 @@ export const useChatDispatch = (): UseChatDispatch => {
     [dispatch],
   );
 
-  return { onSetMessage, onSetQuery };
+  const onSetStatus = useCallback(
+    (loading: boolean) => {
+      dispatch(setStatus({ loading }));
+    },
+    [dispatch],
+  );
+
+  return { onSetMessage, onSetQuery, onSetStatus };
 };
