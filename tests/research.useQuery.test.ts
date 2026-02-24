@@ -3,6 +3,16 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import { FormEvent } from "react";
 import { FIELD_NAME } from "../src/views/ExploreView/research/query/constants";
 
+/**
+ * Fetch callbacks passed to fetchResponse.
+ */
+interface FetchCallbacks {
+  controller: AbortController;
+  onError: (error: Error) => void;
+  onSettled: () => void;
+  onSuccess: (data: unknown) => void;
+}
+
 // Mock fetchResponse
 const mockFetchResponse = jest.fn();
 
@@ -43,9 +53,11 @@ function createMockFormEvent(query: string): FormEvent<HTMLFormElement> {
 describe("useQuery", () => {
   beforeEach(() => {
     mockFetchResponse.mockReset();
-    mockFetchResponse.mockImplementation(async (_url, _query, callbacks) => {
-      callbacks.onSettled();
-    });
+    mockFetchResponse.mockImplementation(
+      async (_url: unknown, _query: unknown, callbacks: unknown) => {
+        (callbacks as FetchCallbacks).onSettled();
+      },
+    );
   });
 
   describe("initial state", () => {
@@ -176,9 +188,11 @@ describe("useQuery", () => {
 
   describe("after fetch completes", () => {
     it("should set loading to false after fetch settles", async () => {
-      mockFetchResponse.mockImplementation(async (_url, _query, callbacks) => {
-        callbacks.onSettled();
-      });
+      mockFetchResponse.mockImplementation(
+        async (_url: unknown, _query: unknown, callbacks: unknown) => {
+          (callbacks as FetchCallbacks).onSettled();
+        },
+      );
 
       const { result } = renderHook(() => useQuery("https://api.example.com"));
       const event = createMockFormEvent("diabetes studies");
@@ -210,10 +224,12 @@ describe("useQuery", () => {
   describe("abort handling", () => {
     it("should create new AbortController for each submit", async () => {
       const controllers: AbortController[] = [];
-      mockFetchResponse.mockImplementation(async (_url, _query, callbacks) => {
-        controllers.push(callbacks.controller);
-        callbacks.onSettled();
-      });
+      mockFetchResponse.mockImplementation(
+        async (_url: unknown, _query: unknown, callbacks: unknown) => {
+          controllers.push((callbacks as FetchCallbacks).controller);
+          (callbacks as FetchCallbacks).onSettled();
+        },
+      );
 
       const { result } = renderHook(() => useQuery("https://api.example.com"));
 
