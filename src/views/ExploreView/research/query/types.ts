@@ -19,6 +19,7 @@ export interface OnSubmitOptions {
   onMutate?: (form: HTMLFormElement, query: string) => void;
   onSettled?: (form: HTMLFormElement) => void;
   onSuccess?: (data: unknown) => void;
+  status?: { loading: boolean };
 }
 
 /**

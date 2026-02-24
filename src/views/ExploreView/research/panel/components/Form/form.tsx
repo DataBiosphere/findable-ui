@@ -20,7 +20,6 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
     <form
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={(e) => {
-        if (status.loading) return;
         actions.onSubmit(e, getPayload(e), {
           onError: (error) => {
             dispatch.onSetError(error.message);
@@ -38,6 +37,7 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
           onSuccess: (data) => {
             dispatch.onSetMessage(data as MessageResponse);
           },
+          status,
         });
       }}
     >

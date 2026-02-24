@@ -18,6 +18,8 @@ export const useQuery = (url?: string): UseQuery => {
     ) => {
       e.preventDefault();
 
+      if (options?.status?.loading) return;
+
       const form = e.currentTarget;
       const { query } = payload;
 
