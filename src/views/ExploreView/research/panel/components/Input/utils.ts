@@ -3,7 +3,7 @@ import {
   Message,
   MESSAGE_TYPE,
   PromptMessage,
-} from "views/ExploreView/research/state/types";
+} from "../../../state/types";
 
 /**
  * Gets the placeholder text for the input field based on the chat state.
