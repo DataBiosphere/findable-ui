@@ -124,17 +124,6 @@ describe("useQuery", () => {
       );
     });
 
-    it("should reset form after submit", async () => {
-      const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
-
-      await act(async () => {
-        await result.current.actions.onSubmit(event);
-      });
-
-      expect(event.currentTarget.reset).toHaveBeenCalled();
-    });
-
     it("should pass url to fetchResponse", async () => {
       const testUrl = "https://custom-api.example.com/search";
       const { result } = renderHook(() => useQuery(testUrl));

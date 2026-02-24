@@ -23,9 +23,10 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
           onError: (error) => {
             dispatch.onSetError(error.message);
           },
-          onMutate: (query) => {
+          onMutate: (form, query) => {
             dispatch.onSetQuery(query);
             dispatch.onSetStatus(true);
+            form.reset();
           },
           onSettled: () => {
             dispatch.onSetStatus(false);

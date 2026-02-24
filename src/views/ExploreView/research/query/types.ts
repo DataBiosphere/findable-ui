@@ -15,7 +15,7 @@ export interface Actions {
  */
 export interface OnSubmitOptions {
   onError?: (error: Error) => void;
-  onMutate?: (query: string) => void;
+  onMutate?: (form: HTMLFormElement, query: string) => void;
   onSettled?: () => void;
   onSuccess?: (data: unknown) => void;
 }

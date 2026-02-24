@@ -24,10 +24,7 @@ export const useQuery = (url?: string): UseQuery => {
       if (!query) return;
 
       // Call onMutate callback
-      options?.onMutate?.(query);
-
-      // Reset the form
-      form.reset();
+      options?.onMutate?.(form, query);
 
       // Abort any in-flight request
       abortRef.current?.abort();
