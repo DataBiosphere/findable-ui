@@ -2,7 +2,8 @@ import { Dispatch } from "react";
 import { ChatAction } from "./actions/types";
 
 export interface ChatState {
-  responses: string[];
+  loading: boolean;
+  messages: string[];
 }
 
 /**

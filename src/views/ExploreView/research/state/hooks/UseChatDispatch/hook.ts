@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { ChatContext } from "../../context";
-import { setResponse } from "../../actions/setResponse/dispatch";
+import { setMessage } from "../../actions/setMessage/dispatch";
 import { UseChatDispatch } from "./types";
 
 /**
@@ -10,12 +10,12 @@ import { UseChatDispatch } from "./types";
 export const useChatDispatch = (): UseChatDispatch => {
   const { dispatch } = useContext(ChatContext);
 
-  const onSetResponse = useCallback(
-    (response: string) => {
-      dispatch(setResponse({ response }));
+  const onSetMessage = useCallback(
+    (message: string) => {
+      dispatch(setMessage({ message }));
     },
     [dispatch],
   );
 
-  return { onSetResponse };
+  return { onSetMessage };
 };

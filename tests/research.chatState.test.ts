@@ -1,48 +1,48 @@
 import { chatReducer } from "../src/views/ExploreView/research/state/reducer";
-import { setResponseAction } from "../src/views/ExploreView/research/state/actions/setResponse/action";
-import { setResponse } from "../src/views/ExploreView/research/state/actions/setResponse/dispatch";
+import { setMessageAction } from "../src/views/ExploreView/research/state/actions/setMessage/action";
+import { setMessage } from "../src/views/ExploreView/research/state/actions/setMessage/dispatch";
 import { ChatActionKind } from "../src/views/ExploreView/research/state/actions/types";
 import { ChatState } from "../src/views/ExploreView/research/state/types";
 
-describe("setResponse action creator", () => {
+describe("setMessage action creator", () => {
   it("should return correct action shape", () => {
-    const action = setResponse({ response: "Hello" });
+    const action = setMessage({ message: "Hello" });
 
     expect(action).toEqual({
-      payload: { response: "Hello" },
-      type: ChatActionKind.SetResponse,
+      payload: { message: "Hello" },
+      type: ChatActionKind.SetMessage,
     });
   });
 });
 
-describe("setResponseAction", () => {
-  it("should append response to empty array", () => {
-    const state: ChatState = { responses: [] };
-    const result = setResponseAction(state, { response: "First response" });
+describe("setMessageAction", () => {
+  it("should append message to empty array", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const result = setMessageAction(state, { message: "First message" });
 
-    expect(result.responses).toEqual(["First response"]);
+    expect(result.messages).toEqual(["First message"]);
   });
 
-  it("should append response to existing responses", () => {
-    const state: ChatState = { responses: ["First", "Second"] };
-    const result = setResponseAction(state, { response: "Third" });
+  it("should append message to existing messages", () => {
+    const state: ChatState = { loading: false, messages: ["First", "Second"] };
+    const result = setMessageAction(state, { message: "Third" });
 
-    expect(result.responses).toEqual(["First", "Second", "Third"]);
+    expect(result.messages).toEqual(["First", "Second", "Third"]);
   });
 
   it("should not mutate original state", () => {
-    const state: ChatState = { responses: ["Original"] };
-    const result = setResponseAction(state, { response: "New" });
+    const state: ChatState = { loading: false, messages: ["Original"] };
+    const result = setMessageAction(state, { message: "New" });
 
-    expect(state.responses).toEqual(["Original"]);
+    expect(state.messages).toEqual(["Original"]);
     expect(result).not.toBe(state);
-    expect(result.responses).not.toBe(state.responses);
+    expect(result.messages).not.toBe(state.messages);
   });
 });
 
 describe("chatReducer", () => {
   it("should return initial state for unknown action", () => {
-    const state: ChatState = { responses: [] };
+    const state: ChatState = { loading: false, messages: [] };
     const unknownAction = { payload: {}, type: "UNKNOWN" } as never;
 
     const result = chatReducer(state, unknownAction);
@@ -50,18 +50,18 @@ describe("chatReducer", () => {
     expect(result).toBe(state);
   });
 
-  it("should handle SetResponse action", () => {
-    const state: ChatState = { responses: [] };
-    const action = setResponse({ response: "Test response" });
+  it("should handle SetMessage action", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const action = setMessage({ message: "Test message" });
 
     const result = chatReducer(state, action);
 
-    expect(result.responses).toEqual(["Test response"]);
+    expect(result.messages).toEqual(["Test message"]);
   });
 
-  it("should return new state reference on SetResponse", () => {
-    const state: ChatState = { responses: [] };
-    const action = setResponse({ response: "Test" });
+  it("should return new state reference on SetMessage", () => {
+    const state: ChatState = { loading: false, messages: [] };
+    const action = setMessage({ message: "Test" });
 
     const result = chatReducer(state, action);
 

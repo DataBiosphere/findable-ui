@@ -5,7 +5,7 @@ import { INITIAL_STATE } from "./constants";
 
 /**
  * Provider for Chat state.
- * Manages chat state such as response data.
+ * Manages chat state such as query and response data.
  *
  * @param props - Props.
  * @param props.children - Children.

@@ -1,5 +1,5 @@
-import { setResponseAction } from "./actions/setResponse/action";
-import { ChatActionKind, ChatAction } from "./actions/types";
+import { setMessageAction } from "./actions/setMessage/action";
+import { ChatAction, ChatActionKind } from "./actions/types";
 import { ChatState } from "./types";
 
 /**
@@ -13,8 +13,8 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   const { payload, type } = action;
   // eslint-disable-next-line sonarjs/no-small-switch -- reducer switch statement.
   switch (type) {
-    case ChatActionKind.SetResponse: {
-      return setResponseAction(state, payload);
+    case ChatActionKind.SetMessage: {
+      return setMessageAction(state, payload);
     }
     default: {
       return state;

@@ -1,13 +1,13 @@
-import { SetResponseAction } from "./setResponse/types";
+import { SetMessageAction } from "./setMessage/types";
 
 /**
  * Union of all Chat actions.
  */
-export type ChatAction = SetResponseAction;
+export type ChatAction = SetMessageAction;
 
 /**
  * Action kind identifiers for the Chat reducer.
  */
 export enum ChatActionKind {
-  SetResponse = "SET_RESPONSE",
+  SetMessage = "SET_MESSAGE",
 }
