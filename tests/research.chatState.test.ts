@@ -1,4 +1,6 @@
 import { chatReducer } from "../src/views/ExploreView/research/state/reducer";
+import { setErrorAction } from "../src/views/ExploreView/research/state/actions/setError/action";
+import { setError } from "../src/views/ExploreView/research/state/actions/setError/dispatch";
 import { setMessageAction } from "../src/views/ExploreView/research/state/actions/setMessage/action";
 import { setMessage } from "../src/views/ExploreView/research/state/actions/setMessage/dispatch";
 import { setQueryAction } from "../src/views/ExploreView/research/state/actions/setQuery/action";
@@ -29,6 +31,60 @@ const mockResponse = (message: string | null = null): MessageResponse => ({
     pipelineMs: 0,
     totalMs: 0,
   },
+});
+
+describe("setError action creator", () => {
+  it("should return correct action shape", () => {
+    const action = setError({ error: "Something went wrong" });
+
+    expect(action).toEqual({
+      payload: { error: "Something went wrong" },
+      type: ChatActionKind.SetError,
+    });
+  });
+});
+
+describe("setErrorAction", () => {
+  it("should append error to empty array", () => {
+    const state: ChatState = { messages: [], status: { loading: false } };
+    const result = setErrorAction(state, { error: "Network error" });
+
+    expect(result.messages).toEqual([
+      { error: "Network error", type: MESSAGE_TYPE.ERROR },
+    ]);
+  });
+
+  it("should append error to existing messages", () => {
+    const response = mockResponse("Response");
+    const state: ChatState = {
+      messages: [
+        { text: "Query", type: MESSAGE_TYPE.USER },
+        { response, type: MESSAGE_TYPE.ASSISTANT },
+      ],
+      status: { loading: false },
+    };
+    const result = setErrorAction(state, { error: "Request failed" });
+
+    expect(result.messages).toEqual([
+      { text: "Query", type: MESSAGE_TYPE.USER },
+      { response, type: MESSAGE_TYPE.ASSISTANT },
+      { error: "Request failed", type: MESSAGE_TYPE.ERROR },
+    ]);
+  });
+
+  it("should not mutate original state", () => {
+    const state: ChatState = {
+      messages: [{ text: "Original", type: MESSAGE_TYPE.USER }],
+      status: { loading: false },
+    };
+    const result = setErrorAction(state, { error: "Error" });
+
+    expect(state.messages).toEqual([
+      { text: "Original", type: MESSAGE_TYPE.USER },
+    ]);
+    expect(result).not.toBe(state);
+    expect(result.messages).not.toBe(state.messages);
+  });
 });
 
 describe("setMessage action creator", () => {
@@ -257,6 +313,26 @@ describe("chatReducer", () => {
   it("should return new state reference on SetStatus", () => {
     const state: ChatState = { messages: [], status: { loading: false } };
     const action = setStatus({ loading: true });
+
+    const result = chatReducer(state, action);
+
+    expect(result).not.toBe(state);
+  });
+
+  it("should handle SetError action", () => {
+    const state: ChatState = { messages: [], status: { loading: false } };
+    const action = setError({ error: "Test error" });
+
+    const result = chatReducer(state, action);
+
+    expect(result.messages).toEqual([
+      { error: "Test error", type: MESSAGE_TYPE.ERROR },
+    ]);
+  });
+
+  it("should return new state reference on SetError", () => {
+    const state: ChatState = { messages: [], status: { loading: false } };
+    const action = setError({ error: "Test error" });
 
     const result = chatReducer(state, action);
 

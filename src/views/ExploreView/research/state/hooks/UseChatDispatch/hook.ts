@@ -1,4 +1,5 @@
 import { useCallback, useContext } from "react";
+import { setError } from "../../actions/setError/dispatch";
 import { setMessage } from "../../actions/setMessage/dispatch";
 import { setQuery } from "../../actions/setQuery/dispatch";
 import { setStatus } from "../../actions/setStatus/dispatch";
@@ -12,6 +13,13 @@ import { UseChatDispatch } from "./types";
  */
 export const useChatDispatch = (): UseChatDispatch => {
   const { dispatch } = useContext(ChatContext);
+
+  const onSetError = useCallback(
+    (error: string) => {
+      dispatch(setError({ error }));
+    },
+    [dispatch],
+  );
 
   const onSetMessage = useCallback(
     <R extends MessageResponse>(response: R) => {
@@ -34,5 +42,5 @@ export const useChatDispatch = (): UseChatDispatch => {
     [dispatch],
   );
 
-  return { onSetMessage, onSetQuery, onSetStatus };
+  return { onSetError, onSetMessage, onSetQuery, onSetStatus };
 };

@@ -13,22 +13,25 @@ import { FormProps } from "./types";
  * @returns The research form container element.
  */
 export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
-  const { onSetMessage, onSetQuery, onSetStatus } = useChatDispatch();
+  const dispatch = useChatDispatch();
   return (
     <form
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={(e) => {
         if (status.loading) return;
         actions.onSubmit(e, {
+          onError: (error) => {
+            dispatch.onSetError(error.message);
+          },
           onMutate: (query) => {
-            onSetQuery(query);
-            onSetStatus(true);
+            dispatch.onSetQuery(query);
+            dispatch.onSetStatus(true);
           },
           onSettled: () => {
-            onSetStatus(false);
+            dispatch.onSetStatus(false);
           },
           onSuccess: (data) => {
-            onSetMessage(data as MessageResponse);
+            dispatch.onSetMessage(data as MessageResponse);
           },
         });
       }}
