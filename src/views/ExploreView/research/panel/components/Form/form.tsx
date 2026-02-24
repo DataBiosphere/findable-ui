@@ -19,8 +19,8 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
   return (
     <form
       data-testid={TEST_IDS.RESEARCH_FORM}
-      onSubmit={(e) => {
-        actions.onSubmit(e, getPayload(e), {
+      onSubmit={async (e) => {
+        await actions.onSubmit(e, getPayload(e), {
           onError: (error) => {
             dispatch.onSetError(error.message);
           },
