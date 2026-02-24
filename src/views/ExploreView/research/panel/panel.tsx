@@ -6,6 +6,7 @@ import { Form } from "./components/Form/form";
 import { Input } from "./components/Input/input";
 import { Messages } from "./components/Messages/messages";
 import { Suggestions } from "./components/Suggestions/suggestions";
+import { getPlaceholder } from "./components/Input/utils";
 
 /**
  * Renders the research panel.
@@ -19,7 +20,10 @@ export const Panel = (): JSX.Element => {
       <Messages state={state} />
       <Form actions={actions} status={state.status}>
         <Suggestions state={state} />
-        <Input disabled={state.status.loading} />
+        <Input
+          disabled={state.status.loading}
+          placeholder={getPlaceholder(state)}
+        />
       </Form>
     </div>
   );
