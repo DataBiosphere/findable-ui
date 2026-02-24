@@ -1,7 +1,7 @@
-import { JSX, ReactNode, useReducer } from "react";
+import { JSX, ReactNode } from "react";
 import { ChatContext } from "./context";
-import { chatReducer } from "./reducer";
-import { INITIAL_STATE } from "./constants";
+import { useChatReducer } from "./hooks/UseChatReducer/hook";
+import { InitialArgs } from "./initializer/types";
 
 /**
  * Provider for Chat state.
@@ -9,18 +9,19 @@ import { INITIAL_STATE } from "./constants";
  *
  * @param props - Props.
  * @param props.children - Children.
+ * @param props.initialArgs - Initial arguments.
  *
  * @returns A context provider wrapping the given children.
  */
 export function ChatProvider({
   children,
+  initialArgs,
 }: {
   children: ReactNode;
+  initialArgs: InitialArgs;
 }): JSX.Element {
-  const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
+  const reducer = useChatReducer(initialArgs);
   return (
-    <ChatContext.Provider value={{ dispatch, state }}>
-      {children}
-    </ChatContext.Provider>
+    <ChatContext.Provider value={reducer}>{children}</ChatContext.Provider>
   );
 }
