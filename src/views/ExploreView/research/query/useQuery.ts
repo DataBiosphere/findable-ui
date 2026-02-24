@@ -1,8 +1,8 @@
 import { FormEvent, useCallback, useEffect, useRef } from "react";
+import { FIELD_NAME } from "../panel/components/Form/constants";
 import { OnSubmitOptions, UseQuery } from "./types";
-import { FIELD_NAME } from "./constants";
-import { getFormValues } from "./utils";
 import { fetchResponse } from "./fetch";
+import { getFormValues } from "./utils";
 
 /**
  * Custom hook for managing the actions of an AI-chat query form.
@@ -37,9 +37,7 @@ export const useQuery = (url?: string): UseQuery => {
           options?.onError?.(error);
         },
         onSettled: () => {
-          const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
-          if (input instanceof HTMLElement) input.focus();
-          options?.onSettled?.();
+          options?.onSettled?.(form);
         },
         onSuccess: (data) => {
           options?.onSuccess?.(data);

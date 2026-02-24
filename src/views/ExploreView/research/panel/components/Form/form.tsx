@@ -2,6 +2,7 @@ import { JSX } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { useChatDispatch } from "../../../state/hooks/UseChatDispatch/hook";
 import { MessageResponse } from "../../../state/types";
+import { FIELD_NAME } from "./constants";
 import { FormProps } from "./types";
 
 /**
@@ -28,8 +29,10 @@ export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
             dispatch.onSetStatus(true);
             form.reset();
           },
-          onSettled: () => {
+          onSettled: (form) => {
             dispatch.onSetStatus(false);
+            const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
+            if (input instanceof HTMLElement) input.focus();
           },
           onSuccess: (data) => {
             dispatch.onSetMessage(data as MessageResponse);

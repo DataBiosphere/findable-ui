@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 import { FormEvent } from "react";
-import { FIELD_NAME } from "../src/views/ExploreView/research/query/constants";
+import { FIELD_NAME } from "../src/views/ExploreView/research/panel/components/Form/constants";
 
 /**
  * Fetch callbacks passed to fetchResponse.
@@ -138,24 +138,6 @@ describe("useQuery", () => {
         expect.any(String),
         expect.any(Object),
       );
-    });
-  });
-
-  describe("after fetch completes", () => {
-    it("should refocus input after fetch settles", async () => {
-      const { result } = renderHook(() => useQuery("https://api.example.com"));
-      const event = createMockFormEvent("diabetes studies");
-
-      const mockInput = event.currentTarget.elements.namedItem(
-        FIELD_NAME.AI_PROMPT,
-      ) as HTMLInputElement;
-      mockInput.focus = jest.fn();
-
-      await act(async () => {
-        await result.current.actions.onSubmit(event);
-      });
-
-      expect(mockInput.focus).toHaveBeenCalled();
     });
   });
 

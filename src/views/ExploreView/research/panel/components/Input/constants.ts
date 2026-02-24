@@ -1,6 +1,6 @@
 import { InputBaseProps } from "@mui/material";
 import { INPUT_BASE_PROPS as MUI_INPUT_BASE_PROPS } from "../../../../../../styles/common/mui/inputBase";
-import { FIELD_NAME } from "../../../query/constants";
+import { FIELD_NAME } from "../Form/constants";
 
 export const INPUT_BASE_PROPS: InputBaseProps = {
   autoFocus: true,
