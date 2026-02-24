@@ -4,6 +4,7 @@ import { useAdapter } from "../adapter/useAdapter";
 import { useChatState } from "../state/hooks/UseChatState/hook";
 import { Form } from "./components/Form/form";
 import { Input } from "./components/Input/input";
+import { Messages } from "./components/Messages/messages";
 
 /**
  * Renders the research panel.
@@ -14,6 +15,7 @@ export const Panel = (): JSX.Element => {
   const { state } = useChatState();
   return (
     <div data-testid={TEST_IDS.RESEARCH_PANEL}>
+      <Messages state={state} />
       <Form actions={actions} status={state.status}>
         <Input disabled={state.status.loading} />
       </Form>
