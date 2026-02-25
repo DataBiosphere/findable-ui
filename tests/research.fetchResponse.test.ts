@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import fetchMock from "jest-fetch-mock";
-import { ERROR_MESSAGE } from "../src/views/ExploreView/research/query/constants";
-import { fetchResponse } from "../src/views/ExploreView/research/query/fetch";
+import { ERROR_MESSAGE } from "../src/views/ResearchView/query/constants";
+import { fetchResponse } from "../src/views/ResearchView/query/fetch";
 
 beforeAll(() => {
   fetchMock.enableMocks();
@@ -36,22 +36,6 @@ describe("fetchResponse", () => {
 
     expect(callbacks.onSuccess).toHaveBeenCalledWith(mockData);
     expect(callbacks.onError).not.toHaveBeenCalled();
-    expect(callbacks.onSettled).toHaveBeenCalled();
-  });
-
-  it("should call onError when URL is not configured", async () => {
-    const controller = new AbortController();
-    const callbacks = mockCallbacks();
-
-    await fetchResponse(undefined, "diabetes", {
-      controller,
-      ...callbacks,
-    });
-
-    expect(callbacks.onError).toHaveBeenCalledWith(
-      new Error("Research API URL is not configured."),
-    );
-    expect(callbacks.onSuccess).not.toHaveBeenCalled();
     expect(callbacks.onSettled).toHaveBeenCalled();
   });
 

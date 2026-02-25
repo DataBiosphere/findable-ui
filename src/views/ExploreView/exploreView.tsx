@@ -31,10 +31,8 @@ import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
-import { ModeProvider } from "./mode/provider/provider";
-import { ToggleButtonGroup } from "./mode/components/ToggleButtonGroup/toggleButtonGroup";
-import { PanelSelector } from "./mode/selector/panelSelector";
-import { StyledGrid, StyledStack } from "./search/panel/panel.styles";
+import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
+import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -137,57 +135,46 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   }, [entityListType, exploreDispatch]);
 
   return (
-    <ModeProvider>
-      {(modeProps) => (
-        <DrawerProvider>
-          {categoryViews && !!categoryViews.length && (
-            <Sidebar>
-              <ToggleButtonGroup
-                onChange={modeProps.onChange}
-                value={modeProps.value}
-              />
-              <PanelSelector>
-                <StyledStack>
-                  <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
-                    <SidebarLabel label={"Filters"} />
-                    <Stack direction="row" gap={4}>
-                      <ClearAllFilters />
-                      <FilterSort
-                        enabled={filterSortEnabled}
-                        filterSort={filterSort}
-                        onFilterSortChange={onFilterSortChange}
-                      />
-                    </Stack>
-                  </StyledGrid>
-                  <SearchAllFilters
-                    categoryViews={categoryViews}
-                    onFilter={onFilterChange.bind(null, true)}
-                    surfaceType={
-                      mdDown
-                        ? SURFACE_TYPE.POPPER_DRAWER
-                        : SURFACE_TYPE.POPPER_MENU
-                    }
-                  />
-                </StyledStack>
-                <Filters
-                  categoryFilters={categoryFilters}
-                  onFilter={onFilterChange.bind(null, false)}
-                  surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
-                  trackFilterOpened={trackingConfig?.trackFilterOpened}
+    <DrawerProvider>
+      {categoryViews && !!categoryViews.length && (
+        <Sidebar>
+          <ToggleButtonGroup />
+          <StyledStack>
+            <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
+              <SidebarLabel label={"Filters"} />
+              <Stack direction="row" gap={4}>
+                <ClearAllFilters />
+                <FilterSort
+                  enabled={filterSortEnabled}
+                  filterSort={filterSort}
+                  onFilterSortChange={onFilterSortChange}
                 />
-              </PanelSelector>
-            </Sidebar>
-          )}
-          <IndexView
-            className={props.className}
+              </Stack>
+            </StyledGrid>
+            <SearchAllFilters
+              categoryViews={categoryViews}
+              onFilter={onFilterChange.bind(null, true)}
+              surfaceType={
+                mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
+              }
+            />
+          </StyledStack>
+          <Filters
             categoryFilters={categoryFilters}
-            entityListType={entityListType}
-            entityName={label}
-            loading={loading}
+            onFilter={onFilterChange.bind(null, false)}
+            surfaceType={mdDown ? SURFACE_TYPE.DRAWER : SURFACE_TYPE.MENU}
+            trackFilterOpened={trackingConfig?.trackFilterOpened}
           />
-        </DrawerProvider>
+        </Sidebar>
       )}
-    </ModeProvider>
+      <IndexView
+        className={props.className}
+        categoryFilters={categoryFilters}
+        entityListType={entityListType}
+        entityName={label}
+        loading={loading}
+      />
+    </DrawerProvider>
   );
 };
 
