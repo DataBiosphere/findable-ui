@@ -3,6 +3,7 @@ import {
   ErrorMessage,
   Message,
   MESSAGE_TYPE,
+  MessageResponse,
   PromptMessage,
   UserMessage,
 } from "../../../views/ResearchView/state/types";
@@ -12,9 +13,9 @@ import {
  * @param message - Chat message.
  * @returns True if the message is an assistant message.
  */
-export function isAssistantMessage(
+export function isAssistantMessage<R extends MessageResponse = MessageResponse>(
   message: Message,
-): message is AssistantMessage {
+): message is AssistantMessage<R> {
   return message.type === MESSAGE_TYPE.ASSISTANT;
 }
 
