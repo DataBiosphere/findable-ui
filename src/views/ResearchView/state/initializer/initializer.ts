@@ -12,7 +12,12 @@ export function initializer(initialArgs?: InitialArgs): ChatState {
   return {
     ...INITIAL_STATE,
     messages: [
-      { ...initialArgs, createdAt: Date.now(), type: MESSAGE_TYPE.PROMPT },
+      {
+        ...initialArgs,
+        createdAt: Date.now(),
+        initial: true,
+        type: MESSAGE_TYPE.PROMPT,
+      },
     ],
   };
 }

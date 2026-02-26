@@ -1,3 +1,3 @@
-import { AiPrompt } from "../../../../common/ai/types";
+import { AiPrompt } from "../../../../common/ai/config/types";
 
 export type InitialArgs = AiPrompt;
