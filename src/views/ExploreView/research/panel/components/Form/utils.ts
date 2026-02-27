@@ -31,7 +31,8 @@ export const getPayload = (e: FormEvent<HTMLFormElement>): OnSubmitPayload => {
   // Check for a query from the submitter's data-query attribute first
   const query = getSubmitterQuery(e);
 
-  if (query) return { query };
+  // The onSubmit handler will ignore empty queries which acts as a safeguard against empty data-query values.
+  if (query !== undefined) return { query };
 
   // If no submitter query, fall back to form values
   const formValues = getFormValues(e.currentTarget);
@@ -45,5 +46,6 @@ export const getPayload = (e: FormEvent<HTMLFormElement>): OnSubmitPayload => {
  */
 function getSubmitterQuery(e: FormEvent<HTMLFormElement>): string | undefined {
   const submitter = (e.nativeEvent as SubmitEvent).submitter;
-  return submitter?.dataset.query;
+  // We should expect a defined value here if the submitter is a data-query element, but we trim it just in case.
+  return submitter?.dataset.query?.trim();
 }
