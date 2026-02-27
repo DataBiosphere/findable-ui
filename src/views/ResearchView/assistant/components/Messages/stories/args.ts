@@ -40,7 +40,33 @@ export const ARGS: ComponentProps<typeof Messages> = {
         createdAt: 1771998382832,
         response: {
           message:
-            "Found 3 studies with all five criteria met and 2 more with partial coverage. Top match is ACCORD (phs000209) — it has smoking strata, GLP-1 medication records, and HbA1c at baseline and 6-month follow-up.",
+            'The exact term "glycemic control" has very low study counts (1 study each). I\'ve mapped it to the most relevant clinical measurements: "Glycated Hemoglobin" (HbA1c, 9 studies) and "Fasting Glucose" (44 studies), which are the standard markers used to assess glycemic control in diabetes management.',
+          query: {
+            mentions: [
+              {
+                exclude: false,
+                facet: "focus",
+                originalText: "type 2 diabetes",
+                values: ["Diabetes Mellitus, Type 2"],
+              },
+              {
+                exclude: false,
+                facet: "measurement",
+                originalText: "smoking",
+                values: [
+                  "Current Smoking Status",
+                  "Smoking History",
+                  "Smoking Status",
+                ],
+              },
+              {
+                exclude: false,
+                facet: "measurement",
+                originalText: "glycemic control",
+                values: ["Glycated Hemoglobin", "Fasting Glucose"],
+              },
+            ],
+          },
         },
         type: MESSAGE_TYPE.ASSISTANT,
       } as AssistantMessage,
@@ -63,6 +89,21 @@ export const ARGS: ComponentProps<typeof Messages> = {
         createdAt: 1771998382836,
         response: {
           message: "How do you want to split the smoking groups?",
+          query: {
+            mentions: [
+              {
+                exclude: false,
+                facet: "focus",
+                originalText: "lung cancer",
+                values: [
+                  "Lung Neoplasms",
+                  "Carcinoma, Non-Small-Cell Lung",
+                  "Adenocarcinoma of Lung",
+                  "Small Cell Lung Carcinoma",
+                ],
+              },
+            ],
+          },
         },
         type: MESSAGE_TYPE.ASSISTANT,
       } as AssistantMessage,
