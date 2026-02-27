@@ -1,37 +1,32 @@
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
-import { UseQuery } from "./types";
-import { FIELD_NAME } from "./constants";
-import { getFormValues } from "./utils";
+import { FormEvent, useCallback, useEffect, useRef } from "react";
+import { OnSubmitOptions, OnSubmitPayload, UseQuery } from "./types";
 import { fetchResponse } from "./fetch";
 
 /**
- * Custom hook for managing the state and actions of an AI-chat query form.
+ * Custom hook for managing the actions of a chat query form.
  * @param url - The URL to send the query to.
- * @returns An object containing the actions and status of the query.
+ * @returns An object containing the actions of the query.
  */
 export const useQuery = (url?: string): UseQuery => {
   const abortRef = useRef<AbortController>(null);
 
-  const [loading, setLoading] = useState(false);
-
   const onSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
+    async (
+      e: FormEvent<HTMLFormElement>,
+      payload: OnSubmitPayload,
+      options?: OnSubmitOptions,
+    ) => {
       e.preventDefault();
 
+      if (options?.status?.loading) return;
+
       const form = e.currentTarget;
-      const formValues = getFormValues(form);
+      const { query } = payload;
 
-      // Get the query value from the AI input field
-      const query = formValues[FIELD_NAME.AI_PROMPT];
       if (!query) return;
-      if (loading) return;
 
-      setLoading(true);
-
-      // TODO: handle dispatching query to store
-
-      // Reset the form
-      form.reset();
+      // Call onMutate callback
+      options?.onMutate?.(form, query);
 
       // Abort any in-flight request
       abortRef.current?.abort();
@@ -41,21 +36,17 @@ export const useQuery = (url?: string): UseQuery => {
       await fetchResponse(url, query, {
         controller,
         onError: (error) => {
-          // TODO: handle dispatching error to store
-          console.error("Research query error:", error);
+          options?.onError?.(error);
         },
         onSettled: () => {
-          setLoading(false);
-          const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
-          if (input instanceof HTMLElement) input.focus();
+          options?.onSettled?.(form);
         },
         onSuccess: (data) => {
-          // TODO: handle dispatching response to store
-          console.log("Research query response:", data);
+          options?.onSuccess?.(data);
         },
       });
     },
-    [loading, url],
+    [url],
   );
 
   // Abort any in-flight request on unmount.
@@ -65,5 +56,5 @@ export const useQuery = (url?: string): UseQuery => {
     };
   }, []);
 
-  return { actions: { onSubmit }, status: { loading } };
+  return { actions: { onSubmit } };
 };
