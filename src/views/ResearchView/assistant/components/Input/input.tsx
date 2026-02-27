@@ -7,6 +7,7 @@ import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { STACK_PROPS } from "../../../../../styles/common/mui/stack";
 import { InputProps } from "./types";
+import { useKeyShortCuts } from "./hooks/UseKeyShortCuts/hook";
 
 /**
  * Renders an input component for the research panel.
@@ -15,10 +16,11 @@ import { InputProps } from "./types";
  * @returns Research panel input component.
  */
 export const Input = ({ disabled, ...props }: InputProps): JSX.Element => {
+  const { onKeyDown } = useKeyShortCuts();
   return (
     <StyledBox>
       <StyledPaper elevation={0}>
-        <InputBase {...INPUT_BASE_PROPS} {...props} />
+        <InputBase {...INPUT_BASE_PROPS} {...props} onKeyDown={onKeyDown} />
         <Stack direction={STACK_PROPS.DIRECTION.ROW} gap={2}>
           <IconButton
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
