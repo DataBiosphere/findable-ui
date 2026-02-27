@@ -20,5 +20,5 @@ export interface AiPrompt extends Omit<
   PromptMessage,
   "createdAt" | "suggestions" | "type"
 > {
-  suggestions?: Omit<PromptSuggestion, "createdAt">[];
+  suggestions?: PromptSuggestion[];
 }
