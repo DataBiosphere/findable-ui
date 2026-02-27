@@ -51,6 +51,7 @@ export type Intent = (typeof INTENT)[keyof typeof INTENT] | (string & {});
 export type Message<R extends MessageResponse = MessageResponse> =
   | AssistantMessage<R>
   | ErrorMessage
+  | PromptMessage
   | UserMessage;
 
 /**
@@ -59,6 +60,7 @@ export type Message<R extends MessageResponse = MessageResponse> =
 export enum MESSAGE_TYPE {
   ASSISTANT = "ASSISTANT",
   ERROR = "ERROR",
+  PROMPT = "PROMPT",
   USER = "USER",
 }
 
@@ -89,9 +91,44 @@ export interface MessageResponse {
   };
 }
 
+/**
+ * Prompt message in the chat, initiated by the system.
+ */
+export interface PromptMessage {
+  inputPlaceholder?: string;
+  suggestions?: PromptSuggestion[];
+  text: string;
+  type: MESSAGE_TYPE.PROMPT;
+}
+
+/**
+ * Suggestion within a prompt message.
+ */
+export interface PromptSuggestion {
+  label: string;
+  query: string;
+  variant: SuggestionVariant;
+}
+
+/**
+ * Status of the chat interaction, such as loading state.
+ */
 export interface Status {
   loading: boolean;
 }
+
+/**
+ * Suggestion variant values for rendering suggestions.
+ */
+export const SUGGESTION_VARIANT = {
+  CHIP: "CHIP",
+} as const;
+
+/**
+ * Suggestion variant type.
+ */
+export type SuggestionVariant =
+  (typeof SUGGESTION_VARIANT)[keyof typeof SUGGESTION_VARIANT];
 
 /**
  * User message in the chat.
