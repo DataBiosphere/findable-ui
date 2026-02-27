@@ -1,3 +1,3 @@
 import { PromptMessage } from "../types";
 
-export type InitialArgs = Omit<PromptMessage, "type"> | undefined;
+export type InitialArgs = Omit<PromptMessage, "type">;

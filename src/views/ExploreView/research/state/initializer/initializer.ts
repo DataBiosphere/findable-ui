@@ -7,7 +7,7 @@ import { InitialArgs } from "./types";
  * @param initialArgs - Initial arguments.
  * @returns The initialized chat state.
  */
-export function initializer(initialArgs: InitialArgs): ChatState {
+export function initializer(initialArgs?: InitialArgs): ChatState {
   if (!initialArgs) return INITIAL_STATE;
   return {
     ...INITIAL_STATE,

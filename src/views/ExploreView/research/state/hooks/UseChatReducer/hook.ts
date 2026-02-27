@@ -9,7 +9,7 @@ import { ChatContextValue } from "../../types";
  * @param initialArgs - Initial arguments for the chat state.
  * @returns Chat context value with dispatch and state.
  */
-export const useChatReducer = (initialArgs: InitialArgs): ChatContextValue => {
+export const useChatReducer = (initialArgs?: InitialArgs): ChatContextValue => {
   const [state, dispatch] = useReducer(chatReducer, initialArgs, initializer);
   return { dispatch, state };
 };

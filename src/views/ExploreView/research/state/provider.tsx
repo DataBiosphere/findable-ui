@@ -18,7 +18,7 @@ export function ChatProvider({
   initialArgs,
 }: {
   children: ReactNode;
-  initialArgs: InitialArgs;
+  initialArgs?: InitialArgs;
 }): JSX.Element {
   const reducer = useChatReducer(initialArgs);
   return (
