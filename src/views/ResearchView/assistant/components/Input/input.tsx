@@ -20,7 +20,7 @@ export const Input = ({ disabled, ...props }: InputProps): JSX.Element => {
   return (
     <StyledBox>
       <StyledPaper elevation={0}>
-        <InputBase {...INPUT_BASE_PROPS} {...props} onKeyDown={onKeyDown} />
+        <InputBase {...INPUT_BASE_PROPS} onKeyDown={onKeyDown} {...props} />
         <Stack direction={STACK_PROPS.DIRECTION.ROW} gap={2}>
           <IconButton
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
