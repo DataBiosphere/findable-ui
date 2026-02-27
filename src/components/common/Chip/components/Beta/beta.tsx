@@ -4,6 +4,12 @@ import { CHIP_PROPS } from "../../../../../styles/common/mui/chip";
 import { BaseComponentProps } from "../../../../types";
 import { StyledChip } from "./beta.styles";
 
+/**
+ * Beta chip component to indicate features that are in beta.
+ * @param props - Component props.
+ * @param props.className - Classname.
+ * @returns Beta chip JSX element.
+ */
 export const Beta = ({
   className,
   ...props
