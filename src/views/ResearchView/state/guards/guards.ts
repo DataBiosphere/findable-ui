@@ -6,7 +6,7 @@ import {
   MessageResponse,
   PromptMessage,
   UserMessage,
-} from "../../../views/ResearchView/state/types";
+} from "../types";
 
 /**
  * Returns true if the message is an assistant message.
