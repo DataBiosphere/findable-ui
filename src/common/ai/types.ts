@@ -1,8 +1,3 @@
-import {
-  PromptMessage,
-  PromptSuggestion,
-} from "../../views/ResearchView/state/types";
-
 /**
  * AI configuration.
  */
@@ -16,9 +11,15 @@ export interface AiConfig {
   url: string;
 }
 
-export interface AiPrompt extends Omit<
-  PromptMessage,
-  "createdAt" | "suggestions" | "type"
-> {
-  suggestions?: PromptSuggestion[];
+export interface AiPrompt {
+  inputPlaceholder?: string;
+  suggestions?: AiSuggestions[];
+  text: string;
+}
+
+export interface AiSuggestions {
+  label: string;
+  query: string;
+  // For now, we only have one variant, but this allows for future expansion.
+  variant: "CHIP";
 }
