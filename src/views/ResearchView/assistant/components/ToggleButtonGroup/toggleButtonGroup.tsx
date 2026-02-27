@@ -1,8 +1,9 @@
-import { ToggleButton } from "@mui/material";
+import { Chip, ToggleButton } from "@mui/material";
 import { JSX } from "react";
 import { StyledBox, StyledToggleButtonGroup } from "./toggleButtonGroup.styles";
 import Link from "next/link";
 import { useAiRoutes } from "../../../../../hooks/ai/useAiRoutes/hook";
+import { CHIP_PROPS } from "../../../../../styles/common/mui/chip";
 
 /**
  * ToggleButtonGroup component for navigating to ExploreView.
@@ -18,7 +19,7 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
     <StyledBox>
       <StyledToggleButtonGroup exclusive>
         <ToggleButton selected value="research">
-          Research
+          Research <Chip label="Beta" size={CHIP_PROPS.SIZE.SMALL} />
         </ToggleButton>
         <ToggleButton component={Link} href={routes.search} value="search">
           Search
