@@ -7,7 +7,7 @@ export const ARGS: ComponentProps<typeof Messages> = {
   state: {
     messages: [
       {
-        inputPrefill: "Ask about datasets or variables",
+        inputPlaceholder: "Ask about datasets or variables",
         suggestions: [
           {
             label: "GLP-1 effect + smoking in T2D",

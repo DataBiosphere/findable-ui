@@ -95,7 +95,7 @@ export interface MessageResponse {
  * Prompt message in the chat, initiated by the system.
  */
 export interface PromptMessage {
-  inputPrefill?: string;
+  inputPlaceholder?: string;
   suggestions?: PromptSuggestion[];
   text: string;
   type: MESSAGE_TYPE.PROMPT;

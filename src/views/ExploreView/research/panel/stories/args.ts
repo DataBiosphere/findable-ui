@@ -2,7 +2,7 @@ import { InitialArgs } from "../../state/initializer/types";
 import { SUGGESTION_VARIANT } from "../../state/types";
 
 export const INITIAL_ARGS: NonNullable<InitialArgs> = {
-  inputPrefill: "Ask about datasets or variables",
+  inputPlaceholder: "Ask about datasets or variables",
   suggestions: [
     {
       label: "GLP-1 effect + smoking in T2D",

@@ -21,7 +21,7 @@ export function getPlaceholder(state: ChatState): string {
   // Find the last prompt message to use its input prefill as placeholder.
   const lastPrompt = messages.find(isPromptMessage);
 
-  return lastPrompt?.inputPrefill || "Ask anything";
+  return lastPrompt?.inputPlaceholder || "Ask anything";
 }
 
 /**
