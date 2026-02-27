@@ -16,7 +16,7 @@ export const Suggestions = ({
     <StyledStack gap={2} useFlexGap>
       {suggestions.map((suggestion) => (
         <Chip
-          key={suggestion.label}
+          key={`${suggestion.label}-${suggestion.query}`}
           clickable
           color={CHIP_PROPS.COLOR.SECONDARY}
           component="button"
