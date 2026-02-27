@@ -8,10 +8,13 @@ import { setQuery } from "../src/views/ExploreView/research/state/actions/setQue
 import { setStatusAction } from "../src/views/ExploreView/research/state/actions/setStatus/action";
 import { setStatus } from "../src/views/ExploreView/research/state/actions/setStatus/dispatch";
 import { ChatActionKind } from "../src/views/ExploreView/research/state/actions/types";
+import { INITIAL_STATE } from "../src/views/ExploreView/research/state/constants";
+import { initializer } from "../src/views/ExploreView/research/state/initializer/initializer";
 import {
   ChatState,
   MESSAGE_TYPE,
   MessageResponse,
+  SUGGESTION_VARIANT,
 } from "../src/views/ExploreView/research/state/types";
 
 /**
@@ -337,5 +340,61 @@ describe("chatReducer", () => {
     const result = chatReducer(state, action);
 
     expect(result).not.toBe(state);
+  });
+});
+
+describe("initializer", () => {
+  it("should return initial state when no args provided", () => {
+    const result = initializer();
+
+    expect(result).toBe(INITIAL_STATE);
+  });
+
+  it("should return initial state when undefined is passed", () => {
+    const result = initializer(undefined);
+
+    expect(result).toBe(INITIAL_STATE);
+  });
+
+  it("should inject a prompt message when initialArgs is provided", () => {
+    const result = initializer({ text: "Welcome to the assistant" });
+
+    expect(result.messages).toEqual([
+      { text: "Welcome to the assistant", type: MESSAGE_TYPE.PROMPT },
+    ]);
+  });
+
+  it("should include all initialArgs properties in the prompt message", () => {
+    const result = initializer({
+      inputPlaceholder: "Ask about datasets",
+      suggestions: [
+        {
+          label: "GLP-1",
+          query: "GLP-1 studies",
+          variant: SUGGESTION_VARIANT.CHIP,
+        },
+      ],
+      text: "How can I help?",
+    });
+
+    expect(result.messages).toHaveLength(1);
+    expect(result.messages[0]).toEqual({
+      inputPlaceholder: "Ask about datasets",
+      suggestions: [
+        {
+          label: "GLP-1",
+          query: "GLP-1 studies",
+          variant: SUGGESTION_VARIANT.CHIP,
+        },
+      ],
+      text: "How can I help?",
+      type: MESSAGE_TYPE.PROMPT,
+    });
+  });
+
+  it("should preserve default status when initialArgs is provided", () => {
+    const result = initializer({ text: "Welcome" });
+
+    expect(result.status).toEqual({ loading: false });
   });
 });
