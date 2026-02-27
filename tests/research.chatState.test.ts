@@ -417,6 +417,7 @@ describe("initializer", () => {
 
     expect(result.messages).toEqual([
       expect.objectContaining({
+        initial: true,
         text: "Welcome to the assistant",
         type: MESSAGE_TYPE.PROMPT,
       }),
