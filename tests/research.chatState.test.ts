@@ -1,21 +1,21 @@
-import { chatReducer } from "../src/views/ExploreView/research/state/reducer";
-import { setErrorAction } from "../src/views/ExploreView/research/state/actions/setError/action";
-import { setError } from "../src/views/ExploreView/research/state/actions/setError/dispatch";
-import { setMessageAction } from "../src/views/ExploreView/research/state/actions/setMessage/action";
-import { setMessage } from "../src/views/ExploreView/research/state/actions/setMessage/dispatch";
-import { setQueryAction } from "../src/views/ExploreView/research/state/actions/setQuery/action";
-import { setQuery } from "../src/views/ExploreView/research/state/actions/setQuery/dispatch";
-import { setStatusAction } from "../src/views/ExploreView/research/state/actions/setStatus/action";
-import { setStatus } from "../src/views/ExploreView/research/state/actions/setStatus/dispatch";
-import { ChatActionKind } from "../src/views/ExploreView/research/state/actions/types";
-import { INITIAL_STATE } from "../src/views/ExploreView/research/state/constants";
-import { initializer } from "../src/views/ExploreView/research/state/initializer/initializer";
+import { chatReducer } from "../src/views/ResearchView/state/reducer";
+import { setErrorAction } from "../src/views/ResearchView/state/actions/setError/action";
+import { setError } from "../src/views/ResearchView/state/actions/setError/dispatch";
+import { setMessageAction } from "../src/views/ResearchView/state/actions/setMessage/action";
+import { setMessage } from "../src/views/ResearchView/state/actions/setMessage/dispatch";
+import { setQueryAction } from "../src/views/ResearchView/state/actions/setQuery/action";
+import { setQuery } from "../src/views/ResearchView/state/actions/setQuery/dispatch";
+import { setStatusAction } from "../src/views/ResearchView/state/actions/setStatus/action";
+import { setStatus } from "../src/views/ResearchView/state/actions/setStatus/dispatch";
+import { ChatActionKind } from "../src/views/ResearchView/state/actions/types";
 import {
   ChatState,
   MESSAGE_TYPE,
   MessageResponse,
   SUGGESTION_VARIANT,
-} from "../src/views/ExploreView/research/state/types";
+} from "../src/views/ResearchView/state/types";
+import { initializer } from "../src/views/ResearchView/state/initializer/initializer";
+import { INITIAL_STATE } from "../src/views/ResearchView/state/constants";
 
 /**
  * Creates a mock MessageResponse for testing.
@@ -53,7 +53,11 @@ describe("setErrorAction", () => {
     const result = setErrorAction(state, { error: "Network error" });
 
     expect(result.messages).toEqual([
-      { error: "Network error", type: MESSAGE_TYPE.ERROR },
+      {
+        createdAt: expect.any(Number),
+        error: "Network error",
+        type: MESSAGE_TYPE.ERROR,
+      },
     ]);
   });
 
@@ -61,29 +65,35 @@ describe("setErrorAction", () => {
     const response = mockResponse("Response");
     const state: ChatState = {
       messages: [
-        { text: "Query", type: MESSAGE_TYPE.USER },
-        { response, type: MESSAGE_TYPE.ASSISTANT },
+        { createdAt: 1000, text: "Query", type: MESSAGE_TYPE.USER },
+        { createdAt: 2000, response, type: MESSAGE_TYPE.ASSISTANT },
       ],
       status: { loading: false },
     };
     const result = setErrorAction(state, { error: "Request failed" });
 
     expect(result.messages).toEqual([
-      { text: "Query", type: MESSAGE_TYPE.USER },
-      { response, type: MESSAGE_TYPE.ASSISTANT },
-      { error: "Request failed", type: MESSAGE_TYPE.ERROR },
+      { createdAt: 1000, text: "Query", type: MESSAGE_TYPE.USER },
+      { createdAt: 2000, response, type: MESSAGE_TYPE.ASSISTANT },
+      {
+        createdAt: expect.any(Number),
+        error: "Request failed",
+        type: MESSAGE_TYPE.ERROR,
+      },
     ]);
   });
 
   it("should not mutate original state", () => {
     const state: ChatState = {
-      messages: [{ text: "Original", type: MESSAGE_TYPE.USER }],
+      messages: [
+        { createdAt: 1000, text: "Original", type: MESSAGE_TYPE.USER },
+      ],
       status: { loading: false },
     };
     const result = setErrorAction(state, { error: "Error" });
 
     expect(state.messages).toEqual([
-      { text: "Original", type: MESSAGE_TYPE.USER },
+      { createdAt: 1000, text: "Original", type: MESSAGE_TYPE.USER },
     ]);
     expect(result).not.toBe(state);
     expect(result.messages).not.toBe(state.messages);
@@ -109,7 +119,11 @@ describe("setMessageAction", () => {
     const result = setMessageAction(state, { response });
 
     expect(result.messages).toEqual([
-      { response, type: MESSAGE_TYPE.ASSISTANT },
+      {
+        createdAt: expect.any(Number),
+        response,
+        type: MESSAGE_TYPE.ASSISTANT,
+      },
     ]);
   });
 
@@ -117,8 +131,12 @@ describe("setMessageAction", () => {
     const existingResponse = mockResponse("Second");
     const state: ChatState = {
       messages: [
-        { text: "First", type: MESSAGE_TYPE.USER },
-        { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
+        { createdAt: 1000, text: "First", type: MESSAGE_TYPE.USER },
+        {
+          createdAt: 2000,
+          response: existingResponse,
+          type: MESSAGE_TYPE.ASSISTANT,
+        },
       ],
       status: { loading: false },
     };
@@ -126,22 +144,32 @@ describe("setMessageAction", () => {
     const result = setMessageAction(state, { response: newResponse });
 
     expect(result.messages).toEqual([
-      { text: "First", type: MESSAGE_TYPE.USER },
-      { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
-      { response: newResponse, type: MESSAGE_TYPE.ASSISTANT },
+      { createdAt: 1000, text: "First", type: MESSAGE_TYPE.USER },
+      {
+        createdAt: 2000,
+        response: existingResponse,
+        type: MESSAGE_TYPE.ASSISTANT,
+      },
+      {
+        createdAt: expect.any(Number),
+        response: newResponse,
+        type: MESSAGE_TYPE.ASSISTANT,
+      },
     ]);
   });
 
   it("should not mutate original state", () => {
     const state: ChatState = {
-      messages: [{ text: "Original", type: MESSAGE_TYPE.USER }],
+      messages: [
+        { createdAt: 1000, text: "Original", type: MESSAGE_TYPE.USER },
+      ],
       status: { loading: false },
     };
     const response = mockResponse("New");
     const result = setMessageAction(state, { response });
 
     expect(state.messages).toEqual([
-      { text: "Original", type: MESSAGE_TYPE.USER },
+      { createdAt: 1000, text: "Original", type: MESSAGE_TYPE.USER },
     ]);
     expect(result).not.toBe(state);
     expect(result.messages).not.toBe(state.messages);
@@ -165,7 +193,11 @@ describe("setQueryAction", () => {
     const result = setQueryAction(state, { query: "First query" });
 
     expect(result.messages).toEqual([
-      { text: "First query", type: MESSAGE_TYPE.USER },
+      {
+        createdAt: expect.any(Number),
+        text: "First query",
+        type: MESSAGE_TYPE.USER,
+      },
     ]);
   });
 
@@ -173,30 +205,42 @@ describe("setQueryAction", () => {
     const existingResponse = mockResponse("Response");
     const state: ChatState = {
       messages: [
-        { text: "First", type: MESSAGE_TYPE.USER },
-        { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
+        { createdAt: 1000, text: "First", type: MESSAGE_TYPE.USER },
+        {
+          createdAt: 2000,
+          response: existingResponse,
+          type: MESSAGE_TYPE.ASSISTANT,
+        },
       ],
       status: { loading: false },
     };
     const result = setQueryAction(state, { query: "Second query" });
 
     expect(result.messages).toEqual([
-      { text: "First", type: MESSAGE_TYPE.USER },
-      { response: existingResponse, type: MESSAGE_TYPE.ASSISTANT },
-      { text: "Second query", type: MESSAGE_TYPE.USER },
+      { createdAt: 1000, text: "First", type: MESSAGE_TYPE.USER },
+      {
+        createdAt: 2000,
+        response: existingResponse,
+        type: MESSAGE_TYPE.ASSISTANT,
+      },
+      {
+        createdAt: expect.any(Number),
+        text: "Second query",
+        type: MESSAGE_TYPE.USER,
+      },
     ]);
   });
 
   it("should not mutate original state", () => {
     const response = mockResponse("Original response");
     const state: ChatState = {
-      messages: [{ response, type: MESSAGE_TYPE.ASSISTANT }],
+      messages: [{ createdAt: 1000, response, type: MESSAGE_TYPE.ASSISTANT }],
       status: { loading: false },
     };
     const result = setQueryAction(state, { query: "New query" });
 
     expect(state.messages).toEqual([
-      { response, type: MESSAGE_TYPE.ASSISTANT },
+      { createdAt: 1000, response, type: MESSAGE_TYPE.ASSISTANT },
     ]);
     expect(result).not.toBe(state);
     expect(result.messages).not.toBe(state.messages);
@@ -233,8 +277,8 @@ describe("setStatusAction", () => {
     const response = mockResponse("Test");
     const state: ChatState = {
       messages: [
-        { text: "Query", type: MESSAGE_TYPE.USER },
-        { response, type: MESSAGE_TYPE.ASSISTANT },
+        { createdAt: 1000, text: "Query", type: MESSAGE_TYPE.USER },
+        { createdAt: 2000, response, type: MESSAGE_TYPE.ASSISTANT },
       ],
       status: { loading: false },
     };
@@ -270,7 +314,11 @@ describe("chatReducer", () => {
     const result = chatReducer(state, action);
 
     expect(result.messages).toEqual([
-      { response, type: MESSAGE_TYPE.ASSISTANT },
+      {
+        createdAt: expect.any(Number),
+        response,
+        type: MESSAGE_TYPE.ASSISTANT,
+      },
     ]);
   });
 
@@ -281,7 +329,11 @@ describe("chatReducer", () => {
     const result = chatReducer(state, action);
 
     expect(result.messages).toEqual([
-      { text: "Test query", type: MESSAGE_TYPE.USER },
+      {
+        createdAt: expect.any(Number),
+        text: "Test query",
+        type: MESSAGE_TYPE.USER,
+      },
     ]);
   });
 
@@ -329,7 +381,11 @@ describe("chatReducer", () => {
     const result = chatReducer(state, action);
 
     expect(result.messages).toEqual([
-      { error: "Test error", type: MESSAGE_TYPE.ERROR },
+      {
+        createdAt: expect.any(Number),
+        error: "Test error",
+        type: MESSAGE_TYPE.ERROR,
+      },
     ]);
   });
 
@@ -360,8 +416,12 @@ describe("initializer", () => {
     const result = initializer({ text: "Welcome to the assistant" });
 
     expect(result.messages).toEqual([
-      { text: "Welcome to the assistant", type: MESSAGE_TYPE.PROMPT },
+      expect.objectContaining({
+        text: "Welcome to the assistant",
+        type: MESSAGE_TYPE.PROMPT,
+      }),
     ]);
+    expect(result.messages[0]).toHaveProperty("createdAt");
   });
 
   it("should include all initialArgs properties in the prompt message", () => {
@@ -378,18 +438,20 @@ describe("initializer", () => {
     });
 
     expect(result.messages).toHaveLength(1);
-    expect(result.messages[0]).toEqual({
-      inputPlaceholder: "Ask about datasets",
-      suggestions: [
-        {
-          label: "GLP-1",
-          query: "GLP-1 studies",
-          variant: SUGGESTION_VARIANT.CHIP,
-        },
-      ],
-      text: "How can I help?",
-      type: MESSAGE_TYPE.PROMPT,
-    });
+    expect(result.messages[0]).toEqual(
+      expect.objectContaining({
+        inputPlaceholder: "Ask about datasets",
+        suggestions: [
+          {
+            label: "GLP-1",
+            query: "GLP-1 studies",
+            variant: SUGGESTION_VARIANT.CHIP,
+          },
+        ],
+        text: "How can I help?",
+        type: MESSAGE_TYPE.PROMPT,
+      }),
+    );
   });
 
   it("should preserve default status when initialArgs is provided", () => {

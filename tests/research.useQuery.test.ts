@@ -15,15 +15,11 @@ interface FetchCallbacks {
 // Mock fetchResponse
 const mockFetchResponse = jest.fn();
 
-jest.unstable_mockModule(
-  "../src/views/ExploreView/research/query/fetch",
-  () => ({
-    fetchResponse: mockFetchResponse,
-  }),
-);
+jest.unstable_mockModule("../src/views/ResearchView/query/fetch", () => ({
+  fetchResponse: mockFetchResponse,
+}));
 
-const { useQuery } =
-  await import("../src/views/ExploreView/research/query/useQuery");
+const { useQuery } = await import("../src/views/ResearchView/query/useQuery");
 
 /**
  * Creates a mock form event for testing.
