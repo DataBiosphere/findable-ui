@@ -1,5 +1,5 @@
 import { KeyboardEvent } from "react";
-import { isUserMessage } from "../../../../../../../common/ai/guards/guards";
+import { isUserMessage } from "../../../../../../../views/ResearchView/state/guards/guards";
 import { Message } from "../../../../../state/types";
 import { Refs } from "./types";
 import { KEY } from "./constants";
