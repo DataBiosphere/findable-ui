@@ -14,7 +14,7 @@ import {
  * @returns True if the message is an assistant message.
  */
 export function isAssistantMessage<R extends MessageResponse = MessageResponse>(
-  message: Message,
+  message: Message<R>,
 ): message is AssistantMessage<R> {
   return message.type === MESSAGE_TYPE.ASSISTANT;
 }
