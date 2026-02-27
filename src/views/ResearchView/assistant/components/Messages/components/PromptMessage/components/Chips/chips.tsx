@@ -4,13 +4,16 @@ import { Chip } from "@mui/material";
 import { CHIP_PROPS } from "../../../../../../../../../styles/common/mui/chip";
 import { StyledStack } from "./chips.styles";
 
-export const Chips = ({ message }: ChipsProps): JSX.Element | null => {
+export const Chips = ({
+  className,
+  message,
+}: ChipsProps): JSX.Element | null => {
   const suggestions = message.suggestions;
 
   if (!suggestions || suggestions.length === 0) return null;
 
   return (
-    <StyledStack gap={2} useFlexGap>
+    <StyledStack className={className} gap={2} useFlexGap>
       {suggestions.map((suggestion) => (
         <Chip
           key={`${suggestion.label}-${suggestion.query}`}

@@ -12,13 +12,20 @@ import { StyledForm } from "./form.styles";
  * @param props - Component props.
  * @param props.actions - Form actions.
  * @param props.children - Form children.
+ * @param props.className - Class name for styling.
  * @param props.status - Form status.
  * @returns The research form container element.
  */
-export const Form = ({ actions, children, status }: FormProps): JSX.Element => {
+export const Form = ({
+  actions,
+  children,
+  className,
+  status,
+}: FormProps): JSX.Element => {
   const dispatch = useChatDispatch();
   return (
     <StyledForm
+      className={className}
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={async (e) => {
         await actions.onSubmit(e, getPayload(e), {

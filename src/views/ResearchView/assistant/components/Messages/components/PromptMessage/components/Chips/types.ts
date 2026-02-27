@@ -1,5 +1,6 @@
+import { BaseComponentProps } from "../../../../../../../../../components/types";
 import { PromptMessage } from "../../../../../../../state/types";
 
-export interface ChipsProps {
+export interface ChipsProps extends BaseComponentProps {
   message: PromptMessage;
 }
