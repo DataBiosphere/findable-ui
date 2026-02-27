@@ -5,6 +5,6 @@ export const StyledStack = styled(Stack)`
   flex: 1;
   gap: 24px;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior-y: contain;
   padding: 16px;
 `;

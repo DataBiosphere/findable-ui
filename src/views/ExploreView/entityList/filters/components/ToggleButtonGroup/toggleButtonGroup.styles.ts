@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, ToggleButtonGroup } from "@mui/material";
-import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import { bpDownMd } from "../../../../../../styles/common/mixins/breakpoints";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 
 export const StyledBox = styled(Box)`
   margin-bottom: -16px;
@@ -14,6 +14,7 @@ export const StyledBox = styled(Box)`
 
 export const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   .MuiToggleButton-root {
+    gap: 4px;
     padding: 6px 16px;
     text-transform: none;
 

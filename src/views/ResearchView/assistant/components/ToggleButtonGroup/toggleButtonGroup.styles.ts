@@ -11,6 +11,7 @@ export const StyledBox = styled(Box)`
 
 export const StyledToggleButtonGroup = styled(ToggleButtonGroup)`
   .MuiToggleButton-root {
+    gap: 4px;
     padding: 6px 16px;
     text-transform: none;
 

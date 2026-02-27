@@ -104,6 +104,7 @@ export interface MessageResponse {
  * Prompt message in the chat, initiated by the system.
  */
 export interface PromptMessage extends BaseMessage {
+  initial?: boolean;
   inputPlaceholder?: string;
   suggestions?: PromptSuggestion[];
   text: string;
