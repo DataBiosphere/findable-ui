@@ -12,6 +12,7 @@ import {
   ChatState,
   MESSAGE_TYPE,
   MessageResponse,
+  SUGGESTION_VARIANT,
 } from "../src/views/ResearchView/state/types";
 import { initializer } from "../src/views/ResearchView/state/initializer/initializer";
 import { INITIAL_STATE } from "../src/views/ResearchView/state/constants";
@@ -415,8 +416,12 @@ describe("initializer", () => {
     const result = initializer({ text: "Welcome to the assistant" });
 
     expect(result.messages).toEqual([
-      { text: "Welcome to the assistant", type: MESSAGE_TYPE.PROMPT },
+      expect.objectContaining({
+        text: "Welcome to the assistant",
+        type: MESSAGE_TYPE.PROMPT,
+      }),
     ]);
+    expect(result.messages[0]).toHaveProperty("createdAt");
   });
 
   it("should include all initialArgs properties in the prompt message", () => {
@@ -433,18 +438,20 @@ describe("initializer", () => {
     });
 
     expect(result.messages).toHaveLength(1);
-    expect(result.messages[0]).toEqual({
-      inputPlaceholder: "Ask about datasets",
-      suggestions: [
-        {
-          label: "GLP-1",
-          query: "GLP-1 studies",
-          variant: SUGGESTION_VARIANT.CHIP,
-        },
-      ],
-      text: "How can I help?",
-      type: MESSAGE_TYPE.PROMPT,
-    });
+    expect(result.messages[0]).toEqual(
+      expect.objectContaining({
+        inputPlaceholder: "Ask about datasets",
+        suggestions: [
+          {
+            label: "GLP-1",
+            query: "GLP-1 studies",
+            variant: SUGGESTION_VARIANT.CHIP,
+          },
+        ],
+        text: "How can I help?",
+        type: MESSAGE_TYPE.PROMPT,
+      }),
+    );
   });
 
   it("should preserve default status when initialArgs is provided", () => {
