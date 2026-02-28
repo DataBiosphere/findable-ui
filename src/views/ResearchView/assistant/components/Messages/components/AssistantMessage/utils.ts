@@ -3,9 +3,9 @@ import { AssistantMessage } from "../../../../../state/types";
 /**
  * Formats mention mappings from an assistant message as a readable string.
  * @param message - Assistant message containing response mentions.
- * @returns Formatted facet-value mappings separated by slashes, or undefined if empty.
+ * @returns Formatted facet-value mappings separated by slashes, or empty string if no mentions.
  */
-export function getMappings(message: AssistantMessage): string | undefined {
+export function getMappings(message: AssistantMessage): string {
   const mappings = message.response.query.mentions.reduce<
     Record<string, string[]>
   >((acc, m) => {
@@ -22,9 +22,9 @@ export function getMappings(message: AssistantMessage): string | undefined {
 /**
  * Extracts original mention text from an assistant message.
  * @param message - Assistant message containing response mentions.
- * @returns Comma-separated original mention text, or undefined if empty.
+ * @returns Comma-separated original mention text, or empty string if no mentions.
  */
-export function getMentions(message: AssistantMessage): string | undefined {
+export function getMentions(message: AssistantMessage): string {
   return message.response.query.mentions
     .map((mention) => mention.originalText)
     .join(", ");
