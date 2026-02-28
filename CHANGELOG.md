@@ -1,5 +1,17 @@
 # Changelog
 
+## [49.1.0](https://github.com/DataBiosphere/findable-ui/compare/v49.0.0...v49.1.0) (2026-02-28)
+
+
+### Features
+
+* add research mode with chat-driven dataset discovery ([#778](https://github.com/DataBiosphere/findable-ui/issues/778)) ([#800](https://github.com/DataBiosphere/findable-ui/issues/800)) ([a844aaf](https://github.com/DataBiosphere/findable-ui/commit/a844aaf2927c76e80e97aa2b9dd7d1929da9bdfa))
+
+
+### Bug Fixes
+
+* improve tooltip ux with delay and better placement ([#775](https://github.com/DataBiosphere/findable-ui/issues/775)) ([#776](https://github.com/DataBiosphere/findable-ui/issues/776)) ([2d60b92](https://github.com/DataBiosphere/findable-ui/commit/2d60b927f91d28eabc8177ac81aa8fb8c8107db2))
+
 ## [49.0.0](https://github.com/DataBiosphere/findable-ui/compare/v48.1.0...v49.0.0) (2026-02-17)
 
 
