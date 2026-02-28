@@ -22,7 +22,12 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
         <ToggleButton component={Link} href={routes.research} value="research">
           Research <Beta />
         </ToggleButton>
-        <ToggleButton selected value="search">
+        <ToggleButton
+          component={Link}
+          href={routes.search}
+          selected
+          value="search"
+        >
           Search
         </ToggleButton>
       </StyledToggleButtonGroup>
