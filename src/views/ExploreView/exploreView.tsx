@@ -16,7 +16,6 @@ import { SearchAllFilters } from "../../components/Filter/components/SearchAllFi
 import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
 import { Index as IndexView } from "../../components/Index/index";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
-import { SidebarTools } from "../../components/Layout/components/Sidebar/components/SidebarTools/sidebarTools.styles";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
 import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
@@ -32,6 +31,8 @@ import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
+import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
+import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -137,16 +138,19 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
     <DrawerProvider>
       {categoryViews && !!categoryViews.length && (
         <Sidebar>
-          <SidebarTools data-testid={TEST_IDS.FILTER_CONTROLS}>
-            <SidebarLabel label={"Filters"} />
-            <Stack direction="row" gap={4}>
-              <ClearAllFilters />
-              <FilterSort
-                enabled={filterSortEnabled}
-                filterSort={filterSort}
-                onFilterSortChange={onFilterSortChange}
-              />
-            </Stack>
+          <ToggleButtonGroup />
+          <StyledStack>
+            <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>
+              <SidebarLabel label={"Filters"} />
+              <Stack direction="row" gap={4}>
+                <ClearAllFilters />
+                <FilterSort
+                  enabled={filterSortEnabled}
+                  filterSort={filterSort}
+                  onFilterSortChange={onFilterSortChange}
+                />
+              </Stack>
+            </StyledGrid>
             <SearchAllFilters
               categoryViews={categoryViews}
               onFilter={onFilterChange.bind(null, true)}
@@ -154,7 +158,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
                 mdDown ? SURFACE_TYPE.POPPER_DRAWER : SURFACE_TYPE.POPPER_MENU
               }
             />
-          </SidebarTools>
+          </StyledStack>
           <Filters
             categoryFilters={categoryFilters}
             onFilter={onFilterChange.bind(null, false)}

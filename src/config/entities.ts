@@ -27,6 +27,7 @@ import { ProviderId } from "../providers/authentication/common/types";
 import { ExploreState } from "../providers/exploreState";
 import { FileManifestState } from "../providers/fileManifestState";
 import { SystemStatus, SystemStatusResponse } from "../providers/systemStatus";
+import { AiConfig } from "../common/ai/config/types";
 
 /**
  * Interface to define the analytics configuration for a given site.
@@ -364,6 +365,7 @@ interface TrackingConfig {
  * Interface that will hold the whole configuration for a given site.
  */
 export interface SiteConfig {
+  ai?: AiConfig;
   analytics?: AnalyticsConfig;
   appTitle: string;
   authentication?: AuthenticationConfig;

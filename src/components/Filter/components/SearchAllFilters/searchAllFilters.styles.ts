@@ -3,6 +3,8 @@ import { Autocomplete } from "@mui/material";
 
 export const StyledAutocomplete = styled(Autocomplete)`
   &.MuiAutocomplete-root {
+    grid-column: 1 / -1;
+
     .MuiOutlinedInput-root {
       padding: 0 12px;
 
