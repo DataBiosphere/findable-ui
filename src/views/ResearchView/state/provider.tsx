@@ -2,10 +2,12 @@ import { JSX, ReactNode } from "react";
 import { ChatContext } from "./context";
 import { useChatReducer } from "./hooks/UseChatReducer/hook";
 import { InitialArgs } from "./initializer/types";
+import { QueryProvider } from "./query/provider";
 
 /**
  * Provider for Chat state.
  * Manages chat state such as query and response data.
+ * Nests QueryProvider to own the fetch lifecycle for query submission.
  *
  * @param props - Props.
  * @param props.children - Children.
@@ -22,6 +24,8 @@ export function ChatProvider({
 }): JSX.Element {
   const reducer = useChatReducer(initialArgs);
   return (
-    <ChatContext.Provider value={reducer}>{children}</ChatContext.Provider>
+    <ChatContext.Provider value={reducer}>
+      <QueryProvider>{children}</QueryProvider>
+    </ChatContext.Provider>
   );
 }

@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 import { FIELD_NAME } from "./constants";
-import { OnSubmitPayload } from "../../../query/types";
+import { OnSubmitPayload } from "../../../state/query/types";
 
 /**
  * Extracts and trims form values from a form element.
