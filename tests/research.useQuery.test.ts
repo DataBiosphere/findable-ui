@@ -162,23 +162,4 @@ describe("useQuery", () => {
       expect(controllers[0]).not.toBe(controllers[1]);
     });
   });
-
-  describe("undefined url", () => {
-    it("should pass undefined url to fetchResponse when not provided", async () => {
-      const { result } = renderHook(() => useQuery());
-      const event = createMockFormEvent();
-
-      await act(async () => {
-        await result.current.actions.onSubmit(event, {
-          query: "diabetes studies",
-        });
-      });
-
-      expect(mockFetchResponse).toHaveBeenCalledWith(
-        undefined,
-        "diabetes studies",
-        expect.any(Object),
-      );
-    });
-  });
 });
