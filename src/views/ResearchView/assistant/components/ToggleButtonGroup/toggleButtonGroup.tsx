@@ -6,9 +6,8 @@ import { useAiRoutes } from "../../../../../hooks/ai/useAiRoutes/hook";
 import { Beta } from "../../../../../components/common/Chip/components/Beta/beta";
 
 /**
- * ToggleButtonGroup component for navigating to ExploreView.
- * Only navigates to ExploreView when the "Search" button is clicked, otherwise remains on ResearchView.
- * @returns ToggleButtonGroup JSX element.
+ * ToggleButtonGroup component for navigating between ResearchView and ExploreView.
+ * @returns ToggleButtonGroup JSX element, or null if routes are not configured.
  */
 export const ToggleButtonGroup = (): JSX.Element | null => {
   const { routes } = useAiRoutes() || {};
