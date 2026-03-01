@@ -1,11 +1,10 @@
 import { JSX } from "react";
-import { useAdapter } from "../adapter/useAdapter";
+import { useChatState } from "../state/hooks/UseChatState/hook";
 import { Form } from "./components/Form/form";
 import { Input } from "./components/Input/input";
-import { Messages } from "./components/Messages/messages";
 import { getPlaceholder } from "./components/Input/utils";
+import { Messages } from "./components/Messages/messages";
 import { Drawer } from "./components/Drawer/drawer";
-import { useChatState } from "../state/hooks/UseChatState/hook";
 import { ToggleButtonGroup } from "./components/ToggleButtonGroup/toggleButtonGroup";
 
 /**
@@ -13,12 +12,11 @@ import { ToggleButtonGroup } from "./components/ToggleButtonGroup/toggleButtonGr
  * @returns The assistant drawer.
  */
 export const Assistant = (): JSX.Element => {
-  const { actions } = useAdapter();
   const { state } = useChatState();
   return (
     <Drawer>
       <ToggleButtonGroup />
-      <Form actions={actions} status={state.status}>
+      <Form status={state.status}>
         <Messages state={state} />
         <Input
           disabled={state.status.loading}

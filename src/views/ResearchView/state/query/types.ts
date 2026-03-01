@@ -1,15 +1,5 @@
 import { FormEvent } from "react";
-
-/**
- * Actions returned by the useQuery hook.
- */
-export interface Actions {
-  onSubmit: (
-    e: FormEvent<HTMLFormElement>,
-    payload: OnSubmitPayload,
-    options?: OnSubmitOptions,
-  ) => Promise<void>;
-}
+import { Status } from "../types";
 
 /**
  * Options for the onSubmit action.
@@ -19,7 +9,7 @@ export interface OnSubmitOptions {
   onMutate?: (form: HTMLFormElement, query: string) => void;
   onSettled?: (form: HTMLFormElement) => void;
   onSuccess?: (data: unknown) => void;
-  status?: { loading: boolean };
+  status: Status;
 }
 
 /**
@@ -30,8 +20,12 @@ export interface OnSubmitPayload {
 }
 
 /**
- * Return type for the useQuery hook.
+ * Context value for the QueryProvider.
  */
-export interface UseQuery {
-  actions: Actions;
+export interface QueryContextValue {
+  onSubmit: (
+    e: FormEvent<HTMLFormElement>,
+    payload: OnSubmitPayload,
+    options: OnSubmitOptions,
+  ) => Promise<void>;
 }

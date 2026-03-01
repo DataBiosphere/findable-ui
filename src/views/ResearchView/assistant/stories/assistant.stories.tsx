@@ -12,7 +12,7 @@ const meta: Meta<typeof Assistant> = {
   decorators: [
     (Story): JSX.Element => (
       <ConfigProvider config={INITIAL_CONFIG}>
-        <ChatProvider initialArgs={INITIAL_ARGS}>
+        <ChatProvider initialArgs={INITIAL_ARGS} url="https://api.example.com">
           <Box
             sx={{
               backgroundColor: PALETTE.COMMON_WHITE,
