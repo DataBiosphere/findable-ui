@@ -1,5 +1,12 @@
 # Changelog
 
+## [49.2.0](https://github.com/DataBiosphere/findable-ui/compare/v49.1.0...v49.2.0) (2026-03-01)
+
+
+### Features
+
+* lift query submission into queryprovider ([#803](https://github.com/DataBiosphere/findable-ui/issues/803)) ([466780e](https://github.com/DataBiosphere/findable-ui/commit/466780e12c3218bea29b82cd9759d24334573d91))
+
 ## [49.1.0](https://github.com/DataBiosphere/findable-ui/compare/v49.0.0...v49.1.0) (2026-02-28)
 
 
