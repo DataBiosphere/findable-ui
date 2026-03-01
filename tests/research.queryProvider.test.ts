@@ -24,7 +24,6 @@ const { useQuery } =
   await import("../src/views/ResearchView/state/query/hooks/UseQuery/hook");
 const { ChatProvider } =
   await import("../src/views/ResearchView/state/provider");
-const { ConfigContext } = await import("../src/providers/config");
 
 /**
  * Creates a mock form event for testing.
@@ -43,32 +42,15 @@ function createMockFormEvent(): FormEvent<HTMLFormElement> {
 }
 
 /**
- * Creates a wrapper component that provides ConfigContext and ChatProvider.
- * @param url - The AI URL to provide via config.
+ * Creates a wrapper component that provides ChatProvider with a URL.
+ * @param url - The query endpoint URL.
  * @returns A wrapper component for renderHook.
  */
 function createWrapper(
   url = "https://api.example.com",
 ): ({ children }: { children: ReactNode }) => ReactNode {
   return function Wrapper({ children }: { children: ReactNode }): ReactNode {
-    return React.createElement(
-      ConfigContext.Provider,
-      {
-        value: {
-          config: {
-            ai: {
-              enabled: true,
-              routes: { research: "/research", search: "/search" },
-              url,
-            },
-          } as never,
-          defaultEntityListType: "",
-          entityConfig: {} as never,
-          entityListType: "",
-        },
-      },
-      React.createElement(ChatProvider, {}, children),
-    );
+    return React.createElement(ChatProvider, { url }, children);
   };
 }
 

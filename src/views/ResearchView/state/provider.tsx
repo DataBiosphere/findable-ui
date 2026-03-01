@@ -12,20 +12,23 @@ import { QueryProvider } from "./query/provider";
  * @param props - Props.
  * @param props.children - Children.
  * @param props.initialArgs - Initial arguments.
+ * @param props.url - URL for the query endpoint.
  *
  * @returns A context provider wrapping the given children.
  */
 export function ChatProvider({
   children,
   initialArgs,
+  url,
 }: {
   children: ReactNode;
   initialArgs?: InitialArgs;
+  url: string;
 }): JSX.Element {
   const reducer = useChatReducer(initialArgs);
   return (
     <ChatContext.Provider value={reducer}>
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider url={url}>{children}</QueryProvider>
     </ChatContext.Provider>
   );
 }
