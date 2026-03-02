@@ -17,6 +17,9 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
   return (
     <StyledBox>
       <StyledToggleButtonGroup exclusive>
+        <ToggleButton component={Link} href={routes.search} value="search">
+          Search
+        </ToggleButton>
         <ToggleButton
           component={Link}
           href={routes.research}
@@ -24,9 +27,6 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
           value="research"
         >
           Research <Beta />
-        </ToggleButton>
-        <ToggleButton component={Link} href={routes.search} value="search">
-          Search
         </ToggleButton>
       </StyledToggleButtonGroup>
     </StyledBox>
