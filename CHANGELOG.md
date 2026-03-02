@@ -1,5 +1,19 @@
 # Changelog
 
+## [49.2.0](https://github.com/DataBiosphere/findable-ui/compare/v49.1.0...v49.2.0) (2026-03-02)
+
+
+### Features
+
+* add href to selected toggle buttons for navigation ([#805](https://github.com/DataBiosphere/findable-ui/issues/805)) ([7bacb28](https://github.com/DataBiosphere/findable-ui/commit/7bacb280d4075bb2f403d076e14ee58d26905045))
+* lift query submission into queryprovider ([#803](https://github.com/DataBiosphere/findable-ui/issues/803)) ([466780e](https://github.com/DataBiosphere/findable-ui/commit/466780e12c3218bea29b82cd9759d24334573d91))
+
+
+### Bug Fixes
+
+* use instant scroll on mount and smooth scroll on subsequent updates ([#806](https://github.com/DataBiosphere/findable-ui/issues/806)) ([30777a7](https://github.com/DataBiosphere/findable-ui/commit/30777a7338f28726959b757ffad8577890c56db0))
+* use instant scroll on mount for messages panel ([#807](https://github.com/DataBiosphere/findable-ui/issues/807)) ([30777a7](https://github.com/DataBiosphere/findable-ui/commit/30777a7338f28726959b757ffad8577890c56db0))
+
 ## [49.1.0](https://github.com/DataBiosphere/findable-ui/compare/v49.0.0...v49.1.0) (2026-02-28)
 
 
