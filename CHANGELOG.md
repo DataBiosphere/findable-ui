@@ -1,5 +1,12 @@
 # Changelog
 
+## [49.3.0](https://github.com/DataBiosphere/findable-ui/compare/v49.2.0...v49.3.0) (2026-03-02)
+
+
+### Features
+
+* render the research toggle button after the search toggle ([#809](https://github.com/DataBiosphere/findable-ui/issues/809)) ([#810](https://github.com/DataBiosphere/findable-ui/issues/810)) ([88ae5e5](https://github.com/DataBiosphere/findable-ui/commit/88ae5e5887b75cec3729a556bc7672c7842aa340))
+
 ## [49.2.0](https://github.com/DataBiosphere/findable-ui/compare/v49.1.0...v49.2.0) (2026-03-02)
 
 
