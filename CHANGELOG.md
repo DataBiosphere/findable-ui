@@ -1,5 +1,12 @@
 # Changelog
 
+## [49.4.0](https://github.com/DataBiosphere/findable-ui/compare/v49.3.0...v49.4.0) (2026-03-04)
+
+
+### Features
+
+* add tracking to research mode submit ([#812](https://github.com/DataBiosphere/findable-ui/issues/812)) ([#813](https://github.com/DataBiosphere/findable-ui/issues/813)) ([de4fac9](https://github.com/DataBiosphere/findable-ui/commit/de4fac9690dadd441fa14b5edafe8691f0bc5ebb))
+
 ## [49.3.0](https://github.com/DataBiosphere/findable-ui/compare/v49.2.0...v49.3.0) (2026-03-02)
 
 
