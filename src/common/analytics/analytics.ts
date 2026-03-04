@@ -26,14 +26,16 @@ function isTrackingEnabled(): boolean {
 }
 
 /**
- * Send custom event to GTM.
+ * Sends a custom event to GTM without params.
  * @param eventName - Event name.
+ * @returns void.
  */
 export function track(eventName: Exclude<EVENT_NAME, keyof EventParams>): void;
 /**
- * Send custom event to GTM.
+ * Sends a custom event to GTM with params.
  * @param eventName - Event name.
  * @param params - Event params.
+ * @returns void.
  */
 export function track<E extends keyof EventParams>(
   eventName: E,
