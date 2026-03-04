@@ -1,6 +1,6 @@
 {
   "name": "@databiosphere/findable-ui",
-  "version": "49.3.0",
+  "version": "49.4.0",
   "description": "",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
