@@ -6,6 +6,7 @@ export type DataLayer = any;
  */
 export enum EVENT_NAME {
   BULK_DOWNLOAD_REQUESTED = "bulk_download_requested",
+  CHAT_SUBMITTED = "chat_submitted",
   ENTITY_SELECTED = "entity_selected",
   ENTITY_TABLE_PAGINATED = "entity_table_paginated",
   ENTITY_TABLE_SORTED = "entity_table_sorted",
@@ -13,7 +14,6 @@ export enum EVENT_NAME {
   FILTER_SELECTED = "filter_selected",
   INDEX_ANALYZE_IN_TERRA_REQUESTED = "index_analyze_in_terra_requested",
   INDEX_FILE_MANIFEST_REQUESTED = "index_file_manifest_requested",
-  RESEARCH_SEARCH = "research_search",
 }
 
 /**
@@ -25,7 +25,6 @@ export enum EVENT_PARAM {
   FILTER_NAME = "filter_name",
   FILTER_VALUE = "filter_value",
   PAGINATION_DIRECTION = "pagination_direction",
-  QUERY = "query",
   RELATED_ENTITY_ID = "related_entity_id",
   RELATED_ENTITY_NAME = "related_entity_name",
   SORT_DIRECTION = "sort_direction",
@@ -80,8 +79,5 @@ export type EventParams = {
   };
   [EVENT_NAME.INDEX_FILE_MANIFEST_REQUESTED]: {
     [EVENT_PARAM.ENTITY_NAME]: string;
-  };
-  [EVENT_NAME.RESEARCH_SEARCH]: {
-    [EVENT_PARAM.QUERY]: string;
   };
 };

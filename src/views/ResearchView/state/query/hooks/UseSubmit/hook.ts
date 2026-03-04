@@ -8,10 +8,7 @@ import {
   QueryContextValue,
 } from "../../types";
 import { track } from "../../../../../../common/analytics/analytics";
-import {
-  EVENT_NAME,
-  EVENT_PARAM,
-} from "../../../../../../common/analytics/entities";
+import { EVENT_NAME } from "../../../../../../common/analytics/entities";
 
 /**
  * Hook that manages query submission and abort lifecycle.
@@ -35,8 +32,8 @@ export const useSubmit = (url: string): Pick<QueryContextValue, "onSubmit"> => {
       const { query } = payload;
       if (!query) return;
 
-      // Tracking
-      track(EVENT_NAME.RESEARCH_SEARCH, { [EVENT_PARAM.QUERY]: query });
+      // Tracking chat submission event.
+      track(EVENT_NAME.CHAT_SUBMITTED);
 
       const form = e.currentTarget;
 
