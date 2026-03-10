@@ -1,5 +1,13 @@
 # Changelog
 
+## [49.4.1](https://github.com/DataBiosphere/findable-ui/compare/v49.4.0...v49.4.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* update metadata download to use azul_url ([#817](https://github.com/DataBiosphere/findable-ui/issues/817)) ([e493d99](https://github.com/DataBiosphere/findable-ui/commit/e493d9938b3603ccd0bbf0d7f5dda2586ec53d00))
+* update metadata download to use azul_url [#816](https://github.com/DataBiosphere/findable-ui/issues/816) ([e493d99](https://github.com/DataBiosphere/findable-ui/commit/e493d9938b3603ccd0bbf0d7f5dda2586ec53d00))
+
 ## [49.4.0](https://github.com/DataBiosphere/findable-ui/compare/v49.3.0...v49.4.0) (2026-03-04)
 
 
