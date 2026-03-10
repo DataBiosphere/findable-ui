@@ -19,7 +19,7 @@ export const ConnectTerraToNIHAccount = ({
 }: ConnectTerraToNIHAccountProps): JSX.Element | null => {
   const onGotoTutorial = (): void => {
     window.open(
-      "https://support.terra.bio/hc/en-us/articles/19124069598235-Access-controlled-data-files-by-linking-your-NIH-account-in-Terra",
+      "https://support.terra.bio/hc/en-us/articles/32634034451099-RAS-Integration-for-AnVIL-Data-Launching-3-25-26",
       ANCHOR_TARGET.BLANK,
       REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
     );
