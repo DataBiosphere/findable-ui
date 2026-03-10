@@ -105,6 +105,6 @@ function getManifestSpreadsheet(
 
   return {
     fileName: file.files[0]?.name,
-    fileUrl: buildFetchFileUrl(file.files[0]?.url),
+    fileUrl: buildFetchFileUrl(file.files[0]?.azul_url),
   };
 }
