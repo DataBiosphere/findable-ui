@@ -1,5 +1,12 @@
 # Changelog
 
+## [49.6.0](https://github.com/DataBiosphere/findable-ui/compare/v49.5.0...v49.6.0) (2026-03-12)
+
+
+### Features
+
+* drop extracted mentions and mappings from chat response display ([#822](https://github.com/DataBiosphere/findable-ui/issues/822)) ([#823](https://github.com/DataBiosphere/findable-ui/issues/823)) ([a8a33e8](https://github.com/DataBiosphere/findable-ui/commit/a8a33e86a44f5707b15da60e585b8e25010e6d94))
+
 ## [49.5.0](https://github.com/DataBiosphere/findable-ui/compare/v49.4.1...v49.5.0) (2026-03-12)
 
 
