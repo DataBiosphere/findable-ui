@@ -1,5 +1,13 @@
 # Changelog
 
+## [49.5.0](https://github.com/DataBiosphere/findable-ui/compare/v49.4.1...v49.5.0) (2026-03-12)
+
+
+### Features
+
+* migrate NIH account link check to ECM API [#819](https://github.com/DataBiosphere/findable-ui/issues/819) ([#820](https://github.com/DataBiosphere/findable-ui/issues/820)) ([34e5c2f](https://github.com/DataBiosphere/findable-ui/commit/34e5c2fcae9dfddb102ba03dce60658da7a4d4c7))
+* migrate NIH account link check to External Credentials Manager API [#819](https://github.com/DataBiosphere/findable-ui/issues/819) ([34e5c2f](https://github.com/DataBiosphere/findable-ui/commit/34e5c2fcae9dfddb102ba03dce60658da7a4d4c7))
+
 ## [49.4.1](https://github.com/DataBiosphere/findable-ui/compare/v49.4.0...v49.4.1) (2026-03-10)
 
 
