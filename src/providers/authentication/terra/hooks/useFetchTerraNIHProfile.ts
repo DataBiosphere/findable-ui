@@ -6,11 +6,7 @@ import {
   LOGIN_STATUS_PENDING,
   TERRA_SERVICE_ID,
 } from "./common/constants";
-import {
-  LoginResponseError,
-  LoginStatus,
-  REQUEST_STATUS,
-} from "./common/entities";
+import { LoginStatus, REQUEST_STATUS } from "./common/entities";
 import {
   getAuthenticationRequestOptions,
   initLoginStatus,
@@ -19,17 +15,12 @@ import { getServiceEndpoint } from "./utils";
 
 const ENDPOINT_ID = "nihStatus";
 
-interface DatasetPermission {
-  authorized: boolean;
-  name: string;
-}
-
 type Status = LoginStatus<TerraNIHResponse>;
 
 export interface TerraNIHResponse {
-  datasetPermissions: DatasetPermission[];
-  linkedNihUsername: string;
-  linkExpireTime: number;
+  authenticated?: boolean;
+  expirationTimestamp: string;
+  externalUserId: string;
 }
 
 /**
@@ -53,18 +44,30 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
       }
       setLoginStatus(LOGIN_STATUS_PENDING as Status);
       fetch(endpoint, getAuthenticationRequestOptions(accessToken))
-        .then((response) => response.json())
-        .then((response: LoginResponseError | TerraNIHResponse) => {
-          if (isResponseError(response)) {
-            setLoginStatus(LOGIN_STATUS_FAILED as Status);
-          } else {
+        .then((response) => {
+          if (response.status === 404) {
             setLoginStatus((prevStatus) => ({
               ...prevStatus,
-              isSuccess: isResponseSuccess(response),
+              isSuccess: false,
               requestStatus: REQUEST_STATUS.COMPLETED,
-              response,
+              response: undefined,
             }));
+            return;
           }
+          if (!response.ok) {
+            setLoginStatus(LOGIN_STATUS_FAILED as Status);
+            return;
+          }
+          return response.json();
+        })
+        .then((response?: TerraNIHResponse) => {
+          if (!response) return;
+          setLoginStatus((prevStatus) => ({
+            ...prevStatus,
+            isSuccess: isResponseSuccess(response),
+            requestStatus: REQUEST_STATUS.COMPLETED,
+            response,
+          }));
         })
         .catch((err) => {
           console.log(err); // TODO handle error.
@@ -84,21 +87,10 @@ export const useFetchTerraNIHProfile = (token?: string): Status => {
 };
 
 /**
- * Returns true if response is an error response.
- * @param response - Response.
- * @returns true if response is an error response.
- */
-function isResponseError(
-  response: TerraNIHResponse | LoginResponseError,
-): response is LoginResponseError {
-  return Boolean((response as LoginResponseError).statusCode);
-}
-
-/**
- * Returns true if the user accepted terms of service version is current.
+ * Returns true if the user has a linked external account.
  * @param response - Response.
  * @returns true if response is successful.
  */
 function isResponseSuccess(response: TerraNIHResponse): boolean {
-  return Boolean(response.linkedNihUsername);
+  return Boolean(response.externalUserId);
 }

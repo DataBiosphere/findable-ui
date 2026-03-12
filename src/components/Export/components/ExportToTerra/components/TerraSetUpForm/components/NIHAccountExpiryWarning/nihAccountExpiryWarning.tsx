@@ -10,7 +10,7 @@ import { Link } from "../../../../../../../Links/components/Link/link";
 
 export const NIHAccountExpiryWarning = (): JSX.Element | null => {
   const expiryStatus = useAuthenticationNIHExpiry();
-  const { isReady, linkExpired, linkExpireTime, linkWillExpire } =
+  const { expirationTimestamp, isReady, linkExpired, linkWillExpire } =
     expiryStatus || {};
 
   if (!isReady) return null;
@@ -18,12 +18,12 @@ export const NIHAccountExpiryWarning = (): JSX.Element | null => {
   return linkWillExpire || linkExpired ? (
     <Alert {...ALERT_PROPS.STANDARD_WARNING} component={FluidPaper}>
       <span>
-        <span>{getExpiryMessage(linkExpired, linkExpireTime)}</span>{" "}
+        <span>{getExpiryMessage(linkExpired, expirationTimestamp)}</span>{" "}
         <span>
           Please{" "}
           <Link
             label="renew your account"
-            url="https://support.terra.bio/hc/en-us/articles/19124069598235"
+            url="https://support.terra.bio/hc/en-us/articles/32634034451099-RAS-Integration-for-AnVIL-Data-Launching-3-25-26"
           />{" "}
           link.
         </span>
@@ -34,27 +34,33 @@ export const NIHAccountExpiryWarning = (): JSX.Element | null => {
 
 /**
  * Calculates the remaining days until the link expires.
- * @param expireTime - Link expiration time in seconds.
+ * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
  * @returns remaining days until the link expires.
  */
-function getExpireTimeInDays(expireTime?: number): number {
-  if (!expireTime) {
+function getExpireTimeInDays(expirationTimestamp?: string): number {
+  if (!expirationTimestamp) {
     return 0;
   }
-  return Math.max(Math.ceil(expireTimeInSeconds(expireTime) / 60 / 60 / 24), 0);
+  return Math.max(
+    Math.ceil(expireTimeInSeconds(expirationTimestamp) / 60 / 60 / 24),
+    0,
+  );
 }
 
 /**
  * Returns an expiration message indicating whether the provided link has already expired or is set to expire.
  * @param linkExpired - Link expired flag.
- * @param expireTime - Link expiration time in seconds.
+ * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
  * @returns expiration message.
  */
-function getExpiryMessage(linkExpired?: boolean, expireTime?: number): string {
+function getExpiryMessage(
+  linkExpired?: boolean,
+  expirationTimestamp?: string,
+): string {
   if (linkExpired) {
     return "Your NIH account link has expired.";
   }
   return `Your NIH account link will expire in ${getExpireTimeInDays(
-    expireTime,
+    expirationTimestamp,
   )} days.`;
 }

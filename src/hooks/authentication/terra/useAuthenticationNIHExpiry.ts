@@ -4,9 +4,9 @@ import { REQUEST_STATUS } from "../../../providers/authentication/terra/hooks/co
 const WARNING_WINDOW_SECONDS = 60 * 60 * 24 * 5; // 5 days.
 
 interface UseAuthenticationNIHExpiry {
+  expirationTimestamp?: string;
   isReady: boolean;
   linkExpired?: boolean;
-  linkExpireTime?: number;
   linkWillExpire?: boolean;
 }
 
@@ -17,13 +17,13 @@ interface UseAuthenticationNIHExpiry {
 export const useAuthenticationNIHExpiry = (): UseAuthenticationNIHExpiry => {
   const { terraNIHProfileLoginStatus } = useTerraProfile();
   const { requestStatus, response } = terraNIHProfileLoginStatus;
-  const { linkExpireTime } = response || {};
+  const { expirationTimestamp } = response || {};
   const isReady = requestStatus === REQUEST_STATUS.COMPLETED;
-  const linkExpired = hasLinkedNIHAccountExpired(linkExpireTime);
-  const linkWillExpire = isLinkedNIHAccountWillExpire(linkExpireTime);
+  const linkExpired = hasLinkedNIHAccountExpired(expirationTimestamp);
+  const linkWillExpire = isLinkedNIHAccountWillExpire(expirationTimestamp);
   return {
+    expirationTimestamp,
     isReady,
-    linkExpireTime,
     linkExpired,
     linkWillExpire,
   };
@@ -31,31 +31,33 @@ export const useAuthenticationNIHExpiry = (): UseAuthenticationNIHExpiry => {
 
 /**
  * Calculates the remaining time in seconds until the given expiration time.
- * @param expireTime - Expire time in seconds.
+ * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
  * @returns remaining time in seconds.
  */
-export function expireTimeInSeconds(expireTime: number): number {
-  return expireTime - Date.now() / 1000;
+export function expireTimeInSeconds(expirationTimestamp: string): number {
+  return new Date(expirationTimestamp).getTime() / 1000 - Date.now() / 1000;
 }
 
 /**
  * Returns true if the linked NIH account has expired.
- * @param expireTime - Expire time in seconds.
+ * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
  * @returns true if the linked NIH account has expired.
  */
-function hasLinkedNIHAccountExpired(expireTime?: number): boolean | undefined {
-  if (!expireTime) return;
-  return expireTimeInSeconds(expireTime) < 0;
+function hasLinkedNIHAccountExpired(
+  expirationTimestamp?: string,
+): boolean | undefined {
+  if (!expirationTimestamp) return;
+  return expireTimeInSeconds(expirationTimestamp) < 0;
 }
 
 /**
  * Returns true if the linked NIH account will expire in less than a week.
- * @param expireTime - Expire time in seconds.
+ * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
  * @returns true if the linked NIH account will expire in less than a week.
  */
 function isLinkedNIHAccountWillExpire(
-  expireTime?: number,
+  expirationTimestamp?: string,
 ): boolean | undefined {
-  if (!expireTime) return;
-  return expireTimeInSeconds(expireTime) < WARNING_WINDOW_SECONDS;
+  if (!expirationTimestamp) return;
+  return expireTimeInSeconds(expirationTimestamp) < WARNING_WINDOW_SECONDS;
 }
