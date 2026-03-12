@@ -7,7 +7,7 @@ import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typogra
  * Renders an assistant message.
  * @param props - Component props.
  * @param props.message - Assistant message.
- * @returns The assistant message element.
+ * @returns The assistant message element, or null if there is no message.
  */
 export const AssistantMessage = ({
   message,
