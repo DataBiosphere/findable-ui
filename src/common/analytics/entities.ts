@@ -7,6 +7,8 @@ export type DataLayer = any;
 export enum EVENT_NAME {
   BULK_DOWNLOAD_REQUESTED = "bulk_download_requested",
   CHAT_SUBMITTED = "chat_submitted",
+  DATASET_ANALYZE_IN_TERRA_REQUESTED = "dataset_analyze_in_terra_requested",
+  DATASET_FILE_MANIFEST_REQUESTED = "dataset_file_manifest_requested",
   ENTITY_SELECTED = "entity_selected",
   ENTITY_TABLE_PAGINATED = "entity_table_paginated",
   ENTITY_TABLE_SORTED = "entity_table_sorted",
@@ -55,6 +57,8 @@ export type EventParams = {
     [EVENT_PARAM.ENTITY_NAME]: string;
     [EVENT_PARAM.TOOL_NAME]: string;
   };
+  [EVENT_NAME.DATASET_ANALYZE_IN_TERRA_REQUESTED]: Record<string, never>;
+  [EVENT_NAME.DATASET_FILE_MANIFEST_REQUESTED]: Record<string, never>;
   [EVENT_NAME.ENTITY_SELECTED]: { [EVENT_PARAM.ENTITY_NAME]: string };
   [EVENT_NAME.ENTITY_TABLE_PAGINATED]: {
     [EVENT_PARAM.ENTITY_NAME]: string;

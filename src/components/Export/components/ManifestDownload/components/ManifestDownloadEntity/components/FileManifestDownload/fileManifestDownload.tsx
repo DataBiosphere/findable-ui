@@ -5,6 +5,7 @@ import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestDownload } from "../../../../../../../../hooks/useFileManifest/useFileManifestDownload";
 import { useLoginGuard } from "../../../../../../../../providers/loginGuard/hook";
+import { trackDatasetFileManifestRequested } from "../../../../../../common/tracking";
 import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
@@ -59,7 +60,12 @@ export const FileManifestDownload = ({
                         <Button
                           {...BUTTON_PROPS.PRIMARY_CONTAINED}
                           disabled={disabled || isLoading}
-                          onClick={() => requireLogin(requestManifest)}
+                          onClick={(): void => {
+                            requireLogin(() => {
+                              trackDatasetFileManifestRequested();
+                              requestManifest();
+                            });
+                          }}
                         >
                           Request link
                         </Button>

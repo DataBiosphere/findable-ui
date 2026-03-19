@@ -18,6 +18,20 @@ export function trackBulkDownloadRequested(
 }
 
 /**
+ * Executes event tracking for the dataset file manifest export.
+ */
+export function trackDatasetFileManifestRequested(): void {
+  track(EVENT_NAME.DATASET_FILE_MANIFEST_REQUESTED, {});
+}
+
+/**
+ * Executes event tracking for the dataset Terra export.
+ */
+export function trackDatasetExportToTerraRequested(): void {
+  track(EVENT_NAME.DATASET_ANALYZE_IN_TERRA_REQUESTED, {});
+}
+
+/**
  * Executes event tracking for the file manifest export.
  * @param entity_name - Entity (tab) name.
  */
