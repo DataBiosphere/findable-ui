@@ -7,6 +7,8 @@ export type DataLayer = any;
 export enum EVENT_NAME {
   BULK_DOWNLOAD_REQUESTED = "bulk_download_requested",
   CHAT_SUBMITTED = "chat_submitted",
+  DATASET_ANALYZE_IN_TERRA_REQUESTED = "dataset_analyze_in_terra_requested",
+  DATASET_FILE_MANIFEST_REQUESTED = "dataset_file_manifest_requested",
   ENTITY_SELECTED = "entity_selected",
   ENTITY_TABLE_PAGINATED = "entity_table_paginated",
   ENTITY_TABLE_SORTED = "entity_table_sorted",

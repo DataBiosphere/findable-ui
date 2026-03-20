@@ -9,7 +9,10 @@ import { useRequestFileLocation } from "../../../../hooks/useRequestFileLocation
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
-import { trackExportToTerraRequested } from "../../common/tracking";
+import {
+  trackDatasetExportToTerraRequested,
+  trackExportToTerraRequested,
+} from "../../common/tracking";
 import { ExportToTerraNotStarted } from "./components/ExportToTerraNotStarted/exportToTerraNotStarted";
 import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerraReady";
 
@@ -21,6 +24,7 @@ export interface ExportToTerraProps {
   fileSummaryFacetName: string;
   filters: Filters; // Initializes export to terra filters.
   formFacet: FormFacet;
+  isDatasetExport?: boolean;
   manifestDownloadFormat?: ManifestDownloadFormat;
   manifestDownloadFormats: ManifestDownloadFormat[];
   speciesFacetName: string;
@@ -34,6 +38,7 @@ export const ExportToTerra = ({
   fileSummaryFacetName,
   filters,
   formFacet,
+  isDatasetExport = false,
   manifestDownloadFormat,
   manifestDownloadFormats,
   speciesFacetName,
@@ -68,9 +73,13 @@ export const ExportToTerra = ({
       isLoading={isLoading}
       manifestDownloadFormats={manifestDownloadFormats}
       onRequestManifest={(): void => {
-        // Execute GA tracking
-        trackExportToTerraRequested(entityList);
-        // Request manifest
+        // Execute GA tracking.
+        if (isDatasetExport) {
+          trackDatasetExportToTerraRequested();
+        } else {
+          trackExportToTerraRequested(entityList);
+        }
+        // Request manifest.
         run();
       }}
     />
