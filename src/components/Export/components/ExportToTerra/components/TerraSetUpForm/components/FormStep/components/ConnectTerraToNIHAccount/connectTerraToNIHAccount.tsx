@@ -38,7 +38,7 @@ export const ConnectTerraToNIHAccount = ({
           tutorial below.
         </p>
       }
-      title="Connect Terra to your NIH account"
+      title="Connect Terra to your NIH Researcher Auth Service (RAS) account"
     />
   );
 };
