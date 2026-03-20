@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.1.0](https://github.com/DataBiosphere/findable-ui/compare/v50.0.0...v50.1.0) (2026-03-20)
+
+
+### Features
+
+* add dataset-specific analytics events for exports ([#831](https://github.com/DataBiosphere/findable-ui/issues/831)) ([aea5262](https://github.com/DataBiosphere/findable-ui/commit/aea526241a92767f51ed7f8540869484502a1478))
+
 ## [50.0.0](https://github.com/DataBiosphere/findable-ui/compare/v49.6.0...v50.0.0) (2026-03-20)
 
 
