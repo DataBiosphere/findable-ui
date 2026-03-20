@@ -34,11 +34,11 @@ export const ConnectTerraToNIHAccount = ({
       step={step}
       text={
         <p>
-          Next, connect your Terra account to your NIH account by following the
-          tutorial below.
+          Next, connect your Terra account to your NIH Researcher Auth Service
+          (RAS) account by following the tutorial below.
         </p>
       }
-      title="Connect Terra to your NIH account"
+      title="Connect Terra to your NIH Researcher Auth Service (RAS) account"
     />
   );
 };
