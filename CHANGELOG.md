@@ -1,5 +1,23 @@
 # Changelog
 
+## [50.0.0](https://github.com/DataBiosphere/findable-ui/compare/v49.6.0...v50.0.0) (2026-03-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* update minor dependencies to resolve npm audit vulnerabilities ([#828](https://github.com/DataBiosphere/findable-ui/issues/828))
+
+### Bug Fixes
+
+* update 'open to terra' button to be a href ([#825](https://github.com/DataBiosphere/findable-ui/issues/825)) ([#826](https://github.com/DataBiosphere/findable-ui/issues/826)) ([49f686a](https://github.com/DataBiosphere/findable-ui/commit/49f686ac3eae32c9dbe3dfb1762f5c7a62a1ed12))
+* update nih account title to include researcher auth service (ras) ([#832](https://github.com/DataBiosphere/findable-ui/issues/832)) ([#833](https://github.com/DataBiosphere/findable-ui/issues/833)) ([bc424e6](https://github.com/DataBiosphere/findable-ui/commit/bc424e66e2babe513faf12302070bec67554d4be))
+
+
+### Chores
+
+* update minor dependencies to resolve npm audit vulnerabilities ([#827](https://github.com/DataBiosphere/findable-ui/issues/827)) ([954fe91](https://github.com/DataBiosphere/findable-ui/commit/954fe91ff941bb0abfedcb5dd0e10d773d6b5cd4))
+* update minor dependencies to resolve npm audit vulnerabilities ([#828](https://github.com/DataBiosphere/findable-ui/issues/828)) ([954fe91](https://github.com/DataBiosphere/findable-ui/commit/954fe91ff941bb0abfedcb5dd0e10d773d6b5cd4))
+
 ## [49.6.0](https://github.com/DataBiosphere/findable-ui/compare/v49.5.0...v49.6.0) (2026-03-12)
 
 
