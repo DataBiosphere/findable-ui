@@ -58,9 +58,9 @@ function getExpiryMessage(
   expirationTimestamp?: string,
 ): string {
   if (linkExpired) {
-    return "Your NIH account link has expired.";
+    return "Your NIH Researcher Auth Service (RAS) account link has expired.";
   }
-  return `Your NIH account link will expire in ${getExpireTimeInDays(
+  return `Your NIH Researcher Auth Service (RAS) account link will expire in ${getExpireTimeInDays(
     expirationTimestamp,
   )} days.`;
 }
