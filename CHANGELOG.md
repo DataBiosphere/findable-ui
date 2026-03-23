@@ -1,5 +1,13 @@
 # Changelog
 
+## [50.1.1](https://github.com/DataBiosphere/findable-ui/compare/v50.1.0...v50.1.1) (2026-03-23)
+
+
+### Bug Fixes
+
+* update NIH account text to NIH Researcher Auth Service (RAS) account ([#835](https://github.com/DataBiosphere/findable-ui/issues/835)) ([b5fbb62](https://github.com/DataBiosphere/findable-ui/commit/b5fbb6277cef7c586b7e4157f509d904fb719e59))
+* update NIH account text to NIH Researcher Auth Service (RAS) account [#4719](https://github.com/DataBiosphere/findable-ui/issues/4719) ([b5fbb62](https://github.com/DataBiosphere/findable-ui/commit/b5fbb6277cef7c586b7e4157f509d904fb719e59))
+
 ## [50.1.0](https://github.com/DataBiosphere/findable-ui/compare/v50.0.0...v50.1.0) (2026-03-20)
 
 
