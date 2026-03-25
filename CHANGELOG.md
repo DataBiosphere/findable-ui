@@ -1,5 +1,18 @@
 # Changelog
 
+## [50.2.0](https://github.com/DataBiosphere/findable-ui/compare/v50.1.1...v50.2.0) (2026-03-25)
+
+
+### Features
+
+* add poweredbyclevercanary component to footer ([#838](https://github.com/DataBiosphere/findable-ui/issues/838)) ([#840](https://github.com/DataBiosphere/findable-ui/issues/840)) ([fbdcfaf](https://github.com/DataBiosphere/findable-ui/commit/fbdcfaf1b377ed765934cb885a923ae06122c540))
+
+
+### Chores
+
+* update storybook to 10.3.3 ([#839](https://github.com/DataBiosphere/findable-ui/issues/839)) ([95b3792](https://github.com/DataBiosphere/findable-ui/commit/95b3792dc7033f8ff664e247285c205243b1fdce))
+* update storybook to 10.3.3 ([#841](https://github.com/DataBiosphere/findable-ui/issues/841)) ([95b3792](https://github.com/DataBiosphere/findable-ui/commit/95b3792dc7033f8ff664e247285c205243b1fdce))
+
 ## [50.1.1](https://github.com/DataBiosphere/findable-ui/compare/v50.1.0...v50.1.1) (2026-03-23)
 
 
