@@ -22,6 +22,7 @@ export const PoweredByCleverCanary = ({
     <Logo
       alt={alt}
       className={className}
+      height={32}
       link="https://www.clevercanary.com"
       src={props.src}
       target={ANCHOR_TARGET.BLANK}
