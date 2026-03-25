@@ -1,8 +1,8 @@
-import { KeyboardEvent, useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useChatState } from "../../../../../state/hooks/UseChatState/hook";
-import { useInput } from "../../../../hooks/UseInput/hook";
+import { useInputActions } from "../../../../providers/InputProvider/hooks/UseInputActions/hook";
 import { KEY } from "./constants";
-import { UseKeyShortCutsProps } from "./types";
+import { KeyboardInputEvent, UseKeyShortCutsProps } from "./types";
 import {
   getHistory,
   handleArrowKey,
@@ -17,7 +17,7 @@ import {
  */
 export const useKeyShortCuts = (): UseKeyShortCutsProps => {
   const { state } = useChatState();
-  const { setValue } = useInput();
+  const { setValue } = useInputActions();
   const { messages } = state;
 
   const history = getHistory(messages);
@@ -32,7 +32,7 @@ export const useKeyShortCuts = (): UseKeyShortCutsProps => {
   }, [messages]);
 
   const onKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
+    (e: KeyboardInputEvent) => {
       const refs = { draftRef, historyIndexRef };
       if (e.key === KEY.ENTER) return handleEnterKey(e);
       if (e.key === KEY.ESCAPE) return handleEscapeKey(refs, setValue);

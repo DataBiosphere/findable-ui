@@ -1,6 +1,10 @@
 import { createContext } from "react";
-import { InputContextValue } from "./types";
+import { InputActionsContextValue, InputValueContextValue } from "./types";
 
-export const InputContext = createContext<InputContextValue>(
-  {} as InputContextValue,
-);
+export const InputActionsContext = createContext<
+  InputActionsContextValue | undefined
+>(undefined);
+
+export const InputValueContext = createContext<
+  InputValueContextValue | undefined
+>(undefined);

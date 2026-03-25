@@ -1,4 +1,7 @@
 import { Dispatch, KeyboardEvent, RefObject, SetStateAction } from "react";
+import { InputElement } from "../../../../providers/InputProvider/types";
+
+export type KeyboardInputEvent = KeyboardEvent<InputElement>;
 
 export interface Refs {
   draftRef: RefObject<string>;
@@ -8,5 +11,5 @@ export interface Refs {
 export type SetValue = Dispatch<SetStateAction<string>>;
 
 export interface UseKeyShortCutsProps {
-  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: KeyboardInputEvent) => void;
 }

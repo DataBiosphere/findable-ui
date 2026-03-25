@@ -1,7 +1,6 @@
-import { KeyboardEvent } from "react";
 import { isUserMessage } from "../../../../../state/guards/guards";
 import { Message } from "../../../../../state/types";
-import { Refs, SetValue } from "./types";
+import { KeyboardInputEvent, Refs, SetValue } from "./types";
 import { KEY } from "./constants";
 
 /**
@@ -24,7 +23,7 @@ export function getHistory(messages: Message[]): string[] {
  * @param setValue - Setter for the controlled input value.
  */
 export function handleArrowKey(
-  e: KeyboardEvent<HTMLInputElement>,
+  e: KeyboardInputEvent,
   history: string[],
   refs: Refs,
   setValue: SetValue,
@@ -59,7 +58,7 @@ export function handleArrowKey(
  * Handles the Enter key press to submit the form, or allows newline on Shift+Enter.
  * @param e - The keyboard event.
  */
-export function handleEnterKey(e: KeyboardEvent<HTMLInputElement>): void {
+export function handleEnterKey(e: KeyboardInputEvent): void {
   if (e.shiftKey) return;
   e.preventDefault();
   const formEl = e.currentTarget.form;
@@ -83,10 +82,7 @@ export function handleEscapeKey(refs: Refs, setValue: SetValue): void {
  * @param e - The keyboard event.
  * @param setValue - Setter for the controlled input value.
  */
-export function handleTabKey(
-  e: KeyboardEvent<HTMLInputElement>,
-  setValue: SetValue,
-): void {
+export function handleTabKey(e: KeyboardInputEvent, setValue: SetValue): void {
   const inputEl = e.currentTarget;
   if (e.currentTarget.value) return;
   e.preventDefault();

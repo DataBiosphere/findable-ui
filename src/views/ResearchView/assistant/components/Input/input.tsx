@@ -4,7 +4,8 @@ import { UpArrowIcon } from "../../../../../components/common/CustomIcon/compone
 import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
 import { STACK_PROPS } from "../../../../../styles/common/mui/stack";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
-import { useInput } from "../../hooks/UseInput/hook";
+import { useInputActions } from "../../providers/InputProvider/hooks/UseInputActions/hook";
+import { useInputValue } from "../../providers/InputProvider/hooks/UseInputValue/hook";
 import { INPUT_BASE_PROPS } from "./constants";
 import { useKeyShortCuts } from "./hooks/UseKeyShortCuts/hook";
 import { StyledBox, StyledPaper } from "./input.styles";
@@ -17,7 +18,8 @@ import { InputProps } from "./types";
  * @returns Research panel input component.
  */
 export const Input = ({ disabled, ...props }: InputProps): JSX.Element => {
-  const { onChange, value } = useInput();
+  const { onChange } = useInputActions();
+  const { value } = useInputValue();
   const { onKeyDown } = useKeyShortCuts();
   return (
     <StyledBox>

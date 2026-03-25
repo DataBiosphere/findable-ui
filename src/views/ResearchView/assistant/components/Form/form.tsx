@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { TEST_IDS } from "../../../../../tests/testIds";
-import { useInput } from "../../hooks/UseInput/hook";
 import { useQuery } from "../../../state/query/hooks/UseQuery/hook";
+import { useInputActions } from "../../providers/InputProvider/hooks/UseInputActions/hook";
 import { FIELD_NAME } from "./constants";
 import { StyledForm } from "./form.styles";
 import { FormProps } from "./types";
@@ -20,7 +20,7 @@ export const Form = ({
   className,
   status,
 }: FormProps): JSX.Element => {
-  const { setValue } = useInput();
+  const { setValue } = useInputActions();
   const { onSubmit } = useQuery();
   return (
     <StyledForm

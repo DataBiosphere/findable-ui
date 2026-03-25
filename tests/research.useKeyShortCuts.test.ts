@@ -15,7 +15,7 @@ interface MockInputElement {
 // Mock useChatState
 const mockUseChatState = jest.fn();
 const mockSetValue = jest.fn();
-const mockUseInput = jest.fn();
+const mockUseInputActions = jest.fn();
 
 jest.unstable_mockModule(
   "../src/views/ResearchView/state/hooks/UseChatState/hook",
@@ -23,8 +23,8 @@ jest.unstable_mockModule(
 );
 
 jest.unstable_mockModule(
-  "../src/views/ResearchView/assistant/hooks/UseInput/hook",
-  () => ({ useInput: mockUseInput }),
+  "../src/views/ResearchView/assistant/providers/InputProvider/hooks/UseInputActions/hook",
+  () => ({ useInputActions: mockUseInputActions }),
 );
 
 const { useKeyShortCuts } =
@@ -104,7 +104,7 @@ describe("useKeyShortCuts", () => {
   beforeEach(() => {
     mockUseChatState.mockReset();
     mockSetValue.mockReset();
-    mockUseInput.mockReturnValue({ setValue: mockSetValue });
+    mockUseInputActions.mockReturnValue({ setValue: mockSetValue });
     setupMockState([]);
   });
 
