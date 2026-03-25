@@ -1,7 +1,7 @@
 import { isUserMessage } from "../../../../../state/guards/guards";
 import { Message } from "../../../../../state/types";
-import { KEY } from "./constants";
 import { SetValue } from "../UseControlledInput/types";
+import { KEY } from "./constants";
 import { KeyboardInputEvent, Refs } from "./types";
 
 /**
@@ -89,7 +89,7 @@ export function handleEscapeKey(refs: Refs, setValue: SetValue): void {
  */
 export function handleTabKey(e: KeyboardInputEvent, setValue: SetValue): void {
   const inputEl = e.currentTarget;
-  if (e.currentTarget.value) return;
+  if (inputEl.value) return;
   e.preventDefault();
   setValue(inputEl.placeholder);
 }
