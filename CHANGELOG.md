@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.2.1](https://github.com/DataBiosphere/findable-ui/compare/v50.2.0...v50.2.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* set poweredbyclevercanary image height to 32px ([#845](https://github.com/DataBiosphere/findable-ui/issues/845)) ([fd1cbcc](https://github.com/DataBiosphere/findable-ui/commit/fd1cbcc985f4b56d7cca53d5eddf0c710d889c92))
+
 ## [50.2.0](https://github.com/DataBiosphere/findable-ui/compare/v50.1.1...v50.2.0) (2026-03-25)
 
 
