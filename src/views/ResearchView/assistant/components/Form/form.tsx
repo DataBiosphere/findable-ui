@@ -1,8 +1,6 @@
 import { JSX } from "react";
 import { TEST_IDS } from "../../../../../tests/testIds";
 import { useQuery } from "../../../state/query/hooks/UseQuery/hook";
-import { useInputActions } from "../../providers/InputProvider/hooks/UseInputActions/hook";
-import { FIELD_NAME } from "./constants";
 import { StyledForm } from "./form.styles";
 import { FormProps } from "./types";
 import { getPayload } from "./utils";
@@ -20,21 +18,13 @@ export const Form = ({
   className,
   status,
 }: FormProps): JSX.Element => {
-  const { setValue } = useInputActions();
   const { onSubmit } = useQuery();
   return (
     <StyledForm
       className={className}
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={async (e) => {
-        await onSubmit(e, getPayload(e), {
-          onMutate: () => setValue(""),
-          onSettled: (form) => {
-            const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
-            if (input instanceof HTMLElement) input.focus();
-          },
-          status,
-        });
+        await onSubmit(e, getPayload(e), { status });
       }}
     >
       {children}

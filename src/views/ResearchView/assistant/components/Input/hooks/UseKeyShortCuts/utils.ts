@@ -1,7 +1,8 @@
 import { isUserMessage } from "../../../../../state/guards/guards";
 import { Message } from "../../../../../state/types";
 import { KEY } from "./constants";
-import { KeyboardInputEvent, Refs, SetValue } from "./types";
+import { SetValue } from "../UseControlledInput/types";
+import { KeyboardInputEvent, Refs } from "./types";
 
 /**
  * Extracts the text of user messages from a list of messages and returns them in reverse order.

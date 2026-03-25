@@ -6,7 +6,6 @@ import { Input } from "./components/Input/input";
 import { getPlaceholder } from "./components/Input/utils";
 import { Messages } from "./components/Messages/messages";
 import { ToggleButtonGroup } from "./components/ToggleButtonGroup/toggleButtonGroup";
-import { InputProvider } from "./providers/InputProvider/provider";
 
 /**
  * Renders the research assistant drawer.
@@ -17,15 +16,13 @@ export const Assistant = (): JSX.Element => {
   return (
     <Drawer>
       <ToggleButtonGroup />
-      <InputProvider>
-        <Form status={state.status}>
-          <Messages state={state} />
-          <Input
-            disabled={state.status.loading}
-            placeholder={getPlaceholder(state)}
-          />
-        </Form>
-      </InputProvider>
+      <Form status={state.status}>
+        <Messages state={state} />
+        <Input
+          disabled={state.status.loading}
+          placeholder={getPlaceholder(state)}
+        />
+      </Form>
     </Drawer>
   );
 };

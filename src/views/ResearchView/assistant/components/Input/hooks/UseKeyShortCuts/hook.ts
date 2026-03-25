@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
+import { SetValue } from "../UseControlledInput/types";
 import { useChatState } from "../../../../../state/hooks/UseChatState/hook";
-import { useInputActions } from "../../../../providers/InputProvider/hooks/UseInputActions/hook";
 import { KEY } from "./constants";
 import { KeyboardInputEvent, UseKeyShortCutsProps } from "./types";
 import {
@@ -13,11 +13,11 @@ import {
 
 /**
  * Provides a keydown handler that implements keyboard shortcuts for the assistant input.
+ * @param setValue - Setter for the controlled input value.
  * @returns An object containing the onKeyDown handler.
  */
-export const useKeyShortCuts = (): UseKeyShortCutsProps => {
+export const useKeyShortCuts = (setValue: SetValue): UseKeyShortCutsProps => {
   const { state } = useChatState();
-  const { setValue } = useInputActions();
   const { messages } = state;
 
   const history = getHistory(messages);
