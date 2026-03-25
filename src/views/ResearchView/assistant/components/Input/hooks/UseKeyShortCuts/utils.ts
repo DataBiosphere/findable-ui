@@ -1,7 +1,7 @@
 import { isUserMessage } from "../../../../../state/guards/guards";
 import { Message } from "../../../../../state/types";
-import { KeyboardInputEvent, Refs, SetValue } from "./types";
 import { KEY } from "./constants";
+import { KeyboardInputEvent, Refs, SetValue } from "./types";
 
 /**
  * Extracts the text of user messages from a list of messages and returns them in reverse order.
@@ -21,6 +21,7 @@ export function getHistory(messages: Message[]): string[] {
  * @param history - The history entries to navigate.
  * @param refs - Refs for draft text and history index.
  * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
 export function handleArrowKey(
   e: KeyboardInputEvent,
@@ -57,6 +58,7 @@ export function handleArrowKey(
 /**
  * Handles the Enter key press to submit the form, or allows newline on Shift+Enter.
  * @param e - The keyboard event.
+ * @returns Void.
  */
 export function handleEnterKey(e: KeyboardInputEvent): void {
   if (e.shiftKey) return;
@@ -69,6 +71,7 @@ export function handleEnterKey(e: KeyboardInputEvent): void {
  * Handles the Escape key press to clear the input and reset history navigation.
  * @param refs - Refs for draft text and history index.
  * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
 export function handleEscapeKey(refs: Refs, setValue: SetValue): void {
   const { draftRef, historyIndexRef } = refs;
@@ -81,6 +84,7 @@ export function handleEscapeKey(refs: Refs, setValue: SetValue): void {
  * Handles the Tab key press to auto-fill the input with the placeholder.
  * @param e - The keyboard event.
  * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
 export function handleTabKey(e: KeyboardInputEvent, setValue: SetValue): void {
   const inputEl = e.currentTarget;

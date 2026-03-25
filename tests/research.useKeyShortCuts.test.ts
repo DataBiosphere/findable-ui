@@ -104,6 +104,7 @@ describe("useKeyShortCuts", () => {
   beforeEach(() => {
     mockUseChatState.mockReset();
     mockSetValue.mockReset();
+    mockUseInputActions.mockReset();
     mockUseInputActions.mockReturnValue({ setValue: mockSetValue });
     setupMockState([]);
   });
