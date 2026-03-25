@@ -1,3 +1,4 @@
 import { IconButtonProps, InputBaseProps } from "@mui/material";
 
-export type InputProps = InputBaseProps & Pick<IconButtonProps, "disabled">;
+export type InputProps = Omit<InputBaseProps, "onChange" | "value"> &
+  Pick<IconButtonProps, "disabled">;
