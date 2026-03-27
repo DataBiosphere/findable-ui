@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.3.0](https://github.com/DataBiosphere/findable-ui/compare/v50.2.1...v50.3.0) (2026-03-27)
+
+
+### Features
+
+* convert input to controlled component with inputprovider ([#815](https://github.com/DataBiosphere/findable-ui/issues/815)) ([#843](https://github.com/DataBiosphere/findable-ui/issues/843)) ([699f186](https://github.com/DataBiosphere/findable-ui/commit/699f186f8bff76a0806e2afe93bfd5815fea698b))
+
 ## [50.2.1](https://github.com/DataBiosphere/findable-ui/compare/v50.2.0...v50.2.1) (2026-03-25)
 
 
