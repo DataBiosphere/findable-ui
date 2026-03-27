@@ -1,4 +1,7 @@
 import { KeyboardEvent, RefObject } from "react";
+import { InputElement } from "../UseControlledInput/types";
+
+export type KeyboardInputEvent = KeyboardEvent<InputElement>;
 
 export interface Refs {
   draftRef: RefObject<string>;
@@ -6,5 +9,5 @@ export interface Refs {
 }
 
 export interface UseKeyShortCutsProps {
-  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyDown: (e: KeyboardInputEvent) => void;
 }

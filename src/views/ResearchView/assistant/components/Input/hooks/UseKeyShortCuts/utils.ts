@@ -1,8 +1,8 @@
-import { KeyboardEvent } from "react";
 import { isUserMessage } from "../../../../../state/guards/guards";
 import { Message } from "../../../../../state/types";
-import { Refs } from "./types";
+import { SetValue } from "../UseControlledInput/types";
 import { KEY } from "./constants";
+import { KeyboardInputEvent, Refs } from "./types";
 
 /**
  * Extracts the text of user messages from a list of messages and returns them in reverse order.
@@ -21,21 +21,23 @@ export function getHistory(messages: Message[]): string[] {
  * @param e - The keyboard event.
  * @param history - The history entries to navigate.
  * @param refs - Refs for draft text and history index.
+ * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
 export function handleArrowKey(
-  e: KeyboardEvent<HTMLInputElement>,
+  e: KeyboardInputEvent,
   history: string[],
   refs: Refs,
+  setValue: SetValue,
 ): void {
   const { draftRef, historyIndexRef } = refs;
-  const inputEl = e.currentTarget;
 
   if (e.key === KEY.ARROW_DOWN && historyIndexRef.current === -1) {
     return;
   }
 
   if (historyIndexRef.current === -1) {
-    draftRef.current = inputEl.value;
+    draftRef.current = e.currentTarget.value;
   }
 
   const currentIndex = historyIndexRef.current;
@@ -45,20 +47,21 @@ export function handleArrowKey(
       : Math.max(currentIndex - 1, -1);
 
   if (newIndex === -1) {
-    inputEl.value = draftRef.current;
+    setValue(draftRef.current);
     historyIndexRef.current = -1;
     return;
   }
 
-  inputEl.value = history[newIndex] || "";
+  setValue(history[newIndex] || "");
   historyIndexRef.current = newIndex;
 }
 
 /**
  * Handles the Enter key press to submit the form, or allows newline on Shift+Enter.
  * @param e - The keyboard event.
+ * @returns Void.
  */
-export function handleEnterKey(e: KeyboardEvent<HTMLInputElement>): void {
+export function handleEnterKey(e: KeyboardInputEvent): void {
   if (e.shiftKey) return;
   e.preventDefault();
   const formEl = e.currentTarget.form;
@@ -67,16 +70,13 @@ export function handleEnterKey(e: KeyboardEvent<HTMLInputElement>): void {
 
 /**
  * Handles the Escape key press to clear the input and reset history navigation.
- * @param e - The keyboard event.
  * @param refs - Refs for draft text and history index.
+ * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
-export function handleEscapeKey(
-  e: KeyboardEvent<HTMLInputElement>,
-  refs: Refs,
-): void {
+export function handleEscapeKey(refs: Refs, setValue: SetValue): void {
   const { draftRef, historyIndexRef } = refs;
-  const inputEl = e.currentTarget;
-  inputEl.value = "";
+  setValue("");
   draftRef.current = "";
   historyIndexRef.current = -1;
 }
@@ -84,10 +84,12 @@ export function handleEscapeKey(
 /**
  * Handles the Tab key press to auto-fill the input with the placeholder.
  * @param e - The keyboard event.
+ * @param setValue - Setter for the controlled input value.
+ * @returns Void.
  */
-export function handleTabKey(e: KeyboardEvent<HTMLInputElement>): void {
+export function handleTabKey(e: KeyboardInputEvent, setValue: SetValue): void {
   const inputEl = e.currentTarget;
   if (inputEl.value) return;
   e.preventDefault();
-  inputEl.value = inputEl.placeholder;
+  setValue(inputEl.placeholder);
 }

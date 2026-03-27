@@ -1,10 +1,10 @@
 import { JSX } from "react";
 import { useChatState } from "../state/hooks/UseChatState/hook";
+import { Drawer } from "./components/Drawer/drawer";
 import { Form } from "./components/Form/form";
 import { Input } from "./components/Input/input";
 import { getPlaceholder } from "./components/Input/utils";
 import { Messages } from "./components/Messages/messages";
-import { Drawer } from "./components/Drawer/drawer";
 import { ToggleButtonGroup } from "./components/ToggleButtonGroup/toggleButtonGroup";
 
 /**

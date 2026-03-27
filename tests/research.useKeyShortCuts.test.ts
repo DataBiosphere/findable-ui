@@ -14,6 +14,7 @@ interface MockInputElement {
 
 // Mock useChatState
 const mockUseChatState = jest.fn();
+const mockSetValue = jest.fn();
 
 jest.unstable_mockModule(
   "../src/views/ResearchView/state/hooks/UseChatState/hook",
@@ -96,12 +97,13 @@ function setupMockState(messages: Message[]): void {
 describe("useKeyShortCuts", () => {
   beforeEach(() => {
     mockUseChatState.mockReset();
+    mockSetValue.mockReset();
     setupMockState([]);
   });
 
   describe("enter key", () => {
     it("should prevent default and submit form on Enter", () => {
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("some query");
       const event = createMockKeyEvent("Enter", inputEl);
 
@@ -112,7 +114,7 @@ describe("useKeyShortCuts", () => {
     });
 
     it("should not prevent default on Shift+Enter", () => {
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("some query");
       const event = createMockKeyEvent("Enter", inputEl, true);
 
@@ -125,13 +127,13 @@ describe("useKeyShortCuts", () => {
 
   describe("escape key", () => {
     it("should clear input value on Escape", () => {
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("some text");
       const event = createMockKeyEvent("Escape", inputEl);
 
       result.current.onKeyDown(event);
 
-      expect(inputEl.value).toBe("");
+      expect(mockSetValue).toHaveBeenCalledWith("");
     });
   });
 
@@ -142,13 +144,13 @@ describe("useKeyShortCuts", () => {
         createPromptMessage("response"),
         createUserMessage("second query"),
       ]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl();
       const event = createMockKeyEvent("ArrowUp", inputEl);
 
       result.current.onKeyDown(event);
 
-      expect(inputEl.value).toBe("second query");
+      expect(mockSetValue).toHaveBeenCalledWith("second query");
     });
 
     it("should navigate through multiple history entries on ArrowUp", () => {
@@ -156,25 +158,25 @@ describe("useKeyShortCuts", () => {
         createUserMessage("first query"),
         createUserMessage("second query"),
       ]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl();
 
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
-      expect(inputEl.value).toBe("second query");
+      expect(mockSetValue).toHaveBeenLastCalledWith("second query");
 
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
-      expect(inputEl.value).toBe("first query");
+      expect(mockSetValue).toHaveBeenLastCalledWith("first query");
     });
 
     it("should clamp at oldest history entry on ArrowUp", () => {
       setupMockState([createUserMessage("only query")]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl();
 
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
 
-      expect(inputEl.value).toBe("only query");
+      expect(mockSetValue).toHaveBeenLastCalledWith("only query");
     });
 
     it("should navigate forward on ArrowDown and restore draft at index -1", () => {
@@ -182,63 +184,63 @@ describe("useKeyShortCuts", () => {
         createUserMessage("first query"),
         createUserMessage("second query"),
       ]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("my draft");
 
       // Navigate up twice.
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
-      expect(inputEl.value).toBe("first query");
+      expect(mockSetValue).toHaveBeenLastCalledWith("first query");
 
       // Navigate down once.
       result.current.onKeyDown(createMockKeyEvent("ArrowDown", inputEl));
-      expect(inputEl.value).toBe("second query");
+      expect(mockSetValue).toHaveBeenLastCalledWith("second query");
 
       // Navigate down to restore draft.
       result.current.onKeyDown(createMockKeyEvent("ArrowDown", inputEl));
-      expect(inputEl.value).toBe("my draft");
+      expect(mockSetValue).toHaveBeenLastCalledWith("my draft");
     });
 
     it("should not navigate on ArrowDown when not browsing history", () => {
       setupMockState([createUserMessage("some query")]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("current text");
       const event = createMockKeyEvent("ArrowDown", inputEl);
 
       result.current.onKeyDown(event);
 
-      expect(inputEl.value).toBe("current text");
+      expect(mockSetValue).not.toHaveBeenCalled();
     });
 
     it("should save draft before entering history", () => {
       setupMockState([createUserMessage("history entry")]);
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("my draft text");
 
       // Navigate up to save draft and enter history.
       result.current.onKeyDown(createMockKeyEvent("ArrowUp", inputEl));
-      expect(inputEl.value).toBe("history entry");
+      expect(mockSetValue).toHaveBeenLastCalledWith("history entry");
 
       // Navigate down to restore draft.
       result.current.onKeyDown(createMockKeyEvent("ArrowDown", inputEl));
-      expect(inputEl.value).toBe("my draft text");
+      expect(mockSetValue).toHaveBeenLastCalledWith("my draft text");
     });
   });
 
   describe("tab key", () => {
     it("should fill input with placeholder when input is empty", () => {
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl("", "Search for studies...");
       const event = createMockKeyEvent("Tab", inputEl);
 
       result.current.onKeyDown(event);
 
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(inputEl.value).toBe("Search for studies...");
+      expect(mockSetValue).toHaveBeenCalledWith("Search for studies...");
     });
 
     it("should not prevent default when input has value", () => {
-      const { result } = renderHook(() => useKeyShortCuts());
+      const { result } = renderHook(() => useKeyShortCuts(mockSetValue));
       const inputEl = createMockInputEl(
         "existing text",
         "Search for studies...",
@@ -248,7 +250,7 @@ describe("useKeyShortCuts", () => {
       result.current.onKeyDown(event);
 
       expect(event.preventDefault).not.toHaveBeenCalled();
-      expect(inputEl.value).toBe("existing text");
+      expect(mockSetValue).not.toHaveBeenCalled();
     });
   });
 });

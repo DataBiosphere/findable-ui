@@ -1,7 +1,6 @@
 import { JSX } from "react";
 import { TEST_IDS } from "../../../../../tests/testIds";
 import { useQuery } from "../../../state/query/hooks/UseQuery/hook";
-import { FIELD_NAME } from "./constants";
 import { StyledForm } from "./form.styles";
 import { FormProps } from "./types";
 import { getPayload } from "./utils";
@@ -25,13 +24,7 @@ export const Form = ({
       className={className}
       data-testid={TEST_IDS.RESEARCH_FORM}
       onSubmit={async (e) => {
-        await onSubmit(e, getPayload(e), {
-          onSettled: (form) => {
-            const input = form.elements.namedItem(FIELD_NAME.AI_PROMPT);
-            if (input instanceof HTMLElement) input.focus();
-          },
-          status,
-        });
+        await onSubmit(e, getPayload(e), { status });
       }}
     >
       {children}
