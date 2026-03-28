@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 # Default AnVIL API base URL
 DEFAULT_ANVIL_API_URL = "https://service.explore.anvilproject.org/index"
-DEFAULT_ANVIL_CATALOG = "anvil12"
+DEFAULT_ANVIL_CATALOG = "anvil13"
 
 
 class AnVILClient:
