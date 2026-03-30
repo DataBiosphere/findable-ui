@@ -1,5 +1,13 @@
 # Changelog
 
+## [50.4.0](https://github.com/DataBiosphere/findable-ui/compare/v50.3.0...v50.4.0) (2026-03-30)
+
+
+### Features
+
+* refactor exportmethod to card-based layout ([#848](https://github.com/DataBiosphere/findable-ui/issues/848)) ([bfc09d3](https://github.com/DataBiosphere/findable-ui/commit/bfc09d35c4e3d5fa55a7ab6f9e50eb88b23f31f0))
+* update export/download ui ([#848](https://github.com/DataBiosphere/findable-ui/issues/848)) ([#853](https://github.com/DataBiosphere/findable-ui/issues/853)) ([bfc09d3](https://github.com/DataBiosphere/findable-ui/commit/bfc09d35c4e3d5fa55a7ab6f9e50eb88b23f31f0))
+
 ## [50.3.0](https://github.com/DataBiosphere/findable-ui/compare/v50.2.1...v50.3.0) (2026-03-27)
 
 
