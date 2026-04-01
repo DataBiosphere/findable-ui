@@ -11,12 +11,9 @@ export const StyledCard = styled(Card)`
   position: relative; /* positions card action area */
 
   .MuiCardActionArea-root {
-    height: 100%;
-    left: 0;
+    inset: 0;
     position: absolute; /* covers entire card */
-    top: 0;
     text-decoration: none;
-    width: 100%;
 
     &.Mui-disabled {
       background-color: ${PALETTE.COMMON_WHITE};
