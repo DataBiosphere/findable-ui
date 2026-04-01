@@ -16,8 +16,15 @@ type Story = StoryObj<typeof meta>;
 
 export const ExportMethodStory: Story = {
   args: {
-    description: "Obtain a curl command for downloading the selected data.",
-    route: "/request-curl-command",
+    description: (
+      <div>
+        Obtain a curl command for downloading the selected data.{" "}
+        <a href="/" rel="noopener noreferrer" target="_blank">
+          Learn more
+        </a>
+      </div>
+    ),
+    route: "/",
     title: "Download Study Data and Metadata (Curl Command)",
   },
 };
