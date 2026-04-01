@@ -3,7 +3,7 @@ import { ExportMethod } from "../exportMethod";
 
 const meta: Meta<typeof ExportMethod> = {
   argTypes: {
-    description: { control: "text" },
+    description: { control: false },
     route: { control: "text" },
     title: { control: "text" },
   },
@@ -19,12 +19,12 @@ export const ExportMethodStory: Story = {
     description: (
       <div>
         Obtain a curl command for downloading the selected data.{" "}
-        <a href="/" rel="noopener noreferrer" target="_blank">
+        <a href="/learn-more" rel="noopener noreferrer" target="_blank">
           Learn more
         </a>
       </div>
     ),
-    route: "/",
+    route: "/export",
     title: "Download Study Data and Metadata (Curl Command)",
   },
 };

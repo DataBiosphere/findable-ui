@@ -36,6 +36,7 @@ export const ExportMethod = ({
     <Tooltip arrow title={message}>
       <StyledCard component={FluidPaper} elevation={1}>
         <CardActionArea
+          aria-label={title}
           component={Link}
           disabled={disabled || !isAccessible}
           href={route}

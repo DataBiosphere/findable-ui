@@ -33,7 +33,7 @@ export const StyledCard = styled(Card)`
 
     a {
       position: relative;
-      z-index: 1; // Elevates links above the absolutely positioned CardActionArea overlay.
+      z-index: 1; /* Elevates links above the absolutely positioned CardActionArea overlay. */
     }
   }
 
