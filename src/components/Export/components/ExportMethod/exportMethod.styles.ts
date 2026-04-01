@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Card } from "@mui/material";
+import { PALETTE } from "../../../../styles/common/constants/palette";
 import { sectionPadding } from "../../../common/Section/section.styles";
 
 export const StyledCard = styled(Card)`
@@ -18,6 +19,7 @@ export const StyledCard = styled(Card)`
     width: 100%;
 
     &.Mui-disabled {
+      background-color: ${PALETTE.COMMON_WHITE};
       opacity: 0.6;
     }
   }
