@@ -3,12 +3,14 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 import { JSX, ReactNode } from "react";
 import { useDownloadStatus } from "../../../../hooks/useDownloadStatus";
+import { STACK_PROPS } from "../../../../styles/common/mui/stack";
 import { SVG_ICON_PROPS } from "../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
@@ -18,6 +20,7 @@ import { StyledCard } from "./exportMethod.styles";
 export interface ExportMethodProps extends TrackingProps {
   description: ReactNode;
   footnote?: ReactNode;
+  icon?: ReactNode;
   isAccessible?: boolean;
   route: string;
   title: string;
@@ -26,6 +29,7 @@ export interface ExportMethodProps extends TrackingProps {
 export const ExportMethod = ({
   description,
   footnote,
+  icon,
   isAccessible = true,
   route,
   title,
@@ -43,12 +47,20 @@ export const ExportMethod = ({
           id={trackingId}
         />
         <CardContent>
-          <Typography
-            component="h3"
-            variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XSMALL}
+          <Stack
+            alignItems={STACK_PROPS.ALIGN_ITEMS.FLEX_START}
+            direction={STACK_PROPS.DIRECTION.ROW}
+            gap={2}
+            useFlexGap
           >
-            {title}
-          </Typography>
+            {icon}
+            <Typography
+              component="h3"
+              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XSMALL}
+            >
+              {title}
+            </Typography>
+          </Stack>
           <Typography
             component="div"
             variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
