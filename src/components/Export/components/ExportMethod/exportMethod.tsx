@@ -3,6 +3,7 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Chip,
   Stack,
   Tooltip,
   Typography,
@@ -15,10 +16,12 @@ import { SVG_ICON_PROPS } from "../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { FluidPaper } from "../../../common/Paper/components/FluidPaper/fluidPaper";
 import { TrackingProps } from "../../../types";
+import { CHIP_PROPS } from "./constants";
 import { StyledCard } from "./exportMethod.styles";
 
 export interface ExportMethodProps extends TrackingProps {
   description: ReactNode;
+  disabled?: boolean;
   footnote?: ReactNode;
   icon?: ReactNode;
   isAccessible?: boolean;
@@ -28,6 +31,7 @@ export interface ExportMethodProps extends TrackingProps {
 
 export const ExportMethod = ({
   description,
+  disabled: disabledProp,
   footnote,
   icon,
   isAccessible = true,
@@ -35,14 +39,15 @@ export const ExportMethod = ({
   title,
   trackingId,
 }: ExportMethodProps): JSX.Element => {
-  const { disabled, message } = useDownloadStatus();
+  const { disabled: downloadStatusDisabled, message } = useDownloadStatus();
+  const disabled = disabledProp || downloadStatusDisabled || !isAccessible;
   return (
     <Tooltip arrow title={message}>
-      <StyledCard component={FluidPaper} elevation={1}>
+      <StyledCard component={FluidPaper} disabled={disabled} elevation={1}>
         <CardActionArea
           aria-label={title}
           component={Link}
-          disabled={disabled || !isAccessible}
+          disabled={disabled}
           href={route}
           id={trackingId}
         />
@@ -78,7 +83,11 @@ export const ExportMethod = ({
           )}
         </CardContent>
         <CardActions>
-          <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
+          {disabledProp ? (
+            <Chip {...CHIP_PROPS} />
+          ) : (
+            <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
+          )}
         </CardActions>
       </StyledCard>
     </Tooltip>
