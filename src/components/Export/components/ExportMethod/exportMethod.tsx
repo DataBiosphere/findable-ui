@@ -36,38 +36,38 @@ export const ExportMethod = ({
     <Tooltip arrow title={message}>
       <StyledCard component={FluidPaper} elevation={1}>
         <CardActionArea
+          aria-label={title}
           component={Link}
           disabled={disabled || !isAccessible}
           href={route}
           id={trackingId}
-        >
-          <CardContent>
+        />
+        <CardContent>
+          <Typography
+            component="h3"
+            variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XSMALL}
+          >
+            {title}
+          </Typography>
+          <Typography
+            component="div"
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+          >
+            {description}
+          </Typography>
+          {footnote && (
             <Typography
-              component="h3"
-              variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_XSMALL}
-            >
-              {title}
-            </Typography>
-            <Typography
+              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
               component="div"
-              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
             >
-              {description}
+              {footnote}
             </Typography>
-            {footnote && (
-              <Typography
-                color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-                component="div"
-                variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400_2_LINES}
-              >
-                {footnote}
-              </Typography>
-            )}
-          </CardContent>
-          <CardActions>
-            <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
-          </CardActions>
-        </CardActionArea>
+          )}
+        </CardContent>
+        <CardActions>
+          <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
+        </CardActions>
       </StyledCard>
     </Tooltip>
   );
