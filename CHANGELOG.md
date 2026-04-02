@@ -1,5 +1,17 @@
 # Changelog
 
+## [50.5.0](https://github.com/DataBiosphere/findable-ui/compare/v50.4.0...v50.5.0) (2026-04-02)
+
+
+### Features
+
+* add optional icon support to exportmethod component ([#857](https://github.com/DataBiosphere/findable-ui/issues/857)) ([#858](https://github.com/DataBiosphere/findable-ui/issues/858)) ([07b8a32](https://github.com/DataBiosphere/findable-ui/commit/07b8a32e4cae25085be9d178a0115fd9529a4c1a))
+
+
+### Bug Fixes
+
+* allow href clicks in export text to override (and cancel) row clicks ([#855](https://github.com/DataBiosphere/findable-ui/issues/855)) ([#859](https://github.com/DataBiosphere/findable-ui/issues/859)) ([9e721fa](https://github.com/DataBiosphere/findable-ui/commit/9e721fa50492414bd6154b837ccdace4966f5b94))
+
 ## [50.4.0](https://github.com/DataBiosphere/findable-ui/compare/v50.3.0...v50.4.0) (2026-03-30)
 
 
