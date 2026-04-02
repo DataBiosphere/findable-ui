@@ -20,8 +20,8 @@ import { CHIP_PROPS } from "./constants";
 import { StyledCard } from "./exportMethod.styles";
 
 export interface ExportMethodProps extends TrackingProps {
+  comingSoon?: boolean;
   description: ReactNode;
-  disabled?: boolean;
   footnote?: ReactNode;
   icon?: ReactNode;
   isAccessible?: boolean;
@@ -30,8 +30,8 @@ export interface ExportMethodProps extends TrackingProps {
 }
 
 export const ExportMethod = ({
+  comingSoon,
   description,
-  disabled: disabledProp,
   footnote,
   icon,
   isAccessible = true,
@@ -40,7 +40,7 @@ export const ExportMethod = ({
   trackingId,
 }: ExportMethodProps): JSX.Element => {
   const { disabled: downloadStatusDisabled, message } = useDownloadStatus();
-  const disabled = disabledProp || downloadStatusDisabled || !isAccessible;
+  const disabled = comingSoon || downloadStatusDisabled || !isAccessible;
   return (
     <Tooltip arrow title={message}>
       <StyledCard component={FluidPaper} disabled={disabled} elevation={1}>
@@ -83,7 +83,7 @@ export const ExportMethod = ({
           )}
         </CardContent>
         <CardActions>
-          {disabledProp ? (
+          {comingSoon ? (
             <Chip {...CHIP_PROPS} />
           ) : (
             <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
