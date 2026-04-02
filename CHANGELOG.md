@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.6.0](https://github.com/DataBiosphere/findable-ui/compare/v50.5.0...v50.6.0) (2026-04-02)
+
+
+### Features
+
+* add disabled prop with coming soon chip to exportmethod ([#861](https://github.com/DataBiosphere/findable-ui/issues/861)) ([#862](https://github.com/DataBiosphere/findable-ui/issues/862)) ([3fa93b2](https://github.com/DataBiosphere/findable-ui/commit/3fa93b26afbf4c7c4f86c2527d1d05af495fb343))
+
 ## [50.5.0](https://github.com/DataBiosphere/findable-ui/compare/v50.4.0...v50.5.0) (2026-04-02)
 
 
