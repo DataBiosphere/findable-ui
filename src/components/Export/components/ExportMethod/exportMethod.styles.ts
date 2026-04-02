@@ -1,9 +1,16 @@
 import styled from "@emotion/styled";
-import { Card } from "@mui/material";
+import { Card, CardProps } from "@mui/material";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { sectionPadding } from "../../../common/Section/section.styles";
 
-export const StyledCard = styled(Card)`
+interface Props extends CardProps {
+  disabled?: boolean;
+}
+
+export const StyledCard = styled(Card, {
+  shouldForwardProp: (prop) => prop !== "disabled",
+})<Props>`
+  background-color: ${({ disabled }) => (disabled ? PALETTE.SMOKE_LIGHTEST : PALETTE.COMMON_WHITE)};
   ${sectionPadding};
   display: grid;
   gap: 16px;
@@ -14,11 +21,6 @@ export const StyledCard = styled(Card)`
     inset: 0;
     position: absolute; /* covers entire card */
     text-decoration: none;
-
-    &.Mui-disabled {
-      background-color: ${PALETTE.COMMON_WHITE};
-      opacity: 0.6;
-    }
   }
 
     .MuiCardContent-root {
@@ -37,4 +39,4 @@ export const StyledCard = styled(Card)`
   .MuiCardActions-root {
     padding: 0;
   }
-` as typeof Card;
+`;
