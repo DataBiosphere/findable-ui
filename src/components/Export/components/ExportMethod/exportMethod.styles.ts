@@ -21,11 +21,11 @@ export const StyledCard = styled(Card)`
     }
   }
 
-  .MuiCardContent-root {
-    padding: 0;
-
-    h3 {
-      margin-bottom: 4px;
+    .MuiCardContent-root {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0;
     }
 
     a {
