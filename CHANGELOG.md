@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.6.1](https://github.com/DataBiosphere/findable-ui/compare/v50.6.0...v50.6.1) (2026-04-03)
+
+
+### Chores
+
+* add files field to package.json ([#864](https://github.com/DataBiosphere/findable-ui/issues/864)) ([ca06e48](https://github.com/DataBiosphere/findable-ui/commit/ca06e48557eec8fd07d55c5c25dd12972b1e880d))
+
 ## [50.6.0](https://github.com/DataBiosphere/findable-ui/compare/v50.5.0...v50.6.0) (2026-04-02)
 
 
