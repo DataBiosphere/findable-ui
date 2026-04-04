@@ -55,22 +55,20 @@ if [ -f package-lock.json ]; then
   LOCKFILE_BACKUP="$(mktemp)"
   cp package-lock.json "$LOCKFILE_BACKUP"
 fi
-restore_lockfile() {
+cleanup() {
   if [ -n "$LOCKFILE_BACKUP" ]; then
     cp "$LOCKFILE_BACKUP" package-lock.json
     rm -f "$LOCKFILE_BACKUP"
   fi
+  rm -f "$TARBALL"
 }
-trap restore_lockfile EXIT
+trap cleanup EXIT
 
 # Install the tarball into node_modules.
 # --no-save: don't update package.json (keeps the registry version pinned)
 # --ignore-scripts: skip lifecycle scripts from the installed package
 # --silent: suppress npm's verbose output
 npm install --no-save --ignore-scripts --silent "$TARBALL"
-
-# Clean up the tarball — it's been copied into node_modules and is no longer needed.
-rm -f "$TARBALL"
 
 # Next.js caches compiled modules in .next/. Without clearing it after swapping
 # the findable-ui package, the dev server will serve stale code.
