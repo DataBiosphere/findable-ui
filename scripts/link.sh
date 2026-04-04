@@ -48,23 +48,26 @@ echo "Installing $TARBALL..."
 # Back up the lockfile before install so we can restore it afterward.
 # npm install --no-save still modifies package-lock.json, and we don't want
 # linking to leave lockfile churn in the consumer's working tree.
+# A trap ensures cleanup even if npm install fails (set -e would exit before
+# the restore step otherwise).
 LOCKFILE_BACKUP=""
 if [ -f package-lock.json ]; then
   LOCKFILE_BACKUP="$(mktemp)"
   cp package-lock.json "$LOCKFILE_BACKUP"
 fi
+restore_lockfile() {
+  if [ -n "$LOCKFILE_BACKUP" ]; then
+    cp "$LOCKFILE_BACKUP" package-lock.json
+    rm -f "$LOCKFILE_BACKUP"
+  fi
+}
+trap restore_lockfile EXIT
 
 # Install the tarball into node_modules.
 # --no-save: don't update package.json (keeps the registry version pinned)
 # --ignore-scripts: skip lifecycle scripts from the installed package
 # --silent: suppress npm's verbose output
 npm install --no-save --ignore-scripts --silent "$TARBALL"
-
-# Restore the original lockfile so linking doesn't leave churn behind.
-if [ -n "$LOCKFILE_BACKUP" ]; then
-  cp "$LOCKFILE_BACKUP" package-lock.json
-  rm -f "$LOCKFILE_BACKUP"
-fi
 
 # Clean up the tarball — it's been copied into node_modules and is no longer needed.
 rm -f "$TARBALL"
