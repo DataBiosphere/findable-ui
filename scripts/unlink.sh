@@ -8,7 +8,7 @@
 #
 # How it works:
 #   link.sh installs a local tarball with --no-save, so the consumer's
-#   package.json still points to the registry version (e.g. "^50.6.1").
+#   package.json still points to the registry version.
 #   This script simply reinstalls findable-ui from the registry, which
 #   overwrites the local copy in node_modules with the published version.
 

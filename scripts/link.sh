@@ -47,10 +47,13 @@ echo "Installing $TARBALL..."
 
 # Install the tarball into node_modules.
 # --no-save: don't update package.json (keeps the registry version pinned)
-# --no-package-lock: don't update package-lock.json either
 # --ignore-scripts: skip lifecycle scripts from the installed package
 # --silent: suppress npm's verbose output
-npm install --no-save --no-package-lock --ignore-scripts --silent "$TARBALL"
+npm install --no-save --ignore-scripts --silent "$TARBALL"
+
+# Restore package-lock.json if it was modified by npm install, so local
+# linking does not leave lockfile churn behind.
+git checkout -- package-lock.json 2>/dev/null || true
 
 # Clean up the tarball — it's been copied into node_modules and is no longer needed.
 rm -f "$TARBALL"
