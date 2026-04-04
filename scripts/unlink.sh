@@ -20,7 +20,9 @@ echo "Restoring findable-ui from registry..."
 # Without this, npm may skip the install if the version already satisfies the lockfile.
 rm -rf node_modules/@databiosphere/findable-ui
 
-# Reinstall findable-ui from the registry using the version in package.json.
-npm install @databiosphere/findable-ui
+# Reinstall from the lockfile. Using no package args ensures npm resolves the
+# exact pinned version from package-lock.json rather than potentially upgrading
+# within the semver range.
+npm install
 
 echo "Restored registry version of findable-ui."
