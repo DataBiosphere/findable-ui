@@ -16,9 +16,11 @@ set -euo pipefail
 
 echo "Restoring findable-ui from registry..."
 
-# Reinstall all dependencies from the lockfile. Since link.sh used --no-save,
-# package.json and package-lock.json are unchanged, so this restores the exact
-# pinned version of findable-ui (and verifies everything else is in sync).
-npm install
+# Remove the linked copy so npm install is forced to fetch from the registry.
+# Without this, npm may skip the install if the version already satisfies the lockfile.
+rm -rf node_modules/@databiosphere/findable-ui
+
+# Reinstall findable-ui from the registry using the version in package.json.
+npm install @databiosphere/findable-ui
 
 echo "Restored registry version of findable-ui."
