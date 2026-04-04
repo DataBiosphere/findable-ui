@@ -70,6 +70,11 @@ trap cleanup EXIT
 # --silent: suppress npm's verbose output
 npm install --no-save --ignore-scripts --silent "$TARBALL"
 
+# Restore lockfile and clean up immediately rather than waiting for EXIT trap,
+# so package-lock.json isn't left modified while the dev server runs.
+cleanup
+trap - EXIT
+
 # Next.js caches compiled modules in .next/. Without clearing it after swapping
 # the findable-ui package, the dev server will serve stale code.
 rm -rf .next
