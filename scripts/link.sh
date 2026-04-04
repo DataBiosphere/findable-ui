@@ -38,7 +38,7 @@ cd "$FINDABLE_DIR"
 # Pack the compiled output into a tarball in the system temp directory.
 # HUSKY=0 prevents husky from installing git hooks during npm pack's "prepare" step.
 # Capture the tarball filename from npm pack's stdout to avoid globbing stale files.
-TARBALL_NAME=$(HUSKY=0 npm pack --pack-destination "$TMPDIR" --quiet)
+TARBALL_NAME=$(HUSKY=0 npm pack --pack-destination "$TMPDIR" --quiet | tail -1)
 TARBALL="$TMPDIR/$TARBALL_NAME"
 
 cd "$CONSUMER_DIR"
