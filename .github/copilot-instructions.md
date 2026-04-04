@@ -7,7 +7,7 @@ This is a TypeScript library package (`@databiosphere/findable-ui`) that provide
 ## Key Project Information
 
 - **Language**: TypeScript with strict mode enabled
-- **Node Version**: 20.10.0 (enforced)
+- **Node Version**: 22.12.0 (enforced)
 - **UI Framework**: React 18 with Material-UI (MUI) v7
 - **Build System**: TypeScript compiler (tsc)
 - **Testing**: Jest with React Testing Library

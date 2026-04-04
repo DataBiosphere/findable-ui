@@ -31,8 +31,12 @@ into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
    ../findable-ui/scripts/unlink.sh
    ```
 
-Consuming projects can optionally add thin wrappers in `package.json`:
+Consuming projects can optionally add thin wrappers in their `package.json` scripts:
 ```json
-"link-findable": "../findable-ui/scripts/link.sh",
-"unlink-findable": "../findable-ui/scripts/unlink.sh"
+{
+  "scripts": {
+    "link-findable": "../findable-ui/scripts/link.sh",
+    "unlink-findable": "../findable-ui/scripts/unlink.sh"
+  }
+}
 ```
