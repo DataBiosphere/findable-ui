@@ -38,17 +38,19 @@ cd "$FINDABLE_DIR"
 # Pack the compiled output into a tarball in the system temp directory.
 # HUSKY=0 prevents husky from installing git hooks during npm pack's "prepare" step.
 # Capture the tarball filename from npm pack's stdout to avoid globbing stale files.
-TARBALL_NAME=$(HUSKY=0 npm pack --pack-destination "$TMPDIR" --quiet | tail -1)
-TARBALL="$TMPDIR/$TARBALL_NAME"
+PACK_DIR="${TMPDIR:-/tmp}"
+TARBALL_NAME=$(HUSKY=0 npm pack --pack-destination "$PACK_DIR" --quiet | tail -1)
+TARBALL="$PACK_DIR/$TARBALL_NAME"
 
 cd "$CONSUMER_DIR"
 echo "Installing $TARBALL..."
 
 # Install the tarball into node_modules.
 # --no-save: don't update package.json (keeps the registry version pinned)
+# --no-package-lock: don't update package-lock.json either
 # --ignore-scripts: skip lifecycle scripts from the installed package
 # --silent: suppress npm's verbose output
-npm install --no-save --ignore-scripts --silent "$TARBALL"
+npm install --no-save --no-package-lock --ignore-scripts --silent "$TARBALL"
 
 # Clean up the tarball — it's been copied into node_modules and is no longer needed.
 rm -f "$TARBALL"

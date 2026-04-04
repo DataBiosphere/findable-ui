@@ -8,22 +8,31 @@
   in the form `@databiosphere/findable-ui/lib/<path>`, where `<path>` is the path of the file within the `lib`
   folder.
 
-## Developing Findable UI alongside Data Biosphere Data Browser
+## Developing findable-ui alongside a consuming app
 
-1. Clone this repository into the same parent folder as
-   the [Data Biosphere Data Browser](https://github.com/DataBiosphere/data-browser).
-2. Set `node` version to `22.12.0` (this is also the version used by the Data Browser).
-3. In the `findable-ui` repository directory:
-    - Run `npm update`.
-    - Run `npx tsc` (this should be run when this repository is first downloaded and when any changes are made to the
-      source files; one way this can be done more efficiently is
-      by [setting the default build task](https://code.visualstudio.com/docs/typescript/typescript-compiling#_step-3-make-the-typescript-build-the-default)
-      in VS Code so that it can be done with a keyboard shortcut).
-4. In the Data Browser `explorer` directory (e.g. `data-browser/explorer`):
-    - Run `npm update`.
-    - Run `npm link ../findable-ui`, which will create a symlink in node_modules pointing
-      to findable-ui.
-    - If any packages are later installed or uninstalled, the symlink will need to be created again, which can be done
-      with the same command or by running `npm link @databiosphere/findable-ui`. 
-    - To successfully link to findable-ui, you may need to comment out the following packages from the `next.config.mjs` webpack configuration:
-      - `@tanstack/react-table`
+Use `scripts/link.sh` to build and install a local copy of findable-ui
+into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
+
+1. Clone this repository into the same parent folder as the consuming app.
+2. Set `node` version to `22.12.0`.
+3. Run `npm install` in both repositories.
+4. From the consuming project directory:
+   ```bash
+   ../findable-ui/scripts/link.sh
+   ```
+   This compiles TypeScript, packs the output, installs it into
+   `node_modules`, clears the Next.js cache, and starts the dev server.
+
+5. To iterate: Ctrl+C the dev server, make changes in findable-ui, and
+   hit up-arrow to re-run the script.
+
+6. To restore the published version:
+   ```bash
+   ../findable-ui/scripts/unlink.sh
+   ```
+
+Consuming projects can optionally add thin wrappers in `package.json`:
+```json
+"link-findable": "../findable-ui/scripts/link.sh",
+"unlink-findable": "../findable-ui/scripts/unlink.sh"
+```
