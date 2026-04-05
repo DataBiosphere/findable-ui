@@ -7,7 +7,7 @@ This is a TypeScript library package (`@databiosphere/findable-ui`) that provide
 ## Key Project Information
 
 - **Language**: TypeScript with strict mode enabled
-- **Node Version**: 20.10.0 (enforced)
+- **Node Version**: 22.12.0 (enforced)
 - **UI Framework**: React 18 with Material-UI (MUI) v7
 - **Build System**: TypeScript compiler (tsc)
 - **Testing**: Jest with React Testing Library
@@ -162,15 +162,16 @@ This package has extensive peer dependencies that consuming applications must pr
 - **Storybook**: Available for component development (`npm run storybook`)
 - **Husky hooks**: Pre-commit hooks are configured via `.husky`
 - **Release management**: Uses release-please for automated versioning and changelog
-- **Link for local development**: Use `npm link` to test changes in Data Browser locally (see README)
+- **Link for local development**: Use `scripts/link.sh` to test changes in consuming apps locally (see README)
 
-## Development with Data Browser
+## Development with a Consuming App
 
-When developing findable-ui alongside the Data Browser:
+Use `scripts/link.sh` to build and install a local copy of findable-ui
+into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
 
 1. Clone both repos in the same parent directory
-2. In findable-ui: Run `npm ci`, bump version, run `npx tsc`
-3. In data-browser/explorer: Run `npm link ../../findable-ui`
-4. May need to comment out certain packages in next.config.mjs webpack config
+2. Run `npm install` in both repositories
+3. From the consuming project directory: `../findable-ui/scripts/link.sh`
+4. Ctrl+C the dev server, make changes, hit up-arrow to re-run
 
 See README.md for complete local development workflow.

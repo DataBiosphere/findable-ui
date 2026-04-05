@@ -9,7 +9,7 @@ This is a TypeScript library package (`@databiosphere/findable-ui`) that provide
 **Key Facts:**
 
 - **Node Version:** 22.12.0 (enforced by package.json)
-- **UI Framework:** React 18 with Material-UI v7 and Emotion for styling
+- **UI Framework:** React 19 with Material-UI v7 and Emotion for styling
 - **Build System:** TypeScript compiler (`tsc`) with strict mode enabled
 - **Import Pattern:** External apps import as `@databiosphere/findable-ui/lib/<path>`
 
@@ -44,17 +44,20 @@ npm test -- path/to/file.test.ts
 npm test -- --watch
 ```
 
-### Local Development with Data Browser
+### Local Development with a Consuming App
 
-When developing alongside the Data Browser:
+Use `scripts/link.sh` to build and install a local copy of findable-ui
+into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
 
-1. Clone both repos in the same parent directory
-2. In findable-ui: `npm update && npx tsc`
-3. In data-browser/explorer: `npm link ../findable-ui`
-4. Rerun `npm link` if you install/uninstall packages (symlink gets removed)
-5. May need to comment out `@tanstack/react-table` in Data Browser's `next.config.mjs` webpack config
+```bash
+# From the consuming project directory:
+../findable-ui/scripts/link.sh    # Build, install, and start dev server
+../findable-ui/scripts/unlink.sh  # Restore the published registry version
+```
 
-**Important:** Run `npx tsc` whenever you make changes to source files that need testing in consuming apps.
+The link script compiles TypeScript, packs the output into a tarball, installs
+it with `--no-save` (so package.json stays unchanged), clears the Next.js cache,
+and starts the dev server. Ctrl+C and re-run to iterate.
 
 ## Code Architecture
 
@@ -177,7 +180,7 @@ describe("ComponentName", () => {
 
 **Peer Dependencies:** Consuming applications must provide:
 
-- React 18.3+
+- React 19.2.3+
 - Material-UI v7 (@mui/material, @mui/icons-material)
 - Next.js 14.2+ and next-auth
 - Emotion (@emotion/react, @emotion/styled)
