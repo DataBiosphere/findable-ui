@@ -180,7 +180,7 @@ describe("ComponentName", () => {
 
 **Peer Dependencies:** Consuming applications must provide:
 
-- React 19.3+
+- React 19.2.3+
 - Material-UI v7 (@mui/material, @mui/icons-material)
 - Next.js 14.2+ and next-auth
 - Emotion (@emotion/react, @emotion/styled)

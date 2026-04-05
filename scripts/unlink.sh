@@ -25,4 +25,8 @@ rm -rf node_modules/@databiosphere/findable-ui
 # within the semver range.
 npm install
 
+# Clear the Next.js cache so the dev server doesn't serve code cached from
+# the previously linked tarball.
+rm -rf .next
+
 echo "Restored registry version of findable-ui."
