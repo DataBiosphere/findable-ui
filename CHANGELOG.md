@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.7.0](https://github.com/DataBiosphere/findable-ui/compare/v50.6.1...v50.7.0) (2026-04-05)
+
+
+### Features
+
+* add link/unlink scripts for local co-development ([#867](https://github.com/DataBiosphere/findable-ui/issues/867)) ([a0f70c8](https://github.com/DataBiosphere/findable-ui/commit/a0f70c881478da8a61b229e8e55d69601e1372db))
+
 ## [50.6.1](https://github.com/DataBiosphere/findable-ui/compare/v50.6.0...v50.6.1) (2026-04-03)
 
 
