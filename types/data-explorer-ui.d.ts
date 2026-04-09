@@ -17,11 +17,10 @@ import type {} from "@mui/material/Tabs";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
-import type {} from "@tanstack/react-table";
-import { RowData } from "@tanstack/react-table";
+import type { RowData } from "@tanstack/react-table";
 import { Components } from "rehype-react";
-import { DataLayer } from "../src/common/analytics/entities";
-import { DataDictionaryAnnotation } from "../src/common/entities";
+import { DataLayer } from "@databiosphere/findable-ui/lib/common/analytics/entities";
+import { DataDictionaryAnnotation } from "@databiosphere/findable-ui/lib/common/entities";
 import {
   CustomFeatureColumn,
   CustomFeatureInitialTableState,
@@ -29,9 +28,9 @@ import {
   CustomFeatureOptions,
   CustomFeatureRow,
   CustomFeatureTableState,
-} from "../src/components/Table/features/entities";
-import { GridTrackSize } from "../src/config/entities";
-import { SIZE } from "../src/styles/common/constants/size";
+} from "@databiosphere/findable-ui/lib/components/Table/features/entities";
+import { GridTrackSize } from "@databiosphere/findable-ui/lib/config/entities";
+import { SIZE } from "@databiosphere/findable-ui/lib/styles/common/constants/size";
 
 declare module "@mui/material/Alert" {
   interface AlertProps {
