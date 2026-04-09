@@ -1,5 +1,17 @@
 # Changelog
 
+## [50.7.1](https://github.com/DataBiosphere/findable-ui/compare/v50.7.0...v50.7.1) (2026-04-09)
+
+
+### Bug Fixes
+
+* update type declarations to import from lib/ instead of src/ ([#865](https://github.com/DataBiosphere/findable-ui/issues/865)) ([#870](https://github.com/DataBiosphere/findable-ui/issues/870)) ([3ea6ca5](https://github.com/DataBiosphere/findable-ui/commit/3ea6ca5858771d1023df882dddfd6e7d8313ba5e))
+
+
+### Code Refactoring
+
+* update type declarations to import from lib/ instead of src/ ([#865](https://github.com/DataBiosphere/findable-ui/issues/865)) ([3ea6ca5](https://github.com/DataBiosphere/findable-ui/commit/3ea6ca5858771d1023df882dddfd6e7d8313ba5e))
+
 ## [50.7.0](https://github.com/DataBiosphere/findable-ui/compare/v50.6.1...v50.7.0) (2026-04-05)
 
 
