@@ -33,9 +33,9 @@ export function getAuthenticationRequestOptions(token: string): RequestInit {
 export function initLoginStatus<T>(endpoint?: string): LoginStatus<T> {
   if (!endpoint) {
     // Endpoint not supported.
-    return LOGIN_STATUS_NOT_SUPPORTED as LoginStatus<T>;
+    return LOGIN_STATUS_NOT_SUPPORTED;
   }
-  return LOGIN_STATUS_NOT_STARTED as LoginStatus<T>;
+  return LOGIN_STATUS_NOT_STARTED;
 }
 
 /**
