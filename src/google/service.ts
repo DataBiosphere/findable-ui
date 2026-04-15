@@ -7,7 +7,7 @@ import {
 import { resetCredentialsState } from "../auth/dispatch/credentials";
 import { resetTokenState, updateToken } from "../auth/dispatch/token";
 import { AUTHENTICATION_STATUS } from "../auth/types/authentication";
-import { OAuthProvider } from "../auth/types/provider";
+import { OAuthProvider } from "../config/entities";
 import { GoogleProfile, SessionDispatch, TokenSetParameters } from "./types";
 import { fetchProfile, getAuthenticationRequestOptions } from "./utils/auth";
 
