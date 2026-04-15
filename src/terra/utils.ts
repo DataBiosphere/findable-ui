@@ -1,7 +1,6 @@
 import {
   LOGIN_STATUS_NOT_STARTED,
   LOGIN_STATUS_NOT_SUPPORTED,
-  LoginResponse,
 } from "./constants";
 import {
   AuthService,
@@ -31,12 +30,12 @@ export function getAuthenticationRequestOptions(token: string): RequestInit {
  * @param endpoint - Endpoint.
  * @returns initial login status.
  */
-export function initLoginStatus(endpoint?: string): LoginStatus<LoginResponse> {
+export function initLoginStatus<T>(endpoint?: string): LoginStatus<T> {
   if (!endpoint) {
     // Endpoint not supported.
-    return LOGIN_STATUS_NOT_SUPPORTED;
+    return LOGIN_STATUS_NOT_SUPPORTED as LoginStatus<T>;
   }
-  return LOGIN_STATUS_NOT_STARTED;
+  return LOGIN_STATUS_NOT_STARTED as LoginStatus<T>;
 }
 
 /**

@@ -9,6 +9,7 @@ export const service = {
    * Login with the specified provider.
    * @param providerId - Provider identifier.
    * @param options - Sign in options.
+   * @returns void.
    */
   login: (providerId: ProviderId, options?: SignInOptions): void => {
     signIn(providerId, options).catch((e: unknown) => console.error(e));
@@ -16,6 +17,7 @@ export const service = {
   /**
    * Logout the user.
    * @param options - Sign out options.
+   * @returns void.
    */
   logout: (options?: SignOutParams<boolean>): void => {
     signOut({

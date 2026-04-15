@@ -31,7 +31,7 @@ export const useFetchTerraProfile = (token?: string): Status => {
   const { services } = useAuthenticationConfig() || {};
   const endpoint = getServiceEndpoint(services, TERRA_SERVICE_ID, ENDPOINT_ID);
   const [loginStatus, setLoginStatus] = useState<Status>(
-    initLoginStatus(endpoint) as Status,
+    initLoginStatus<TerraResponse>(endpoint),
   );
 
   // Fetch Terra profile.
