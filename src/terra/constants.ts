@@ -14,7 +14,7 @@ export type LoginResponse =
 /**
  * Login status: failed.
  */
-export const LOGIN_STATUS_FAILED: LoginStatus<LoginResponse> = {
+export const LOGIN_STATUS_FAILED: LoginStatus<never> = {
   isSuccess: false,
   isSupported: true,
   requestStatus: REQUEST_STATUS.FAILED,
@@ -24,7 +24,7 @@ export const LOGIN_STATUS_FAILED: LoginStatus<LoginResponse> = {
 /**
  * Login status: not started.
  */
-export const LOGIN_STATUS_NOT_STARTED: LoginStatus<LoginResponse> = {
+export const LOGIN_STATUS_NOT_STARTED: LoginStatus<never> = {
   isSuccess: false,
   isSupported: true,
   requestStatus: REQUEST_STATUS.NOT_STARTED,
@@ -34,7 +34,7 @@ export const LOGIN_STATUS_NOT_STARTED: LoginStatus<LoginResponse> = {
 /**
  * Login status: not supported.
  */
-export const LOGIN_STATUS_NOT_SUPPORTED: LoginStatus<LoginResponse> = {
+export const LOGIN_STATUS_NOT_SUPPORTED: LoginStatus<never> = {
   isSuccess: false,
   isSupported: false,
   requestStatus: REQUEST_STATUS.NOT_STARTED,
@@ -44,7 +44,7 @@ export const LOGIN_STATUS_NOT_SUPPORTED: LoginStatus<LoginResponse> = {
 /**
  * Login status: pending.
  */
-export const LOGIN_STATUS_PENDING: LoginStatus<LoginResponse> = {
+export const LOGIN_STATUS_PENDING: LoginStatus<never> = {
   isSuccess: false,
   isSupported: true,
   requestStatus: REQUEST_STATUS.PENDING,
