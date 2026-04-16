@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>findable-ui Analytics CSS Preview</title>
+    <link rel="stylesheet" href="analytics.css" />
+    <style>
+      @media (max-width: 767px) {
+        .fui-card[class*="fui-grid-item"] {
+          grid-column: 1 / -1;
+        }
+      }
+    </style>
+  </head>
+  <body class="fui-body">
+    <!-- Header -->
+    <header class="fui-header">
+      <a class="fui-header-logo fui-header-left" href="#">
+        <img src="../src/images/logo.svg" alt="Logo" />
+      </a>
+      <div class="fui-header-right">
+        <nav class="fui-header-nav">
+          <a class="fui-header-nav-item active" href="#">Dashboard</a>
+          <a class="fui-header-nav-item" href="#">Reports</a>
+          <a class="fui-header-nav-item" href="#">Settings</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="fui-main">
+      <!-- Typography -->
+      <section>
+        <h1 class="fui-heading-xlarge">heading-xlarge — Analytics Dashboard</h1>
+        <h2 class="fui-heading-large">heading-large — Monthly Overview</h2>
+        <h3 class="fui-heading">heading — Weekly Trends</h3>
+        <h4 class="fui-heading-small">heading-small — Daily Breakdown</h4>
+        <h5 class="fui-heading-xsmall">heading-xsmall — Section Title</h5>
+        <p class="fui-body-large-400">
+          body-large-400 — Larger body text for introductions and summaries.
+        </p>
+        <p class="fui-body-large-400-2lines">
+          body-large-400-2lines — Larger body text with increased line height
+          for multi-line content.
+        </p>
+        <p class="fui-body-large-500">
+          body-large-500 — Larger body text with medium weight.
+        </p>
+        <p class="fui-body-400">
+          body-400 — Standard body text at 14px. It includes a
+          <a href="#">link example</a> to verify link styling.
+        </p>
+        <p class="fui-body-400-2lines">
+          body-400-2lines — Standard body text with increased line height for
+          multi-line paragraphs.
+        </p>
+        <p class="fui-body-500">
+          body-500 — Standard body text with medium weight.
+        </p>
+        <p class="fui-body-small-400">
+          body-small-400 — Captions, timestamps, and secondary information.
+        </p>
+        <p class="fui-body-small-400-2lines">
+          body-small-400-2lines — Small body text with increased line height.
+        </p>
+        <p class="fui-body-small-500">
+          body-small-500 — Small body text with medium weight.
+        </p>
+        <p class="fui-uppercase-500">uppercase-500 — Label text</p>
+      </section>
+
+      <!-- Buttons -->
+      <section>
+        <h2 class="fui-heading-large">Buttons</h2>
+        <div
+          style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap"
+        >
+          <button class="fui-button fui-button-primary">Primary</button>
+          <button class="fui-button fui-button-secondary">Secondary</button>
+          <button class="fui-button fui-button-primary" disabled>
+            Primary Disabled
+          </button>
+          <button class="fui-button fui-button-secondary" disabled>
+            Secondary Disabled
+          </button>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="fui-content">
+        <h1>Analytics Overview</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris.
+        </p>
+
+        <h2>Data Collection Methods</h2>
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est
+          laborum.
+        </p>
+        <ul>
+          <li>Page view tracking across all dataset pages</li>
+          <li>Export and download event monitoring</li>
+          <li>Search query analysis and term frequency</li>
+          <li>User session duration and bounce rates</li>
+        </ul>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium.
+        </p>
+
+        <h3>Event Categories</h3>
+        <p>
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+          fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+          sequi nesciunt.
+        </p>
+        <ol>
+          <li>
+            Navigation events — page transitions, tab switches, and breadcrumb
+            clicks
+          </li>
+          <li>
+            Search events — query submissions, filter applications, and result
+            selections
+          </li>
+          <li>
+            Export events — manifest downloads, Terra exports, and bulk
+            operations
+            <ol>
+              <li>File manifest CSV downloads</li>
+              <li>Export to Terra workspace</li>
+              <li>Bulk download via curl command</li>
+            </ol>
+          </li>
+          <li>
+            Authentication events — login attempts, session renewals, and
+            logouts
+          </li>
+        </ol>
+
+        <h4>Implementation Notes</h4>
+        <p>
+          Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+          consectetur, adipisci velit. At vero eos et accusamus et iusto odio
+          dignissimos ducimus qui blanditiis praesentium voluptatum.
+        </p>
+        <p>
+          Temporibus autem quibusdam et aut officiis debitis aut rerum
+          necessitatibus saepe eveniet ut et voluptates repudiandae sint et
+          molestiae non recusandae.
+        </p>
+      </section>
+
+      <!-- Cards Grid -->
+      <h2 class="fui-heading-large">Chart Cards</h2>
+      <div class="fui-grid-12">
+        <!-- Card 1 -->
+        <div class="fui-card fui-grid-item-6">
+          <div class="fui-card-header">
+            <h3 class="fui-card-header-title fui-heading-xsmall">Page Views</h3>
+            <p class="fui-card-header-description fui-body-small-400">
+              Total page views over the last 30 days
+            </p>
+          </div>
+          <hr class="fui-divider" />
+          <div class="fui-card-content">
+            <p
+              class="fui-color-ink-light"
+              style="text-align: center; padding: 40px 0"
+            >
+              [Chart placeholder — 300 x 200]
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="fui-card fui-grid-item-6">
+          <div class="fui-card-header">
+            <h3 class="fui-card-header-title fui-heading-xsmall">
+              Unique Visitors
+            </h3>
+            <p class="fui-card-header-description fui-body-small-400">
+              Distinct users by session
+            </p>
+          </div>
+          <hr class="fui-divider" />
+          <div class="fui-card-content">
+            <p
+              class="fui-color-ink-light"
+              style="text-align: center; padding: 40px 0"
+            >
+              [Chart placeholder — 300 x 200]
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 — Full width -->
+        <div class="fui-card fui-grid-item-12">
+          <div class="fui-card-header">
+            <h3 class="fui-card-header-title fui-heading-xsmall">
+              Downloads Over Time
+            </h3>
+            <p class="fui-card-header-description fui-body-small-400">
+              File manifest and export downloads, full width card
+            </p>
+          </div>
+          <hr class="fui-divider" />
+          <div class="fui-card-content">
+            <p
+              class="fui-color-ink-light"
+              style="text-align: center; padding: 60px 0"
+            >
+              [Wide chart placeholder — 600 x 200]
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="fui-card fui-grid-item-6">
+          <div class="fui-card-header">
+            <h3 class="fui-card-header-title fui-heading-xsmall">
+              Top Search Terms
+            </h3>
+          </div>
+          <hr class="fui-divider" />
+          <div class="fui-card-content">
+            <p class="fui-body-400">1. single cell</p>
+            <p class="fui-body-400">2. lung cancer</p>
+            <p class="fui-body-400">3. CRISPR</p>
+          </div>
+        </div>
+
+        <!-- Card 5 — No header -->
+        <div class="fui-card fui-grid-item-6">
+          <div class="fui-card-content">
+            <h5 class="fui-heading-xsmall">Card Without Header</h5>
+            <p class="fui-body-400">
+              This card uses only a body section, no header divider.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
