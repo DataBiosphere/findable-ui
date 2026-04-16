@@ -371,7 +371,7 @@
 .fui-header {
   align-items: center;
   background: var(--fui-white);
-  border-bottom: 1px solid var(--fui-smoke);
+  box-shadow: var(--fui-shadow-01);
   display: grid;
   gap: var(--fui-space-16);
   grid-template-areas: "left center right";
