@@ -128,10 +128,8 @@
 
   /* Shadows */
   --fui-shadow-00: none;
-  --fui-shadow-01: 0 1px 4px 0 rgba(0, 0, 0, 0.07);
-  --fui-shadow-02:
-    0 8px 8px -4px rgba(16, 24, 40, 0.03),
-    0 20px 24px -4px rgba(16, 24, 40, 0.08);
+  --fui-shadow-01: 0 1px 4px 0 #00000012;
+  --fui-shadow-02: 0 8px 8px -4px #10182808, 0 20px 24px -4px #10182814;
 
   /* Smoke (borders / backgrounds) */
   --fui-smoke: #e1e3e5;
@@ -173,6 +171,13 @@
 }
 
 /* ---------- Base ---------- */
+
+.fui-body,
+.fui-body *,
+.fui-body *::before,
+.fui-body *::after {
+  box-sizing: border-box;
+}
 
 .fui-body {
   -moz-osx-font-smoothing: grayscale;
@@ -407,6 +412,7 @@
 }
 
 .fui-header-logo img {
+  display: block;
   height: 32px;
   width: auto;
 }
@@ -536,6 +542,7 @@
 }
 
 .fui-content img {
+  display: block;
   margin: var(--fui-space-16) 0;
   max-width: 100%;
 }
