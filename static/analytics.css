@@ -446,6 +446,7 @@
 /* ---------- Buttons ---------- */
 
 .fui-button {
+  align-items: center;
   border: none;
   border-radius: var(--fui-radius-sm);
   cursor: pointer;
