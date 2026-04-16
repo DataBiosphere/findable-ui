@@ -3,33 +3,76 @@
  *
  * A self-contained static CSS file for GitHub Pages analytics dashboards.
  * Matches the findable-ui design system (colors, spacing, typography).
- *
- * Usage:
- *   <link rel="stylesheet" href="path/to/analytics.css" />
- *   — or —
- *   @import "@databiosphere/findable-ui/static/analytics.css";
- *
  * All class names are prefixed with `.fui-` to avoid conflicts.
+ *
+ * GitHub Pages setup:
+ *   1. Install the package: npm install @databiosphere/findable-ui
+ *   2. Copy static/analytics.css into your GitHub Pages site
+ *   3. Link it in your HTML:
+ *
+ *   <!doctype html>
+ *   <html lang="en">
+ *   <head>
+ *     <meta charset="UTF-8" />
+ *     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ *     <link rel="stylesheet" href="analytics.css" />
+ *   </head>
+ *   <body class="fui-body">
+ *     <header class="fui-header">
+ *       <div class="fui-header-left">
+ *         <a class="fui-header-logo" href="/">
+ *           <img src="logo.svg" alt="Logo" />
+ *         </a>
+ *       </div>
+ *       <div class="fui-header-right">
+ *         <nav class="fui-header-nav">
+ *           <a class="fui-header-nav-item active" href="/">Dashboard</a>
+ *           <a class="fui-header-nav-item" href="/reports">Reports</a>
+ *         </nav>
+ *       </div>
+ *     </header>
+ *     <main class="fui-main">
+ *       <section class="fui-content">
+ *         <h1>Page Title</h1>
+ *         <p>Body text with automatic styling.</p>
+ *       </section>
+ *       <div class="fui-grid-12">
+ *         <div class="fui-card fui-grid-item-6">
+ *           <div class="fui-card-header">
+ *             <h3 class="fui-card-header-title fui-heading-xsmall">Chart</h3>
+ *           </div>
+ *           <hr class="fui-divider" />
+ *           <div class="fui-card-content">...</div>
+ *         </div>
+ *       </div>
+ *     </main>
+ *   </body>
+ *   </html>
  *
  * Customization:
  *   Override CSS custom properties to match your application's branding.
  *   Add a <style> block after the stylesheet link:
  *
- *   :root {
- *     --fui-primary: #28a745;
- *     --fui-primary-dark: #1e7e34;
- *     --fui-primary-lightest: #e6f4ea;
- *     --fui-ink: #24292e;
- *     --fui-ink-light: #586069;
- *   }
+ *   <style>
+ *     :root {
+ *       --fui-primary: #28a745;
+ *       --fui-primary-dark: #1e7e34;
+ *       --fui-primary-lightest: #e6f4ea;
+ *       --fui-ink: #24292e;
+ *       --fui-ink-light: #586069;
+ *       --fui-font-family: "Roboto", sans-serif;
+ *     }
+ *   </style>
  *
  * Responsive grid:
  *   Grid items use fixed column spans. To make them responsive,
  *   add a <style> block with media queries:
  *
- *   @media (max-width: 767px) {
- *     .fui-grid-item-6 { grid-column: 1 / -1; }
- *   }
+ *   <style>
+ *     @media (max-width: 767px) {
+ *       .fui-card[class*="fui-grid-item"] { grid-column: 1 / -1; }
+ *     }
+ *   </style>
  */
 
 /* ---------- Custom Properties ---------- */
