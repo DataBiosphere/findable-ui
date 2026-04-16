@@ -14,7 +14,7 @@ export interface Attribute {
   name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
   range: string; // Type of attribute value e.g. "string"
   rationale?: string; // Free text rationale for attribute
-  required: boolean;
+  required: boolean | "strongly recommended";
   title: string; // Display name
   values?: string; // Free text description of attribute values
 }
