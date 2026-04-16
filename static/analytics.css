@@ -453,7 +453,7 @@
   font: var(--fui-font-body-500);
   gap: var(--fui-space-4);
   letter-spacing: normal;
-  padding: 8px 16px;
+  padding: var(--fui-space-8) var(--fui-space-16);
 }
 
 .fui-button:disabled {
@@ -514,32 +514,32 @@
 .fui-content h1 {
   font: var(--fui-font-heading-large);
   letter-spacing: -0.4px;
-  margin: 0 0 8px;
+  margin: 0 0 var(--fui-space-8);
 }
 
 .fui-content h2 {
   font: var(--fui-font-heading);
   letter-spacing: -0.2px;
-  margin: 32px 0 16px;
+  margin: var(--fui-space-32) 0 var(--fui-space-16);
 }
 
 .fui-content h3 {
   font: var(--fui-font-heading-small);
-  margin: 32px 0 16px;
+  margin: var(--fui-space-32) 0 var(--fui-space-16);
 }
 
 .fui-content h4 {
   font: var(--fui-font-body-large-500);
-  margin: 24px 0 16px;
+  margin: var(--fui-space-24) 0 var(--fui-space-16);
 }
 
 .fui-content img {
-  margin: 16px 0;
+  margin: var(--fui-space-16) 0;
   max-width: 100%;
 }
 
 .fui-content li {
-  margin: 8px 0;
+  margin: var(--fui-space-8) 0;
 }
 
 .fui-content li:last-child {
@@ -547,12 +547,12 @@
 }
 
 .fui-content li p {
-  margin-bottom: 8px;
+  margin-bottom: var(--fui-space-8);
 }
 
 .fui-content ol {
   margin: 0;
-  padding-left: 24px;
+  padding-left: var(--fui-space-24);
 }
 
 .fui-content ol ol {
@@ -561,17 +561,17 @@
 
 .fui-content p {
   font: var(--fui-font-body-large-400-2lines);
-  margin-bottom: 16px;
+  margin-bottom: var(--fui-space-16);
   overflow-wrap: break-word;
 }
 
 .fui-content ul {
   margin: 0;
-  padding-left: 24px;
+  padding-left: var(--fui-space-24);
 }
 
 .fui-content ul + p {
-  margin-top: 16px;
+  margin-top: var(--fui-space-16);
 }
 
 .fui-content > *:first-child {
