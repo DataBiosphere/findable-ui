@@ -116,9 +116,9 @@
   --fui-primary-lightest: #e6eff6;
 
   /* Shadows */
-  --fui-shadow-01: none;
-  --fui-shadow-02: 0 1px 4px 0 rgba(0, 0, 0, 0.07);
-  --fui-shadow-03:
+  --fui-shadow-00: none;
+  --fui-shadow-01: 0 1px 4px 0 rgba(0, 0, 0, 0.07);
+  --fui-shadow-02:
     0 8px 8px -4px rgba(16, 24, 40, 0.03),
     0 20px 24px -4px rgba(16, 24, 40, 0.08);
 
@@ -583,7 +583,7 @@
   background: var(--fui-white);
   border: 1px solid var(--fui-smoke);
   border-radius: var(--fui-radius);
-  box-shadow: var(--fui-shadow-01);
+  box-shadow: var(--fui-shadow-00);
 }
 
 .fui-card-header {
