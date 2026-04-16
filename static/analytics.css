@@ -49,6 +49,17 @@
  *   </body>
  *   </html>
  *
+ * Fonts:
+ *   This file does not bundle or import web fonts. The default font stack
+ *   uses "Inter" with system fallbacks. For an exact visual match, load
+ *   Inter and Roboto Mono (used by .fui-code) yourself:
+ *
+ *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap" />
+ *
+ *   To use a different font, override --fui-font-family:
+ *
+ *   :root { --fui-font-family: "Roboto", sans-serif; }
+ *
  * Customization:
  *   Override CSS custom properties to match your application's branding.
  *   Add a <style> block after the stylesheet link:
@@ -60,7 +71,6 @@
  *       --fui-primary-lightest: #e6f4ea;
  *       --fui-ink: #24292e;
  *       --fui-ink-light: #586069;
- *       --fui-font-family: "Roboto", sans-serif;
  *     }
  *   </style>
  *
