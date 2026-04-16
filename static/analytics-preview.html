@@ -6,6 +6,12 @@
     <title>findable-ui Analytics CSS Preview</title>
     <link rel="stylesheet" href="analytics.css" />
     <style>
+      :root {
+        --fui-primary: #28285b;
+        --fui-primary-dark: #1f1f47;
+        --fui-primary-lightest: #e6eff6;
+      }
+
       @media (max-width: 767px) {
         .fui-card[class*="fui-grid-item"] {
           grid-column: 1 / -1;
@@ -19,7 +25,7 @@
       <a class="fui-header-logo fui-header-left" href="#">
         <img src="../src/images/logo.svg" alt="Logo" />
       </a>
-      <div class="fui-header-right">
+      <div class="fui-header-center">
         <nav class="fui-header-nav">
           <a class="fui-header-nav-item active" href="#">Dashboard</a>
           <a class="fui-header-nav-item" href="#">Reports</a>
