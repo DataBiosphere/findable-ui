@@ -23,6 +23,7 @@
   "main": "lib/index.js",
   "files": [
     "lib",
+    "static/**/*.css",
     "types"
   ],
   "devDependencies": {
