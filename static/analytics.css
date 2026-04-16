@@ -3,7 +3,8 @@
  *
  * A self-contained static CSS file for GitHub Pages analytics dashboards.
  * Matches the findable-ui design system (colors, spacing, typography).
- * All class names are prefixed with `.fui-` to avoid conflicts.
+ * Component class names are prefixed with `.fui-` to avoid conflicts.
+ * State classes may be used alongside prefixed classes, for example `.active`.
  *
  * GitHub Pages setup:
  *   1. Install the package: npm install @databiosphere/findable-ui
@@ -577,6 +578,10 @@
 
 .fui-content > *:first-child {
   margin-top: 0;
+}
+
+.fui-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------- Divider ---------- */
