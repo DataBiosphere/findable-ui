@@ -14,7 +14,7 @@ export interface Attribute {
   name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
   range: string; // Type of attribute value e.g. "string"
   rationale?: string; // Free text rationale for attribute
-  required: boolean;
+  required: RequirementLevel;
   title: string; // Display name
   values?: string; // Free text description of attribute values
 }
@@ -118,6 +118,20 @@ export interface Pagination {
  * Possible pagination direction values.
  */
 export type PaginationDirectionType = "next" | "prev";
+
+/**
+ * Requirement level for an attribute.
+ */
+export const REQUIREMENT_LEVEL = {
+  STRONGLY_RECOMMENDED: "strongly recommended",
+} as const;
+
+/**
+ * Requirement level type.
+ */
+export type RequirementLevel =
+  | boolean
+  | (typeof REQUIREMENT_LEVEL)[keyof typeof REQUIREMENT_LEVEL];
 
 /**
  * Internal filter model of a multiselect category (e.g. library construction approach).
