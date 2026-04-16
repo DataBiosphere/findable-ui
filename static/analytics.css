@@ -579,6 +579,7 @@
 /* ---------- Cards ---------- */
 
 .fui-card {
+  align-self: flex-start;
   background: var(--fui-white);
   border: 1px solid var(--fui-smoke);
   border-radius: var(--fui-radius);
@@ -601,6 +602,14 @@
 
 .fui-card-content {
   padding: var(--fui-space-16);
+}
+
+.fui-card-content > *:first-child {
+  margin-top: 0;
+}
+
+.fui-card-content > *:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------- Links ---------- */
