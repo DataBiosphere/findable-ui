@@ -1,5 +1,12 @@
 # Changelog
 
+## [50.8.0](https://github.com/DataBiosphere/findable-ui/compare/v50.7.1...v50.8.0) (2026-04-16)
+
+
+### Features
+
+* update attribute required prop to support strongly recommended ([#875](https://github.com/DataBiosphere/findable-ui/issues/875)) ([#876](https://github.com/DataBiosphere/findable-ui/issues/876)) ([88a9a83](https://github.com/DataBiosphere/findable-ui/commit/88a9a8398ccbd3175eec4a4aab57efd0590bf2ce))
+
 ## [50.7.1](https://github.com/DataBiosphere/findable-ui/compare/v50.7.0...v50.7.1) (2026-04-09)
 
 
