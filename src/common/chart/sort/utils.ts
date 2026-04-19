@@ -1,5 +1,5 @@
 import { CHART_SORT_FN } from "./constants";
-import { CHART_SORT, ChartSortOptions, ChartSortFn } from "./types";
+import { CHART_SORT, ChartSortFn, ChartSortOptions } from "./types";
 
 /**
  * Resolves chart sort options to a sorting function.

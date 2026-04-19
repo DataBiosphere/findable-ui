@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { JSX, CSSProperties, forwardRef, ReactNode } from "react";
+import { CSSProperties, forwardRef, JSX, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { Slogan as CatchPhrase } from "./slogan.styles";
 

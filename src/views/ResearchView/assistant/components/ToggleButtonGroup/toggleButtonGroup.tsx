@@ -1,9 +1,9 @@
 import { ToggleButton } from "@mui/material";
-import { JSX } from "react";
-import { StyledBox, StyledToggleButtonGroup } from "./toggleButtonGroup.styles";
 import Link from "next/link";
-import { useAiRoutes } from "../../../../../hooks/ai/useAiRoutes/hook";
+import { JSX } from "react";
 import { Beta } from "../../../../../components/common/Chip/components/Beta/beta";
+import { useAiRoutes } from "../../../../../hooks/ai/useAiRoutes/hook";
+import { StyledBox, StyledToggleButtonGroup } from "./toggleButtonGroup.styles";
 
 /**
  * ToggleButtonGroup component for navigating between ResearchView and ExploreView.

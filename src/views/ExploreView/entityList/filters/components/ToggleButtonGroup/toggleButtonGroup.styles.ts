@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, ToggleButtonGroup } from "@mui/material";
-import { bpDownMd } from "../../../../../../styles/common/mixins/breakpoints";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
+import { bpDownMd } from "../../../../../../styles/common/mixins/breakpoints";
 
 export const StyledBox = styled(Box)`
   margin-bottom: -16px;

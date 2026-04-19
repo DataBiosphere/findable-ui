@@ -2,7 +2,6 @@ import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import React from "react";
 import { VIEW_KIND } from "../src/common/categories/views/types";
 import * as stories from "../src/components/Filter/components/Filter/stories/filter.stories";
 import { TEST_IDS } from "../src/tests/testIds";

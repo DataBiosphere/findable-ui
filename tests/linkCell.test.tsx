@@ -2,7 +2,6 @@ import { matchers } from "@emotion/jest";
 import { composeStories } from "@storybook/react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,

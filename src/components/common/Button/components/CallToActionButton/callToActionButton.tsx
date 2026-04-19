@@ -1,6 +1,6 @@
 import { ButtonProps } from "@mui/material";
 import Link from "next/link";
-import { JSX, ElementType } from "react";
+import { ElementType, JSX } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,

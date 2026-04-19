@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
 import styled from "@emotion/styled";
+import { Stack } from "@mui/material";
 import { PALETTE } from "../../../../../../../../../styles/common/constants/palette";
 
 export const StyledStack = styled(Stack)`

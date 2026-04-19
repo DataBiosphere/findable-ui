@@ -1,4 +1,4 @@
-import { JSX, ElementType } from "react";
+import { ElementType, JSX } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";

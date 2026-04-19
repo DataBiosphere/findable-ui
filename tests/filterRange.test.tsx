@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import { VIEW_KIND } from "../src/common/categories/views/types";
 import * as stories from "../src/components/Filter/components/FilterRange/stories/filterRange.stories";
 import { MUI_CLASSES } from "../src/tests/mui/constants";

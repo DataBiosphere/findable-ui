@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { ChatContextValue } from "./types";
 import { INITIAL_STATE } from "./constants";
+import { ChatContextValue } from "./types";
 
 /**
  * Context for the Chat state provider.

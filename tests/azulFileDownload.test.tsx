@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import React from "react";
 import {
   AZUL_FILE_DOWNLOAD_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,

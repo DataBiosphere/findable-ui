@@ -1,8 +1,8 @@
+import type { Element, ElementContent, Root } from "hast";
 import { Plugin } from "unified";
 import { visit } from "unist-util-visit";
-import { generateUniqueId, isTextNode, slugifyHeading } from "./utils";
-import type { Root, Element, ElementContent } from "hast";
 import type { VFile } from "vfile";
+import { generateUniqueId, isTextNode, slugifyHeading } from "./utils";
 
 /**
  * Rehype plugin to generate an ID for each heading in MDX content.

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { JSX } from "react";
-import { ToggleButtonGroup } from "../toggleButtonGroup";
 import { ConfigProvider } from "../../../../../../providers/config";
 import { INITIAL_CONFIG } from "../../../stories/args";
+import { ToggleButtonGroup } from "../toggleButtonGroup";
 
 const meta: Meta<typeof ToggleButtonGroup> = {
   component: ToggleButtonGroup,

@@ -1,8 +1,8 @@
 import { JSX } from "react";
-import { StyledStack } from "./messages.styles";
-import { MessagesProps } from "./types";
-import { MessageSelector } from "./selector/messageSelector";
 import { useScroll } from "./hooks/UseScroll/hook";
+import { StyledStack } from "./messages.styles";
+import { MessageSelector } from "./selector/messageSelector";
+import { MessagesProps } from "./types";
 
 /**
  * Renders chat messages, delegating each to the message selector.

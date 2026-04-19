@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react";
-import React from "react";
 import { LoginGuardContext } from "../src/providers/loginGuard/context";
 
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({

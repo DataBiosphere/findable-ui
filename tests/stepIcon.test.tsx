@@ -1,6 +1,5 @@
 import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 import { STEP_ICON_TEST_ID } from "../src/components/Stepper/components/Step/components/StepIcon/constants";
 import * as stories from "../src/components/Stepper/components/Step/components/StepIcon/stories/stepIcon.stories";
 import { MUI_CLASSES } from "../src/tests/mui/constants";
