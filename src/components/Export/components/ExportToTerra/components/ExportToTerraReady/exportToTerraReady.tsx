@@ -1,4 +1,6 @@
-import { JSX, ElementType } from "react";
+import { Button, Link } from "@mui/material";
+import { ElementType, JSX } from "react";
+import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
 import { FluidPaper } from "../../../../../common/Paper/paper.styles";
 import {
   ANCHOR_TARGET,
@@ -9,8 +11,6 @@ import {
   SectionActions,
   SectionContent,
 } from "../../../../export.styles";
-import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
-import { Button, Link } from "@mui/material";
 
 export interface ExportToTerraReadyProps {
   ExportToTerraSuccess: ElementType;

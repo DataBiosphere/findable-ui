@@ -1,4 +1,6 @@
 import { FormEvent, useCallback, useRef } from "react";
+import { track } from "../../../../../../common/analytics/analytics";
+import { EVENT_NAME } from "../../../../../../common/analytics/entities";
 import { fetchResponse } from "../../../../query/fetch";
 import { useChatDispatch } from "../../../hooks/UseChatDispatch/hook";
 import { MessageResponse } from "../../../types";
@@ -7,8 +9,6 @@ import {
   OnSubmitPayload,
   QueryContextValue,
 } from "../../types";
-import { track } from "../../../../../../common/analytics/analytics";
-import { EVENT_NAME } from "../../../../../../common/analytics/entities";
 
 /**
  * Hook that manages query submission and abort lifecycle.

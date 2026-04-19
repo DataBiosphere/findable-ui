@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { RoundedPaper } from "../../../../../components/common/Paper/components/RoundedPaper/roundedPaper";
 import { Box } from "@mui/material";
+import { RoundedPaper } from "../../../../../components/common/Paper/components/RoundedPaper/roundedPaper";
 
 export const StyledBox = styled(Box)`
   padding: 16px;

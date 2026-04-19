@@ -1,4 +1,4 @@
-import { useState, JSX } from "react";
+import { JSX, useState } from "react";
 import { FormDialog } from "./components/Dialog/dialog";
 import { REQUEST_FIELD_ID } from "./components/SupportRequestForm/common/entities";
 import { SupportRequestForm } from "./components/SupportRequestForm/supportRequestForm";

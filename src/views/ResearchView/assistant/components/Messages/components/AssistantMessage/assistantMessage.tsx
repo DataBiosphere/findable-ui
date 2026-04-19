@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { JSX } from "react";
-import { AssistantMessageProps } from "./types";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
+import { AssistantMessageProps } from "./types";
 
 /**
  * Renders an assistant message.

@@ -1,4 +1,4 @@
-import { JSX, ElementType, ReactNode } from "react";
+import { ElementType, JSX, ReactNode } from "react";
 import { Divider as Box } from "./divider.styles";
 
 export interface DividerProps {

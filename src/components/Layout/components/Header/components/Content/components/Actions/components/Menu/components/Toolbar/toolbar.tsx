@@ -1,6 +1,6 @@
 import { CloseRounded } from "@mui/icons-material";
 import { IconButton, Toolbar as MToolbar } from "@mui/material";
-import { JSX, Fragment, ReactNode } from "react";
+import { Fragment, JSX, ReactNode } from "react";
 import { ComponentsConfig } from "../../../../../../../../../../../../config/entities";
 import { Left, Right } from "../../../../../../../../header.styles";
 import { Announcements } from "../../../../../../../Announcements/announcements";

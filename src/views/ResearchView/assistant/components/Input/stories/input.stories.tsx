@@ -1,7 +1,7 @@
-import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
-import { Input } from "../input";
 import { Box } from "@mui/material";
+import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
 import { JSX } from "react";
+import { Input } from "../input";
 
 const meta: Meta<typeof Input> = {
   component: Input,

@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 import { render } from "@testing-library/react";
-import React from "react";
 import { DEFAULT_AUTHENTICATION_STATE } from "../src/providers/authentication/authentication/constants";
 import { authenticationComplete } from "../src/providers/authentication/authentication/dispatch";
 import { DEFAULT_CREDENTIALS_STATE } from "../src/providers/authentication/credentials/constants";

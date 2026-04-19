@@ -1,4 +1,4 @@
-import { JSX, AnchorHTMLAttributes, ClassAttributes } from "react";
+import { AnchorHTMLAttributes, ClassAttributes, JSX } from "react";
 import { Link } from "../../../Links/components/Link/link";
 import { BaseComponentProps } from "../../../types";
 

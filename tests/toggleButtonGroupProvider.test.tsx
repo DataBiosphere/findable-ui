@@ -1,7 +1,7 @@
 import { act, render, screen } from "@testing-library/react";
 import React, { JSX } from "react";
-import { ToggleButtonGroupProvider } from "../src/components/common/ToggleButtonGroup/provider/provider";
 import { useToggleButtonGroup } from "../src/components/common/ToggleButtonGroup/provider/hook";
+import { ToggleButtonGroupProvider } from "../src/components/common/ToggleButtonGroup/provider/provider";
 
 enum TEST_VALUE {
   OPTION_A = "OPTION_A",

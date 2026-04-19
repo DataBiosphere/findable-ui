@@ -1,6 +1,5 @@
 import { composeStories } from "@storybook/react";
 import { render } from "@testing-library/react";
-import React from "react";
 import * as filterStories from "../src/components/Detail/components/Table/stories/filter/filter.stories";
 
 const COLUMN_INDEX = {

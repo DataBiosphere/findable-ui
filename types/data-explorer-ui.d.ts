@@ -1,3 +1,15 @@
+import { DataLayer } from "@databiosphere/findable-ui/lib/common/analytics/entities";
+import { DataDictionaryAnnotation } from "@databiosphere/findable-ui/lib/common/entities";
+import {
+  CustomFeatureColumn,
+  CustomFeatureInitialTableState,
+  CustomFeatureInstance,
+  CustomFeatureOptions,
+  CustomFeatureRow,
+  CustomFeatureTableState,
+} from "@databiosphere/findable-ui/lib/components/Table/features/entities";
+import { GridTrackSize } from "@databiosphere/findable-ui/lib/config/entities";
+import { SIZE } from "@databiosphere/findable-ui/lib/styles/common/constants/size";
 import {
   Theme as MTheme,
   PaletteColorOptions,
@@ -19,18 +31,6 @@ import type {} from "@mui/material/Toolbar";
 import type {} from "@mui/material/Typography";
 import type { RowData } from "@tanstack/react-table";
 import { Components } from "rehype-react";
-import { DataLayer } from "@databiosphere/findable-ui/lib/common/analytics/entities";
-import { DataDictionaryAnnotation } from "@databiosphere/findable-ui/lib/common/entities";
-import {
-  CustomFeatureColumn,
-  CustomFeatureInitialTableState,
-  CustomFeatureInstance,
-  CustomFeatureOptions,
-  CustomFeatureRow,
-  CustomFeatureTableState,
-} from "@databiosphere/findable-ui/lib/components/Table/features/entities";
-import { GridTrackSize } from "@databiosphere/findable-ui/lib/config/entities";
-import { SIZE } from "@databiosphere/findable-ui/lib/styles/common/constants/size";
 
 declare module "@mui/material/Alert" {
   interface AlertProps {

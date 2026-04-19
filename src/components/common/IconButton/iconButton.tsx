@@ -2,7 +2,7 @@ import {
   IconButtonProps as MIconButtonProps,
   IconProps as MIconProps,
 } from "@mui/material";
-import { JSX, ElementType } from "react";
+import { ElementType, JSX } from "react";
 import { Button } from "./iconButton.styles";
 
 /**

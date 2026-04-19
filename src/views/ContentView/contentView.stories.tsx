@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import image from "images/logo.svg";
-import React from "react";
 import { NavBarHero } from "../../components/Layout/components/Nav/components/NavBarHero/navBarHero";
 import { Nav } from "../../components/Layout/components/Nav/nav";
 import { ContentView } from "./contentView";

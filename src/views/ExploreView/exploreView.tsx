@@ -29,10 +29,10 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
+import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { buildStateSyncManagerContext } from "./utils";
-import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
-import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;

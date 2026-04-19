@@ -1,4 +1,4 @@
-import { JSX, ElementType } from "react";
+import { ElementType, JSX } from "react";
 import { Circle } from "./iconBadge.styles";
 
 /**
