@@ -1,26 +1,26 @@
 import { Typography } from "@mui/material";
 import {
+  isValidElement,
   JSX,
+  ReactElement,
   useEffect,
   useMemo,
   useState,
-  isValidElement,
-  ReactElement,
 } from "react";
+import * as production from "react/jsx-runtime";
 import rehypeRaw from "rehype-raw";
 import rehypeReact, { Components } from "rehype-react";
-import * as production from "react/jsx-runtime";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import type { VFile } from "vfile";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { COMPONENTS } from "./constants";
 import { StyledContainer } from "./markdownRenderer.styles";
 import { rehypeHighlight } from "./rehypeHighlight";
 import { MarkdownRendererProps } from "./types";
-import type { VFile } from "vfile";
 
 export const MarkdownRenderer = ({
   className,

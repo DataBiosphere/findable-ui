@@ -1,4 +1,4 @@
-import { JSX, Fragment, ReactNode } from "react";
+import { Fragment, JSX, ReactNode } from "react";
 import {
   BackPageContent,
   BackPageContentMainColumn,

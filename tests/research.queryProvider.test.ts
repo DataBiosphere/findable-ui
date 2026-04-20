@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
-import { FormEvent, ReactNode } from "react";
-import React from "react";
+import React, { FormEvent, ReactNode } from "react";
 
 /**
  * Fetch callbacks passed to fetchResponse.

@@ -1,5 +1,5 @@
-import { OAuthProvider } from "../config/entities";
 import { GoogleIcon } from "../components/common/CustomIcon/components/GoogleIcon/googleIcon";
+import { OAuthProvider } from "../config/entities";
 import { GOOGLE_SIGN_IN_PROVIDER_ID } from "./constants";
 import { GoogleProfile } from "./types";
 import { mapProfile } from "./utils/profile";

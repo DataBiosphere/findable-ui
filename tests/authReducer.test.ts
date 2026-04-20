@@ -1,9 +1,9 @@
-import { authReducer } from "../src/auth/reducers/auth";
 import {
   requestAuth,
   resetAuthState,
   updateAuthState,
 } from "../src/auth/dispatch/auth";
+import { authReducer } from "../src/auth/reducers/auth";
 import { AUTH_STATUS, AuthState } from "../src/auth/types/auth";
 
 const INITIAL_STATE: AuthState = {

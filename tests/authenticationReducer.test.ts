@@ -1,9 +1,9 @@
-import { authenticationReducer } from "../src/auth/reducers/authentication";
 import {
   requestAuthentication,
   resetAuthenticationState,
   updateAuthentication,
 } from "../src/auth/dispatch/authentication";
+import { authenticationReducer } from "../src/auth/reducers/authentication";
 import {
   AUTHENTICATION_STATUS,
   AuthenticationState,

@@ -3,10 +3,10 @@ import {
   Table,
   TableMeta as TanStackTableMeta,
 } from "@tanstack/react-table";
+import { JSX } from "react";
 import { FILTER_SORT } from "../../../../../../common/filters/sort/config/types";
 import { CategoryGroup } from "../../../../../../config/entities";
 import { SurfaceProps } from "../../../surfaces/types";
-import { JSX } from "react";
 
 export interface ColumnFiltersAdapterProps<T extends RowData> {
   renderSurface: (props: SurfaceProps) => JSX.Element | null;

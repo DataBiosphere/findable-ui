@@ -1,7 +1,7 @@
-import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
-import { Messages } from "../messages";
 import { Box } from "@mui/material";
+import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
 import { JSX } from "react";
+import { Messages } from "../messages";
 import { ARGS } from "./args";
 
 const meta: Meta<typeof Messages> = {

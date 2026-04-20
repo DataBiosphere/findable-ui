@@ -1,8 +1,8 @@
-import { JSX } from "react";
-import { ChipsProps } from "./types";
 import { Chip } from "@mui/material";
+import { JSX } from "react";
 import { CHIP_PROPS } from "../../../../../../../../../styles/common/mui/chip";
 import { StyledStack } from "./chips.styles";
+import { ChipsProps } from "./types";
 
 export const Chips = ({
   className,

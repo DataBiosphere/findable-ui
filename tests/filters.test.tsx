@@ -1,7 +1,6 @@
 import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 import { CategoryView } from "../src/common/categories/views/types";
 import { CategoryFilter } from "../src/components/Filter/components/Filters/filters";
 import * as stories from "../src/components/Filter/components/Filters/stories/filters.stories";

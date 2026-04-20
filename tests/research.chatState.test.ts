@@ -1,4 +1,3 @@
-import { chatReducer } from "../src/views/ResearchView/state/reducer";
 import { setErrorAction } from "../src/views/ResearchView/state/actions/setError/action";
 import { setError } from "../src/views/ResearchView/state/actions/setError/dispatch";
 import { setMessageAction } from "../src/views/ResearchView/state/actions/setMessage/action";
@@ -8,14 +7,15 @@ import { setQuery } from "../src/views/ResearchView/state/actions/setQuery/dispa
 import { setStatusAction } from "../src/views/ResearchView/state/actions/setStatus/action";
 import { setStatus } from "../src/views/ResearchView/state/actions/setStatus/dispatch";
 import { ChatActionKind } from "../src/views/ResearchView/state/actions/types";
+import { INITIAL_STATE } from "../src/views/ResearchView/state/constants";
+import { initializer } from "../src/views/ResearchView/state/initializer/initializer";
+import { chatReducer } from "../src/views/ResearchView/state/reducer";
 import {
   ChatState,
   MESSAGE_TYPE,
   MessageResponse,
   SUGGESTION_VARIANT,
 } from "../src/views/ResearchView/state/types";
-import { initializer } from "../src/views/ResearchView/state/initializer/initializer";
-import { INITIAL_STATE } from "../src/views/ResearchView/state/constants";
 
 /**
  * Creates a mock MessageResponse for testing.

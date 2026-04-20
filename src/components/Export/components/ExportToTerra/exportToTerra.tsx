@@ -1,4 +1,4 @@
-import { JSX, ElementType } from "react";
+import { ElementType, JSX } from "react";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";

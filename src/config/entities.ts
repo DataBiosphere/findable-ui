@@ -11,6 +11,10 @@ import {
 } from "@tanstack/react-table";
 import { JSX, JSXElementConstructor, ReactNode } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
+import { AuthState } from "../auth/types/auth";
+import { UserProfile } from "../auth/types/authentication";
+import { ProviderId } from "../auth/types/common";
+import { AiConfig } from "../common/ai/config/types";
 import { CategoryConfig } from "../common/categories/config/types";
 import {
   DataDictionaryAnnotation,
@@ -21,13 +25,9 @@ import { FilterSortConfig } from "../common/filters/sort/config/types";
 import { FooterProps } from "../components/Layout/components/Footer/footer";
 import { HeaderProps } from "../components/Layout/components/Header/header";
 import { ExploreMode } from "../hooks/useExploreMode/types";
-import { AuthState } from "../auth/types/auth";
-import { UserProfile } from "../auth/types/authentication";
-import { ProviderId } from "../auth/types/common";
 import { ExploreState } from "../providers/exploreState";
 import { FileManifestState } from "../providers/fileManifestState";
 import { SystemStatus, SystemStatusResponse } from "../providers/systemStatus";
-import { AiConfig } from "../common/ai/config/types";
 
 /**
  * Interface to define the analytics configuration for a given site.

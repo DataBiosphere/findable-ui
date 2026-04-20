@@ -1,4 +1,4 @@
-import { Component, ReactNode, PropsWithChildren, PropsWithRef } from "react";
+import { Component, PropsWithChildren, PropsWithRef, ReactNode } from "react";
 
 interface ErrorBoundaryState {
   error?: Error;

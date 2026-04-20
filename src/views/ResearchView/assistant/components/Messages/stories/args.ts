@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
-import { Messages } from "../messages";
-import { AssistantMessage, MESSAGE_TYPE } from "../../../../state/types";
 import { ERROR_MESSAGE } from "../../../../query/constants";
+import { AssistantMessage, MESSAGE_TYPE } from "../../../../state/types";
+import { Messages } from "../messages";
 
 export const ARGS: ComponentProps<typeof Messages> = {
   state: {
