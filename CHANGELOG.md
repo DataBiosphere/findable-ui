@@ -1,5 +1,16 @@
 # Changelog
 
+## [51.0.0](https://github.com/DataBiosphere/findable-ui/compare/v50.8.0...v51.0.0) (2026-04-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* make nextauth and google auth integrations tree-shakeable and conditional imports ([#719](https://github.com/DataBiosphere/findable-ui/issues/719)) (#769)
+
+### Chores
+
+* make nextauth and google auth integrations tree-shakeable and conditional imports ([#719](https://github.com/DataBiosphere/findable-ui/issues/719)) ([#769](https://github.com/DataBiosphere/findable-ui/issues/769)) ([0c46365](https://github.com/DataBiosphere/findable-ui/commit/0c4636592564b4b7e028f7fb4bccd26e90ac294e))
+
 ## [50.8.0](https://github.com/DataBiosphere/findable-ui/compare/v50.7.1...v50.8.0) (2026-04-16)
 
 
