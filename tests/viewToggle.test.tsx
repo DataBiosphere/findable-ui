@@ -1,6 +1,5 @@
 import { jest } from "@jest/globals";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 import { VIEW_MODE } from "../src/components/Index/components/EntityView/components/controls/ViewToggle/hooks/UseViewToggle/types";
 import { TEST_IDS } from "../src/tests/testIds";
 

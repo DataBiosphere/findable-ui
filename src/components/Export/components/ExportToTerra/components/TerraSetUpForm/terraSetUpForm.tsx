@@ -1,12 +1,12 @@
 import { Typography } from "@mui/material";
 import { JSX } from "react";
+import { useAuth } from "../../../../../../auth/hooks/useAuth";
+import { AUTH_STATUS } from "../../../../../../auth/types/auth";
 import {
   ONBOARDING_STEP,
   OnboardingStatus,
   useAuthenticationForm,
 } from "../../../../../../hooks/authentication/terra/useAuthenticationForm";
-import { useAuth } from "../../../../../../auth/hooks/useAuth";
-import { AUTH_STATUS } from "../../../../../../auth/types/auth";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import {
   FluidPaper,

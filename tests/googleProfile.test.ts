@@ -1,5 +1,5 @@
-import { mapProfile } from "../src/google/utils/profile";
 import { GoogleProfile } from "../src/google/types";
+import { mapProfile } from "../src/google/utils/profile";
 
 const FULL_GOOGLE_PROFILE: GoogleProfile = {
   email: "test@example.com",

@@ -1,10 +1,10 @@
 import { JSX, createElement } from "react";
+import { useAuth } from "../../auth/hooks/useAuth";
 import { ComponentsConfig, ViewContext } from "../../config/entities";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useFileManifestState } from "../../hooks/useFileManifestState";
 import { useSystemStatus } from "../../hooks/useSystemStatus";
-import { useAuth } from "../../auth/hooks/useAuth";
 
 export interface ComponentCreatorProps<T> {
   components: ComponentsConfig;

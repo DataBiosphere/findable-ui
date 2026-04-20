@@ -1,6 +1,6 @@
 import { Fragment, JSX } from "react";
-import { Assistant } from "./assistant/assistant";
 import { ChildrenProps } from "../../components/types";
+import { Assistant } from "./assistant/assistant";
 
 /**
  * Main view for the research assistant feature.

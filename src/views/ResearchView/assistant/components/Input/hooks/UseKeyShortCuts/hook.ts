@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
-import { SetValue } from "../UseControlledInput/types";
 import { useChatState } from "../../../../../state/hooks/UseChatState/hook";
+import { SetValue } from "../UseControlledInput/types";
 import { KEY } from "./constants";
 import { KeyboardInputEvent, UseKeyShortCutsProps } from "./types";
 import {

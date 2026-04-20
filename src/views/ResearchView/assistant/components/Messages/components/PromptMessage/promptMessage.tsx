@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import { JSX } from "react";
-import { PromptMessageProps } from "./types";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 import { Chips } from "./components/Chips/chips";
+import { PromptMessageProps } from "./types";
 
 /**
  * Renders a prompt message, and chip suggestions if present (and if it's the last message).

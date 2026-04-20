@@ -5,7 +5,6 @@ import { Filters } from "../../../../../../../../common/entities";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestDownload } from "../../../../../../../../hooks/useFileManifest/useFileManifestDownload";
 import { useLoginGuard } from "../../../../../../../../providers/loginGuard/hook";
-import { trackDatasetFileManifestRequested } from "../../../../../../common/tracking";
 import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
@@ -21,6 +20,7 @@ import {
   LOADING_PANEL_STYLE,
 } from "../../../../../../../Loading/loading";
 import { GridTable } from "../../../../../../../Table/common/gridTable.styles";
+import { trackDatasetFileManifestRequested } from "../../../../../../common/tracking";
 import { TOOLTIP_PROPS } from "../../constants";
 import {
   SectionTitle,

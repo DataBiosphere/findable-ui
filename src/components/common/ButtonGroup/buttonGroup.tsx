@@ -2,7 +2,7 @@ import {
   ButtonGroup as MButtonGroup,
   ButtonGroupProps as MButtonGroupProps,
 } from "@mui/material";
-import { JSX, Fragment, ReactElement } from "react";
+import { Fragment, JSX, ReactElement } from "react";
 import { ButtonGroupButton } from "./components/ButtonGroupButton/buttonGroupButton";
 
 /**

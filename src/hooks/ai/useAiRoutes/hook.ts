@@ -1,5 +1,5 @@
-import { FEATURE_FLAG } from "../../../common/ai/constants";
 import { AiConfig } from "../../../common/ai/config/types";
+import { FEATURE_FLAG } from "../../../common/ai/constants";
 import { useConfig } from "../../useConfig";
 import { useFeatureFlag } from "../../useFeatureFlag/useFeatureFlag";
 

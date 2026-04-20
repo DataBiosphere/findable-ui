@@ -1,9 +1,9 @@
 import { JSX } from "react";
+import { useLayoutSpacing } from "../../../../../hooks/UseLayoutSpacing/hook";
+import { DRAWER_PROPS } from "../../../../../styles/common/mui/drawer";
 import { TEST_IDS } from "../../../../../tests/testIds";
 import { StyledDrawer } from "./drawer.styles";
 import { DrawerProps } from "./types";
-import { useLayoutSpacing } from "../../../../../hooks/UseLayoutSpacing/hook";
-import { DRAWER_PROPS } from "../../../../../styles/common/mui/drawer";
 
 /**
  * Renders the drawer component for the research assistant.

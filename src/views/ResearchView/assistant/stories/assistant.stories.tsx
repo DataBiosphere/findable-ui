@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
 import { JSX } from "react";
+import { ConfigProvider } from "../../../../providers/config";
 import { PALETTE } from "../../../../styles/common/constants/palette";
 import { ChatProvider } from "../../state/provider";
 import { Assistant } from "../assistant";
 import { INITIAL_ARGS, INITIAL_CONFIG } from "./args";
-import { ConfigProvider } from "../../../../providers/config";
 
 const meta: Meta<typeof Assistant> = {
   component: Assistant,
