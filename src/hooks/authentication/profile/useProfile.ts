@@ -1,6 +1,6 @@
-import { useAuth } from "../../../providers/authentication/auth/hook";
-import { AUTH_STATUS } from "../../../providers/authentication/auth/types";
-import { useAuthentication } from "../../../providers/authentication/authentication/hook";
+import { useAuth } from "../../../auth/hooks/useAuth";
+import { useAuthentication } from "../../../auth/hooks/useAuthentication";
+import { AUTH_STATUS } from "../../../auth/types/auth";
 import { UseProfile } from "./types";
 
 /**

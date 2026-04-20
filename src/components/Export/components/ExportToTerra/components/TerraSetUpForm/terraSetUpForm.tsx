@@ -5,8 +5,8 @@ import {
   OnboardingStatus,
   useAuthenticationForm,
 } from "../../../../../../hooks/authentication/terra/useAuthenticationForm";
-import { useAuth } from "../../../../../../providers/authentication/auth/hook";
-import { AUTH_STATUS } from "../../../../../../providers/authentication/auth/types";
+import { useAuth } from "../../../../../../auth/hooks/useAuth";
+import { AUTH_STATUS } from "../../../../../../auth/types/auth";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import {
   FluidPaper,

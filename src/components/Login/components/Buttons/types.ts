@@ -1,9 +1,9 @@
 import { ButtonProps } from "@mui/material";
-import { ClientSafeProvider } from "next-auth/react";
-import { OAuthProvider } from "../../../../config/entities";
+import { ProviderId } from "../../../../auth/types/common";
+import { LoginProvider } from "../../../../auth/types/loginProvider";
 import { BaseComponentProps } from "../../../types";
 
-export interface Props<P> extends BaseComponentProps, ButtonProps {
-  handleLogin: (providerId: string) => void;
-  providers?: ClientSafeProvider[] | OAuthProvider<P>[];
+export interface Props extends BaseComponentProps, ButtonProps {
+  handleLogin: (providerId: ProviderId) => void;
+  providers?: LoginProvider[];
 }

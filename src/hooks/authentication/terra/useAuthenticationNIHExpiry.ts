@@ -1,5 +1,5 @@
-import { useTerraProfile } from "../../../providers/authentication/terra/hook";
-import { REQUEST_STATUS } from "../../../providers/authentication/terra/hooks/common/entities";
+import { useTerraProfile } from "../../../terra/hooks/useTerraProfile";
+import { REQUEST_STATUS } from "../../../terra/types/common";
 
 const WARNING_WINDOW_SECONDS = 60 * 60 * 24 * 5; // 5 days.
 

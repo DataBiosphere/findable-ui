@@ -1,10 +1,10 @@
-import { ClientSafeProvider } from "next-auth/react";
 import { JSX } from "react";
+import { LoginProvider } from "../../auth/types/loginProvider";
 import { Login } from "../../components/Login/login";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 
 export interface LoginViewProps {
-  providers?: ClientSafeProvider[];
+  providers?: LoginProvider[];
 }
 
 export const LoginView = ({

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { useAuth } from "../../../../providers/authentication/auth/hook";
-import { ProviderId } from "../../../../providers/authentication/common/types";
+import { useAuth } from "../../../../auth/hooks/useAuth";
+import { ProviderId } from "../../../../auth/types/common";
 import { useUserConsent } from "../useUserConsent/useUserConsent";
 import { UseUserLogin } from "./types";
 
