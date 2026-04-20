@@ -1,7 +1,7 @@
 import { MenuItem } from "@mui/material";
 import { Fragment, JSX } from "react";
-import { useAuth } from "../../../../../../../../../../../../providers/authentication/auth/hook";
-import { UserProfile } from "../../../../../../../../../../../../providers/authentication/authentication/types";
+import { useAuth } from "../../../../../../../../../../../../auth/hooks/useAuth";
+import { UserProfile } from "../../../../../../../../../../../../auth/types/authentication";
 import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";
 import {
   AuthenticationMenu as Menu,

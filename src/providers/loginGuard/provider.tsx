@@ -2,7 +2,7 @@ import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import { LoginDialog } from "../../components/common/LoginDialog/loginDialog";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
 import { useConfig } from "../../hooks/useConfig";
-import { useAuth } from "../authentication/auth/hook";
+import { useAuth } from "../../auth/hooks/useAuth";
 import { LoginGuardCallback, LoginGuardProviderProps } from "./common/types";
 import { LoginGuardContext } from "./context";
 

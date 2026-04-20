@@ -1,4 +1,4 @@
-import { useCredentials } from "../../../providers/authentication/credentials/hook";
+import { useCredentials } from "../../../auth/hooks/useCredentials";
 import { UseToken } from "./types";
 
 export const useToken = (): UseToken => {

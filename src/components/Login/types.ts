@@ -1,9 +1,8 @@
-import { ClientSafeProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import { OAuthProvider } from "../../config/entities";
+import { LoginProvider } from "../../auth/types/loginProvider";
 
-export interface Props<P> {
-  providers?: ClientSafeProvider[] | OAuthProvider<P>[];
+export interface Props {
+  providers?: LoginProvider[];
   termsOfService?: ReactNode;
   text?: ReactNode;
   title: string;

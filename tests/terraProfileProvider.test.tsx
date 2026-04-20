@@ -1,10 +1,10 @@
 import { jest } from "@jest/globals";
 import { render } from "@testing-library/react";
-import React from "react";
-import { DEFAULT_AUTHENTICATION_STATE } from "../src/providers/authentication/authentication/constants";
-import { authenticationComplete } from "../src/providers/authentication/authentication/dispatch";
-import { DEFAULT_CREDENTIALS_STATE } from "../src/providers/authentication/credentials/constants";
-import { updateCredentials } from "../src/providers/authentication/credentials/dispatch";
+import { DEFAULT_AUTHENTICATION_STATE } from "../src/auth/constants/authentication";
+import { DEFAULT_CREDENTIALS_STATE } from "../src/auth/constants/credentials";
+import { authenticationComplete } from "../src/auth/dispatch/authentication";
+import { updateCredentials } from "../src/auth/dispatch/credentials";
+import { AUTH_STATUS } from "../src/auth/types/auth";
 
 const TOKEN = "test-token";
 
@@ -23,36 +23,31 @@ const PROFILE_SETTLED_INACTIVE = {
   isProfileActive: false,
 };
 
-jest.unstable_mockModule(
-  "../src/providers/authentication/authentication/hook",
-  () => ({
-    useAuthentication: jest.fn(),
-  }),
-);
-jest.unstable_mockModule(
-  "../src/providers/authentication/credentials/hook",
-  () => ({
-    useCredentials: jest.fn(),
-  }),
-);
-jest.unstable_mockModule(
-  "../src/providers/authentication/terra/hooks/useFetchProfiles",
-  () => ({
-    useFetchProfiles: jest.fn(),
-  }),
-);
+jest.unstable_mockModule("../src/auth/hooks/useAuth", () => ({
+  useAuth: jest.fn(),
+}));
+jest.unstable_mockModule("../src/auth/hooks/useAuthentication", () => ({
+  useAuthentication: jest.fn(),
+}));
+jest.unstable_mockModule("../src/auth/hooks/useCredentials", () => ({
+  useCredentials: jest.fn(),
+}));
+jest.unstable_mockModule("../src/terra/hooks/useFetchProfiles", () => ({
+  useFetchProfiles: jest.fn(),
+}));
 
+const { useAuth } = await import("../src/auth/hooks/useAuth");
 const { useAuthentication } =
-  await import("../src/providers/authentication/authentication/hook");
-const { useCredentials } =
-  await import("../src/providers/authentication/credentials/hook");
+  await import("../src/auth/hooks/useAuthentication");
+const { useCredentials } = await import("../src/auth/hooks/useCredentials");
 const { useFetchProfiles } =
-  await import("../src/providers/authentication/terra/hooks/useFetchProfiles");
-const { TerraProfileProvider } =
-  await import("../src/providers/authentication/terra/provider");
+  await import("../src/terra/hooks/useFetchProfiles");
+const { TerraProfileProvider } = await import("../src/terra/provider");
 
+const MOCK_AUTH_DISPATCH = jest.fn();
 const MOCK_AUTHENTICATION_DISPATCH = jest.fn();
 const MOCK_CREDENTIALS_DISPATCH = jest.fn();
+const MOCK_USE_AUTH = useAuth as jest.MockedFunction<typeof useAuth>;
 const MOCK_USE_AUTHENTICATION = useAuthentication as jest.MockedFunction<
   typeof useAuthentication
 >;
@@ -66,6 +61,11 @@ const MOCK_USE_FETCH_PROFILES = useFetchProfiles as jest.MockedFunction<
 describe("TerraProfileProvider", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    MOCK_USE_AUTH.mockReturnValue({
+      authDispatch: MOCK_AUTH_DISPATCH,
+      authState: { isAuthenticated: false, status: AUTH_STATUS.PENDING },
+      service: undefined,
+    });
     MOCK_USE_AUTHENTICATION.mockReturnValue({
       authenticationDispatch: MOCK_AUTHENTICATION_DISPATCH,
       authenticationState: DEFAULT_AUTHENTICATION_STATE,
