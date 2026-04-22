@@ -55,6 +55,19 @@ export const useEntityList = (
   );
   const isFetching = isIdle || isLoading;
 
+  // Reset explore response when token changes - server-side fetched modes only.
+  useEffect(() => {
+    if (
+      exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING ||
+      exploreMode === EXPLORE_MODE.SS_FETCH_CS_FILTERING
+    ) {
+      exploreDispatch({
+        payload: undefined,
+        type: ExploreActionKind.ResetExploreResponse,
+      });
+    }
+  }, [exploreDispatch, exploreMode, token]);
+
   // Fetch entities - on change of filter state - server-side fetching and server-side filtering.
   useEffect(() => {
     if (exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING) {
