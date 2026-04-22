@@ -1,5 +1,18 @@
 # Changelog
 
+## [51.0.1](https://github.com/DataBiosphere/findable-ui/compare/v51.0.0...v51.0.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* move token-change reset from ExploreStateProvider to useEntityList ([#310](https://github.com/DataBiosphere/findable-ui/issues/310)) ([56ab1ed](https://github.com/DataBiosphere/findable-ui/commit/56ab1edcc0818e1f3be30adfa4411c144e1236e9))
+* move token-change reset from explorestateprovider to useentitylist ([#310](https://github.com/DataBiosphere/findable-ui/issues/310)) ([#883](https://github.com/DataBiosphere/findable-ui/issues/883)) ([56ab1ed](https://github.com/DataBiosphere/findable-ui/commit/56ab1edcc0818e1f3be30adfa4411c144e1236e9))
+
+
+### Chores
+
+* enable `prettier-plugin-organize-imports` ([#878](https://github.com/DataBiosphere/findable-ui/issues/878)) ([#879](https://github.com/DataBiosphere/findable-ui/issues/879)) ([db80174](https://github.com/DataBiosphere/findable-ui/commit/db80174cbf31c30158414e15a33eee05031355c8))
+
 ## [51.0.0](https://github.com/DataBiosphere/findable-ui/compare/v50.8.0...v51.0.0) (2026-04-20)
 
 
