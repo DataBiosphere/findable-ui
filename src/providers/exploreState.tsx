@@ -4,7 +4,6 @@ import {
   Dispatch,
   JSX,
   ReactNode,
-  useEffect,
   useMemo,
   useReducer,
   useState,
@@ -15,7 +14,6 @@ import { SelectedFilter } from "../common/entities";
 import { FILTER_SORT } from "../common/filters/sort/config/types";
 import { RowPreviewState } from "../components/Table/features/RowPreview/entities";
 import { CategoryGroup, SiteConfig } from "../config/entities";
-import { useToken } from "../hooks/authentication/token/useToken";
 import { META_COMMAND } from "../hooks/stateSyncManager/hooks/UseMetaCommands/types";
 import {
   buildCategoryViews,
@@ -189,7 +187,6 @@ export function ExploreStateProvider({
   const { config, defaultEntityListType } = useConfig();
   const { decodedCatalogParam, decodedFeatureFlagParam, decodedFilterParam } =
     useURLFilterParams();
-  const { token } = useToken();
   const entityList = entityListType || defaultEntityListType;
   const [initializerArg] = useState(() =>
     initReducerArguments(
@@ -214,14 +211,6 @@ export function ExploreStateProvider({
   const exploreContextValue = useMemo(() => {
     return { exploreDispatch, exploreState };
   }, [exploreDispatch, exploreState]);
-
-  // Reset explore response when token changes.
-  useEffect(() => {
-    exploreDispatch({
-      payload: undefined,
-      type: ExploreActionKind.ResetExploreResponse,
-    });
-  }, [exploreDispatch, token]);
 
   return (
     <ExploreStateContext.Provider value={exploreContextValue}>
