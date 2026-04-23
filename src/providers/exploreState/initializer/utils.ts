@@ -6,6 +6,7 @@ import {
 import { CategoryConfig } from "../../../common/categories/config/types";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getFilterSortType } from "../../../common/filters/sort/config/utils";
+import { isSelectedFilter } from "../../../common/filters/typeGuards";
 import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryGroup,
@@ -248,14 +249,13 @@ function initEntityStateByCategoryGroupConfigKey(
  * @returns filter state.
  */
 function initFilterState(decodedFilterParam: string): SelectedFilter[] {
-  // Define filter state, from URL "filter" parameter, if present and valid.
-  let filterState: SelectedFilter[] = [];
   try {
-    filterState = JSON.parse(decodedFilterParam);
+    const parsed: unknown = JSON.parse(decodedFilterParam);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(isSelectedFilter);
   } catch {
-    // do nothing
+    return [];
   }
-  return filterState;
 }
 
 /**
