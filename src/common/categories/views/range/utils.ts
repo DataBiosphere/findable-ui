@@ -23,7 +23,7 @@ export function buildRangeCategoryView(
   );
   return {
     annotation: categoryConfig?.annotation,
-    isDisabled: false,
+    isDisabled: !isFinite(category.min) && !isFinite(category.max),
     key: category.key,
     label: categoryConfig?.label || category.key,
     max: category.max,
@@ -32,4 +32,24 @@ export function buildRangeCategoryView(
     selectedMin,
     unit: categoryConfig?.unit,
   };
+}
+
+/**
+ * Returns the maximum value from a faceted min/max tuple, falling back to Infinity.
+ * Uses nullish coalescing to correctly handle a max of 0.
+ * @param minMax - Faceted min/max values, or undefined.
+ * @returns The maximum value.
+ */
+export function getRangeMax(minMax: [number, number] | undefined): number {
+  return minMax?.[1] ?? Infinity;
+}
+
+/**
+ * Returns the minimum value from a faceted min/max tuple, falling back to -Infinity.
+ * Uses nullish coalescing to correctly handle a min of 0.
+ * @param minMax - Faceted min/max values, or undefined.
+ * @returns The minimum value.
+ */
+export function getRangeMin(minMax: [number, number] | undefined): number {
+  return minMax?.[0] ?? -Infinity;
 }
