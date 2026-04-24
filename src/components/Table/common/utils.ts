@@ -10,6 +10,10 @@ import {
   Table,
 } from "@tanstack/react-table";
 import { Category } from "../../../common/categories/models/types";
+import {
+  getRangeMax,
+  getRangeMin,
+} from "../../../common/categories/views/range/utils";
 import { EXPLORE_MODE, ExploreMode } from "../../../hooks/useExploreMode/types";
 
 /**
@@ -52,8 +56,8 @@ export function buildCategoryViews<T extends RowData>(
         categoryViews.push({
           key,
           label,
-          max: minMax?.[1] || Infinity,
-          min: minMax?.[0] || -Infinity,
+          max: getRangeMax(minMax),
+          min: getRangeMin(minMax),
           selectedMax: null, // Selected state updated in reducer.
           selectedMin: null, // Selected state updated in reducer.
         });

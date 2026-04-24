@@ -5,6 +5,10 @@ import {
   SelectCategoryConfig,
 } from "../../../../../../common/categories/config/types";
 import { RangeCategoryView } from "../../../../../../common/categories/views/range/types";
+import {
+  getRangeMax,
+  getRangeMin,
+} from "../../../../../../common/categories/views/range/utils";
 import { CategoryView } from "../../../../../../common/categories/views/types";
 import {
   SelectCategoryValueView,
@@ -184,8 +188,8 @@ function mapColumnToRangeCategoryView<T extends RowData>(
     isDisabled,
     key: column.id,
     label: getColumnHeader(column),
-    max: minMax?.[1] || Infinity,
-    min: minMax?.[0] || -Infinity,
+    max: getRangeMax(minMax),
+    min: getRangeMin(minMax),
     selectedMax: filterValue[1],
     selectedMin: filterValue[0],
     ...categoryConfig,
