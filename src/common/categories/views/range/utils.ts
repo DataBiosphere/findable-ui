@@ -23,7 +23,8 @@ export function buildRangeCategoryView(
   );
   return {
     annotation: categoryConfig?.annotation,
-    isDisabled: !isFinite(category.min) && !isFinite(category.max),
+    isDisabled:
+      !Number.isFinite(category.min) && !Number.isFinite(category.max),
     key: category.key,
     label: categoryConfig?.label || category.key,
     max: category.max,

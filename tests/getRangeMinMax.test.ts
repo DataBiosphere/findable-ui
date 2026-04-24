@@ -1,4 +1,6 @@
+import { RangeCategory } from "../src/common/categories/models/range/types";
 import {
+  buildRangeCategoryView,
   getRangeMax,
   getRangeMin,
 } from "../src/common/categories/views/range/utils";
@@ -36,5 +38,33 @@ describe("getRangeMax", () => {
 
   it("returns a negative max", () => {
     expect(getRangeMax([-50, -10])).toBe(-10);
+  });
+});
+
+describe("buildRangeCategoryView", () => {
+  const makeCategory = (min: number, max: number): RangeCategory => ({
+    key: "test",
+    max,
+    min,
+    selectedMax: null,
+    selectedMin: null,
+  });
+
+  it("disables the filter when min and max are both infinite", () => {
+    const result = buildRangeCategoryView(
+      makeCategory(-Infinity, Infinity),
+      [],
+    );
+    expect(result.isDisabled).toBe(true);
+  });
+
+  it("enables the filter when min and max are finite", () => {
+    const result = buildRangeCategoryView(makeCategory(0, 100), []);
+    expect(result.isDisabled).toBe(false);
+  });
+
+  it("enables the filter when min is 0 and max is finite", () => {
+    const result = buildRangeCategoryView(makeCategory(0, 61.31), []);
+    expect(result.isDisabled).toBe(false);
   });
 });
