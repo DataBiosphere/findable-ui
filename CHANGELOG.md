@@ -1,5 +1,12 @@
 # Changelog
 
+## [51.0.2](https://github.com/DataBiosphere/findable-ui/compare/v51.0.1...v51.0.2) (2026-04-24)
+
+
+### Bug Fixes
+
+* range filter min/max displays -infinity when actual minimum is 0 ([#889](https://github.com/DataBiosphere/findable-ui/issues/889)) ([#890](https://github.com/DataBiosphere/findable-ui/issues/890)) ([57fa1b9](https://github.com/DataBiosphere/findable-ui/commit/57fa1b97b848174cf852dede27b8ecbdc1c4aba5))
+
 ## [51.0.1](https://github.com/DataBiosphere/findable-ui/compare/v51.0.0...v51.0.1) (2026-04-22)
 
 
