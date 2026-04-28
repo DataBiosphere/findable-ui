@@ -24,13 +24,17 @@ export function buildNextEntities(
     // Grab the entity key for the entity.
     const entityKey = entity.entityKey;
 
+    if (entityKey !== key) {
+      // For entities that do not share the same key, leave the context unchanged.
+      entities[entityPath] = entity;
+      continue;
+    }
+
     // Clone the entity context.
     const entityContext = { ...entity };
 
     // Build the params object.
     // All entities share the same catalog and feature flag state.
-    // Filter state is default to an empty array and updated below,
-    // if the entity key matches the current entity key.
     const params: EntityState = {
       catalogState: state.catalogState,
       featureFlagState: state.featureFlagState,
