@@ -13,13 +13,14 @@ export function isSelectedFilter(value: unknown): value is SelectedFilter {
 
 /**
  * Parses a filter parameter string into an array of SelectedFilter.
- * Returns an empty array if the string is not valid JSON or does not
- * contain valid SelectedFilter objects. This function must not throw,
- * as it is called from reducers above the ErrorBoundary. The
- * useValidateFilterParam hook in ExploreView handles surfacing
+ * Filters out invalid entries — a mixed array of valid and invalid
+ * objects returns only the valid ones. Returns an empty array if the
+ * string is not valid JSON or contains no valid entries. This function
+ * must not throw, as it is called from reducers above the ErrorBoundary.
+ * The useValidateFilterParam hook in ExploreView handles surfacing
  * invalid filter errors to the user from inside the ErrorBoundary.
  * @param paramValue - URL-decoded filter parameter string.
- * @returns parsed filters, or empty array if invalid.
+ * @returns valid filters from the parsed input, or empty array.
  */
 export function parseFilterParam(paramValue: string): SelectedFilter[] {
   try {

@@ -11,7 +11,11 @@ export function decodeFilterParamValue(
   paramValue: string | string[] | undefined,
 ): SelectedFilter[] {
   if (typeof paramValue === "string") {
-    return parseFilterParam(decodeURIComponent(paramValue));
+    try {
+      return parseFilterParam(decodeURIComponent(paramValue));
+    } catch {
+      return [];
+    }
   }
   return [];
 }
