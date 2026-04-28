@@ -1,5 +1,18 @@
 # Changelog
 
+## [51.1.0](https://github.com/DataBiosphere/findable-ui/compare/v51.0.2...v51.1.0) (2026-04-28)
+
+
+### Features
+
+* support default per-entity filters via tableOptions.initialState.columnFilters ([#893](https://github.com/DataBiosphere/findable-ui/issues/893)) ([#897](https://github.com/DataBiosphere/findable-ui/issues/897)) ([434691f](https://github.com/DataBiosphere/findable-ui/commit/434691ffbc35f34c01544aa6c6d30bdec88d3b6b))
+
+
+### Bug Fixes
+
+* restore early exit in buildNextEntities to preserve non-current entity queries ([#894](https://github.com/DataBiosphere/findable-ui/issues/894)) ([#895](https://github.com/DataBiosphere/findable-ui/issues/895)) ([24a4fdf](https://github.com/DataBiosphere/findable-ui/commit/24a4fdf42a58fd7a3a9479c7b45b86b6c760507a))
+* validate filter query params and surface errors inside error boundary ([#898](https://github.com/DataBiosphere/findable-ui/issues/898)) ([#899](https://github.com/DataBiosphere/findable-ui/issues/899)) ([e4563b5](https://github.com/DataBiosphere/findable-ui/commit/e4563b59a5c5721029dda470393dee47573fda94))
+
 ## [51.0.2](https://github.com/DataBiosphere/findable-ui/compare/v51.0.1...v51.0.2) (2026-04-24)
 
 
