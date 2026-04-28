@@ -6,13 +6,9 @@ import { SelectedFilter } from "../entities";
  * @returns true if the value has the expected shape.
  */
 export function isSelectedFilter(value: unknown): value is SelectedFilter {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "categoryKey" in value &&
-    "value" in value &&
-    Array.isArray((value as SelectedFilter).value)
-  );
+  if (typeof value !== "object" || value === null) return false;
+  const filter = value as Record<string, unknown>;
+  return typeof filter.categoryKey === "string" && Array.isArray(filter.value);
 }
 
 /**
