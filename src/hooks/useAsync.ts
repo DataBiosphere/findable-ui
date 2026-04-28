@@ -43,7 +43,7 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
           `The argument passed to useAsync().run must be a promise.`,
         );
       }
-      safeSetState({ status: "pending" });
+      safeSetState({ error: undefined, status: "pending" });
       return promise.then(
         (data: T) => {
           setData(data);
