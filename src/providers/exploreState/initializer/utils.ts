@@ -1,4 +1,5 @@
 import {
+  ColumnFilter,
   ColumnSort,
   GroupingState,
   VisibilityState,
@@ -22,7 +23,7 @@ import {
   EntityStateByCategoryGroupConfigKey,
   SavedFilterByCategoryValueKey,
 } from "../entities";
-import { buildNextEntities } from "../entities/state";
+import { buildQuery } from "../entities/query/buildQuery";
 import { EntitiesContext } from "../entities/types";
 import { getEntityCategoryGroupConfigKey, getFilterCount } from "../utils";
 import {
@@ -87,6 +88,29 @@ function buildSavedFilterByCategoryValueKey(
     });
   }
   return savedFilterByCategoryValueKey;
+}
+
+/**
+ * Converts TanStack column filters to findable-ui SelectedFilter format.
+ * Throws if a column filter value is not an array, since SelectedFilterValue
+ * expects an array of CategoryValueKey.
+ * @param columnFilters - TanStack column filters.
+ * @returns selected filters.
+ */
+function columnFiltersToSelectedFilters(
+  columnFilters: ColumnFilter[],
+): SelectedFilter[] {
+  return columnFilters.map(({ id, value }) => {
+    if (!Array.isArray(value)) {
+      throw new Error(
+        `columnFilters entry "${id}" has a non-array value. Expected an array e.g. ["value1", "value2"].`,
+      );
+    }
+    return {
+      categoryKey: id,
+      value: value as SelectedFilter["value"],
+    };
+  });
 }
 
 /**
@@ -159,6 +183,20 @@ function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
 }
 
 /**
+ * Returns the default filter state for the specified entity list configuration,
+ * converted from TanStack columnFilters format to SelectedFilter format.
+ * @param entityConfig - Entity configuration.
+ * @returns default filter state, or empty array if none configured.
+ */
+function initDefaultFilterState(entityConfig?: EntityConfig): SelectedFilter[] {
+  if (!entityConfig) return [];
+  const {
+    list: { tableOptions: { initialState: { columnFilters = [] } = {} } = {} },
+  } = entityConfig;
+  return columnFiltersToSelectedFilters(columnFilters);
+}
+
+/**
  * Returns the initial `enableRowSelection` option for the specified entity list configuration.
  * @param entityConfig - Entity configuration.
  * @returns initial `enableRowSelection` option.
@@ -190,17 +228,31 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
 }
 
 /**
- * Initializes entities context.
+ * Initializes entities context with queries that include default filter state
+ * from each entity's config (tableOptions.initialState.columnFilters).
  * @param entityPageState - Entity page state.
+ * @param entityStateByCategoryGroupConfigKey - Entity state by category group config key.
+ * @param state - Partial explore state for building queries.
  * @returns Entities context.
  */
-function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
+function initEntities(
+  entityPageState: EntityPageStateMapper,
+  entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey,
+  state: Pick<ExploreState, "catalogState" | "featureFlagState">,
+): EntitiesContext {
   return Object.keys(entityPageState).reduce((acc, entityPath) => {
+    const entityKey = entityPageState[entityPath].categoryGroupConfigKey;
+    const entityState = entityStateByCategoryGroupConfigKey.get(entityKey);
+    const query = buildQuery(entityPath, {
+      catalogState: state.catalogState,
+      featureFlagState: state.featureFlagState,
+      filterState: entityState?.filterState ?? [],
+    });
     return {
       ...acc,
       [entityPath]: {
-        entityKey: entityPageState[entityPath].categoryGroupConfigKey,
-        query: { entityListType: entityPath },
+        entityKey,
+        query,
       },
     };
   }, {} as EntitiesContext);
@@ -208,9 +260,11 @@ function initEntities(entityPageState: EntityPageStateMapper): EntitiesContext {
 
 /**
  * Initializes entity state by category group config key.
+ * For the current entity, uses the pre-resolved filter state (URL filters or config defaults).
+ * For other entities, reads default filters from their tableOptions.initialState.columnFilters.
  * @param config - Site config.
- * @param categoryGroupConfigKey - Category group config key.
- * @param filterState - Filter state.
+ * @param categoryGroupConfigKey - Category group config key for the current entity.
+ * @param filterState - Pre-resolved filter state for the current entity.
  * @returns entity state by category group config key.
  */
 function initEntityStateByCategoryGroupConfigKey(
@@ -230,11 +284,15 @@ function initEntityStateByCategoryGroupConfigKey(
       buildSavedSelectCategories(savedFilters);
     const savedFilterByCategoryValueKey =
       buildSavedFilterByCategoryValueKey(savedFilters);
+    const entityFilterState =
+      key === categoryGroupConfigKey
+        ? filterState
+        : initDefaultFilterState(entity);
     entityStateByCategoryGroupConfigKey.set(key, {
       ...DEFAULT_ENTITY_STATE,
       categoryConfigs: flattenCategoryGroups(categoryGroups),
       categoryGroups,
-      filterState: key === categoryGroupConfigKey ? filterState : [],
+      filterState: entityFilterState,
       savedFilterByCategoryValueKey,
       savedSelectCategories,
     });
@@ -248,7 +306,6 @@ function initEntityStateByCategoryGroupConfigKey(
  * @returns filter state.
  */
 function initFilterState(decodedFilterParam: string): SelectedFilter[] {
-  // Define filter state, from URL "filter" parameter, if present and valid.
   let filterState: SelectedFilter[] = [];
   try {
     filterState = JSON.parse(decodedFilterParam);
@@ -298,12 +355,21 @@ export function initReducerArguments(
   decodedCatalogParam?: string,
   decodedFeatureFlagParam?: string,
 ): ExploreState {
-  const filterState = initFilterState(decodedFilterParam);
+  const urlFilterState = initFilterState(decodedFilterParam);
+  const hasUrlFilters = urlFilterState.length > 0;
   const entityPageState = initEntityPageState(config);
   const categoryGroupConfigKey = getEntityCategoryGroupConfigKey(
     entityListType,
     entityPageState,
   );
+
+  // URL filters take precedence over config-defined defaults.
+  const filterState = hasUrlFilters
+    ? urlFilterState
+    : initDefaultFilterState(
+        config.entities.find(({ route }) => route === entityListType),
+      );
+
   const entityStateByCategoryGroupConfigKey =
     initEntityStateByCategoryGroupConfigKey(
       config,
@@ -314,10 +380,16 @@ export function initReducerArguments(
     entityStateByCategoryGroupConfigKey,
     categoryGroupConfigKey,
   );
-  const entities = initEntities(entityPageState);
+  const entities = initEntities(
+    entityPageState,
+    entityStateByCategoryGroupConfigKey,
+    {
+      catalogState: decodedCatalogParam,
+      featureFlagState: decodedFeatureFlagParam,
+    },
+  );
 
-  // Initialize state.
-  const state = {
+  return {
     ...INITIAL_STATE,
     catalogState: decodedCatalogParam,
     categoryGroups,
@@ -329,11 +401,5 @@ export function initReducerArguments(
     filterSort: getFilterSortType(config),
     filterState,
     tabValue: entityListType,
-  };
-
-  // Return state with entities (updated by initial state).
-  return {
-    ...state,
-    entities: buildNextEntities(state, entityListType, { filterState }),
   };
 }
