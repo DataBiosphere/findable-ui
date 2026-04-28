@@ -32,6 +32,7 @@ import { TEST_IDS } from "../../tests/testIds";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
+import { useValidateFilterParam } from "./hooks/UseValidateFilterParam/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
@@ -45,6 +46,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { trackingConfig } = config;
   const { label } = entityConfig;
   const { categoryGroups, categoryViews, loading } = exploreState;
+  useValidateFilterParam();
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(

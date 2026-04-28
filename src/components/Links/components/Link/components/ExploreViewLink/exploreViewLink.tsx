@@ -3,6 +3,7 @@ import Link from "next/link";
 import { JSX } from "react";
 import { UrlObject } from "url";
 import { SelectedFilter } from "../../../../../../common/entities";
+import { isSelectedFilter } from "../../../../../../common/filters/typeGuards";
 import { useExploreState } from "../../../../../../hooks/useExploreState";
 import {
   ExploreActionKind,
@@ -109,20 +110,6 @@ function getSorting(
   const decodedQuery = decodeURIComponent(query);
   const parsedQuery = JSON.parse(decodedQuery);
   return parsedQuery[PARAM_SORTING];
-}
-
-/**
- * Returns true if the given value is a SelectedFilter.
- * @param value - Value.
- * @returns true if the given value is a SelectedFilter.
- */
-function isSelectedFilter(value: unknown): value is SelectedFilter {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    "categoryKey" in value &&
-    "value" in value
-  );
 }
 
 /**
