@@ -11,6 +11,7 @@ import { extractCategoryKey, getValidCategoryKeys } from "./utils";
  * but contains malformed JSON, an invalid filter shape, or a categoryKey
  * that does not exist in the configured categories, allowing the
  * ErrorBoundary to catch and display the error page.
+ * @returns void; throws DataExplorerError on invalid input.
  */
 export function useValidateFilterParam(): void {
   const { config, entityConfig } = useConfig();
