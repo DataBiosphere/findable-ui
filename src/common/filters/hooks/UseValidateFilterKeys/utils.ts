@@ -42,19 +42,17 @@ export function validateFilterParam(
     return new DataExplorerError({ message: INVALID_FILTER_PARAM });
   }
 
-  let decoded: string;
-
-  try {
-    decoded = decodeURIComponent(filterParam);
-  } catch {
-    return new DataExplorerError({ message: INVALID_FILTER_PARAM });
-  }
-
+  // Try JSON.parse directly first (Next.js router.query already decodes),
+  // then fall back to decodeURIComponent + JSON.parse for encoded values.
   let parsed: unknown;
   try {
-    parsed = JSON.parse(decoded);
+    parsed = JSON.parse(filterParam);
   } catch {
-    return new DataExplorerError({ message: INVALID_FILTER_PARAM });
+    try {
+      parsed = JSON.parse(decodeURIComponent(filterParam));
+    } catch {
+      return new DataExplorerError({ message: INVALID_FILTER_PARAM });
+    }
   }
 
   if (!Array.isArray(parsed)) {
