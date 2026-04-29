@@ -1,10 +1,13 @@
 import { Fade } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
-import { JSX } from "react";
+import { JSX, useMemo } from "react";
 import { Attribute } from "../../common/entities";
+import { isColumnFilter } from "../../common/filters/adapters/tanstack/typeGuards";
+import { useValidateFilterKeys } from "../../common/filters/hooks/UseValidateFilterKeys/hook";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
 import { useHtmlStyle } from "../../hooks/useHtmlStyle/hook";
 import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
+import { DATA_DICTIONARY_URL_PARAMS } from "../../providers/dataDictionaryState/dictionaries/constants";
 import { Description } from "./components/Description/description";
 import { Entities } from "./components/Entities/entities";
 import { ColumnFilterTags } from "./components/Filters/components/ColumnFilterTags/columnFilterTags";
@@ -21,6 +24,7 @@ import { View } from "./dataDictionary.styles";
 import { useDataDictionaryConfig } from "./hooks/UseDataDictionaryConfig/hook";
 import { useMeasureFilters } from "./hooks/UseMeasureFilters/hook";
 import { DataDictionaryProps } from "./types";
+import { extractColumnId, getValidColumnIds } from "./utils";
 
 export const DataDictionary = <T extends RowData = Attribute>({
   className,
@@ -46,6 +50,16 @@ export const DataDictionary = <T extends RowData = Attribute>({
 
   // Table instance.
   const table = useTable<T>(dictionary, classes, tableOptions);
+
+  // Validate filter URL param keys against the table's column IDs.
+  const validColumnIds = useMemo(() => getValidColumnIds(table), [table]);
+
+  useValidateFilterKeys(
+    DATA_DICTIONARY_URL_PARAMS.COLUMN_FILTERS,
+    validColumnIds,
+    isColumnFilter,
+    extractColumnId,
+  );
 
   // Dictionary outline.
   const outline = buildClassesOutline<T>(table);

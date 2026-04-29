@@ -1,4 +1,4 @@
-import { SelectedFilter } from "../entities";
+import type { SelectedFilter } from "../entities";
 
 /**
  * Returns true if the value is a valid SelectedFilter.
