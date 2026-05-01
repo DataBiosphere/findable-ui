@@ -35,45 +35,57 @@ export const service = {
       "authDispatch" | "authenticationDispatch" | "tokenDispatch"
     >,
   ): void => {
-    const client = google.accounts.oauth2.initCodeClient({
-      callback: (response: CodeResponse) => {
-        const { id, profile, userinfo } = provider;
-        fetch("https://service.hannes2.anvil.gi.ucsc.edu/user/authorize", {
-          body: JSON.stringify(response),
-          headers: { "Content-Type": "application/json" },
-          method: "POST",
-        })
-          .then((r) => r.json())
-          .then((tokens: TokenSetParameters) => {
-            const { access_token: token } = tokens;
-            dispatch.authDispatch?.(requestAuth());
-            dispatch.authenticationDispatch?.(requestAuthentication());
-            dispatch.tokenDispatch?.(updateToken({ providerId: id, token }));
-            fetchProfile(userinfo, getAuthenticationRequestOptions(token), {
-              onError: () => {
-                dispatch.authDispatch?.(resetAuthState());
-                dispatch.authenticationDispatch?.(
-                  updateAuthentication({
-                    profile: undefined,
-                    status: AUTHENTICATION_STATUS.SETTLED,
-                  }),
-                );
-                dispatch.tokenDispatch?.(resetTokenState());
-              },
-              onSuccess: (r: GoogleProfile) =>
-                dispatch.authenticationDispatch?.(
-                  updateAuthentication({
-                    profile: profile(r),
-                    status: AUTHENTICATION_STATUS.PENDING, // Authentication is pending until session controller is resolved.
-                  }),
-                ),
-            });
-          });
-      },
-      client_id: provider.clientId,
-      scope: provider.authorization.params.scope,
-    });
-    client.requestCode();
+    const { authorize, id, profile, userinfo } = provider;
+    const onAccessToken = (token: string): void => {
+      dispatch.authDispatch?.(requestAuth());
+      dispatch.authenticationDispatch?.(requestAuthentication());
+      dispatch.tokenDispatch?.(updateToken({ providerId: id, token }));
+      fetchProfile(userinfo, getAuthenticationRequestOptions(token), {
+        onError: () => {
+          dispatch.authDispatch?.(resetAuthState());
+          dispatch.authenticationDispatch?.(
+            updateAuthentication({
+              profile: undefined,
+              status: AUTHENTICATION_STATUS.SETTLED,
+            }),
+          );
+          dispatch.tokenDispatch?.(resetTokenState());
+        },
+        onSuccess: (r: GoogleProfile) =>
+          dispatch.authenticationDispatch?.(
+            updateAuthentication({
+              profile: profile(r),
+              status: AUTHENTICATION_STATUS.PENDING, // Authentication is pending until session controller is resolved.
+            }),
+          ),
+      });
+    };
+    if (authorize) {
+      const client = google.accounts.oauth2.initCodeClient({
+        callback: (response: CodeResponse) => {
+          fetch(authorize, {
+            body: JSON.stringify(response),
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+          })
+            .then((r) => r.json())
+            .then((tokens: TokenSetParameters) =>
+              onAccessToken(tokens.access_token),
+            );
+        },
+        client_id: provider.clientId,
+        scope: provider.authorization.params.scope,
+      });
+      client.requestCode();
+    } else {
+      const client = google.accounts.oauth2.initTokenClient({
+        callback: (response: TokenSetParameters) =>
+          onAccessToken(response.access_token),
+        client_id: provider.clientId,
+        scope: provider.authorization.params.scope,
+      });
+      client.requestAccessToken();
+    }
   },
   /**
    * Logout and clear all auth state.

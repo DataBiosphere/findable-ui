@@ -285,6 +285,7 @@ export interface ListViewConfig {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
 export interface OAuthProvider<P = any> {
   authorization: { params: { scope: string } };
+  authorize?: string; // Backend authorize endpoint that exchanges an OAuth authorization code for a token set. When set, the authorization code flow is used; otherwise the implicit token flow is used.
   clientId: string;
   icon: ReactNode;
   id: ProviderId;
