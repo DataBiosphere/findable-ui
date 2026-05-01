@@ -36,21 +36,22 @@ export const service = {
     >,
   ): void => {
     const { authorize, id, profile, userinfo } = provider;
+    const resetSession = (): void => {
+      dispatch.authDispatch?.(resetAuthState());
+      dispatch.authenticationDispatch?.(
+        updateAuthentication({
+          profile: undefined,
+          status: AUTHENTICATION_STATUS.SETTLED,
+        }),
+      );
+      dispatch.tokenDispatch?.(resetTokenState());
+    };
     const onAccessToken = (token: string): void => {
       dispatch.authDispatch?.(requestAuth());
       dispatch.authenticationDispatch?.(requestAuthentication());
       dispatch.tokenDispatch?.(updateToken({ providerId: id, token }));
       fetchProfile(userinfo, getAuthenticationRequestOptions(token), {
-        onError: () => {
-          dispatch.authDispatch?.(resetAuthState());
-          dispatch.authenticationDispatch?.(
-            updateAuthentication({
-              profile: undefined,
-              status: AUTHENTICATION_STATUS.SETTLED,
-            }),
-          );
-          dispatch.tokenDispatch?.(resetTokenState());
-        },
+        onError: resetSession,
         onSuccess: (r: GoogleProfile) =>
           dispatch.authenticationDispatch?.(
             updateAuthentication({
@@ -68,10 +69,19 @@ export const service = {
             headers: { "Content-Type": "application/json" },
             method: "POST",
           })
-            .then((r) => r.json())
-            .then((tokens: TokenSetParameters) =>
-              onAccessToken(tokens.access_token),
-            );
+            .then((r) => {
+              if (!r.ok) {
+                throw new Error(`authorize request failed (${r.status})`);
+              }
+              return r.json();
+            })
+            .then((tokens: TokenSetParameters) => {
+              if (!tokens?.access_token) {
+                throw new Error("authorize response missing access_token");
+              }
+              onAccessToken(tokens.access_token);
+            })
+            .catch(resetSession);
         },
         client_id: provider.clientId,
         scope: provider.authorization.params.scope,
