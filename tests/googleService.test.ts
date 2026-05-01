@@ -16,14 +16,7 @@ const PROVIDER_BASE: OAuthProvider = {
 
 const AUTHORIZE_URL = "https://service.example.com/user/authorize";
 
-const CODE_RESPONSE: CodeResponse = {
-  code: "test-code",
-  error: "",
-  error_description: "",
-  error_uri: "",
-  scope: "",
-  state: "",
-};
+const CODE_RESPONSE: CodeResponse = { code: "test-code" };
 
 type LoginDispatch = Pick<
   SessionDispatch,

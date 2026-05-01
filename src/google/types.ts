@@ -18,12 +18,12 @@ import {
  * Authorization code response from Google OAuth.
  */
 export interface CodeResponse {
-  code: string;
-  error: string;
-  error_description: string;
-  error_uri: string;
-  scope: string;
-  state: string;
+  code?: string;
+  error?: string;
+  error_description?: string;
+  error_uri?: string;
+  scope?: string;
+  state?: string;
 }
 
 /**
