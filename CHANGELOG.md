@@ -1,5 +1,12 @@
 # Changelog
 
+## [52.1.0](https://github.com/DataBiosphere/findable-ui/compare/v52.0.0...v52.1.0) (2026-05-05)
+
+
+### Features
+
+* render error for invalid categorykey in filter url param (cs filtering) ([#901](https://github.com/DataBiosphere/findable-ui/issues/901)) ([#902](https://github.com/DataBiosphere/findable-ui/issues/902)) ([db04aaa](https://github.com/DataBiosphere/findable-ui/commit/db04aaa9c893999306fa488da834acc4dd384bba))
+
 ## [52.0.0](https://github.com/DataBiosphere/findable-ui/compare/v51.1.0...v52.0.0) (2026-05-05)
 
 
