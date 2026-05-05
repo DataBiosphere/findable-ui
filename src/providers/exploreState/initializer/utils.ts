@@ -120,7 +120,7 @@ function columnFiltersToSelectedFilters(
  * @param entityConfig - Entity config.
  * @returns entity related category group config.
  */
-function getEntityCategoryGroupConfig(
+export function getEntityCategoryGroupConfig(
   siteConfig: SiteConfig,
   entityConfig: EntityConfig,
 ): CategoryGroupConfig | undefined {

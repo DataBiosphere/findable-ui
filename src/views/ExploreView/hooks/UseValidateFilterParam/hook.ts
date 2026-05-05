@@ -1,59 +1,29 @@
-import { useRouter } from "next/router";
 import { useMemo } from "react";
-import { parseFilterParam } from "../../../../common/filters/typeGuards";
+import { useValidateFilterKeys } from "../../../../common/filters/hooks/UseValidateFilterKeys/hook";
+import { isSelectedFilter } from "../../../../common/filters/typeGuards";
+import { useConfig } from "../../../../hooks/useConfig";
 import { EXPLORE_URL_PARAMS } from "../../../../providers/exploreState/constants";
-import { DataExplorerError } from "../../../../types/error";
-
-const INVALID_FILTER_PARAM_ERROR = "Invalid filter parameter in URL";
+import { extractCategoryKey, getValidCategoryKeys } from "./utils";
 
 /**
- * Validates the filter query parameter from the URL.
+ * Validates the filter query parameter from the URL for the ExploreView.
  * Throws a DataExplorerError during render if the filter param is present
- * but contains malformed JSON or an invalid filter shape, allowing the
+ * but contains malformed JSON, an invalid filter shape, or a categoryKey
+ * that does not exist in the configured categories, allowing the
  * ErrorBoundary to catch and display the error page.
- * @returns Nothing; this hook performs validation and throws on invalid input.
+ * @returns void; throws DataExplorerError on invalid input.
  */
 export function useValidateFilterParam(): void {
-  const { query } = useRouter();
-  const filterParam = query[EXPLORE_URL_PARAMS.FILTER];
+  const { config, entityConfig } = useConfig();
+  const validKeys = useMemo(
+    () => getValidCategoryKeys(config, entityConfig),
+    [config, entityConfig],
+  );
 
-  const validationError = useMemo((): DataExplorerError | undefined => {
-    if (filterParam === undefined) return undefined;
-
-    if (typeof filterParam !== "string") {
-      return new DataExplorerError({ message: INVALID_FILTER_PARAM_ERROR });
-    }
-
-    let decoded: string;
-
-    try {
-      decoded = decodeURIComponent(filterParam);
-    } catch {
-      return new DataExplorerError({ message: INVALID_FILTER_PARAM_ERROR });
-    }
-
-    // Parse and validate the filter param.
-    // An empty array (e.g. "[]") is valid — it means no filters selected.
-    // A non-empty array with no valid entries is invalid.
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(decoded);
-    } catch {
-      return new DataExplorerError({ message: INVALID_FILTER_PARAM_ERROR });
-    }
-    if (!Array.isArray(parsed)) {
-      return new DataExplorerError({ message: INVALID_FILTER_PARAM_ERROR });
-    }
-    if (parsed.length === 0) return undefined;
-    const filters = parseFilterParam(decoded);
-    if (filters.length === 0) {
-      return new DataExplorerError({ message: INVALID_FILTER_PARAM_ERROR });
-    }
-
-    return undefined;
-  }, [filterParam]);
-
-  if (validationError) {
-    throw validationError;
-  }
+  useValidateFilterKeys(
+    EXPLORE_URL_PARAMS.FILTER,
+    validKeys,
+    isSelectedFilter,
+    extractCategoryKey,
+  );
 }
