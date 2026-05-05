@@ -1,4 +1,4 @@
-import type { OAuthProvider } from "../config/entities";
+import { OAUTH_FLOW, type OAuthProvider } from "../config/entities";
 import { login as authorizationCodeFlowLogin } from "./services/authorizationCodeFlow";
 import { logout, type LoginDispatch } from "./services/common";
 import { login as implicitFlowLogin } from "./services/implicitFlow";
@@ -10,12 +10,12 @@ import type { SessionDispatch } from "./types";
 export const service = {
   /**
    * Login with Google OAuth.
-   * Selects the authorization code flow or implicit flow based on provider configuration.
+   * Dispatches to the configured flow based on `provider.flow`.
    * @param provider - OAuth provider configuration.
    * @param dispatch - Dispatch functions for auth state.
    */
   login: (provider: OAuthProvider, dispatch: LoginDispatch): void => {
-    if (provider.authorize) {
+    if (provider.flow === OAUTH_FLOW.AUTHORIZATION_CODE) {
       authorizationCodeFlowLogin(provider, dispatch);
     } else {
       implicitFlowLogin(provider, dispatch);

@@ -282,10 +282,14 @@ export interface ListViewConfig {
   rowSelectionView?: ComponentsConfig;
 }
 
+export enum OAUTH_FLOW {
+  AUTHORIZATION_CODE = "AUTHORIZATION_CODE",
+  IMPLICIT = "IMPLICIT",
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
-export interface OAuthProvider<P = any> {
+interface OAuthProviderBase<P = any> {
   authorization: { params: { scope: string } };
-  authorize?: string; // Backend authorize endpoint that exchanges an OAuth authorization code for a token set. When set, the authorization code flow is used; otherwise the implicit token flow is used.
   clientId: string;
   icon: ReactNode;
   id: ProviderId;
@@ -293,6 +297,24 @@ export interface OAuthProvider<P = any> {
   profile: (profile: P) => UserProfile;
   userinfo: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
+export interface ImplicitFlowProvider<P = any> extends OAuthProviderBase<P> {
+  flow: OAUTH_FLOW.IMPLICIT;
+}
+
+export interface AuthorizationCodeFlowProvider<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
+  P = any,
+> extends OAuthProviderBase<P> {
+  authorize: string; // Backend endpoint that exchanges an OAuth authorization code for a token set.
+  flow: OAUTH_FLOW.AUTHORIZATION_CODE;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
+export type OAuthProvider<P = any> =
+  | ImplicitFlowProvider<P>
+  | AuthorizationCodeFlowProvider<P>;
 
 /**
  * Option Method.

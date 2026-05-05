@@ -1,12 +1,13 @@
 import { jest } from "@jest/globals";
 import { resetTokenState, updateToken } from "../src/auth/dispatch/token";
-import type { OAuthProvider } from "../src/config/entities";
+import { OAUTH_FLOW, type OAuthProvider } from "../src/config/entities";
 import { service } from "../src/google/service";
 import type { CodeResponse, SessionDispatch } from "../src/google/types";
 
 const PROVIDER_BASE: OAuthProvider = {
   authorization: { params: { scope: "openid email profile" } },
   clientId: "test-client-id",
+  flow: OAUTH_FLOW.IMPLICIT,
   icon: null,
   id: "google",
   name: "Google",
@@ -15,6 +16,12 @@ const PROVIDER_BASE: OAuthProvider = {
 };
 
 const AUTHORIZE_URL = "https://service.example.com/user/authorize";
+
+const PROVIDER_AUTH_CODE: OAuthProvider = {
+  ...PROVIDER_BASE,
+  authorize: AUTHORIZE_URL,
+  flow: OAUTH_FLOW.AUTHORIZATION_CODE,
+};
 
 const CODE_RESPONSE: CodeResponse = { code: "test-code" };
 
@@ -56,13 +63,8 @@ describe("service.login (Google)", () => {
     delete (globalThis as unknown as { fetch?: unknown }).fetch;
   });
 
-  it("uses the authorization code flow when provider.authorize is set", () => {
-    const provider: OAuthProvider = {
-      ...PROVIDER_BASE,
-      authorize: AUTHORIZE_URL,
-    };
-
-    service.login(provider, dispatch);
+  it("uses the authorization code flow when provider.flow is OAUTH_FLOW.AUTHORIZATION_CODE", () => {
+    service.login(PROVIDER_AUTH_CODE, dispatch);
 
     expect(initCodeClient).toHaveBeenCalledTimes(1);
     expect(requestCode).toHaveBeenCalledTimes(1);
@@ -77,7 +79,7 @@ describe("service.login (Google)", () => {
     expect(config.scope).toBe(PROVIDER_BASE.authorization.params.scope);
   });
 
-  it("falls back to the implicit token flow when provider.authorize is unset", () => {
+  it("uses the implicit token flow when provider.flow is OAUTH_FLOW.IMPLICIT", () => {
     service.login(PROVIDER_BASE, dispatch);
 
     expect(initTokenClient).toHaveBeenCalledTimes(1);
@@ -96,11 +98,7 @@ describe("service.login (Google)", () => {
     (globalThis as unknown as { fetch: typeof fetch }).fetch =
       fetchMock as unknown as typeof fetch;
 
-    const provider: OAuthProvider = {
-      ...PROVIDER_BASE,
-      authorize: AUTHORIZE_URL,
-    };
-    service.login(provider, dispatch);
+    service.login(PROVIDER_AUTH_CODE, dispatch);
 
     const config = initCodeClient.mock.calls[0]?.[0] as {
       callback: (response: CodeResponse) => void;
@@ -129,11 +127,7 @@ describe("service.login (Google)", () => {
     (globalThis as unknown as { fetch: typeof fetch }).fetch =
       fetchMock as unknown as typeof fetch;
 
-    const provider: OAuthProvider = {
-      ...PROVIDER_BASE,
-      authorize: AUTHORIZE_URL,
-    };
-    service.login(provider, dispatch);
+    service.login(PROVIDER_AUTH_CODE, dispatch);
 
     const config = initCodeClient.mock.calls[0]?.[0] as {
       callback: (response: CodeResponse) => void;
@@ -159,11 +153,7 @@ describe("service.login (Google)", () => {
     (globalThis as unknown as { fetch: typeof fetch }).fetch =
       fetchMock as unknown as typeof fetch;
 
-    const provider: OAuthProvider = {
-      ...PROVIDER_BASE,
-      authorize: AUTHORIZE_URL,
-    };
-    service.login(provider, dispatch);
+    service.login(PROVIDER_AUTH_CODE, dispatch);
 
     const config = initCodeClient.mock.calls[0]?.[0] as {
       callback: (response: CodeResponse) => void;
