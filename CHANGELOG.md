@@ -1,5 +1,21 @@
 # Changelog
 
+## [52.0.0](https://github.com/DataBiosphere/findable-ui/compare/v51.1.0...v52.0.0) (2026-05-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* support oauth authorization code flow ([#906](https://github.com/DataBiosphere/findable-ui/issues/906)) (#905)
+
+### Features
+
+* support oauth authorization code flow ([#906](https://github.com/DataBiosphere/findable-ui/issues/906)) ([#905](https://github.com/DataBiosphere/findable-ui/issues/905)) ([86e57b5](https://github.com/DataBiosphere/findable-ui/commit/86e57b58168047a355116e3b0a58cfb908c2b745))
+
+
+### Chores
+
+* remove unused react-gtm-module peer dependency ([#887](https://github.com/DataBiosphere/findable-ui/issues/887)) ([#903](https://github.com/DataBiosphere/findable-ui/issues/903)) ([2170437](https://github.com/DataBiosphere/findable-ui/commit/2170437991f5605cafcd3219bcfe15806552c8de))
+
 ## [51.1.0](https://github.com/DataBiosphere/findable-ui/compare/v51.0.2...v51.1.0) (2026-04-28)
 
 
