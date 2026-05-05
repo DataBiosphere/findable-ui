@@ -15,6 +15,18 @@ import {
 } from "../auth/types/token";
 
 /**
+ * Authorization code response from Google OAuth.
+ */
+export interface CodeResponse {
+  code?: string;
+  error?: string;
+  error_description?: string;
+  error_uri?: string;
+  scope?: string;
+  state?: string;
+}
+
+/**
  * Google Sign-In authentication provider props.
  */
 export interface GoogleSignInAuthenticationProviderProps {
