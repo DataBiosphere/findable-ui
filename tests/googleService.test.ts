@@ -42,6 +42,7 @@ describe("service.login (Google)", () => {
   let requestCode: jest.Mock;
   let requestAccessToken: jest.Mock;
   let dispatch: LoginDispatch;
+  let originalFetch: typeof fetch | undefined;
 
   beforeEach(() => {
     requestCode = jest.fn();
@@ -56,11 +57,16 @@ describe("service.login (Google)", () => {
     (globalThis as unknown as { google: unknown }).google = {
       accounts: { oauth2: { initCodeClient, initTokenClient } },
     };
+    originalFetch = (globalThis as unknown as { fetch?: typeof fetch }).fetch;
   });
 
   afterEach(() => {
     delete (globalThis as unknown as { google?: unknown }).google;
-    delete (globalThis as unknown as { fetch?: unknown }).fetch;
+    if (originalFetch === undefined) {
+      delete (globalThis as unknown as { fetch?: unknown }).fetch;
+    } else {
+      (globalThis as unknown as { fetch: typeof fetch }).fetch = originalFetch;
+    }
   });
 
   it("uses the authorization code flow when provider.flow is OAUTH_FLOW.AUTHORIZATION_CODE", () => {
