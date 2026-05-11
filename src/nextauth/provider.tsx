@@ -6,6 +6,7 @@ import { useAuthenticationReducer } from "../auth/hooks/useAuthenticationReducer
 import { useAuthReducer } from "../auth/hooks/useAuthReducer";
 import { useSessionIdleTimer } from "../auth/hooks/useSessionIdleTimer";
 import { useSessionCallbackUrl } from "../hooks/authentication/session/useSessionCallbackUrl";
+import { useLoginTracking } from "../hooks/authentication/useLoginTracking";
 import { useNextAuthService } from "./hooks/useNextAuthService";
 import { SessionController } from "./session-controller";
 import { NextAuthAuthenticationProviderProps } from "./types";
@@ -30,6 +31,7 @@ export function NextAuthAuthenticationProvider({
   const service = useNextAuthService();
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
+  useLoginTracking(isAuthenticated);
   const { callbackUrl } = useSessionCallbackUrl();
   useSessionIdleTimer({
     crossTab: true,
