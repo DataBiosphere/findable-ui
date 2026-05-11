@@ -42,7 +42,7 @@ export function GoogleSignInAuthenticationProvider({
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
   const { authenticationState } = authenticationReducer;
-  useLoginTracking(isAuthenticated);
+  useLoginTracking(isAuthenticated, authState.status);
   useSessionActive(authState, authenticationState);
   useSessionIdleTimer({
     disabled: !isAuthenticated,

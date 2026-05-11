@@ -31,7 +31,7 @@ export function NextAuthAuthenticationProvider({
   const service = useNextAuthService();
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
-  useLoginTracking(isAuthenticated);
+  useLoginTracking(isAuthenticated, authState.status);
   const { callbackUrl } = useSessionCallbackUrl();
   useSessionIdleTimer({
     crossTab: true,
