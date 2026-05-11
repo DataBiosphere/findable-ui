@@ -32,7 +32,7 @@ describe("useLoginTracking", () => {
     );
     rerender({ isAuthenticated: true });
     expect(mockTrack).toHaveBeenCalledTimes(1);
-    expect(mockTrack).toHaveBeenCalledWith("login", { method: "google" });
+    expect(mockTrack).toHaveBeenCalledWith("login", { tool_name: "google" });
   });
 
   test("does not fire on transition from authenticated to unauthenticated", () => {
