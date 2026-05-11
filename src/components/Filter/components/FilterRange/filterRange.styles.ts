@@ -99,23 +99,21 @@ export const StyledForm = styled("form")<Pick<FilterRangeProps, "surfaceType">>`
   ${({ surfaceType }) =>
     surfaceType === SURFACE_TYPE.DRAWER &&
     css`
-       {
-        padding: 0 16px;
-        width: 312px;
+      padding: 0 16px;
+      width: 312px;
 
-        .MuiGrid-root {
-          gap: 16px 0;
-          grid-template-rows: auto auto;
-          margin: 16px 0;
+      .MuiGrid-root {
+        gap: 16px 0;
+        grid-template-rows: auto auto;
+        margin: 16px 0;
 
-          .MuiFormControl-root {
-            grid-row: unset;
-            grid-template-rows: unset;
-          }
+        .MuiFormControl-root {
+          grid-row: unset;
+          grid-template-rows: unset;
+        }
 
-          .MuiDivider-root {
-            display: none;
-          }
+        .MuiDivider-root {
+          display: none;
         }
       }
     `}
