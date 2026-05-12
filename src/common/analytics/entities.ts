@@ -16,6 +16,7 @@ export enum EVENT_NAME {
   FILTER_SELECTED = "filter_selected",
   INDEX_ANALYZE_IN_TERRA_REQUESTED = "index_analyze_in_terra_requested",
   INDEX_FILE_MANIFEST_REQUESTED = "index_file_manifest_requested",
+  LOGIN = "login", // GA4 recommended event name; not past tense to match GA4 standard.
 }
 
 /**
@@ -82,4 +83,5 @@ export type EventParams = {
   [EVENT_NAME.INDEX_FILE_MANIFEST_REQUESTED]: {
     [EVENT_PARAM.ENTITY_NAME]: string;
   };
+  [EVENT_NAME.LOGIN]: { [EVENT_PARAM.TOOL_NAME]: string };
 };

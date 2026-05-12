@@ -8,6 +8,7 @@ import { useCredentialsReducer } from "../auth/hooks/useCredentialsReducer";
 import { useSessionIdleTimer } from "../auth/hooks/useSessionIdleTimer";
 import { useSessionActive } from "../hooks/authentication/session/useSessionActive";
 import { useSessionCallbackUrl } from "../hooks/authentication/session/useSessionCallbackUrl";
+import { useLoginTracking } from "../hooks/authentication/useLoginTracking";
 import { AUTH_STATE, AUTHENTICATION_STATE } from "./constants";
 import { useGoogleSignInService } from "./hooks/useGoogleSignInService";
 import { useTokenReducer } from "./hooks/useTokenReducer";
@@ -41,6 +42,7 @@ export function GoogleSignInAuthenticationProvider({
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
   const { authenticationState } = authenticationReducer;
+  useLoginTracking(isAuthenticated, authState.status);
   useSessionActive(authState, authenticationState);
   useSessionIdleTimer({
     disabled: !isAuthenticated,
