@@ -1,5 +1,12 @@
 # Changelog
 
+## [52.2.0](https://github.com/DataBiosphere/findable-ui/compare/v52.1.0...v52.2.0) (2026-05-12)
+
+
+### Features
+
+* add GA4 login event tracking ([#916](https://github.com/DataBiosphere/findable-ui/issues/916)) ([c305aed](https://github.com/DataBiosphere/findable-ui/commit/c305aed3fe3acf5b2d2eadcf2362d26d89bf6c22))
+
 ## [52.1.0](https://github.com/DataBiosphere/findable-ui/compare/v52.0.0...v52.1.0) (2026-05-05)
 
 
