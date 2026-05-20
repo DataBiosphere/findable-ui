@@ -17,6 +17,5 @@ export const POPPER_PROPS: Omit<PopperProps, "open"> = {
       { name: "offset", options: { offset: [0, 4] } },
     ],
   },
-  role: "dialog",
   transition: true,
 };

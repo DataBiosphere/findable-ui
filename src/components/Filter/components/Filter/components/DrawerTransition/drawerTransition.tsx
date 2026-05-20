@@ -19,7 +19,7 @@ export const DrawerTransition = ({
   ...props
 }: DrawerTransitionProps): JSX.Element => {
   return (
-    <Slide {...SIDE_PROPS} ref={ref} {...props}>
+    <Slide {...props} {...SIDE_PROPS} ref={ref}>
       {children}
     </Slide>
   );
