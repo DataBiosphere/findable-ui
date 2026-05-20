@@ -1,5 +1,18 @@
 # Changelog
 
+## [53.0.0](https://github.com/DataBiosphere/findable-ui/compare/v52.2.0...v53.0.0) (2026-05-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* filter popover: flip placement above the trigger row when bottom-anchored ([#912](https://github.com/DataBiosphere/findable-ui/issues/912)) (#915)
+* remove deprecated markdown component and isomorphic-dompurify peer dependency ([#914](https://github.com/DataBiosphere/findable-ui/issues/914)) (#919)
+
+### Features
+
+* filter popover: flip placement above the trigger row when bottom-anchored ([#912](https://github.com/DataBiosphere/findable-ui/issues/912)) ([#915](https://github.com/DataBiosphere/findable-ui/issues/915)) ([44a7784](https://github.com/DataBiosphere/findable-ui/commit/44a7784bd94624b1d781896d743aa35735dea7a2))
+* remove deprecated markdown component and isomorphic-dompurify peer dependency ([#914](https://github.com/DataBiosphere/findable-ui/issues/914)) ([#919](https://github.com/DataBiosphere/findable-ui/issues/919)) ([6806e52](https://github.com/DataBiosphere/findable-ui/commit/6806e525b403b79626f8c74cb358ff6243d1f124))
+
 ## [52.2.0](https://github.com/DataBiosphere/findable-ui/compare/v52.1.0...v52.2.0) (2026-05-12)
 
 
