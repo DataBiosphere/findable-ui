@@ -8,7 +8,7 @@ export const Section = styled("div")`
   border-top: 1px solid ${PALETTE.SMOKE_MAIN};
   display: grid;
   gap: 16px;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
 `;
 
 export const SectionContent = styled.div`
