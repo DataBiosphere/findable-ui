@@ -1,5 +1,5 @@
-import { CollapseProvider } from "@databiosphere/findable-ui/lib/components/common/Collapse/provider/provider";
 import { JSX, ReactNode } from "react";
+import { CollapseProvider } from "../../../components/common/Collapse/provider/provider";
 import { TerraSetUpUIContext } from "./context";
 
 /**

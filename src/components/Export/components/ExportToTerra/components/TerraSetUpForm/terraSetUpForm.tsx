@@ -15,6 +15,7 @@ import { Button } from "./components/Button/button";
 import { AcceptTerraTOS } from "./components/FormStep/components/AcceptTerraTOS/acceptTerraTOS";
 import { ConnectTerraToNIHAccount } from "./components/FormStep/components/ConnectTerraToNIHAccount/connectTerraToNIHAccount";
 import { CreateTerraAccount } from "./components/FormStep/components/CreateTerraAccount/createTerraAccount";
+import { STEPS_REGION_ID } from "./constants";
 import { StyledFluidPaper, StyledStack } from "./terraSetUpForm.styles";
 import { TerraSetUpFormProps } from "./types";
 
@@ -46,7 +47,7 @@ export const TerraSetUpForm = ({
         </Stack>
         <Button collapsible={collapsible} />
       </StyledStack>
-      <Collapse in={collapsible ? isOpen : true}>
+      <Collapse id={STEPS_REGION_ID} in={collapsible ? isOpen : true}>
         <CreateTerraAccount
           active={isStepActive(
             onboardingStatusByStep,
