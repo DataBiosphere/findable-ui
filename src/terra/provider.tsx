@@ -7,6 +7,7 @@ import { useAuthentication } from "../auth/hooks/useAuthentication";
 import { useCredentials } from "../auth/hooks/useCredentials";
 import { TerraProfileContext } from "./context";
 import { useFetchProfiles } from "./hooks/useFetchProfiles";
+import { TerraSetUpUIProvider } from "./setUpUI/provider/provider";
 import { TerraProfileProviderProps } from "./types/common";
 
 /**
@@ -61,7 +62,7 @@ export function TerraProfileProvider({
         terraTOSLoginStatus,
       }}
     >
-      {children}
+      <TerraSetUpUIProvider>{children}</TerraSetUpUIProvider>
     </TerraProfileContext.Provider>
   );
 }

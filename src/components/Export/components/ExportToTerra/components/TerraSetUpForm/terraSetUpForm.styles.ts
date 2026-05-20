@@ -1,25 +1,16 @@
 import styled from "@emotion/styled";
+import { Stack } from "@mui/material";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
+import { FluidPaper } from "../../../../../common/Paper/components/FluidPaper/fluidPaper";
 import { sectionPadding } from "../../../../../common/Section/section.styles";
 
-export const Section = styled("div")`
-  ${sectionPadding};
+export const StyledFluidPaper = styled(FluidPaper)`
   background-color: ${PALETTE.COMMON_WHITE};
-  display: grid;
-  gap: 16px;
-  grid-template-columns: auto 1fr;
 `;
 
-export const SectionContent = styled("div")`
-  display: grid;
-  gap: 4px;
-  grid-row: 1;
-
-  .MuiTypography-body-400-2lines {
-    p {
-      margin: 0;
-    }
-  }
+export const StyledStack = styled(Stack)`
+  ${sectionPadding};
+  justify-content: space-between;
 `;
 
 export const SectionStatus = styled("div")`
