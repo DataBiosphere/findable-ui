@@ -2,12 +2,8 @@ import { StepIcon, Typography } from "@mui/material";
 import { JSX, ReactNode } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../styles/common/mui/typography";
 import { FormStatusCompletedIcon } from "../../../../../../../common/CustomIcon/components/FormStatusCompletedIcon/formStatusCompletedIcon";
-import {
-  Section,
-  SectionActions,
-  SectionStatus,
-} from "../../terraSetUpForm.styles";
-import { SectionContent } from "./formStep.styles";
+import { SectionActions, SectionStatus } from "../../terraSetUpForm.styles";
+import { Section, SectionContent } from "./formStep.styles";
 
 export interface FormStepProps {
   action: ReactNode;

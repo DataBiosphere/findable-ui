@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Collapse, Stack, Typography } from "@mui/material";
 import { JSX } from "react";
 import { useAuth } from "../../../../../../auth/hooks/useAuth";
 import { AUTH_STATUS } from "../../../../../../auth/types/auth";
@@ -7,39 +7,46 @@ import {
   OnboardingStatus,
   useAuthenticationForm,
 } from "../../../../../../hooks/authentication/terra/useAuthenticationForm";
+import { STACK_PROPS } from "../../../../../../styles/common/mui/stack";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
-import {
-  FluidPaper,
-  GridPaper,
-} from "../../../../../common/Paper/paper.styles";
+import { useTerraSetUpUI } from "../../../../../../terra/setUpUI/provider/hook";
 import { SectionTitle } from "../../../../../common/Section/components/SectionTitle/sectionTitle";
+import { Button } from "./components/Button/button";
 import { AcceptTerraTOS } from "./components/FormStep/components/AcceptTerraTOS/acceptTerraTOS";
 import { ConnectTerraToNIHAccount } from "./components/FormStep/components/ConnectTerraToNIHAccount/connectTerraToNIHAccount";
 import { CreateTerraAccount } from "./components/FormStep/components/CreateTerraAccount/createTerraAccount";
-import { Section, SectionContent } from "./terraSetUpForm.styles";
+import { StyledFluidPaper, StyledStack } from "./terraSetUpForm.styles";
+import { TerraSetUpFormProps } from "./types";
 
-export const TerraSetUpForm = (): JSX.Element | null => {
+export const TerraSetUpForm = ({
+  collapsible = false,
+}: TerraSetUpFormProps): JSX.Element | null => {
   const {
     authState: { isAuthenticated, status },
   } = useAuth();
   const { isComplete, onboardingStatusByStep } = useAuthenticationForm();
+  const { isOpen } = useTerraSetUpUI();
+
   if (!isAuthenticated) return null;
   if (status === AUTH_STATUS.PENDING) return null;
-  return isComplete ? null : (
-    <FluidPaper>
-      <GridPaper>
-        <Section>
-          <SectionContent>
-            <SectionTitle title="Complete your setup" />
-            <Typography
-              color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-              variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
-            >
-              Follow these steps to unlock the full potential of the data
-              explorer.
-            </Typography>
-          </SectionContent>
-        </Section>
+  if (isComplete) return null;
+
+  return (
+    <StyledFluidPaper>
+      <StyledStack direction={STACK_PROPS.DIRECTION.ROW} useFlexGap>
+        <Stack gap={1} useFlexGap>
+          <SectionTitle title="Complete your setup" />
+          <Typography
+            color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+          >
+            Follow these steps to unlock the full potential of the data
+            explorer.
+          </Typography>
+        </Stack>
+        <Button collapsible={collapsible} />
+      </StyledStack>
+      <Collapse in={collapsible ? isOpen : true}>
         <CreateTerraAccount
           active={isStepActive(
             onboardingStatusByStep,
@@ -75,8 +82,8 @@ export const TerraSetUpForm = (): JSX.Element | null => {
             step={ONBOARDING_STEP.NIH_ACCOUNT}
           />
         )}
-      </GridPaper>
-    </FluidPaper>
+      </Collapse>
+    </StyledFluidPaper>
   );
 };
 
