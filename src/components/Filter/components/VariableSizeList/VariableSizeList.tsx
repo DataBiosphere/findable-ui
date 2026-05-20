@@ -120,6 +120,7 @@ export const VariableSizeList = ({
       onItemsRendered={(): void => listRef.current?.resetAfterIndex(0)} // Facilitates correct positioning of list items when list scrolls.
       overscanCount={overscanCount}
       ref={listRef}
+      style={{ overscrollBehavior: "none" }}
       width={width}
     >
       {renderListItem}

@@ -8,11 +8,23 @@ const meta: Meta<typeof Filters> = {
   component: Filters,
   decorators: [
     (Story): JSX.Element => (
-      <Box sx={{ width: 264 }}>
-        <Story />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          minHeight: "100vh",
+        }}
+      >
+        <Box sx={{ width: 264 }}>
+          <Story />
+        </Box>
       </Box>
     ),
   ],
+  parameters: {
+    layout: "fullscreen",
+  },
 };
 
 export default meta;

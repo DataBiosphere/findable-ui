@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { FilterProps } from "../Filter/filter";
+import { FilterProps } from "../Filter/types";
 import { SURFACE_TYPE } from "../surfaces/types";
 
 interface Props {

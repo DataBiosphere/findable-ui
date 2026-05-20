@@ -1,24 +1,26 @@
-import { Slide as MSlide, SlideProps as MSlideProps } from "@mui/material";
-import { JSX, forwardRef } from "react";
+import { Slide } from "@mui/material";
+import { JSX } from "react";
+import { SIDE_PROPS } from "./constants";
+import { DrawerTransitionProps } from "./types";
 
-export const DrawerTransition = forwardRef<Element, MSlideProps>(
-  function DrawerTransition(
-    {
-      children,
-      ...props /* Spread props to allow for Mui SlideProps specific prop overrides. */
-    }: MSlideProps,
-    ref,
-  ): JSX.Element {
-    return (
-      <MSlide
-        direction="right"
-        easing="ease-out"
-        ref={ref}
-        unmountOnExit
-        {...props}
-      >
-        {children}
-      </MSlide>
-    );
-  },
-);
+/**
+ * Slide transition used for the drawer-surface filter popover.
+ * @param props - Component props (extends MUI SlideProps).
+ * @param props.children - Transition child.
+ * @param props.placement - Popper placement; consumed only to keep it off the DOM.
+ * @param props.ref - Forwarded ref.
+ * @returns Slide transition element.
+ */
+export const DrawerTransition = ({
+  children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- destructured out so it doesn't spread onto the DOM Slide element
+  placement: _placement,
+  ref,
+  ...props
+}: DrawerTransitionProps): JSX.Element => {
+  return (
+    <Slide {...props} {...SIDE_PROPS} ref={ref}>
+      {children}
+    </Slide>
+  );
+};

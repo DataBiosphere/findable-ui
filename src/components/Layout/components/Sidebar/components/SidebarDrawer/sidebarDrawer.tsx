@@ -33,7 +33,6 @@ export const SidebarDrawer = ({
       open={open}
       slotProps={DRAWER_SLOT_PROPS}
       TransitionComponent={DrawerTransition}
-      transitionDuration={open ? 250 : 300}
     >
       <IconButton Icon={CloseRounded} onClick={onClose} size="medium" />
       {children}
