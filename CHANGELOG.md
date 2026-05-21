@@ -1,5 +1,17 @@
 # Changelog
 
+## [53.1.0](https://github.com/DataBiosphere/findable-ui/compare/v53.0.0...v53.1.0) (2026-05-20)
+
+
+### Features
+
+* collapsible terrasetupform with opt-in prop ([#921](https://github.com/DataBiosphere/findable-ui/issues/921)) ([#922](https://github.com/DataBiosphere/findable-ui/issues/922)) ([10b1e6c](https://github.com/DataBiosphere/findable-ui/commit/10b1e6c6b481bc6437f636b4ab9bcd3b315528f0))
+
+
+### Chores
+
+* add sideeffects field to package.json to enable bundler tree-shaking ([#886](https://github.com/DataBiosphere/findable-ui/issues/886)) ([#923](https://github.com/DataBiosphere/findable-ui/issues/923)) ([567519a](https://github.com/DataBiosphere/findable-ui/commit/567519a09a70c38e723f7797dc6934f50d1a9bb3))
+
 ## [53.0.0](https://github.com/DataBiosphere/findable-ui/compare/v52.2.0...v53.0.0) (2026-05-20)
 
 
