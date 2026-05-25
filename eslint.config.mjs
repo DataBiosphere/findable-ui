@@ -76,7 +76,7 @@ const config = [
     },
   },
   {
-    files: ["**/*.test.ts"],
+    files: ["**/*.test.{ts,tsx}"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "sonarjs/no-duplicate-string": "off",
