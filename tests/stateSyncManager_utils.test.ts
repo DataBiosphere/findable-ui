@@ -4,7 +4,7 @@ import {
   stringifyQuery,
   wasPop,
 } from "../src/hooks/stateSyncManager/hooks/UseStateSync/utils";
-import { NextHistoryState } from "../src/services/beforePopState/types";
+import type { NextHistoryState } from "../src/services/beforePopState/types";
 
 /**
  * Builds a minimal NextHistoryState for tests.
