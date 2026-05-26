@@ -146,7 +146,6 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         backgroundColor: PALETTE.COMMON_WHITE,
         boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
       },
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       "&:hover": {
         backgroundColor: PALETTE.SMOKE_LIGHTEST,
         boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
@@ -224,7 +223,6 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         padding: "10px 16px",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
         ".MuiButton-iconSizeLarge": {
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
           ".MuiSvgIcon-root": {
             fontSize: "20px",
           },
@@ -543,7 +541,6 @@ const MuiDialog: Components["MuiDialog"] = {
       boxShadow: SHADOWS["02"],
     },
     root: {
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       "& .MuiBackdrop-root": {
         backgroundColor: COLOR_MIXES.INK_MAIN_60,
       },
@@ -650,7 +647,6 @@ const MuiIconButton: Components["MuiIconButton"] = {
         color: PALETTE.COMMON_WHITE,
         opacity: 0.5,
       },
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       "&:hover": {
         backgroundColor: PALETTE.PRIMARY_DARK,
       },
@@ -670,7 +666,6 @@ const MuiIconButton: Components["MuiIconButton"] = {
         color: PALETTE.INK_LIGHT,
         opacity: 0.5,
       },
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       "&:hover": {
         backgroundColor: PALETTE.SMOKE_LIGHTEST,
       },
@@ -773,7 +768,6 @@ const MuiInputBase: Components<Theme>["MuiInputBase"] = {
       fontSize: 16, // overrides default 14px to prevent IOS zoom on focus.
       height: 40,
       letterSpacing: "normal",
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       [bpUpSm({ theme })]: {
         fontSize: "14px",
       },
@@ -916,7 +910,6 @@ const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
             "& .MuiSvgIcon-root": {
               color: PALETTE.INK_LIGHT, // Adornment e.g. "SearchIcon". TODO: remove when all input components are refactored to color: secondary.
             },
-            // eslint-disable-next-line sort-keys -- disabling key order for specificity
             "&.Mui-focused": {
               "& .MuiSvgIcon-root": {
                 color: PALETTE.INK_MAIN, // Adornment e.g. "SearchIcon". TODO: remove when all input components are refactored to color: secondary.
@@ -962,7 +955,6 @@ const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
                   opacity: 0,
                 },
               },
-              // eslint-disable-next-line sort-keys -- disabling key order for specificity
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: PALETTE.INK_MAIN,
                 borderWidth: 1,
@@ -981,7 +973,6 @@ const MuiOutlinedInput: Components["MuiOutlinedInput"] = {
                   opacity: 1,
                 },
               },
-              // eslint-disable-next-line sort-keys -- disabling key order for specificity
               ".MuiOutlinedInput-notchedOutline": {
                 borderColor: PALETTE.SMOKE_DARK,
                 borderWidth: 1,
@@ -1227,9 +1218,7 @@ const MuiTabs: Components<Theme>["MuiTabs"] = {
       gap: 8,
       // eslint-disable-next-line sort-keys -- disabling key order for readability
       "&:not(.MuiTabs-flexContainerVertical)": {
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
         ".MuiTab-root": {
-          // eslint-disable-next-line sort-keys -- disabling key order for readability
           "&:hover": {
             color: PALETTE.INK_MAIN,
             overflow: "visible",
@@ -1247,7 +1236,6 @@ const MuiTabs: Components<Theme>["MuiTabs"] = {
           },
           // eslint-disable-next-line sort-keys -- disabling key order for readability
           "&.Mui-selected": {
-            // eslint-disable-next-line sort-keys -- disabling key order for readability
             "&:hover": {
               overflow: "unset",
               // eslint-disable-next-line sort-keys -- disabling key order for readability
@@ -1272,7 +1260,6 @@ const MuiTabs: Components<Theme>["MuiTabs"] = {
     scroller: ({ theme }) => ({
       margin: 0,
       padding: "0 8px",
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       [bpUpSm({ theme })]: {
         padding: 0,
       },
@@ -1337,7 +1324,6 @@ const MuiToolbar: Components<Theme>["MuiToolbar"] = {
         paddingLeft: 12,
         paddingRight: 12,
       },
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
       [bpUpLg({ theme })]: {
         paddingLeft: 16,
         paddingRight: 16,

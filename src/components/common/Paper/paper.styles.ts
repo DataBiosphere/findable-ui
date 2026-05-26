@@ -28,12 +28,10 @@ export const RoundedPaper = styled(Paper)`
   }
 `;
 
-/* eslint-disable valid-jsdoc -- disable require param */
 /**
  * Fluid paper - typically used to transition between flat paper (mobile) and rounded paper (tablet or desktop).
  * To use FluidPaper, wrap the styled paper around a single child element e.g. "Section" or "Sections" component. TODO
  */
-/* eslint-enable valid-jsdoc -- disable require param */
 export const FluidPaper = styled(RoundedPaper)`
   & {
     ${bpDownSm} {

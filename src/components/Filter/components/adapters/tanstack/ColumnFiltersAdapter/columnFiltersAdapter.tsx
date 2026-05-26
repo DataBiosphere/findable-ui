@@ -29,9 +29,7 @@ export const ColumnFiltersAdapter = <T extends RowData>({
     (
       categoryKey: CategoryKey | ClearAll,
       selectedCategoryValue: CategoryValueKey,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `selected` is not required by TanStack adapter.
       _selected: boolean,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `categorySection` is not required by TanStack adapter.
       _categorySection?: string,
       viewKind?: VIEW_KIND,
     ) => {

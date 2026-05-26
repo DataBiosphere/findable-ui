@@ -7,7 +7,6 @@ import { visit } from "unist-util-visit";
  * @param options.regex - Regex to match.
  * @returns A rehype plugin.
  */
-// eslint-disable-next-line sonarjs/cognitive-complexity -- ignoring for readability
 export function rehypeHighlight(options: { regex: RegExp | undefined }) {
   const { regex } = options;
 

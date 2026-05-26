@@ -1,5 +1,7 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import next from "eslint-config-next";
+import sonarjs from "eslint-plugin-sonarjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -15,6 +17,8 @@ const config = [
   {
     ignores: ["**/node_modules/**", "**/out/**", "**/.next/**", "lib/**"],
   },
+  ...next,
+  sonarjs.configs.recommended,
   ...compat.config({
     extends: [
       "eslint:recommended",
@@ -22,21 +26,18 @@ const config = [
       "prettier",
       "plugin:prettier/recommended",
       "plugin:storybook/recommended",
-      "next",
-      "plugin:sonarjs/recommended",
-      "plugin:eslint-comments/recommended",
+      "plugin:@eslint-community/eslint-comments/recommended",
     ],
     parser: "@typescript-eslint/parser",
     plugins: [
       "@typescript-eslint",
-      "sonarjs",
       "jsdoc",
       "sort-destructure-keys",
-      "typescript-sort-keys",
+      "perfectionist",
       "react-hooks",
     ],
     rules: {
-      "eslint-comments/require-description": "error",
+      "@eslint-community/eslint-comments/require-description": "error",
       "jsdoc/check-alignment": "error",
       "jsdoc/check-param-names": "error",
       "jsdoc/require-description": "error",
@@ -46,7 +47,23 @@ const config = [
       "jsdoc/require-param-name": "error",
       "jsdoc/require-returns": "error",
       "jsdoc/require-returns-description": "error",
+      "perfectionist/sort-enums": "error",
+      "perfectionist/sort-interfaces": "error",
       "react-hooks/exhaustive-deps": "error",
+      // The remaining react-hooks v7 rules below are React-Compiler-aware
+      // checks that surface real anti-patterns in the codebase. Disabled here
+      // to keep this PR scoped to the tooling upgrade; revisit alongside any
+      // future React Compiler adoption.
+      "react-hooks/immutability": "off",
+      "react-hooks/incompatible-library": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/static-components": "off",
+      // sonarjs v1 dropped `cognitive-complexity` from its recommended preset
+      // (the rule's meta lost its `recommended` flag during the v1 rewrite,
+      // a discrepancy with the package README). Restore at default threshold
+      // 15 to preserve the coverage we had under v0.25.
+      "sonarjs/cognitive-complexity": ["error", 15],
       "sort-destructure-keys/sort-destructure-keys": [
         "error",
         { caseSensitive: false },
@@ -55,16 +72,6 @@ const config = [
         "error",
         "asc",
         { caseSensitive: true, minKeys: 2, natural: false },
-      ],
-      "typescript-sort-keys/interface": [
-        "error",
-        "asc",
-        { caseSensitive: false },
-      ],
-      "typescript-sort-keys/string-enum": [
-        "error",
-        "asc",
-        { caseSensitive: false },
       ],
     },
   }),
