@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { JSX } from "react";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
@@ -8,7 +8,7 @@ import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams";
 
 export const ExportMethodView = (): JSX.Element => {
   useUpdateURLSearchParams();
-  const { pathname } = useRouter();
+  const pathname = usePathname() ?? "";
   const { exportMethods, tabs } = useExportConfig();
   const { sideColumn } = tabs[0];
   const { mainColumn, top } =
