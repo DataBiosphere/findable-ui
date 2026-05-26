@@ -8,7 +8,7 @@ This is a TypeScript library package (`@databiosphere/findable-ui`) that provide
 
 **Key Facts:**
 
-- **Node Version:** 22.12.0 (enforced by package.json)
+- **Node Version:** 22.13.0 (enforced by package.json)
 - **UI Framework:** React 19 with Material-UI v7 and Emotion for styling
 - **Build System:** TypeScript compiler (`tsc`) with strict mode enabled
 - **Import Pattern:** External apps import as `@databiosphere/findable-ui/lib/<path>`
