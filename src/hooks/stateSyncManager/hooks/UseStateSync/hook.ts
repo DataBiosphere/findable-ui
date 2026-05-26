@@ -1,4 +1,3 @@
-import { usePathname } from "next/navigation";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect } from "react";
 import { ROUTER_METHOD } from "../../../../providers/exploreState/actions/stateToUrl/types";
@@ -11,8 +10,7 @@ export const useStateSync = <Action>({
   dispatch,
   state,
 }: UseStateSyncManagerProps<Action>): void => {
-  const { basePath, isReady, query } = useRouter();
-  const pathname = usePathname() ?? "";
+  const { basePath, isReady, pathname, query } = useRouter();
   const { onClearPopRef, popRef } = useWasPop();
 
   // Extract the query from the state.

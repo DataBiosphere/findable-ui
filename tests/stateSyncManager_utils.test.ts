@@ -8,13 +8,15 @@ import { NextHistoryState } from "../src/services/beforePopState/types";
 
 /**
  * Builds a minimal NextHistoryState for tests.
- * @param url - The resolved URL the browser is navigating to (the form
- *   Next.js stores in history state — always the actual URL, never a route
- *   pattern).
- * @returns NextHistoryState with the given url and no-op as/options.
+ * @param url - The href stored by Next.js in history state (the route
+ *   pattern on dynamic routes, e.g. `/[entityListType]/[entityId]`; the same
+ *   string as the URL on static routes).
+ * @param as - The resolved URL shown to the user. Defaults to `url` for
+ *   static-route cases where the two are identical.
+ * @returns NextHistoryState with the given fields and no-op options.
  */
-function buildHistoryState(url: string): NextHistoryState {
-  return { as: url, options: {}, url };
+function buildHistoryState(url: string, as: string = url): NextHistoryState {
+  return { as, options: {}, url };
 }
 
 describe("wasPop", () => {
@@ -54,25 +56,28 @@ describe("wasPop", () => {
     );
   });
 
-  // Documents the contract the usePathname() migration relies on: pathname is
-  // the resolved URL (e.g. /anvil-cmg/abc-123), not the route pattern
-  // (/[entityListType]/[entityId]). The first matches; the second does not.
-  it("matches when pathname is the resolved URL (post-migration form)", () => {
-    expect(
-      wasPop(
-        "",
-        "/anvil-cmg/abc-123",
-        buildHistoryState("/anvil-cmg/abc-123?filter=foo"),
-      ),
-    ).toBe(true);
-  });
-
-  it("does not match when pathname is a route pattern (pre-migration form on dynamic routes)", () => {
+  // Documents the contract: nextHistoryState.url is the href stored by
+  // Next.js — the route pattern on dynamic routes, the static URL on static
+  // routes. `pathname` must be in the same form for the comparison to match.
+  it("matches on a dynamic route when both sides are the route pattern", () => {
     expect(
       wasPop(
         "",
         "/[entityListType]/[entityId]",
-        buildHistoryState("/anvil-cmg/abc-123"),
+        buildHistoryState(
+          "/[entityListType]/[entityId]?filter=foo",
+          "/anvil-cmg/abc-123?filter=foo",
+        ),
+      ),
+    ).toBe(true);
+  });
+
+  it("does not match when pathname is the resolved URL but history url is the route pattern", () => {
+    expect(
+      wasPop(
+        "",
+        "/anvil-cmg/abc-123",
+        buildHistoryState("/[entityListType]/[entityId]", "/anvil-cmg/abc-123"),
       ),
     ).toBe(false);
   });
