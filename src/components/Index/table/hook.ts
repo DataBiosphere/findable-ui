@@ -47,8 +47,7 @@ import { UseTable, UseTableProps } from "./types";
 
 export const useTable = <T extends RowData>({
   entityListType,
-}: // eslint-disable-next-line sonarjs/cognitive-complexity -- TODO fix complexity
-UseTableProps): UseTable<T> => {
+}: UseTableProps): UseTable<T> => {
   const { entityConfig } = useConfig();
   const exploreMode = useExploreMode();
   const { exploreDispatch, exploreState } = useExploreState();

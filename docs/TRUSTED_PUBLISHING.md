@@ -28,7 +28,7 @@ The `id-token: write` permission enables the workflow to request OIDC tokens fro
 ```yaml
 - uses: actions/setup-node@v4
   with:
-    node-version: "22.12.0"
+    node-version: "22.13.0"
     registry-url: "https://registry.npmjs.org"
     always-auth: true # Enable authentication for trusted publishing
 ```

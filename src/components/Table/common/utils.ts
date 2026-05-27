@@ -134,7 +134,6 @@ export function getFacetedUniqueValuesWithArrayValues<T extends RowData>(): (
         key:
           process.env.NODE_ENV === "development" &&
           "getFacetedUniqueValues_" + columnId,
-        // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default.
         onChange: () => {},
       },
     );

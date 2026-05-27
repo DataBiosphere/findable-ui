@@ -23,7 +23,6 @@ export interface EntityService {
     listParams: AzulListParams,
     catalog: string | undefined,
     accessToken: string | undefined,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- This type can't be known before hand
   ) => Promise<AzulEntitiesResponse>;
 
   fetchEntitiesFromURL: (

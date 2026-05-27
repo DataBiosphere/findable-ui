@@ -50,7 +50,6 @@ export type FileManifestStateContextProps = {
 
 export const FileManifestStateContext =
   createContext<FileManifestStateContextProps>({
-    // eslint-disable-next-line @typescript-eslint/no-empty-function -- allow dummy function for default state.
     fileManifestDispatch: () => {},
     fileManifestState: FILE_MANIFEST_STATE,
   });

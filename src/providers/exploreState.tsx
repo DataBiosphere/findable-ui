@@ -165,7 +165,6 @@ export const ExploreStateContext = createContext<ExploreStateContextProps>({
    * does not cause consuming components to use defaultValue.
    * So basically the default value is not used...
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function -- default note used
   exploreDispatch: () => {},
   exploreState: INITIAL_STATE,
 });

@@ -14,7 +14,7 @@ Use `scripts/link.sh` to build and install a local copy of findable-ui
 into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
 
 1. Clone this repository into the same parent folder as the consuming app.
-2. Set `node` version to `22.12.0`.
+2. Set `node` version to `22.13.0`.
 3. Run `npm install` in both repositories.
 4. From the consuming project directory:
    ```bash
