@@ -36,6 +36,7 @@ export async function buildStaticProps<F extends object, P extends object>(
   // Serialize the MDX content.
   const outline: OutlineItem[] = [];
   const mdxSource = await serialize(content, {
+    blockJS: false,
     ...serializeOptions,
     mdxOptions: {
       development: false,
