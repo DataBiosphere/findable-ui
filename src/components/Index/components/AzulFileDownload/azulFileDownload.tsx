@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { Fragment, JSX, useEffect, useRef, useState } from "react";
+import { JSX, Ref, useEffect, useRef, useState } from "react";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
 import { useLoginGuard } from "../../../../providers/loginGuard/hook";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
@@ -15,6 +15,7 @@ import {
 
 export interface AzulFileDownloadProps {
   entityName: string; // The name of the file downloaded.
+  ref?: Ref<HTMLSpanElement>; // Ref attached to the outer span; allows direct use as a Tooltip child without a span wrapper at the call site.
   relatedEntityId: string; // An array of IDs of the file's datasets / projects
   relatedEntityName: string; // An array of names of the file's datasets / projects
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
@@ -22,6 +23,7 @@ export interface AzulFileDownloadProps {
 
 export const AzulFileDownload = ({
   entityName,
+  ref,
   relatedEntityId,
   relatedEntityName,
   url,
@@ -51,7 +53,7 @@ export const AzulFileDownload = ({
   };
 
   return (
-    <Fragment>
+    <span ref={ref}>
       {isRequestPending ? (
         <StyledIconButton
           color="primary"
@@ -76,6 +78,6 @@ export const AzulFileDownload = ({
         ref={downloadRef}
         sx={{ display: "none" }}
       />
-    </Fragment>
+    </span>
   );
 };
