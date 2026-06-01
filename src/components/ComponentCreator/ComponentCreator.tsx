@@ -63,9 +63,11 @@ export const ComponentCreator = <T,>({
               systemStatus,
             })
           : {};
-        return createElement(c.component, { ...c.props, ...props, key: k }, [
+        return createElement(
+          c.component,
+          { ...c.props, ...props, key: k },
           children ?? props.children,
-        ]);
+        );
       })}
     </>
   );
