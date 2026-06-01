@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/DataBiosphere/findable-ui/tree/main/#readme",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "sideEffects": false,
   "files": [
     "lib",
@@ -31,27 +32,42 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./lib/*.js": "./lib/*.js",
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
+    },
     "./lib/*": {
       "types": "./lib/*.d.ts",
       "default": "./lib/*.js"
     },
-    "./nextauth/*.js": "./lib/nextauth/*.js",
+    "./nextauth/*.js": {
+      "types": "./lib/nextauth/*.d.ts",
+      "default": "./lib/nextauth/*.js"
+    },
     "./nextauth/*": {
       "types": "./lib/nextauth/*.d.ts",
       "default": "./lib/nextauth/*.js"
     },
-    "./google/*.js": "./lib/google/*.js",
+    "./google/*.js": {
+      "types": "./lib/google/*.d.ts",
+      "default": "./lib/google/*.js"
+    },
     "./google/*": {
       "types": "./lib/google/*.d.ts",
       "default": "./lib/google/*.js"
     },
-    "./terra/*.js": "./lib/terra/*.js",
+    "./terra/*.js": {
+      "types": "./lib/terra/*.d.ts",
+      "default": "./lib/terra/*.js"
+    },
     "./terra/*": {
       "types": "./lib/terra/*.d.ts",
       "default": "./lib/terra/*.js"
     },
-    "./auth/*.js": "./lib/auth/*.js",
+    "./auth/*.js": {
+      "types": "./lib/auth/*.d.ts",
+      "default": "./lib/auth/*.js"
+    },
     "./auth/*": {
       "types": "./lib/auth/*.d.ts",
       "default": "./lib/auth/*.js"

@@ -36,8 +36,12 @@ export async function buildStaticProps<F extends object, P extends object>(
   // Serialize the MDX content.
   const outline: OutlineItem[] = [];
   const mdxSource = await serialize(content, {
-    blockJS: false,
     ...serializeOptions,
+    // After the spread so a consumer's `blockJS: undefined` (from a
+    // destructure-respread) doesn't silently re-enable next-mdx-remote@6's
+    // destructive `blockJS: true` default. Consumers can still opt in
+    // explicitly by passing `blockJS: true`.
+    blockJS: serializeOptions.blockJS ?? false,
     mdxOptions: {
       development: false,
       rehypePlugins: [rehypeSlug],

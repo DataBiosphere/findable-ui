@@ -12,8 +12,10 @@
 #   3. The script builds, installs, and restarts the dev server for you
 #
 # How it works:
+#   - Cleans the previous build output (lib/) so renames and deletions don't
+#     leave stale artefacts in the packed tarball
 #   - Compiles findable-ui's TypeScript source into lib/
-#   - Packs lib/, src/, and types/ into a tarball (see "files" in package.json)
+#   - Packs lib/ and types/ into a tarball (see "files" in package.json)
 #   - Installs the tarball into the consumer's node_modules WITHOUT modifying
 #     the consumer's package.json (--no-save), so "npm install" can restore
 #     the registry version at any time (see unlink.sh)
@@ -30,6 +32,12 @@ CONSUMER_DIR="$PWD"
 
 echo "Building findable-ui from $FINDABLE_DIR..."
 cd "$FINDABLE_DIR"
+
+# Wipe the previous build output. tsc doesn't prune deleted/renamed files, so
+# stale .js/.d.ts artefacts (e.g. removed barrels or pre-rename filenames)
+# would otherwise persist in lib/ and get packed into the tarball — silently
+# masking breaking-change import paths during local migration testing.
+rm -rf lib
 
 # Compile TypeScript to lib/. Called directly to avoid triggering npm lifecycle
 # scripts (e.g. "prepare" would run husky install, which is unnecessary here).

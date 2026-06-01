@@ -51,7 +51,7 @@ Until the upstream fix lands ([vercel/next.js#82607](https://github.com/vercel/n
 }
 ```
 
-Webpack is still fully supported in Next 16 — Turbopack was promoted to default, not "webpack removed." The deprecation timeline for the webpack fallback hasn't been published.
+Webpack is still fully supported in Next 16 — Turbopack was promoted to default, not "webpack removed." The deprecation timeline for the webpack fallback hasn't been published, but the `--webpack` flag is a temporary workaround and is expected to be removed in a future major. **Subscribe to [vercel/next.js#82607](https://github.com/vercel/next.js/issues/82607) for status**, and review this pin whenever Next.js publishes a webpack removal notice or the upstream Turbopack + Pages Router + MUI bug is resolved.
 
 This is a Next.js / Turbopack bug, not a findable-ui one. Re-enable Turbopack when [vercel/next.js#82607](https://github.com/vercel/next.js/issues/82607) is closed.
 
@@ -63,6 +63,7 @@ Wrap the app in `AppCacheProvider`:
 import { EmotionCache } from "@emotion/react";
 import { AppCacheProvider } from "@mui/material-nextjs/v16-pagesRouter";
 import type { AppProps } from "next/app";
+import { JSX } from "react";
 
 type MyAppProps = AppProps & {
   emotionCache?: EmotionCache;
@@ -77,6 +78,8 @@ function MyApp(props: MyAppProps): JSX.Element {
     </AppCacheProvider>
   );
 }
+
+export default MyApp;
 ```
 
 ### `_document.tsx`
@@ -96,6 +99,7 @@ import Document, {
   Main,
   NextScript,
 } from "next/document";
+import { JSX } from "react";
 
 class MyDocument extends Document<DocumentHeadTagsProps> {
   render(): JSX.Element {
@@ -145,9 +149,11 @@ into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
 2. Set `node` version to `22.13.0`.
 3. Run `npm install` in both repositories.
 4. From the consuming project directory:
+
    ```bash
    ../findable-ui/scripts/link.sh
    ```
+
    This compiles TypeScript, packs the output, installs it into
    `node_modules`, clears the Next.js cache, and starts the dev server.
 
@@ -155,11 +161,13 @@ into a consuming project (e.g. ncpi-dataset-catalog, data-browser):
    hit up-arrow to re-run the script.
 
 6. To restore the published version:
+
    ```bash
    ../findable-ui/scripts/unlink.sh
    ```
 
 Consuming projects can optionally add thin wrappers in their `package.json` scripts:
+
 ```json
 {
   "scripts": {
