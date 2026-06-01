@@ -60,10 +60,10 @@ This is a Next.js / Turbopack bug, not a findable-ui one. Re-enable Turbopack wh
 Wrap the app in `AppCacheProvider`:
 
 ```tsx
-import { EmotionCache } from "@emotion/react";
 import { AppCacheProvider } from "@mui/material-nextjs/v16-pagesRouter";
+import type { EmotionCache } from "@emotion/react";
 import type { AppProps } from "next/app";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 type MyAppProps = AppProps & {
   emotionCache?: EmotionCache;
@@ -90,16 +90,11 @@ Add `DocumentHeadTags` inside `<Head>` and assign `documentGetInitialProps` as t
 import {
   documentGetInitialProps,
   DocumentHeadTags,
-  DocumentHeadTagsProps,
 } from "@mui/material-nextjs/v16-pagesRouter";
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript,
-} from "next/document";
-import { JSX } from "react";
+import type { DocumentHeadTagsProps } from "@mui/material-nextjs/v16-pagesRouter";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import type { DocumentContext } from "next/document";
+import type { JSX } from "react";
 
 class MyDocument extends Document<DocumentHeadTagsProps> {
   render(): JSX.Element {
