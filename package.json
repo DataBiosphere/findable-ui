@@ -21,18 +21,57 @@
   },
   "homepage": "https://github.com/DataBiosphere/findable-ui/tree/main/#readme",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "sideEffects": false,
   "files": [
     "lib",
     "types"
   ],
   "exports": {
-    ".": "./lib/index.js",
-    "./lib/*": "./lib/*",
-    "./nextauth/*": "./lib/nextauth/*",
-    "./google/*": "./lib/google/*",
-    "./terra/*": "./lib/terra/*",
-    "./auth/*": "./lib/auth/*"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./lib/*.js": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.ts",
+      "default": "./lib/*.js"
+    },
+    "./nextauth/*.js": {
+      "types": "./lib/nextauth/*.d.ts",
+      "default": "./lib/nextauth/*.js"
+    },
+    "./nextauth/*": {
+      "types": "./lib/nextauth/*.d.ts",
+      "default": "./lib/nextauth/*.js"
+    },
+    "./google/*.js": {
+      "types": "./lib/google/*.d.ts",
+      "default": "./lib/google/*.js"
+    },
+    "./google/*": {
+      "types": "./lib/google/*.d.ts",
+      "default": "./lib/google/*.js"
+    },
+    "./terra/*.js": {
+      "types": "./lib/terra/*.d.ts",
+      "default": "./lib/terra/*.js"
+    },
+    "./terra/*": {
+      "types": "./lib/terra/*.d.ts",
+      "default": "./lib/terra/*.js"
+    },
+    "./auth/*.js": {
+      "types": "./lib/auth/*.d.ts",
+      "default": "./lib/auth/*.js"
+    },
+    "./auth/*": {
+      "types": "./lib/auth/*.d.ts",
+      "default": "./lib/auth/*.js"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
@@ -64,7 +103,9 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
+    "next": "^16",
     "next-auth": "^4.24.13",
+    "next-mdx-remote": "^6.0.0",
     "prettier": "^3.7.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "storybook": "^10.3.3",
@@ -83,9 +124,9 @@
     "copy-to-clipboard": "^3.3.3",
     "gray-matter": "^4.0.3",
     "ky": "^1.7.2",
-    "next": "^15.5.13",
+    "next": "^16",
     "next-auth": "^4.24.13",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-dropzone": "^14.3.8",

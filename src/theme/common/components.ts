@@ -11,7 +11,10 @@ import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
-import * as C from "../components";
+import { MuiAlert } from "../components/muiAlert";
+import { MuiAlertTitle } from "../components/muiAlertTitle";
+import { MuiButtonGroup } from "../components/muiButtonGroup";
+import { MuiTableCell } from "../components/muiTableCell";
 
 // Constants
 const FLEX_START = "flex-start";
@@ -1379,14 +1382,14 @@ export const components: ThemeOptions["components"] = {
   MuiAccordion,
   MuiAccordionDetails,
   MuiAccordionSummary,
-  MuiAlert: C.MuiAlert,
-  MuiAlertTitle: C.MuiAlertTitle,
+  MuiAlert: MuiAlert,
+  MuiAlertTitle: MuiAlertTitle,
   MuiAppBar,
   MuiBackdrop,
   MuiBreadcrumbs,
   MuiButton,
   MuiButtonBase,
-  MuiButtonGroup: C.MuiButtonGroup,
+  MuiButtonGroup: MuiButtonGroup,
   MuiCard,
   MuiCheckbox,
   MuiChip,
@@ -1414,7 +1417,7 @@ export const components: ThemeOptions["components"] = {
   MuiSelect,
   MuiSvgIcon,
   MuiTab,
-  MuiTableCell: C.MuiTableCell,
+  MuiTableCell: MuiTableCell,
   MuiTableSortLabel,
   MuiTabs,
   MuiToggleButton,

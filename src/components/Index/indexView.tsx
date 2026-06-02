@@ -19,7 +19,7 @@ import {
   StyledGridEntityLayout,
   StyledGridEntityList,
   StyledGridEntityView,
-} from "./index.styles";
+} from "./indexView.styles";
 import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
 

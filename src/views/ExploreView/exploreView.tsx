@@ -14,7 +14,7 @@ import {
 } from "../../components/Filter/components/Filters/filters";
 import { SearchAllFilters } from "../../components/Filter/components/SearchAllFilters/searchAllFilters";
 import { SURFACE_TYPE } from "../../components/Filter/components/surfaces/types";
-import { Index as IndexView } from "../../components/Index/index";
+import { Index as IndexView } from "../../components/Index/indexView";
 import { SidebarLabel } from "../../components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel";
 import { Sidebar } from "../../components/Layout/components/Sidebar/sidebar";
 import { CategoryGroup } from "../../config/entities";
