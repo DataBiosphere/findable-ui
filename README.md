@@ -145,9 +145,9 @@ Some consumers added the following block to `package.json` in late 2025 to addre
 }
 ```
 
-With Next 16 and the current dep graph, this override is no longer doing useful work and is in fact silently downgrading newer glob consumers (e.g. `@joshwooding/vite-plugin-react-docgen-typescript`, which declares `glob ^13`). `npm audit` reports no glob-related vulnerabilities at any resolved version today.
+With Next 16 and the current dep graph, this override is no longer doing useful work and is in fact silently downgrading newer glob consumers (e.g. `@joshwooding/vite-plugin-react-docgen-typescript`, which declares `glob ^13`). As of 2026-06-03, `npm audit` reports no findings catalogued against the resolved versions (`glob@7.2.3`, `glob@11.1.0`, `glob@13.0.6`) — re-check on upgrade, since the advisory landscape changes.
 
-If your consumer carries this override, remove the block from `package.json` and run `npm install` to refresh the lockfile. Expect one `npm warn deprecated inflight@1.0.6` message during install (re-introduced via Jest 29's transitive chain) — it's a warning, not a build/CI failure.
+If your consumer carries this override, remove the block from `package.json` and run `npm install` to refresh the lockfile. Expect `npm warn deprecated` warnings for `glob@7.x` (the maintainer marks pre-v9 as deprecated) and `inflight@1.0.6` (re-introduced via Jest 29's transitive chain). Both are warnings, not build/CI failures.
 
 ## Developing findable-ui alongside a consuming app
 
