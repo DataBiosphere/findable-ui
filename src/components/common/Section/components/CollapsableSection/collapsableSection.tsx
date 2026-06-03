@@ -1,6 +1,6 @@
 import { AddRounded, RemoveRounded } from "@mui/icons-material";
 import { Collapse, CollapseProps } from "@mui/material";
-import { JSX, ReactNode, useEffect, useState } from "react";
+import { JSX, ReactNode, useState } from "react";
 import {
   BREAKPOINT_FN_NAME,
   useBreakpointHelper,
@@ -25,9 +25,22 @@ export const CollapsableSection = ({
   title,
 }: CollapsableSectionProps): JSX.Element => {
   const bpDownSm = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
-  const [expanded, setExpanded] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(!bpDownSm);
   const [transitionDuration, setTransitionDuration] =
-    useState<CollapseProps["timeout"]>(0);
+    useState<CollapseProps["timeout"]>("auto");
+  const [prevBpDownSm, setPrevBpDownSm] = useState(bpDownSm);
+  // Adjust-during-render: when the breakpoint flips, reset `expanded` to
+  // match (the section auto-expands on desktop, auto-collapses on mobile)
+  // and drop `transitionDuration` to 0 so the breakpoint-driven open/close
+  // is instant. The Collapse's onEntered / onExited callbacks (below)
+  // restore "auto" once the instant transition completes, so subsequent
+  // user-triggered toggles animate smoothly. React discards the in-progress
+  // render when these setters fire — no flash, single commit.
+  if (bpDownSm !== prevBpDownSm) {
+    setPrevBpDownSm(bpDownSm);
+    setExpanded(!bpDownSm);
+    setTransitionDuration(0);
+  }
   const disabled = !bpDownSm || !collapsable;
   const ExpandIcon = expanded ? RemoveRounded : AddRounded;
   const SectionContent = (
@@ -43,40 +56,20 @@ export const CollapsableSection = ({
     setExpanded((expanded) => !expanded);
   };
 
-  // Toggles expanded state on change of media breakpoint.
-  useEffect(() => {
-    setExpanded(!bpDownSm);
-  }, [bpDownSm]);
-
-  // Sets collapseTimeout state on change of media breakpoint.
-  // Delays setting transitionDuration state for mobile breakpoint to facilitate the immediate transition from
-  // tablet to mobile.
-  useEffect(() => {
-    if (bpDownSm) {
-      const duration = setTimeout(() => {
-        setTransitionDuration("auto");
-      }, 100);
-      return (): void => {
-        clearTimeout(duration);
-      };
-    } else {
-      setTransitionDuration(0);
-    }
-  }, [bpDownSm]);
-
   return (
     <Section>
       <SectionSummary disabled={disabled} onClick={onToggleExpanded}>
         <SectionTitle title={title} />
         {!disabled && <ExpandIcon fontSize="small" />}
       </SectionSummary>
-      {!disabled ? (
-        <Collapse in={expanded} timeout={transitionDuration}>
-          {SectionContent}
-        </Collapse>
-      ) : (
-        SectionContent
-      )}
+      <Collapse
+        in={disabled || expanded}
+        onEntered={() => setTransitionDuration("auto")}
+        onExited={() => setTransitionDuration("auto")}
+        timeout={transitionDuration}
+      >
+        {SectionContent}
+      </Collapse>
     </Section>
   );
 };

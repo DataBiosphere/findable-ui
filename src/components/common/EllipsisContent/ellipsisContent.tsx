@@ -23,7 +23,9 @@ export const EllipsisContent = ({
   const ellipsisRef = useRef<HTMLDivElement>(null);
   const { height } =
     useResizeObserver(ellipsisRef, getBorderBoxSizeHeight) || {};
-  const [ellipsisMode, setEllipsisMode] = useState<EllipsisMode | undefined>();
+  const [ellipsisMode, setEllipsisMode] = useState<EllipsisMode>(
+    EllipsisMode.NONE,
+  );
   const isEllipsis = ellipsisMode === EllipsisMode.ON;
 
   /**
@@ -37,14 +39,6 @@ export const EllipsisContent = ({
       return EllipsisMode.ON;
     });
   };
-
-  /**
-   * Ellipsis mode state is initialized to "NONE" only when the component mounts,
-   * so we guarantee that `ellipsisRef` gets the element handle for resize observer hook.
-   */
-  useEffect(() => {
-    setEllipsisMode(EllipsisMode.NONE);
-  }, []);
 
   /**
    * Ellipsis mode state updates with changes to the rendered content height.
@@ -119,7 +113,7 @@ function calculateRenderedLineCount(
 function getEllipsisMode(
   element: HTMLDivElement | null,
   maxLineCount: number,
-  currentMode: EllipsisMode = EllipsisMode.NONE,
+  currentMode: EllipsisMode,
 ): EllipsisMode {
   // Calculate line count.
   const lineCount = calculateRenderedLineCount(element);
@@ -149,7 +143,7 @@ function getEllipsisMode(
  * @param currentMode - current ellipsis mode.
  * @returns string for display as button text.
  */
-function getModeText(currentMode?: EllipsisMode): string {
+function getModeText(currentMode: EllipsisMode): string {
   if (currentMode === EllipsisMode.ON) {
     return "Read More";
   }
@@ -189,8 +183,8 @@ function getTextNodeDOMRects(node: Node, DOMRects: DOMRect[] = []): DOMRect[] {
  * @param currentMode - current ellipsis mode.
  * @returns true when mode is not "NONE".
  */
-function isModeActivated(currentMode?: EllipsisMode): boolean {
-  return !!currentMode && currentMode !== EllipsisMode.NONE;
+function isModeActivated(currentMode: EllipsisMode): boolean {
+  return currentMode !== EllipsisMode.NONE;
 }
 
 /**
