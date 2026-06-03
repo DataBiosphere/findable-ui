@@ -55,6 +55,12 @@ const config = [
       "perfectionist/sort-interfaces": "error",
       "react-hooks/exhaustive-deps": "error",
       "react-hooks/immutability": "error",
+      // react-hooks/incompatible-library is a React-Compiler-aware check
+      // that flags library hooks whose return values carry hidden mutable
+      // state the Compiler can't safely memoize (e.g. TanStack Table /
+      // Virtual). findable-ui does not use the React Compiler, so the rule
+      // is not earning its keep today. Revisit alongside any future React
+      // Compiler adoption.
       "react-hooks/incompatible-library": "off",
       "react-hooks/refs": "error",
       "react-hooks/set-state-in-effect": "off",
