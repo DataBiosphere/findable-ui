@@ -56,7 +56,7 @@ const config = [
       "react-hooks/exhaustive-deps": "error",
       "react-hooks/immutability": "error",
       "react-hooks/incompatible-library": "off",
-      "react-hooks/refs": "off",
+      "react-hooks/refs": "error",
       "react-hooks/set-state-in-effect": "off",
       "react-hooks/static-components": "off",
       // sonarjs v1 dropped `cognitive-complexity` from its recommended preset

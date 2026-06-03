@@ -33,10 +33,12 @@ export const FilterTag = ({
 }: FilterTagProps): JSX.Element => {
   const Tag = superseded ? SupersededTag : Chip;
   const tagRef = useRef<HTMLDivElement>(null);
+  /* eslint-disable react-hooks/refs -- ref-during-render measurement; needs proper ResizeObserver-in-effect rewrite. Tracked in #949. */
   const tagLabelElement =
     tagRef.current?.querySelector<HTMLElement>(".MuiChip-label");
   const isOverflowed =
     (tagLabelElement?.offsetWidth ?? 0) < (tagLabelElement?.scrollWidth ?? 0);
+  /* eslint-enable react-hooks/refs -- end suppression for #949. */
   return (
     <Tooltip
       arrow

@@ -14,6 +14,7 @@ export const useAsync = <T>(state: State<T> = { status: "idle" }) => {
   const initialStateRef = useRef<State<T>>(state);
   const [{ data, error, status }, setState] = useReducer(
     (s: State<T>, a: State<T>) => ({ ...s, ...a }),
+    // eslint-disable-next-line react-hooks/refs -- useReducer reads its second arg only on first render, at which point initialStateRef.current is the same `state` value the ref was just initialized with. Safe ref-during-render.
     initialStateRef.current,
   );
 
