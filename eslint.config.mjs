@@ -38,6 +38,10 @@ const config = [
     ],
     rules: {
       "@eslint-community/eslint-comments/require-description": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
       "jsdoc/check-alignment": "error",
       "jsdoc/check-param-names": "error",
       "jsdoc/require-description": "error",
@@ -50,11 +54,7 @@ const config = [
       "perfectionist/sort-enums": "error",
       "perfectionist/sort-interfaces": "error",
       "react-hooks/exhaustive-deps": "error",
-      // The remaining react-hooks v7 rules below are React-Compiler-aware
-      // checks that surface real anti-patterns in the codebase. Disabled here
-      // to keep this PR scoped to the tooling upgrade; revisit alongside any
-      // future React Compiler adoption.
-      "react-hooks/immutability": "off",
+      "react-hooks/immutability": "error",
       "react-hooks/incompatible-library": "off",
       "react-hooks/refs": "off",
       "react-hooks/set-state-in-effect": "off",

@@ -12,10 +12,10 @@ import { ColumnConfig } from "../../../config/entities";
 export function buildBaseColumnDef<T>(
   baseColumnConfig: ColumnConfig<T>,
 ): ColumnDef<T> {
+  // Destructure componentConfig out so it isn't passed through to the columnDef.
   const {
     columnPinned,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Destructure to avoid passing it to the columnDef.
-    componentConfig,
+    componentConfig: _componentConfig,
     header,
     id,
     meta,

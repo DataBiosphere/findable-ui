@@ -12,8 +12,8 @@ export enum STATUS_BADGE_COLOR {
 export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
   function StatusBadge(
     {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars -- children is null for Mui ChipProps.
-      children,
+      // children is null for Mui ChipProps; destructure out to avoid spreading.
+      children: _children,
       className,
       color,
       label,

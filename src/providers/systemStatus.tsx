@@ -69,8 +69,8 @@ export function SystemStatusProvider<R>({
   const response = useMemo(() => bindResponse?.(data), [bindResponse, data]);
 
   // Remove indexing status from response.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- using destructuring to remove indexingStatus from response.
-  const { indexingStatus, ...systemStatusResponse } = response || {};
+  const { indexingStatus: _indexingStatus, ...systemStatusResponse } =
+    response || {};
   // Build system status.
   const systemStatus = { ...DEFAULT_SYSTEM_STATUS, ...systemStatusResponse };
   // If the system status is configured, update the loading state.
