@@ -35,7 +35,6 @@ export const MarkdownRenderer = ({
 
   useEffect(() => {
     let cancelled = false;
-    setError(null);
 
     const processor = unified()
       .use(remarkParse)
@@ -55,7 +54,10 @@ export const MarkdownRenderer = ({
       .process(value)
       .then((file: VFile) => {
         if (cancelled) return;
-        if (isValidElement(file.result)) setElement(file.result);
+        if (isValidElement(file.result)) {
+          setElement(file.result);
+          setError(null);
+        }
       })
       .catch((err: Error) => {
         if (!cancelled) setError(err.message);

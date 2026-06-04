@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useAuthentication } from "../../auth/hooks/useAuthentication";
 import { LoginStatus, TERRA_PROFILE_STATUS } from "../types/common";
 import { TerraNIHResponse } from "../types/terra-nih";
@@ -27,9 +26,6 @@ export interface UseFetchProfiles {
  * @returns fetch profiles state.
  */
 export const useFetchProfiles = (token?: string): UseFetchProfiles => {
-  const [status, setStatus] = useState<TERRA_PROFILE_STATUS>(
-    TERRA_PROFILE_STATUS.PENDING,
-  );
   const {
     authenticationState: { profile },
   } = useAuthentication();
@@ -37,22 +33,12 @@ export const useFetchProfiles = (token?: string): UseFetchProfiles => {
   const terraNIHProfileLoginStatus = useFetchTerraNIHProfile(token);
   const terraProfileLoginStatus = useFetchTerraProfile(token);
   const terraTOSLoginStatus = useFetchTerraTermsOfService(token);
-
-  useEffect(() => {
-    setStatus(
-      getProfileStatus(
-        isUserAuthenticated,
-        terraNIHProfileLoginStatus,
-        terraProfileLoginStatus,
-        terraTOSLoginStatus,
-      ),
-    );
-  }, [
+  const status = getProfileStatus(
     isUserAuthenticated,
     terraNIHProfileLoginStatus,
     terraProfileLoginStatus,
     terraTOSLoginStatus,
-  ]);
+  );
 
   return {
     isAuthenticated: isUserAuthenticated,

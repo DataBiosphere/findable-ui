@@ -63,7 +63,7 @@ const config = [
       // Compiler adoption.
       "react-hooks/incompatible-library": "off",
       "react-hooks/refs": "error",
-      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/set-state-in-effect": "error",
       "react-hooks/static-components": "off",
       // sonarjs v1 dropped `cognitive-complexity` from its recommended preset
       // (the rule's meta lost its `recommended` flag during the v1 rewrite,

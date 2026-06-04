@@ -67,6 +67,7 @@ export const useFetchTerraProfile = (token?: string): Status => {
   // Fetches Terra profile.
   useEffect(() => {
     if (!endpoint) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Async fetch pattern: fetchEndpointData synchronously sets loginStatus to PENDING (or NOT_STARTED if no token) before kicking off the network call; the .then/.catch setStates are post-await. Refactoring would require a data-fetching library or useSyncExternalStore with a manual cache — out of scope here.
     fetchEndpointData(endpoint, token);
   }, [endpoint, fetchEndpointData, token]);
 
