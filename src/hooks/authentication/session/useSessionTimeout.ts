@@ -27,10 +27,12 @@ export const useSessionTimeout = (): UseSessionTimeout => {
   const searchParams = useSearchParams();
   const sessionTimeout = searchParams?.get(INACTIVITY_PARAM);
 
-  const [isSessionTimeout, setIsSessionTimeout] = useState<boolean>(false);
+  const [isSessionTimeout, setIsSessionTimeout] = useState<boolean>(
+    sessionTimeout === "true",
+  );
   const [prevSessionTimeout, setPrevSessionTimeout] = useState<
     string | null | undefined
-  >(undefined);
+  >(sessionTimeout);
 
   // Adjust-during-render: when the URL param transitions to "true", flip
   // state on. We deliberately don't flip state off when the param goes
