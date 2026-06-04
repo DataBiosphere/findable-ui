@@ -148,9 +148,6 @@
       "optional": true
     }
   },
-  "overrides": {
-    "glob": "^11.0.4"
-  },
   "engines": {
     "node": "22.13.0"
   }

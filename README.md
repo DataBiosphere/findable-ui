@@ -187,6 +187,20 @@ const mdxSource = await serialize(content, {
 
 If you use findable-ui's `buildStaticProps` helper (`@databiosphere/findable-ui/lib/utils/mdx/staticGeneration/staticProps`), `blockJS: false` is already the default — no consumer change needed.
 
+### Remove the stale `glob` override
+
+Some consumers added the following block to `package.json` in late 2025 to address `npm audit` findings that stemmed from Next.js 14's transitive deps:
+
+```jsonc
+"overrides": {
+  "glob": "^11.0.4"
+}
+```
+
+With Next 16 and the current dep graph, this override is no longer doing useful work and is in fact silently downgrading newer glob consumers (e.g. `@joshwooding/vite-plugin-react-docgen-typescript`, which declares `glob ^13`). As of 2026-06-03, `npm audit` reports no findings catalogued against the resolved versions (`glob@7.2.3`, `glob@11.1.0`, `glob@13.0.6`) — re-check on upgrade, since the advisory landscape changes.
+
+If your consumer carries this override, remove the block from `package.json` and run `npm install` to refresh the lockfile. Expect `npm warn deprecated` warnings for `glob@7.x` (the maintainer marks pre-v9 as deprecated) and `inflight@1.0.6` (re-introduced via Jest 29's transitive chain). Both are warnings, not build/CI failures.
+
 ## Developing findable-ui alongside a consuming app
 
 Use `scripts/link.sh` to build and install a local copy of findable-ui
