@@ -52,7 +52,6 @@ function buildFilterTags(
       return {
         label: label,
         onRemove: () => onFilter(categoryKey, categoryValueKey, !selected),
-        superseded: false,
       };
     });
 }
