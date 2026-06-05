@@ -10,13 +10,8 @@ export interface FilterTagsProps {
 export const FilterTags = ({ tags }: FilterTagsProps): JSX.Element | null => {
   return tags && tags.length ? (
     <Tags>
-      {tags.map(({ label, onRemove, superseded }, t) => (
-        <Tag
-          key={`${label}${t}`}
-          label={label}
-          onRemove={onRemove}
-          superseded={superseded}
-        />
+      {tags.map(({ label, onRemove }, t) => (
+        <Tag key={`${label}${t}`} label={label} onRemove={onRemove} />
       ))}
     </Tags>
   ) : null;

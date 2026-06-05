@@ -1,12 +1,11 @@
 import { CloseRounded } from "@mui/icons-material";
 import { Chip, Tooltip } from "@mui/material";
-import { JSX, useRef } from "react";
-import { SupersededTag } from "./filterTag.styles";
+import { JSX } from "react";
+import { useTooltipTitle } from "./hooks/UseTooltipTitle/hook";
 
 export interface FilterTagProps {
   label: string;
   onRemove: () => void;
-  superseded: boolean;
 }
 
 const DEFAULT_SLOT_PROPS = {
@@ -26,34 +25,24 @@ const DEFAULT_SLOT_PROPS = {
   },
 };
 
-export const FilterTag = ({
-  label,
-  onRemove,
-  superseded,
-}: FilterTagProps): JSX.Element => {
-  const Tag = superseded ? SupersededTag : Chip;
-  const tagRef = useRef<HTMLDivElement>(null);
-  /* eslint-disable react-hooks/refs -- ref-during-render measurement; needs proper ResizeObserver-in-effect rewrite. Tracked in #949. */
-  const tagLabelElement =
-    tagRef.current?.querySelector<HTMLElement>(".MuiChip-label");
-  const isOverflowed =
-    (tagLabelElement?.offsetWidth ?? 0) < (tagLabelElement?.scrollWidth ?? 0);
-  /* eslint-enable react-hooks/refs -- end suppression for #949. */
+export const FilterTag = ({ label, onRemove }: FilterTagProps): JSX.Element => {
+  const { ref, title } = useTooltipTitle(label);
+
   return (
     <Tooltip
       arrow
       disableInteractive
       slotProps={DEFAULT_SLOT_PROPS}
-      title={isOverflowed ? label : null}
+      title={title}
     >
-      <Tag
+      <Chip
         clickable={false} // removes unwanted active and hover ui; "pointer" cursor added to "filterTag" variant in theme.
         color="primary"
         deleteIcon={<CloseRounded color="inherit" />}
         label={label}
         onClick={onRemove}
         onDelete={onRemove}
-        ref={tagRef}
+        ref={ref}
         variant="filterTag"
       />
     </Tooltip>

@@ -40,7 +40,6 @@ export type ClearAll = typeof CLEAR_ALL;
 export interface CategoryTag {
   label: string;
   onRemove: () => void;
-  superseded: boolean;
 }
 
 /**

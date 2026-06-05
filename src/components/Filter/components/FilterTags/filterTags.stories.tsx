@@ -31,32 +31,26 @@ export const FilterTagsStory: Story = {
       {
         label: "Normal",
         onRemove: onRemove,
-        superseded: false,
       },
       {
         label: "abscess",
         onRemove: onRemove,
-        superseded: true,
       },
       {
         label: "acoustic neuroma",
         onRemove: onRemove,
-        superseded: false,
       },
       {
         label: "acute kidney failure",
         onRemove: onRemove,
-        superseded: false,
       },
       {
         label: "acute kidney tubular necrosis",
         onRemove: onRemove,
-        superseded: false,
       },
       {
         label: "alcohol abuse",
         onRemove: onRemove,
-        superseded: false,
       },
     ],
   },

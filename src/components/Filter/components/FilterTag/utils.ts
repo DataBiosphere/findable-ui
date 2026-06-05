@@ -28,7 +28,6 @@ export function buildRangeTag(
           undefined,
           VIEW_KIND.RANGE,
         ),
-      superseded: false,
     },
   ];
 }
