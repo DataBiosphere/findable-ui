@@ -1,5 +1,40 @@
 # Changelog
 
+## [54.0.0](https://github.com/DataBiosphere/findable-ui/compare/v53.1.0...v54.0.0) (2026-06-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* filtertag overflow via resizeobserver ([#949](https://github.com/DataBiosphere/findable-ui/issues/949)) (#951)
+* enable react-hooks v7 rules and address surfaced anti-patterns ([#941](https://github.com/DataBiosphere/findable-ui/issues/941)) (#950)
+* next.js 16 prep: pin 'next' peer dep to ^16 ([#933](https://github.com/DataBiosphere/findable-ui/issues/933)) (#942)
+* next.js 16 prep: bump eslint-config-next + @next/eslint-plugin-next to v16 ([#932](https://github.com/DataBiosphere/findable-ui/issues/932)) (#939)
+
+### Features
+
+* useRouter().pathname → usePathname() ([#928](https://github.com/DataBiosphere/findable-ui/issues/928)) ([#938](https://github.com/DataBiosphere/findable-ui/issues/938)) ([4a24996](https://github.com/DataBiosphere/findable-ui/commit/4a249966ccfadec1ad37a0eb0a9e194ef369189e))
+
+
+### Bug Fixes
+
+* azulfiledownload: accept ref so it can be used as a tooltip child without a span wrapper ([#944](https://github.com/DataBiosphere/findable-ui/issues/944)) ([#946](https://github.com/DataBiosphere/findable-ui/issues/946)) ([04868a1](https://github.com/DataBiosphere/findable-ui/commit/04868a10e6692a2d140ef70c0bebf58630d43e1b))
+* componentcreator: avoid wrapping children in array for createelement ([#552](https://github.com/DataBiosphere/findable-ui/issues/552)) ([#945](https://github.com/DataBiosphere/findable-ui/issues/945)) ([3324d77](https://github.com/DataBiosphere/findable-ui/commit/3324d77a8d8936e6b3650655941c5518a53ed259))
+* filtertag overflow via resizeobserver ([#949](https://github.com/DataBiosphere/findable-ui/issues/949)) ([#951](https://github.com/DataBiosphere/findable-ui/issues/951)) ([d473ab6](https://github.com/DataBiosphere/findable-ui/commit/d473ab6bdce48a43d281fc5ec64ab0bb55531597))
+
+
+### Chores
+
+* enable react-hooks v7 rules and address surfaced anti-patterns ([#941](https://github.com/DataBiosphere/findable-ui/issues/941)) ([#950](https://github.com/DataBiosphere/findable-ui/issues/950)) ([7ef5366](https://github.com/DataBiosphere/findable-ui/commit/7ef5366e51bd7d5f11e2166466aa37d59c7e03ea))
+* migrate findable-ui eslint to flat config ([#926](https://github.com/DataBiosphere/findable-ui/issues/926)) ([#936](https://github.com/DataBiosphere/findable-ui/issues/936)) ([745c127](https://github.com/DataBiosphere/findable-ui/commit/745c127113df2e060f651c659f5322caa016a2cf))
+* next.js 16 prep: bump eslint-config-next + @next/eslint-plugin-next to v16 ([#932](https://github.com/DataBiosphere/findable-ui/issues/932)) ([#939](https://github.com/DataBiosphere/findable-ui/issues/939)) ([42b73de](https://github.com/DataBiosphere/findable-ui/commit/42b73de156dd4728eda5cd65208897e44fb2fb95))
+* next.js 16 prep: pin 'next' peer dep to ^16 ([#933](https://github.com/DataBiosphere/findable-ui/issues/933)) ([#942](https://github.com/DataBiosphere/findable-ui/issues/942)) ([8481542](https://github.com/DataBiosphere/findable-ui/commit/8481542361dc21224bba40d9eeaecc1aef8bb2af))
+* remove redundant glob ^11.0.4 override ([#940](https://github.com/DataBiosphere/findable-ui/issues/940)) ([#948](https://github.com/DataBiosphere/findable-ui/issues/948)) ([83903dd](https://github.com/DataBiosphere/findable-ui/commit/83903dd69ee7257e222509ea5697e4f604fc257b))
+
+
+### Documentation
+
+* next.js 16 prep: changelog + peer-dep guidance for consumers ([#935](https://github.com/DataBiosphere/findable-ui/issues/935)) ([#947](https://github.com/DataBiosphere/findable-ui/issues/947)) ([f484239](https://github.com/DataBiosphere/findable-ui/commit/f484239589c07827d62f2a5dc9b95033e5233986))
+
 ## [53.1.0](https://github.com/DataBiosphere/findable-ui/compare/v53.0.0...v53.1.0) (2026-05-20)
 
 
