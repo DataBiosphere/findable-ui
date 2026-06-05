@@ -13,7 +13,6 @@ import { DrawerTransitionProps } from "./types";
  */
 export const DrawerTransition = ({
   children,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- destructured out so it doesn't spread onto the DOM Slide element
   placement: _placement,
   ref,
   ...props

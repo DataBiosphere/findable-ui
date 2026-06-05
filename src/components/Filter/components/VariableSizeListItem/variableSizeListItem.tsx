@@ -38,7 +38,9 @@ export default function VariableSizeListItem({
     labelRanges,
     value: { count, key, label, selected },
   } = matchedItem;
-  delete style.height; // Remove height style to allow variable size list to set item height.
+  // Strip height so the variable-size list can drive item height via
+  // onUpdateItemSizeByItemKey, without mutating the parent-owned style prop.
+  const { height: _height, ...itemStyle } = style;
 
   // Sets map of list item key to its height.
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function VariableSizeListItem({
       ref={listItemRef}
       onClick={handleItemClicked}
       selected={selected}
-      style={style}
+      style={itemStyle}
     >
       <Checkbox
         checked={selected}

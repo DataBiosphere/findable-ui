@@ -37,12 +37,21 @@ export function LoginGuardProvider({
     authState: { isAuthenticated },
   } = useAuth();
 
-  // If the user authenticates, close dialog then fire and clear callback.
+  // Adjust-during-render: when the user transitions to authenticated,
+  // close the login dialog. Pure state sync — no side effects here.
+  const [prevIsAuthenticated, setPrevIsAuthenticated] =
+    useState(isAuthenticated);
+  if (isAuthenticated !== prevIsAuthenticated) {
+    setPrevIsAuthenticated(isAuthenticated);
+    if (isAuthenticated) setOpen(false);
+  }
+
+  // Post-commit side effect: when the user transitions to authenticated,
+  // fire the stored callback (which can do anything — downloads, navigation,
+  // dispatches) and clear it. Must run in an effect, not during render.
   useEffect(() => {
     if (isAuthenticated) {
-      setOpen(false);
       callbackRef.current?.();
-      // Clear callback after firing.
       callbackRef.current = undefined;
     }
   }, [isAuthenticated]);

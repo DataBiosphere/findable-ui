@@ -10,8 +10,12 @@ import { isButtonIn } from "./utils";
 export const OutlinedInput = (
   props: AutocompleteRenderInputParams,
 ): JSX.Element => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Intended behavior, destructure InputLabelProps, as they are not used on the component.
-  const { InputLabelProps, InputProps, ...outlinedInputProps } = props;
+  // Destructure InputLabelProps out so it isn't spread onto the component.
+  const {
+    InputLabelProps: _InputLabelProps,
+    InputProps,
+    ...outlinedInputProps
+  } = props;
   const { onClear, open, searchTerm, surfaceType } = useAutocomplete();
   return (
     <StyledOutlinedInput

@@ -38,6 +38,10 @@ const config = [
     ],
     rules: {
       "@eslint-community/eslint-comments/require-description": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
       "jsdoc/check-alignment": "error",
       "jsdoc/check-param-names": "error",
       "jsdoc/require-description": "error",
@@ -50,15 +54,17 @@ const config = [
       "perfectionist/sort-enums": "error",
       "perfectionist/sort-interfaces": "error",
       "react-hooks/exhaustive-deps": "error",
-      // The remaining react-hooks v7 rules below are React-Compiler-aware
-      // checks that surface real anti-patterns in the codebase. Disabled here
-      // to keep this PR scoped to the tooling upgrade; revisit alongside any
-      // future React Compiler adoption.
-      "react-hooks/immutability": "off",
+      "react-hooks/immutability": "error",
+      // react-hooks/incompatible-library is a React-Compiler-aware check
+      // that flags library hooks whose return values carry hidden mutable
+      // state the Compiler can't safely memoize (e.g. TanStack Table /
+      // Virtual). findable-ui does not use the React Compiler, so the rule
+      // is not earning its keep today. Revisit alongside any future React
+      // Compiler adoption.
       "react-hooks/incompatible-library": "off",
-      "react-hooks/refs": "off",
-      "react-hooks/set-state-in-effect": "off",
-      "react-hooks/static-components": "off",
+      "react-hooks/refs": "error",
+      "react-hooks/set-state-in-effect": "error",
+      "react-hooks/static-components": "error",
       // sonarjs v1 dropped `cognitive-complexity` from its recommended preset
       // (the rule's meta lost its `recommended` flag during the v1 rewrite,
       // a discrepancy with the package README). Restore at default threshold
