@@ -31,6 +31,7 @@ const MOCK_LOGIN = service.login as jest.MockedFunction<typeof service.login>;
 
 describe("useNextAuthService", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
     mockRouterQuery = {};
     MOCK_LOGIN.mockReset();
     MOCK_USE_ROUTE_HISTORY.mockReset();

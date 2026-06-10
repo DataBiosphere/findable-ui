@@ -61,6 +61,7 @@ const MOCK_USE_ROUTE_HISTORY = useRouteHistory as jest.MockedFunction<
 
 describe("useSessionActive", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
     mockRouterQuery = {};
     MOCK_USE_ROUTE_HISTORY.mockReset();
     MOCK_USE_ROUTE_HISTORY.mockReturnValue({
