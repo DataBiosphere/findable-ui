@@ -1,3 +1,4 @@
+import { SignOutParams } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { Service } from "../../auth/types/auth";
@@ -8,12 +9,17 @@ import {
 } from "../../hooks/authentication/session/useSessionActive";
 import { useRouteHistory } from "../../hooks/useRouteHistory";
 import { service } from "../service";
+import { resolveLogoutOptions } from "./utils";
 
 /**
  * NextAuth service hook.
+ * @param logoutCallbackUrl - When set, `requestLogout()` defaults to a
+ *   navigation-driven sign-out (`signOut({ redirect: true, callbackUrl })`)
+ *   so Next middleware re-runs. Callers can still override per-call via
+ *   `options`.
  * @returns auth service.
  */
-export const useNextAuthService = (): Service => {
+export const useNextAuthService = (logoutCallbackUrl?: string): Service => {
   const { query } = useRouter();
   const { callbackUrl } = useRouteHistory(2);
   const queryCallbackUrl = getQueryCallbackUrl(query.callbackUrl);
@@ -28,10 +34,10 @@ export const useNextAuthService = (): Service => {
   );
 
   const onLogout = useCallback(
-    (options?: { callbackUrl?: string; redirect?: boolean }) => {
-      service.logout(options);
+    (options?: SignOutParams<boolean>) => {
+      service.logout(resolveLogoutOptions(options, logoutCallbackUrl));
     },
-    [],
+    [logoutCallbackUrl],
   );
 
   return { requestLogin: onLogin, requestLogout: onLogout };

@@ -2,6 +2,8 @@ import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 import { TransformRouteFn } from "../src/hooks/useRouteHistory";
 
+const LOGOUT_CALLBACK_URL = "/";
+
 const ROOT_PATH = "/";
 const ROUTES = ["/login", "/route1", "/route2"];
 const PROVIDER_ID = "google";
@@ -28,6 +30,9 @@ const MOCK_USE_ROUTE_HISTORY = useRouteHistory as jest.MockedFunction<
   typeof useRouteHistory
 >;
 const MOCK_LOGIN = service.login as jest.MockedFunction<typeof service.login>;
+const MOCK_LOGOUT = service.logout as jest.MockedFunction<
+  typeof service.logout
+>;
 
 describe("useNextAuthService", () => {
   beforeEach(() => {
@@ -84,6 +89,64 @@ describe("useNextAuthService", () => {
     act(() => result.current.requestLogin(PROVIDER_ID));
     expect(MOCK_LOGIN).toHaveBeenCalledWith(PROVIDER_ID, {
       callbackUrl: ROUTES[1],
+    });
+  });
+
+  test("requestLogout defaults to non-redirecting logout when no logoutCallbackUrl is provided", () => {
+    const { result } = renderHook(() => useNextAuthService());
+    act(() => result.current.requestLogout());
+    expect(MOCK_LOGOUT).toHaveBeenCalledWith({
+      callbackUrl: undefined,
+      redirect: false,
+    });
+  });
+
+  test("requestLogout uses provider-supplied logoutCallbackUrl with redirect:true", () => {
+    const { result } = renderHook(() =>
+      useNextAuthService(LOGOUT_CALLBACK_URL),
+    );
+    act(() => result.current.requestLogout());
+    expect(MOCK_LOGOUT).toHaveBeenCalledWith({
+      callbackUrl: LOGOUT_CALLBACK_URL,
+      redirect: true,
+    });
+  });
+
+  test("requestLogout caller-provided callbackUrl overrides logoutCallbackUrl", () => {
+    const { result } = renderHook(() =>
+      useNextAuthService(LOGOUT_CALLBACK_URL),
+    );
+    act(() =>
+      result.current.requestLogout({ callbackUrl: "/account-disabled" }),
+    );
+    expect(MOCK_LOGOUT).toHaveBeenCalledWith({
+      callbackUrl: "/account-disabled",
+      redirect: true,
+    });
+  });
+
+  test("requestLogout caller-provided redirect:false is respected even when logoutCallbackUrl is set", () => {
+    const { result } = renderHook(() =>
+      useNextAuthService(LOGOUT_CALLBACK_URL),
+    );
+    act(() => result.current.requestLogout({ redirect: false }));
+    expect(MOCK_LOGOUT).toHaveBeenCalledWith({
+      callbackUrl: LOGOUT_CALLBACK_URL,
+      redirect: false,
+    });
+  });
+
+  test("requestLogout caller-provided full options pass through unchanged", () => {
+    const { result } = renderHook(() => useNextAuthService());
+    act(() =>
+      result.current.requestLogout({
+        callbackUrl: "/account-disabled",
+        redirect: true,
+      }),
+    );
+    expect(MOCK_LOGOUT).toHaveBeenCalledWith({
+      callbackUrl: "/account-disabled",
+      redirect: true,
     });
   });
 });

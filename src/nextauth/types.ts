@@ -6,6 +6,13 @@ import { ReactNode } from "react";
  */
 export interface NextAuthAuthenticationProviderProps {
   children: ReactNode | ReactNode[];
+  /**
+   * When set, the Logout menu action becomes navigation-driven
+   * (`signOut({ redirect: true, callbackUrl })`) so Next middleware can
+   * re-run and enforce auth on the next render. Callers of
+   * `requestLogout(options)` can still override per-call.
+   */
+  logoutCallbackUrl?: string;
   refetchInterval?: number;
   session?: Session | null;
   timeout?: number;
