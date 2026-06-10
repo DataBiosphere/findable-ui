@@ -35,12 +35,15 @@ const AUTHENTICATION_STATE_SETTLED: AuthenticationState = {
 const ROOT_PATH = "/";
 const ROUTES = ["/login", "/route1", "/route2"];
 
+let mockRouterQuery: Record<string, string | string[] | undefined> = {};
+
 jest.unstable_mockModule("next/router", () => {
   return {
     ...jest.requireActual<typeof import("next/router")>("next/router"),
     default: {
       push: jest.fn(),
     },
+    useRouter: jest.fn(() => ({ query: mockRouterQuery })),
   };
 });
 jest.unstable_mockModule("../src/hooks/useRouteHistory", () => ({
@@ -58,6 +61,8 @@ const MOCK_USE_ROUTE_HISTORY = useRouteHistory as jest.MockedFunction<
 
 describe("useSessionActive", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
+    mockRouterQuery = {};
     MOCK_USE_ROUTE_HISTORY.mockReset();
     MOCK_USE_ROUTE_HISTORY.mockReturnValue({
       callbackUrl: jest.fn(
@@ -92,6 +97,50 @@ describe("useSessionActive", () => {
   });
 
   test("redirects to callback URL if auth status is SETTLED and authentication status is SETTLED", () => {
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_AUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED,
+      ),
+    );
+    expect(Router.push).toHaveBeenCalledWith(ROUTES[1]);
+  });
+
+  test("prefers router.query.callbackUrl over route-history fallback", () => {
+    mockRouterQuery = { callbackUrl: "/from-query" };
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_AUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED,
+      ),
+    );
+    expect(Router.push).toHaveBeenCalledWith("/from-query");
+  });
+
+  test("falls back to route history when router.query.callbackUrl is an empty string", () => {
+    mockRouterQuery = { callbackUrl: "" };
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_AUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED,
+      ),
+    );
+    expect(Router.push).toHaveBeenCalledWith(ROUTES[1]);
+  });
+
+  test("falls back to route history when router.query.callbackUrl is an absolute URL (open-redirect guard)", () => {
+    mockRouterQuery = { callbackUrl: "https://evil.example/phish" };
+    renderHook(() =>
+      useSessionActive(
+        AUTH_STATE_AUTHENTICATED_SETTLED,
+        AUTHENTICATION_STATE_SETTLED,
+      ),
+    );
+    expect(Router.push).toHaveBeenCalledWith(ROUTES[1]);
+  });
+
+  test("falls back to route history when router.query.callbackUrl is protocol-relative", () => {
+    mockRouterQuery = { callbackUrl: "//evil.example/phish" };
     renderHook(() =>
       useSessionActive(
         AUTH_STATE_AUTHENTICATED_SETTLED,
