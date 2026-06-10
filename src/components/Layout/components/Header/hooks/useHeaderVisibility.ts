@@ -48,9 +48,10 @@ export const useHeaderVisibility = (
   const hasSlogan = Boolean(slogan);
   const hasSocials = Boolean(socialMedia);
   // Determines header content visibility.
-  const isActionsIn =
+  const isActionsIn = Boolean(
     (hasActions || searchEnabled || authenticationEnabled || hasMenu) &&
-    hasBreakpoint;
+    hasBreakpoint,
+  );
   const isNavigationIn = smUp;
   const isMenuIn = hasMenu;
   const isSloganIn = hasSlogan && mdUp;
