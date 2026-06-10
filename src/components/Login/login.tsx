@@ -19,6 +19,7 @@ import {
 import { Props } from "./types";
 
 export const Login = ({
+  className,
   providers = [],
   termsOfService,
   text,
@@ -50,7 +51,7 @@ export const Login = ({
   };
 
   return (
-    <LoginWrapper>
+    <LoginWrapper className={className}>
       <RoundedPaper>
         <LoginSection>
           <SectionContent>
