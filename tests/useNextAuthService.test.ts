@@ -2,8 +2,6 @@ import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 import { TransformRouteFn } from "../src/hooks/useRouteHistory";
 
-const LOGOUT_CALLBACK_URL = "/";
-
 const ROOT_PATH = "/";
 const ROUTES = ["/login", "/route1", "/route2"];
 const PROVIDER_ID = "google";
@@ -102,20 +100,16 @@ describe("useNextAuthService", () => {
   });
 
   test("requestLogout uses provider-supplied logoutCallbackUrl with redirect:true", () => {
-    const { result } = renderHook(() =>
-      useNextAuthService(LOGOUT_CALLBACK_URL),
-    );
+    const { result } = renderHook(() => useNextAuthService(ROOT_PATH));
     act(() => result.current.requestLogout());
     expect(MOCK_LOGOUT).toHaveBeenCalledWith({
-      callbackUrl: LOGOUT_CALLBACK_URL,
+      callbackUrl: ROOT_PATH,
       redirect: true,
     });
   });
 
   test("requestLogout caller-provided callbackUrl overrides logoutCallbackUrl", () => {
-    const { result } = renderHook(() =>
-      useNextAuthService(LOGOUT_CALLBACK_URL),
-    );
+    const { result } = renderHook(() => useNextAuthService(ROOT_PATH));
     act(() =>
       result.current.requestLogout({ callbackUrl: "/account-disabled" }),
     );
@@ -126,12 +120,10 @@ describe("useNextAuthService", () => {
   });
 
   test("requestLogout caller-provided redirect:false is respected even when logoutCallbackUrl is set", () => {
-    const { result } = renderHook(() =>
-      useNextAuthService(LOGOUT_CALLBACK_URL),
-    );
+    const { result } = renderHook(() => useNextAuthService(ROOT_PATH));
     act(() => result.current.requestLogout({ redirect: false }));
     expect(MOCK_LOGOUT).toHaveBeenCalledWith({
-      callbackUrl: LOGOUT_CALLBACK_URL,
+      callbackUrl: ROOT_PATH,
       redirect: false,
     });
   });

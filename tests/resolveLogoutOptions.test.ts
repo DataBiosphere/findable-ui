@@ -49,4 +49,18 @@ describe("resolveLogoutOptions", () => {
       redirect: true,
     });
   });
+
+  test("normalizes a caller-supplied empty-string callbackUrl to undefined + redirect:false", () => {
+    expect(resolveLogoutOptions({ callbackUrl: "" }, undefined)).toEqual({
+      callbackUrl: undefined,
+      redirect: false,
+    });
+  });
+
+  test("normalizes a provider-supplied empty-string logoutCallbackUrl to undefined + redirect:false", () => {
+    expect(resolveLogoutOptions(undefined, "")).toEqual({
+      callbackUrl: undefined,
+      redirect: false,
+    });
+  });
 });

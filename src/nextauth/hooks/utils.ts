@@ -16,7 +16,10 @@ export function resolveLogoutOptions(
   options: SignOutParams<boolean> | undefined,
   logoutCallbackUrl: string | undefined,
 ): SignOutParams<boolean> {
-  const callbackUrl = options?.callbackUrl ?? logoutCallbackUrl;
+  // Caller wins; provider-level value fills in. Normalize an empty string to
+  // `undefined` so we don't default `redirect` to `true` with no target.
+  const resolved = options?.callbackUrl ?? logoutCallbackUrl;
+  const callbackUrl = resolved || undefined;
   const redirect = options?.redirect ?? Boolean(callbackUrl);
   return { callbackUrl, redirect };
 }
