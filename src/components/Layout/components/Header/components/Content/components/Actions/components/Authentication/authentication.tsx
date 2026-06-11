@@ -8,11 +8,10 @@ import {
 import Router, { useRouter } from "next/router";
 import { ElementType, JSX } from "react";
 import { useProfile } from "../../../../../../../../../../hooks/authentication/profile/useProfile";
-import { ROUTE } from "../../../../../../../../../../routes/constants";
 import { isNavigationLinkSelected } from "../../../Navigation/common/utils";
 import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticationMenu";
 import { StyledButton } from "./components/Button/button.styles";
-import { getSignInPath } from "./utils";
+import { getSignInPath, getSignInPathPattern } from "./utils";
 
 export interface AuthenticationProps {
   /**
@@ -53,17 +52,21 @@ export const Authentication = ({
  * Renders authentication button.
  * @param props - Button props.
  * @param pathname - Pathname.
+ * @param signInPath - Sign-in path used for the active state (see `getSignInPath`).
  * @returns button.
  */
 export function renderButton(
   props: MButtonProps,
   pathname: string,
+  signInPath: string,
 ): JSX.Element {
   return (
     <StyledButton
       startIcon={<LoginRounded />}
       variant={
-        isNavigationLinkSelected(pathname, [ROUTE.LOGIN]) ? "activeNav" : "nav"
+        isNavigationLinkSelected(pathname, [getSignInPathPattern(signInPath)])
+          ? "activeNav"
+          : "nav"
       }
       {...props}
     >

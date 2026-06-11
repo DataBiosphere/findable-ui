@@ -17,6 +17,7 @@ import {
   renderButton as renderAuthenticationButton,
   renderIconButton as renderAuthenticationIconButton,
 } from "./components/Content/components/Actions/components/Authentication/authentication";
+import { getSignInPath } from "./components/Content/components/Actions/components/Authentication/utils";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
 import {
   renderButton as renderSearchButton,
@@ -148,7 +149,11 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                   Button={({ ...props }): JSX.Element =>
                     isIn.isMenuIn
                       ? renderAuthenticationIconButton(props)
-                      : renderAuthenticationButton(props, pathname)
+                      : renderAuthenticationButton(
+                          props,
+                          pathname,
+                          getSignInPath(authenticationEnabled),
+                        )
                   }
                   authenticationEnabled={authenticationEnabled}
                   closeMenu={onClose}
