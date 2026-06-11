@@ -1,5 +1,19 @@
 # Changelog
 
+## [54.1.0](https://github.com/DataBiosphere/findable-ui/compare/v54.0.0...v54.1.0) (2026-06-11)
+
+
+### Features
+
+* accept classname on loginview (and login) for consumer styling ([#954](https://github.com/DataBiosphere/findable-ui/issues/954)) ([#957](https://github.com/DataBiosphere/findable-ui/issues/957)) ([5b148c1](https://github.com/DataBiosphere/findable-ui/commit/5b148c17857659b66b2a6f4b373533588dd47b9d))
+* loginview should honor nextauth callbackurl from the query string (middleware-friendly) ([#955](https://github.com/DataBiosphere/findable-ui/issues/955)) ([#959](https://github.com/DataBiosphere/findable-ui/issues/959)) ([197edd8](https://github.com/DataBiosphere/findable-ui/commit/197edd8e42e2dbff4f269fbb122a76126add96f5))
+* logout should navigate by default so middleware can enforce auth on the next render ([#956](https://github.com/DataBiosphere/findable-ui/issues/956)) ([#960](https://github.com/DataBiosphere/findable-ui/issues/960)) ([a97d38c](https://github.com/DataBiosphere/findable-ui/commit/a97d38c681a4e95aa09e41359f2e71b3131fa957))
+
+
+### Bug Fixes
+
+* header sign in honors configured path and preserves callbackurl ([#961](https://github.com/DataBiosphere/findable-ui/issues/961)) ([#962](https://github.com/DataBiosphere/findable-ui/issues/962)) ([6dbdd11](https://github.com/DataBiosphere/findable-ui/commit/6dbdd113c4516ec82368ceea79bc2b95f76ca7a2))
+
 ## [54.0.0](https://github.com/DataBiosphere/findable-ui/compare/v53.1.0...v54.0.0) (2026-06-05)
 
 
