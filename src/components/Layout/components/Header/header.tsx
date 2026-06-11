@@ -17,6 +17,7 @@ import {
   renderButton as renderAuthenticationButton,
   renderIconButton as renderAuthenticationIconButton,
 } from "./components/Content/components/Actions/components/Authentication/authentication";
+import { getSignInPath } from "./components/Content/components/Actions/components/Authentication/utils";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
 import {
   renderButton as renderSearchButton,
@@ -36,7 +37,15 @@ import { useMenu } from "./hooks/useMenu";
 export interface HeaderProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
-  authenticationEnabled?: boolean;
+  /**
+   * Enables the authentication UI in the header. Pass `true` to enable with
+   * the default sign-in path (`/login`), or pass a string to enable AND tell
+   * the Sign In button which path to navigate to (e.g. `"/"` when NextAuth's
+   * `pages.signIn` is configured to `"/"`). The current `asPath` is appended
+   * as a `?callbackUrl=` query param so the user lands back where they were
+   * after signing in.
+   */
+  authenticationEnabled?: boolean | string;
   className?: string;
   logo: ReactNode;
   navigation?: Navigation;
@@ -140,7 +149,11 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                   Button={({ ...props }): JSX.Element =>
                     isIn.isMenuIn
                       ? renderAuthenticationIconButton(props)
-                      : renderAuthenticationButton(props, pathname)
+                      : renderAuthenticationButton(
+                          props,
+                          pathname,
+                          getSignInPath(authenticationEnabled),
+                        )
                   }
                   authenticationEnabled={authenticationEnabled}
                   closeMenu={onClose}

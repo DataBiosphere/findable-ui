@@ -17,7 +17,7 @@ import {
 export interface DialogTitleProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
-  authenticationEnabled?: boolean;
+  authenticationEnabled?: boolean | string;
   logo?: ReactNode;
   onClose: () => void;
   searchEnabled?: boolean;
