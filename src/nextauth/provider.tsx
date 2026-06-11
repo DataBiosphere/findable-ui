@@ -15,6 +15,7 @@ import { NextAuthAuthenticationProviderProps } from "./types";
  * NextAuth authentication provider.
  * @param props - Provider props.
  * @param props.children - Children components.
+ * @param props.logoutCallbackUrl - When set, the Logout menu action navigates here (so middleware re-runs).
  * @param props.refetchInterval - Session refetch interval in milliseconds.
  * @param props.session - Initial session data.
  * @param props.timeout - Session timeout in milliseconds.
@@ -22,13 +23,14 @@ import { NextAuthAuthenticationProviderProps } from "./types";
  */
 export function NextAuthAuthenticationProvider({
   children,
+  logoutCallbackUrl,
   refetchInterval = 0,
   session,
   timeout,
 }: NextAuthAuthenticationProviderProps): JSX.Element {
   const authReducer = useAuthReducer();
   const authenticationReducer = useAuthenticationReducer();
-  const service = useNextAuthService();
+  const service = useNextAuthService(logoutCallbackUrl);
   const { authDispatch, authState } = authReducer;
   const { isAuthenticated } = authState;
   useLoginTracking(isAuthenticated, authState.status);
