@@ -50,12 +50,14 @@ export const LoginDialog = ({
       <DialogActions disableSpacing>
         <Buttons handleLogin={handleLogin} providers={authConfig.providers} />
       </DialogActions>
-      <StyledTypography
-        color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-        variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
-      >
-        {authConfig.warning}
-      </StyledTypography>
+      {authConfig.warning && (
+        <StyledTypography
+          color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+        >
+          {authConfig.warning}
+        </StyledTypography>
+      )}
     </StyledDialog>
   );
 };
