@@ -1,10 +1,8 @@
 import { ComponentProps } from "react";
 import { SiteConfig } from "../../../../config/entities";
-import { getDefaultConfig } from "../../../../config/utils";
 import { LoginDialog } from "../loginDialog";
 
 export const CONFIG = {
-  ...getDefaultConfig(),
   authentication: {
     providers: [{ id: "google", name: "Sign in with Google" }],
     termsOfService: (
@@ -17,7 +15,8 @@ export const CONFIG = {
     title: "Sign in",
     warning: "Access is limited to approved users.",
   },
-} satisfies SiteConfig;
+  redirectRootToPath: "",
+} as unknown as SiteConfig;
 
 export const DEFAULT_ARGS: ComponentProps<typeof LoginDialog> = {
   onClose: () => undefined,
