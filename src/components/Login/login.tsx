@@ -1,5 +1,5 @@
 import { Checkbox, Typography } from "@mui/material";
-import { ChangeEvent, JSX, useCallback, useState } from "react";
+import { ChangeEvent, JSX, useCallback, useEffect, useState } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { ProviderId } from "../../auth/types/common";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
@@ -36,9 +36,7 @@ export const Login = ({
   // Authenticates the user, if the user has agreed to the terms of service.
   // If the terms of service are not accepted, set the terms of service error state to true.
   // Once a login is in flight, disable the provider buttons and show the
-  // requesting provider's button in a loading state; `requestLogin` redirects
-  // away (to the OAuth provider, then back to the app), so this state persists
-  // until that navigation takes over.
+  // requesting provider's button in a loading state.
   const onLogin = useCallback(
     (providerId: ProviderId): void => {
       if (!isInAgreement) {
@@ -52,6 +50,18 @@ export const Login = ({
     },
     [isInAgreement, requestLogin, submittingProviderId],
   );
+
+  // `requestLogin` may redirect away (then this never matters) or open a popup
+  // and resolve in place (e.g. the Google implicit flow). For the popup case,
+  // reset the submitting state when the window regains focus — i.e. the popup
+  // was closed/cancelled — so the buttons re-enable and the user can retry
+  // instead of being stuck disabled.
+  useEffect(() => {
+    if (submittingProviderId === null) return;
+    const handleFocus = (): void => setSubmittingProviderId(null);
+    window.addEventListener("focus", handleFocus);
+    return (): void => window.removeEventListener("focus", handleFocus);
+  }, [submittingProviderId]);
 
   // Callback fired when the checkbox value is changed.
   // Clears the terms of service error state and sets state isInAgreement with checkbox selected value.
