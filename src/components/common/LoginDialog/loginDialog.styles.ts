@@ -31,6 +31,8 @@ export const StyledDialog = styled(Dialog)`
       }
 
       .MuiDialogContent-root {
+        overflow-y: unset;
+
         .MuiDialogContentText-root {
           margin: 8px 0;
         }

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
+import { FormControlLabel, Typography } from "@mui/material";
 import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 import { Section, SectionActions } from "../common/Section/section.styles";
 
@@ -22,11 +22,16 @@ export const LoginSection = styled(Section)`
   }
 `;
 
-export const LoginAgreement = styled.div`
+export const LoginAgreement = styled(FormControlLabel)`
   align-items: center;
   align-self: flex-start;
-  display: flex;
-  gap: 12px;
+  gap: 0;
+  margin: 0;
+
+  .MuiCheckbox-root {
+    margin: -13px -1px -13px -13px;
+    padding: 13px;
+  }
 `;
 
 export const LoginSectionActions = styled(SectionActions)`
