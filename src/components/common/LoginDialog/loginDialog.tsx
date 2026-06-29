@@ -7,9 +7,9 @@ import {
 } from "@mui/material";
 import { JSX } from "react";
 import { useAuthenticationConfig } from "../../../hooks/authentication/config/useAuthenticationConfig";
+import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { Buttons } from "../../Login/components/Buttons/buttons";
 import { Consent } from "../../Login/components/Section/components/Consent/consent";
-import { Warning } from "../../Login/components/Section/components/Warning/warning";
 import { useUserLogin } from "../../Login/hooks/useUserLogin/useUserLogin";
 import { CloseIcon } from "../CustomIcon/components/CloseIcon/closeIcon";
 import {
@@ -19,7 +19,7 @@ import {
   ICON_BUTTON_PROPS,
   ICON_PROPS,
 } from "./constants";
-import { StyledDialog } from "./loginDialog.styles";
+import { StyledDialog, StyledTypography } from "./loginDialog.styles";
 import { LoginDialogProps } from "./types";
 
 export const LoginDialog = ({
@@ -50,7 +50,12 @@ export const LoginDialog = ({
       <DialogActions disableSpacing>
         <Buttons handleLogin={handleLogin} providers={authConfig.providers} />
       </DialogActions>
-      <Warning>{authConfig.warning}</Warning>
+      <StyledTypography
+        color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+        variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
+      >
+        {authConfig.warning}
+      </StyledTypography>
     </StyledDialog>
   );
 };

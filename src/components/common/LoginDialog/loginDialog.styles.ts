@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Dialog } from "@mui/material";
+import { Dialog, Typography } from "@mui/material";
 import { COLOR_MIXES } from "../../../styles/common/constants/colorMixes";
 
 export const StyledDialog = styled(Dialog)`
@@ -11,7 +11,7 @@ export const StyledDialog = styled(Dialog)`
     .MuiDialog-paper {
       border-radius: 8px;
       max-width: 400px;
-      padding: 32px;
+      padding: 32px 0;
       position: relative; /* positions close icon */
 
       .MuiDialogTitle-root,
@@ -22,6 +22,7 @@ export const StyledDialog = styled(Dialog)`
 
       .MuiDialogTitle-root {
         font-size: 20px;
+        padding: 0 32px;
 
         .MuiIconButton-root {
           position: absolute;
@@ -31,7 +32,7 @@ export const StyledDialog = styled(Dialog)`
       }
 
       .MuiDialogContent-root {
-        overflow-y: unset;
+        padding: 0 32px;
 
         .MuiDialogContentText-root {
           margin: 8px 0;
@@ -46,7 +47,13 @@ export const StyledDialog = styled(Dialog)`
         display: flex;
         flex-direction: column;
         gap: 16px 0;
+        padding: 0 32px;
       }
     }
   }
+`;
+
+export const StyledTypography = styled(Typography)`
+  margin-top: 24px;
+  padding: 0 32px;
 `;
