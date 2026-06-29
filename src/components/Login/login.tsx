@@ -46,7 +46,15 @@ export const Login = ({
       if (submittingProviderId !== null) return; // Prevent re-submission while in flight.
       if (!requestLogin) return; // No login service wired (e.g. outside an auth provider).
       setSubmittingProviderId(providerId);
-      requestLogin(providerId);
+      try {
+        requestLogin(providerId);
+      } catch (error) {
+        // e.g. the Google implicit flow throws synchronously if the GIS script
+        // isn't loaded. Re-enable the buttons (the focus reset won't fire
+        // without a popup) before surfacing the error.
+        setSubmittingProviderId(null);
+        throw error;
+      }
     },
     [isInAgreement, requestLogin, submittingProviderId],
   );
