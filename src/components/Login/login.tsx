@@ -46,8 +46,9 @@ export const Login = ({
         return;
       }
       if (submittingProviderId !== null) return; // Prevent re-submission while in flight.
+      if (!requestLogin) return; // No login service wired (e.g. outside an auth provider).
       setSubmittingProviderId(providerId);
-      requestLogin?.(providerId);
+      requestLogin(providerId);
     },
     [isInAgreement, requestLogin, submittingProviderId],
   );
@@ -92,7 +93,7 @@ export const Login = ({
                 }
                 label={
                   <StyledTypography
-                    component="div"
+                    component="span"
                     variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
                   >
                     {termsOfService}

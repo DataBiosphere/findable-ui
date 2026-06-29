@@ -28,7 +28,10 @@ export const Consent = ({
           />
         }
         label={
-          <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
+          <Typography
+            component="span"
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+          >
             {children}
           </Typography>
         }
