@@ -27,7 +27,8 @@ export const LoginDialog = ({
   open,
 }: LoginDialogProps): JSX.Element | null => {
   const authConfig = useAuthenticationConfig();
-  const { consentState, handleConsent, handleLogin } = useUserLogin();
+  const { consentState, handleConsent, handleLogin, submittingProviderId } =
+    useUserLogin();
 
   if (!authConfig) return null;
 
@@ -48,7 +49,11 @@ export const LoginDialog = ({
         </Consent>
       </DialogContent>
       <DialogActions disableSpacing>
-        <Buttons handleLogin={handleLogin} providers={authConfig.providers} />
+        <Buttons
+          handleLogin={handleLogin}
+          providers={authConfig.providers}
+          submittingProviderId={submittingProviderId}
+        />
       </DialogActions>
       {authConfig.warning && (
         <StyledTypography

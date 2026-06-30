@@ -6,4 +6,5 @@ import { BaseComponentProps } from "../../../types";
 export interface Props extends BaseComponentProps, ButtonProps {
   handleLogin: (providerId: ProviderId) => void;
   providers?: LoginProvider[];
+  submittingProviderId?: ProviderId | null;
 }
