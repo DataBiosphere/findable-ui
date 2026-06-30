@@ -113,3 +113,51 @@ export const ARGS: ComponentProps<typeof Messages> = {
     },
   },
 };
+
+// A single assistant reply exercising the full markdown vocabulary (bold,
+// inline code, links, headings, nested bullet + ordered lists, tables, and
+// horizontal rules) so the AssistantMessage markdown styling can be eyeballed
+// in the narrow panel — including elements the live agent avoids (e.g. headings).
+export const MARKDOWN_ARGS: ComponentProps<typeof Messages> = {
+  state: {
+    messages: [
+      {
+        createdAt: 1771998382840,
+        response: {
+          message: `A **brief** summary with inline \`code\` such as \`tissue_ontology_term_id\` and a [link to UBERON](http://purl.obolibrary.org/obo/UBERON_0000955).
+
+## Study design considerations
+
+- Prospective **longitudinal** cohorts
+- Studies with repeated measurements
+  - Baseline visit
+  - Follow-up visits
+- Studies with medication data
+
+1. Find T2D studies
+2. Filter for required measurements
+3. Review study designs
+
+---
+
+### Data availability
+
+| Disease | Studies |
+|:--- |:--- |
+| Diabetes | 9 |
+| Asthma | 12 |
+
+---
+
+A closing paragraph after the horizontal rule.`,
+        },
+        type: MESSAGE_TYPE.ASSISTANT,
+        // Double-cast: the fixture only needs `response.message` to render the
+        // markdown; the rest of MessageResponse (intent/timing/query) is unused.
+      } as unknown as AssistantMessage,
+    ],
+    status: {
+      loading: false,
+    },
+  },
+};
