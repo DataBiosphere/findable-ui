@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { useAuth } from "../../../../auth/hooks/useAuth";
 import { ProviderId } from "../../../../auth/types/common";
+import { useRequestLogin } from "../useRequestLogin/useRequestLogin";
 import { useUserConsent } from "../useUserConsent/useUserConsent";
 import { UseUserLogin } from "./types";
 
 export const useUserLogin = (): UseUserLogin => {
-  const { service: { requestLogin } = {} } = useAuth();
+  const { submit, submittingProviderId } = useRequestLogin();
   const { handleConsent, handleError, state: consentState } = useUserConsent();
   const { isDisabled, isError, isValid } = consentState; // Consent state: { isValid } is an indicator of whether the user has accepted the login terms.
 
@@ -16,14 +16,15 @@ export const useUserLogin = (): UseUserLogin => {
         handleError(true);
         return;
       }
-      requestLogin?.(providerId);
+      submit(providerId); // Shared guard prevents double-submit and tracks the in-flight provider.
     },
-    [handleError, isDisabled, isValid, requestLogin],
+    [handleError, isDisabled, isValid, submit],
   );
 
   return {
     consentState: { isDisabled, isError },
     handleConsent,
     handleLogin,
+    submittingProviderId,
   };
 };

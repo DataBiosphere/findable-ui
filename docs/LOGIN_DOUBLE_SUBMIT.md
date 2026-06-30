@@ -1,16 +1,16 @@
 # Login Sign-In: Double-Submit Guard & Known Tradeoff
 
-The `Login` component (`src/components/Login/login.tsx`) guards against double-submitting a sign-in request. This document records how that guard works and a known false-positive in the recovery heuristic, so the tradeoff isn't lost once the introducing PR ([#965](https://github.com/DataBiosphere/findable-ui/pull/965)) merges.
+The sign-in guard against double-submitting lives in the shared `useRequestLogin` hook (`src/components/Login/hooks/useRequestLogin/`) and is consumed by **both** the `Login` page (`src/components/Login/login.tsx`) and the `LoginDialog` (`src/components/common/LoginDialog/loginDialog.tsx`, via `useUserLogin`). This document records how that guard works and a known false-positive in the recovery heuristic, so the tradeoff isn't lost once the introducing PR ([#965](https://github.com/DataBiosphere/findable-ui/pull/965)) merges. Because both surfaces share the hook, the behavior and the tradeoff below apply equally to the login page and the dialog ([#968](https://github.com/DataBiosphere/findable-ui/issues/968)).
 
 ## The guard
 
-On clicking a provider, `Login` tracks `submittingProviderId`:
+On clicking a provider, the hook tracks `submittingProviderId`:
 
 - the requested provider's button shows a `LoadingIcon`,
 - all provider buttons are `disabled` while a sign-in is in flight,
 - re-submits are ignored until the in-flight state clears.
 
-This prevents firing `requestLogin` more than once from a double-tap (most visible on mobile / slow connections).
+The in-flight flag is held in a `useRef` (mirrored into `submittingProviderId` state for rendering), so the guard is evaluated **synchronously**: two clicks in the same tick — before React commits the disabled state to the DOM — still can't both fire `requestLogin`. This prevents double-submit from a fast double-tap (most visible on mobile / slow connections).
 
 ## Clearing the in-flight state
 
@@ -19,7 +19,7 @@ This prevents firing `requestLogin` more than once from a double-tap (most visib
 1. **Redirect flows** (e.g. NextAuth) — the page navigates away, the component unmounts, and the state never matters again.
 2. **Popup / in-place flows** (e.g. the Google implicit flow, `initTokenClient`) — no navigation. If the user closes/cancels the popup, nothing would otherwise re-enable the buttons, leaving them stuck disabled.
 
-To handle case 2, `Login` resets `submittingProviderId` when the window regains **focus** (popup closed/cancelled). A synchronous throw from `requestLogin` (e.g. the GIS script not loaded) is also caught and resets the state.
+To handle case 2, the hook resets the in-flight ref and `submittingProviderId` together when the window regains **focus** (popup closed/cancelled). A synchronous throw from `requestLogin` (e.g. the GIS script not loaded) is also caught and resets the state.
 
 ## Known tradeoff (false-positive on slow redirects)
 
@@ -35,6 +35,6 @@ A **service-layer completion signal** — having `requestLogin` return a promise
 
 - eliminate the redirect false-positive,
 - remove the window-`focus` heuristic entirely,
-- and give the shared `useUserLogin` hook a reliable signal to drive the same guard (see [#968](https://github.com/DataBiosphere/findable-ui/issues/968), which makes `LoginDialog` symmetric with the `Login` page).
+- and let the shared `useRequestLogin` hook clear the in-flight state on real completion instead of guessing via focus.
 
 Until that lands, the focus-reset heuristic is retained as the pragmatic option that covers the real cases.

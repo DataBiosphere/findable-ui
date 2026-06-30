@@ -7,4 +7,5 @@ export interface UseUserLogin extends Omit<
 > {
   consentState: Pick<UseUserConsent["state"], "isDisabled" | "isError">;
   handleLogin: (providerId: ProviderId) => void;
+  submittingProviderId: ProviderId | null;
 }
