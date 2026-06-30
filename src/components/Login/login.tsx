@@ -1,9 +1,10 @@
 import { Checkbox, Typography } from "@mui/material";
-import { ChangeEvent, JSX, useCallback, useState } from "react";
+import { ChangeEvent, JSX, useCallback, useEffect, useState } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { ProviderId } from "../../auth/types/common";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { CheckedIcon } from "../common/CustomIcon/components/CheckedIcon/checkedIcon";
+import { LoadingIcon } from "../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { UncheckedErrorIcon } from "../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
 import { UncheckedIcon } from "../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { RoundedPaper } from "../common/Paper/paper.styles";
@@ -29,19 +30,46 @@ export const Login = ({
   const { service: { requestLogin } = {} } = useAuth();
   const [isError, setIsError] = useState<boolean>(false);
   const [isInAgreement, setIsInAgreement] = useState<boolean>(!termsOfService);
+  const [submittingProviderId, setSubmittingProviderId] =
+    useState<ProviderId | null>(null);
 
   // Authenticates the user, if the user has agreed to the terms of service.
   // If the terms of service are not accepted, set the terms of service error state to true.
+  // Once a login is in flight, disable the provider buttons and show the
+  // requesting provider's button in a loading state.
   const onLogin = useCallback(
     (providerId: ProviderId): void => {
       if (!isInAgreement) {
         setIsError(true);
         return;
       }
-      requestLogin?.(providerId);
+      if (submittingProviderId !== null) return; // Prevent re-submission while in flight.
+      if (!requestLogin) return; // No login service wired (e.g. outside an auth provider).
+      setSubmittingProviderId(providerId);
+      try {
+        requestLogin(providerId);
+      } catch (error) {
+        // e.g. the Google implicit flow throws synchronously if the GIS script
+        // isn't loaded. Re-enable the buttons (the focus reset won't fire
+        // without a popup) before surfacing the error.
+        setSubmittingProviderId(null);
+        throw error;
+      }
     },
-    [isInAgreement, requestLogin],
+    [isInAgreement, requestLogin, submittingProviderId],
   );
+
+  // `requestLogin` may redirect away (then this never matters) or open a popup
+  // and resolve in place (e.g. the Google implicit flow). For the popup case,
+  // reset the submitting state when the window regains focus — i.e. the popup
+  // was closed/cancelled — so the buttons re-enable and the user can retry
+  // instead of being stuck disabled.
+  useEffect(() => {
+    if (submittingProviderId === null) return;
+    const handleFocus = (): void => setSubmittingProviderId(null);
+    window.addEventListener("focus", handleFocus);
+    return (): void => window.removeEventListener("focus", handleFocus);
+  }, [submittingProviderId]);
 
   // Callback fired when the checkbox value is changed.
   // Clears the terms of service error state and sets state isInAgreement with checkbox selected value.
@@ -73,29 +101,43 @@ export const Login = ({
           </SectionContent>
           <LoginSectionActions>
             {termsOfService && (
-              <LoginAgreement>
-                <Checkbox
-                  checkedIcon={<CheckedIcon />}
-                  icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
-                  onChange={handleChange}
-                />
-                <StyledTypography
-                  component="div"
-                  variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
-                >
-                  {termsOfService}
-                </StyledTypography>
-              </LoginAgreement>
+              <LoginAgreement
+                control={
+                  <Checkbox
+                    checkedIcon={<CheckedIcon />}
+                    icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
+                    onChange={handleChange}
+                  />
+                }
+                label={
+                  <StyledTypography
+                    component="span"
+                    variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+                  >
+                    {termsOfService}
+                  </StyledTypography>
+                }
+              />
             )}
-            {providers?.map((provider) => (
-              <Button
-                key={provider.id}
-                endIcon={"icon" in provider && provider.icon}
-                onClick={() => onLogin(provider.id)}
-              >
-                {provider.name}
-              </Button>
-            ))}
+            {providers?.map((provider) => {
+              const isSubmitting = submittingProviderId === provider.id;
+              return (
+                <Button
+                  key={provider.id}
+                  disabled={submittingProviderId !== null}
+                  endIcon={
+                    isSubmitting ? (
+                      <LoadingIcon fontSize="small" />
+                    ) : (
+                      "icon" in provider && provider.icon
+                    )
+                  }
+                  onClick={() => onLogin(provider.id)}
+                >
+                  {provider.name}
+                </Button>
+              );
+            })}
           </LoginSectionActions>
         </LoginSection>
       </RoundedPaper>

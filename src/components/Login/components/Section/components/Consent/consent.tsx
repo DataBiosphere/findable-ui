@@ -1,4 +1,4 @@
-import { Checkbox, Typography } from "@mui/material";
+import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
@@ -19,14 +19,23 @@ export const Consent = ({
   if (isDisabled) return null;
   return (
     <StyledGrid className={className} {...props}>
-      <Checkbox
-        checkedIcon={<CheckedIcon />}
-        icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
-        onChange={handleConsent}
+      <FormControlLabel
+        control={
+          <Checkbox
+            checkedIcon={<CheckedIcon />}
+            icon={isError ? <UncheckedErrorIcon /> : <UncheckedIcon />}
+            onChange={handleConsent}
+          />
+        }
+        label={
+          <Typography
+            component="span"
+            variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}
+          >
+            {children}
+          </Typography>
+        }
       />
-      <Typography variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400}>
-        {children}
-      </Typography>
     </StyledGrid>
   );
 };
