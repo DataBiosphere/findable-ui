@@ -6,8 +6,8 @@ import { AssistantMessageProps } from "./types";
 /**
  * Renders an assistant message as sanitized markdown.
  * The renderer carries the stable `MARKDOWN_CLASS_NAME` class so consuming apps
- * can override its styles with global styles (e.g. MUI `GlobalStyles`) targeting
- * `.assistant-message-markdown`.
+ * can override its styles with global styles (e.g. MUI `GlobalStyles`) — use a
+ * doubled-class selector to win the cascade (see `MARKDOWN_CLASS_NAME`).
  * @param props - Component props.
  * @param props.message - Assistant message.
  * @returns The assistant message element, or null if there is no message.

@@ -39,5 +39,12 @@ export const StyledMarkdownRenderer = styled(MarkdownRenderer)`
     li {
       margin: 8px 0;
     }
+
+    // Nested lists shouldn't add their own vertical margin on top of the parent
+    // list item's spacing.
+    ol,
+    ul {
+      margin: 0;
+    }
   }
 `;

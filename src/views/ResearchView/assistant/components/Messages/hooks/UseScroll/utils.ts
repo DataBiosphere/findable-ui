@@ -1,0 +1,11 @@
+/**
+ * Scrolls a container to its bottom.
+ * @param container - Scrollable element.
+ * @param behavior - Scroll behavior (instant or smooth).
+ */
+export function scrollToBottom(
+  container: HTMLElement,
+  behavior: ScrollBehavior,
+): void {
+  container.scrollTo({ behavior, top: container.scrollHeight });
+}
