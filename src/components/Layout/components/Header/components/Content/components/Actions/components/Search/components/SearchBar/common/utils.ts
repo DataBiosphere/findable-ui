@@ -15,6 +15,8 @@ function getNewURLSearchParams(
 
 /**
  * Return the search params, for the given search string.
+ * Submitting a new search resets pagination to the first page (the start param
+ * is dropped) while preserving any active category filter.
  * @param searchParams - Current search params.
  * @param searchStr - Search string.
  * @returns updated search params.
@@ -25,5 +27,6 @@ export function getSearchParams(
 ): URLSearchParams {
   const params = getNewURLSearchParams(searchParams);
   params.set(SEARCH_PARAMETERS.QUERY, searchStr);
+  params.delete(SEARCH_PARAMETERS.START);
   return params;
 }
