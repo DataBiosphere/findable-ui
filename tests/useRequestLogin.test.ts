@@ -97,6 +97,7 @@ describe("useRequestLogin", () => {
 
     act(() => result.current.submit("google"));
 
+    expect(mockRequestLogin).not.toHaveBeenCalled();
     expect(result.current.submittingProviderId).toBeNull();
   });
 });
