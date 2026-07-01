@@ -1,5 +1,28 @@
 # Changelog
 
+## [55.0.0](https://github.com/DataBiosphere/findable-ui/compare/v54.1.0...v55.0.0) (2026-07-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **login:** removed the published login/components/button export; use the buttons component instead.
+
+### Features
+
+* **login:** enlarge terms checkbox tap target and add sign-in loading state ([#965](https://github.com/DataBiosphere/findable-ui/issues/965)) ([1ab5a65](https://github.com/DataBiosphere/findable-ui/commit/1ab5a6531529b2e29d2d3cf840b040f18283a2c3))
+* searchbar: reset pagination param when submitting a new search ([#973](https://github.com/DataBiosphere/findable-ui/issues/973)) ([#974](https://github.com/DataBiosphere/findable-ui/issues/974)) ([afe960d](https://github.com/DataBiosphere/findable-ui/commit/afe960da8a29c7522d95889415af350ad6f3f4ab))
+
+
+### Bug Fixes
+
+* **login:** share sign-in double-submit guard across login page and dialog ([#968](https://github.com/DataBiosphere/findable-ui/issues/968)) ([#969](https://github.com/DataBiosphere/findable-ui/issues/969)) ([61c0c77](https://github.com/DataBiosphere/findable-ui/commit/61c0c772ab12c1f625b59dfb850cdc7acf9a4fe6))
+* render assistant markdown in researchview assistantmessage ([#966](https://github.com/DataBiosphere/findable-ui/issues/966)) ([#970](https://github.com/DataBiosphere/findable-ui/issues/970)) ([4a13a8e](https://github.com/DataBiosphere/findable-ui/commit/4a13a8e120d6d3ac90676c8f395d6b094061e1a4))
+
+
+### Performance Improvements
+
+* memoize the markdownrenderer unified processor ([#971](https://github.com/DataBiosphere/findable-ui/issues/971)) ([#972](https://github.com/DataBiosphere/findable-ui/issues/972)) ([5b190da](https://github.com/DataBiosphere/findable-ui/commit/5b190dac95a424414705665bbf13889c303cfbd3))
+
 ## [54.1.0](https://github.com/DataBiosphere/findable-ui/compare/v54.0.0...v54.1.0) (2026-06-11)
 
 
