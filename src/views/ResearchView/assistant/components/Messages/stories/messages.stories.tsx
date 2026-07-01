@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { type Meta, type StoryObj } from "@storybook/nextjs-vite";
 import { JSX } from "react";
 import { Messages } from "../messages";
-import { ARGS } from "./args";
+import { ARGS, MARKDOWN_ARGS } from "./args";
 
 const meta: Meta<typeof Messages> = {
   component: Messages,
@@ -21,4 +21,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: ARGS,
+};
+
+export const MarkdownReply: Story = {
+  args: MARKDOWN_ARGS,
 };
