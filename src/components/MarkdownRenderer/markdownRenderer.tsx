@@ -31,24 +31,31 @@ export const MarkdownRenderer = ({
   const [element, setElement] = useState<ReactElement | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [components] = useState<Components>(componentOptions);
-  const regex = useMemo(() => markdownRegex, [markdownRegex]);
+
+  // The processor only depends on `components` and the highlight `regex` (not
+  // `value`), so memoize it to avoid rebuilding the plugin chain on every value
+  // change. A unified processor freezes on first use and is reusable across
+  // process() calls.
+  const processor = useMemo(
+    () =>
+      unified()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeSanitize)
+        .use(rehypeHighlight, { regex: markdownRegex })
+        .use(rehypeReact, {
+          Fragment: production.Fragment,
+          components,
+          jsx: production.jsx,
+          jsxs: production.jsxs,
+        }),
+    [components, markdownRegex],
+  );
 
   useEffect(() => {
     let cancelled = false;
-
-    const processor = unified()
-      .use(remarkParse)
-      .use(remarkGfm)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeRaw)
-      .use(rehypeSanitize)
-      .use(rehypeHighlight, { regex })
-      .use(rehypeReact, {
-        Fragment: production.Fragment,
-        components,
-        jsx: production.jsx,
-        jsxs: production.jsxs,
-      });
 
     processor
       .process(value)
@@ -64,7 +71,7 @@ export const MarkdownRenderer = ({
     return (): void => {
       cancelled = true;
     };
-  }, [components, regex, value]);
+  }, [processor, value]);
 
   if (error)
     return (
