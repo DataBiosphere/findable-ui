@@ -61,6 +61,11 @@ export const Error = ({
   const { dimensions } = useLayoutDimensions();
 
   const handleToHomePageClicked = (): void => {
+    // Explicitly clear the caught error so recovery also works when "To
+    // Homepage" targets the current route (rootPath === the current path),
+    // where the ErrorBoundary's route-change reset would not fire. For
+    // cross-route navigation the ErrorBoundary additionally resets on the
+    // route change once navigation completes.
     onReset?.();
     exploreDispatch({
       payload: "",
