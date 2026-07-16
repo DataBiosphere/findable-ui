@@ -1,5 +1,5 @@
 import { AutocompleteProps, PaperProps, PopperProps } from "@mui/material";
-import { DividerItem, ITEM_TYPE, NoResultsItem } from "./entites";
+import { DividerItem, ITEM_TYPE, NoResultsItem } from "./entities";
 
 export const DEFAULT_LIST_HEIGHT = 0;
 

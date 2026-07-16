@@ -12,7 +12,7 @@ import {
   POPPER_DRAWER_SLOT_PROPS,
   POPPER_MENU_SLOT_PROPS,
 } from "./common/constants";
-import { OVERFLOW_STYLE } from "./common/entites";
+import { OVERFLOW_STYLE } from "./common/entities";
 import { setElementsOverflowStyle } from "./common/utils";
 import { OutlinedInput } from "./components/OutlinedInput/outlinedInput";
 import { VariableSizeList } from "./components/VariableSizeList/VariableSizeList";

@@ -36,7 +36,7 @@ import {
   ITEM_TYPE,
   SearchAllFiltersItem,
   ValueItem,
-} from "../../common/entites";
+} from "../../common/entities";
 import VariableSizeListItem from "../VariableSizeListItem/variableSizeListItem";
 
 export type ItemSizeByItemKey = Map<string, number>;
