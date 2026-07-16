@@ -6,9 +6,9 @@ import {
 import { Button, Content } from "./ellipsisContent.styles";
 
 enum EllipsisMode {
-  "NONE" = "NONE",
-  "OFF" = "OFF",
-  "ON" = "ON",
+  NONE = "NONE",
+  OFF = "OFF",
+  ON = "ON",
 }
 
 export interface OverviewDescriptionProps {

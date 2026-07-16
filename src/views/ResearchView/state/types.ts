@@ -58,10 +58,7 @@ export type Intent = (typeof INTENT)[keyof typeof INTENT] | (string & {});
  * Union type for messages in the chat.
  */
 export type Message<R extends MessageResponse = MessageResponse> =
-  | AssistantMessage<R>
-  | ErrorMessage
-  | PromptMessage
-  | UserMessage;
+  AssistantMessage<R> | ErrorMessage | PromptMessage | UserMessage;
 
 /**
  * Message types for the chat.

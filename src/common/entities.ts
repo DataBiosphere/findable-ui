@@ -129,8 +129,7 @@ export const REQUIREMENT_LEVEL = {
  * Requirement level type.
  */
 export type RequirementLevel =
-  | boolean
-  | (typeof REQUIREMENT_LEVEL)[keyof typeof REQUIREMENT_LEVEL];
+  boolean | (typeof REQUIREMENT_LEVEL)[keyof typeof REQUIREMENT_LEVEL];
 
 /**
  * Internal filter model of a multiselect category (e.g. library construction approach).

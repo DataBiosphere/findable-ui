@@ -65,7 +65,7 @@ export interface AzulEntityStaticResponse<T = any> {
  * Set of filter operators accepted by Azul.
  */
 export enum AZUL_FILTER_OPERATOR {
-  "IS" = "is",
+  IS = "is",
 }
 
 /**
@@ -98,8 +98,8 @@ export interface AzulPaginationResponse {
  * Set of valid request params accepted by Azul.
  */
 export enum AZUL_PARAM {
-  "CATALOG" = "catalog",
-  "FILTERS" = "filters",
+  CATALOG = "catalog",
+  FILTERS = "filters",
 }
 
 /**
@@ -141,10 +141,10 @@ export interface AzulTermFacets {
 }
 
 /**
- * Set of possible term types retured from Azul.
+ * Set of possible term types returned from Azul.
  */
 enum AZUL_TERM_TYPE {
-  "TERMS" = "terms",
+  TERMS = "terms",
 }
 
 /**
@@ -161,10 +161,10 @@ export interface FileLocationResponse {
  * Set of labels that values returned from Azul can be sanitized to.
  */
 export enum LABEL {
-  "EMPTY" = "", // TODO(cc) revisit - temp only? required for file download.
-  "ERROR" = "Error",
-  "NONE" = "None",
-  "UNSPECIFIED" = "Unspecified",
+  EMPTY = "", // TODO(cc) revisit - temp only? required for file download.
+  ERROR = "Error",
+  NONE = "None",
+  UNSPECIFIED = "Unspecified",
 }
 
 /**
@@ -176,10 +176,10 @@ export type ManifestDownloadFormat = MANIFEST_DOWNLOAD_FORMAT;
  * Set of possible manifest download formats.
  */
 export enum MANIFEST_DOWNLOAD_FORMAT {
-  "COMPACT" = "compact",
-  "CURL" = "curl",
-  "FULL" = "full",
-  "TERRA_BDBAG" = "terra.bdbag",
-  "TERRA_PFB" = "terra.pfb",
-  "VERBATIM_PFB" = "verbatim.pfb",
+  COMPACT = "compact",
+  CURL = "curl",
+  FULL = "full",
+  TERRA_BDBAG = "terra.bdbag",
+  TERRA_PFB = "terra.pfb",
+  VERBATIM_PFB = "verbatim.pfb",
 }

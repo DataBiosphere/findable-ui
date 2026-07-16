@@ -8,8 +8,8 @@ import {
  * Set of supported shells that bulk download curl can be executed on.
  */
 export enum BULK_DOWNLOAD_EXECUTION_ENVIRONMENT {
-  "BASH" = "bash",
-  "CMD_EXE" = "cmd.exe",
+  BASH = "bash",
+  CMD_EXE = "cmd.exe",
 }
 
 /**

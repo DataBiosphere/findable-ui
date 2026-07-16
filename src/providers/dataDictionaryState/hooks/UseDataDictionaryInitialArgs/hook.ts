@@ -7,8 +7,7 @@ export const useDataDictionaryInitialArgs =
     const { config } = useConfig();
 
     const dataDictionaries = config.dataDictionaries as
-      | DataDictionaryConfig[]
-      | undefined;
+      DataDictionaryConfig[] | undefined;
 
     return { dataDictionaries };
   };

@@ -47,10 +47,12 @@ export const StyledTableRow = styled(MTableRow, {
           background-color: #f8fbfd;
         }
 
-        ${isExpanded &&
-        css`
-          background-color: #f8fbfd;
-        `}
+        ${
+          isExpanded &&
+          css`
+            background-color: #f8fbfd;
+          `
+        }
       `}
 
     ${({ isPreview }) =>

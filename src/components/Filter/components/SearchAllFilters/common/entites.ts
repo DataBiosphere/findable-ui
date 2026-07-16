@@ -37,8 +37,6 @@ export interface ValueItem {
 }
 
 export type SearchAllFiltersDynamicItem =
-  | CategoryItem
-  | ValueItem
-  | NoResultsItem;
+  CategoryItem | ValueItem | NoResultsItem;
 
 export type SearchAllFiltersItem = SearchAllFiltersDynamicItem | DividerItem;

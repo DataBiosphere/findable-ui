@@ -44,11 +44,13 @@ export const StyledButton = styled(Button, {
     css`
       background-color: ${PALETTE.SMOKE_MAIN};
 
-      ${surfaceType === SURFACE_TYPE.MENU &&
-      css`
-        & .MuiButton-endIcon {
-          transform: rotate(180deg);
-        }
-      `}
+      ${
+        surfaceType === SURFACE_TYPE.MENU &&
+        css`
+          & .MuiButton-endIcon {
+            transform: rotate(180deg);
+          }
+        `
+      }
     `};
 `;
