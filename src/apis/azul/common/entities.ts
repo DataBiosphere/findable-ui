@@ -141,7 +141,7 @@ export interface AzulTermFacets {
 }
 
 /**
- * Set of possible term types retured from Azul.
+ * Set of possible term types returned from Azul.
  */
 enum AZUL_TERM_TYPE {
   TERMS = "terms",
