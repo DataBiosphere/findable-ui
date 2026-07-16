@@ -14,7 +14,7 @@ import { CheckedIcon } from "../../../../../common/CustomIcon/components/Checked
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FilterNoResultsFound } from "../../../FilterNoResultsFound/filterNoResultsFound";
 import { HighlightedLabel } from "../../../HighlightedLabel/highlightedLabel";
-import { ITEM_TYPE, SearchAllFiltersDynamicItem } from "../../common/entites";
+import { ITEM_TYPE, SearchAllFiltersDynamicItem } from "../../common/entities";
 
 interface Props {
   item: SearchAllFiltersDynamicItem;
