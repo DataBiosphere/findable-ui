@@ -9,8 +9,7 @@ export type Credentials<C = string | undefined> = C;
  * Credentials action type - union of all possible credentials actions.
  */
 export type CredentialsAction =
-  | CredentialsResetStateAction
-  | UpdateCredentialsAction;
+  CredentialsResetStateAction | UpdateCredentialsAction;
 
 /**
  * Credentials action kinds.

@@ -11,7 +11,6 @@ export type ToggleButtonGroupProviderProps<
   T extends ToggleButtonGroupProps["value"],
 > = {
   children:
-    | ReactNode
-    | ((props: ToggleButtonGroupContextProps<T>) => ReactNode);
+    ReactNode | ((props: ToggleButtonGroupContextProps<T>) => ReactNode);
   initialValue?: T | null;
 };

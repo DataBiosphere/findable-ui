@@ -5,9 +5,7 @@ import { ProviderId } from "./common";
  * Auth action type - union of all possible auth actions.
  */
 export type AuthAction =
-  | RequestAuthAction
-  | AuthResetStateAction
-  | UpdateAuthStateAction;
+  RequestAuthAction | AuthResetStateAction | UpdateAuthStateAction;
 
 /**
  * Auth action kinds.

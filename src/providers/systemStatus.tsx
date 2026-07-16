@@ -15,8 +15,8 @@ const DEFAULT_SYSTEM_STATUS: SystemStatus = {
  * Possible values of indexing status check.
  */
 export enum INDEXING_STATUS {
-  "COMPLETE" = "COMPLETE",
-  "FAILED" = "FAILED",
+  COMPLETE = "COMPLETE",
+  FAILED = "FAILED",
 }
 
 /**

@@ -136,8 +136,7 @@ export interface ComponentConfig<
  * This can be an array of @see ComponentConfig or a function that returns an array of @see ComponentConfig
  */
 export type ComponentsConfig =
-  | ComponentConfig[]
-  | ((config: SiteConfig) => ComponentConfig[]);
+  ComponentConfig[] | ((config: SiteConfig) => ComponentConfig[]);
 
 /**
  * Interface to determine the API URL and version.
@@ -313,8 +312,7 @@ export interface AuthorizationCodeFlowProvider<
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
 export type OAuthProvider<P = any> =
-  | ImplicitFlowProvider<P>
-  | AuthorizationCodeFlowProvider<P>;
+  ImplicitFlowProvider<P> | AuthorizationCodeFlowProvider<P>;
 
 /**
  * Option Method.

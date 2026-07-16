@@ -9,8 +9,7 @@ export type Navigation = [
 ]; // [LEFT, CENTER, RIGHT]
 
 export type SelectedMatch =
-  | SELECTED_MATCH
-  | Partial<Record<BreakpointKey, boolean | SELECTED_MATCH>>;
+  SELECTED_MATCH | Partial<Record<BreakpointKey, boolean | SELECTED_MATCH>>;
 
 export enum SELECTED_MATCH {
   EQUALS = "EQUALS",

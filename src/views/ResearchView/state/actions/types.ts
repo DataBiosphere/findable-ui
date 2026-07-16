@@ -7,10 +7,7 @@ import { SetStatusAction } from "./setStatus/types";
  * Union of all Chat actions.
  */
 export type ChatAction =
-  | SetErrorAction
-  | SetMessageAction
-  | SetQueryAction
-  | SetStatusAction;
+  SetErrorAction | SetMessageAction | SetQueryAction | SetStatusAction;
 
 /**
  * Action kind identifiers for the Chat reducer.

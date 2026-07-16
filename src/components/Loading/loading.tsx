@@ -11,8 +11,7 @@ import { LoadingPaper, LoadingPositioner } from "./loading.styles";
  */
 
 export type LoadingPanelStyle =
-  | keyof typeof LOADING_PANEL_STYLE
-  | PaperPanelStyle;
+  keyof typeof LOADING_PANEL_STYLE | PaperPanelStyle;
 
 /**
  * Possible set of loading variant "panel" style values.

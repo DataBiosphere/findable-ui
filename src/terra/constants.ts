@@ -7,9 +7,7 @@ import { TerraTermsOfServiceResponse } from "./types/terra-tos";
  * Login response type - union of all Terra response types.
  */
 export type LoginResponse =
-  | TerraResponse
-  | TerraNIHResponse
-  | TerraTermsOfServiceResponse;
+  TerraResponse | TerraNIHResponse | TerraTermsOfServiceResponse;
 
 /**
  * Login status: failed.

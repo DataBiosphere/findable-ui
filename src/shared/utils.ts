@@ -6,8 +6,7 @@ import { DataSourceConfig } from "../config/entities";
  * @returns application DEFAULT_DETAIL_PARAMS.
  */
 export function getDefaultDetailParams():
-  | DataSourceConfig["defaultDetailParams"]
-  | DataSourceConfig["defaultParams"] {
+  DataSourceConfig["defaultDetailParams"] | DataSourceConfig["defaultParams"] {
   const { dataSource } = getConfig();
   const { defaultDetailParams, defaultParams } = dataSource || {};
   return { ...defaultDetailParams, ...defaultParams };
@@ -18,8 +17,7 @@ export function getDefaultDetailParams():
  * @returns application DEFAULT_LIST_PARAMS.
  */
 export function getDefaultListParams():
-  | DataSourceConfig["defaultListParams"]
-  | DataSourceConfig["defaultParams"] {
+  DataSourceConfig["defaultListParams"] | DataSourceConfig["defaultParams"] {
   const { dataSource } = getConfig();
   const { defaultListParams, defaultParams } = dataSource;
   return { ...defaultListParams, ...defaultParams };

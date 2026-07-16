@@ -106,7 +106,7 @@
     "next": "^16",
     "next-auth": "^4.24.13",
     "next-mdx-remote": "^6.0.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.9.5",
     "prettier-plugin-organize-imports": "^4.3.0",
     "storybook": "^10.3.3",
     "ts-jest": "^29.4.6",
