@@ -1,8 +1,10 @@
-import { JSX, lazy, Suspense } from "react";
+import { Fragment, JSX, lazy, Suspense } from "react";
 import {
   Loading,
   LOADING_PANEL_STYLE,
 } from "../../../../../../Loading/loading";
+import { StyledToolbar } from "../../../../../../Table/components/TableToolbar/tableToolbar.styles";
+import { ViewToggle } from "../../controls/ViewToggle/viewToggle";
 import { ChartViewProps } from "./types";
 
 /**
@@ -17,8 +19,9 @@ const ChartView = lazy(() =>
 );
 
 /**
- * Renders the lazily-loaded ChartView within a Suspense boundary, showing a
- * loading indicator while the chart chunk is fetched.
+ * Renders the lazily-loaded ChartView within a Suspense boundary. The fallback
+ * mirrors ChartView's own toolbar so the view toggle remains available while
+ * the chart chunk is fetched, alongside a loading indicator.
  * @param props - Chart view props, forwarded to the underlying ChartView.
  * @returns The chart view, wrapped in a Suspense boundary.
  */
@@ -26,12 +29,17 @@ export const LazyChartView = (props: ChartViewProps): JSX.Element => {
   return (
     <Suspense
       fallback={
-        <Loading
-          appear={false}
-          autoPosition={false}
-          loading
-          panelStyle={LOADING_PANEL_STYLE.INHERIT}
-        />
+        <Fragment>
+          <StyledToolbar>
+            <ViewToggle />
+          </StyledToolbar>
+          <Loading
+            appear={false}
+            autoPosition={false}
+            loading
+            panelStyle={LOADING_PANEL_STYLE.INHERIT}
+          />
+        </Fragment>
       }
     >
       <ChartView {...props} />
