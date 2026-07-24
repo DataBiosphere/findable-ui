@@ -11,7 +11,7 @@ import { Title } from "./components/EntityView/components/layout/Title/title";
 import { Tabs } from "./components/EntityView/components/navigation/Tabs/tabs";
 import { EntityListSlot } from "./components/EntityView/components/slots/EntityListSlot/entityListSlot";
 import { EntityViewSlot } from "./components/EntityView/components/slots/EntityViewSlot/entityViewSlot";
-import { ChartView } from "./components/EntityView/components/views/ChartView/chartView";
+import { LazyChartView } from "./components/EntityView/components/views/ChartView/lazyChartView";
 import { TableView } from "./components/EntityView/components/views/TableView/tableView";
 import { EntityViewContext } from "./components/EntityView/context/context";
 import {
@@ -64,7 +64,7 @@ export const Index = ({
                 table={table}
               />
             ) : (
-              <ChartView
+              <LazyChartView
                 categoryFilters={categoryFilters}
                 entityName={entityName}
                 loading={loading}
