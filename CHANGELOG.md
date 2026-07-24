@@ -1,5 +1,33 @@
 # Changelog
 
+## [56.0.0](https://github.com/DataBiosphere/findable-ui/compare/v55.0.0...v56.0.0) (2026-07-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* error component: "to homepage" button does not return the user to the home page ([#963](https://github.com/DataBiosphere/findable-ui/issues/963)) (#975)
+
+### Bug Fixes
+
+* error component: "to homepage" button does not return the user to the home page ([#963](https://github.com/DataBiosphere/findable-ui/issues/963)) ([0dafe85](https://github.com/DataBiosphere/findable-ui/commit/0dafe8592f060ac921371c549309d74f6eb71dba))
+* error component: "to homepage" button does not return the user to the home page ([#963](https://github.com/DataBiosphere/findable-ui/issues/963)) ([#975](https://github.com/DataBiosphere/findable-ui/issues/975)) ([0dafe85](https://github.com/DataBiosphere/findable-ui/commit/0dafe8592f060ac921371c549309d74f6eb71dba))
+
+
+### Chores
+
+* improve npm audit results with non-breaking dependency upgrades ([#981](https://github.com/DataBiosphere/findable-ui/issues/981)) ([#982](https://github.com/DataBiosphere/findable-ui/issues/982)) ([ee096d6](https://github.com/DataBiosphere/findable-ui/commit/ee096d6f339def1d66bdcc68ecc893ffdd76f967))
+* mark @observablehq/plot as optional in peerdependenciesmeta ([#988](https://github.com/DataBiosphere/findable-ui/issues/988)) ([#990](https://github.com/DataBiosphere/findable-ui/issues/990)) ([38ba4c3](https://github.com/DataBiosphere/findable-ui/commit/38ba4c3dfbf055a4c4d6a1bd19935ef74b3d33ee))
+* rename misspelled file entites.ts to entities.ts ([#985](https://github.com/DataBiosphere/findable-ui/issues/985)) ([#986](https://github.com/DataBiosphere/findable-ui/issues/986)) ([7dc3c70](https://github.com/DataBiosphere/findable-ui/commit/7dc3c703702cad73ba240314b7d5927945d3c656))
+* upgrade prettier to latest and reformat ([#983](https://github.com/DataBiosphere/findable-ui/issues/983)) ([#984](https://github.com/DataBiosphere/findable-ui/issues/984)) ([fe56eb2](https://github.com/DataBiosphere/findable-ui/commit/fe56eb2e44adcc5caf5c8cb6170af77b2d7ee4cc))
+
+
+### Continuous Integration
+
+* pin github actions by commit sha at current versions ([#979](https://github.com/DataBiosphere/findable-ui/issues/979)) ([66bc7f1](https://github.com/DataBiosphere/findable-ui/commit/66bc7f1be3e0bc8ffd934b21aad714db4bd087c3))
+* pin github actions by commit sha at current versions ([#980](https://github.com/DataBiosphere/findable-ui/issues/980)) ([66bc7f1](https://github.com/DataBiosphere/findable-ui/commit/66bc7f1be3e0bc8ffd934b21aad714db4bd087c3))
+* upgrade release-please-action from v4 to v5 ([#977](https://github.com/DataBiosphere/findable-ui/issues/977)) ([926d94a](https://github.com/DataBiosphere/findable-ui/commit/926d94a7775b9960077a9e2327cdd2b76b9348de))
+* upgrade release-please-action from v4 to v5 ([#978](https://github.com/DataBiosphere/findable-ui/issues/978)) ([926d94a](https://github.com/DataBiosphere/findable-ui/commit/926d94a7775b9960077a9e2327cdd2b76b9348de))
+
 ## [55.0.0](https://github.com/DataBiosphere/findable-ui/compare/v54.1.0...v55.0.0) (2026-07-01)
 
 
