@@ -144,6 +144,9 @@
     "yup": "^1.7.1"
   },
   "peerDependenciesMeta": {
+    "@observablehq/plot": {
+      "optional": true
+    },
     "next-auth": {
       "optional": true
     }
