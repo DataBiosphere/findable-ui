@@ -11,6 +11,9 @@ const { Default } = composeStories(stories);
 const FIND_TIMEOUT = 10000;
 const TEST_TIMEOUT = 15000;
 
+const originalGetCTM = SVGElement.prototype.getCTM;
+const originalGetBBox = SVGElement.prototype.getBBox;
+
 beforeAll(() => {
   // jsdom does not implement these SVG layout APIs, which the chart's label
   // repositioning uses inside a requestAnimationFrame callback. Because these
@@ -19,6 +22,12 @@ beforeAll(() => {
   // throwing.
   SVGElement.prototype.getCTM = (): DOMMatrix | null => null;
   SVGElement.prototype.getBBox = (): DOMRect => ({ width: 0 }) as DOMRect;
+});
+
+afterAll(() => {
+  // Restore the originals so the stubs do not leak into other test files.
+  SVGElement.prototype.getCTM = originalGetCTM;
+  SVGElement.prototype.getBBox = originalGetBBox;
 });
 
 describe("LazyChartView", () => {

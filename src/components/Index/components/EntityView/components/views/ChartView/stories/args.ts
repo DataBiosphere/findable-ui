@@ -1,7 +1,6 @@
-import { ComponentProps } from "react";
-import { ChartView } from "../chartView";
+import { ChartViewProps } from "../types";
 
-export const CHART_VIEW_ARGS: ComponentProps<typeof ChartView> = {
+export const CHART_VIEW_ARGS: ChartViewProps = {
   categoryFilters: [
     {
       categoryViews: [
