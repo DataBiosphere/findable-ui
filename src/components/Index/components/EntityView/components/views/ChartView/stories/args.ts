@@ -1,4 +1,4 @@
-import { ChartViewProps } from "../types";
+import type { ChartViewProps } from "../types";
 
 export const CHART_VIEW_ARGS: ChartViewProps = {
   categoryFilters: [

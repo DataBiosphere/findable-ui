@@ -4,7 +4,7 @@ import { LoadingIcon } from "../../../../../../common/CustomIcon/components/Load
 import { StyledToolbar } from "../../../../../../Table/components/TableToolbar/tableToolbar.styles";
 import { ViewToggle } from "../../controls/ViewToggle/viewToggle";
 import { StyledStack } from "./chartView.styles";
-import { ChartViewProps } from "./types";
+import type { ChartViewProps } from "./types";
 
 /**
  * Lazily-loaded ChartView body. Code-splits ChartView — and its
