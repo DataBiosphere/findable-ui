@@ -3,7 +3,7 @@ import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { LoadingIcon } from "../../../../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { StyledToolbar } from "../../../../../../Table/components/TableToolbar/tableToolbar.styles";
 import { ViewToggle } from "../../controls/ViewToggle/viewToggle";
-import { StyledStack } from "./chartView.styles";
+import { StyledStack } from "./lazyChartView.styles";
 import type { ChartViewProps } from "./types";
 
 /**
