@@ -6,11 +6,17 @@ import { seedDatabase } from "../src/utils/seedDatabase";
 
 const seed = jest.fn();
 
+/**
+ * Builds a minimal entity config for a test with the given static-load file.
+ * @param staticLoadFile - Static-load file path.
+ * @returns Entity config.
+ */
 const config = (staticLoadFile: string): EntityConfig =>
-  ({ label: staticLoadFile, staticLoadFile }) as unknown as EntityConfig;
+  ({ staticLoadFile }) as unknown as EntityConfig;
 
-// seedDatabase's read cache is module-level and persists for the file's
-// lifetime, so each test uses a unique entityListType key to stay isolated.
+// seedDatabase's cache is module-level and keyed by entity type, persisting for
+// the file's lifetime, so each test uses a unique entityListType to stay
+// isolated.
 describe("seedDatabase", () => {
   let readFile: jest.Mock;
 

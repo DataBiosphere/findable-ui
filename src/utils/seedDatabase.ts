@@ -12,9 +12,9 @@ import { database } from "./database";
 //
 // The database seed write is cheap and runs on EVERY call, deliberately not
 // memoized: other build-time code may seed the same entity type with a
-// different shape (e.g. a list page that seeds unmapped entities for
-// client-side mapping) and build workers interleave pages, so skipping the seed
-// on a cache hit could leave the wrong shape in the database.
+// different shape (e.g. a list page seeding unmapped entities for client-side
+// mapping) and build workers interleave pages, so skipping the seed on a cache
+// hit could leave the wrong shape in the database.
 //
 // Server-only: uses Node fs; import only from build-time code (e.g. getStaticProps).
 const entitiesByType = new Map<string, Promise<unknown[]>>();
@@ -35,10 +35,12 @@ function loadEntities(
   if (!entities) {
     // Don't cache a failed read — evict on rejection, but re-throw so awaiters
     // (and unhandled-rejection tracking) still see the failure.
-    entities = readEntities(entityConfig).catch((error: unknown) => {
-      entitiesByType.delete(entityListType);
-      throw error;
-    });
+    entities = readEntities(entityListType, entityConfig).catch(
+      (error: unknown) => {
+        entitiesByType.delete(entityListType);
+        throw error;
+      },
+    );
     entitiesByType.set(entityListType, entities);
   }
   return entities;
@@ -46,24 +48,30 @@ function loadEntities(
 
 /**
  * Reads, parses and maps the entity config's catalog file.
+ * @param entityListType - Entity list type, used in error messages.
  * @param entityConfig - Entity config.
  * @returns Promise resolving to the mapped entities.
  */
-async function readEntities(entityConfig: EntityConfig): Promise<unknown[]> {
-  const { entityMapper, label, staticLoadFile } = entityConfig;
+async function readEntities(
+  entityListType: string,
+  entityConfig: EntityConfig,
+): Promise<unknown[]> {
+  const { entityMapper, staticLoadFile } = entityConfig;
 
   if (!staticLoadFile) {
-    throw new Error(`staticLoadFile not found for entity ${label}`);
+    throw new Error(
+      `staticLoadFile not found for entity type "${entityListType}"`,
+    );
   }
 
-  let jsonText;
+  let jsonText: string;
   try {
     jsonText = await fsp.readFile(staticLoadFile, "utf8");
   } catch (error) {
     // Preserve the underlying cause (e.g. EACCES, EISDIR, EMFILE) rather than
     // relabelling every read failure as a missing file.
     throw new Error(
-      `Failed to read file ${staticLoadFile} for entity ${label}`,
+      `Failed to read file ${staticLoadFile} for entity type "${entityListType}"`,
       { cause: error },
     );
   }
@@ -75,7 +83,7 @@ async function readEntities(entityConfig: EntityConfig): Promise<unknown[]> {
   const object: unknown = JSON.parse(jsonText);
   if (typeof object !== "object" || object === null) {
     throw new Error(
-      `File ${staticLoadFile} for entity ${label} is not a JSON object or array`,
+      `File ${staticLoadFile} for entity type "${entityListType}" is not a JSON object or array`,
     );
   }
 
