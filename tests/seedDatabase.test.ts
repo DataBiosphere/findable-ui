@@ -69,4 +69,10 @@ describe("seedDatabase", () => {
     ).rejects.toThrow(/not a JSON object/);
     expect(seed).not.toHaveBeenCalled();
   });
+
+  it("seeds the elements of a top-level array catalog (e.g. brc-analytics)", async () => {
+    readFile.mockResolvedValueOnce('[{ "id": 1 }, { "id": 2 }]');
+    await seedDatabase("array", config("array.json"));
+    expect(seed).toHaveBeenCalledWith("array", [{ id: 1 }, { id: 2 }]);
+  });
 });

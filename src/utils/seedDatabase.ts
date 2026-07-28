@@ -68,10 +68,14 @@ async function readEntities(entityConfig: EntityConfig): Promise<unknown[]> {
     );
   }
 
+  // Catalog files are either an object map keyed by id (data-biosphere, ncpi)
+  // or a top-level array of entities (brc-analytics); Object.values handles
+  // both. Only reject null/non-object values, which would otherwise throw a
+  // raw TypeError or silently seed an empty list.
   const object: unknown = JSON.parse(jsonText);
   if (typeof object !== "object" || object === null) {
     throw new Error(
-      `File ${staticLoadFile} for entity ${label} is not a JSON object`,
+      `File ${staticLoadFile} for entity ${label} is not a JSON object or array`,
     );
   }
 
