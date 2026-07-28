@@ -1,6 +1,6 @@
 import { Row, RowData } from "@tanstack/react-table";
 
-export interface VirtualizedTableRowProps {
+export interface VirtualizedTableRowProps<T extends RowData> {
   canExpand: boolean;
   canSelect: boolean;
   isAllSubRowsSelected: boolean;
@@ -10,6 +10,6 @@ export interface VirtualizedTableRowProps {
   isSelected: boolean;
   isSomeSelected: boolean;
   measureElement: (element: Element | null) => void;
-  row: Row<RowData>;
+  row: Row<T>;
   rowIndex: number;
 }

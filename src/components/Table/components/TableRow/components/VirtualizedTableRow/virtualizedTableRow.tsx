@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import { flexRender } from "@tanstack/react-table";
+import { flexRender, RowData } from "@tanstack/react-table";
 import { JSX, memo } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import {
@@ -19,8 +19,13 @@ import { VirtualizedTableRowProps } from "./types";
  * changes — leaf selection via `isSelected`, grouped select-all / indeterminate
  * via `isSomeSelected` / `isAllSubRowsSelected` (compared but read by the cells
  * off `row`, so they need no destructuring here).
+ *
+ * `memo` erases the generic type parameter, so the export is cast back to a
+ * generic function type to preserve `Row<T>` inference at the call site.
  */
-export const VirtualizedTableRow = memo(function VirtualizedTableRow({
+export const VirtualizedTableRow = memo(function VirtualizedTableRow<
+  T extends RowData,
+>({
   canExpand,
   canSelect,
   isExpanded,
@@ -30,7 +35,7 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow({
   measureElement,
   row,
   rowIndex,
-}: VirtualizedTableRowProps): JSX.Element {
+}: VirtualizedTableRowProps<T>): JSX.Element {
   return (
     <StyledTableRow
       canExpand={canExpand}
@@ -61,4 +66,4 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow({
       })}
     </StyledTableRow>
   );
-});
+}) as <T extends RowData>(props: VirtualizedTableRowProps<T>) => JSX.Element;

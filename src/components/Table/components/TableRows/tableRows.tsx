@@ -30,7 +30,7 @@ export const TableRows = <T extends RowData>({
             isSelected={row.getIsSelected()}
             isSomeSelected={row.getIsSomeSelected()}
             measureElement={virtualizer.measureElement}
-            row={row as Row<RowData>}
+            row={row}
             rowIndex={rowIndex}
           />
         );

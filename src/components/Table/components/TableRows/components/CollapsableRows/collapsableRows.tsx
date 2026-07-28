@@ -35,7 +35,7 @@ export const CollapsableRows = <T extends RowData>({
             isPreview={row.getIsPreview()}
             isSelected={row.getIsSelected()}
             measureElement={virtualizer.measureElement}
-            row={row as Row<RowData>}
+            row={row}
             rowIndex={rowIndex}
           />
         );
