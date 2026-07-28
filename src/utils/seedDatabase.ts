@@ -90,7 +90,9 @@ async function readEntities(
   }
 
   // Client-side fetched entities are mapped prior to dispatch to explore state.
-  const values = Object.values(object);
+  // Object.values on the guarded `object` type infers any[], so annotate the
+  // result to keep the entities typed as unknown[] end-to-end.
+  const values: unknown[] = Object.values(object);
   return entityMapper ? values.map(entityMapper) : values;
 }
 
