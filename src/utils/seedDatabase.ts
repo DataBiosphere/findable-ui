@@ -5,10 +5,12 @@ import { database } from "./database";
 // Intended for static-export builds. Reading, parsing and mapping the catalog
 // file is the expensive part (multi-MB files, and getStaticProps runs once per
 // prerendered page), so memoize that per entity type — the file is read, parsed
-// and mapped once regardless of how many pages seed the type. The memoized
-// entities are held for the process lifetime and are NOT re-read if the file
-// changes on disk, so this is unsuitable for long-lived servers that must
-// reflect catalog edits.
+// and mapped once regardless of how many pages seed the type. Keying by entity
+// type is safe because each type resolves to a single entity config (one
+// static-load file, one mapper) via getEntityConfig, so a type is never seeded
+// from a different file or mapping. The memoized entities are held for the
+// process lifetime and are NOT re-read if the file changes on disk, so this is
+// unsuitable for long-lived servers that must reflect catalog edits.
 //
 // The database seed write is cheap and runs on EVERY call, deliberately not
 // memoized: other build-time code may seed the same entity type with a
