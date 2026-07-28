@@ -2,8 +2,7 @@ import { Row, RowData, Table } from "@tanstack/react-table";
 import { Virtualizer } from "@tanstack/react-virtual";
 import { Fragment, JSX } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
-import { CollapsableCell } from "../../../TableCell/components/CollapsableCell/collapsableCell";
-import { StyledTableRow } from "./collapsableRows.styles";
+import { CollapsableTableRow } from "../../../TableRow/components/CollapsableTableRow/collapsableTableRow";
 import { useCollapsableRows } from "./hook";
 
 export interface CollapsableRowsProps<T extends RowData> {
@@ -18,8 +17,9 @@ export const CollapsableRows = <T extends RowData>({
   virtualizer,
 }: CollapsableRowsProps<T>): JSX.Element => {
   useCollapsableRows(tableInstance);
-  const { getState } = tableInstance;
-  const { grouping } = getState();
+  const { grouping } = tableInstance.getState();
+  // Table-level, so compute once and pass to each row (a change re-renders all).
+  const isDisabled = isCollapsableRowDisabled(tableInstance);
   const virtualItems = virtualizer.getVirtualItems();
   return (
     <Fragment>
@@ -28,18 +28,16 @@ export const CollapsableRows = <T extends RowData>({
         const row = rows[rowIndex] as Row<T>;
         if (grouping.length > 0 && row.depth > 0) return null; // TODO(cc) hide sub rows -- sub-rows are within collapsed content -- UI TBD.
         return (
-          <StyledTableRow
+          <CollapsableTableRow
             key={row.id}
-            data-index={rowIndex}
-            ref={virtualizer.measureElement}
+            isDisabled={isDisabled}
+            isExpanded={row.getIsExpanded()}
             isPreview={row.getIsPreview()}
             isSelected={row.getIsSelected()}
-          >
-            <CollapsableCell
-              isDisabled={isCollapsableRowDisabled(tableInstance)}
-              row={row}
-            />
-          </StyledTableRow>
+            measureElement={virtualizer.measureElement}
+            row={row as Row<RowData>}
+            rowIndex={rowIndex}
+          />
         );
       })}
     </Fragment>
