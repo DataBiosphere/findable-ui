@@ -7,12 +7,17 @@ import { seedDatabase } from "../src/utils/seedDatabase";
 const seed = jest.fn();
 
 /**
- * Builds a minimal entity config for a test with the given static-load file.
+ * Builds a minimal entity config for a test with the given static-load file and
+ * optional entity mapper.
  * @param staticLoadFile - Static-load file path.
+ * @param entityMapper - Optional entity mapper.
  * @returns Entity config.
  */
-const config = (staticLoadFile: string): EntityConfig =>
-  ({ staticLoadFile }) as unknown as EntityConfig;
+const config = (
+  staticLoadFile: string,
+  entityMapper?: (input: unknown) => unknown,
+): EntityConfig =>
+  ({ entityMapper, staticLoadFile }) as unknown as EntityConfig;
 
 // seedDatabase's cache is module-level and keyed by entity type, persisting for
 // the file's lifetime, so each test uses a unique entityListType to stay
@@ -43,6 +48,25 @@ describe("seedDatabase", () => {
     expect(seed).toHaveBeenCalledTimes(5);
   });
 
+  it("applies the config's entityMapper, mapping once per entity across calls", async () => {
+    readFile.mockResolvedValue('{"a":{"id":1},"b":{"id":2}}');
+    const entityMapper = jest.fn((input: unknown) => ({
+      mapped: (input as { id: number }).id,
+    }));
+    const mapped = config("mapped.json", entityMapper);
+    await seedDatabase("mapped", mapped);
+    await seedDatabase("mapped", mapped);
+    // seed receives the mapped output.
+    expect(seed).toHaveBeenLastCalledWith("mapped", [
+      { mapped: 1 },
+      { mapped: 2 },
+    ]);
+    // The mapper receives only the entity, not map's (value, index, array).
+    expect(entityMapper).toHaveBeenNthCalledWith(1, { id: 1 });
+    // Mapping is inside the memoized region: two entities, not two per call.
+    expect(entityMapper).toHaveBeenCalledTimes(2);
+  });
+
   it("reads once per entity type", async () => {
     await seedDatabase("typeA", config("typeA.json"));
     await seedDatabase("typeB", config("typeB.json"));
@@ -60,9 +84,24 @@ describe("seedDatabase", () => {
     expect(seed).toHaveBeenCalledTimes(10);
   });
 
-  it("does not cache a failed read; a later call retries", async () => {
-    readFile.mockRejectedValueOnce(new Error("boom"));
-    await expect(seedDatabase("retry", config("retry.json"))).rejects.toThrow();
+  it("throws when staticLoadFile is missing", async () => {
+    const noFile = {} as unknown as EntityConfig;
+    await expect(seedDatabase("nofile", noFile)).rejects.toThrow(
+      /staticLoadFile not found/,
+    );
+    expect(seed).not.toHaveBeenCalled();
+  });
+
+  it("does not cache a failed read; a later call retries with the error wrapped", async () => {
+    const cause = new Error("boom");
+    readFile.mockRejectedValueOnce(cause);
+    // The failure is wrapped with the file path and preserves the cause.
+    await expect(
+      seedDatabase("retry", config("retry.json")),
+    ).rejects.toMatchObject({
+      cause,
+      message: expect.stringContaining("retry.json"),
+    });
     await seedDatabase("retry", config("retry.json"));
     expect(readFile).toHaveBeenCalledTimes(2);
     expect(seed).toHaveBeenCalledTimes(1);

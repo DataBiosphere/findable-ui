@@ -82,7 +82,17 @@ async function readEntities(
   // or a top-level array of entities (brc-analytics); Object.values handles
   // both. Only reject null/non-object values, which would otherwise throw a
   // raw TypeError or silently seed an empty list.
-  const object: unknown = JSON.parse(jsonText);
+  let object: unknown;
+  try {
+    object = JSON.parse(jsonText);
+  } catch (error) {
+    // Point parse failures (malformed/truncated catalog) at the offending file
+    // and type, preserving the SyntaxError as the cause.
+    throw new Error(
+      `Failed to parse file ${staticLoadFile} for entity type "${entityListType}"`,
+      { cause: error },
+    );
+  }
   if (typeof object !== "object" || object === null) {
     throw new Error(
       `File ${staticLoadFile} for entity type "${entityListType}" is not a JSON object or array`,
@@ -91,9 +101,10 @@ async function readEntities(
 
   // Client-side fetched entities are mapped prior to dispatch to explore state.
   // Object.values on the guarded `object` type infers any[], so annotate the
-  // result to keep the entities typed as unknown[] end-to-end.
+  // result to keep the entities typed as unknown[] end-to-end. Wrap the mapper
+  // so it only ever receives the entity, not map's (value, index, array).
   const values: unknown[] = Object.values(object);
-  return entityMapper ? values.map(entityMapper) : values;
+  return entityMapper ? values.map((value) => entityMapper(value)) : values;
 }
 
 /**
@@ -101,7 +112,7 @@ async function readEntities(
  * and map are memoized per type (see loadEntities) so they happen once during a
  * static export, but the seed write runs on every call so the seeded shape is
  * always correct even when other build-time code seeds the same type with a
- * different shape.
+ * different shape. Server-only: call from build-time code (e.g. getStaticProps).
  * @param entityListType - Entity list type.
  * @param entityConfig - Entity config.
  * @returns Promise that resolves once the database has been seeded.
