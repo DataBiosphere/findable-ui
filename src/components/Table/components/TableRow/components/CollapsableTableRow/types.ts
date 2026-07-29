@@ -13,4 +13,12 @@ export interface CollapsableTableRowProps<T extends RowData> {
   measureElement: (element: Element | null) => void;
   row: Row<T>;
   rowIndex: number;
+  // A grouped card renders its sub-rows' checkboxes, but the parent's own
+  // `isSelected` only flips when every sub-row is selected, and boolean
+  // aggregates (`getIsSomeSelected` / `getIsAllSubRowsSelected`) can't tell 1
+  // selected from 2. This per-sub-row selection signature changes on every
+  // sub-row toggle, so it's a memo key that re-renders the card (compared but
+  // read off `row` inside `CollapsableCell`, so not destructured). Empty for
+  // non-grouped rows, whose own checkbox is covered by `isSelected`.
+  subRowSelection: string;
 }

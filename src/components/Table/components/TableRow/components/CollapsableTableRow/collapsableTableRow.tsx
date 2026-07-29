@@ -12,10 +12,15 @@ import { CollapsableTableRowProps } from "./types";
  *
  * Per-row state is passed as props so memo's shallow compare can detect
  * changes. `isPreview` / `isSelected` style the row and `isDisabled` gates the
- * expand toggle — all used directly here. `isExpanded` (collapse state) and
+ * expand toggle — all used directly here. `isExpanded` (collapse state),
  * `cells` (`row.getVisibleCells()`, whose identity changes only when column
- * visibility does) are compared as memo keys but re-derived from `row` inside
- * `CollapsableCell`, so they aren't destructured here.
+ * visibility does) and `subRowSelection` (the grouped card's per-sub-row
+ * selection signature) are compared as memo keys but re-derived from `row`
+ * inside `CollapsableCell`, so they aren't destructured here. `subRowSelection`
+ * matters because a group card renders its sub-rows' checkboxes, yet the
+ * parent's own `isSelected` only flips when every sub-row is selected — without
+ * it, selecting a second sub-row (or deselecting one of two) changes no
+ * compared prop and the checkbox goes stale.
  *
  * `memo` erases the generic type parameter, so the export is cast back to a
  * generic function type to preserve `Row<T>` inference at the call site.
