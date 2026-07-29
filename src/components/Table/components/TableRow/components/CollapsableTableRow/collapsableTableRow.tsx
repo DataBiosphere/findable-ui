@@ -10,9 +10,12 @@ import { CollapsableTableRowProps } from "./types";
  * card; memoizing the row limits re-renders to the rows whose own state
  * changed.
  *
- * Dynamic state is passed as props so memo's shallow compare can detect it —
- * `isExpanded` drives the collapse (read by `CollapsableCell` off `row`, so it
- * needs no destructuring here), plus `isSelected` / `isPreview` / `isDisabled`.
+ * Per-row state is passed as props so memo's shallow compare can detect
+ * changes. `isPreview` / `isSelected` style the row and `isDisabled` gates the
+ * expand toggle — all used directly here. `isExpanded` (collapse state) and
+ * `cells` (`row.getVisibleCells()`, whose identity changes only when column
+ * visibility does) are compared as memo keys but re-derived from `row` inside
+ * `CollapsableCell`, so they aren't destructured here.
  *
  * `memo` erases the generic type parameter, so the export is cast back to a
  * generic function type to preserve `Row<T>` inference at the call site.

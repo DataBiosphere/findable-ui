@@ -30,6 +30,7 @@ export const CollapsableRows = <T extends RowData>({
         return (
           <CollapsableTableRow
             key={row.id}
+            cells={row.getVisibleCells()}
             isDisabled={isDisabled}
             isExpanded={row.getIsExpanded()}
             isPreview={row.getIsPreview()}

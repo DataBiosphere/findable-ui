@@ -18,7 +18,10 @@ import { VirtualizedTableRowProps } from "./types";
  * The per-row state is passed as props so memo's shallow compare can detect
  * changes — leaf selection via `isSelected`, grouped select-all / indeterminate
  * via `isSomeSelected` / `isAllSubRowsSelected` (compared but read by the cells
- * off `row`, so they need no destructuring here).
+ * off `row`, so they need no destructuring here). `cells` is
+ * `row.getVisibleCells()` passed from the parent so column-visibility toggles
+ * are detected too — those change the cell set without changing `row` or any
+ * of the state booleans.
  *
  * `memo` erases the generic type parameter, so the export is cast back to a
  * generic function type to preserve `Row<T>` inference at the call site.
@@ -28,6 +31,7 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow<
 >({
   canExpand,
   canSelect,
+  cells,
   isExpanded,
   isGrouped,
   isPreview,
@@ -48,7 +52,7 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow<
       onClick={() => handleToggleExpanded(row)}
       ref={measureElement}
     >
-      {row.getVisibleCells().map((cell, i) => {
+      {cells.map((cell, i) => {
         if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
         if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
         return (

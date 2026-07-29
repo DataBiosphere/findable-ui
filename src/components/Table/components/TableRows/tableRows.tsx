@@ -23,6 +23,7 @@ export const TableRows = <T extends RowData>({
             key={row.id}
             canExpand={row.getCanExpand()}
             canSelect={row.getCanSelect()}
+            cells={row.getVisibleCells()}
             isAllSubRowsSelected={row.getIsAllSubRowsSelected()}
             isExpanded={row.getIsExpanded()}
             isGrouped={row.getIsGrouped()}
