@@ -20,5 +20,5 @@ export interface CollapsableTableRowProps<T extends RowData> {
   // sub-row toggle, so it's a memo key that re-renders the card (compared but
   // read off `row` inside `CollapsableCell`, so not destructured). Empty for
   // non-grouped rows, whose own checkbox is covered by `isSelected`.
-  subRowSelection: string;
+  subRowSelectionSignature: string;
 }

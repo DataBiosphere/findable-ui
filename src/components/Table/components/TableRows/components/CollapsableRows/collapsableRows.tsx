@@ -39,7 +39,7 @@ export const CollapsableRows = <T extends RowData>({
             measureElement={virtualizer.measureElement}
             row={row}
             rowIndex={rowIndex}
-            subRowSelection={getSubRowSelectionSignature(row)}
+            subRowSelectionSignature={getSubRowSelectionSignature(row)}
           />
         );
       })}

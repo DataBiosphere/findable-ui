@@ -14,9 +14,9 @@ import { CollapsableTableRowProps } from "./types";
  * changes. `isPreview` / `isSelected` style the row and `isDisabled` gates the
  * expand toggle — all used directly here. `isExpanded` (collapse state),
  * `cells` (`row.getVisibleCells()`, whose identity changes only when column
- * visibility does) and `subRowSelection` (the grouped card's per-sub-row
+ * visibility does) and `subRowSelectionSignature` (the grouped card's per-sub-row
  * selection signature) are compared as memo keys but re-derived from `row`
- * inside `CollapsableCell`, so they aren't destructured here. `subRowSelection`
+ * inside `CollapsableCell`, so they aren't destructured here. `subRowSelectionSignature`
  * matters because a group card renders its sub-rows' checkboxes, yet the
  * parent's own `isSelected` only flips when every sub-row is selected — without
  * it, selecting a second sub-row (or deselecting one of two) changes no
