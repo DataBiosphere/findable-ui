@@ -4,6 +4,7 @@ import { Fragment, JSX } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
 import { CollapsableTableRow } from "../../../TableRow/components/CollapsableTableRow/collapsableTableRow";
 import { useCollapsableRows } from "./hook";
+import { getSubRowSelectionSignature } from "./utils";
 
 export interface CollapsableRowsProps<T extends RowData> {
   rows: Row<T>[];
@@ -38,6 +39,7 @@ export const CollapsableRows = <T extends RowData>({
             measureElement={virtualizer.measureElement}
             row={row}
             rowIndex={rowIndex}
+            subRowSelectionSignature={getSubRowSelectionSignature(row)}
           />
         );
       })}
