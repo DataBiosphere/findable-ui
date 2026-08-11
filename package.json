@@ -25,6 +25,7 @@
   "sideEffects": false,
   "files": [
     "lib",
+    "static/**/*.css",
     "types"
   ],
   "exports": {
