@@ -13,10 +13,11 @@ import { clearInput, getSearchTerm } from "./utils";
 /**
  * Renders the header search form.
  * The input is uncontrolled; the search term is read from the form on submit.
+ * Remaining props are spread onto the form element, which is how the handlers
+ * `ClickAwayListener` injects reach it.
  * @param props - Component props.
  * @param props.onSubmit - Submits the search term.
  * @param props.ref - Forwarded to the form element.
- * @param props.props - Remaining form attributes, including the handlers `ClickAwayListener` injects.
  * @returns The header search form.
  */
 export default function Form({
