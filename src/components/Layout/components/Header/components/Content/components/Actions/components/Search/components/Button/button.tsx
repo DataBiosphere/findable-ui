@@ -5,6 +5,7 @@ import { ICON_BUTTON_PROPS } from "../../../../../../../../../../../../styles/co
 import { SVG_ICON_PROPS } from "../../../../../../../../../../../../styles/common/mui/svgIcon";
 import { SearchIcon } from "../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { StyledButton } from "./button.styles";
+import { ARIA_LABEL } from "./constants";
 import { ButtonProps } from "./types";
 
 /**
@@ -32,6 +33,7 @@ export const Button = ({
   return isMenuIn ? (
     <IconButton
       {...ariaProps}
+      aria-label={ARIA_LABEL.SEARCH}
       color={ICON_BUTTON_PROPS.COLOR.INK}
       onClick={onClick}
       ref={ref}
