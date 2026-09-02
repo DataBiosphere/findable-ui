@@ -9,15 +9,18 @@ import { UseCloseOnEscapeProps } from "./types";
  *
  * Listens on the document in the capture phase and stops propagation, which
  * shields handlers bound below the document — e.g. a MUI `Modal`'s own Escape
- * handling — so the key does not also close an ancestor surface. Note this
- * swallows Escape app-wide while `open` is true, and does not prevent other
- * listeners bound to the document itself from running: two open consumers of
- * this hook will both close on a single Escape.
+ * handling — so the key does not also close an ancestor surface. A surface that
+ * does not trap focus should pass `containerRef`: Escape then belongs to
+ * whatever the user is actually focused in, and is neither acted on nor
+ * swallowed while focus sits elsewhere. Without it, Escape is swallowed
+ * app-wide while `open` is true.
  * @param props - Hook props.
+ * @param props.containerRef - Limits Escape to when focus is inside this element.
  * @param props.onClose - Function to call when the Escape key is pressed.
  * @param props.open - Whether the surface is open.
  */
 export const useCloseOnEscape = ({
+  containerRef,
   onClose,
   open,
 }: UseCloseOnEscapeProps): void => {
@@ -27,15 +30,23 @@ export const useCloseOnEscape = ({
     if (!open) return;
 
     const onKeyDown = (e: KeyboardEvent): void => {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onEscape();
-      }
+      if (e.key !== "Escape") return;
+
+      // Firefox and Safari report Escape with `isComposing` while an IME segment
+      // is uncommitted, where the key cancels that segment rather than the
+      // surface. MUI's Modal guards the same case via `which === 229`.
+      if (e.isComposing || e.keyCode === 229) return;
+
+      const container = containerRef?.current;
+      if (container && !container.contains(document.activeElement)) return;
+
+      e.stopPropagation();
+      onEscape();
     };
 
     document.addEventListener("keydown", onKeyDown, true);
     return (): void => {
       document.removeEventListener("keydown", onKeyDown, true);
     };
-  }, [open]);
+  }, [containerRef, open]);
 };

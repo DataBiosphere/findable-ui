@@ -8,32 +8,24 @@ import { SearchIcon } from "../../../../../../../../../../../../../common/Custom
 import { ARIA_LABEL, INPUT_PROPS } from "./constants";
 import { StyledForm } from "./form.styles";
 import type { FormProps } from "./types";
-import { clearInput, getSearchTerm } from "./utils";
+import { clearInput } from "./utils";
 
 /**
  * Renders the header search form.
- * The input is uncontrolled; the search term is read from the form on submit.
- * Remaining props are spread onto the form element, which is how the handlers
- * `ClickAwayListener` injects reach it.
+ * The input is uncontrolled, so both clearing and submitting read the element
+ * through the same ref rather than going through form state.
  * @param props - Component props.
  * @param props.onSubmit - Submits the search term.
- * @param props.ref - Forwarded to the form element.
  * @returns The header search form.
  */
-export default function Form({
-  onSubmit,
-  ref,
-  ...props
-}: FormProps): JSX.Element {
+export default function Form({ onSubmit }: FormProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <StyledForm
-      {...props}
       onSubmit={(e: FormEvent<HTMLFormElement>) =>
-        onSubmit(e, getSearchTerm(e))
+        onSubmit(e, inputRef.current?.value.trim() ?? "")
       }
-      ref={ref}
       role="search"
     >
       <SearchIcon fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL} />

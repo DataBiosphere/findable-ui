@@ -5,10 +5,6 @@ export const ARIA_LABEL = {
   SEARCH_TERM: "Search",
 } as const;
 
-export const FIELD_NAME = {
-  SEARCH_TERM: "search-term",
-} as const;
-
 export const INPUT_PROPS: InputProps = {
   autoComplete: "off",
   autoFocus: true,
@@ -17,6 +13,5 @@ export const INPUT_PROPS: InputProps = {
   // MUI spreads root-level props onto the wrapper, so the accessible name has
   // to be routed to the input element itself.
   inputProps: { "aria-label": ARIA_LABEL.SEARCH_TERM },
-  name: FIELD_NAME.SEARCH_TERM,
   placeholder: "Type in keywords...",
 };

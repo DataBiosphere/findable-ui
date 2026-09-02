@@ -1,9 +1,5 @@
-import { JSX, useCallback, useId, useRef } from "react";
-import { useCloseOnEscape } from "../../../../../../../../../../hooks/UseCloseOnEscape/hook";
-import { Button } from "./components/Button/button";
-import SearchBar from "./components/SearchBar/searchBar";
-import { useSearch } from "./hooks/UseSearch/hook";
-import { useSubmit } from "./hooks/UseSubmit/hook";
+import { JSX } from "react";
+import { Disclosure } from "./components/Disclosure/disclosure";
 
 export interface SearchProps {
   closeMenu: () => void;
@@ -13,47 +9,32 @@ export interface SearchProps {
   searchURL?: string;
 }
 
+/**
+ * Renders the header search, when enabled.
+ * The guard sits here rather than inside the disclosure so that none of its
+ * hooks run for consumers that never enable search — notably the
+ * `useSearchParams` subscription in `useSubmit`, which would otherwise
+ * re-render both Search instances on every URL change.
+ * @param props - Component props.
+ * @param props.closeMenu - Closes the header menu.
+ * @param props.isMenuIn - Renders the icon button variant.
+ * @param props.searchEnabled - Whether search is enabled.
+ * @param props.searchURL - Configured search path.
+ * @returns The header search, or null when search is disabled.
+ */
 export const Search = ({
   closeMenu,
   isMenuIn,
   searchEnabled,
   searchURL,
 }: SearchProps): JSX.Element | null => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  // Two Search instances are live at the smDown breakpoint — one in the header
-  // actions, one in the menu toolbar — so the bar's id has to be per instance
-  // rather than a shared constant.
-  const searchBarId = useId();
-  const { onClose, onToggle, open } = useSearch();
-  const { onSubmit } = useSubmit({ closeMenu, onClose, searchURL });
-
-  // Escape is a keyboard dismissal, so focus returns to the button; otherwise
-  // it would fall to the body when the bar unmounts. Click-away deliberately
-  // does not restore focus, leaving it wherever the user clicked.
-  const onCloseWithFocus = useCallback((): void => {
-    onClose();
-    buttonRef.current?.focus();
-  }, [onClose]);
-
-  useCloseOnEscape({ onClose: onCloseWithFocus, open });
-
   if (!searchEnabled) return null;
 
   return (
-    <>
-      <Button
-        isMenuIn={isMenuIn}
-        onClick={onToggle}
-        open={open}
-        ref={buttonRef}
-        searchBarId={searchBarId}
-      />
-      <SearchBar
-        id={searchBarId}
-        onClose={onClose}
-        onSubmit={onSubmit}
-        open={open}
-      />
-    </>
+    <Disclosure
+      closeMenu={closeMenu}
+      isMenuIn={isMenuIn}
+      searchURL={searchURL}
+    />
   );
 };

@@ -29,10 +29,22 @@ export const useSubmit = ({
 
       if (!searchTerm || !searchURL) return;
 
+      // Classified before closing: the close unmounts the uncontrolled form, so
+      // bailing out afterwards would discard the term with nothing to show for it.
+      const clientSide = isClientSideNavigation(searchURL);
+
+      if (!clientSide && !isValidUrl(searchURL)) {
+        // A misconfigured searchURL is a build-time mistake, but throwing here
+        // would escape the submit handler to the nearest error boundary and take
+        // the page down. Report it and leave the user where they are.
+        console.error(`Invalid search URL: ${searchURL}.`);
+        return;
+      }
+
       closeMenu();
       onClose();
 
-      if (isClientSideNavigation(searchURL)) {
+      if (clientSide) {
         Router.push({
           pathname: searchURL,
           search: getSearchParams(searchParams, searchTerm).toString(),
@@ -40,18 +52,10 @@ export const useSubmit = ({
         return;
       }
 
-      if (isValidUrl(searchURL)) {
-        // Build search URL and redirect to it.
-        const location = new URL(searchURL);
-        location.search = getSearchParams(searchParams, searchTerm).toString();
-        window.location.href = location.href;
-        return;
-      }
-
-      // A misconfigured searchURL is a build-time mistake, but throwing here
-      // would escape the submit handler to the nearest error boundary and take
-      // the page down. Report it and leave the user where they are.
-      console.error(`Invalid search URL: ${searchURL}.`);
+      // Build search URL and redirect to it.
+      const location = new URL(searchURL);
+      location.search = getSearchParams(searchParams, searchTerm).toString();
+      window.location.href = location.href;
     },
     [closeMenu, onClose, searchParams, searchURL],
   );

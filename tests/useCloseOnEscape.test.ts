@@ -22,6 +22,20 @@ function countKeydown(
   return spy.mock.calls.filter(([type]) => type === "keydown").length;
 }
 
+/**
+ * Dispatches an Escape keydown flagged as part of an IME composition.
+ * @param target - Element to dispatch from; defaults to the document.
+ */
+function pressComposingEscape(target: EventTarget = document): void {
+  target.dispatchEvent(
+    new KeyboardEvent("keydown", {
+      bubbles: true,
+      isComposing: true,
+      key: "Escape",
+    }),
+  );
+}
+
 describe("useCloseOnEscape", () => {
   afterEach(() => {
     jest.restoreAllMocks();
@@ -127,6 +141,70 @@ describe("useCloseOnEscape", () => {
       expect(onTargetKeyDown).not.toHaveBeenCalled();
     } finally {
       input.remove();
+    }
+  });
+
+  it("ignores Escape dispatched during an IME composition", () => {
+    const onClose = jest.fn();
+    renderHook(() => useCloseOnEscape({ onClose, open: true }));
+
+    pressComposingEscape();
+
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("closes when containerRef contains the focused element", () => {
+    const onClose = jest.fn();
+    const container = document.createElement("div");
+    const input = document.createElement("input");
+    container.appendChild(input);
+    document.body.appendChild(container);
+    input.focus();
+
+    try {
+      renderHook(() =>
+        useCloseOnEscape({
+          containerRef: { current: container },
+          onClose,
+          open: true,
+        }),
+      );
+
+      pressKey("Escape", input);
+
+      expect(onClose).toHaveBeenCalledTimes(1);
+    } finally {
+      container.remove();
+    }
+  });
+
+  it("leaves Escape alone when focus is outside containerRef", () => {
+    // The surface does not trap focus, so Escape belongs to whatever the user is
+    // actually in — it must be neither acted on nor swallowed.
+    const onClose = jest.fn();
+    const onOutsideKeyDown = jest.fn();
+    const container = document.createElement("div");
+    const outside = document.createElement("input");
+    document.body.append(container, outside);
+    outside.focus();
+    outside.addEventListener("keydown", onOutsideKeyDown);
+
+    try {
+      renderHook(() =>
+        useCloseOnEscape({
+          containerRef: { current: container },
+          onClose,
+          open: true,
+        }),
+      );
+
+      pressKey("Escape", outside);
+
+      expect(onClose).not.toHaveBeenCalled();
+      expect(onOutsideKeyDown).toHaveBeenCalledTimes(1);
+    } finally {
+      container.remove();
+      outside.remove();
     }
   });
 });

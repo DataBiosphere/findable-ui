@@ -13,4 +13,8 @@ export const StyledPaper = styled(Paper)`
   position: absolute;
   top: 100%;
   width: 100%;
+  /* The menu's toolbar sits in a statically positioned AppBar, so it forms no
+     stacking context and painting falls back to tree order — the nav buttons
+     come later in the DOM and would cover the bar. */
+  z-index: 1;
 `;
