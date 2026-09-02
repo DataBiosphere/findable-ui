@@ -12,8 +12,8 @@ import { UseCloseOnEscapeProps } from "./types";
  * handling — so the key does not also close an ancestor surface. A surface that
  * does not trap focus should pass `containerRef`: Escape then belongs to
  * whatever the user is actually focused in, and is neither acted on nor
- * swallowed while focus sits elsewhere. Without it, Escape is swallowed
- * app-wide while `open` is true.
+ * swallowed while focus sits elsewhere — including before the ref resolves.
+ * Without it, Escape is swallowed app-wide while `open` is true.
  * @param props - Hook props.
  * @param props.containerRef - Limits Escape to when focus is inside this element.
  * @param props.onClose - Function to call when the Escape key is pressed.
@@ -37,8 +37,14 @@ export const useCloseOnEscape = ({
       // surface. MUI's Modal guards the same case via `which === 229`.
       if (e.isComposing || e.keyCode === 229) return;
 
-      const container = containerRef?.current;
-      if (container && !container.contains(document.activeElement)) return;
+      // An unresolved ref is treated as out of scope, not as absent: falling
+      // through here would swallow Escape app-wide, which is what containerRef
+      // exists to prevent.
+      if (
+        containerRef &&
+        !containerRef.current?.contains(document.activeElement)
+      )
+        return;
 
       e.stopPropagation();
       onEscape();

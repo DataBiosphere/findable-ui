@@ -1,4 +1,4 @@
-import { Ref } from "react";
+import type { Ref } from "react";
 
 export interface ButtonProps {
   /** Renders the icon button variant, used once the header collapses to a menu. */

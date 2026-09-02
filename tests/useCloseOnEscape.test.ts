@@ -207,4 +207,32 @@ describe("useCloseOnEscape", () => {
       outside.remove();
     }
   });
+
+  it("leaves Escape alone when containerRef is given but not yet attached", () => {
+    // An unresolved ref must read as out of scope, not as absent — otherwise the
+    // hook falls back to swallowing Escape app-wide.
+    const onClose = jest.fn();
+    const onOutsideKeyDown = jest.fn();
+    const outside = document.createElement("input");
+    document.body.appendChild(outside);
+    outside.focus();
+    outside.addEventListener("keydown", onOutsideKeyDown);
+
+    try {
+      renderHook(() =>
+        useCloseOnEscape({
+          containerRef: { current: null },
+          onClose,
+          open: true,
+        }),
+      );
+
+      pressKey("Escape", outside);
+
+      expect(onClose).not.toHaveBeenCalled();
+      expect(onOutsideKeyDown).toHaveBeenCalledTimes(1);
+    } finally {
+      outside.remove();
+    }
+  });
 });

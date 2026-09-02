@@ -1,4 +1,4 @@
-import { ReadonlyURLSearchParams } from "next/navigation";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 import { SEARCH_PARAMETERS } from "../../components/SearchBar/common/constants";
 
 /**

@@ -3,7 +3,7 @@ import Router from "next/router";
 import { FormEvent, useCallback } from "react";
 import { isValidUrl } from "../../../../../../../../../../../../common/utils";
 import { isClientSideNavigation } from "../../../../../../../../../../../Links/common/utils";
-import { UseSubmitProps, UseSubmitReturn } from "./types";
+import type { UseSubmitProps, UseSubmitReturn } from "./types";
 import { getSearchParams } from "./utils";
 
 /**

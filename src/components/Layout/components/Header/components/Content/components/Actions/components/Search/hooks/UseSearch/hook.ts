@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { UseSearchReturn } from "./types";
+import type { UseSearchReturn } from "./types";
 
 /**
  * Open/closed state for the header search bar.

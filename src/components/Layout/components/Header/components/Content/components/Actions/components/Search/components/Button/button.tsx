@@ -6,7 +6,7 @@ import { SVG_ICON_PROPS } from "../../../../../../../../../../../../styles/commo
 import { SearchIcon } from "../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { StyledButton } from "./button.styles";
 import { ARIA_LABEL } from "./constants";
-import { ButtonProps } from "./types";
+import type { ButtonProps } from "./types";
 
 /**
  * Renders the button that opens the search bar, as either the icon or the

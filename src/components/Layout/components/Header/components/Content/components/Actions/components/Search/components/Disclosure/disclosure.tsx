@@ -6,7 +6,7 @@ import { useSubmit } from "../../hooks/UseSubmit/hook";
 import { Button } from "../Button/button";
 import SearchBar from "../SearchBar/searchBar";
 import { StyledContainer } from "./disclosure.styles";
-import { DisclosureProps } from "./types";
+import type { DisclosureProps } from "./types";
 
 /**
  * Renders the search trigger and the bar it controls as a single disclosure.
