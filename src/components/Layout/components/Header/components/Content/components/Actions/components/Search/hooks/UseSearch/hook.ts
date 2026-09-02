@@ -12,7 +12,10 @@ export const useSearch = (): UseSearchReturn => {
 
   const onClose = useCallback((): void => setOpen(false), []);
 
-  const onOpen = useCallback((): void => setOpen(true), []);
+  // The trigger is a disclosure button, so it toggles rather than only opening.
+  // Closing here is deliberately idempotent with the click-away that follows the
+  // same click, rather than relying on the two firing in a particular order.
+  const onToggle = useCallback((): void => setOpen((open) => !open), []);
 
-  return { onClose, onOpen, open };
+  return { onClose, onToggle, open };
 };

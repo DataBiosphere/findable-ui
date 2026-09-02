@@ -48,7 +48,10 @@ export const useSubmit = ({
         return;
       }
 
-      throw new Error("Invalid search URL.");
+      // A misconfigured searchURL is a build-time mistake, but throwing here
+      // would escape the submit handler to the nearest error boundary and take
+      // the page down. Report it and leave the user where they are.
+      console.error(`Invalid search URL: ${searchURL}.`);
     },
     [closeMenu, onClose, searchParams, searchURL],
   );

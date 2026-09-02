@@ -132,8 +132,8 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
               <Actions>
                 {/* Search */}
                 <Search
-                  isMenuIn={isIn.isMenuIn}
                   closeMenu={onClose}
+                  isMenuIn={isIn.isMenuIn}
                   searchEnabled={searchEnabled}
                   searchURL={searchURL}
                 />

@@ -5,7 +5,7 @@ import { ICON_BUTTON_PROPS } from "../../../../../../../../../../../../../../sty
 import { SVG_ICON_PROPS } from "../../../../../../../../../../../../../../styles/common/mui/svgIcon";
 import { BUTTON_PROPS } from "../../../../../../../../../../../../../common/Button/constants";
 import { SearchIcon } from "../../../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
-import { INPUT_PROPS } from "./constants";
+import { ARIA_LABEL, INPUT_PROPS } from "./constants";
 import { StyledForm } from "./form.styles";
 import type { FormProps } from "./types";
 import { clearInput, getSearchTerm } from "./utils";
@@ -40,6 +40,7 @@ export default function Form({
         {...INPUT_PROPS}
         endAdornment={
           <IconButton
+            aria-label={ARIA_LABEL.CLEAR}
             edge={ICON_BUTTON_PROPS.EDGE.END}
             onClick={() => clearInput(inputRef.current)}
             size={ICON_BUTTON_PROPS.SIZE.SMALL}

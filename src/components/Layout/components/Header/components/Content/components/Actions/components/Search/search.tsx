@@ -1,4 +1,4 @@
-import { JSX, useCallback, useRef } from "react";
+import { JSX, useCallback, useId, useRef } from "react";
 import { useCloseOnEscape } from "../../../../../../../../../../hooks/UseCloseOnEscape/hook";
 import { Button } from "./components/Button/button";
 import SearchBar from "./components/SearchBar/searchBar";
@@ -20,7 +20,11 @@ export const Search = ({
   searchURL,
 }: SearchProps): JSX.Element | null => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const { onClose, onOpen, open } = useSearch();
+  // Two Search instances are live at the smDown breakpoint — one in the header
+  // actions, one in the menu toolbar — so the bar's id has to be per instance
+  // rather than a shared constant.
+  const searchBarId = useId();
+  const { onClose, onToggle, open } = useSearch();
   const { onSubmit } = useSubmit({ closeMenu, onClose, searchURL });
 
   // Escape is a keyboard dismissal, so focus returns to the button; otherwise
@@ -39,11 +43,17 @@ export const Search = ({
     <>
       <Button
         isMenuIn={isMenuIn}
-        onClick={onOpen}
+        onClick={onToggle}
         open={open}
         ref={buttonRef}
+        searchBarId={searchBarId}
       />
-      <SearchBar onClose={onClose} onSubmit={onSubmit} open={open} />
+      <SearchBar
+        id={searchBarId}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        open={open}
+      />
     </>
   );
 };

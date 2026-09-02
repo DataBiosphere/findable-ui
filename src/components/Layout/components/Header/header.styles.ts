@@ -18,15 +18,15 @@ export const AppBar = styled(MAppBar)`
 
   .MuiToolbar-root {
     display: grid;
-    /* Containing block for the search bar, which hangs below the toolbar at
-       top: 100%. MUI's Toolbar sets this in its own base styles; declaring it
-       here means the anchor does not depend on that implementation detail. */
-    position: relative;
     gap: 16px;
     grid-template-areas: "left center right";
     grid-template-columns: 1fr auto 1fr;
     height: ${HEADER_HEIGHT}px;
     min-height: unset;
+    /* Containing block for the search bar, which hangs below the toolbar at
+       top: 100%. MUI's Toolbar sets this in its own base styles; declaring it
+       here means the anchor does not depend on that implementation detail. */
+    position: relative;
   }
 ` as typeof MAppBar;
 

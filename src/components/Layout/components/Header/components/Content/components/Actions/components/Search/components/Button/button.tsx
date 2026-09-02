@@ -1,6 +1,5 @@
 import { IconButton } from "@mui/material";
 import { JSX } from "react";
-import { SELECTOR } from "../../../../../../../../../../../../common/selectors";
 import { BUTTON_PROPS } from "../../../../../../../../../../../../styles/common/mui/button";
 import { ICON_BUTTON_PROPS } from "../../../../../../../../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../../../../../../../../styles/common/mui/svgIcon";
@@ -13,9 +12,10 @@ import { ButtonProps } from "./types";
  * labelled variant.
  * @param props - Component props.
  * @param props.isMenuIn - Renders the icon button variant.
- * @param props.onClick - Opens the search bar.
+ * @param props.onClick - Toggles the search bar.
  * @param props.open - Whether the search bar is open.
  * @param props.ref - Forwarded to the button element, so focus can be restored to it.
+ * @param props.searchBarId - Id of the search bar this button controls.
  * @returns The search button.
  */
 export const Button = ({
@@ -23,9 +23,10 @@ export const Button = ({
   onClick,
   open,
   ref,
+  searchBarId,
 }: ButtonProps): JSX.Element => {
   const ariaProps = {
-    "aria-controls": open ? SELECTOR.SEARCH_BAR : undefined,
+    "aria-controls": open ? searchBarId : undefined,
     "aria-expanded": open,
   };
   return isMenuIn ? (

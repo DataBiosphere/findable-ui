@@ -1,5 +1,5 @@
 export interface UseSearchReturn {
   onClose: () => void;
-  onOpen: () => void;
+  onToggle: () => void;
   open: boolean;
 }

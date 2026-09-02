@@ -120,11 +120,13 @@ describe("useCloseOnEscape", () => {
     input.addEventListener("keydown", onTargetKeyDown);
     renderHook(() => useCloseOnEscape({ onClose, open: true }));
 
-    pressKey("Escape", input);
+    try {
+      pressKey("Escape", input);
 
-    expect(onClose).toHaveBeenCalledTimes(1);
-    expect(onTargetKeyDown).not.toHaveBeenCalled();
-
-    input.remove();
+      expect(onClose).toHaveBeenCalledTimes(1);
+      expect(onTargetKeyDown).not.toHaveBeenCalled();
+    } finally {
+      input.remove();
+    }
   });
 });
