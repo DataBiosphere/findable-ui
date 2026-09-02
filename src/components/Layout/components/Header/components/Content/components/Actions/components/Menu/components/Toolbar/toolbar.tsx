@@ -9,10 +9,7 @@ import {
   Authentication,
   renderIconButton as renderAuthenticationIconButton,
 } from "../../../Authentication/authentication";
-import {
-  renderIconButton as renderSearchIconButton,
-  Search,
-} from "../../../Search/search";
+import { Search } from "../../../Search/search";
 
 export interface DialogTitleProps {
   actions?: ReactNode;
@@ -42,8 +39,8 @@ export const Toolbar = ({
           <Actions>
             {/* Search */}
             <Search
-              Button={renderSearchIconButton}
               closeMenu={onClose}
+              isMenuIn
               searchEnabled={searchEnabled}
               searchURL={searchURL}
             />

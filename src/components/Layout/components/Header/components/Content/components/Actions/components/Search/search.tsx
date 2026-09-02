@@ -1,65 +1,49 @@
-import {
-  ButtonProps as MButtonProps,
-  IconButton as MIconButton,
-  IconButtonProps as MIconButtonProps,
-} from "@mui/material";
-import { ElementType, JSX, useState } from "react";
-import { SearchIcon } from "../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
-import { StyledButton } from "./components/Button/button.styles";
+import { JSX, useCallback, useRef } from "react";
+import { useCloseOnEscape } from "../../../../../../../../../../hooks/UseCloseOnEscape/hook";
+import { Button } from "./components/Button/button";
 import SearchBar from "./components/SearchBar/searchBar";
+import { useSearch } from "./hooks/UseSearch/hook";
+import { useSubmit } from "./hooks/UseSubmit/hook";
 
 export interface SearchProps {
-  Button: ElementType<MButtonProps> | ElementType<MIconButtonProps>;
   closeMenu: () => void;
+  /** Renders the icon button variant, used once the header collapses to a menu. */
+  isMenuIn?: boolean;
   searchEnabled?: boolean;
   searchURL?: string;
 }
 
 export const Search = ({
-  Button,
   closeMenu,
+  isMenuIn,
   searchEnabled,
   searchURL,
 }: SearchProps): JSX.Element | null => {
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const { onClose, onOpen, open } = useSearch();
+  const { onSubmit } = useSubmit({ closeMenu, onClose, searchURL });
+
+  // Escape is a keyboard dismissal, so focus returns to the button; otherwise
+  // it would fall to the body when the bar unmounts. Click-away deliberately
+  // does not restore focus, leaving it wherever the user clicked.
+  const onCloseWithFocus = useCallback((): void => {
+    onClose();
+    buttonRef.current?.focus();
+  }, [onClose]);
+
+  useCloseOnEscape({ onClose: onCloseWithFocus, open });
 
   if (!searchEnabled) return null;
 
   return (
     <>
-      <Button onClick={(): void => setSearchOpen(true)} />
-      <SearchBar
-        closeMenu={closeMenu}
-        closeSearch={(): void => setSearchOpen(false)}
-        searchOpen={searchOpen}
-        searchURL={searchURL}
+      <Button
+        isMenuIn={isMenuIn}
+        onClick={onOpen}
+        open={open}
+        ref={buttonRef}
       />
+      <SearchBar onClose={onClose} onSubmit={onSubmit} open={open} />
     </>
   );
 };
-
-/**
- * Renders search button.
- * @param props - Button props.
- * @returns button.
- */
-export function renderButton(props: MButtonProps): JSX.Element {
-  return (
-    <StyledButton startIcon={<SearchIcon />} variant="nav" {...props}>
-      Search
-    </StyledButton>
-  );
-}
-
-/**
- * Renders search icon button.
- * @param props - Button props.
- * @returns icon button.
- */
-export function renderIconButton(props: MIconButtonProps): JSX.Element {
-  return (
-    <MIconButton color="ink" {...props}>
-      <SearchIcon fontSize="medium" />
-    </MIconButton>
-  );
-}

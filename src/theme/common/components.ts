@@ -1028,24 +1028,6 @@ const MuiPaper: Components["MuiPaper"] = {
         boxShadow: SHADOWS["01"],
       },
     },
-    {
-      props: { variant: "searchbar" },
-      style: {
-        alignSelf: FLEX_START,
-        borderColor: PALETTE.SMOKE_MAIN,
-        borderRadius: 0,
-        borderStyle: "solid",
-        borderWidth: "0 0 1px 0",
-        boxShadow: SHADOWS["01"],
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&.MuiDialog-paper": {
-          marginLeft: 0,
-          marginRight: 0,
-          maxWidth: "100%",
-          width: "100%",
-        },
-      },
-    },
   ],
 };
 

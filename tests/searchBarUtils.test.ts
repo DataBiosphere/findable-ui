@@ -1,6 +1,6 @@
 import type { ReadonlyURLSearchParams } from "next/navigation";
 import { SEARCH_PARAMETERS } from "../src/components/Layout/components/Header/components/Content/components/Actions/components/Search/components/SearchBar/common/constants";
-import { getSearchParams } from "../src/components/Layout/components/Header/components/Content/components/Actions/components/Search/components/SearchBar/common/utils";
+import { getSearchParams } from "../src/components/Layout/components/Header/components/Content/components/Actions/components/Search/hooks/UseSubmit/utils";
 
 /**
  * Builds ReadonlyURLSearchParams from a query string for test input.

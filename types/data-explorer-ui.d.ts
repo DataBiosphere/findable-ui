@@ -96,7 +96,6 @@ declare module "@mui/material/Paper" {
     footer: true;
     menu: true;
     panel: true;
-    searchbar: true;
   }
 }
 

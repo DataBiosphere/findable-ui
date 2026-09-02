@@ -19,11 +19,7 @@ import {
 } from "./components/Content/components/Actions/components/Authentication/authentication";
 import { getSignInPath } from "./components/Content/components/Actions/components/Authentication/utils";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
-import {
-  renderButton as renderSearchButton,
-  renderIconButton as renderSearchIconButton,
-  Search,
-} from "./components/Content/components/Actions/components/Search/search";
+import { Search } from "./components/Content/components/Actions/components/Search/search";
 import { NAVIGATION_TEST_ID } from "./components/Content/components/Navigation/constants";
 import { Navigation as DXNavigation } from "./components/Content/components/Navigation/navigation";
 import { Slogan } from "./components/Content/components/Slogan/slogan";
@@ -77,6 +73,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
     headerProps: { ...headerProps, navigation },
     pathname,
   };
+
   return (
     <AppBar
       {...APP_BAR_PROPS}
@@ -135,11 +132,7 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
               <Actions>
                 {/* Search */}
                 <Search
-                  Button={({ ...props }): JSX.Element =>
-                    isIn.isMenuIn
-                      ? renderSearchIconButton(props)
-                      : renderSearchButton(props)
-                  }
+                  isMenuIn={isIn.isMenuIn}
                   closeMenu={onClose}
                   searchEnabled={searchEnabled}
                   searchURL={searchURL}
