@@ -7,10 +7,10 @@ import { LayoutDimensionsProvider } from "../../../providers/layoutDimensions/pr
 import { GitHubIcon } from "../../common/CustomIcon/components/GitHubIcon/gitHubIcon";
 import { XIcon } from "../../common/CustomIcon/components/XIcon/xIcon";
 import { AppLayout } from "../../Layout/components/AppLayout/appLayout.styles";
+import { Main } from "../../Layout/components/ContentLayout/components/Main/main";
 import { Footer } from "../../Layout/components/Footer/footer";
 import { Logo } from "../../Layout/components/Header/components/Content/components/Logo/logo";
 import { Header } from "../../Layout/components/Header/header";
-import { Main } from "../../Layout/components/Main/main";
 import { DataDictionary } from "../dataDictionary";
 import { DICTIONARY_PATH } from "./constants";
 import { getSiteConfig } from "./utils";
@@ -29,6 +29,12 @@ type Story = StoryObj<typeof meta>;
  * Renders the dictionary as a page — header, main and footer — because the
  * layouts under test are sticky against the document scrollport and cannot be
  * judged without the elements they compete with.
+ *
+ * Uses `ContentLayout`'s `Main`, not `Layout/components/Main`, to match the
+ * data-portal's dictionary page: it sets `Page.Main` to this one, opting out of
+ * the header offset that `_app` applies by default. `<main>` therefore starts at
+ * the top of the viewport, behind the fixed header, and the only thing pushing
+ * content clear of it is the sticky layouts' own `padding-top`.
  * @returns The data dictionary page.
  */
 const PageStory = (): JSX.Element => (
