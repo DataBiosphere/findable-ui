@@ -1,5 +1,16 @@
 # Changelog
 
+## [57.0.0](https://github.com/DataBiosphere/findable-ui/compare/v56.0.0...v57.0.0) (2026-09-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* `PAPER_PROPS.VARIANT.SEARCH_BAR` and the `searchbar` Paper variant are removed, along with its `PaperPropsVariantOverrides` augmentation. `useCloseOnEscape` has moved to `lib/hooks/UseCloseOnEscape/hook`. `SearchProps.Button` is replaced by `isMenuIn`, and `renderButton` / `renderIconButton` are no longer exported from the Search module. No consumer in the workspace uses any of these. Requires React >= 19.2 for `useEffectEvent`.
+
+### Code Refactoring
+
+* replace the header search dialog with a non-modal dropdown anchored to the toolbar ([#999](https://github.com/DataBiosphere/findable-ui/issues/999)) ([#1001](https://github.com/DataBiosphere/findable-ui/issues/1001)) ([6768fbf](https://github.com/DataBiosphere/findable-ui/commit/6768fbfd3bcc68ab5a7fcd06767711e184286072))
+
 ## [56.0.0](https://github.com/DataBiosphere/findable-ui/compare/v55.0.0...v56.0.0) (2026-07-30)
 
 
