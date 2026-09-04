@@ -1,43 +1,20 @@
 import styled from "@emotion/styled";
-import { Dialog, Input } from "@mui/material";
+import { Paper } from "@mui/material";
 import { PALETTE } from "../../../../../../../../../../../../styles/common/constants/palette";
-import { IconButton } from "../../../../../../../../../../../common/IconButton/iconButton";
 
-interface Props {
-  yOffset: number;
-}
-
-export const SearchBar = styled(Dialog, {
-  shouldForwardProp: (prop) => prop !== "yOffset",
-})<Props>`
-  .MuiDialog-container {
-    width: 100%;
-
-    .MuiDialog-paper {
-      margin-top: ${(props) => props.yOffset}px;
-    }
-  }
-`;
-
-export const SearchForm = styled.form`
-  align-items: center;
-  display: flex;
-  gap: 16px;
-  margin: 0;
-  padding: 12px 16px;
-`;
-
-export const SearchInput = styled(Input)`
+export const StyledPaper = styled(Paper)`
   border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
-  height: 40px;
-  padding: 0;
-
-  &&.Mui-focused ::placeholder {
-    color: ${PALETTE.INK_LIGHT};
-    opacity: 1;
-  }
+  border-radius: 0;
+  /* Deviates from the theme scale deliberately: shadows[1] (0 1px 4px 0) casts
+     ~1px above the element, which would bleed over the header's bottom border.
+     Offsetting by half the blur keeps the 3px below and removes the top. */
+  box-shadow: 0 2px 4px -1px #00000012;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  /* The menu's toolbar sits in a statically positioned AppBar, so it forms no
+     stacking context and painting falls back to tree order — the nav buttons
+     come later in the DOM and would cover the bar. */
+  z-index: 1;
 `;
-
-export const ClearButton = styled(IconButton)`
-  color: ${PALETTE.INK_LIGHT};
-` as typeof IconButton;

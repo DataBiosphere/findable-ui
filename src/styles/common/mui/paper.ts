@@ -10,7 +10,6 @@ const VARIANT = {
   MENU: "menu",
   OUTLINED: "outlined",
   PANEL: "panel",
-  SEARCH_BAR: "searchbar",
 } as const satisfies Record<string, PaperProps["variant"]>;
 
 export const PAPER_PROPS: PaperPropsOptions = {

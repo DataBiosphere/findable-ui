@@ -1,6 +1,6 @@
 import { Portal } from "@mui/material";
 import { JSX } from "react";
-import { useCloseOnEscape } from "../../hooks/UseCloseOnEscape/hook";
+import { useCloseOnEscape } from "../../../../../../hooks/UseCloseOnEscape/hook";
 import { StyledBackdrop } from "./backdrop.styles";
 import { BACKDROP_PROPS } from "./constants";
 import { BackdropProps } from "./types";

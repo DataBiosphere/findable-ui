@@ -1,145 +1,29 @@
-import { CloseRounded } from "@mui/icons-material";
-import { useSearchParams } from "next/navigation";
-import Router from "next/router";
-import {
-  ChangeEvent,
-  FormEvent,
-  JSX,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
-import { isValidUrl } from "../../../../../../../../../../../../common/utils";
-import { useLayoutDimensions } from "../../../../../../../../../../../../providers/layoutDimensions/hook";
-import { ButtonPrimary } from "../../../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
-import { SearchIcon } from "../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
-import { isClientSideNavigation } from "../../../../../../../../../../../Links/common/utils";
-import { getSearchParams } from "./common/utils";
-import {
-  ClearButton,
-  SearchBar as SearchDialog,
-  SearchForm,
-  SearchInput,
-} from "./searchBar.styles";
+import { Fade } from "@mui/material";
+import { JSX } from "react";
+import Form from "./components/Form/form";
+import { StyledPaper } from "./searchBar.styles";
+import type { SearchBarProps } from "./types";
 
-interface Props {
-  closeMenu: () => void;
-  closeSearch: () => void;
-  searchOpen: boolean;
-  searchURL?: string;
-}
-
+/**
+ * Renders the header search bar, anchored beneath the header toolbar.
+ * Dismissal is owned by the Disclosure, which holds the trigger and this bar in
+ * a single click-away boundary.
+ * @param props - Component props.
+ * @param props.id - Element id, targeted by the search button's aria-controls.
+ * @param props.onSubmit - Submits the search term.
+ * @param props.open - Whether the search bar is open.
+ * @returns The header search bar.
+ */
 export default function SearchBar({
-  closeMenu,
-  closeSearch,
-  searchOpen,
-  searchURL,
-}: Props): JSX.Element {
-  const { dimensions } = useLayoutDimensions();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const searchParams = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState<string>("");
-
-  /**
-   * Clears search term and refocuses input.
-   */
-  const handleClear = (): void => {
-    setSearchTerm("");
-    inputRef.current?.focus();
-  };
-
-  /**
-   * Callback fired when the search term is changed.
-   * Sets state searchTerm with new search term.
-   * @param event - Change event on input element.
-   */
-  const handleChange = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
-  ): void => {
-    setSearchTerm(event.target.value);
-  };
-
-  /**
-   * Callback fired after the "exited" transition is applied.
-   * Clears search term when search modal closes.
-   */
-  const handleExited = (): void => {
-    setSearchTerm("");
-  };
-
-  /**
-   * Callback fired when form is submitted.
-   * @param formEvent - Form event when form is submitted.
-   * @param searchStr - Current search string.
-   * @param url - Current configured search path.
-   */
-  const handleSubmit = useCallback(
-    (
-      formEvent: FormEvent<HTMLFormElement>,
-      searchStr: string,
-      url?: string,
-    ): void => {
-      formEvent.preventDefault();
-      if (searchStr && url) {
-        closeMenu();
-        closeSearch();
-        if (isClientSideNavigation(url)) {
-          Router.push({
-            pathname: url,
-            search: getSearchParams(searchParams, searchStr).toString(),
-          });
-          return;
-        }
-        if (isValidUrl(url)) {
-          // Build search URL and redirect to it.
-          const location = new URL(url);
-          location.search = getSearchParams(searchParams, searchStr).toString();
-          window.location.href = location.href;
-        }
-        throw new Error("Invalid search URL.");
-      }
-    },
-    [closeMenu, closeSearch, searchParams],
-  );
-
+  id,
+  onSubmit,
+  open,
+}: SearchBarProps): JSX.Element {
   return (
-    <SearchDialog
-      fullWidth
-      hideBackdrop
-      maxWidth={false}
-      onClose={closeSearch}
-      open={searchOpen}
-      PaperProps={{ variant: "searchbar" }}
-      TransitionProps={{ onExited: handleExited }}
-      yOffset={dimensions.header.height - 1} // 1px border.
-    >
-      <SearchForm
-        onSubmit={(e: FormEvent<HTMLFormElement>): void =>
-          handleSubmit(e, searchTerm, searchURL)
-        }
-      >
-        <SearchIcon fontSize="small" />
-        <SearchInput
-          autoFocus
-          disableUnderline
-          endAdornment={
-            searchTerm ? (
-              <ClearButton
-                edge="end"
-                Icon={CloseRounded}
-                onClick={handleClear}
-                size="small"
-              />
-            ) : undefined
-          }
-          fullWidth
-          inputRef={inputRef}
-          onChange={handleChange}
-          placeholder="Type in keywords..."
-          value={searchTerm}
-        />
-        <ButtonPrimary type="submit">Search</ButtonPrimary>
-      </SearchForm>
-    </SearchDialog>
+    <Fade in={open} unmountOnExit>
+      <StyledPaper elevation={0} id={id}>
+        <Form onSubmit={onSubmit} />
+      </StyledPaper>
+    </Fade>
   );
 }

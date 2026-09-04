@@ -1,65 +1,40 @@
-import {
-  ButtonProps as MButtonProps,
-  IconButton as MIconButton,
-  IconButtonProps as MIconButtonProps,
-} from "@mui/material";
-import { ElementType, JSX, useState } from "react";
-import { SearchIcon } from "../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
-import { StyledButton } from "./components/Button/button.styles";
-import SearchBar from "./components/SearchBar/searchBar";
+import { JSX } from "react";
+import { Disclosure } from "./components/Disclosure/disclosure";
 
 export interface SearchProps {
-  Button: ElementType<MButtonProps> | ElementType<MIconButtonProps>;
   closeMenu: () => void;
+  /** Renders the icon button variant, used once the header collapses to a menu. */
+  isMenuIn?: boolean;
   searchEnabled?: boolean;
   searchURL?: string;
 }
 
+/**
+ * Renders the header search, when enabled.
+ * The guard sits here rather than inside the disclosure so that none of its
+ * hooks run for consumers that never enable search — notably the
+ * `useSearchParams` subscription in `useSubmit`, which would otherwise
+ * re-render both Search instances on every URL change.
+ * @param props - Component props.
+ * @param props.closeMenu - Closes the header menu.
+ * @param props.isMenuIn - Renders the icon button variant.
+ * @param props.searchEnabled - Whether search is enabled.
+ * @param props.searchURL - Configured search path.
+ * @returns The header search, or null when search is disabled.
+ */
 export const Search = ({
-  Button,
   closeMenu,
+  isMenuIn,
   searchEnabled,
   searchURL,
 }: SearchProps): JSX.Element | null => {
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
-
   if (!searchEnabled) return null;
 
   return (
-    <>
-      <Button onClick={(): void => setSearchOpen(true)} />
-      <SearchBar
-        closeMenu={closeMenu}
-        closeSearch={(): void => setSearchOpen(false)}
-        searchOpen={searchOpen}
-        searchURL={searchURL}
-      />
-    </>
+    <Disclosure
+      closeMenu={closeMenu}
+      isMenuIn={isMenuIn}
+      searchURL={searchURL}
+    />
   );
 };
-
-/**
- * Renders search button.
- * @param props - Button props.
- * @returns button.
- */
-export function renderButton(props: MButtonProps): JSX.Element {
-  return (
-    <StyledButton startIcon={<SearchIcon />} variant="nav" {...props}>
-      Search
-    </StyledButton>
-  );
-}
-
-/**
- * Renders search icon button.
- * @param props - Button props.
- * @returns icon button.
- */
-export function renderIconButton(props: MIconButtonProps): JSX.Element {
-  return (
-    <MIconButton color="ink" {...props}>
-      <SearchIcon fontSize="medium" />
-    </MIconButton>
-  );
-}
