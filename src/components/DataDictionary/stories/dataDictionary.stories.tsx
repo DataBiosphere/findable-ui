@@ -7,10 +7,11 @@ import { LayoutDimensionsProvider } from "../../../providers/layoutDimensions/pr
 import { GitHubIcon } from "../../common/CustomIcon/components/GitHubIcon/gitHubIcon";
 import { XIcon } from "../../common/CustomIcon/components/XIcon/xIcon";
 import { AppLayout } from "../../Layout/components/AppLayout/appLayout.styles";
-import { Main } from "../../Layout/components/ContentLayout/components/Main/main";
 import { Footer } from "../../Layout/components/Footer/footer";
 import { Logo } from "../../Layout/components/Header/components/Content/components/Logo/logo";
 import { Header } from "../../Layout/components/Header/header";
+import { Main } from "../../Layout/components/Main/main";
+import { ScrollShell } from "../../Layout/components/ScrollShell/scrollShell.styles";
 import { DataDictionary } from "../dataDictionary";
 import { DICTIONARY_PATH } from "./constants";
 import { getSiteConfig } from "./utils";
@@ -18,7 +19,6 @@ import { getSiteConfig } from "./utils";
 const meta: Meta<typeof DataDictionary> = {
   component: DataDictionary,
   parameters: { layout: "fullscreen" },
-  title: "Components/DataDictionary",
 };
 
 export default meta;
@@ -30,11 +30,11 @@ type Story = StoryObj<typeof meta>;
  * layouts under test are sticky against the document scrollport and cannot be
  * judged without the elements they compete with.
  *
- * Uses `ContentLayout`'s `Main`, not `Layout/components/Main`, to match the
- * data-portal's dictionary page: it sets `Page.Main` to this one, opting out of
- * the header offset that `_app` applies by default. `<main>` therefore starts at
- * the top of the viewport, behind the fixed header, and the only thing pushing
- * content clear of it is the sticky layouts' own `padding-top`.
+ * `main` and the footer are wrapped in `ScrollShell`, so content scrolls there
+ * rather than in the document: the header stays put without being taken out of
+ * flow, the footer still scrolls into view after the content, and the sticky
+ * layouts anchor at `top: 0` against a scrollport that already begins below the
+ * header.
  * @returns The data dictionary page.
  */
 const PageStory = (): JSX.Element => (
@@ -62,17 +62,19 @@ const PageStory = (): JSX.Element => (
               ],
             }}
           />
-          <Main>
-            <DataDictionary dictionary={DICTIONARY_PATH} />
-          </Main>
-          <Footer
-            Branding={<Logo alt="Logo" height={24} link="/" src={logo.src} />}
-            navLinks={[
-              { label: "About", url: "/" },
-              { label: "Privacy", url: "/" },
-            ]}
-            socials={[{ Icon: GitHubIcon, label: null, url: "/" }]}
-          />
+          <ScrollShell>
+            <Main>
+              <DataDictionary dictionary={DICTIONARY_PATH} />
+            </Main>
+            <Footer
+              Branding={<Logo alt="Logo" height={24} link="/" src={logo.src} />}
+              navLinks={[
+                { label: "About", url: "/" },
+                { label: "Privacy", url: "/" },
+              ]}
+              socials={[{ Icon: GitHubIcon, label: null, url: "/" }]}
+            />
+          </ScrollShell>
         </AppLayout>
       </DataDictionaryStateProvider>
     </LayoutDimensionsProvider>
