@@ -26,7 +26,6 @@ interface LayoutProps {
 }
 
 interface GridProps {
-  headerHeight: number;
   panelColor?: PanelBackgroundColor;
 }
 
@@ -63,25 +62,12 @@ export const ContentLayout = styled.div<LayoutProps>`
   }
 `;
 
-const content = ({ headerHeight, panelColor }: GridProps) => css`
+const panelBackground = ({ panelColor }: GridProps) => css`
   background-color: ${getPanelBackgroundColor(panelColor)};
-  padding-top: ${headerHeight}px;
-`;
-
-const navigation = ({ panelColor }: GridProps) => css`
-  background-color: ${getPanelBackgroundColor(panelColor)};
-`;
-
-const positioner = ({ headerHeight }: GridProps) => css`
-  max-height: 100vh;
-  overflow: auto;
-  padding-top: ${headerHeight}px;
-  position: sticky;
-  top: 0;
 `;
 
 export const NavigationGrid = styled.div<GridProps>`
-  ${navigation};
+  ${panelBackground};
   box-shadow: inset -1px 0 ${PALETTE.SMOKE_MAIN};
   display: none;
   grid-area: navigation;
@@ -92,13 +78,13 @@ export const NavigationGrid = styled.div<GridProps>`
 `;
 
 export const ContentGrid = styled.div<GridProps>`
-  ${content};
+  ${panelBackground};
   grid-area: content;
   min-width: 0;
 `;
 
 export const OutlineGrid = styled("div")<GridProps>`
-  ${navigation};
+  ${panelBackground};
   display: none;
   grid-area: outline;
 
@@ -107,8 +93,13 @@ export const OutlineGrid = styled("div")<GridProps>`
   }
 `;
 
-export const Positioner = styled.div<GridProps>`
-  ${positioner};
+export const Positioner = styled.div`
+  /* The scrollport, not the viewport: ScrollShell is a size container, and is a
+     header shorter than 100vh. */
+  max-height: 100cqh;
+  overflow: auto;
+  position: sticky;
+  top: 0;
 `;
 
 export const Navigation = styled.div`
