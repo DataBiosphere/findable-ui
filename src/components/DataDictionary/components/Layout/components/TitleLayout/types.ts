@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 
-export interface TitleLayoutProps extends LayoutSpacing {
+export interface TitleLayoutProps {
   children: ReactNode;
 }

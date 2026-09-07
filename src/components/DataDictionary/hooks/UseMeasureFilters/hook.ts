@@ -3,21 +3,17 @@ import {
   getBorderBoxSizeHeight,
   useResizeObserver,
 } from "../../../../hooks/useResizeObserver";
-import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { UseMeasureFilters } from "./types";
 
+/**
+ * Measures the sticky filters, which the entities are offset to clear.
+ * Measured unconditionally: the filters' own position no longer depends on the
+ * header being measured first, because the header is in flow.
+ * @returns Filters height and the ref to attach to them.
+ */
 export const useMeasureFilters = (): UseMeasureFilters => {
-  // Get header dimensions.
-  const { dimensions } = useLayoutDimensions();
-  const { header } = dimensions;
-
-  // Measure filters dimensions.
   const filtersRef = useRef<HTMLElement>(null);
-  const filtersRect = useResizeObserver(
-    filtersRef,
-    getBorderBoxSizeHeight,
-    header.height > 0, // Only measure filters height, when header measurement is available.
-  );
+  const filtersRect = useResizeObserver(filtersRef, getBorderBoxSizeHeight);
   const { height = 0 } = filtersRect || {};
 
   return {

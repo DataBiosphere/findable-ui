@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
   bpDown1024,
@@ -11,7 +10,7 @@ const PB = LAYOUT_SPACING.FILTERS_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.FILTERS_PADDING_TOP; /* top padding */
 const TITLE_HEIGHT = LAYOUT_SPACING.TITLE_HEIGHT; /* title height */
 
-export const Layout = styled("div")<LayoutSpacing>`
+export const Layout = styled("div")`
   align-self: flex-start;
   background-color: ${PALETTE.BACKGROUND_DEFAULT};
   display: grid;
@@ -19,7 +18,7 @@ export const Layout = styled("div")<LayoutSpacing>`
   grid-column: 2;
   grid-row: 1;
   padding-bottom: ${PB}px;
-  padding-top: ${({ top }) => top + TITLE_HEIGHT + PT}px;
+  padding-top: ${TITLE_HEIGHT + PT}px;
   position: sticky;
   top: 0;
   z-index: 2; /* required, filters should be on top of entities */

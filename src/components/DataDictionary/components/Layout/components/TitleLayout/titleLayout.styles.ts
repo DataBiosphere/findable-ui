@@ -1,15 +1,18 @@
 import styled from "@emotion/styled";
-import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
+import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
   bpDown1024,
   bpDownSm,
 } from "../../../../../../styles/common/mixins/breakpoints";
 
-export const Layout = styled("div")<LayoutSpacing>`
+export const Layout = styled("div")`
+  /* Opaque so content scrolling underneath does not show through — including the
+     outline, which the footer pushes up under this element at the end of the
+     scroll. Matches the filters below, which are sticky for the same reason. */
+  background-color: ${PALETTE.BACKGROUND_DEFAULT};
   grid-column: 1 / -1;
   grid-row: 1;
   height: fit-content;
-  padding-top: ${({ top }) => top}px; /* header height */
   position: sticky;
   top: 0;
   z-index: 4;
