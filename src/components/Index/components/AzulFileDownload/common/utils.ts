@@ -1,11 +1,11 @@
 import { ARIA_LABEL } from "./constants";
 
 /**
- * Returns the accessible name for the download button. `isRequestPending` and
- * `isLoading` are independent — the request-pending flag is cleared as soon as
- * a file location returns, while the location request may still be loading —
- * so the name is derived from the icon actually rendered rather than from the
- * pending flag alone.
+ * Returns the accessible name for the download button, mirroring the icon the
+ * button actually renders so a spinner is never announced as "Download file".
+ * The loading branch is defensive rather than reachable today: `isLoading` is
+ * only true while `isRequestPending` is also true, which renders the separate
+ * pending button instead. See #1013 for collapsing the two into one control.
  * @param isLoading - Whether the file location request is in flight.
  * @returns The download button's accessible name.
  */

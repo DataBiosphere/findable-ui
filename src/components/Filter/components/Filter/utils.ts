@@ -1,3 +1,6 @@
+import { resolveAriaLabel } from "../../../../utils/ariaLabel";
+import { ARIA_LABEL } from "./constants";
+
 /**
  * Returns the accessible name for a category filter panel's close button. On
  * the drawer surface this button and the filter drawer's own close button are
@@ -6,5 +9,9 @@
  * @returns The close button's accessible name.
  */
 export function getCloseCategoryLabel(categoryLabel: string): string {
-  return `Close ${categoryLabel} filter`;
+  const label = categoryLabel?.trim();
+  return resolveAriaLabel(
+    label && `Close ${label} filter`,
+    ARIA_LABEL.CLOSE_CATEGORY,
+  );
 }

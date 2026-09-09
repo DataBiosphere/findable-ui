@@ -10,7 +10,8 @@ import {
   UserNames,
   UserSummary,
 } from "./authenticationMenu.styles";
-import { ARIA_LABEL, MENU_PROPS } from "./constants";
+import { MENU_PROPS } from "./constants";
+import { getAccountMenuLabel } from "./utils";
 
 export interface AuthenticationMenuProps {
   profile: UserProfile;
@@ -25,9 +26,11 @@ export const AuthenticationMenu = ({
     <Fragment>
       {/*
        * MUI Avatar only renders an <img alt> when src loads; with no src it
-       * renders an aria-hidden fallback icon, leaving the button unnamed.
+       * renders an aria-hidden fallback icon, leaving the button unnamed. The
+       * name carries the user through so the loaded-image case keeps announcing
+       * it — an aria-label here would otherwise suppress the alt text.
        */}
-      <UserIcon aria-label={ARIA_LABEL.ACCOUNT_MENU} onClick={onOpen}>
+      <UserIcon aria-label={getAccountMenuLabel(profile.name)} onClick={onOpen}>
         <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
       <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
