@@ -13,6 +13,7 @@ import { Consent } from "../../Login/components/Section/components/Consent/conse
 import { useUserLogin } from "../../Login/hooks/useUserLogin/useUserLogin";
 import { CloseIcon } from "../CustomIcon/components/CloseIcon/closeIcon";
 import {
+  ARIA_LABEL,
   DIALOG_CONTENT_TEXT_PROPS,
   DIALOG_PROPS,
   DIALOG_TITLE_PROPS,
@@ -36,7 +37,11 @@ export const LoginDialog = ({
     <StyledDialog {...DIALOG_PROPS} onClose={onClose} open={open}>
       <DialogTitle {...DIALOG_TITLE_PROPS}>
         <div>Sign In Required</div>
-        <IconButton {...ICON_BUTTON_PROPS} onClick={onClose}>
+        <IconButton
+          {...ICON_BUTTON_PROPS}
+          aria-label={ARIA_LABEL.CLOSE}
+          onClick={onClose}
+        >
           <CloseIcon {...ICON_PROPS} />
         </IconButton>
       </DialogTitle>

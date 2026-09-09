@@ -10,6 +10,7 @@ import {
   PinnedCell,
   TableCell,
 } from "./collapsableCell.styles";
+import { getToggleLabel } from "./utils";
 
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
@@ -26,6 +27,7 @@ export const CollapsableCell = <T extends RowData>({
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
+          aria-label={getToggleLabel(row.getIsExpanded())}
           color="ink"
           disabled={isDisabled}
           edge="end"

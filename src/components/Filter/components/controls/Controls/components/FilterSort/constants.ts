@@ -2,6 +2,10 @@ import { ListItemTextProps, MenuProps, SvgIconProps } from "@mui/material";
 import { SVG_ICON_PROPS as MUI_SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 
+export const ARIA_LABEL = {
+  SORT: "Sort filter values",
+} as const;
+
 export const LIST_ITEM_BUTTON_TEXT_PROPS: ListItemTextProps = {
   slotProps: { primary: { variant: TYPOGRAPHY_PROPS.VARIANT.BODY_400 } },
 };

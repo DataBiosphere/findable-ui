@@ -5,6 +5,10 @@ import {
   POPOVER_ORIGIN_VERTICAL,
 } from "../../../../../../../../../../../../styles/common/mui/popover";
 
+export const ARIA_LABEL = {
+  ACCOUNT_MENU: "Account menu",
+} as const;
+
 export const MENU_PROPS: Partial<MenuProps> = {
   anchorOrigin: {
     horizontal: POPOVER_ORIGIN_HORIZONTAL.RIGHT,

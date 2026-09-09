@@ -15,6 +15,7 @@ import { MenuTransition } from "./components/MenuTransition/menuTransition";
 import { POPPER_PROPS } from "./components/Popper/constants";
 import { StyledPopper } from "./filter.styles";
 import { FilterProps } from "./types";
+import { getCloseCategoryLabel } from "./utils";
 
 /**
  * Filter component.
@@ -77,6 +78,7 @@ export const Filter = ({
                     <Paper variant={PAPER_PROPS.VARIANT.MENU}>
                       {isDrawer && (
                         <IconButton
+                          aria-label={getCloseCategoryLabel(categoryView.label)}
                           onClick={() => {
                             onClose();
                             closeAncestor?.();

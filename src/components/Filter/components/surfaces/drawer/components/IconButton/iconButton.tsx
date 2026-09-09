@@ -3,7 +3,7 @@ import { IconButtonProps } from "@mui/material";
 import { JSX } from "react";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
 import { BaseComponentProps } from "../../../../../../types";
-import { ICON_BUTTON_PROPS, SVG_ICON_PROPS } from "./constants";
+import { ARIA_LABEL, ICON_BUTTON_PROPS, SVG_ICON_PROPS } from "./constants";
 import { StyledIconButton } from "./iconButton.styles";
 
 /**
@@ -18,6 +18,7 @@ export const IconButton = ({
   return (
     <StyledIconButton
       {...ICON_BUTTON_PROPS}
+      aria-label={ARIA_LABEL.CLOSE}
       className={className}
       onClick={onClose}
       {...props}

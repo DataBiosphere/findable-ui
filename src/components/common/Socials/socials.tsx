@@ -5,6 +5,7 @@ import {
   IconButton as StyledIconButton,
   Socials as StyledSocials,
 } from "./socials.styles";
+import { getSocialLabel } from "./utils";
 
 export interface Social {
   Icon: ElementType;
@@ -33,9 +34,10 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
   ): JSX.Element {
     return (
       <StyledSocials className={className} ref={ref} style={style}>
-        {socials.map(({ Icon, url }, i) => (
+        {socials.map(({ Icon, label, url }, i) => (
           <IconButton
             key={i}
+            aria-label={getSocialLabel(label)}
             href={url}
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             size={buttonSize}

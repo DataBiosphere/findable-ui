@@ -7,6 +7,7 @@ import {
 } from "../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { HelpIcon } from "../../../CustomIcon/components/HelpIcon/helpIcon";
+import { ARIA_LABEL } from "./constants";
 import { HelpIconButton as Button } from "./helpIconButton.styles";
 
 export interface HelpIconButtonProps {
@@ -23,6 +24,7 @@ export const HelpIconButton = ({
   const isInternal = isClientSideNavigation(url);
   return isInternal ? (
     <Button
+      aria-label={ARIA_LABEL.HELP}
       component={Link}
       href={url}
       rel={REL_ATTRIBUTE.NO_OPENER}
@@ -32,6 +34,7 @@ export const HelpIconButton = ({
     </Button>
   ) : (
     <Button
+      aria-label={ARIA_LABEL.HELP}
       href={url}
       rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
       target={target || ANCHOR_TARGET.BLANK}

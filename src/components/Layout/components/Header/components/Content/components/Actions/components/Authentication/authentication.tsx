@@ -11,6 +11,7 @@ import { useProfile } from "../../../../../../../../../../hooks/authentication/p
 import { isNavigationLinkSelected } from "../../../Navigation/common/utils";
 import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticationMenu";
 import { StyledButton } from "./components/Button/button.styles";
+import { ARIA_LABEL } from "./constants";
 import { getSignInPath, getSignInPathPattern } from "./utils";
 
 export interface AuthenticationProps {
@@ -82,7 +83,7 @@ export function renderButton(
  */
 export function renderIconButton(props: MIconButtonProps): JSX.Element {
   return (
-    <MIconButton color="ink" {...props}>
+    <MIconButton aria-label={ARIA_LABEL.SIGN_IN} color="ink" {...props}>
       <LoginRounded />
     </MIconButton>
   );

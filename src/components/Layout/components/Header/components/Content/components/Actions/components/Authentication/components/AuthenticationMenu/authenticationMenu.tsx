@@ -10,7 +10,7 @@ import {
   UserNames,
   UserSummary,
 } from "./authenticationMenu.styles";
-import { MENU_PROPS } from "./constants";
+import { ARIA_LABEL, MENU_PROPS } from "./constants";
 
 export interface AuthenticationMenuProps {
   profile: UserProfile;
@@ -23,7 +23,11 @@ export const AuthenticationMenu = ({
   const { anchorEl, onClose, onOpen, open } = useMenu<HTMLElement>();
   return (
     <Fragment>
-      <UserIcon onClick={onOpen}>
+      {/*
+       * MUI Avatar only renders an <img alt> when src loads; with no src it
+       * renders an aria-hidden fallback icon, leaving the button unnamed.
+       */}
+      <UserIcon aria-label={ARIA_LABEL.ACCOUNT_MENU} onClick={onOpen}>
         <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
       <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
