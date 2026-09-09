@@ -5,11 +5,20 @@ import { ARIA_LABEL } from "./constants";
 
 export interface DialogTitleProps {
   className?: string;
-  closeLabel?: string; // Accessible name for the close button. Defaults to "Close"; override for a more specific name e.g. "Close publish atlas dialog".
+  closeLabel?: string;
   onClose?: () => void;
   title?: ReactNode;
 }
 
+/**
+ * Renders the dialog title, with a close button when `onClose` is given.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the title.
+ * @param props.closeLabel - Accessible name for the close button; defaults to `ARIA_LABEL.CLOSE`. Override for something more specific e.g. "Close publish atlas dialog".
+ * @param props.onClose - Closes the dialog; the close button renders only when given.
+ * @param props.title - Title content.
+ * @returns The dialog title.
+ */
 export const DialogTitle = ({
   className,
   closeLabel = ARIA_LABEL.CLOSE,
