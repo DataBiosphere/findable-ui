@@ -57,10 +57,14 @@ export const AzulFileDownload = ({
   return (
     <span ref={ref}>
       {isRequestPending ? (
+        // Disabled rather than just pointer-events: none — the button has no
+        // onClick, so without it the control stays keyboard-focusable and is
+        // announced as interactive while the request is in flight.
         <StyledIconButton
           aria-label={ARIA_LABEL.DOWNLOAD_PENDING}
           color="primary"
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID}
+          disabled
           Icon={LoadingIcon}
           size="medium"
         />
