@@ -10,6 +10,7 @@ import {
   PinnedCell,
   TableCell,
 } from "./collapsableCell.styles";
+import { getRowLabel, getToggleLabel } from "./utils";
 
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
@@ -21,11 +22,14 @@ export const CollapsableCell = <T extends RowData>({
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
+  const isExpanded = row.getIsExpanded();
   return (
-    <TableCell isExpanded={row.getIsExpanded()}>
+    <TableCell isExpanded={isExpanded}>
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
+          aria-expanded={isExpanded}
+          aria-label={getToggleLabel(isExpanded, getRowLabel(pinnedCell))}
           color="ink"
           disabled={isDisabled}
           edge="end"
@@ -35,7 +39,7 @@ export const CollapsableCell = <T extends RowData>({
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={row.getIsExpanded()}>
+      <Collapse in={isExpanded}>
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.

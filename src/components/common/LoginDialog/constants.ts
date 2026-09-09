@@ -8,6 +8,10 @@ import {
 import { FONT_SIZE } from "../../../styles/common/mui/icon";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 
+export const ARIA_LABEL = {
+  CLOSE: "Close",
+} as const;
+
 export const DIALOG_CONTENT_TEXT_PROPS: DialogContentTextProps = {
   color: TYPOGRAPHY_PROPS.COLOR.INK_LIGHT,
   component: "div",

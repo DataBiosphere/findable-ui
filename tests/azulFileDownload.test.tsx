@@ -77,6 +77,22 @@ describe("AzulFileDownload", () => {
         screen.queryByTestId(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID),
       ).toBeNull();
     });
+    test("should disable the pending button so it leaves the tab order", async () => {
+      (useFileLocation as jest.Mock).mockReturnValue({
+        fileUrl: undefined,
+        isLoading: false,
+        run: MOCK_RUN,
+      });
+      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
+      fireEvent.click(getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID));
+      await waitFor(() => {
+        const pendingEl = getButtonById(
+          AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
+        );
+        // The button has no onClick, so it must not be reachable by keyboard.
+        expect(pendingEl.hasAttribute("disabled")).toBe(true);
+      });
+    });
     test("should initiate download when fileUrl is available", () => {
       (useFileLocation as jest.Mock).mockReturnValue({
         fileUrl: FILE_URL,

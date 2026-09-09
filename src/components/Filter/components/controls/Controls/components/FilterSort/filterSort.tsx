@@ -8,6 +8,7 @@ import { RadioCheckedIcon } from "../../../../../../common/CustomIcon/components
 import { RadioUncheckedIcon } from "../../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 import { useMenu } from "../../../../../../common/Menu/hooks/useMenu";
 import {
+  ARIA_LABEL,
   LIST_ITEM_BUTTON_TEXT_PROPS,
   LIST_ITEM_TEXT_PROPS,
   MENU_PROPS,
@@ -28,6 +29,7 @@ export const FilterSort = ({
   return (
     <Fragment>
       <StyledIconButton
+        aria-label={ARIA_LABEL.SORT}
         color={ICON_BUTTON_PROPS.COLOR.INK_LIGHT}
         data-testid={TEST_IDS.FILTER_SORT_BUTTON}
         onClick={onOpen}

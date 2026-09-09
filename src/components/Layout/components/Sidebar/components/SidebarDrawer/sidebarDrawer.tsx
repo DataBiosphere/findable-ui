@@ -3,6 +3,7 @@ import { PopoverPosition, PopoverProps } from "@mui/material";
 import { JSX, ReactNode } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import { DrawerTransition } from "../../../../../Filter/components/Filter/components/DrawerTransition/drawerTransition";
+import { ARIA_LABEL } from "./constants";
 import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
@@ -34,7 +35,12 @@ export const SidebarDrawer = ({
       slotProps={DRAWER_SLOT_PROPS}
       TransitionComponent={DrawerTransition}
     >
-      <IconButton Icon={CloseRounded} onClick={onClose} size="medium" />
+      <IconButton
+        aria-label={ARIA_LABEL.CLOSE}
+        Icon={CloseRounded}
+        onClick={onClose}
+        size="medium"
+      />
       {children}
     </TemporarySidebar>
   );
