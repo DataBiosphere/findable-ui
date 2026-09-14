@@ -1,4 +1,5 @@
 import { Fragment, JSX } from "react";
+import { mergeSlotProps } from "../../../../../../utils/slotProps";
 import { DrawerProvider } from "../../../../../common/Drawer/provider/provider";
 import { Controls } from "../../../controls/Controls/controls";
 import { Filters } from "../../../Filters/filters";
@@ -29,10 +30,12 @@ export const Drawer = ({
             open={open}
             {...props}
             // On the paper, which is the element carrying role="dialog"; the
-            // drawer root is a presentational wrapper.
+            // drawer root is a presentational wrapper. The id is applied last
+            // and overrides a caller's, because it is what the trigger's
+            // aria-controls points at.
             slotProps={{
               ...props.slotProps,
-              paper: { ...props.slotProps?.paper, id },
+              paper: mergeSlotProps(props.slotProps?.paper, { id }),
             }}
           >
             {/* Closes drawer */}
