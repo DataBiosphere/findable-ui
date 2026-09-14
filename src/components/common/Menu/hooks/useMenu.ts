@@ -1,7 +1,14 @@
-import { MouseEvent, useCallback, useMemo, useState } from "react";
+import { MouseEvent, useCallback, useId, useMemo, useState } from "react";
 
 export interface UseMenu<E extends HTMLElement> {
   anchorEl: E | null;
+  /**
+   * Per-instance DOM id for the surface this menu opens, for the trigger's
+   * `aria-controls` to target. Generated here because every caller needs one
+   * and a module-level constant would collide wherever two menus are mounted
+   * at once.
+   */
+  id: string;
   onClose: () => void;
   onDisableScrollLock: () => void;
   onEnableScrollLock: () => void;
@@ -16,6 +23,7 @@ export interface UseMenu<E extends HTMLElement> {
  */
 export const useMenu = <E extends HTMLElement>(): UseMenu<E> => {
   const [anchorEl, setAnchorEl] = useState<E | null>(null);
+  const id = useId();
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
   // Closes menu.
@@ -52,6 +60,7 @@ export const useMenu = <E extends HTMLElement>(): UseMenu<E> => {
 
   return {
     anchorEl,
+    id,
     onClose,
     onDisableScrollLock,
     onEnableScrollLock,

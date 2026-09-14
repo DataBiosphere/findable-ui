@@ -2,6 +2,11 @@ import { MenuItem } from "@mui/material";
 import { Fragment, JSX } from "react";
 import { useAuth } from "../../../../../../../../../../../../auth/hooks/useAuth";
 import { UserProfile } from "../../../../../../../../../../../../auth/types/authentication";
+import {
+  getMenuSlotProps,
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../../../../../../utils/ariaPopup";
 import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";
 import {
   AuthenticationMenu as Menu,
@@ -21,7 +26,13 @@ export const AuthenticationMenu = ({
   profile,
 }: AuthenticationMenuProps): JSX.Element => {
   const { service: { requestLogout } = {} } = useAuth();
-  const { anchorEl, onClose, onOpen, open } = useMenu<HTMLElement>();
+  const {
+    anchorEl,
+    id: menuId,
+    onClose,
+    onOpen,
+    open,
+  } = useMenu<HTMLElement>();
   return (
     <Fragment>
       {/*
@@ -30,10 +41,20 @@ export const AuthenticationMenu = ({
        * name carries the user through so the loaded-image case keeps announcing
        * it — an aria-label here would otherwise suppress the alt text.
        */}
-      <UserIcon aria-label={getAccountMenuLabel(profile.name)} onClick={onOpen}>
+      <UserIcon
+        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
+        aria-label={getAccountMenuLabel(profile.name)}
+        onClick={onOpen}
+      >
         <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
-      <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
+      <Menu
+        {...MENU_PROPS}
+        anchorEl={anchorEl}
+        onClose={onClose}
+        open={open}
+        slotProps={getMenuSlotProps(menuId, MENU_PROPS.slotProps)}
+      >
         <UserSummary>
           You are signed in as:
           <UserNames noWrap>{profile.name}</UserNames>

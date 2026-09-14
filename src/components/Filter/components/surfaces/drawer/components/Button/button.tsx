@@ -2,6 +2,10 @@ import { FilterListRounded } from "@mui/icons-material";
 import { ButtonProps, Button as MButton } from "@mui/material";
 import { JSX } from "react";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
+import {
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../utils/ariaPopup";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
 import { BaseComponentProps } from "../../../../../../types";
@@ -19,9 +23,10 @@ export const Button = ({
 }: BaseComponentProps &
   ButtonProps &
   Pick<FilterCountChipProps, "count">): JSX.Element => {
-  const { onOpen } = useDrawer();
+  const { id, onOpen, open } = useDrawer();
   return (
     <MButton
+      {...getPopupAriaProps({ hasPopup: HAS_POPUP.DIALOG, id, open })}
       {...BUTTON_PROPS.SECONDARY_CONTAINED}
       className={className}
       onClick={onOpen}

@@ -1,12 +1,27 @@
 import { MenuRounded } from "@mui/icons-material";
 import { Fade, IconButton, Dialog as MDialog } from "@mui/material";
-import { CSSProperties, forwardRef, Fragment, JSX, useEffect } from "react";
+import {
+  CSSProperties,
+  forwardRef,
+  Fragment,
+  JSX,
+  useEffect,
+  useId,
+} from "react";
+import {
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../../../../utils/ariaPopup";
 import { getMenuNavigationLinks } from "../../../../../../common/utils";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
 import { Content } from "../../../../content.styles";
 import { Slogan } from "../../../Slogan/slogan";
-import { ARIA_LABEL, DIALOG_PROPS } from "./common/constants";
+import {
+  ARIA_LABEL,
+  DIALOG_PAPER_PROPS,
+  DIALOG_PROPS,
+} from "./common/constants";
 import { Navigation } from "./components/Content/components/Navigation/navigation.styles";
 import { Socials } from "./components/Content/components/Socials/socials.styles";
 import { Toolbar } from "./components/Toolbar/toolbar";
@@ -35,6 +50,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
     ref,
   ): JSX.Element | null {
     const { navigation, slogan, socialMedia } = headerProps;
+    const dialogId = useId();
 
     // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
     useEffect(() => {
@@ -47,6 +63,11 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
     return (
       <Fragment>
         <IconButton
+          {...getPopupAriaProps({
+            hasPopup: HAS_POPUP.DIALOG,
+            id: dialogId,
+            open,
+          })}
           aria-label={ARIA_LABEL.OPEN_MENU}
           color="ink"
           onClick={openMenu}
@@ -59,6 +80,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
           {...DIALOG_PROPS}
           onClose={closeMenu}
           open={open}
+          slotProps={{ paper: { ...DIALOG_PAPER_PROPS, id: dialogId } }}
           TransitionComponent={Fade}
           transitionDuration={isMenuIn ? 600 : 0}
         >
