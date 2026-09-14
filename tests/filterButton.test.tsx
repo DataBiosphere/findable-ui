@@ -32,4 +32,24 @@ describe("Filter drawer button", () => {
       screen.getByRole("dialog", { hidden: true }),
     );
   });
+
+  // MUI v7 allows a slot prop to be an (ownerState) => props callback. The id
+  // is merged onto the paper, and a spread would drop such a callback silently.
+  it("should keep a caller's paper slot callback alongside the id", () => {
+    render(
+      <Drawer
+        categoryFilters={[]}
+        count={0}
+        onFilter={(): void => {}}
+        slotProps={{ paper: () => ({ className: "from-callback" }) }}
+      />,
+    );
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+
+    fireEvent.click(trigger);
+
+    const drawer = screen.getByRole("dialog", { hidden: true });
+    expect(drawer.classList.contains("from-callback")).toBe(true);
+    expect(drawer.id).toBe(trigger.getAttribute("aria-controls"));
+  });
 });
