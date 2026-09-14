@@ -1,4 +1,9 @@
-import { getPopupAriaProps, HAS_POPUP } from "../src/utils/ariaPopup";
+import type { MenuProps } from "@mui/material";
+import {
+  getMenuSlotProps,
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../src/utils/ariaPopup";
 
 const SURFACE_ID = "menu-id";
 
@@ -44,5 +49,75 @@ describe("getPopupAriaProps", () => {
       "aria-controls": undefined,
       "aria-expanded": true,
     });
+  });
+});
+
+type MenuListSlotProps = NonNullable<
+  NonNullable<MenuProps["slotProps"]>["list"]
+>;
+
+/**
+ * Resolves a menu's list slot props, failing the test if they are not a
+ * callback.
+ * @param slotProps - Menu slot props.
+ * @returns The props the list callback derives from the owner state.
+ */
+function resolveList(slotProps: MenuProps["slotProps"]): object {
+  const list = slotProps?.list;
+  if (typeof list !== "function") throw new Error("Expected a callback");
+  return list({} as Parameters<Extract<MenuListSlotProps, () => unknown>>[0]);
+}
+
+describe("getMenuSlotProps", () => {
+  // The id cannot go on the menu root: that is a presentational modal wrapper,
+  // so aria-controls would resolve to the backdrop container, not the list.
+  it("should place the id on the list slot", () => {
+    expect(getMenuSlotProps(SURFACE_ID)).toEqual({
+      list: { id: SURFACE_ID },
+    });
+  });
+
+  // A wholesale spread would drop a default's list props — MENU_PROPS relies on
+  // list: { component: "div" } surviving alongside a caller's own list props.
+  it("should merge list slots across bases rather than replacing them", () => {
+    expect(
+      getMenuSlotProps(
+        SURFACE_ID,
+        { list: { component: "div" } },
+        { list: { dense: true } },
+      ),
+    ).toEqual({ list: { component: "div", dense: true, id: SURFACE_ID } });
+  });
+
+  it("should let a later base win for non-list slots", () => {
+    expect(
+      getMenuSlotProps(
+        SURFACE_ID,
+        { paper: { variant: "menu" } },
+        { paper: { variant: "outlined" } },
+      ),
+    ).toEqual({ list: { id: SURFACE_ID }, paper: { variant: "outlined" } });
+  });
+
+  // MUI v7 allows a slot prop to be an (ownerState) => props callback, which a
+  // spread would silently drop.
+  it("should keep a callback list slot and still apply the id", () => {
+    const slotProps = getMenuSlotProps(SURFACE_ID, {
+      list: () => ({ component: "div" }),
+    });
+    expect(resolveList(slotProps)).toEqual({
+      component: "div",
+      id: SURFACE_ID,
+    });
+  });
+
+  // The id is the component's own: it is what the trigger's aria-controls
+  // points at, so honouring a caller's id would leave that reference dangling.
+  it("should override a caller's list id", () => {
+    expect(getMenuSlotProps(SURFACE_ID, { list: { id: "caller-id" } })).toEqual(
+      {
+        list: { id: SURFACE_ID },
+      },
+    );
   });
 });
