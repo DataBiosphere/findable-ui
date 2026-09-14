@@ -11,12 +11,12 @@ import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositio
 import { Sidebar as PermanentSidebar } from "./sidebar.styles";
 
 export const Sidebar = ({ children }: ChildrenProps): JSX.Element => {
-  const { onClose, open } = useDrawer();
+  const { id, onClose, open } = useDrawer();
   const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");
   const drawerSidebar = bpDownMd;
   const Bar = drawerSidebar ? SidebarDrawer : PermanentSidebar;
   const barProps = drawerSidebar
-    ? { onClose, open }
+    ? { id, onClose, open }
     : { "data-testid": TEST_IDS.SIDEBAR };
 
   // Closes an open, controlled drawer sidebar with a change of breakpoint.
