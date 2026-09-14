@@ -37,7 +37,7 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
         {socials.map(({ Icon, label, url }, i) => (
           <IconButton
             key={i}
-            aria-label={getSocialLabel(label)}
+            aria-label={getSocialLabel(label, url)}
             href={url}
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             size={buttonSize}

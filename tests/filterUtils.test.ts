@@ -20,12 +20,17 @@ describe("getCloseCategoryLabel", () => {
     expect(getCloseCategoryLabel(CATEGORY)).not.toBe(DRAWER_ARIA_LABEL.CLOSE);
   });
 
+  // The fallback is in the tree alongside the drawer's close button just as the
+  // named path is, so it has to stay distinguishable too.
   it.each([
     ["empty", ""],
     ["whitespace-only", "   "],
   ])("should fall back when the category label is %s", (_, categoryLabel) => {
     expect(getCloseCategoryLabel(categoryLabel)).toBe(
       ARIA_LABEL.CLOSE_CATEGORY,
+    );
+    expect(getCloseCategoryLabel(categoryLabel)).not.toBe(
+      DRAWER_ARIA_LABEL.CLOSE,
     );
   });
 });

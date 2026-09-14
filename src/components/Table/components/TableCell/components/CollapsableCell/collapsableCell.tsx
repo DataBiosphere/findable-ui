@@ -29,7 +29,7 @@ export const CollapsableCell = <T extends RowData>({
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
           aria-expanded={isExpanded}
-          aria-label={getToggleLabel(isExpanded, getRowLabel(pinnedCell))}
+          aria-label={getToggleLabel(getRowLabel(pinnedCell))}
           color="ink"
           disabled={isDisabled}
           edge="end"

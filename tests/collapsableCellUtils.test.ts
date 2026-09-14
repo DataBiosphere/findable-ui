@@ -41,22 +41,13 @@ describe("getRowLabel", () => {
 });
 
 describe("getToggleLabel", () => {
-  it("should name the toggle 'Collapse row' when the row is expanded", () => {
-    expect(getToggleLabel(true)).toBe(ARIA_LABEL.COLLAPSE_ROW);
-  });
-
-  it("should name the toggle 'Expand row' when the row is collapsed", () => {
-    expect(getToggleLabel(false)).toBe(ARIA_LABEL.EXPAND_ROW);
-  });
-
-  // Every row renders one of these, so a bare "Expand row" repeated per row is
+  // Every row renders one of these, so a bare "Row details" repeated per row is
   // indistinguishable in a screen reader's element list.
   it("should identify the row when a label is given", () => {
-    expect(getToggleLabel(false, ROW_LABEL)).toBe("Expand row: Sample 123");
-    expect(getToggleLabel(true, ROW_LABEL)).toBe("Collapse row: Sample 123");
+    expect(getToggleLabel(ROW_LABEL)).toBe("Row details: Sample 123");
   });
 
-  it("should fall back to the bare action when no row label is given", () => {
-    expect(getToggleLabel(false, undefined)).toBe(ARIA_LABEL.EXPAND_ROW);
+  it("should fall back to the bare name when no row label is given", () => {
+    expect(getToggleLabel(undefined)).toBe(ARIA_LABEL.ROW_DETAILS);
   });
 });
