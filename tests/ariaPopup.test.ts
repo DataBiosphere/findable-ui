@@ -57,6 +57,16 @@ type MenuListSlotProps = NonNullable<
 >;
 
 /**
+ * The callback form of the list slot props. Extracted against a variadic
+ * signature: the callback takes an owner state, so it does not match a
+ * zero-argument function type and `Extract` would silently resolve to `never`.
+ */
+type MenuListSlotPropsCallback = Extract<
+  MenuListSlotProps,
+  (...args: never[]) => unknown
+>;
+
+/**
  * Resolves a menu's list slot props, failing the test if they are not a
  * callback.
  * @param slotProps - Menu slot props.
@@ -65,7 +75,7 @@ type MenuListSlotProps = NonNullable<
 function resolveList(slotProps: MenuProps["slotProps"]): object {
   const list = slotProps?.list;
   if (typeof list !== "function") throw new Error("Expected a callback");
-  return list({} as Parameters<Extract<MenuListSlotProps, () => unknown>>[0]);
+  return list({} as Parameters<MenuListSlotPropsCallback>[0]);
 }
 
 describe("getMenuSlotProps", () => {

@@ -21,7 +21,10 @@ function renderMenu(open: boolean): void {
   render(
     <Menu
       closeMenu={jest.fn()}
-      headerProps={{ navigation: [undefined, undefined, undefined] }}
+      headerProps={{
+        logo: null,
+        navigation: [undefined, undefined, undefined],
+      }}
       isMenuIn
       open={open}
       openMenu={jest.fn()}

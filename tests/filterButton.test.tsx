@@ -21,7 +21,14 @@ describe("Filter drawer button", () => {
   // The trigger and the drawer are siblings under one DrawerProvider, so the
   // id has to come from the provider — neither can generate it alone.
   it("should reference the drawer surface once it is open", () => {
-    render(<Drawer categoryFilters={[]} count={0} onFilter={(): void => {}} />);
+    render(
+      <Drawer
+        categoryFilters={[]}
+        count={0}
+        filterSortEnabled={false}
+        onFilter={(): void => {}}
+      />,
+    );
     const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
 
     fireEvent.click(trigger);
@@ -40,6 +47,7 @@ describe("Filter drawer button", () => {
       <Drawer
         categoryFilters={[]}
         count={0}
+        filterSortEnabled={false}
         onFilter={(): void => {}}
         slotProps={{ paper: () => ({ className: "from-callback" }) }}
       />,
