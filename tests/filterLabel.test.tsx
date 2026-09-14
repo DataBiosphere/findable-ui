@@ -18,7 +18,7 @@ function renderFilterLabel(isOpen: boolean, panelId?: string): void {
       label={LABEL}
       onClick={jest.fn()}
       panelId={panelId}
-      surfaceType={SURFACE_TYPE.SIDEBAR}
+      surfaceType={SURFACE_TYPE.DRAWER}
     />,
   );
 }
