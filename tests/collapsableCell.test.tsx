@@ -15,6 +15,8 @@ interface RowData {
 
 const ROW: RowData = { name: "Sample 123", organism: "Homo sapiens" };
 
+const SECOND_ROW: RowData = { name: "Sample 456", organism: "Mus musculus" };
+
 const TOGGLE_NAME = `Row details: ${ROW.name}`;
 
 const columnHelper = createColumnHelper<RowData>();
@@ -53,6 +55,32 @@ function TestCell(): JSX.Element {
   );
 }
 
+/**
+ * Renders a collapsable cell per row, so the ids the cells generate can be
+ * compared across rows.
+ * @returns Collapsable cells under test.
+ */
+function TestCells(): JSX.Element {
+  const table = useReactTable<RowData>({
+    columns: COLUMNS,
+    data: [ROW, SECOND_ROW],
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getRowCanExpand: () => true,
+  });
+  return (
+    <table>
+      <tbody>
+        {table.getRowModel().rows.map((row) => (
+          <tr key={row.id}>
+            <CollapsableCell row={row} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 describe("CollapsableCell", () => {
   it("should name the row toggle after the pinned cell's value", () => {
     render(<TestCell />);
@@ -71,5 +99,33 @@ describe("CollapsableCell", () => {
 
     expect(screen.getByRole("button", { name: TOGGLE_NAME })).toBe(toggle);
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  // Collapse keeps its children mounted, so unlike the popup triggers this
+  // reference holds in both states.
+  it("should point the toggle at the collapsed contents in both states", () => {
+    render(<TestCell />);
+    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+    const contentsId = toggle.getAttribute("aria-controls") as string;
+
+    expect(contentsId).toBeTruthy();
+    expect(document.getElementById(contentsId)).not.toBeNull();
+
+    fireEvent.click(toggle);
+
+    expect(toggle.getAttribute("aria-controls")).toBe(contentsId);
+    expect(document.getElementById(contentsId)).not.toBeNull();
+  });
+
+  // Every row renders a toggle, so a shared id would leave them all pointing at
+  // the first row's contents.
+  it("should give each row's toggle its own contents id", () => {
+    render(<TestCells />);
+    const [first, second] = screen.getAllByRole("button", {
+      name: /^Row details:/,
+    });
+    expect(first.getAttribute("aria-controls")).not.toBe(
+      second.getAttribute("aria-controls"),
+    );
   });
 });

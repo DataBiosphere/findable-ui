@@ -4,6 +4,11 @@ import { Fragment, JSX } from "react";
 import { FILTER_SORT } from "../../../../../../../common/filters/sort/config/types";
 import { ICON_BUTTON_PROPS } from "../../../../../../../styles/common/mui/iconButton";
 import { TEST_IDS } from "../../../../../../../tests/testIds";
+import {
+  getMenuSlotProps,
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../utils/ariaPopup";
 import { RadioCheckedIcon } from "../../../../../../common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon";
 import { RadioUncheckedIcon } from "../../../../../../common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon";
 import { useMenu } from "../../../../../../common/Menu/hooks/useMenu";
@@ -22,13 +27,14 @@ export const FilterSort = ({
   filterSort = FILTER_SORT.ALPHA,
   onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {
-  const { anchorEl, onClose, onOpen, open } = useMenu();
+  const { anchorEl, id: menuId, onClose, onOpen, open } = useMenu();
 
   if (!enabled || !onFilterSortChange) return null;
 
   return (
     <Fragment>
       <StyledIconButton
+        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
         aria-label={ARIA_LABEL.SORT}
         color={ICON_BUTTON_PROPS.COLOR.INK_LIGHT}
         data-testid={TEST_IDS.FILTER_SORT_BUTTON}
@@ -43,6 +49,7 @@ export const FilterSort = ({
         data-testid={TEST_IDS.FILTER_SORT_MENU}
         onClose={onClose}
         open={open}
+        slotProps={getMenuSlotProps(menuId, MENU_PROPS.slotProps)}
       >
         <ListItem>
           <ListItemText {...LIST_ITEM_TEXT_PROPS}>

@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
-import { JSX } from "react";
+import { JSX, useId } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";
@@ -23,11 +23,18 @@ export const CollapsableCell = <T extends RowData>({
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
   const isExpanded = row.getIsExpanded();
+  // Generated per instance: every row renders one of these, so a shared id
+  // would leave every toggle in the table pointing at the first row's contents.
+  const contentsId = useId();
   return (
     <TableCell isExpanded={isExpanded}>
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
+          // Unconditional, unlike the popup triggers: Collapse keeps its
+          // children mounted when closed, so the region is always in the
+          // document for aria-controls to reference.
+          aria-controls={contentsId}
           aria-expanded={isExpanded}
           aria-label={getToggleLabel(getRowLabel(pinnedCell))}
           color="ink"
@@ -39,7 +46,7 @@ export const CollapsableCell = <T extends RowData>({
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={isExpanded}>
+      <Collapse id={contentsId} in={isExpanded}>
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.

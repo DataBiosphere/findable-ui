@@ -19,7 +19,7 @@ export const Drawer = ({
 }: DrawerProps): JSX.Element | null => {
   return (
     <DrawerProvider>
-      {({ onClose, open }) => (
+      {({ id, onClose, open }) => (
         <Fragment>
           <Button count={count} />
           <StyledDrawer
@@ -28,6 +28,12 @@ export const Drawer = ({
             onClose={onClose}
             open={open}
             {...props}
+            // On the paper, which is the element carrying role="dialog"; the
+            // drawer root is a presentational wrapper.
+            slotProps={{
+              ...props.slotProps,
+              paper: { ...props.slotProps?.paper, id },
+            }}
           >
             {/* Closes drawer */}
             <IconButton />
