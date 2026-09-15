@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { TableCell as MTableCell } from "@mui/material";
 import { FONT } from "../../../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
-import { visuallyHidden } from "../../../../../../styles/common/mixins/a11y";
 
 interface Props {
   isExpanded: boolean;
@@ -54,8 +53,4 @@ export const CollapsedContents = styled.div`
 export const Content = styled.div`
   min-width: 0;
   width: 100%;
-`;
-
-export const VisuallyHidden = styled.span`
-  ${visuallyHidden}
 `;
