@@ -11,8 +11,12 @@ const { Default } = composeStories(stories);
 const FIND_TIMEOUT = 10000;
 const TEST_TIMEOUT = 15000;
 
-const originalGetCTM = SVGElement.prototype.getCTM;
-const originalGetBBox = SVGElement.prototype.getBBox;
+// getCTM and getBBox are declared on SVGGraphicsElement, but the stubs go on
+// SVGElement.prototype so every SVG node the chart renders inherits them.
+const svgPrototype = SVGElement.prototype as SVGGraphicsElement;
+
+const originalGetCTM = svgPrototype.getCTM;
+const originalGetBBox = svgPrototype.getBBox;
 
 beforeAll(() => {
   // jsdom does not implement these SVG layout APIs, which the chart's label
@@ -20,14 +24,14 @@ beforeAll(() => {
   // tests await the lazily-loaded chart (giving that callback time to run),
   // stub them so it short-circuits on the falsy transform matrix instead of
   // throwing.
-  SVGElement.prototype.getCTM = (): DOMMatrix | null => null;
-  SVGElement.prototype.getBBox = (): DOMRect => ({ width: 0 }) as DOMRect;
+  svgPrototype.getCTM = (): DOMMatrix | null => null;
+  svgPrototype.getBBox = (): DOMRect => ({ width: 0 }) as DOMRect;
 });
 
 afterAll(() => {
   // Restore the originals so the stubs do not leak into other test files.
-  SVGElement.prototype.getCTM = originalGetCTM;
-  SVGElement.prototype.getBBox = originalGetBBox;
+  svgPrototype.getCTM = originalGetCTM;
+  svgPrototype.getBBox = originalGetBBox;
 });
 
 describe("LazyChartView", () => {
