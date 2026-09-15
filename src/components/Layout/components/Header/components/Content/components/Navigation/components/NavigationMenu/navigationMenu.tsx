@@ -7,6 +7,10 @@ import {
   PopperProps as MPopperProps,
 } from "@mui/material";
 import { Fragment, JSX, ReactNode, useEffect } from "react";
+import {
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../../../../utils/ariaPopup";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
@@ -37,6 +41,7 @@ export const NavigationMenu = ({
 }: NavLinkMenuProps): JSX.Element => {
   const {
     anchorEl,
+    id: menuId,
     onClose,
     onDisableScrollLock,
     onEnableScrollLock,
@@ -55,6 +60,7 @@ export const NavigationMenu = ({
   return (
     <MenuItem>
       <Button
+        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
         EndIcon={ArrowDropDownRounded}
         isActive={open}
         onClick={onOpen}
@@ -78,7 +84,9 @@ export const NavigationMenu = ({
           >
             <MPaper variant="menu">
               <MClickAwayListener onClickAway={onClose}>
-                <MMenuList component="div">
+                {/* The id sits on the list, which carries role="menu"; the
+                    Popper root is a role="tooltip" wrapper. */}
+                <MMenuList component="div" id={menuId}>
                   <NavigationMenuItems
                     closeMenu={(): void => {
                       onClose();

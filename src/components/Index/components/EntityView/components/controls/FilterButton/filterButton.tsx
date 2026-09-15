@@ -3,6 +3,10 @@ import { ButtonProps, NoSsr } from "@mui/material";
 import { JSX } from "react";
 import { useExploreState } from "../../../../../../../hooks/useExploreState";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
+import {
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../../../utils/ariaPopup";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
 import { FilterCountChip } from "../../../../../../Filter/components/FilterCountChip/filterCountChip";
@@ -13,12 +17,13 @@ export const FilterButton = ({
   className,
   ...props
 }: BaseComponentProps & ButtonProps): JSX.Element => {
-  const { onOpen } = useDrawer();
+  const { id, onOpen, open } = useDrawer();
   const { exploreState } = useExploreState();
   const { filterCount } = exploreState;
   return (
     <NoSsr>
       <StyledButton
+        {...getPopupAriaProps({ hasPopup: HAS_POPUP.DIALOG, id, open })}
         {...BUTTON_PROPS.SECONDARY_CONTAINED}
         className={className}
         onClick={onOpen}

@@ -4,6 +4,11 @@ import { Fragment, JSX, useCallback } from "react";
 import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
+import {
+  getMenuSlotProps,
+  getPopupAriaProps,
+  HAS_POPUP,
+} from "../../../../../utils/ariaPopup";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { useMenu } from "../../../../common/Menu/hooks/useMenu";
 import { FilterCountChip } from "../../../../Filter/components/FilterCountChip/filterCountChip";
@@ -25,9 +30,10 @@ export const ColumnFilter = <T extends RowData>({
   Button = StyledButton,
   className,
   column,
+  slotProps,
   ...props /* MuiMenuProps */
 }: ColumnFilterProps<T>): JSX.Element => {
-  const { anchorEl, onClose, onOpen, open } = useMenu();
+  const { anchorEl, id: menuId, onClose, onOpen, open } = useMenu();
 
   // Grab the unique values for the column.
   const facetedUniqueValues = column.getFacetedUniqueValues();
@@ -48,6 +54,7 @@ export const ColumnFilter = <T extends RowData>({
   return (
     <Fragment>
       <Button
+        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
         disabled={sortedValues.length === 0}
         endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
         onClick={onOpen}
@@ -66,6 +73,7 @@ export const ColumnFilter = <T extends RowData>({
         anchorEl={anchorEl}
         onClose={onClose}
         open={open}
+        slotProps={getMenuSlotProps(menuId, MENU_PROPS.slotProps, slotProps)}
       >
         {sortedValues.map(([value, occurrence]) => {
           const checked = filterValue.includes(value);

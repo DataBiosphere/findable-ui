@@ -7,19 +7,42 @@ import { ARIA_LABEL } from "./constants";
 import { IconButton, TemporarySidebar } from "./sidebarDrawer.styles";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
-const DRAWER_SLOT_PROPS: PopoverProps["slotProps"] = {
-  paper: { square: true },
-  root: { slotProps: { backdrop: { invisible: false } } },
-};
+
+/**
+ * Returns the drawer's slot props, placing the id and the dialog semantics on
+ * the paper so the trigger's `aria-controls` resolves to the drawer rather than
+ * to its presentational root. `TemporarySidebar` is a MUI `Popover`, which —
+ * unlike `Drawer` — gives its paper no role and no name of its own, so both are
+ * set here; a trigger declaring `aria-haspopup="dialog"` would otherwise point
+ * at an unnamed generic container. The popover is rendered in a MUI `Modal`,
+ * which traps focus and hides the rest of the page, so `aria-modal` is accurate.
+ * @param id - DOM id for the drawer surface.
+ * @returns Slot props for the drawer.
+ */
+function getDrawerSlotProps(id?: string): PopoverProps["slotProps"] {
+  return {
+    paper: {
+      "aria-label": ARIA_LABEL.SIDEBAR,
+      "aria-modal": true,
+      id,
+      role: "dialog",
+      square: true,
+    },
+    root: { slotProps: { backdrop: { invisible: false } } },
+  };
+}
 
 export interface SidebarDrawerProps {
   children: ReactNode | ReactNode[];
+  /** Id of the drawer surface, owned by the `DrawerProvider`. */
+  id?: string;
   onClose?: () => void;
   open?: boolean;
 }
 
 export const SidebarDrawer = ({
   children,
+  id,
   onClose,
   open = false,
 }: SidebarDrawerProps): JSX.Element => {
@@ -32,7 +55,7 @@ export const SidebarDrawer = ({
       marginThreshold={0}
       onClose={onClose}
       open={open}
-      slotProps={DRAWER_SLOT_PROPS}
+      slotProps={getDrawerSlotProps(id)}
       TransitionComponent={DrawerTransition}
     >
       <IconButton

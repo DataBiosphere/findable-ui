@@ -1,5 +1,5 @@
 import { Paper } from "@mui/material";
-import { JSX } from "react";
+import { JSX, useId } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { PAPER_PROPS } from "../../../../styles/common/mui/paper";
 import { TEST_IDS } from "../../../../tests/testIds";
@@ -34,6 +34,9 @@ export const Filter = ({
 }: FilterProps): JSX.Element => {
   const isDrawer = surfaceType === SURFACE_TYPE.DRAWER;
   const isRangeView = isRangeCategoryView(categoryView);
+  // Generated per instance: one Filter renders per category, and the drawer and
+  // sidebar surfaces can both be mounted at once.
+  const panelId = useId();
   return (
     <PopperProvider>
       {({ anchorEl, onClose, onOpen, open }): JSX.Element => {
@@ -52,6 +55,7 @@ export const Filter = ({
                 onOpen(e);
                 trackFilterOpened?.({ category: categoryView.key });
               }}
+              panelId={panelId}
               surfaceType={surfaceType}
             />
             <Backdrop
@@ -66,7 +70,12 @@ export const Filter = ({
               anchorEl={anchorEl}
               aria-label={categoryView.label}
               data-testid={TEST_IDS.FILTER_POPOVER}
+              id={panelId}
               open={open}
+              // Popper defaults its root to role="tooltip", which would have
+              // the label's aria-controls resolve to a tooltip rather than the
+              // group of filter controls actually inside it.
+              role="group"
               surfaceType={surfaceType}
             >
               {({ placement, TransitionProps }): JSX.Element => {

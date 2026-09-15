@@ -2,6 +2,7 @@ import { jest } from "@jest/globals";
 import { ButtonProps as MButtonProps } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { JSX } from "react";
 
 const PUBLIC_PATH = "/requesting-elevated-permissions";
 const CUSTOM_SIGNIN_PATH = "/";
