@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { resolveAriaLabel } from "../../../utils/ariaLabel";
 import { ARIA_LABEL } from "./constants";
 
 /**
@@ -14,10 +13,10 @@ import { ARIA_LABEL } from "./constants";
  * @returns The social link's accessible name.
  */
 export function getSocialLabel(label: ReactNode, url: string): string {
-  return resolveAriaLabel(
-    typeof label === "string" ? label : undefined,
-    getUrlHost(url) || ARIA_LABEL.SOCIAL,
-  );
+  const resolved = typeof label === "string" ? label.trim() : "";
+  // The host is only parsed when the label cannot name the link, rather than
+  // building a URL on every render to hand over a fallback nothing wants.
+  return resolved || getUrlHost(url) || ARIA_LABEL.SOCIAL;
 }
 
 /**

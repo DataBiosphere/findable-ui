@@ -1,8 +1,9 @@
 import { ContentCopyRounded } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
-import { JSX, useEffect, useState } from "react";
-import { ARIA_LABEL } from "./constants";
+import { Fragment, JSX, useEffect, useState } from "react";
+import { ARIA_LABEL, MESSAGE } from "./constants";
+import { VisuallyHidden } from "./copyToClipboard.styles";
 
 export interface CopyToClipboardProps {
   copyStr: string;
@@ -33,26 +34,39 @@ export const CopyToClipboard = ({
   }, [showTooltip]);
 
   return (
-    <Tooltip
-      arrow
-      disableHoverListener
-      open={showTooltip}
-      placement="top"
-      title={"Link Copied"}
-    >
-      {/*
-       * MUI copies a string Tooltip title onto the child as aria-label, which
-       * would name this button after the post-copy confirmation ("Link Copied")
-       * rather than the action it performs. An explicit aria-label wins, so the
-       * name describes the action and the tooltip stays the confirmation.
-       */}
-      <IconButton
-        aria-label={ARIA_LABEL.COPY}
-        onClick={(): void => onCopyToClipboard(copyStr)}
-        size="xxsmall"
+    <Fragment>
+      <Tooltip
+        arrow
+        disableHoverListener
+        open={showTooltip}
+        placement="top"
+        title={MESSAGE.COPIED}
       >
-        <ContentCopyRounded color="primary" fontSize="small" />
-      </IconButton>
-    </Tooltip>
+        {/*
+         * MUI copies a string Tooltip title onto the child as aria-label, which
+         * would name this button after the post-copy confirmation ("Link
+         * Copied") rather than the action it performs. An explicit aria-label
+         * wins, so the name describes the action and the tooltip stays the
+         * confirmation.
+         */}
+        <IconButton
+          aria-label={ARIA_LABEL.COPY}
+          onClick={(): void => onCopyToClipboard(copyStr)}
+          size="xxsmall"
+        >
+          <ContentCopyRounded color="primary" fontSize="small" />
+        </IconButton>
+      </Tooltip>
+      {/*
+       * The tooltip is the confirmation for sighted users only: it is not
+       * describing the button (describeChild is false and the title is a
+       * string, so MUI wires neither aria-describedby nor aria-labelledby), and
+       * the button's own name is static. This region is always in the document
+       * so the text arriving in it is announced as a change.
+       */}
+      <VisuallyHidden aria-live="polite">
+        {showTooltip ? MESSAGE.COPIED : ""}
+      </VisuallyHidden>
+    </Fragment>
   );
 };

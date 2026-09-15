@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
-import { JSX } from "react";
+import { JSX, useId } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";
@@ -9,8 +9,9 @@ import {
   Content,
   PinnedCell,
   TableCell,
+  VisuallyHidden,
 } from "./collapsableCell.styles";
-import { getRowLabel, getToggleLabel } from "./utils";
+import { ARIA_LABEL } from "./constants";
 
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
@@ -23,13 +24,37 @@ export const CollapsableCell = <T extends RowData>({
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
   const isExpanded = row.getIsExpanded();
+  // Generated per instance: every row renders one of these, so shared ids would
+  // leave every toggle in the table named after the first row.
+  const identifierId = useId();
+  const labelId = useId();
   return (
     <TableCell isExpanded={isExpanded}>
       <PinnedCell>
-        {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
+        {/*
+         * Wrapped so the toggle can be named by the row identifier the user
+         * actually reads. The pinned cell's rendered output is the only place
+         * that text exists: the cell's accessor value routinely differs from it
+         * — config-driven columns render through a view builder that digs into
+         * the response — and naming the toggle after a value that appears
+         * nowhere on screen is worse than not naming it at all.
+         */}
+        <div id={identifierId}>
+          {flexRender(
+            pinnedCell.column.columnDef.cell,
+            pinnedCell.getContext(),
+          )}
+        </div>
         <IconButton
-          aria-expanded={isExpanded}
-          aria-label={getToggleLabel(getRowLabel(pinnedCell))}
+          // Omitted while disabled: the row cannot open, so advertising a
+          // disclosure state would describe an interaction that is not offered.
+          aria-expanded={isDisabled ? undefined : isExpanded}
+          // The name is built from the hidden text and the row's identifier, in
+          // that order, so every toggle says what it does and which row it
+          // belongs to. It stays put across activation — aria-expanded is what
+          // announces the state, and a name that changed on click would move
+          // the target out from under anyone addressing the control by name.
+          aria-labelledby={`${labelId} ${identifierId}`}
           color="ink"
           disabled={isDisabled}
           edge="end"
@@ -37,6 +62,7 @@ export const CollapsableCell = <T extends RowData>({
           size="large"
         >
           <UnfoldMoreIcon fontSize="small" />
+          <VisuallyHidden id={labelId}>{ARIA_LABEL.ROW_DETAILS}</VisuallyHidden>
         </IconButton>
       </PinnedCell>
       <Collapse in={isExpanded}>
