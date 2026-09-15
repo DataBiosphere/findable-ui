@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
-import React, { FormEvent, ReactNode } from "react";
+import React, { ComponentProps, FormEvent, ReactNode } from "react";
 
 /**
  * Fetch callbacks passed to fetchResponse.
@@ -49,7 +49,13 @@ function createWrapper(
   url = "https://api.example.com",
 ): ({ children }: { children: ReactNode }) => ReactNode {
   return function Wrapper({ children }: { children: ReactNode }): ReactNode {
-    return React.createElement(ChatProvider, { url }, children);
+    // Children are passed as the third argument, which React merges into
+    // props; the cast satisfies the overload, which expects them on props.
+    return React.createElement(
+      ChatProvider,
+      { url } as ComponentProps<typeof ChatProvider>,
+      children,
+    );
   };
 }
 
