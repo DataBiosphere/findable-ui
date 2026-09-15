@@ -6,7 +6,7 @@ import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
 import { Content } from "../../../../content.styles";
 import { Slogan } from "../../../Slogan/slogan";
-import { DIALOG_PROPS } from "./common/constants";
+import { ARIA_LABEL, DIALOG_PROPS } from "./common/constants";
 import { Navigation } from "./components/Content/components/Navigation/navigation.styles";
 import { Socials } from "./components/Content/components/Socials/socials.styles";
 import { Toolbar } from "./components/Toolbar/toolbar";
@@ -46,7 +46,13 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
 
     return (
       <Fragment>
-        <IconButton color="ink" onClick={openMenu} ref={ref} style={style}>
+        <IconButton
+          aria-label={ARIA_LABEL.OPEN_MENU}
+          color="ink"
+          onClick={openMenu}
+          ref={ref}
+          style={style}
+        >
           <MenuRounded />
         </IconButton>
         <MDialog

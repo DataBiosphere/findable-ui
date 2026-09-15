@@ -24,8 +24,10 @@ jest.unstable_mockModule(
 );
 
 const Router = (await import("next/router")).default;
-const { Authentication } =
+const { Authentication, renderIconButton } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/authentication");
+const { ARIA_LABEL } =
+  await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/constants");
 
 const TestButton = ({ onClick }: MButtonProps): JSX.Element => (
   <button onClick={onClick}>Sign in</button>
@@ -91,5 +93,33 @@ describe("Authentication Sign In button", () => {
     );
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(closeMenu).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("renderIconButton", () => {
+  // The LoginRounded icon is aria-hidden (MUI sets that on every SvgIcon), so
+  // the button has no text to fall back on if the name is lost.
+  test("names the button by default", () => {
+    render(renderIconButton({}));
+    expect(
+      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
+    ).not.toBeNull();
+  });
+
+  test("lets a caller give the button a more specific name", () => {
+    render(renderIconButton({ "aria-label": "Sign in to Terra" }));
+    expect(
+      screen.getByRole("button", { name: "Sign in to Terra" }),
+    ).not.toBeNull();
+  });
+
+  test.each([
+    ["empty", ""],
+    ["whitespace-only", "   "],
+  ])("falls back when a caller passes a %s name", (_, label) => {
+    render(renderIconButton({ "aria-label": label }));
+    expect(
+      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
+    ).not.toBeNull();
   });
 });

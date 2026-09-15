@@ -8,9 +8,11 @@ import {
 import Router, { useRouter } from "next/router";
 import { ElementType, JSX } from "react";
 import { useProfile } from "../../../../../../../../../../hooks/authentication/profile/useProfile";
+import { resolveAriaLabel } from "../../../../../../../../../../utils/ariaLabel";
 import { isNavigationLinkSelected } from "../../../Navigation/common/utils";
 import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticationMenu";
 import { StyledButton } from "./components/Button/button.styles";
+import { ARIA_LABEL } from "./constants";
 import { getSignInPath, getSignInPathPattern } from "./utils";
 
 export interface AuthenticationProps {
@@ -82,7 +84,14 @@ export function renderButton(
  */
 export function renderIconButton(props: MIconButtonProps): JSX.Element {
   return (
-    <MIconButton color="ink" {...props}>
+    // aria-label is applied after the spread so a caller can give the button a
+    // more specific name, but cannot blank it: a blank aria-label is discarded,
+    // leaving the icon-only button unnamed.
+    <MIconButton
+      color="ink"
+      {...props}
+      aria-label={resolveAriaLabel(props["aria-label"], ARIA_LABEL.SIGN_IN)}
+    >
       <LoginRounded />
     </MIconButton>
   );

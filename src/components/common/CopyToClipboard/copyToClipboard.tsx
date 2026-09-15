@@ -2,6 +2,7 @@ import { ContentCopyRounded } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
 import { JSX, useEffect, useState } from "react";
+import { ARIA_LABEL } from "./constants";
 
 export interface CopyToClipboardProps {
   copyStr: string;
@@ -39,7 +40,14 @@ export const CopyToClipboard = ({
       placement="top"
       title={"Link Copied"}
     >
+      {/*
+       * MUI copies a string Tooltip title onto the child as aria-label, which
+       * would name this button after the post-copy confirmation ("Link Copied")
+       * rather than the action it performs. An explicit aria-label wins, so the
+       * name describes the action and the tooltip stays the confirmation.
+       */}
       <IconButton
+        aria-label={ARIA_LABEL.COPY}
         onClick={(): void => onCopyToClipboard(copyStr)}
         size="xxsmall"
       >
