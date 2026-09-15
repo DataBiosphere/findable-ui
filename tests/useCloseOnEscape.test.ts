@@ -115,7 +115,8 @@ describe("useCloseOnEscape", () => {
     const addSpy = jest.spyOn(document, "addEventListener");
     const removeSpy = jest.spyOn(document, "removeEventListener");
     const { rerender } = renderHook(
-      ({ onClose }) => useCloseOnEscape({ onClose, open: true }),
+      ({ onClose }: { onClose: () => void }) =>
+        useCloseOnEscape({ onClose, open: true }),
       { initialProps: { onClose: jest.fn() } },
     );
 
