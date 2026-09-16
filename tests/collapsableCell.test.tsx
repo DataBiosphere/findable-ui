@@ -36,9 +36,15 @@ const COLUMNS = [
  * Renders a collapsable cell per row, with expansion driven by the table's own
  * state so the toggle round-trips as it does in an app. The cell renders a
  * `td`, so it is wrapped in table markup to keep the DOM valid.
+ * @param props - Component props.
+ * @param props.isDisabled - Whether the row toggles are disabled.
  * @returns Collapsable cells under test.
  */
-function TestCell(): JSX.Element {
+function TestCell({
+  isDisabled = false,
+}: {
+  isDisabled?: boolean;
+}): JSX.Element {
   const table = useReactTable<RowData>({
     columns: COLUMNS,
     data: ROWS,
@@ -51,7 +57,7 @@ function TestCell(): JSX.Element {
       <tbody>
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}>
-            <CollapsableCell row={row} />
+            <CollapsableCell isDisabled={isDisabled} row={row} />
           </tr>
         ))}
       </tbody>
@@ -88,5 +94,14 @@ describe("CollapsableCell", () => {
 
     expect(screen.getByRole("button", { name: TOGGLE_NAME })).toBe(toggle);
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
+  });
+
+  // A disabled row cannot open, so advertising a disclosure state would
+  // describe an interaction that is not offered.
+  it("should omit aria-expanded while the toggle is disabled", () => {
+    render(<TestCell isDisabled />);
+    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+    expect(toggle.hasAttribute("aria-expanded")).toBe(false);
+    expect(toggle.hasAttribute("disabled")).toBe(true);
   });
 });

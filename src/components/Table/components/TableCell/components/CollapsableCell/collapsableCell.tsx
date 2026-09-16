@@ -28,7 +28,9 @@ export const CollapsableCell = <T extends RowData>({
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
-          aria-expanded={isExpanded}
+          // Omitted while disabled: the row cannot open, so advertising a
+          // disclosure state would describe an interaction that is not offered.
+          aria-expanded={isDisabled ? undefined : isExpanded}
           aria-label={getToggleLabel(row.index)}
           color="ink"
           disabled={isDisabled}
