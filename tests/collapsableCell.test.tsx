@@ -7,15 +7,20 @@ import {
 import { fireEvent, render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { CollapsableCell } from "../src/components/Table/components/TableCell/components/CollapsableCell/collapsableCell";
+import { ARIA_LABEL } from "../src/components/Table/components/TableCell/components/CollapsableCell/constants";
 
 interface RowData {
   name: string;
   organism: string;
 }
 
-const ROW: RowData = { name: "Sample 123", organism: "Homo sapiens" };
+const ROWS: RowData[] = [
+  { name: "Sample 123", organism: "Homo sapiens" },
+  { name: "Sample 456", organism: "Mus musculus" },
+];
 
-const TOGGLE_NAME = `Row details: ${ROW.name}`;
+// The first (and only) row of the test table, counted from one.
+const TOGGLE_NAME = `${ARIA_LABEL.ROW_DETAILS}: 1`;
 
 const columnHelper = createColumnHelper<RowData>();
 
@@ -28,16 +33,15 @@ const COLUMNS = [
 ];
 
 /**
- * Renders a single collapsable cell whose pinned column carries the row's
- * identifier, with expansion driven by the table's own state so the toggle
- * round-trips as it does in an app. The cell renders a `td`, so it is wrapped
- * in table markup to keep the DOM valid.
- * @returns Collapsable cell under test.
+ * Renders a collapsable cell per row, with expansion driven by the table's own
+ * state so the toggle round-trips as it does in an app. The cell renders a
+ * `td`, so it is wrapped in table markup to keep the DOM valid.
+ * @returns Collapsable cells under test.
  */
 function TestCell(): JSX.Element {
   const table = useReactTable<RowData>({
     columns: COLUMNS,
-    data: [ROW],
+    data: ROWS,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getRowCanExpand: () => true,
@@ -45,18 +49,31 @@ function TestCell(): JSX.Element {
   return (
     <table>
       <tbody>
-        <tr>
-          <CollapsableCell row={table.getRowModel().rows[0]} />
-        </tr>
+        {table.getRowModel().rows.map((row) => (
+          <tr key={row.id}>
+            <CollapsableCell row={row} />
+          </tr>
+        ))}
       </tbody>
     </table>
   );
 }
 
 describe("CollapsableCell", () => {
-  it("should name the row toggle after the pinned cell's value", () => {
+  it("should name the row toggle after the row's number", () => {
     render(<TestCell />);
     expect(screen.getByRole("button", { name: TOGGLE_NAME })).not.toBeNull();
+  });
+
+  // The point of numbering: a bare "Row details" on every row is
+  // indistinguishable in a screen reader's element list.
+  it("should give every row's toggle a distinct name", () => {
+    render(<TestCell />);
+    const names = screen
+      .getAllByRole("button")
+      .map((button) => button.getAttribute("aria-label"));
+    expect(names).toHaveLength(ROWS.length);
+    expect(new Set(names).size).toBe(ROWS.length);
   });
 
   // The name must stay put across activation: aria-expanded is what conveys the
