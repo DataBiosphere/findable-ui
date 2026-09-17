@@ -1,3 +1,8 @@
+export const ARIA_LABEL = {
+  DOWNLOAD: "Download file",
+  DOWNLOAD_PENDING: "Preparing download",
+} as const;
+
 export const AZUL_FILE_DOWNLOAD_TEST_ID = "azul-file-download";
 export const AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID =
   "azul-file-request-download-pending";

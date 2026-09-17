@@ -22,24 +22,25 @@ export const CollapsableRows = <T extends RowData>({
   const { getRowModel } = tableInstance;
   const { rows } = getRowModel();
   useCollapsableRows(tableInstance);
+  // Filter before mapping so the position passed to each cell counts only the
+  // rows actually rendered; a mini-table's sub rows then number from one.
+  const visibleRows = leafOrSubRows || rows.filter((row) => row.depth === 0); // Hide sub rows that are not already leaf or sub rows.
   return (
     <Fragment>
-      {(leafOrSubRows || rows).map((row) => {
-        if (row.depth > 0 && !leafOrSubRows) return null; // Hide sub rows that are not already leaf or sub rows.
-        return (
-          <StyledTableRow
-            key={row.id}
-            id={row.id}
-            isPreview={row.getIsPreview()}
-            isSelected={row.getIsSelected()}
-          >
-            <CollapsableCell
-              isDisabled={isCollapsableRowDisabled(tableInstance)}
-              row={row}
-            />
-          </StyledTableRow>
-        );
-      })}
+      {visibleRows.map((row, position) => (
+        <StyledTableRow
+          key={row.id}
+          id={row.id}
+          isPreview={row.getIsPreview()}
+          isSelected={row.getIsSelected()}
+        >
+          <CollapsableCell
+            isDisabled={isCollapsableRowDisabled(tableInstance)}
+            position={position}
+            row={row}
+          />
+        </StyledTableRow>
+      ))}
     </Fragment>
   );
 };

@@ -5,6 +5,7 @@ import { ICON_BUTTON_PROPS } from "../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
+import { ARIA_LABEL } from "./constants";
 import { StyledGrid } from "./tablePagination.styles";
 import { TablePaginationProps } from "./types";
 
@@ -23,6 +24,7 @@ export const TablePagination = ({
       data-testid={TEST_IDS.TABLE_PAGINATION}
     >
       <IconButton
+        aria-label={ARIA_LABEL.PREVIOUS_PAGE}
         color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
         disabled={!canPreviousPage}
         onClick={onPreviousPage}
@@ -36,6 +38,7 @@ export const TablePagination = ({
         Page {currentPage} of {totalPage}
       </Typography>
       <IconButton
+        aria-label={ARIA_LABEL.NEXT_PAGE}
         color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
         disabled={!canNextPage}
         onClick={onNextPage}

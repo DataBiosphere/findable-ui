@@ -11,6 +11,7 @@ import {
   UserSummary,
 } from "./authenticationMenu.styles";
 import { MENU_PROPS } from "./constants";
+import { getAccountMenuLabel } from "./utils";
 
 export interface AuthenticationMenuProps {
   profile: UserProfile;
@@ -23,7 +24,13 @@ export const AuthenticationMenu = ({
   const { anchorEl, onClose, onOpen, open } = useMenu<HTMLElement>();
   return (
     <Fragment>
-      <UserIcon onClick={onOpen}>
+      {/*
+       * MUI Avatar only renders an <img alt> when src loads; with no src it
+       * renders an aria-hidden fallback icon, leaving the button unnamed. The
+       * name carries the user through so the loaded-image case keeps announcing
+       * it — an aria-label here would otherwise suppress the alt text.
+       */}
+      <UserIcon aria-label={getAccountMenuLabel(profile.name)} onClick={onOpen}>
         <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
       <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>

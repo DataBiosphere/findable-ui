@@ -4,7 +4,7 @@ import { UpArrowIcon } from "../../../../../components/common/CustomIcon/compone
 import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
 import { STACK_PROPS } from "../../../../../styles/common/mui/stack";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
-import { INPUT_BASE_PROPS } from "./constants";
+import { ARIA_LABEL, INPUT_BASE_PROPS } from "./constants";
 import { useControlledInput } from "./hooks/UseControlledInput/hook";
 import { useKeyShortCuts } from "./hooks/UseKeyShortCuts/hook";
 import { StyledBox, StyledPaper } from "./input.styles";
@@ -32,6 +32,7 @@ export const Input = ({ disabled, ...props }: InputProps): JSX.Element => {
         />
         <Stack direction={STACK_PROPS.DIRECTION.ROW} gap={2}>
           <IconButton
+            aria-label={ARIA_LABEL.SUBMIT}
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
             disabled={disabled}
             size={ICON_BUTTON_PROPS.SIZE.XSMALL}

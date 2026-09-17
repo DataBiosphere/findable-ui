@@ -10,6 +10,7 @@ import {
   renderIconButton as renderAuthenticationIconButton,
 } from "../../../Authentication/authentication";
 import { Search } from "../../../Search/search";
+import { ARIA_LABEL } from "./constants";
 
 export interface DialogTitleProps {
   actions?: ReactNode;
@@ -53,7 +54,11 @@ export const Toolbar = ({
             {/* Additional actions i.e. call-to-action button */}
             {actions}
             {/* Close menu */}
-            <IconButton color="ink" onClick={onClose}>
+            <IconButton
+              aria-label={ARIA_LABEL.CLOSE_MENU}
+              color="ink"
+              onClick={onClose}
+            >
               <CloseRounded />
             </IconButton>
           </Actions>

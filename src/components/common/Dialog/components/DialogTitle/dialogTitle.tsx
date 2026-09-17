@@ -1,7 +1,8 @@
 import { CloseRounded } from "@mui/icons-material";
 import { IconButton, DialogTitle as MDialogTitle } from "@mui/material";
 import { JSX, ReactNode } from "react";
-import { getCloseLabel } from "./utils";
+import { resolveAriaLabel } from "../../../../../utils/ariaLabel";
+import { ARIA_LABEL } from "./constants";
 
 export interface DialogTitleProps {
   className?: string;
@@ -32,7 +33,7 @@ export const DialogTitle = ({
         // The CloseRounded icon is aria-hidden (MUI sets that on every SvgIcon),
         // so the button needs an explicit accessible name.
         <IconButton
-          aria-label={getCloseLabel(closeLabel)}
+          aria-label={resolveAriaLabel(closeLabel, ARIA_LABEL.CLOSE)}
           color="ink"
           edge="end"
           onClick={onClose}

@@ -8,10 +8,12 @@ import { IconButton } from "../../../common/IconButton/iconButton";
 import { trackFileDownloaded } from "../../../Export/common/tracking";
 import { StyledIconButton } from "./azulFileDownload.styles";
 import {
+  ARIA_LABEL,
   AZUL_FILE_DOWNLOAD_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
 } from "./common/constants";
+import { getDownloadLabel } from "./common/utils";
 
 export interface AzulFileDownloadProps {
   entityName: string; // The name of the file downloaded.
@@ -55,14 +57,20 @@ export const AzulFileDownload = ({
   return (
     <span ref={ref}>
       {isRequestPending ? (
+        // Disabled rather than just pointer-events: none — the button has no
+        // onClick, so without it the control stays keyboard-focusable and is
+        // announced as interactive while the request is in flight.
         <StyledIconButton
+          aria-label={ARIA_LABEL.DOWNLOAD_PENDING}
           color="primary"
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID}
+          disabled
           Icon={LoadingIcon}
           size="medium"
         />
       ) : (
         <IconButton
+          aria-label={getDownloadLabel(isLoading)}
           color="primary"
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
           disabled={!url}

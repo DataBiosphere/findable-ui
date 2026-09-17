@@ -10,22 +10,36 @@ import {
   PinnedCell,
   TableCell,
 } from "./collapsableCell.styles";
+import { getToggleLabel } from "./utils";
 
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
+  /**
+   * Zero-based position of the row among the rows being rendered; numbers the
+   * toggle's accessible name. Defaults to `row.index`, which is only correct
+   * for a flat, unsorted table rendered in full — callers that render a subset,
+   * nested rows, or a sorted view should pass their own map index.
+   */
+  position?: number;
   row: Row<T>;
 }
 
 export const CollapsableCell = <T extends RowData>({
   isDisabled = false,
+  position,
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
+  const isExpanded = row.getIsExpanded();
   return (
-    <TableCell isExpanded={row.getIsExpanded()}>
+    <TableCell isExpanded={isExpanded}>
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
+          // Omitted while disabled: the row cannot open, so advertising a
+          // disclosure state would describe an interaction that is not offered.
+          aria-expanded={isDisabled ? undefined : isExpanded}
+          aria-label={getToggleLabel(position ?? row.index)}
           color="ink"
           disabled={isDisabled}
           edge="end"
@@ -35,7 +49,7 @@ export const CollapsableCell = <T extends RowData>({
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={row.getIsExpanded()}>
+      <Collapse in={isExpanded}>
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
