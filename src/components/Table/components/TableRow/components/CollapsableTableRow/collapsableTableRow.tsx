@@ -42,7 +42,7 @@ export const CollapsableTableRow = memo(function CollapsableTableRow<
       isSelected={isSelected}
       ref={measureElement}
     >
-      <CollapsableCell isDisabled={isDisabled} row={row} />
+      <CollapsableCell isDisabled={isDisabled} position={rowIndex} row={row} />
     </StyledTableRow>
   );
 }) as <T extends RowData>(props: CollapsableTableRowProps<T>) => JSX.Element;

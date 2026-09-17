@@ -14,11 +14,19 @@ import { getToggleLabel } from "./utils";
 
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
+  /**
+   * Zero-based position of the row among the rows being rendered; numbers the
+   * toggle's accessible name. Defaults to `row.index`, which is only correct
+   * for a flat, unsorted table rendered in full — callers that render a subset,
+   * nested rows, or a sorted view should pass their own map index.
+   */
+  position?: number;
   row: Row<T>;
 }
 
 export const CollapsableCell = <T extends RowData>({
   isDisabled = false,
+  position,
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
@@ -31,7 +39,7 @@ export const CollapsableCell = <T extends RowData>({
           // Omitted while disabled: the row cannot open, so advertising a
           // disclosure state would describe an interaction that is not offered.
           aria-expanded={isDisabled ? undefined : isExpanded}
-          aria-label={getToggleLabel(row.index)}
+          aria-label={getToggleLabel(position ?? row.index)}
           color="ink"
           disabled={isDisabled}
           edge="end"
