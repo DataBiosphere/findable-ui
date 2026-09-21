@@ -75,21 +75,23 @@ describe("Authentication Sign In button", () => {
   });
 });
 
-describe("Authentication icon button", () => {
-  // The LoginRounded icon is aria-hidden (MUI sets that on every SvgIcon), so
-  // the button has no text to fall back on if the name is lost.
-  test("names the icon button", () => {
+describe("Authentication button variants", () => {
+  /*
+   * Both variants are named "Sign in", so the accessible name alone cannot
+   * tell them apart. The text node can: the icon variant renders only an
+   * aria-hidden icon, while the labelled variant renders visible text.
+   */
+  test("renders the icon variant when isMenuIn is set", () => {
     render(
       <Authentication authenticationEnabled closeMenu={closeMenu} isMenuIn />,
     );
-    expect(
-      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
-    ).not.toBeNull();
+    const button = screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN });
+    expect(button.textContent).toBe("");
   });
 
-  // The labelled variant carries its own text, so it is named by that.
-  test("names the labelled button by its text", () => {
+  test("renders the labelled variant when isMenuIn is not set", () => {
     render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
-    expect(screen.getByRole("button", { name: "Sign in" })).not.toBeNull();
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.textContent).toContain("Sign in");
   });
 });
