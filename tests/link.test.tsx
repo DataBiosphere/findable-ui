@@ -38,7 +38,8 @@ describe("Link", () => {
     });
 
     // props exists for MuiLink overrides, so none of it belongs on a span.
-    // Before this, these all leaked as attributes on the rendered span.
+    // download, href, hrefLang, ping and referrerPolicy reached the span before
+    // this; rel and target were already excluded and are asserted as a guard.
     it("should not emit any anchor-only prop on the fallback span", () => {
       render(
         <Link
