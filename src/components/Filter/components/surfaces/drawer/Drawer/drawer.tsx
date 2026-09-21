@@ -14,7 +14,17 @@ export const Drawer = ({
   categoryFilters,
   className,
   count,
+  /*
+   * `filterSort`, `filterSortEnabled` and `onFilterSortChange` come from
+   * `SurfaceProps`, not `MuiDrawerProps`. They are destructured only so they
+   * stay out of the rest spread below: `StyledDrawer` sets no
+   * `shouldForwardProp`, so MUI would forward them to the DOM and React would
+   * warn on every render.
+   */
+  filterSort: _filterSort,
+  filterSortEnabled: _filterSortEnabled,
   onFilter,
+  onFilterSortChange: _onFilterSortChange,
   ...props /* MuiDrawerProps */
 }: DrawerProps): JSX.Element | null => {
   return (
