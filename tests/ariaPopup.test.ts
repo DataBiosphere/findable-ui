@@ -50,6 +50,14 @@ describe("getPopupAriaProps", () => {
       "aria-expanded": true,
     });
   });
+
+  // A blank id would render aria-controls="", which resolves to no element.
+  it("should omit aria-controls when the id is blank", () => {
+    expect(getPopupAriaProps({ id: "", open: true })).toEqual({
+      "aria-controls": undefined,
+      "aria-expanded": true,
+    });
+  });
 });
 
 type MenuListSlotProps = NonNullable<

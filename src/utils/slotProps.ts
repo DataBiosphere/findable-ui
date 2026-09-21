@@ -2,7 +2,7 @@
  * A MUI slot prop: either a props object, or — as MUI v7 also allows — a
  * callback deriving the props from the slot's owner state.
  */
-type SlotPropsCallback = (ownerState: never) => object;
+type SlotPropsCallback = (ownerState: unknown) => object;
 
 /**
  * Merges MUI slot props, with a later value's keys winning over an earlier
@@ -18,7 +18,7 @@ export function mergeSlotProps<T extends object>(
   ...slotProps: (T | undefined)[]
 ): T {
   if (slotProps.some((slotProp) => typeof slotProp === "function")) {
-    return ((ownerState: never) =>
+    return ((ownerState: unknown) =>
       slotProps.reduce<object>(
         (acc, slotProp) => ({
           ...acc,
@@ -42,7 +42,7 @@ export function mergeSlotProps<T extends object>(
  */
 function resolveSlotProps<T extends object>(
   slotProp: T | undefined,
-  ownerState: never,
+  ownerState: unknown,
 ): object | undefined {
   return typeof slotProp === "function"
     ? (slotProp as SlotPropsCallback)(ownerState)

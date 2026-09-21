@@ -24,7 +24,7 @@ export interface PopupAriaOptions {
   /**
    * DOM id of the surface the control opens. Optional so a control whose
    * surface has no id still gets `aria-expanded`; `aria-controls` is then
-   * omitted rather than pointed at nothing.
+   * omitted rather than pointed at nothing. A blank id counts as no id.
    */
   id?: string;
   /** Whether the surface is currently open. */
@@ -42,8 +42,9 @@ export interface PopupAriaProps {
  * whether that surface is currently open. For surfaces that only mount while
  * open — MUI `Menu`, `Popper` and `Dialog` all unmount their children by
  * default — `aria-controls` is dropped while closed, because pointing it at an
- * id that is not in the document is worse than omitting it. Controls whose
- * surface stays mounted should set `aria-controls` directly instead.
+ * id that is not in the document is worse than omitting it. A blank id is
+ * dropped for the same reason: `aria-controls=""` resolves to nothing. Controls
+ * whose surface stays mounted should set `aria-controls` directly instead.
  * @param options - Popup ARIA options.
  * @param options.hasPopup - Kind of surface opened, omitted for disclosures.
  * @param options.id - DOM id of the surface the control opens.
@@ -56,7 +57,7 @@ export function getPopupAriaProps({
   open,
 }: PopupAriaOptions): PopupAriaProps {
   return {
-    "aria-controls": open ? id : undefined,
+    "aria-controls": open && id ? id : undefined,
     "aria-expanded": open,
     ...(hasPopup ? { "aria-haspopup": hasPopup } : {}),
   };
