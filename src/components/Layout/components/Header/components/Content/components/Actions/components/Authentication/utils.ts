@@ -8,10 +8,10 @@ import { ROUTE } from "../../../../../../../../../../routes/constants";
  * sign-in path (e.g. when NextAuth's `pages.signIn` is configured to `"/"`).
  * Otherwise fall back to the library default (`ROUTE.LOGIN` = `"/login"`).
  *
- * Accepts `false`/`undefined` (returning the default) so callers that only
- * build render props — e.g. the header wiring `renderButton` — can call it
- * unconditionally; the auth UI itself still renders nothing when the prop is
- * falsy.
+ * Tolerates `false`/`undefined`, returning the default, so the path can be
+ * resolved without first knowing whether the auth UI is enabled. That case is
+ * not reached from `Authentication`, which calls this only after its own falsy
+ * guard and so renders nothing rather than a button pointing at the default.
  *
  * @param authenticationEnabled - The `authenticationEnabled` prop value.
  * @returns The path to navigate to when the user clicks Sign In.
