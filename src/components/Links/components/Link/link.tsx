@@ -62,7 +62,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={rel || REL_ATTRIBUTE.NO_OPENER}
+            rel={rel ?? REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
@@ -82,7 +82,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={rel || REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
+            rel={rel ?? REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}

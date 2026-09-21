@@ -73,6 +73,13 @@ describe("Link", () => {
         REL_ATTRIBUTE.NO_OPENER,
       );
     });
+
+    // An explicit empty rel is a caller value like any other, so it must not
+    // fall back to the default. Only null and undefined do.
+    it("should keep an explicitly empty rel", () => {
+      render(<Link label={LABEL} rel="" url="https://www.example.com" />);
+      expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
+    });
   });
 
   describe("client-side url", () => {
@@ -95,6 +102,11 @@ describe("Link", () => {
         "rel",
         REL_ATTRIBUTE.NO_OPENER_NO_REFERRER,
       );
+    });
+
+    it("should keep an explicitly empty rel", () => {
+      render(<Link label={LABEL} rel="" url="/explore" />);
+      expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
     });
   });
 });
