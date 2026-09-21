@@ -96,15 +96,16 @@ export const Link = ({
   }
   /*
    * Invalid URL.
-   * `rel` and `target` are destructured above rather than left in `props`, so
-   * that anchor-only attributes cannot be spread onto this span.
+   * `props` is deliberately not spread here. It exists for MuiLink overrides,
+   * and this branch renders a Typography span, so anchor-only attributes such
+   * as `rel`, `href` and `download` would land on a non-anchor element.
+   * `TypographyProps` is the supported way to configure this branch.
    */
   return (
     <MTypography
       component="span"
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
-      {...props}
     >
       {label}
     </MTypography>

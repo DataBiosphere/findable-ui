@@ -37,6 +37,37 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).not.toHaveAttribute("target");
     });
 
+    // props exists for MuiLink overrides, so none of it belongs on a span.
+    // Before this, these all leaked as attributes on the rendered span.
+    it("should not emit any anchor-only prop on the fallback span", () => {
+      render(
+        <Link
+          download="file.csv"
+          href="https://elsewhere.example.com"
+          hrefLang="en"
+          label={LABEL}
+          ping="https://ping.example.com"
+          referrerPolicy="no-referrer"
+          rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
+          target={ANCHOR_TARGET.BLANK}
+          url={INVALID_URL}
+        />,
+      );
+      const el = screen.getByText(LABEL);
+      expect(el.tagName).toBe("SPAN");
+      for (const attribute of [
+        "download",
+        "href",
+        "hreflang",
+        "ping",
+        "referrerpolicy",
+        "rel",
+        "target",
+      ]) {
+        expect(el).not.toHaveAttribute(attribute);
+      }
+    });
+
     // TypographyProps is the supported way to style the fallback, so it must
     // keep reaching the span.
     it("should still apply TypographyProps to the fallback span", () => {
@@ -59,7 +90,8 @@ describe("Link", () => {
       expect(el).toHaveAttribute("rel", REL_ATTRIBUTE.NO_OPENER_NO_REFERRER);
     });
 
-    // props spread after rel, so a caller's rel already won before this change.
+    // The component applies the caller's rel directly, which preserves the
+    // precedence the props spread gave it before rel was destructured out.
     it("should let a caller's rel override the default", () => {
       render(
         <Link
