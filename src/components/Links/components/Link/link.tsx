@@ -33,6 +33,7 @@ export const Link = ({
   label,
   noWrap = false,
   onClick,
+  rel,
   target,
   TypographyProps,
   url,
@@ -61,7 +62,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={REL_ATTRIBUTE.NO_OPENER}
+            rel={rel || REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
@@ -81,7 +82,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
+            rel={rel || REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}
@@ -93,7 +94,11 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL */
+  /*
+   * Invalid URL.
+   * `rel` and `target` are destructured above rather than left in `props`, so
+   * that anchor-only attributes cannot be spread onto this span.
+   */
   return (
     <MTypography
       component="span"
