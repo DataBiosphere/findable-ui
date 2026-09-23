@@ -99,6 +99,20 @@ describe("AzulFileDownload", () => {
       // colours while ignoring every click.
       expect(getComputedStyle(buttonEl).pointerEvents).toBe("none");
     });
+    test("should not duplicate the disabled state if the URL disappears mid-request", async () => {
+      const { rerender } = render(
+        <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />,
+      );
+      const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
+      fireEvent.click(buttonEl);
+      await waitFor(() => {
+        expect(buttonEl.getAttribute("aria-busy")).toBe("true");
+      });
+      rerender(<AzulFileDownload {...TRACKING_PARAMETERS} />);
+      // The native attribute takes over; the ARIA form must not double up.
+      expect(buttonEl.disabled).toBe(true);
+      expect(buttonEl.getAttribute("aria-disabled")).toBeNull();
+    });
     test("should retain focus on the button across the pending transition", async () => {
       render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);

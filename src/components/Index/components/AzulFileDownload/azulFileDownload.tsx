@@ -41,10 +41,13 @@ export const AzulFileDownload = ({
        * While the request is in flight the button is aria-disabled rather than
        * disabled, so it stays focusable and a screen reader user can read back
        * its state instead of losing the control they just activated. IconButton
-       * suppresses the pointer affordance for aria-disabled. */}
+       * suppresses the pointer affordance for aria-disabled.
+       * Without a URL the native disabled attribute carries the state, so the
+       * ARIA form is omitted rather than duplicating it -- including when the
+       * URL disappears while a request is still in flight. */}
       <IconButton
         aria-busy={isRequestPending}
-        aria-disabled={isRequestPending || undefined}
+        aria-disabled={url && isRequestPending ? true : undefined}
         aria-label={getDownloadLabel(isRequestPending)}
         color={ICON_BUTTON_PROPS.COLOR.PRIMARY}
         data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
