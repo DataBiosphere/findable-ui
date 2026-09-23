@@ -151,6 +151,19 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
       expect(screen.getByText(LABEL)).toHaveClass("typography-root");
     });
+
+    it("should let TypographyProps.classes override TypographyClasses on the fallback span", () => {
+      render(
+        <Link
+          TypographyClasses={{ root: "typography-root" }}
+          TypographyProps={{ classes: { root: "tp-root" } }}
+          label={LABEL}
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("tp-root");
+      expect(screen.getByText(LABEL)).not.toHaveClass("typography-root");
+    });
   });
 
   describe("external url", () => {

@@ -44,7 +44,7 @@ export const Link = ({
     undefined;
   const mergedTypographyClasses =
     TypographyProps?.classes || props.TypographyClasses
-      ? { ...TypographyProps?.classes, ...props.TypographyClasses }
+      ? { ...props.TypographyClasses, ...TypographyProps?.classes }
       : undefined;
 
   if (isURLObjectWithHrefAndQuery(url)) {
