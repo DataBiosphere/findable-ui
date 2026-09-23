@@ -7,10 +7,6 @@ import {
   PopperProps as MPopperProps,
 } from "@mui/material";
 import { Fragment, JSX, ReactNode, useEffect } from "react";
-import {
-  getPopupAriaProps,
-  HAS_POPUP,
-} from "../../../../../../../../../../utils/ariaPopup";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
@@ -47,6 +43,7 @@ export const NavigationMenu = ({
     onEnableScrollLock,
     onOpen,
     open,
+    triggerProps,
   } = useMenu();
   const MenuItem = isSubMenu ? StyledMenuItem : Fragment;
 
@@ -60,7 +57,7 @@ export const NavigationMenu = ({
   return (
     <MenuItem>
       <Button
-        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
+        {...triggerProps}
         EndIcon={ArrowDropDownRounded}
         isActive={open}
         onClick={onOpen}

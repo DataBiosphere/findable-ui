@@ -39,12 +39,12 @@ export const CollapsableCell = <T extends RowData>({
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
-          // Unconditional, unlike the popup triggers: Collapse keeps its
-          // children mounted when closed, so the region is always in the
-          // document for aria-controls to reference.
-          aria-controls={contentsId}
-          // Omitted while disabled: the row cannot open, so advertising a
-          // disclosure state would describe an interaction that is not offered.
+          // Held in both open states, unlike the popup triggers: Collapse
+          // keeps its children mounted when closed, so the region is always in
+          // the document for aria-controls to reference. Both are omitted while
+          // disabled: the row cannot open, so advertising a disclosure state
+          // would describe an interaction that is not offered.
+          aria-controls={isDisabled ? undefined : contentsId}
           aria-expanded={isDisabled ? undefined : isExpanded}
           aria-label={getToggleLabel(position ?? row.index)}
           color="ink"

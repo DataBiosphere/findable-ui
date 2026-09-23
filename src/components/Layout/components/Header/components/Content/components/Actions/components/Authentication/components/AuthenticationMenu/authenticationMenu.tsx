@@ -2,11 +2,6 @@ import { MenuItem } from "@mui/material";
 import { Fragment, JSX } from "react";
 import { useAuth } from "../../../../../../../../../../../../auth/hooks/useAuth";
 import { UserProfile } from "../../../../../../../../../../../../auth/types/authentication";
-import {
-  getMenuSlotProps,
-  getPopupAriaProps,
-  HAS_POPUP,
-} from "../../../../../../../../../../../../utils/ariaPopup";
 import { useMenu } from "../../../../../../../../../../../common/Menu/hooks/useMenu";
 import {
   AuthenticationMenu as Menu,
@@ -26,13 +21,8 @@ export const AuthenticationMenu = ({
   profile,
 }: AuthenticationMenuProps): JSX.Element => {
   const { service: { requestLogout } = {} } = useAuth();
-  const {
-    anchorEl,
-    id: menuId,
-    onClose,
-    onOpen,
-    open,
-  } = useMenu<HTMLElement>();
+  const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
+    useMenu<HTMLElement>();
   return (
     <Fragment>
       {/*
@@ -42,7 +32,7 @@ export const AuthenticationMenu = ({
        * it — an aria-label here would otherwise suppress the alt text.
        */}
       <UserIcon
-        {...getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id: menuId, open })}
+        {...triggerProps}
         aria-label={getAccountMenuLabel(profile.name)}
         onClick={onOpen}
       >
@@ -53,7 +43,7 @@ export const AuthenticationMenu = ({
         anchorEl={anchorEl}
         onClose={onClose}
         open={open}
-        slotProps={getMenuSlotProps(menuId, MENU_PROPS.slotProps)}
+        slotProps={getSlotProps(MENU_PROPS.slotProps)}
       >
         <UserSummary>
           You are signed in as:

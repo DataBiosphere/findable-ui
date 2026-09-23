@@ -16,6 +16,8 @@ const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
  * set here; a trigger declaring `aria-haspopup="dialog"` would otherwise point
  * at an unnamed generic container. The popover is rendered in a MUI `Modal`,
  * which traps focus and hides the rest of the page, so `aria-modal` is accurate.
+ * A blank id — the `DrawerContext` default outside a provider — is treated as
+ * no id, as `getPopupAriaProps` does, rather than rendered as `id=""`.
  * @param id - DOM id for the drawer surface.
  * @returns Slot props for the drawer.
  */
@@ -24,7 +26,7 @@ function getDrawerSlotProps(id?: string): PopoverProps["slotProps"] {
     paper: {
       "aria-label": ARIA_LABEL.SIDEBAR,
       "aria-modal": true,
-      id,
+      id: id || undefined,
       role: "dialog",
       square: true,
     },

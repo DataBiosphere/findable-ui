@@ -73,9 +73,10 @@ export const Filter = ({
               id={panelId}
               open={open}
               // Popper defaults its root to role="tooltip", which would have
-              // the label's aria-controls resolve to a tooltip rather than the
-              // group of filter controls actually inside it.
-              role="group"
+              // the label's aria-controls resolve to a tooltip. The label
+              // declares aria-haspopup="dialog", and this is a non-modal
+              // dialog: floating over a backdrop, without a focus trap.
+              role="dialog"
               surfaceType={surfaceType}
             >
               {({ placement, TransitionProps }): JSX.Element => {

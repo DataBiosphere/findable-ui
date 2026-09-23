@@ -1,5 +1,5 @@
+import { mergeSlotProps } from "@mui/material/utils";
 import { Fragment, JSX } from "react";
-import { mergeSlotProps } from "../../../../../../utils/slotProps";
 import { DrawerProvider } from "../../../../../common/Drawer/provider/provider";
 import { Controls } from "../../../controls/Controls/controls";
 import { Filters } from "../../../Filters/filters";
@@ -16,6 +16,7 @@ export const Drawer = ({
   className,
   count,
   onFilter,
+  PaperProps,
   ...props /* MuiDrawerProps */
 }: DrawerProps): JSX.Element | null => {
   return (
@@ -30,12 +31,17 @@ export const Drawer = ({
             open={open}
             {...props}
             // On the paper, which is the element carrying role="dialog"; the
-            // drawer root is a presentational wrapper. The id is applied last
-            // and overrides a caller's, because it is what the trigger's
-            // aria-controls points at.
+            // drawer root is a presentational wrapper. MUI Drawer builds
+            // `{ paper: PaperProps, ...slotProps }`, so a caller's deprecated
+            // PaperProps are merged beneath their slotProps.paper here rather
+            // than dropped. The id is applied last and overrides a caller's,
+            // because it is what the trigger's aria-controls points at.
             slotProps={{
               ...props.slotProps,
-              paper: mergeSlotProps(props.slotProps?.paper, { id }),
+              paper: mergeSlotProps(
+                { id },
+                mergeSlotProps(props.slotProps?.paper, PaperProps ?? {}),
+              ),
             }}
           >
             {/* Closes drawer */}

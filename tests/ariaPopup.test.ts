@@ -1,4 +1,6 @@
+import { jest } from "@jest/globals";
 import type { MenuProps } from "@mui/material";
+import type { KeyboardEvent } from "react";
 import {
   getMenuSlotProps,
   getPopupAriaProps,
@@ -56,6 +58,24 @@ describe("getPopupAriaProps", () => {
     expect(getPopupAriaProps({ id: "", open: true })).toEqual({
       "aria-controls": undefined,
       "aria-expanded": true,
+    });
+  });
+
+  // A disabled control cannot open its surface, so announcing expanded state
+  // or a controlled element would describe an interaction that is not offered.
+  // What it would open has not changed, so aria-haspopup stays.
+  it("should omit expanded state and controls while disabled", () => {
+    expect(
+      getPopupAriaProps({
+        disabled: true,
+        hasPopup: HAS_POPUP.DIALOG,
+        id: SURFACE_ID,
+        open: true,
+      }),
+    ).toEqual({
+      "aria-controls": undefined,
+      "aria-expanded": undefined,
+      "aria-haspopup": HAS_POPUP.DIALOG,
     });
   });
 });
@@ -127,6 +147,28 @@ describe("getMenuSlotProps", () => {
       component: "div",
       id: SURFACE_ID,
     });
+  });
+
+  // Built on MUI's mergeSlotProps, so a caller's className joins the default's
+  // rather than replacing it, and both event handlers run.
+  it("should combine class names and chain handlers across bases", () => {
+    const onKeyDown = jest.fn();
+    const callerOnKeyDown = jest.fn();
+    const slotProps = getMenuSlotProps(
+      SURFACE_ID,
+      { list: { className: "base", onKeyDown } },
+      { list: { className: "caller", onKeyDown: callerOnKeyDown } },
+    );
+    const list = slotProps?.list;
+    if (typeof list !== "object") throw new Error("Expected a props object");
+
+    expect(list.className).toBe("base caller");
+    expect(list.id).toBe(SURFACE_ID);
+
+    list.onKeyDown?.({} as KeyboardEvent<HTMLUListElement>);
+
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(callerOnKeyDown).toHaveBeenCalledTimes(1);
   });
 
   // The id is the component's own: it is what the trigger's aria-controls

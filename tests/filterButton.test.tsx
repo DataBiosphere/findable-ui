@@ -60,4 +60,25 @@ describe("Filter drawer button", () => {
     expect(drawer.classList.contains("from-callback")).toBe(true);
     expect(drawer.id).toBe(trigger.getAttribute("aria-controls"));
   });
+
+  // MUI Drawer builds `{ paper: PaperProps, ...slotProps }`, so setting the
+  // paper slot for the id would silently drop a caller's deprecated PaperProps.
+  it("should keep a caller's PaperProps alongside the id", () => {
+    render(
+      <Drawer
+        categoryFilters={[]}
+        count={0}
+        filterSortEnabled={false}
+        onFilter={(): void => {}}
+        PaperProps={{ className: "from-paper-props" }}
+      />,
+    );
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+
+    fireEvent.click(trigger);
+
+    const drawer = screen.getByRole("dialog", { hidden: true });
+    expect(drawer.classList.contains("from-paper-props")).toBe(true);
+    expect(drawer.id).toBe(trigger.getAttribute("aria-controls"));
+  });
 });

@@ -49,10 +49,24 @@ describe("SidebarDrawer", () => {
     ).toBeTruthy();
   });
 
-  it("should remain a named dialog when no id is given", () => {
+  // Outside a DrawerProvider the context default id is "", which must not
+  // render as id="" — an invalid attribute value that the earlier `.id === ""`
+  // assertion could not distinguish from no attribute at all.
+  it("should render no id attribute when no id is given", () => {
     renderDrawer();
     expect(
-      screen.getByRole("dialog", { hidden: true, name: "Sidebar" }).id,
-    ).toBe("");
+      screen
+        .getByRole("dialog", { hidden: true, name: "Sidebar" })
+        .hasAttribute("id"),
+    ).toBe(false);
+  });
+
+  it("should render no id attribute when the id is blank", () => {
+    renderDrawer("");
+    expect(
+      screen
+        .getByRole("dialog", { hidden: true, name: "Sidebar" })
+        .hasAttribute("id"),
+    ).toBe(false);
   });
 });

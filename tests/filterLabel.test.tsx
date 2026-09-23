@@ -10,10 +10,16 @@ const PANEL_ID = "filter-panel";
  * Renders a filter label in the given open state.
  * @param isOpen - Whether the filter panel is open.
  * @param panelId - Id of the panel the label controls.
+ * @param disabled - Whether the label is disabled.
  */
-function renderFilterLabel(isOpen: boolean, panelId?: string): void {
+function renderFilterLabel(
+  isOpen: boolean,
+  panelId?: string,
+  disabled = false,
+): void {
   render(
     <FilterLabel
+      disabled={disabled}
       isOpen={isOpen}
       label={LABEL}
       onClick={jest.fn()}
@@ -24,11 +30,22 @@ function renderFilterLabel(isOpen: boolean, panelId?: string): void {
 }
 
 describe("FilterLabel", () => {
-  // A disclosure: the panel expands in place, so aria-haspopup does not apply.
-  it("should announce expanded state without declaring a popup", () => {
+  // The panel is a Popper in a portal behind a backdrop — a floating dialog,
+  // not a region expanding in place — so the label has to declare a popup.
+  it("should declare that the label opens a dialog", () => {
     renderFilterLabel(false, PANEL_ID);
     const label = screen.getByRole("button", { expanded: false, name: LABEL });
-    expect(label.getAttribute("aria-haspopup")).toBeNull();
+    expect(label.getAttribute("aria-haspopup")).toBe("dialog");
+  });
+
+  // A disabled label cannot open the panel, so no expanded state is offered;
+  // this matches how CollapsableCell treats its disabled toggle.
+  it("should omit expanded state and controls while disabled", () => {
+    renderFilterLabel(true, PANEL_ID, true);
+    const label = screen.getByRole("button", { name: LABEL });
+    expect(label.hasAttribute("aria-expanded")).toBe(false);
+    expect(label.hasAttribute("aria-controls")).toBe(false);
+    expect(label.getAttribute("aria-haspopup")).toBe("dialog");
   });
 
   it("should reference the panel only once it is open", () => {

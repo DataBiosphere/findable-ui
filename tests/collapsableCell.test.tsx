@@ -117,12 +117,13 @@ describe("CollapsableCell", () => {
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
   });
 
-  // A disabled row cannot open, so advertising a disclosure state would
-  // describe an interaction that is not offered.
-  it("should omit aria-expanded while the toggle is disabled", () => {
+  // A disabled row cannot open, so advertising a disclosure state or a
+  // controlled region would describe an interaction that is not offered.
+  it("should omit aria-expanded and aria-controls while the toggle is disabled", () => {
     render(<TestCell isDisabled />);
     const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
     expect(toggle.hasAttribute("aria-expanded")).toBe(false);
+    expect(toggle.hasAttribute("aria-controls")).toBe(false);
     expect(toggle.hasAttribute("disabled")).toBe(true);
   });
 
