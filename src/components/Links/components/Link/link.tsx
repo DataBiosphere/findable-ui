@@ -17,6 +17,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
+import { omitAnchorOnlyProps } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -93,13 +94,13 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL */
+  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
   return (
     <MTypography
       component="span"
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
-      {...props}
+      {...omitAnchorOnlyProps(props)}
     >
       {label}
     </MTypography>
