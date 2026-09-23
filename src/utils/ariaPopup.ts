@@ -1,6 +1,6 @@
 import type { MenuProps } from "@mui/material";
-import { mergeSlotProps } from "@mui/material/utils";
 import type { AriaAttributes } from "react";
+import { mergeSlotProps } from "./slotProps";
 
 /**
  * Values for `aria-haspopup`, naming the kind of surface a control opens.
@@ -15,14 +15,16 @@ export const HAS_POPUP = {
 } as const;
 
 type MenuSlotProps = MenuProps["slotProps"];
-type MenuListSlotProps = NonNullable<MenuSlotProps>["list"];
 
 export interface PopupAriaOptions {
   /**
    * Whether the control is disabled. A disabled control cannot open its
-   * surface, so `aria-expanded` and `aria-controls` are both omitted rather
-   * than describing an interaction that is not offered. `aria-haspopup` stays,
-   * because what the control would open has not changed.
+   * surface, so while the surface is closed `aria-expanded` and
+   * `aria-controls` are both omitted rather than describing an interaction
+   * that is not offered. A surface that is already open when the control
+   * becomes disabled is still announced as open, because it is still on
+   * screen. `aria-haspopup` stays either way: what the control would open has
+   * not changed.
    */
   disabled?: boolean;
   /**
@@ -53,7 +55,7 @@ export interface PopupAriaProps {
  * presentational modal wrapper whose first child is the backdrop, so a root id
  * would have the trigger's `aria-controls` resolve to the backdrop container
  * rather than to the `role="menu"` list. Later bases win, and each one's `list`
- * slot is merged with MUI's own `mergeSlotProps` rather than replaced — so list
+ * slot is merged with MUI's `mergeSlotProps` rather than replaced — so list
  * props set by a default or by a caller survive alongside the id, callback slot
  * props are honoured, and `className`, `style`, `sx` and event handlers are
  * combined rather than overwritten. The one exception is `id` itself, which is
@@ -72,11 +74,11 @@ export function getMenuSlotProps(
     (acc, base) => ({
       ...acc,
       ...base,
-      list: mergeListSlotProps(base?.list, acc.list),
+      list: mergeSlotProps(base?.list, acc.list),
     }),
     {},
   );
-  return { ...merged, list: mergeListSlotProps({ id }, merged.list) };
+  return { ...merged, list: mergeSlotProps({ id }, merged.list) };
 }
 
 /**
@@ -88,7 +90,7 @@ export function getMenuSlotProps(
  * dropped for the same reason: `aria-controls=""` resolves to nothing. Controls
  * whose surface stays mounted should set `aria-controls` directly instead.
  * @param options - Popup ARIA options.
- * @param options.disabled - Whether the control is disabled; omits the state.
+ * @param options.disabled - Whether the control is disabled; omits the state while closed.
  * @param options.hasPopup - Kind of surface opened, omitted for disclosures.
  * @param options.id - DOM id of the surface the control opens.
  * @param options.open - Whether the surface is currently open.
@@ -100,24 +102,10 @@ export function getPopupAriaProps({
   id,
   open,
 }: PopupAriaOptions): PopupAriaProps {
+  const unavailable = disabled && !open;
   return {
-    "aria-controls": !disabled && open && id ? id : undefined,
-    "aria-expanded": disabled ? undefined : open,
+    "aria-controls": open && id ? id : undefined,
+    "aria-expanded": unavailable ? undefined : open,
     ...(hasPopup ? { "aria-haspopup": hasPopup } : {}),
   };
-}
-
-/**
- * Merges two list slot props with MUI's `mergeSlotProps`, the external value
- * winning. MUI's helper reads keys off the default value, so an absent default
- * is replaced with an empty object rather than passed through.
- * @param external - Higher-precedence list slot props.
- * @param defaults - Lower-precedence list slot props.
- * @returns The merged list slot props.
- */
-function mergeListSlotProps(
-  external: MenuListSlotProps | undefined,
-  defaults: MenuListSlotProps | undefined,
-): MenuListSlotProps {
-  return mergeSlotProps(external, defaults ?? {}) as MenuListSlotProps;
 }

@@ -38,6 +38,17 @@ describe("useMenu", () => {
     });
   });
 
+  // A disabled trigger cannot open the menu, so triggerProps drop the
+  // expanded state rather than announce an interaction that is not offered.
+  it("should omit expanded state from triggerProps while disabled", () => {
+    const { result } = renderHook(() => useMenu({ disabled: true }));
+    expect(result.current.triggerProps).toEqual({
+      "aria-controls": undefined,
+      "aria-expanded": undefined,
+      "aria-haspopup": true,
+    });
+  });
+
   it("should give each instance its own id", () => {
     const first = renderHook(() => useMenu());
     const second = renderHook(() => useMenu());

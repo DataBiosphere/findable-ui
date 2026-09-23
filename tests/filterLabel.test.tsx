@@ -41,7 +41,7 @@ describe("FilterLabel", () => {
   // A disabled label cannot open the panel, so no expanded state is offered;
   // this matches how CollapsableCell treats its disabled toggle.
   it("should omit expanded state and controls while disabled", () => {
-    renderFilterLabel(true, PANEL_ID, true);
+    renderFilterLabel(false, PANEL_ID, true);
     const label = screen.getByRole("button", { name: LABEL });
     expect(label.hasAttribute("aria-expanded")).toBe(false);
     expect(label.hasAttribute("aria-controls")).toBe(false);

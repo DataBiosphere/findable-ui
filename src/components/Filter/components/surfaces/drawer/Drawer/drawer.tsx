@@ -1,4 +1,3 @@
-import { mergeSlotProps } from "@mui/material/utils";
 import { Fragment, JSX } from "react";
 import { DrawerProvider } from "../../../../../common/Drawer/provider/provider";
 import { Controls } from "../../../controls/Controls/controls";
@@ -9,6 +8,7 @@ import { IconButton } from "../components/IconButton/iconButton";
 import { DRAWER_PROPS } from "./constants";
 import { StyledDrawer } from "./drawer.styles";
 import { DrawerProps } from "./types";
+import { getPaperSlotProps } from "./utils";
 
 export const Drawer = ({
   Button = BaseButton,
@@ -30,18 +30,9 @@ export const Drawer = ({
             onClose={onClose}
             open={open}
             {...props}
-            // On the paper, which is the element carrying role="dialog"; the
-            // drawer root is a presentational wrapper. MUI Drawer builds
-            // `{ paper: PaperProps, ...slotProps }`, so a caller's deprecated
-            // PaperProps are merged beneath their slotProps.paper here rather
-            // than dropped. The id is applied last and overrides a caller's,
-            // because it is what the trigger's aria-controls points at.
             slotProps={{
               ...props.slotProps,
-              paper: mergeSlotProps(
-                { id },
-                mergeSlotProps(props.slotProps?.paper, PaperProps ?? {}),
-              ),
+              paper: getPaperSlotProps(id, PaperProps, props.slotProps?.paper),
             }}
           >
             {/* Closes drawer */}

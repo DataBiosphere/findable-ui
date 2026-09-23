@@ -40,18 +40,30 @@ export interface UseMenu<E extends HTMLElement> {
   triggerProps: PopupAriaProps;
 }
 
+export interface UseMenuOptions {
+  /**
+   * Whether the control that opens the menu is disabled, so `triggerProps`
+   * can omit expanded state for a menu that cannot be opened.
+   */
+  disabled?: boolean;
+}
+
 /**
  * Menu functionality for menu dropdown, with menu position.
+ * @param options - Menu options.
+ * @param options.disabled - Whether the control that opens the menu is disabled.
  * @returns menu functionality.
  */
-export const useMenu = <E extends HTMLElement>(): UseMenu<E> => {
+export const useMenu = <E extends HTMLElement>({
+  disabled = false,
+}: UseMenuOptions = {}): UseMenu<E> => {
   const [anchorEl, setAnchorEl] = useState<E | null>(null);
   const id = useId();
   const open = useMemo(() => Boolean(anchorEl), [anchorEl]);
 
   const triggerProps = useMemo(
-    () => getPopupAriaProps({ hasPopup: HAS_POPUP.MENU, id, open }),
-    [id, open],
+    () => getPopupAriaProps({ disabled, hasPopup: HAS_POPUP.MENU, id, open }),
+    [disabled, id, open],
   );
 
   const getSlotProps = useCallback(

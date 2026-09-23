@@ -70,12 +70,24 @@ describe("getPopupAriaProps", () => {
         disabled: true,
         hasPopup: HAS_POPUP.DIALOG,
         id: SURFACE_ID,
-        open: true,
+        open: false,
       }),
     ).toEqual({
       "aria-controls": undefined,
       "aria-expanded": undefined,
       "aria-haspopup": HAS_POPUP.DIALOG,
+    });
+  });
+
+  // A control can become disabled while its surface is showing, e.g. when the
+  // data behind it refreshes. The surface is still on screen, so it is still
+  // announced as open.
+  it("should still announce a surface that is open when disabled", () => {
+    expect(
+      getPopupAriaProps({ disabled: true, id: SURFACE_ID, open: true }),
+    ).toEqual({
+      "aria-controls": SURFACE_ID,
+      "aria-expanded": true,
     });
   });
 });

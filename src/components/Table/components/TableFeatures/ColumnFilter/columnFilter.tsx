@@ -29,9 +29,6 @@ export const ColumnFilter = <T extends RowData>({
   slotProps,
   ...props /* MuiMenuProps */
 }: ColumnFilterProps<T>): JSX.Element => {
-  const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
-    useMenu();
-
   // Grab the unique values for the column.
   const facetedUniqueValues = column.getFacetedUniqueValues();
 
@@ -40,6 +37,12 @@ export const ColumnFilter = <T extends RowData>({
 
   // Get the filter values.
   const filterValue = (column.getFilterValue() || []) as unknown[];
+
+  // With no values to filter by, the trigger is disabled and cannot open.
+  const disabled = sortedValues.length === 0;
+
+  const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
+    useMenu({ disabled });
 
   const onFilter = useCallback(
     (value: unknown) => {
@@ -52,7 +55,7 @@ export const ColumnFilter = <T extends RowData>({
     <Fragment>
       <Button
         {...triggerProps}
-        disabled={sortedValues.length === 0}
+        disabled={disabled}
         endIcon={<DropDownIcon color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />}
         onClick={onOpen}
         open={open}
