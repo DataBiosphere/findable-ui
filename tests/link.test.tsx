@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import { createRef } from "react";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -30,16 +31,8 @@ describe("Link", () => {
       expect(el).not.toHaveAttribute("rel");
     });
 
-    it("should not emit target on the fallback span", () => {
-      render(
-        <Link label={LABEL} target={ANCHOR_TARGET.BLANK} url={INVALID_URL} />,
-      );
-      expect(screen.getByText(LABEL)).not.toHaveAttribute("target");
-    });
-
-    // props exists for MuiLink overrides, so none of it belongs on a span.
-    // download, href, hrefLang, ping and referrerPolicy reached the span before
-    // this; rel and target were already excluded and are asserted as a guard.
+    // download, href, hrefLang, ping, referrerPolicy and rel reached the span
+    // before this. target was already destructured and is asserted as a guard.
     it("should not emit any anchor-only prop on the fallback span", () => {
       render(
         <Link
@@ -47,10 +40,12 @@ describe("Link", () => {
           href="https://elsewhere.example.com"
           hrefLang="en"
           label={LABEL}
+          media="print"
           ping="https://ping.example.com"
           referrerPolicy="no-referrer"
           rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
           target={ANCHOR_TARGET.BLANK}
+          type="text/csv"
           url={INVALID_URL}
         />,
       );
@@ -60,17 +55,44 @@ describe("Link", () => {
         "download",
         "href",
         "hreflang",
+        "media",
         "ping",
         "referrerpolicy",
         "rel",
         "target",
+        "type",
       ]) {
         expect(el).not.toHaveAttribute(attribute);
       }
     });
 
-    // TypographyProps is the supported way to style the fallback, so it must
-    // keep reaching the span.
+    // Only anchor-only attributes are omitted. Anything valid on a span,
+    // including what wrappers such as Tooltip inject, must still reach it.
+    it("should keep span-valid props on the fallback span", () => {
+      render(
+        <Link
+          aria-label="Citation"
+          data-testid="citation"
+          id="citation-id"
+          label={LABEL}
+          style={{ color: "red" }}
+          url={INVALID_URL}
+        />,
+      );
+      const el = screen.getByTestId("citation");
+      expect(el.tagName).toBe("SPAN");
+      expect(el).toHaveAttribute("aria-label", "Citation");
+      expect(el).toHaveAttribute("id", "citation-id");
+      expect(el).toHaveStyle({ color: "red" });
+    });
+
+    it("should forward ref to the fallback span", () => {
+      const ref = createRef<HTMLAnchorElement>();
+      render(<Link label={LABEL} ref={ref} url={INVALID_URL} />);
+      expect(ref.current).toBe(screen.getByText(LABEL));
+    });
+
+    // TypographyProps must keep reaching the span.
     it("should still apply TypographyProps to the fallback span", () => {
       render(
         <Link
@@ -91,8 +113,7 @@ describe("Link", () => {
       expect(el).toHaveAttribute("rel", REL_ATTRIBUTE.NO_OPENER_NO_REFERRER);
     });
 
-    // The component applies the caller's rel directly, which preserves the
-    // precedence the props spread gave it before rel was destructured out.
+    // props is spread after the default rel, so a caller's rel wins.
     it("should let a caller's rel override the default", () => {
       render(
         <Link
@@ -108,7 +129,7 @@ describe("Link", () => {
     });
 
     // An explicit empty rel is a caller value like any other, so it must not
-    // fall back to the default. Only null and undefined do.
+    // fall back to the default.
     it("should keep an explicitly empty rel", () => {
       render(<Link label={LABEL} rel="" url="https://www.example.com" />);
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");

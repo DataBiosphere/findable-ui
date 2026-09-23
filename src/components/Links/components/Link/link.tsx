@@ -17,6 +17,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
+import { omitAnchorOnlyProps } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -33,7 +34,6 @@ export const Link = ({
   label,
   noWrap = false,
   onClick,
-  rel,
   target,
   TypographyProps,
   url,
@@ -62,7 +62,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={rel ?? REL_ATTRIBUTE.NO_OPENER}
+            rel={REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
@@ -82,7 +82,7 @@ export const Link = ({
             href={url}
             noWrap={noWrap}
             onClick={onClick}
-            rel={rel ?? REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
+            rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}
@@ -94,18 +94,13 @@ export const Link = ({
       );
     }
   }
-  /*
-   * Invalid URL.
-   * `props` is deliberately not spread here. It exists for MuiLink overrides,
-   * and this branch renders a Typography span, so anchor-only attributes such
-   * as `rel`, `href` and `download` would land on a non-anchor element.
-   * `TypographyProps` is the supported way to configure this branch.
-   */
+  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
   return (
     <MTypography
       component="span"
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
+      {...omitAnchorOnlyProps(props)}
     >
       {label}
     </MTypography>
