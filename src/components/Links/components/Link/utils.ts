@@ -1,17 +1,18 @@
-import type { AnchorOnlyProps } from "./types";
+import type { NonSpanProps } from "./types";
 
 /**
- * Removes anchor-only attributes from the props spread onto the invalid-URL
- * fallback span, keeping everything that is valid on a span (`ref`, `sx`,
- * `style`, `id`, `aria-*`, `data-*` and handlers injected by wrappers such as
- * Tooltip).
+ * Removes anchor-only and MUI Link-only props from the props spread onto the
+ * invalid-URL fallback span, keeping everything that is valid on a span
+ * (`ref`, `sx`, `style`, `id`, `aria-*`, `data-*` and handlers injected by
+ * wrappers such as Tooltip).
  * @param props - Remaining Link props.
- * @returns The props without anchor-only attributes.
+ * @returns The props without non-span attributes.
  */
-export function omitAnchorOnlyProps<P extends AnchorOnlyProps>(
+export function omitNonSpanProps<P extends NonSpanProps>(
   props: P,
-): Omit<P, keyof AnchorOnlyProps> {
+): Omit<P, keyof NonSpanProps> {
   const {
+    classes: _classes,
     download: _download,
     href: _href,
     hrefLang: _hrefLang,
@@ -20,6 +21,8 @@ export function omitAnchorOnlyProps<P extends AnchorOnlyProps>(
     referrerPolicy: _referrerPolicy,
     rel: _rel,
     type: _type,
+    TypographyClasses: _TypographyClasses,
+    underline: _underline,
     ...spanProps
   } = props;
   return spanProps;

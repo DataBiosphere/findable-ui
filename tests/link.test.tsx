@@ -111,6 +111,19 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("citation-link");
     });
 
+    it("should merge className and TypographyProps.className on the fallback span", () => {
+      render(
+        <Link
+          TypographyProps={{ className: "tp" }}
+          className="caller"
+          label={LABEL}
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("caller");
+      expect(screen.getByText(LABEL)).toHaveClass("tp");
+    });
+
     it("should not emit MuiLink-only props on the fallback span", () => {
       render(
         <Link
@@ -124,6 +137,19 @@ describe("Link", () => {
       expect(el.tagName).toBe("SPAN");
       expect(el).not.toHaveAttribute("typographyclasses");
       expect(el).not.toHaveAttribute("underline");
+    });
+
+    it("should apply TypographyClasses and noWrap on the fallback span", () => {
+      render(
+        <Link
+          TypographyClasses={{ root: "typography-root" }}
+          label={LABEL}
+          noWrap
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
+      expect(screen.getByText(LABEL)).toHaveClass("typography-root");
     });
   });
 
@@ -156,6 +182,23 @@ describe("Link", () => {
       render(<Link label={LABEL} rel="" url="https://www.example.com" />);
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
     });
+
+    it("should keep underline, classes, and merged class names", () => {
+      render(
+        <Link
+          TypographyProps={{ className: "tp" }}
+          classes={{ root: "link-root" }}
+          className="caller"
+          label={LABEL}
+          underline="none"
+          url="https://www.example.com"
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("MuiLink-underlineNone");
+      expect(screen.getByText(LABEL)).toHaveClass("caller");
+      expect(screen.getByText(LABEL)).toHaveClass("link-root");
+      expect(screen.getByText(LABEL)).toHaveClass("tp");
+    });
   });
 
   describe("client-side url", () => {
@@ -183,6 +226,19 @@ describe("Link", () => {
     it("should keep an explicitly empty rel", () => {
       render(<Link label={LABEL} rel="" url="/explore" />);
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
+    });
+
+    it("should keep underline and classes", () => {
+      render(
+        <Link
+          classes={{ root: "link-root" }}
+          label={LABEL}
+          underline="none"
+          url="/explore"
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("MuiLink-underlineNone");
+      expect(screen.getByText(LABEL)).toHaveClass("link-root");
     });
   });
 });
