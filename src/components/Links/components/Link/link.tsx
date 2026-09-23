@@ -40,8 +40,13 @@ export const Link = ({
   ...props /* Spread props to allow for specific MuiLink prop overrides. */
 }: LinkProps): JSX.Element => {
   const mergedClassName =
-    [className, TypographyProps?.className].filter(Boolean).join(" ") ||
-    undefined;
+    [
+      ...new Set(
+        [className, TypographyProps?.className].flatMap(
+          (value) => value?.split(/\s+/).filter(Boolean) || [],
+        ),
+      ),
+    ].join(" ") || undefined;
   const mergedTypographyClasses =
     TypographyProps?.classes || props.TypographyClasses
       ? { ...props.TypographyClasses, ...TypographyProps?.classes }

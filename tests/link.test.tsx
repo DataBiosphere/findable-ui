@@ -124,6 +124,19 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("tp");
     });
 
+    it("should deduplicate merged class names on the fallback span", () => {
+      render(
+        <Link
+          TypographyProps={{ className: "shared tp" }}
+          className="caller shared"
+          label={LABEL}
+          url={INVALID_URL}
+        />,
+      );
+      const classTokens = screen.getByText(LABEL).className.split(/\s+/);
+      expect(classTokens.filter((token) => token === "shared")).toHaveLength(1);
+    });
+
     it("should not emit MuiLink-only props on the fallback span", () => {
       render(
         <Link
