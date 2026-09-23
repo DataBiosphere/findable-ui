@@ -8,12 +8,13 @@ const DRAWER_ID = "sidebar-drawer-id";
 /**
  * Renders the open sidebar drawer.
  * @param id - Id of the drawer surface.
+ * @param label - Accessible name for the drawer dialog.
  */
-function renderDrawer(id?: string): void {
+function renderDrawer(id?: string, label?: string): void {
   render(
     // The drawer's styled paper reads theme breakpoints.
     <ThemeProvider theme={createAppTheme()}>
-      <SidebarDrawer id={id} open>
+      <SidebarDrawer id={id} label={label} open>
         <div>Sidebar content</div>
       </SidebarDrawer>
     </ThemeProvider>,
@@ -46,6 +47,15 @@ describe("SidebarDrawer", () => {
     renderDrawer(DRAWER_ID);
     expect(
       screen.getByRole("dialog", { hidden: true, name: "Sidebar" }),
+    ).toBeTruthy();
+  });
+
+  // The name should match what the drawer holds and the control that opens it,
+  // which only the consumer knows.
+  it("should name the dialog with a given label", () => {
+    renderDrawer(DRAWER_ID, "Filters");
+    expect(
+      screen.getByRole("dialog", { hidden: true, name: "Filters" }),
     ).toBeTruthy();
   });
 

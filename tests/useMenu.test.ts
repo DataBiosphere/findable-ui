@@ -25,12 +25,12 @@ describe("useMenu", () => {
     });
   });
 
-  it("should place the id on the menu list slot beneath given bases", () => {
+  it("should place the id on the menu list slot over the given slot props", () => {
     const { result } = renderHook(() => useMenu());
     expect(
       result.current.getSlotProps(
         { list: { component: "div" }, paper: { variant: "menu" } },
-        { list: { dense: true } },
+        { MenuListProps: { dense: true } },
       ),
     ).toEqual({
       list: { component: "div", dense: true, id: result.current.id },

@@ -1,11 +1,17 @@
 import { jest } from "@jest/globals";
 import { ThemeProvider } from "@mui/material";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { DrawerProvider } from "../src/components/common/Drawer/provider/provider";
 import { createAppTheme } from "../src/theme/theme";
 
+// ExploreView only renders the sidebar drawer when there are categories, so the
+// button's popup ARIA depends on them; each test sets them as it needs.
+let categoryViews: unknown[] = [{ key: "category" }];
+
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
-  useExploreState: jest.fn(() => ({ exploreState: { filterCount: 0 } })),
+  useExploreState: jest.fn(() => ({
+    exploreState: { categoryViews, filterCount: 0 },
+  })),
 }));
 
 const { FilterButton } =
@@ -31,6 +37,10 @@ function renderFilterButton(disabled = false): HTMLElement {
 }
 
 describe("EntityView FilterButton", () => {
+  beforeEach(() => {
+    categoryViews = [{ key: "category" }];
+  });
+
   // The drawer it opens is a dialog, so aria-haspopup has to say "dialog".
   it("should declare that the trigger opens a dialog", () => {
     const trigger = renderFilterButton();
@@ -46,5 +56,28 @@ describe("EntityView FilterButton", () => {
     expect(trigger.hasAttribute("aria-expanded")).toBe(false);
     expect(trigger.hasAttribute("aria-controls")).toBe(false);
     expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
+  });
+
+  // With no categories ExploreView renders no sidebar, so the button opens
+  // nothing: it must not announce a dialog, nor point aria-controls at an id
+  // that is not in the document once pressed.
+  it("should announce no popup when there is no drawer to open", () => {
+    categoryViews = [];
+    const trigger = renderFilterButton();
+
+    fireEvent.click(trigger);
+
+    expect(trigger.hasAttribute("aria-haspopup")).toBe(false);
+    expect(trigger.hasAttribute("aria-expanded")).toBe(false);
+    expect(trigger.hasAttribute("aria-controls")).toBe(false);
+  });
+
+  it("should reference the drawer once pressed when there is one", () => {
+    const trigger = renderFilterButton();
+
+    fireEvent.click(trigger);
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    expect(trigger.getAttribute("aria-controls")).toBeTruthy();
   });
 });

@@ -12,6 +12,7 @@ import {
   getPopupAriaProps,
   HAS_POPUP,
 } from "../../../../../../../../../../utils/ariaPopup";
+import { applySlotId } from "../../../../../../../../../../utils/slotProps";
 import { getMenuNavigationLinks } from "../../../../../../common/utils";
 import { HeaderProps } from "../../../../../../header";
 import { AppBar } from "../../../../../../header.styles";
@@ -80,7 +81,7 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
           {...DIALOG_PROPS}
           onClose={closeMenu}
           open={open}
-          slotProps={{ paper: { ...DIALOG_PAPER_PROPS, id: dialogId } }}
+          slotProps={{ paper: applySlotId(dialogId, DIALOG_PAPER_PROPS) }}
           TransitionComponent={Fade}
           transitionDuration={isMenuIn ? 600 : 0}
         >

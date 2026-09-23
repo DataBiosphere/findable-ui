@@ -1,5 +1,5 @@
 import type { DrawerProps as MDrawerProps } from "@mui/material";
-import { mergeSlotProps } from "../../../../../../utils/slotProps";
+import { applySlotId, mergeSlotProps } from "../../../../../../utils/slotProps";
 import { ARIA_LABEL } from "./constants";
 import type { PaperSlotProps } from "./types";
 
@@ -22,8 +22,8 @@ export function getPaperSlotProps(
   paperProps: MDrawerProps["PaperProps"],
   paperSlotProps: PaperSlotProps,
 ): PaperSlotProps {
-  return mergeSlotProps(
-    { id },
+  return applySlotId(
+    id,
     mergeSlotProps(
       paperSlotProps,
       mergeSlotProps(paperProps, { "aria-label": ARIA_LABEL.FILTERS }),

@@ -1,6 +1,6 @@
 import type { MenuProps } from "@mui/material";
 import type { AriaAttributes } from "react";
-import { mergeSlotProps } from "./slotProps";
+import { applySlotId, mergeSlotPropsRecords } from "./slotProps";
 
 /**
  * Values for `aria-haspopup`, naming the kind of surface a control opens.
@@ -15,6 +15,15 @@ export const HAS_POPUP = {
 } as const;
 
 type MenuSlotProps = MenuProps["slotProps"];
+
+/**
+ * The menu props `getMenuSlotProps` reads from a caller: its `slotProps` and
+ * the deprecated per-slot props that MUI would otherwise fold into them.
+ */
+export type MenuSlotPropsSource = Pick<
+  MenuProps,
+  "MenuListProps" | "PaperProps" | "slotProps" | "TransitionProps"
+>;
 
 export interface PopupAriaOptions {
   /**
@@ -54,31 +63,38 @@ export interface PopupAriaProps {
  * The id cannot go on `Menu` itself: MUI renders the menu root as a
  * presentational modal wrapper whose first child is the backdrop, so a root id
  * would have the trigger's `aria-controls` resolve to the backdrop container
- * rather than to the `role="menu"` list. Later bases win, and each one's `list`
- * slot is merged with MUI's `mergeSlotProps` rather than replaced — so list
- * props set by a default or by a caller survive alongside the id, callback slot
- * props are honoured, and `className`, `style`, `sx` and event handlers are
- * combined rather than overwritten. The one exception is `id` itself, which is
- * applied last and overrides a caller's. The component owns that id because it
- * is what the trigger's `aria-controls` points at; honouring a caller's id here
- * would leave that reference dangling.
+ * rather than to the `role="menu"` list.
+ *
+ * Setting `slotProps` on a `Menu` bypasses MUI's own folding of the deprecated
+ * `MenuListProps`, `PaperProps` and `TransitionProps` into their slots — MUI
+ * builds `{ list: MenuListProps, ..., ...slotProps }` — so a caller's
+ * deprecated props would be silently dropped. They are folded in here instead,
+ * from the caller's props, so every call site gets that for free.
+ *
+ * Precedence, lowest first: the defaults, the caller's deprecated props, the
+ * caller's `slotProps`, then the id. Every slot is merged with MUI's
+ * `mergeSlotProps` rather than replaced — so a default's paper or list props
+ * survive a caller setting other props on that slot, callback slot props are
+ * honoured, and `className`, `style`, `sx` and event handlers are combined. The
+ * one exception is `id` itself, which overrides a caller's: it is what the
+ * trigger's `aria-controls` points at.
  * @param id - DOM id to place on the menu's list.
- * @param bases - Slot props to merge beneath the id, in increasing precedence.
+ * @param defaults - The component's default slot props.
+ * @param caller - The caller's menu props; only the slot-related ones are read.
  * @returns Slot props carrying the id on the list slot.
  */
 export function getMenuSlotProps(
   id: string,
-  ...bases: (MenuSlotProps | undefined)[]
+  defaults?: MenuSlotProps,
+  caller: MenuSlotPropsSource = {},
 ): MenuSlotProps {
-  const merged = bases.reduce<NonNullable<MenuSlotProps>>(
-    (acc, base) => ({
-      ...acc,
-      ...base,
-      list: mergeSlotProps(base?.list, acc.list),
-    }),
-    {},
+  const { MenuListProps, PaperProps, slotProps, TransitionProps } = caller;
+  const merged = mergeSlotPropsRecords<NonNullable<MenuSlotProps>>(
+    defaults,
+    { list: MenuListProps, paper: PaperProps, transition: TransitionProps },
+    slotProps,
   );
-  return { ...merged, list: mergeSlotProps({ id }, merged.list) };
+  return { ...merged, list: applySlotId(id, merged.list) };
 }
 
 /**

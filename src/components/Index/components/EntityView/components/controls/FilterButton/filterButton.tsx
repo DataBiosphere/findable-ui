@@ -19,18 +19,25 @@ export const FilterButton = ({
 }: BaseComponentProps & ButtonProps): JSX.Element => {
   const { id, onOpen, open } = useDrawer();
   const { exploreState } = useExploreState();
-  const { filterCount } = exploreState;
+  const { categoryViews, filterCount } = exploreState;
+  // ExploreView only renders the sidebar drawer when there are categories to
+  // filter by, so without them the button opens nothing and must not announce
+  // a dialog or point aria-controls at an id that is not in the document.
+  const hasDrawer = Boolean(categoryViews?.length);
   return (
     <NoSsr>
       <StyledButton
-        {...getPopupAriaProps({
-          // A consumer can disable the trigger through ButtonProps; a disabled
-          // trigger announces no expanded state for a drawer it cannot open.
-          disabled: props.disabled,
-          hasPopup: HAS_POPUP.DIALOG,
-          id,
-          open,
-        })}
+        {...(hasDrawer
+          ? getPopupAriaProps({
+              // A consumer can disable the trigger through ButtonProps; a
+              // disabled trigger announces no expanded state for a drawer it
+              // cannot open.
+              disabled: props.disabled,
+              hasPopup: HAS_POPUP.DIALOG,
+              id,
+              open,
+            })
+          : {})}
         {...BUTTON_PROPS.SECONDARY_CONTAINED}
         className={className}
         onClick={onOpen}

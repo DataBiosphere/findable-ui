@@ -26,7 +26,9 @@ export const ColumnFilter = <T extends RowData>({
   className,
   column,
   MenuListProps,
+  PaperProps,
   slotProps,
+  TransitionProps,
   ...props /* MuiMenuProps */
 }: ColumnFilterProps<T>): JSX.Element => {
   // Grab the unique values for the column.
@@ -73,14 +75,12 @@ export const ColumnFilter = <T extends RowData>({
         anchorEl={anchorEl}
         onClose={onClose}
         open={open}
-        // MUI Menu builds `{ list: MenuListProps, ...slotProps }`, so setting
-        // slotProps.list here would silently drop a caller's deprecated
-        // MenuListProps; they are folded into the list slot instead.
-        slotProps={getSlotProps(
-          MENU_PROPS.slotProps,
-          { list: MenuListProps },
+        slotProps={getSlotProps(MENU_PROPS.slotProps, {
+          MenuListProps,
+          PaperProps,
+          TransitionProps,
           slotProps,
-        )}
+        })}
       >
         {sortedValues.map(([value, occurrence]) => {
           const checked = filterValue.includes(value);

@@ -27,14 +27,25 @@ export interface DropdownMenuProps extends Omit<
   ) => JSX.Element;
   children?: ({ closeMenu }: DropdownMenuItemProps) => JSX.Element[];
   className?: string;
+  /**
+   * Whether the control that opens the menu is disabled. Set it here rather
+   * than on the rendered button: DropdownMenu then hands `disabled` to the
+   * `button` render prop and omits the expanded state a disabled control
+   * cannot offer. When unset, no `disabled` is handed over, so a button that
+   * sets its own is not overridden.
+   */
+  disabled?: boolean;
 }
 
 export const DropdownMenu = ({
   button,
   children,
   className,
+  disabled,
   MenuListProps,
+  PaperProps,
   slotProps,
+  TransitionProps,
   ...props /* Spread props to allow for Mui Menu specific prop overrides e.g. "anchorOrigin". */
 }: DropdownMenuProps): JSX.Element => {
   const {
@@ -44,10 +55,15 @@ export const DropdownMenu = ({
     onOpen: openMenu,
     open,
     triggerProps,
-  } = useMenu<HTMLButtonElement>();
+  } = useMenu<HTMLButtonElement>({ disabled });
   return (
     <Fragment>
-      {button({ ...triggerProps, onClick: openMenu, open })}
+      {button({
+        ...triggerProps,
+        ...(disabled === undefined ? {} : { disabled }),
+        onClick: openMenu,
+        open,
+      })}
       <StyledMenu
         {...DEFAULT_DROPDOWN_MENU_PROPS}
         anchorEl={anchorEl}
@@ -55,14 +71,12 @@ export const DropdownMenu = ({
         onClose={closeMenu}
         open={open}
         {...props}
-        // MUI Menu builds `{ list: MenuListProps, ...slotProps }`, so setting
-        // slotProps.list here would silently drop a caller's deprecated
-        // MenuListProps; they are folded into the list slot instead.
-        slotProps={getSlotProps(
-          DEFAULT_DROPDOWN_MENU_PROPS.slotProps,
-          { list: MenuListProps },
+        slotProps={getSlotProps(DEFAULT_DROPDOWN_MENU_PROPS.slotProps, {
+          MenuListProps,
+          PaperProps,
+          TransitionProps,
           slotProps,
-        )}
+        })}
       >
         {children ? children({ closeMenu }) : null}
       </StyledMenu>

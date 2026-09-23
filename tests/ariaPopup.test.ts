@@ -129,24 +129,69 @@ describe("getMenuSlotProps", () => {
 
   // A wholesale spread would drop a default's list props — MENU_PROPS relies on
   // list: { component: "div" } surviving alongside a caller's own list props.
-  it("should merge list slots across bases rather than replacing them", () => {
+  it("should merge the caller's list slot with the default's", () => {
     expect(
       getMenuSlotProps(
         SURFACE_ID,
         { list: { component: "div" } },
-        { list: { dense: true } },
+        { slotProps: { list: { dense: true } } },
       ),
     ).toEqual({ list: { component: "div", dense: true, id: SURFACE_ID } });
   });
 
-  it("should let a later base win for non-list slots", () => {
+  // Every slot is merged, not just the list: a caller setting elevation must
+  // not silently drop DropdownMenu's default paper variant.
+  it("should merge the caller's other slots with the default's", () => {
     expect(
       getMenuSlotProps(
         SURFACE_ID,
         { paper: { variant: "menu" } },
-        { paper: { variant: "outlined" } },
+        { slotProps: { paper: { elevation: 2 } } },
+      ),
+    ).toEqual({
+      list: { id: SURFACE_ID },
+      paper: { elevation: 2, variant: "menu" },
+    });
+  });
+
+  it("should let the caller win where it sets the same prop as a default", () => {
+    expect(
+      getMenuSlotProps(
+        SURFACE_ID,
+        { paper: { variant: "menu" } },
+        { slotProps: { paper: { variant: "outlined" } } },
       ),
     ).toEqual({ list: { id: SURFACE_ID }, paper: { variant: "outlined" } });
+  });
+
+  // MUI Menu builds `{ list: MenuListProps, ..., ...slotProps }`, so setting
+  // slotProps would silently drop a caller's deprecated props; the helper folds
+  // them in, so a call site cannot forget to.
+  it("should fold the caller's deprecated slot props into their slots", () => {
+    expect(
+      getMenuSlotProps(
+        SURFACE_ID,
+        { paper: { variant: "menu" } },
+        {
+          MenuListProps: { dense: true },
+          PaperProps: { elevation: 2 },
+          TransitionProps: { timeout: 100 },
+        },
+      ),
+    ).toEqual({
+      list: { dense: true, id: SURFACE_ID },
+      paper: { elevation: 2, variant: "menu" },
+      transition: { timeout: 100 },
+    });
+  });
+
+  it("should let the caller's slotProps win over its deprecated props", () => {
+    expect(
+      getMenuSlotProps(SURFACE_ID, undefined, {
+        MenuListProps: { dense: true },
+        slotProps: { list: { dense: false } },
+      }),
+    ).toEqual({ list: { dense: false, id: SURFACE_ID } });
   });
 
   // MUI v7 allows a slot prop to be an (ownerState) => props callback, which a
@@ -163,13 +208,17 @@ describe("getMenuSlotProps", () => {
 
   // Built on MUI's mergeSlotProps, so a caller's className joins the default's
   // rather than replacing it, and both event handlers run.
-  it("should combine class names and chain handlers across bases", () => {
+  it("should combine class names and chain handlers with the defaults", () => {
     const onKeyDown = jest.fn();
     const callerOnKeyDown = jest.fn();
     const slotProps = getMenuSlotProps(
       SURFACE_ID,
       { list: { className: "base", onKeyDown } },
-      { list: { className: "caller", onKeyDown: callerOnKeyDown } },
+      {
+        slotProps: {
+          list: { className: "caller", onKeyDown: callerOnKeyDown },
+        },
+      },
     );
     const list = slotProps?.list;
     if (typeof list !== "object") throw new Error("Expected a props object");
@@ -186,10 +235,10 @@ describe("getMenuSlotProps", () => {
   // The id is the component's own: it is what the trigger's aria-controls
   // points at, so honouring a caller's id would leave that reference dangling.
   it("should override a caller's list id", () => {
-    expect(getMenuSlotProps(SURFACE_ID, { list: { id: "caller-id" } })).toEqual(
-      {
-        list: { id: SURFACE_ID },
-      },
-    );
+    expect(
+      getMenuSlotProps(SURFACE_ID, undefined, {
+        slotProps: { list: { id: "caller-id" } },
+      }),
+    ).toEqual({ list: { id: SURFACE_ID } });
   });
 });

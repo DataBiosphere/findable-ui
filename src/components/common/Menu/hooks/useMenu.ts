@@ -4,6 +4,7 @@ import {
   getMenuSlotProps,
   getPopupAriaProps,
   HAS_POPUP,
+  MenuSlotPropsSource,
   PopupAriaProps,
 } from "../../../../utils/ariaPopup";
 
@@ -11,12 +12,14 @@ export interface UseMenu<E extends HTMLElement> {
   anchorEl: E | null;
   /**
    * Returns `slotProps` for the menu with its id on the `role="menu"` list,
-   * merged beneath any given bases so a default's or caller's list props
-   * survive. Spread the result onto the menu's `slotProps`; see
-   * `getMenuSlotProps` for why the id has to live on the list.
+   * merged over the component's defaults and the caller's slot props —
+   * including the deprecated `MenuListProps`, `PaperProps` and
+   * `TransitionProps`, which setting `slotProps` would otherwise drop. Pass the
+   * result as the menu's `slotProps`; see `getMenuSlotProps` for the details.
    */
   getSlotProps: (
-    ...bases: (MenuProps["slotProps"] | undefined)[]
+    defaults?: MenuProps["slotProps"],
+    caller?: MenuSlotPropsSource,
   ) => MenuProps["slotProps"];
   /**
    * Per-instance DOM id for the surface this menu opens, for the trigger's
@@ -67,8 +70,8 @@ export const useMenu = <E extends HTMLElement>({
   );
 
   const getSlotProps = useCallback(
-    (...bases: (MenuProps["slotProps"] | undefined)[]) =>
-      getMenuSlotProps(id, ...bases),
+    (defaults?: MenuProps["slotProps"], caller?: MenuSlotPropsSource) =>
+      getMenuSlotProps(id, defaults, caller),
     [id],
   );
 
