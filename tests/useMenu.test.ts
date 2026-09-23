@@ -1,4 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
+import type { MouseEvent } from "react";
 import { useMenu } from "../src/components/common/Menu/hooks/useMenu";
 
 describe("useMenu", () => {
@@ -15,7 +16,7 @@ describe("useMenu", () => {
     act(() => {
       result.current.onOpen({
         currentTarget: document.createElement("button"),
-      } as React.MouseEvent<HTMLButtonElement>);
+      } as MouseEvent<HTMLButtonElement>);
     });
 
     expect(result.current.triggerProps).toEqual({
