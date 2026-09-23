@@ -29,13 +29,16 @@ export interface LinkProps
 }
 
 export const Link = ({
+  classes: _classes,
   className,
   copyable = false,
   label,
   noWrap = false,
   onClick,
   target,
+  TypographyClasses: _TypographyClasses,
   TypographyProps,
+  underline: _underline,
   url,
   ...props /* Spread props to allow for specific MuiLink prop overrides. */
 }: LinkProps): JSX.Element => {
@@ -97,6 +100,7 @@ export const Link = ({
   /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
   return (
     <MTypography
+      className={className}
       component="span"
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}

@@ -103,6 +103,28 @@ describe("Link", () => {
       );
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
     });
+
+    it("should keep className on the fallback span", () => {
+      render(
+        <Link className="citation-link" label={LABEL} url={INVALID_URL} />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("citation-link");
+    });
+
+    it("should not emit MuiLink-only props on the fallback span", () => {
+      render(
+        <Link
+          TypographyClasses={{ root: "typography-root" }}
+          label={LABEL}
+          underline="none"
+          url={INVALID_URL}
+        />,
+      );
+      const el = screen.getByText(LABEL);
+      expect(el.tagName).toBe("SPAN");
+      expect(el).not.toHaveAttribute("typographyclasses");
+      expect(el).not.toHaveAttribute("underline");
+    });
   });
 
   describe("external url", () => {
