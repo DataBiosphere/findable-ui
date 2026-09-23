@@ -23,7 +23,14 @@ export const FilterButton = ({
   return (
     <NoSsr>
       <StyledButton
-        {...getPopupAriaProps({ hasPopup: HAS_POPUP.DIALOG, id, open })}
+        {...getPopupAriaProps({
+          // A consumer can disable the trigger through ButtonProps; a disabled
+          // trigger announces no expanded state for a drawer it cannot open.
+          disabled: props.disabled,
+          hasPopup: HAS_POPUP.DIALOG,
+          id,
+          open,
+        })}
         {...BUTTON_PROPS.SECONDARY_CONTAINED}
         className={className}
         onClick={onOpen}

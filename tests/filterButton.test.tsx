@@ -18,6 +18,21 @@ describe("Filter drawer button", () => {
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
 
+  // A consumer can disable the trigger through ButtonProps. It then cannot open
+  // the drawer, so it announces no expanded state or controlled surface.
+  it("should omit expanded state while the trigger is disabled", () => {
+    render(
+      <DrawerProvider>
+        <DrawerFilterButton disabled />
+      </DrawerProvider>,
+    );
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+    expect(trigger.hasAttribute("disabled")).toBe(true);
+    expect(trigger.hasAttribute("aria-expanded")).toBe(false);
+    expect(trigger.hasAttribute("aria-controls")).toBe(false);
+    expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
+  });
+
   // The trigger and the drawer are siblings under one DrawerProvider, so the
   // id has to come from the provider — neither can generate it alone.
   it("should reference the drawer surface once it is open", () => {
