@@ -1,71 +1,76 @@
 import { jest } from "@jest/globals";
-import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { FILTER_SORT } from "../src/common/filters/sort/config/types";
+import { SURFACE_PROP_KEYS } from "../src/components/Filter/components/surfaces/constants";
 import { Drawer } from "../src/components/Filter/components/surfaces/drawer/Drawer/drawer";
+import { isSurfaceProp } from "../src/components/Filter/components/surfaces/utils";
 
-// The SurfaceProps the adapter hands every surface. They are not
-// MuiDrawerProps, so they must never reach the DOM.
-const SURFACE_ONLY_PROPS = [
-  "filterSort",
-  "filterSortEnabled",
-  "onFilterSortChange",
-];
+// Typed as a record over keyof SurfaceProps, so this list cannot go stale; it
+// is used as the leak oracle directly rather than through isSurfaceProp.
+const SURFACE_KEYS = Object.keys(SURFACE_PROP_KEYS);
 
 /**
- * Renders the filter drawer with the full SurfaceProps set and opens it.
- * @returns The opened drawer's root element.
+ * Returns the names of the props React applied to every host element in the
+ * document. React never writes a function prop, or an unknown boolean one, as
+ * an HTML attribute, so checking attributes alone cannot tell whether
+ * `onFilterSortChange` or `filterSortEnabled` reached the DOM. React's
+ * unknown-prop warning is no better: it fires once per prop per module
+ * instance, so whether a test sees it depends on test order. The props React
+ * holds for the host element are neither.
+ * @returns Prop names applied to host elements.
  */
-function renderOpenDrawer(): HTMLElement {
-  render(
-    <Drawer
-      categoryFilters={[]}
-      filterSort={FILTER_SORT.ALPHA}
-      filterSortEnabled
-      onFilter={jest.fn()}
-      onFilterSortChange={jest.fn()}
-    />,
-  );
-  fireEvent.click(screen.getByRole("button", { name: /filter/i }));
-  return screen.getByRole("presentation");
+function getHostPropNames(): string[] {
+  return Array.from(document.querySelectorAll("*")).flatMap((element) => {
+    const key = Object.keys(element).find((name) =>
+      name.startsWith("__reactProps$"),
+    );
+    if (!key) return [];
+    return Object.keys((element as unknown as Record<string, object>)[key]);
+  });
 }
 
 describe("Filter Drawer", () => {
-  let consoleError: ReturnType<typeof jest.spyOn>;
+  // Regression: the surface props the drawer does not use fell into the rest
+  // spread and MUI forwarded them to the DOM, warning on every mobile render.
+  it("should not pass surface props to any DOM element", () => {
+    render(
+      <Drawer
+        categoryFilters={[]}
+        count={0}
+        filterSort={FILTER_SORT.ALPHA}
+        filterSortEnabled
+        onFilter={jest.fn()}
+        onFilterSortChange={jest.fn()}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: /filter/i }));
 
-  beforeEach(() => {
-    consoleError = jest
-      .spyOn(console, "error")
-      .mockImplementation(() => void 0);
+    const names = getHostPropNames();
+    // Guards against a vacuous pass should React stop exposing host props.
+    expect(names).toContain("className");
+    expect(names.filter((name) => SURFACE_KEYS.includes(name))).toEqual([]);
   });
+});
 
-  afterEach(() => {
-    consoleError.mockRestore();
-  });
-
-  /*
-   * Regression: these fell into the rest spread and MUI forwarded them to the
-   * DOM. React logs a format string with the prop name in a later argument,
-   * so every argument has to be inspected, not just the first.
-   */
-  it("should not warn about surface props reaching the DOM", () => {
-    renderOpenDrawer();
-    const warnings = consoleError.mock.calls
-      .map((call) => call.map(String).join(" "))
-      .filter((message) =>
-        SURFACE_ONLY_PROPS.some((prop) => message.includes(prop)),
-      );
-    expect(warnings).toEqual([]);
-  });
-
-  // React lowercases an unrecognised prop it does render, so `filterSort`
-  // reached the drawer root as `filtersort="ALPHA"`.
-  it("should not emit surface props as DOM attributes", () => {
-    const el = renderOpenDrawer();
-    for (const prop of SURFACE_ONLY_PROPS) {
-      const attribute = prop.toLowerCase();
-      expect(el.hasAttribute(attribute)).toBe(false);
-      expect(el.querySelector(`[${attribute}]`)).toBeNull();
+describe("isSurfaceProp", () => {
+  it("should match surface props", () => {
+    for (const prop of [
+      "filterSort",
+      "filterSortEnabled",
+      "onFilterSortChange",
+    ]) {
+      expect(isSurfaceProp(prop)).toBe(true);
     }
+  });
+
+  it("should not match MUI Drawer props", () => {
+    for (const prop of ["anchor", "className", "open", "slotProps"]) {
+      expect(isSurfaceProp(prop)).toBe(false);
+    }
+  });
+
+  // An own-key check, so Object.prototype members are not mistaken for keys.
+  it("should not match inherited object members", () => {
+    expect(isSurfaceProp("toString")).toBe(false);
   });
 });
