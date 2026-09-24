@@ -19,9 +19,7 @@ export function withTokenRequirement(
     return;
   }
 
-  const guardedCallback = (() => {
-    callback();
-  }) as LoginGuardCallback;
+  const guardedCallback = callback as LoginGuardCallback;
   guardedCallback.requiresToken = true;
   return guardedCallback;
 }
