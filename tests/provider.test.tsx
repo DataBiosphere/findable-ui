@@ -282,7 +282,7 @@ describe("LoginGuardProvider", () => {
     );
   });
 
-  it("preserves the first queued token-required callback until credentials arrive", async () => {
+  it("uses the latest queued token-required callback when credentials arrive", async () => {
     const firstCallback = jest.fn();
     const secondCallback = jest.fn();
     const tokenState: { current: string | undefined } = { current: undefined };
@@ -337,8 +337,8 @@ describe("LoginGuardProvider", () => {
       );
     });
 
-    expect(firstCallback).toHaveBeenCalledTimes(1);
-    expect(secondCallback).not.toHaveBeenCalled();
+    expect(firstCallback).not.toHaveBeenCalled();
+    expect(secondCallback).toHaveBeenCalledTimes(1);
   });
 });
 
