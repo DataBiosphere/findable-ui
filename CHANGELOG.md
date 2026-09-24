@@ -1,5 +1,26 @@
 # Changelog
 
+## [57.0.0](https://github.com/DataBiosphere/findable-ui/compare/v56.0.0...v57.0.0) (2026-09-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* `id` is a required field on the exported `DrawerContextProps` and `UseMenu` types, and `DIALOG_PROPS` for the header menu no longer carries `PaperProps` (moved to `DIALOG_PAPER_PROPS`). Consumers constructing a `DrawerContext` value or mocking `useMenu`/`useDrawer` must supply an `id`.
+* `PAPER_PROPS.VARIANT.SEARCH_BAR` and the `searchbar` Paper variant are removed, along with its `PaperPropsVariantOverrides` augmentation. `useCloseOnEscape` has moved to `lib/hooks/UseCloseOnEscape/hook`. `SearchProps.Button` is replaced by `isMenuIn`, and `renderButton` / `renderIconButton` are no longer exported from the Search module. No consumer in the workspace uses any of these. Requires React >= 19.2 for `useEffectEvent`.
+
+### Bug Fixes
+
+* dialogtitle close button has no accessible name ([#1005](https://github.com/DataBiosphere/findable-ui/issues/1005)) ([#1007](https://github.com/DataBiosphere/findable-ui/issues/1007)) ([0bd0835](https://github.com/DataBiosphere/findable-ui/commit/0bd0835adc865a503ebe4c24d83bc40012ad0e00))
+* filter drawer forwards filtersort props to the dom, warning on every mobile render ([#1004](https://github.com/DataBiosphere/findable-ui/issues/1004)) ([#1017](https://github.com/DataBiosphere/findable-ui/issues/1017)) ([ec69242](https://github.com/DataBiosphere/findable-ui/commit/ec6924216541c516431a375b0b8b2dee4243e838))
+* give every icon-only iconbutton an accessible name ([#1006](https://github.com/DataBiosphere/findable-ui/issues/1006)) ([#1011](https://github.com/DataBiosphere/findable-ui/issues/1011)) ([c0238b4](https://github.com/DataBiosphere/findable-ui/commit/c0238b4a36360e65fed41ea755b147bb45184072))
+* link spreads anchor-only props onto the invalid-url span, emitting invalid markup ([#1009](https://github.com/DataBiosphere/findable-ui/issues/1009)) ([#1016](https://github.com/DataBiosphere/findable-ui/issues/1016)) ([703883a](https://github.com/DataBiosphere/findable-ui/commit/703883a6211663d18d0441d53a665ce35a9f4a40))
+* popup triggers announce no expanded state or popup role ([#1012](https://github.com/DataBiosphere/findable-ui/issues/1012)) ([#1015](https://github.com/DataBiosphere/findable-ui/issues/1015)) ([42159cc](https://github.com/DataBiosphere/findable-ui/commit/42159cc3fbb53aab38b39f2d82cfd1a2f523ba70))
+
+
+### Code Refactoring
+
+* replace the header search dialog with a non-modal dropdown anchored to the toolbar ([#999](https://github.com/DataBiosphere/findable-ui/issues/999)) ([#1001](https://github.com/DataBiosphere/findable-ui/issues/1001)) ([6768fbf](https://github.com/DataBiosphere/findable-ui/commit/6768fbfd3bcc68ab5a7fcd06767711e184286072))
+
 ## [56.0.0](https://github.com/DataBiosphere/findable-ui/compare/v55.0.0...v56.0.0) (2026-07-30)
 
 
