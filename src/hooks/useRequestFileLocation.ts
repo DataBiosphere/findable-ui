@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useEffect, useRef } from "react";
+import { MutableRefObject, useEffect, useMemo, useRef } from "react";
 import {
   FILE_LOCATION_PENDING,
   FILE_LOCATION_SUCCESSFULLY,
@@ -27,6 +27,7 @@ export type Method = METHOD;
 
 type ResolveFn = (file: FileLocation | PromiseLike<FileLocation>) => void;
 type RejectFn = (reason: FileLocation) => void;
+type AccessTokenGetter = () => string | undefined;
 
 /**
  * Returns fetch request options.
@@ -70,7 +71,7 @@ export const getFileLocation = async (
 /**
  * Function that will recursively keep making requests to get the file location until gets a 302 or an error.
  * @param url - url for the get request
- * @param accessToken - Access token.
+ * @param getAccessToken - Access token getter.
  * @param resolve - function to resolve the running promise
  * @param reject - function to reject the running promise
  * @param active - Mutable object used to check if the page is still mounted and the requests should keep executing
@@ -79,7 +80,7 @@ export const getFileLocation = async (
  */
 const scheduleFileLocation = (
   url: string,
-  accessToken: string | undefined,
+  getAccessToken: AccessTokenGetter,
   resolve: ResolveFn,
   reject: RejectFn,
   active: MutableRefObject<boolean>,
@@ -87,29 +88,32 @@ const scheduleFileLocation = (
   method: Method = METHOD.GET,
 ): void => {
   setTimeout(() => {
-    getFileLocation(url, accessToken, method).then((result: FileLocation) => {
-      if (result.status === FILE_LOCATION_PENDING) {
-        if (!active.current) {
-          reject({
-            location: "",
-            status: 499, //Client Closed Request
-          });
-          return;
+    getFileLocation(url, getAccessToken(), method).then(
+      (result: FileLocation) => {
+        if (result.status === FILE_LOCATION_PENDING) {
+          if (!active.current) {
+            reject({
+              location: "",
+              status: 499, //Client Closed Request
+            });
+            return;
+          }
+          scheduleFileLocation(
+            result.location,
+            getAccessToken,
+            resolve,
+            reject,
+            active,
+            result.retryAfter,
+            method,
+          );
+        } else if (result.status === FILE_LOCATION_SUCCESSFULLY) {
+          resolve(result);
+        } else {
+          reject(result);
         }
-        scheduleFileLocation(
-          result.location,
-          accessToken,
-          resolve,
-          reject,
-          active,
-          result.retryAfter,
-        );
-      } else if (result.status === FILE_LOCATION_SUCCESSFULLY) {
-        resolve(result);
-      } else {
-        reject(result);
-      }
-    });
+      },
+    );
   }, retryAfter * 1000);
 };
 
@@ -117,7 +121,7 @@ const scheduleFileLocation = (
  * Hook to get a file location using a retry-after approach
  * @param url - to be used on the get request
  * @param method - Method to be used by the request
- * @returns data object with the file location
+ * @returns data object with the file location. The returned `run` callback reads the current token at request time and changes identity when the token changes so dependent effects can retry with refreshed credentials.
  */
 export const useRequestFileLocation = (
   url?: string,
@@ -132,6 +136,10 @@ export const useRequestFileLocation = (
     run: runAsync,
   } = useAsync<FileLocation>();
   const active = useRef<boolean>(true);
+  const tokenRef = useRef<string | undefined>(token);
+
+  // eslint-disable-next-line react-hooks/refs -- Keep the request token synchronized during render so deferred login callbacks and same-commit effects observe the latest token immediately.
+  tokenRef.current = token;
 
   useEffect(() => {
     active.current = true;
@@ -140,15 +148,27 @@ export const useRequestFileLocation = (
     };
   }, []);
 
-  const run = useCallback(() => {
-    if (url) {
-      runAsync(
-        new Promise<FileLocation>((resolve, reject) => {
-          scheduleFileLocation(url, token, resolve, reject, active, 0, method);
-        }),
-      );
-    }
-  }, [runAsync, token, url, method]);
+  const run = useMemo(() => {
+    const getAccessToken = (): string | undefined => tokenRef.current ?? token;
+
+    return (): void => {
+      if (url) {
+        runAsync(
+          new Promise<FileLocation>((resolve, reject) => {
+            scheduleFileLocation(
+              url,
+              getAccessToken,
+              resolve,
+              reject,
+              active,
+              0,
+              method,
+            );
+          }),
+        );
+      }
+    };
+  }, [method, runAsync, token, url]);
 
   return { data, isIdle, isLoading, isSuccess, run };
 };

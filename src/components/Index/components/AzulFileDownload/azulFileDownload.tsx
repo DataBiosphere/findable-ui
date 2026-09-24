@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { JSX, Ref, useEffect, useRef, useState } from "react";
 import { useFileLocation } from "../../../../hooks/useFileLocation";
+import { withTokenRequirement } from "../../../../providers/loginGuard/common/types";
 import { useLoginGuard } from "../../../../providers/loginGuard/hook";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
@@ -75,7 +76,9 @@ export const AzulFileDownload = ({
           data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
           disabled={!url}
           Icon={isLoading ? LoadingIcon : DownloadIcon}
-          onClick={() => requireLogin(handleDownloadClick)}
+          onClick={() =>
+            requireLogin(withTokenRequirement(handleDownloadClick))
+          }
           size="medium"
         />
       )}
