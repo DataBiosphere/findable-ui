@@ -36,11 +36,25 @@ describe("useDownload", () => {
     return anchorEl;
   }
 
+  /**
+   * Sets the state returned by the mocked useFileLocation.
+   * @param state - File location state.
+   * @param state.fileUrl - Resolved file location, if any.
+   * @param state.isLoading - True while the location request is in flight.
+   */
+  function mockFileLocation(state: {
+    fileUrl?: string;
+    isLoading: boolean;
+  }): void {
+    (useFileLocation as jest.Mock).mockReturnValue({ ...state, run: MOCK_RUN });
+  }
+
   beforeEach(() => {
-    (useFileLocation as jest.Mock).mockReturnValue({
-      fileUrl: undefined,
-      run: MOCK_RUN,
-    });
+    mockFileLocation({ fileUrl: undefined, isLoading: false });
+    // Like useAsync, running the request marks it pending.
+    MOCK_RUN.mockImplementation(() =>
+      mockFileLocation({ fileUrl: undefined, isLoading: true }),
+    );
   });
 
   afterEach(() => {
@@ -53,15 +67,17 @@ describe("useDownload", () => {
   });
 
   it("should request the file location and mark the request pending", () => {
-    const { result } = renderHook(() => useDownload(PROPS));
+    const { rerender, result } = renderHook(() => useDownload(PROPS));
     act(() => result.current.onDownload());
+    act(() => rerender());
     expect(MOCK_RUN).toHaveBeenCalledTimes(1);
     expect(result.current.isRequestPending).toBe(true);
   });
 
   it("should ignore a download requested while the request is in flight", () => {
-    const { result } = renderHook(() => useDownload(PROPS));
+    const { rerender, result } = renderHook(() => useDownload(PROPS));
     act(() => result.current.onDownload());
+    act(() => rerender());
     act(() => result.current.onDownload());
     expect(MOCK_RUN).toHaveBeenCalledTimes(1);
   });
@@ -70,12 +86,10 @@ describe("useDownload", () => {
     const { rerender, result } = renderHook(() => useDownload(PROPS));
     const anchorEl = attachAnchor(result.current.downloadRef);
     act(() => result.current.onDownload());
+    act(() => rerender());
     expect(result.current.isRequestPending).toBe(true);
     // The location request resolves.
-    (useFileLocation as jest.Mock).mockReturnValue({
-      fileUrl: FILE_URL,
-      run: MOCK_RUN,
-    });
+    mockFileLocation({ fileUrl: FILE_URL, isLoading: false });
     act(() => rerender());
     expect(anchorEl.href).toBe(FILE_URL);
     expect(anchorEl.click).toHaveBeenCalledTimes(1);
@@ -86,12 +100,10 @@ describe("useDownload", () => {
     const { rerender, result } = renderHook(() => useDownload(PROPS));
     attachAnchor(result.current.downloadRef);
     act(() => result.current.onDownload());
-    (useFileLocation as jest.Mock).mockReturnValue({
-      fileUrl: FILE_URL,
-      run: MOCK_RUN,
-    });
+    mockFileLocation({ fileUrl: FILE_URL, isLoading: false });
     act(() => rerender());
     act(() => result.current.onDownload());
+    act(() => rerender());
     expect(MOCK_RUN).toHaveBeenCalledTimes(2);
     expect(result.current.isRequestPending).toBe(true);
   });
