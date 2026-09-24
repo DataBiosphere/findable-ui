@@ -52,19 +52,15 @@ export function LoginGuardProvider({
   // fire the stored callback (which can do anything — downloads, navigation,
   // dispatches) and clear it. Must run in an effect, not during render.
   useEffect(() => {
-    if (
-      authConfig &&
-      exportsRequireAuth &&
-      isAuthenticated &&
-      token === undefined
-    ) {
+    if (!isAuthenticated) {
       return;
     }
-    if (isAuthenticated) {
-      callbackRef.current?.();
-      callbackRef.current = undefined;
+    if (callbackRef.current?.requiresToken && token === undefined) {
+      return;
     }
-  }, [authConfig, exportsRequireAuth, isAuthenticated, token]);
+    callbackRef.current?.();
+    callbackRef.current = undefined;
+  }, [isAuthenticated, token]);
 
   // Handler to close the dialog.
   const onClose = useCallback(() => {
@@ -79,11 +75,13 @@ export function LoginGuardProvider({
       if (authConfig && exportsRequireAuth && !isAuthenticated) {
         callbackRef.current = cb;
         setOpen(true);
+      } else if (cb?.requiresToken && isAuthenticated && token === undefined) {
+        callbackRef.current = cb;
       } else {
         cb?.();
       }
     },
-    [authConfig, exportsRequireAuth, isAuthenticated],
+    [authConfig, exportsRequireAuth, isAuthenticated, token],
   );
 
   return (

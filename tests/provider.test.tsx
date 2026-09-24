@@ -43,6 +43,8 @@ const { useAuthenticationConfig } =
 const { useToken } = await import("../src/hooks/authentication/token/useToken");
 const { useRequestFileLocation } =
   await import("../src/hooks/useRequestFileLocation");
+const { withTokenRequirement } =
+  await import("../src/providers/loginGuard/common/types");
 
 const { LoginGuardProvider } =
   await import("../src/providers/loginGuard/provider");
@@ -162,10 +164,6 @@ describe("LoginGuardProvider", () => {
 
   it("should call callback after user authenticates", async () => {
     const callback = jest.fn();
-    const tokenState: { current: string | undefined } = { current: undefined };
-    (useToken as jest.Mock).mockImplementation(() => ({
-      token: tokenState.current,
-    }));
 
     const { rerender } = render(
       <LoginGuardProvider>
@@ -197,7 +195,6 @@ describe("LoginGuardProvider", () => {
       (useAuth as jest.Mock).mockReturnValue({
         authState: { isAuthenticated: true },
       });
-      tokenState.current = "new-token";
     });
 
     // Rerender to trigger useEffect.
@@ -226,7 +223,9 @@ describe("LoginGuardProvider", () => {
       const { run } = useRequestFileLocation(REQUEST_URL);
 
       return (
-        <button onClick={() => requireLogin(run)}>{TEXT_BUTTON_EXPORT}</button>
+        <button onClick={() => requireLogin(withTokenRequirement(run))}>
+          {TEXT_BUTTON_EXPORT}
+        </button>
       );
     }
 
