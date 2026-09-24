@@ -75,7 +75,13 @@ export function LoginGuardProvider({
       if (authConfig && exportsRequireAuth && !isAuthenticated) {
         callbackRef.current = cb;
         setOpen(true);
-      } else if (cb?.requiresToken && isAuthenticated && token === undefined) {
+      } else if (
+        authConfig &&
+        cb?.requiresToken &&
+        exportsRequireAuth &&
+        isAuthenticated &&
+        token === undefined
+      ) {
         callbackRef.current = cb;
       } else {
         cb?.();
