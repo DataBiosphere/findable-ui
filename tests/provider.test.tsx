@@ -72,6 +72,11 @@ describe("LoginGuardProvider", () => {
     (useToken as jest.Mock).mockReturnValue({ token: undefined });
   });
 
+  afterEach(() => {
+    jest.useRealTimers();
+    global.fetch = originalFetch;
+  });
+
   it("should render children and login dialog closed", () => {
     render(
       <LoginGuardProvider>
@@ -157,6 +162,10 @@ describe("LoginGuardProvider", () => {
 
   it("should call callback after user authenticates", async () => {
     const callback = jest.fn();
+    const tokenState: { current: string | undefined } = { current: undefined };
+    (useToken as jest.Mock).mockImplementation(() => ({
+      token: tokenState.current,
+    }));
 
     const { rerender } = render(
       <LoginGuardProvider>
@@ -188,6 +197,7 @@ describe("LoginGuardProvider", () => {
       (useAuth as jest.Mock).mockReturnValue({
         authState: { isAuthenticated: true },
       });
+      tokenState.current = "new-token";
     });
 
     // Rerender to trigger useEffect.
@@ -201,7 +211,7 @@ describe("LoginGuardProvider", () => {
     expect(callback).toHaveBeenCalled();
   });
 
-  it("uses the refreshed token for a deferred request after user authenticates", async () => {
+  it("uses the refreshed token for a deferred request after auth and token resolve in separate renders", async () => {
     jest.useFakeTimers();
     const fetchMock = jest.fn().mockResolvedValue(createFileLocationResponse());
     global.fetch = fetchMock as typeof fetch;
@@ -232,10 +242,21 @@ describe("LoginGuardProvider", () => {
 
     expect(fetchMock).not.toHaveBeenCalled();
 
-    tokenState.current = "new-token";
     (useAuth as jest.Mock).mockReturnValue({
       authState: { isAuthenticated: true },
     });
+
+    await act(async () => {
+      rerender(
+        <LoginGuardProvider>
+          <DeferredRequestButton />
+        </LoginGuardProvider>,
+      );
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    tokenState.current = "new-token";
 
     await act(async () => {
       rerender(

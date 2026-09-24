@@ -2,6 +2,7 @@ import { JSX, useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { LoginDialog } from "../../components/common/LoginDialog/loginDialog";
 import { useAuthenticationConfig } from "../../hooks/authentication/config/useAuthenticationConfig";
+import { useToken } from "../../hooks/authentication/token/useToken";
 import { useConfig } from "../../hooks/useConfig";
 import { LoginGuardCallback, LoginGuardProviderProps } from "./common/types";
 import { LoginGuardContext } from "./context";
@@ -36,6 +37,7 @@ export function LoginGuardProvider({
   const {
     authState: { isAuthenticated },
   } = useAuth();
+  const { token } = useToken();
 
   // Adjust-during-render: when the user transitions to authenticated,
   // close the login dialog. Pure state sync — no side effects here.
@@ -50,11 +52,19 @@ export function LoginGuardProvider({
   // fire the stored callback (which can do anything — downloads, navigation,
   // dispatches) and clear it. Must run in an effect, not during render.
   useEffect(() => {
+    if (
+      authConfig &&
+      exportsRequireAuth &&
+      isAuthenticated &&
+      token === undefined
+    ) {
+      return;
+    }
     if (isAuthenticated) {
       callbackRef.current?.();
       callbackRef.current = undefined;
     }
-  }, [isAuthenticated]);
+  }, [authConfig, exportsRequireAuth, isAuthenticated, token]);
 
   // Handler to close the dialog.
   const onClose = useCallback(() => {
