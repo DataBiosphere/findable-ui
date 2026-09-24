@@ -164,6 +164,39 @@ describe("LoginGuardProvider", () => {
     );
   });
 
+  it("calls a token-required callback immediately if exportsRequireAuth is false", () => {
+    const callback = jest.fn();
+
+    (useAuth as jest.Mock).mockReturnValue({
+      authState: { isAuthenticated: true },
+    });
+    (useConfig as jest.Mock).mockReturnValue({
+      config: {
+        exportsRequireAuth: false,
+      },
+    });
+
+    render(
+      <LoginGuardProvider>
+        <LoginGuardContext.Consumer>
+          {({ requireLogin }) => (
+            <button
+              onClick={() => requireLogin(withTokenRequirement(callback))}
+            >
+              {TEXT_BUTTON_EXPORT}
+            </button>
+          )}
+        </LoginGuardContext.Consumer>
+      </LoginGuardProvider>,
+    );
+
+    act(() => {
+      screen.getByText(TEXT_BUTTON_EXPORT).click();
+    });
+
+    expect(callback).toHaveBeenCalledTimes(1);
+  });
+
   it("should call callback after user authenticates", async () => {
     const callback = jest.fn();
 
