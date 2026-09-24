@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react";
-import { JSX } from "react";
+import { JSX, useContext } from "react";
 import { LoginGuardContext } from "../src/providers/loginGuard/context";
 
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
@@ -17,6 +17,10 @@ jest.unstable_mockModule(
     useAuthenticationConfig: jest.fn(),
   }),
 );
+
+jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
+  useToken: jest.fn(),
+}));
 
 const TEST_ID_LOGIN_DIALOG = "login-dialog";
 const TEXT_DIALOG_CLOSED = "closed";
@@ -36,14 +40,23 @@ const { useConfig } = await import("../src/hooks/useConfig");
 const { useAuth } = await import("../src/auth/hooks/useAuth");
 const { useAuthenticationConfig } =
   await import("../src/hooks/authentication/config/useAuthenticationConfig");
+const { useToken } = await import("../src/hooks/authentication/token/useToken");
+const { useRequestFileLocation } =
+  await import("../src/hooks/useRequestFileLocation");
 
 const { LoginGuardProvider } =
   await import("../src/providers/loginGuard/provider");
 
 const TEXT_BUTTON_EXPORT = "export";
+const REQUEST_URL = "https://example.com/file-location";
+const RESPONSE_URL = "https://example.com/download";
+const originalFetch = global.fetch;
 
 describe("LoginGuardProvider", () => {
   beforeEach(() => {
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+    global.fetch = originalFetch;
     // Mock hooks used by login guard.
     (useConfig as jest.Mock).mockReturnValue({
       config: {
@@ -56,6 +69,7 @@ describe("LoginGuardProvider", () => {
       },
     });
     (useAuthenticationConfig as jest.Mock).mockReturnValue({});
+    (useToken as jest.Mock).mockReturnValue({ token: undefined });
   });
 
   it("should render children and login dialog closed", () => {
@@ -186,4 +200,76 @@ describe("LoginGuardProvider", () => {
     // Callback should be called (in useEffect called on re-render).
     expect(callback).toHaveBeenCalled();
   });
+
+  it("uses the refreshed token for a deferred request after user authenticates", async () => {
+    jest.useFakeTimers();
+    const fetchMock = jest.fn().mockResolvedValue(createFileLocationResponse());
+    global.fetch = fetchMock as typeof fetch;
+
+    const tokenState: { current: string | undefined } = { current: undefined };
+    (useToken as jest.Mock).mockImplementation(() => ({
+      token: tokenState.current,
+    }));
+
+    function DeferredRequestButton(): JSX.Element {
+      const { requireLogin } = useContext(LoginGuardContext);
+      const { run } = useRequestFileLocation(REQUEST_URL);
+
+      return (
+        <button onClick={() => requireLogin(run)}>{TEXT_BUTTON_EXPORT}</button>
+      );
+    }
+
+    const { rerender } = render(
+      <LoginGuardProvider>
+        <DeferredRequestButton />
+      </LoginGuardProvider>,
+    );
+
+    act(() => {
+      screen.getByText(TEXT_BUTTON_EXPORT).click();
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    tokenState.current = "new-token";
+    (useAuth as jest.Mock).mockReturnValue({
+      authState: { isAuthenticated: true },
+    });
+
+    await act(async () => {
+      rerender(
+        <LoginGuardProvider>
+          <DeferredRequestButton />
+        </LoginGuardProvider>,
+      );
+    });
+
+    await act(async () => {
+      jest.runOnlyPendingTimers();
+      await Promise.resolve();
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      REQUEST_URL,
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          Authorization: ["Bearer", tokenState.current].join(" "),
+        }),
+      }),
+    );
+  });
 });
+
+/**
+ * Creates a mock file location fetch response.
+ * @returns A resolved fetch response with a successful file location payload.
+ */
+function createFileLocationResponse(): Response {
+  return {
+    json: async () => ({
+      Location: RESPONSE_URL,
+      Status: 302,
+    }),
+  } as Response;
+}
