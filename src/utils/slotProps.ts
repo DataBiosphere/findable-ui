@@ -2,14 +2,11 @@ import { mergeSlotProps as muiMergeSlotProps } from "@mui/material/utils";
 
 /**
  * A MUI slot prop: a props object, or a callback deriving the props from the
- * component's owner state. `never` as the parameter lets any slot's callback,
- * whatever its owner state type, be passed in.
+ * component's owner state.
  */
-type SlotProps = object | ((ownerState: never) => object);
+type SlotProps = object | ((ownerState: unknown) => object);
 
 type MuiMergeSlotProps = (external: unknown, defaults: unknown) => object;
-
-type SlotPropsCallback = (ownerState: object) => object;
 
 /**
  * Returns slot props with the given DOM id applied over them. The id goes on
@@ -98,7 +95,7 @@ function resolveSlotProps(
   ownerState: object,
 ): object {
   if (typeof slotProps === "function") {
-    return (slotProps as SlotPropsCallback)(ownerState);
+    return slotProps(ownerState);
   }
   return slotProps ?? {};
 }
