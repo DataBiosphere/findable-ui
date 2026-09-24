@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useFileLocation } from "../../../../../../hooks/useFileLocation";
 import { useLoginGuard } from "../../../../../../providers/loginGuard/hook";
 import { trackFileDownloaded } from "../../../../../Export/common/tracking";
@@ -11,8 +11,8 @@ import { startDownload } from "./utils";
  * report itself as busy without unmounting.
  * @param props - Hook props.
  * @param props.entityName - The name of the file downloaded.
- * @param props.relatedEntityId - An array of IDs of the file's datasets / projects.
- * @param props.relatedEntityName - An array of names of the file's datasets / projects.
+ * @param props.relatedEntityId - ID of the file's dataset / project.
+ * @param props.relatedEntityName - Name of the file's dataset / project.
  * @param props.url - Original "file fetch URL" as returned from Azul endpoint.
  * @returns Hidden anchor ref, request state, and the download handler.
  */
@@ -22,9 +22,8 @@ export function useDownload({
   relatedEntityName,
   url,
 }: UseDownloadProps): UseDownload {
-  const { fileUrl, run } = useFileLocation(url);
+  const { fileUrl, isLoading, run } = useFileLocation(url);
   const downloadRef = useRef<HTMLAnchorElement>(null);
-  const [isRequestPending, setIsRequestPending] = useState(false);
 
   // Prompt user for login before download, if required.
   const { requireLogin } = useLoginGuard();
@@ -34,7 +33,6 @@ export function useDownload({
     if (!fileUrl) return;
     if (!downloadRef.current) return;
     startDownload(downloadRef.current, fileUrl);
-    setIsRequestPending(false);
   }, [fileUrl]);
 
   /**
@@ -46,7 +44,7 @@ export function useDownload({
    * @returns void.
    */
   const onDownload = (): void => {
-    if (isRequestPending) return;
+    if (isLoading) return;
     requireLogin(requestDownload);
   };
 
@@ -55,10 +53,9 @@ export function useDownload({
    * @returns void.
    */
   const requestDownload = (): void => {
-    setIsRequestPending(true);
     trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
     run();
   };
 
-  return { downloadRef, isRequestPending, onDownload };
+  return { downloadRef, isRequestPending: isLoading, onDownload };
 }

@@ -8,7 +8,7 @@ export interface UseDownload {
 
 export interface UseDownloadProps {
   entityName: string; // The name of the file downloaded.
-  relatedEntityId: string; // An array of IDs of the file's datasets / projects
-  relatedEntityName: string; // An array of names of the file's datasets / projects
+  relatedEntityId: string; // ID of the file's dataset / project.
+  relatedEntityName: string; // Name of the file's dataset / project.
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
 }

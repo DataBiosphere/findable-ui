@@ -3,7 +3,7 @@ import { JSX, Ref } from "react";
 import { ICON_BUTTON_PROPS } from "../../../../styles/common/mui/iconButton";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
-import { IconButton } from "../../../common/IconButton/iconButton";
+import { StyledIconButton } from "./azulFileDownload.styles";
 import {
   AZUL_FILE_DOWNLOAD_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
@@ -14,8 +14,8 @@ import { useDownload } from "./hooks/UseDownload/hook";
 export interface AzulFileDownloadProps {
   entityName: string; // The name of the file downloaded.
   ref?: Ref<HTMLSpanElement>; // Ref attached to the outer span; allows direct use as a Tooltip child without a span wrapper at the call site.
-  relatedEntityId: string; // An array of IDs of the file's datasets / projects
-  relatedEntityName: string; // An array of names of the file's datasets / projects
+  relatedEntityId: string; // ID of the file's dataset / project.
+  relatedEntityName: string; // Name of the file's dataset / project.
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
 }
 
@@ -40,12 +40,12 @@ export const AzulFileDownload = ({
        * state flips and drop keyboard focus to the document body.
        * While the request is in flight the button is aria-disabled rather than
        * disabled, so it stays focusable and a screen reader user can read back
-       * its state instead of losing the control they just activated. IconButton
-       * suppresses the pointer affordance for aria-disabled.
+       * its state instead of losing the control they just activated. The styled
+       * button suppresses the pointer affordance for aria-disabled.
        * Without a URL the native disabled attribute carries the state, so the
        * ARIA form is omitted rather than duplicating it -- including when the
        * URL disappears while a request is still in flight. */}
-      <IconButton
+      <StyledIconButton
         aria-busy={isRequestPending}
         aria-disabled={url && isRequestPending ? true : undefined}
         aria-label={getDownloadLabel(isRequestPending)}

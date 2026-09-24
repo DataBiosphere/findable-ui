@@ -10,15 +10,6 @@ interface Props {
 export const Button = styled(MIconButton, {
   shouldForwardProp: (prop) => prop !== "open",
 })<Props>`
-  /* A control marked aria-disabled stays focusable by design, so MUI never adds
-   * .Mui-disabled and never applies its pointer-events: none. Suppress the
-   * pointer affordance here: without it the button keeps cursor: pointer and
-   * still matches the theme's :hover / :active rules while ignoring every
-   * click. Keyboard focus is untouched, so the state remains readable. */
-  &[aria-disabled="true"] {
-    pointer-events: none;
-  }
-
   ${({ open }) =>
     open &&
     css`
