@@ -132,6 +132,7 @@ export const useRequestFileLocation = (
     run: runAsync,
   } = useAsync<FileLocation>();
   const active = useRef<boolean>(true);
+  const tokenRef = useRef<string | undefined>(token);
 
   useEffect(() => {
     active.current = true;
@@ -140,15 +141,27 @@ export const useRequestFileLocation = (
     };
   }, []);
 
+  useEffect(() => {
+    tokenRef.current = token;
+  }, [token]);
+
   const run = useCallback(() => {
     if (url) {
       runAsync(
         new Promise<FileLocation>((resolve, reject) => {
-          scheduleFileLocation(url, token, resolve, reject, active, 0, method);
+          scheduleFileLocation(
+            url,
+            tokenRef.current,
+            resolve,
+            reject,
+            active,
+            0,
+            method,
+          );
         }),
       );
     }
-  }, [runAsync, token, url, method]);
+  }, [runAsync, url, method]);
 
   return { data, isIdle, isLoading, isSuccess, run };
 };
