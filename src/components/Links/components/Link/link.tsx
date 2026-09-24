@@ -17,7 +17,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
-import { omitNonSpanProps } from "./utils";
+import { mergeClassNames, omitNonSpanProps } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -39,15 +39,11 @@ export const Link = ({
   url,
   ...props /* Spread props to allow for specific MuiLink prop overrides. */
 }: LinkProps): JSX.Element => {
-  const mergedClassName =
-    [
-      ...new Set(
-        [className, TypographyProps?.className].flatMap(
-          (value) => value?.split(/\s+/).filter(Boolean) || [],
-        ),
-      ),
-    ].join(" ") || undefined;
-  const mergedTypographyClasses =
+  const mergedClassName = mergeClassNames(
+    className,
+    TypographyProps?.className,
+  );
+  const fallbackTypographyClasses =
     TypographyProps?.classes ?? props.TypographyClasses;
 
   if (isURLObjectWithHrefAndQuery(url)) {
@@ -113,7 +109,7 @@ export const Link = ({
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
       {...omitNonSpanProps(props)}
-      classes={mergedTypographyClasses}
+      classes={fallbackTypographyClasses}
       className={mergedClassName}
     >
       {label}
