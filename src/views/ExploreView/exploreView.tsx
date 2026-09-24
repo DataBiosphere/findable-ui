@@ -29,6 +29,7 @@ import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/disp
 import { urlToState } from "../../providers/exploreState/actions/urlToState/dispatch";
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
+import { ARIA_LABEL } from "./constants";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
@@ -139,7 +140,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   return (
     <DrawerProvider>
       {categoryViews && !!categoryViews.length && (
-        <Sidebar>
+        <Sidebar label={ARIA_LABEL.SIDEBAR}>
           <ToggleButtonGroup />
           <StyledStack>
             <StyledGrid data-testid={TEST_IDS.FILTER_CONTROLS}>

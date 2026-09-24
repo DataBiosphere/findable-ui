@@ -1,6 +1,6 @@
 import { Collapse, IconButton, Typography } from "@mui/material";
 import { Cell, flexRender, Row, RowData } from "@tanstack/react-table";
-import { JSX } from "react";
+import { JSX, useId } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { UnfoldMoreIcon } from "../../../../../common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon";
 import { getPinnedCellIndex } from "../../../../common/utils";
@@ -31,13 +31,20 @@ export const CollapsableCell = <T extends RowData>({
 }: CollapsableCellProps<T>): JSX.Element => {
   const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
   const isExpanded = row.getIsExpanded();
+  // Generated per instance: every row renders one of these, so a shared id
+  // would leave every toggle in the table pointing at the first row's contents.
+  const contentsId = useId();
   return (
     <TableCell isExpanded={isExpanded}>
       <PinnedCell>
         {flexRender(pinnedCell.column.columnDef.cell, pinnedCell.getContext())}
         <IconButton
-          // Omitted while disabled: the row cannot open, so advertising a
-          // disclosure state would describe an interaction that is not offered.
+          // Held in both open states, unlike the popup triggers: Collapse
+          // keeps its children mounted when closed, so the region is always in
+          // the document for aria-controls to reference. Both are omitted while
+          // disabled: the row cannot open, so advertising a disclosure state
+          // would describe an interaction that is not offered.
+          aria-controls={isDisabled ? undefined : contentsId}
           aria-expanded={isDisabled ? undefined : isExpanded}
           aria-label={getToggleLabel(position ?? row.index)}
           color="ink"
@@ -49,7 +56,7 @@ export const CollapsableCell = <T extends RowData>({
           <UnfoldMoreIcon fontSize="small" />
         </IconButton>
       </PinnedCell>
-      <Collapse in={isExpanded}>
+      <Collapse id={contentsId} in={isExpanded}>
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.

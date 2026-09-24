@@ -37,11 +37,13 @@ export const NavigationMenu = ({
 }: NavLinkMenuProps): JSX.Element => {
   const {
     anchorEl,
+    id: menuId,
     onClose,
     onDisableScrollLock,
     onEnableScrollLock,
     onOpen,
     open,
+    triggerProps,
   } = useMenu();
   const MenuItem = isSubMenu ? StyledMenuItem : Fragment;
 
@@ -55,6 +57,7 @@ export const NavigationMenu = ({
   return (
     <MenuItem>
       <Button
+        {...triggerProps}
         EndIcon={ArrowDropDownRounded}
         isActive={open}
         onClick={onOpen}
@@ -78,7 +81,9 @@ export const NavigationMenu = ({
           >
             <MPaper variant="menu">
               <MClickAwayListener onClickAway={onClose}>
-                <MMenuList component="div">
+                {/* The id sits on the list, which carries role="menu"; the
+                    Popper root is a role="tooltip" wrapper. */}
+                <MMenuList component="div" id={menuId}>
                   <NavigationMenuItems
                     closeMenu={(): void => {
                       onClose();

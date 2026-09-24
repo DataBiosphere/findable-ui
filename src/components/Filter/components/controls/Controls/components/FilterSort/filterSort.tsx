@@ -22,13 +22,15 @@ export const FilterSort = ({
   filterSort = FILTER_SORT.ALPHA,
   onFilterSortChange,
 }: FilterSortProps): JSX.Element | null => {
-  const { anchorEl, onClose, onOpen, open } = useMenu();
+  const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
+    useMenu();
 
   if (!enabled || !onFilterSortChange) return null;
 
   return (
     <Fragment>
       <StyledIconButton
+        {...triggerProps}
         aria-label={ARIA_LABEL.SORT}
         color={ICON_BUTTON_PROPS.COLOR.INK_LIGHT}
         data-testid={TEST_IDS.FILTER_SORT_BUTTON}
@@ -43,6 +45,7 @@ export const FilterSort = ({
         data-testid={TEST_IDS.FILTER_SORT_MENU}
         onClose={onClose}
         open={open}
+        slotProps={getSlotProps(MENU_PROPS.slotProps)}
       >
         <ListItem>
           <ListItemText {...LIST_ITEM_TEXT_PROPS}>

@@ -3,6 +3,7 @@ import { JSX } from "react";
 import { BUTTON_PROPS } from "../../../../../../../../../../../../styles/common/mui/button";
 import { ICON_BUTTON_PROPS } from "../../../../../../../../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../../../../../../../../styles/common/mui/svgIcon";
+import { getPopupAriaProps } from "../../../../../../../../../../../../utils/ariaPopup";
 import { SearchIcon } from "../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { StyledButton } from "./button.styles";
 import { ARIA_LABEL } from "./constants";
@@ -26,10 +27,8 @@ export const Button = ({
   ref,
   searchBarId,
 }: ButtonProps): JSX.Element => {
-  const ariaProps = {
-    "aria-controls": open ? searchBarId : undefined,
-    "aria-expanded": open,
-  };
+  // A disclosure: the bar expands in place, so no aria-haspopup.
+  const ariaProps = getPopupAriaProps({ id: searchBarId, open });
   return isMenuIn ? (
     <IconButton
       {...ariaProps}

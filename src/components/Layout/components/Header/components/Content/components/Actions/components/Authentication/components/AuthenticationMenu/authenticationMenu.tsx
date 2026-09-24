@@ -21,7 +21,8 @@ export const AuthenticationMenu = ({
   profile,
 }: AuthenticationMenuProps): JSX.Element => {
   const { service: { requestLogout } = {} } = useAuth();
-  const { anchorEl, onClose, onOpen, open } = useMenu<HTMLElement>();
+  const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
+    useMenu<HTMLElement>();
   return (
     <Fragment>
       {/*
@@ -30,10 +31,20 @@ export const AuthenticationMenu = ({
        * name carries the user through so the loaded-image case keeps announcing
        * it — an aria-label here would otherwise suppress the alt text.
        */}
-      <UserIcon aria-label={getAccountMenuLabel(profile.name)} onClick={onOpen}>
+      <UserIcon
+        {...triggerProps}
+        aria-label={getAccountMenuLabel(profile.name)}
+        onClick={onOpen}
+      >
         <StyledAvatar alt={profile.name} src={profile.image} />
       </UserIcon>
-      <Menu {...MENU_PROPS} anchorEl={anchorEl} onClose={onClose} open={open}>
+      <Menu
+        {...MENU_PROPS}
+        anchorEl={anchorEl}
+        onClose={onClose}
+        open={open}
+        slotProps={getSlotProps(MENU_PROPS.slotProps)}
+      >
         <UserSummary>
           You are signed in as:
           <UserNames noWrap>{profile.name}</UserNames>
