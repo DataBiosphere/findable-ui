@@ -50,6 +50,8 @@ const { LoginGuardProvider } =
   await import("../src/providers/loginGuard/provider");
 
 const TEXT_BUTTON_EXPORT = "export";
+const TEXT_BUTTON_FIRST = "first";
+const TEXT_BUTTON_SECOND = "second";
 const REQUEST_URL = "https://example.com/file-location";
 const RESPONSE_URL = "https://example.com/download";
 const originalFetch = global.fetch;
@@ -278,6 +280,65 @@ describe("LoginGuardProvider", () => {
         }),
       }),
     );
+  });
+
+  it("preserves the first queued token-required callback until credentials arrive", async () => {
+    const firstCallback = jest.fn();
+    const secondCallback = jest.fn();
+    const tokenState: { current: string | undefined } = { current: undefined };
+
+    (useAuth as jest.Mock).mockReturnValue({
+      authState: { isAuthenticated: true },
+    });
+    (useToken as jest.Mock).mockImplementation(() => ({
+      token: tokenState.current,
+    }));
+
+    const { rerender } = render(
+      <LoginGuardProvider>
+        <LoginGuardContext.Consumer>
+          {({ requireLogin }) => (
+            <>
+              <button
+                onClick={() =>
+                  requireLogin(withTokenRequirement(firstCallback))
+                }
+              >
+                {TEXT_BUTTON_FIRST}
+              </button>
+              <button
+                onClick={() =>
+                  requireLogin(withTokenRequirement(secondCallback))
+                }
+              >
+                {TEXT_BUTTON_SECOND}
+              </button>
+            </>
+          )}
+        </LoginGuardContext.Consumer>
+      </LoginGuardProvider>,
+    );
+
+    act(() => {
+      screen.getByText(TEXT_BUTTON_FIRST).click();
+      screen.getByText(TEXT_BUTTON_SECOND).click();
+    });
+
+    expect(firstCallback).not.toHaveBeenCalled();
+    expect(secondCallback).not.toHaveBeenCalled();
+
+    tokenState.current = "new-token";
+
+    await act(async () => {
+      rerender(
+        <LoginGuardProvider>
+          <div />
+        </LoginGuardProvider>,
+      );
+    });
+
+    expect(firstCallback).toHaveBeenCalledTimes(1);
+    expect(secondCallback).not.toHaveBeenCalled();
   });
 });
 
