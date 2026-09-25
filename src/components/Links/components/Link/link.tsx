@@ -1,7 +1,12 @@
-import { Link as MLink, LinkProps as MLinkProps } from "@mui/material";
+import {
+  Link as MLink,
+  LinkProps as MLinkProps,
+  Typography as MTypography,
+} from "@mui/material";
 import NLink from "next/link";
 import { JSX, ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
+import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
 import { BaseComponentProps } from "../../../types";
@@ -90,36 +95,37 @@ export const Link = ({
     }
   }
   /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
-  const { classes, TypographyClasses, ...spanProps } =
-    omitAnchorOnlyProps(props);
-  const fallbackClasses =
-    TypographyProps?.classes || classes || TypographyClasses?.root
+  const {
+    classes,
+    TypographyClasses,
+    underline: _underline,
+    ...spanProps
+  } = omitAnchorOnlyProps(props);
+  const { classes: typographyClasses, ...fallbackTypographyProps } =
+    TypographyProps ?? {};
+  const fallbackClassName =
+    [classes?.root, fallbackTypographyProps.className ?? className]
+      .filter(Boolean)
+      .join(" ") || undefined;
+  const fallbackTypographyClasses =
+    typographyClasses || TypographyClasses
       ? {
-          ...TypographyProps?.classes,
-          ...classes,
-          root: [
-            TypographyProps?.classes?.root,
-            classes?.root,
-            TypographyClasses?.root,
-          ]
-            .filter(Boolean)
-            .join(" "),
+          ...TypographyClasses,
+          ...typographyClasses,
         }
       : undefined;
-
   return (
-    <MLink
-      className={className}
+    <MTypography
       component="span"
       noWrap={noWrap}
       onClick={onClick}
-      underline="none"
-      {...TypographyProps}
+      variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
+      {...fallbackTypographyProps}
       {...spanProps}
-      TypographyClasses={TypographyClasses}
-      classes={fallbackClasses}
+      classes={fallbackTypographyClasses}
+      className={fallbackClassName}
     >
       {label}
-    </MLink>
+    </MTypography>
   );
 };

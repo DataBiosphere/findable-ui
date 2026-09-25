@@ -104,6 +104,20 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
     });
 
+    it("should keep TypographyProps.classes on the fallback span typography class channel", () => {
+      render(
+        <Link
+          label={LABEL}
+          TypographyProps={{
+            classes: { noWrap: "typography-nowrap" },
+            noWrap: true,
+          }}
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("typography-nowrap");
+    });
+
     it("should keep className on the fallback span", () => {
       render(
         <Link className="citation-link" label={LABEL} url={INVALID_URL} />,
