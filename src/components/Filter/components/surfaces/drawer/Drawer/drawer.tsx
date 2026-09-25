@@ -8,6 +8,7 @@ import { IconButton } from "../components/IconButton/iconButton";
 import { DRAWER_PROPS } from "./constants";
 import { StyledDrawer } from "./drawer.styles";
 import { DrawerProps } from "./types";
+import { getPaperSlotProps } from "./utils";
 
 export const Drawer = ({
   Button = BaseButton,
@@ -15,11 +16,12 @@ export const Drawer = ({
   className,
   count,
   onFilter,
+  PaperProps,
   ...props /* MuiDrawerProps */
 }: DrawerProps): JSX.Element | null => {
   return (
     <DrawerProvider>
-      {({ onClose, open }) => (
+      {({ id, onClose, open }) => (
         <Fragment>
           <Button count={count} />
           <StyledDrawer
@@ -28,6 +30,10 @@ export const Drawer = ({
             onClose={onClose}
             open={open}
             {...props}
+            slotProps={{
+              ...props.slotProps,
+              paper: getPaperSlotProps(id, PaperProps, props.slotProps?.paper),
+            }}
           >
             {/* Closes drawer */}
             <IconButton />

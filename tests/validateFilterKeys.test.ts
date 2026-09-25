@@ -23,45 +23,25 @@ describe("validateFilterParam", () => {
   });
 
   it("returns error for non-string param (string array)", () => {
-    const result = validateFilterParam(
-      ["a", "b"],
-      undefined,
-      isEntry,
-      extractKey,
-    );
+    const result = validateFilterParam(["a", "b"], undefined, isEntry);
     expect(result).toBeInstanceOf(DataExplorerError);
     expect(result?.message).toBe("Invalid filter parameter in URL");
   });
 
   it("returns error for malformed URI encoding", () => {
-    const result = validateFilterParam(
-      "%E0%A4%A",
-      undefined,
-      isEntry,
-      extractKey,
-    );
+    const result = validateFilterParam("%E0%A4%A", undefined, isEntry);
     expect(result).toBeInstanceOf(DataExplorerError);
     expect(result?.message).toBe("Invalid filter parameter in URL");
   });
 
   it("returns error for invalid JSON", () => {
-    const result = validateFilterParam(
-      '{"truncated',
-      undefined,
-      isEntry,
-      extractKey,
-    );
+    const result = validateFilterParam('{"truncated', undefined, isEntry);
     expect(result).toBeInstanceOf(DataExplorerError);
     expect(result?.message).toBe("Invalid filter parameter in URL");
   });
 
   it("returns error for non-array JSON", () => {
-    const result = validateFilterParam(
-      '{"key":"a"}',
-      undefined,
-      isEntry,
-      extractKey,
-    );
+    const result = validateFilterParam('{"key":"a"}', undefined, isEntry);
     expect(result).toBeInstanceOf(DataExplorerError);
     expect(result?.message).toBe("Invalid filter parameter in URL");
   });
@@ -74,16 +54,14 @@ describe("validateFilterParam", () => {
 
   it("returns error when entries fail shape validation", () => {
     const param = JSON.stringify(["not an object"]);
-    const result = validateFilterParam(param, undefined, isEntry, extractKey);
+    const result = validateFilterParam(param, undefined, isEntry);
     expect(result).toBeInstanceOf(DataExplorerError);
     expect(result?.message).toBe("Invalid filter entry shape in URL");
   });
 
   it("returns undefined when entries pass shape validation and no valid keys", () => {
     const param = JSON.stringify([{ key: "a" }]);
-    expect(
-      validateFilterParam(param, undefined, isEntry, extractKey),
-    ).toBeUndefined();
+    expect(validateFilterParam(param, undefined, isEntry)).toBeUndefined();
   });
 
   it("returns undefined when all keys are valid", () => {
@@ -107,9 +85,7 @@ describe("validateFilterParam", () => {
 
   it("skips key validation when validKeys is undefined", () => {
     const param = JSON.stringify([{ key: "anything" }]);
-    expect(
-      validateFilterParam(param, undefined, isEntry, extractKey),
-    ).toBeUndefined();
+    expect(validateFilterParam(param, undefined, isEntry)).toBeUndefined();
   });
 
   it("handles URI-encoded param", () => {

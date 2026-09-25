@@ -23,14 +23,16 @@ const config = (
 // the file's lifetime, so each test uses a unique entityListType to stay
 // isolated.
 describe("seedDatabase", () => {
-  let readFile: jest.Mock;
+  // Typed with the resolved shape so mockResolvedValue accepts the catalog
+  // JSON; an unparameterised jest.Mock resolves its value type to never.
+  let readFile: jest.Mock<() => Promise<string>>;
 
   beforeEach(() => {
     seed.mockReset();
     jest
       .spyOn(database, "get")
       .mockReturnValue({ seed } as unknown as ReturnType<typeof database.get>);
-    readFile = jest.spyOn(fsp, "readFile") as unknown as jest.Mock;
+    readFile = jest.spyOn(fsp, "readFile") as unknown as typeof readFile;
     readFile.mockResolvedValue('{"a":{"id":1}}');
   });
 

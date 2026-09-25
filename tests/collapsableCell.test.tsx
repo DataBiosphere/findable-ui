@@ -117,12 +117,41 @@ describe("CollapsableCell", () => {
     expect(toggle.getAttribute("aria-expanded")).toBe("true");
   });
 
-  // A disabled row cannot open, so advertising a disclosure state would
-  // describe an interaction that is not offered.
-  it("should omit aria-expanded while the toggle is disabled", () => {
+  // A disabled row cannot open, so advertising a disclosure state or a
+  // controlled region would describe an interaction that is not offered.
+  it("should omit aria-expanded and aria-controls while the toggle is disabled", () => {
     render(<TestCell isDisabled />);
     const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
     expect(toggle.hasAttribute("aria-expanded")).toBe(false);
+    expect(toggle.hasAttribute("aria-controls")).toBe(false);
     expect(toggle.hasAttribute("disabled")).toBe(true);
+  });
+
+  // Collapse keeps its children mounted, so unlike the popup triggers this
+  // reference holds in both states.
+  it("should point the toggle at the collapsed contents in both states", () => {
+    render(<TestCell />);
+    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+    const contentsId = toggle.getAttribute("aria-controls") as string;
+
+    expect(contentsId).toBeTruthy();
+    expect(document.getElementById(contentsId)).not.toBeNull();
+
+    fireEvent.click(toggle);
+
+    expect(toggle.getAttribute("aria-controls")).toBe(contentsId);
+    expect(document.getElementById(contentsId)).not.toBeNull();
+  });
+
+  // Every row renders a toggle, so a shared id would leave them all pointing at
+  // the first row's contents.
+  it("should give each row's toggle its own contents id", () => {
+    render(<TestCell />);
+    const [first, second] = screen.getAllByRole("button", {
+      name: /^Row details:/,
+    });
+    expect(first.getAttribute("aria-controls")).not.toBe(
+      second.getAttribute("aria-controls"),
+    );
   });
 });
