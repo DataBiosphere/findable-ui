@@ -17,7 +17,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
-import { omitAnchorOnlyProps } from "./utils";
+import { getFallbackProps, mergeClassNames } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -53,18 +53,20 @@ export const Link = ({
   }
   if (isURLString(url)) {
     if (isClientSideNavigation(url)) {
+      const { className: typographyClassName, ...linkTypographyProps } =
+        TypographyProps ?? {};
       /* Client-side navigation */
       return (
         <>
           <MLink
-            className={className}
+            className={mergeClassNames(className, typographyClassName)}
             component={NLink}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
-            {...TypographyProps}
+            {...linkTypographyProps}
             {...props}
           >
             {label}
@@ -74,17 +76,19 @@ export const Link = ({
       );
     }
     if (isValidUrl(url)) {
+      const { className: typographyClassName, ...linkTypographyProps } =
+        TypographyProps ?? {};
       /* External navigation */
       return (
         <>
           <MLink
-            className={className}
+            className={mergeClassNames(className, typographyClassName)}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
-            {...TypographyProps}
+            {...linkTypographyProps}
             {...props}
           >
             {label}
@@ -94,13 +98,17 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
+  /* Invalid URL - renders a span, so anchor-only and Link-only attributes are omitted. */
+  const { className: typographyClassName, ...fallbackTypographyProps } =
+    TypographyProps ?? {};
   return (
     <MTypography
       component="span"
+      noWrap={noWrap}
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
-      {...TypographyProps}
-      {...omitAnchorOnlyProps(props)}
+      {...fallbackTypographyProps}
+      {...getFallbackProps(props, TypographyProps)}
+      className={mergeClassNames(className, typographyClassName)}
     >
       {label}
     </MTypography>
