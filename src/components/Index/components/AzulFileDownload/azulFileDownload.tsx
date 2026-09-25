@@ -1,25 +1,21 @@
 import { Box } from "@mui/material";
-import { JSX, Ref, useEffect, useRef, useState } from "react";
-import { useFileLocation } from "../../../../hooks/useFileLocation";
-import { useLoginGuard } from "../../../../providers/loginGuard/hook";
+import { JSX, Ref } from "react";
+import { ICON_BUTTON_PROPS } from "../../../../styles/common/mui/iconButton";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
-import { IconButton } from "../../../common/IconButton/iconButton";
-import { trackFileDownloaded } from "../../../Export/common/tracking";
 import { StyledIconButton } from "./azulFileDownload.styles";
 import {
-  ARIA_LABEL,
   AZUL_FILE_DOWNLOAD_TEST_ID,
-  AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID,
   AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID,
 } from "./common/constants";
 import { getDownloadLabel } from "./common/utils";
+import { useDownload } from "./hooks/UseDownload/hook";
 
 export interface AzulFileDownloadProps {
   entityName: string; // The name of the file downloaded.
   ref?: Ref<HTMLSpanElement>; // Ref attached to the outer span; allows direct use as a Tooltip child without a span wrapper at the call site.
-  relatedEntityId: string; // An array of IDs of the file's datasets / projects
-  relatedEntityName: string; // An array of names of the file's datasets / projects
+  relatedEntityId: string; // ID of the file's dataset / project.
+  relatedEntityName: string; // Name of the file's dataset / project.
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
 }
 
@@ -30,55 +26,36 @@ export const AzulFileDownload = ({
   relatedEntityName,
   url,
 }: AzulFileDownloadProps): JSX.Element => {
-  const { fileUrl, isLoading, run } = useFileLocation(url);
-  const downloadRef = useRef<HTMLAnchorElement>(null);
-  const [isRequestPending, setIsRequestPending] = useState(false);
-
-  // Prompt user for login before download, if required.
-  const { requireLogin } = useLoginGuard();
-
-  // Initiates file download when file location request is successful.
-  useEffect(() => {
-    if (!fileUrl) return;
-    if (!downloadRef.current) return;
-    const downloadEl = downloadRef.current;
-    downloadEl.href = fileUrl;
-    downloadEl.click();
-    setIsRequestPending(false);
-  }, [fileUrl]);
-
-  // Initiates file download when download button is clicked.
-  const handleDownloadClick = (): void => {
-    setIsRequestPending(true);
-    trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
-    run();
-  };
+  const { downloadRef, isRequestPending, onDownload } = useDownload({
+    entityName,
+    relatedEntityId,
+    relatedEntityName,
+    url,
+  });
 
   return (
     <span ref={ref}>
-      {isRequestPending ? (
-        // Disabled rather than just pointer-events: none — the button has no
-        // onClick, so without it the control stays keyboard-focusable and is
-        // announced as interactive while the request is in flight.
-        <StyledIconButton
-          aria-label={ARIA_LABEL.DOWNLOAD_PENDING}
-          color="primary"
-          data-testid={AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID}
-          disabled
-          Icon={LoadingIcon}
-          size="medium"
-        />
-      ) : (
-        <IconButton
-          aria-label={getDownloadLabel(isLoading)}
-          color="primary"
-          data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
-          disabled={!url}
-          Icon={isLoading ? LoadingIcon : DownloadIcon}
-          onClick={() => requireLogin(handleDownloadClick)}
-          size="medium"
-        />
-      )}
+      {/* A single button, mounted for the lifetime of the component: swapping
+       * between two buttons would destroy the focused node when the request
+       * state flips and drop keyboard focus to the document body.
+       * While the request is in flight the button is aria-disabled rather than
+       * disabled, so it stays focusable and a screen reader user can read back
+       * its state instead of losing the control they just activated. The styled
+       * button suppresses the pointer affordance for aria-disabled.
+       * Without a URL the native disabled attribute carries the state, so the
+       * ARIA form is omitted rather than duplicating it -- including when the
+       * URL disappears while a request is still in flight. */}
+      <StyledIconButton
+        aria-busy={isRequestPending}
+        aria-disabled={url && isRequestPending ? true : undefined}
+        aria-label={getDownloadLabel(isRequestPending)}
+        color={ICON_BUTTON_PROPS.COLOR.PRIMARY}
+        data-testid={AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID}
+        disabled={!url}
+        Icon={isRequestPending ? LoadingIcon : DownloadIcon}
+        onClick={onDownload}
+        size={ICON_BUTTON_PROPS.SIZE.MEDIUM}
+      />
       <Box
         component="a"
         data-testid={AZUL_FILE_DOWNLOAD_TEST_ID}
