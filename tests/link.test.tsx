@@ -111,7 +111,7 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("citation-link");
     });
 
-    it("should merge className and TypographyProps.className on the fallback span", () => {
+    it("should let TypographyProps.className replace className on the fallback span", () => {
       render(
         <Link
           TypographyProps={{ className: "tp" }}
@@ -120,21 +120,8 @@ describe("Link", () => {
           url={INVALID_URL}
         />,
       );
-      expect(screen.getByText(LABEL)).toHaveClass("caller");
       expect(screen.getByText(LABEL)).toHaveClass("tp");
-    });
-
-    it("should deduplicate merged class names on the fallback span", () => {
-      render(
-        <Link
-          TypographyProps={{ className: "shared tp" }}
-          className="caller shared"
-          label={LABEL}
-          url={INVALID_URL}
-        />,
-      );
-      const classTokens = screen.getByText(LABEL).className.split(/\s+/);
-      expect(classTokens.filter((token) => token === "shared")).toHaveLength(1);
+      expect(screen.getByText(LABEL)).not.toHaveClass("caller");
     });
 
     it("should not emit MuiLink-only props on the fallback span", () => {
@@ -152,30 +139,19 @@ describe("Link", () => {
       expect(el).not.toHaveAttribute("underline");
     });
 
-    it("should apply TypographyClasses and noWrap on the fallback span", () => {
+    it("should apply Link classes, TypographyClasses, and noWrap on the fallback span", () => {
       render(
         <Link
+          classes={{ root: "link-root" }}
           TypographyClasses={{ root: "typography-root" }}
           label={LABEL}
           noWrap
           url={INVALID_URL}
         />,
       );
+      expect(screen.getByText(LABEL)).toHaveClass("link-root");
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
       expect(screen.getByText(LABEL)).toHaveClass("typography-root");
-    });
-
-    it("should let TypographyProps.classes override TypographyClasses on the fallback span", () => {
-      render(
-        <Link
-          TypographyClasses={{ root: "typography-root" }}
-          TypographyProps={{ classes: { root: "tp-root" } }}
-          label={LABEL}
-          url={INVALID_URL}
-        />,
-      );
-      expect(screen.getByText(LABEL)).toHaveClass("tp-root");
-      expect(screen.getByText(LABEL)).not.toHaveClass("typography-root");
     });
   });
 
@@ -209,7 +185,7 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
     });
 
-    it("should keep underline, classes, and merged class names", () => {
+    it("should keep underline and classes, while TypographyProps.className replaces className", () => {
       render(
         <Link
           TypographyProps={{ className: "tp" }}
@@ -221,9 +197,9 @@ describe("Link", () => {
         />,
       );
       expect(screen.getByText(LABEL)).toHaveClass("MuiLink-underlineNone");
-      expect(screen.getByText(LABEL)).toHaveClass("caller");
       expect(screen.getByText(LABEL)).toHaveClass("link-root");
       expect(screen.getByText(LABEL)).toHaveClass("tp");
+      expect(screen.getByText(LABEL)).not.toHaveClass("caller");
     });
   });
 

@@ -1,12 +1,7 @@
-import {
-  Link as MLink,
-  LinkProps as MLinkProps,
-  Typography as MTypography,
-} from "@mui/material";
+import { Link as MLink, LinkProps as MLinkProps } from "@mui/material";
 import NLink from "next/link";
 import { JSX, ReactNode } from "react";
 import { isValidUrl } from "../../../../common/utils";
-import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { CopyToClipboard } from "../../../common/CopyToClipboard/copyToClipboard";
 import { TypographyProps } from "../../../common/Typography/common/entities";
 import { BaseComponentProps } from "../../../types";
@@ -17,7 +12,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
-import { mergeClassNames, omitNonSpanProps } from "./utils";
+import { omitAnchorOnlyProps } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -39,18 +34,11 @@ export const Link = ({
   url,
   ...props /* Spread props to allow for specific MuiLink prop overrides. */
 }: LinkProps): JSX.Element => {
-  const mergedClassName = mergeClassNames(
-    className,
-    TypographyProps?.className,
-  );
-  const fallbackTypographyClasses =
-    TypographyProps?.classes ?? props.TypographyClasses;
-
   if (isURLObjectWithHrefAndQuery(url)) {
     /* Internal navigation - explore link */
     return (
       <ExploreViewLink
-        className={className}
+        className={TypographyProps?.className ?? className}
         label={label}
         onClick={onClick}
         target={target}
@@ -64,6 +52,7 @@ export const Link = ({
       return (
         <>
           <MLink
+            className={className}
             component={NLink}
             href={url}
             noWrap={noWrap}
@@ -72,7 +61,6 @@ export const Link = ({
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
-            className={mergedClassName}
           >
             {label}
           </MLink>
@@ -85,6 +73,7 @@ export const Link = ({
       return (
         <>
           <MLink
+            className={className}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
@@ -92,7 +81,6 @@ export const Link = ({
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}
-            className={mergedClassName}
           >
             {label}
           </MLink>
@@ -101,18 +89,37 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL - renders a span, so anchor-only and MUI Link-only props are omitted. */
+  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
+  const { classes, TypographyClasses, ...spanProps } =
+    omitAnchorOnlyProps(props);
+  const fallbackClasses =
+    TypographyProps?.classes || classes || TypographyClasses?.root
+      ? {
+          ...TypographyProps?.classes,
+          ...classes,
+          root: [
+            TypographyProps?.classes?.root,
+            classes?.root,
+            TypographyClasses?.root,
+          ]
+            .filter(Boolean)
+            .join(" "),
+        }
+      : undefined;
+
   return (
-    <MTypography
+    <MLink
+      className={className}
       component="span"
       noWrap={noWrap}
-      variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
+      onClick={onClick}
+      underline="none"
       {...TypographyProps}
-      {...omitNonSpanProps(props)}
-      classes={fallbackTypographyClasses}
-      className={mergedClassName}
+      {...spanProps}
+      TypographyClasses={TypographyClasses}
+      classes={fallbackClasses}
     >
       {label}
-    </MTypography>
+    </MLink>
   );
 };
