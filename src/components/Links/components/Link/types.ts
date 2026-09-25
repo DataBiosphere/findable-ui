@@ -1,3 +1,4 @@
+import type { LinkProps as MLinkProps } from "@mui/material";
 import type { AnchorHTMLAttributes } from "react";
 
 /**
@@ -15,4 +16,13 @@ export type AnchorOnlyProps = Pick<
   | "referrerPolicy"
   | "rel"
   | "type"
+>;
+
+/**
+ * Link props that need custom handling before reaching the invalid-URL fallback
+ * span.
+ */
+export type LinkOnlyProps = Pick<
+  MLinkProps,
+  "TypographyClasses" | "classes" | "underline"
 >;

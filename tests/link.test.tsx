@@ -143,7 +143,7 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("citation-link");
     });
 
-    it("should let TypographyProps.className replace className on the fallback span", () => {
+    it("should merge TypographyProps.className with className on the fallback span", () => {
       render(
         <Link
           TypographyProps={{ className: "tp" }}
@@ -153,7 +153,7 @@ describe("Link", () => {
         />,
       );
       expect(screen.getByText(LABEL)).toHaveClass("tp");
-      expect(screen.getByText(LABEL)).not.toHaveClass("caller");
+      expect(screen.getByText(LABEL)).toHaveClass("caller");
     });
 
     it("should not emit MuiLink-only props on the fallback span", () => {
@@ -235,7 +235,7 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
     });
 
-    it("should keep underline and classes, while TypographyProps.className replaces className", () => {
+    it("should keep underline and classes, while merging TypographyProps.className with className", () => {
       render(
         <Link
           TypographyProps={{ className: "tp" }}
@@ -249,7 +249,7 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("MuiLink-underlineNone");
       expect(screen.getByText(LABEL)).toHaveClass("link-root");
       expect(screen.getByText(LABEL)).toHaveClass("tp");
-      expect(screen.getByText(LABEL)).not.toHaveClass("caller");
+      expect(screen.getByText(LABEL)).toHaveClass("caller");
     });
   });
 
@@ -280,10 +280,12 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveAttribute("rel", "");
     });
 
-    it("should keep underline and classes", () => {
+    it("should keep underline and classes while merging TypographyProps.className with className", () => {
       render(
         <Link
+          TypographyProps={{ className: "tp" }}
           classes={{ root: "link-root" }}
+          className="caller"
           label={LABEL}
           underline="none"
           url="/explore"
@@ -291,6 +293,8 @@ describe("Link", () => {
       );
       expect(screen.getByText(LABEL)).toHaveClass("MuiLink-underlineNone");
       expect(screen.getByText(LABEL)).toHaveClass("link-root");
+      expect(screen.getByText(LABEL)).toHaveClass("tp");
+      expect(screen.getByText(LABEL)).toHaveClass("caller");
     });
   });
 });
