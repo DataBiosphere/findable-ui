@@ -1,5 +1,6 @@
+import { jest } from "@jest/globals";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { createRef } from "react";
 import {
   ANCHOR_TARGET,
@@ -118,6 +119,23 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("typography-nowrap");
     });
 
+    it("should let clicks on the fallback span reach the parent", () => {
+      const onClick = jest.fn((event: { stopPropagation: () => void }): void =>
+        event.stopPropagation(),
+      );
+      const onParentClick = jest.fn();
+      render(
+        <div onClick={onParentClick}>
+          <Link label={LABEL} onClick={onClick} url={INVALID_URL} />
+        </div>,
+      );
+
+      fireEvent.click(screen.getByText(LABEL));
+
+      expect(onClick).not.toHaveBeenCalled();
+      expect(onParentClick).toHaveBeenCalledTimes(1);
+    });
+
     it("should keep className on the fallback span", () => {
       render(
         <Link className="citation-link" label={LABEL} url={INVALID_URL} />,
@@ -164,10 +182,26 @@ describe("Link", () => {
           url={INVALID_URL}
         />,
       );
-      expect(screen.getByText(LABEL)).not.toHaveClass("link-root");
+      expect(screen.getByText(LABEL)).toHaveClass("link-root");
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
       expect(screen.getByText(LABEL)).not.toHaveClass("MuiLink-underlineNone");
-      expect(screen.getByText(LABEL)).not.toHaveClass("typography-root");
+      expect(screen.getByText(LABEL)).toHaveClass("typography-root");
+    });
+
+    it("should merge fallback typography class channels", () => {
+      render(
+        <Link
+          TypographyClasses={{ root: "typography-root" }}
+          TypographyProps={{ classes: { noWrap: "typography-nowrap-prop" } }}
+          classes={{ root: "link-root" }}
+          label={LABEL}
+          noWrap
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("link-root");
+      expect(screen.getByText(LABEL)).toHaveClass("typography-root");
+      expect(screen.getByText(LABEL)).toHaveClass("typography-nowrap-prop");
     });
   });
 

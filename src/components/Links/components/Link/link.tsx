@@ -106,16 +106,34 @@ export const Link = ({
     className: typographyClassName,
     ...fallbackTypographyProps
   } = TypographyProps ?? {};
+  const fallbackTypographyClasses = {
+    ...props.TypographyClasses,
+    ...typographyClasses,
+    ...(props.classes?.root
+      ? {
+          root: [
+            props.classes.root,
+            props.TypographyClasses?.root,
+            typographyClasses?.root,
+          ]
+            .filter(Boolean)
+            .join(" "),
+        }
+      : undefined),
+  };
   const fallbackClassName = typographyClassName ?? className;
   return (
     <MTypography
       component="span"
       noWrap={noWrap}
-      onClick={onClick}
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...fallbackTypographyProps}
       {...spanProps}
-      classes={typographyClasses}
+      classes={
+        Object.keys(fallbackTypographyClasses).length
+          ? fallbackTypographyClasses
+          : undefined
+      }
       className={fallbackClassName}
     >
       {label}
