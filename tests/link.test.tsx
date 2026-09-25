@@ -153,19 +153,21 @@ describe("Link", () => {
       expect(el).not.toHaveAttribute("underline");
     });
 
-    it("should apply Link classes, TypographyClasses, and noWrap on the fallback span", () => {
+    it("should ignore Link-only styling props on the fallback span", () => {
       render(
         <Link
           classes={{ root: "link-root" }}
           TypographyClasses={{ root: "typography-root" }}
           label={LABEL}
           noWrap
+          underline="none"
           url={INVALID_URL}
         />,
       );
-      expect(screen.getByText(LABEL)).toHaveClass("link-root");
+      expect(screen.getByText(LABEL)).not.toHaveClass("link-root");
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
-      expect(screen.getByText(LABEL)).toHaveClass("typography-root");
+      expect(screen.getByText(LABEL)).not.toHaveClass("MuiLink-underlineNone");
+      expect(screen.getByText(LABEL)).not.toHaveClass("typography-root");
     });
   });
 

@@ -94,26 +94,19 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
+  /* Invalid URL - renders a span, so anchor-only and Link-only attributes are omitted. */
   const {
-    classes,
-    TypographyClasses,
+    classes: _classes,
+    TypographyClasses: _TypographyClasses,
     underline: _underline,
     ...spanProps
   } = omitAnchorOnlyProps(props);
-  const { classes: typographyClasses, ...fallbackTypographyProps } =
-    TypographyProps ?? {};
-  const fallbackClassName =
-    [classes?.root, fallbackTypographyProps.className ?? className]
-      .filter(Boolean)
-      .join(" ") || undefined;
-  const fallbackTypographyClasses =
-    typographyClasses || TypographyClasses
-      ? {
-          ...TypographyClasses,
-          ...typographyClasses,
-        }
-      : undefined;
+  const {
+    classes: typographyClasses,
+    className: typographyClassName,
+    ...fallbackTypographyProps
+  } = TypographyProps ?? {};
+  const fallbackClassName = typographyClassName ?? className;
   return (
     <MTypography
       component="span"
@@ -122,7 +115,7 @@ export const Link = ({
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...fallbackTypographyProps}
       {...spanProps}
-      classes={fallbackTypographyClasses}
+      classes={typographyClasses}
       className={fallbackClassName}
     >
       {label}
