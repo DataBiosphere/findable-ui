@@ -1,8 +1,6 @@
 import { jest } from "@jest/globals";
-import { ButtonProps as MButtonProps } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { JSX } from "react";
 
 const PUBLIC_PATH = "/requesting-elevated-permissions";
 const CUSTOM_SIGNIN_PATH = "/";
@@ -25,14 +23,11 @@ jest.unstable_mockModule(
 );
 
 const Router = (await import("next/router")).default;
-const { Authentication, renderIconButton } =
+const { Authentication } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/authentication");
 const { ARIA_LABEL } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/constants");
 
-const TestButton = ({ onClick }: MButtonProps): JSX.Element => (
-  <button onClick={onClick}>Sign in</button>
-);
 const closeMenu = jest.fn();
 
 beforeEach(() => {
@@ -43,24 +38,14 @@ beforeEach(() => {
 describe("Authentication Sign In button", () => {
   test("does not render when authenticationEnabled is falsy", () => {
     const { container } = render(
-      <Authentication
-        authenticationEnabled={false}
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
+      <Authentication authenticationEnabled={false} closeMenu={closeMenu} />,
     );
     expect(container.firstChild).toBeNull();
   });
 
   test("navigates to ROUTE.LOGIN with current asPath as callbackUrl when authenticationEnabled is true", async () => {
     mockAsPath = PUBLIC_PATH;
-    render(
-      <Authentication
-        authenticationEnabled
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
-    );
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(Router.push).toHaveBeenCalledWith({
       pathname: "/login",
@@ -73,7 +58,6 @@ describe("Authentication Sign In button", () => {
     render(
       <Authentication
         authenticationEnabled={CUSTOM_SIGNIN_PATH}
-        Button={TestButton}
         closeMenu={closeMenu}
       />,
     );
@@ -85,42 +69,29 @@ describe("Authentication Sign In button", () => {
   });
 
   test("closes the menu after navigating", async () => {
-    render(
-      <Authentication
-        authenticationEnabled
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
-    );
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(closeMenu).toHaveBeenCalledTimes(1);
   });
 });
 
-describe("renderIconButton", () => {
-  // The LoginRounded icon is aria-hidden (MUI sets that on every SvgIcon), so
-  // the button has no text to fall back on if the name is lost.
-  test("names the button by default", () => {
-    render(renderIconButton({}));
-    expect(
-      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
-    ).not.toBeNull();
+describe("Authentication button variants", () => {
+  /*
+   * Both variants are named "Sign in", so the accessible name alone cannot
+   * tell them apart. The text node can: the icon variant renders only an
+   * aria-hidden icon, while the labelled variant renders visible text.
+   */
+  test("renders the icon variant when isMenuIn is set", () => {
+    render(
+      <Authentication authenticationEnabled closeMenu={closeMenu} isMenuIn />,
+    );
+    const button = screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN });
+    expect(button.textContent).toBe("");
   });
 
-  test("lets a caller give the button a more specific name", () => {
-    render(renderIconButton({ "aria-label": "Sign in to Terra" }));
-    expect(
-      screen.getByRole("button", { name: "Sign in to Terra" }),
-    ).not.toBeNull();
-  });
-
-  test.each([
-    ["empty", ""],
-    ["whitespace-only", "   "],
-  ])("falls back when a caller passes a %s name", (_, label) => {
-    render(renderIconButton({ "aria-label": label }));
-    expect(
-      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
-    ).not.toBeNull();
+  test("renders the labelled variant when isMenuIn is not set", () => {
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.textContent).toContain("Sign in");
   });
 });
