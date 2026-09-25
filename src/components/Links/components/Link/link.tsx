@@ -43,7 +43,7 @@ export const Link = ({
     /* Internal navigation - explore link */
     return (
       <ExploreViewLink
-        className={TypographyProps?.className ?? className}
+        className={className}
         label={label}
         onClick={onClick}
         target={target}
