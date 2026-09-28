@@ -105,20 +105,6 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("MuiTypography-noWrap");
     });
 
-    it("should keep TypographyProps.classes on the fallback span typography class channel", () => {
-      render(
-        <Link
-          label={LABEL}
-          TypographyProps={{
-            classes: { noWrap: "typography-nowrap" },
-            noWrap: true,
-          }}
-          url={INVALID_URL}
-        />,
-      );
-      expect(screen.getByText(LABEL)).toHaveClass("typography-nowrap");
-    });
-
     it("should let clicks on the fallback span reach the parent", () => {
       const onClick = jest.fn((event: { stopPropagation: () => void }): void =>
         event.stopPropagation(),
@@ -188,6 +174,20 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).not.toHaveClass("MuiLink-underlineNone");
       expect(screen.getByText(LABEL)).toHaveClass("typography-root");
       expect(screen.getByText(LABEL)).toHaveClass("typography-nowrap-prop");
+    });
+
+    it("should let TypographyProps.classes override TypographyClasses per key on the fallback span", () => {
+      render(
+        <Link
+          TypographyClasses={{ noWrap: "tc-nowrap" }}
+          TypographyProps={{ classes: { noWrap: "tp-nowrap" } }}
+          label={LABEL}
+          noWrap
+          url={INVALID_URL}
+        />,
+      );
+      expect(screen.getByText(LABEL)).toHaveClass("tp-nowrap");
+      expect(screen.getByText(LABEL)).not.toHaveClass("tc-nowrap");
     });
   });
 
