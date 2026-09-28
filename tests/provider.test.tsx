@@ -47,6 +47,7 @@ const { useRequestFileLocation } =
 const { LoginGuardProvider } =
   await import("../src/providers/loginGuard/provider");
 
+const ORIGINAL_FETCH = global.fetch;
 const REQUEST_URL = "https://example.com/file-location";
 const TEXT_BUTTON_EXPORT = "export";
 const TOKEN = "new-token";
@@ -70,6 +71,7 @@ describe("LoginGuardProvider", () => {
 
   afterEach(() => {
     jest.useRealTimers();
+    global.fetch = ORIGINAL_FETCH;
   });
 
   it("should render children and login dialog closed", () => {
@@ -206,7 +208,6 @@ describe("LoginGuardProvider", () => {
     const fetchMock = jest.fn<typeof fetch>().mockResolvedValue({
       json: async () => ({ Location: "", Status: 302 }),
     } as Response);
-    const originalFetch = global.fetch;
     global.fetch = fetchMock;
 
     /**
@@ -251,7 +252,6 @@ describe("LoginGuardProvider", () => {
       jest.runOnlyPendingTimers();
     });
 
-    global.fetch = originalFetch;
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledWith(
       REQUEST_URL,
