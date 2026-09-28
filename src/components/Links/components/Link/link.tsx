@@ -94,9 +94,10 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL - renders a non-interactive Typography span. Anchor-only props are
-   * omitted, Link-only styling props are remapped for Typography where needed, and
-   * onClick is intentionally not forwarded so parent click handling still works. */
+  /* Invalid URL - renders a Typography span. Anchor-only props and `underline` are
+   * omitted, and Link class props are remapped onto Typography classes. Link's own
+   * `onClick` is intentionally not forwarded, so parent click handling still works.
+   * Handlers passed via `TypographyProps` still apply, as on main. */
   return (
     <MTypography
       component="span"
