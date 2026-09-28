@@ -9,8 +9,10 @@ import { ROUTE } from "../../../../../../../../../../routes/constants";
  * sign-in path (e.g. when NextAuth's `pages.signIn` is configured to `"/"`).
  * Otherwise fall back to the library default (`ROUTE.LOGIN` = `"/login"`).
  *
- * Accepts only enabled values: callers check that auth is enabled first, so a
- * disabled header can never resolve to a working `/login` link.
+ * The parameter type admits only enabled values, so TypeScript callers must
+ * check that auth is enabled first rather than resolving a working `/login`
+ * link for a disabled header. This is a type-level guarantee only: at runtime,
+ * any non-string value still falls back to the default.
  *
  * @param authenticationEnabled - The enabled `authenticationEnabled` prop value.
  * @returns The path to navigate to when the user clicks Sign In.
