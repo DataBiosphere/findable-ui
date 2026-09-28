@@ -9,11 +9,6 @@ describe("getSignInPath", () => {
     expect(getSignInPath(true)).toBe("/login");
   });
 
-  test("returns the library default when authenticationEnabled is false or undefined", () => {
-    expect(getSignInPath(false)).toBe("/login");
-    expect(getSignInPath(undefined)).toBe("/login");
-  });
-
   test("returns the consumer-supplied string verbatim", () => {
     expect(getSignInPath("/")).toBe("/");
     expect(getSignInPath("/auth/signin")).toBe("/auth/signin");

@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { ThemeProvider } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -6,6 +7,7 @@ const PUBLIC_PATH = "/requesting-elevated-permissions";
 const CUSTOM_SIGNIN_PATH = "/";
 
 let mockAsPath = "/";
+let mockPathname = "/";
 
 jest.unstable_mockModule("next/router", () => {
   const push = jest.fn(async (): Promise<boolean> => true);
@@ -15,6 +17,29 @@ jest.unstable_mockModule("next/router", () => {
     useRouter: jest.fn(() => ({ asPath: mockAsPath, push })),
   };
 });
+jest.unstable_mockModule("next/navigation", () => ({
+  ...jest.requireActual<typeof import("next/navigation")>("next/navigation"),
+  usePathname: jest.fn(() => mockPathname),
+}));
+// jsdom has no matchMedia, so no breakpoint resolves and Header renders no
+// actions. Pin a desktop breakpoint so the labelled Sign In button renders.
+jest.unstable_mockModule("../src/hooks/useBreakpoint", () => ({
+  useBreakpoint: jest.fn(() => ({
+    breakpoint: "lg",
+    lg: true,
+    lgDown: false,
+    lgUp: true,
+    md: false,
+    mdDown: false,
+    mdUp: true,
+    sm: false,
+    smDown: false,
+    smUp: true,
+    xs: false,
+    xsDown: false,
+    xsUp: true,
+  })),
+}));
 jest.unstable_mockModule(
   "../src/hooks/authentication/profile/useProfile",
   () => ({
@@ -25,6 +50,11 @@ jest.unstable_mockModule(
 const Router = (await import("next/router")).default;
 const { Authentication } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/authentication");
+const { createAppTheme } = await import("../src/theme/theme");
+const { Header } =
+  await import("../src/components/Layout/components/Header/header");
+const { navigateToSignIn } =
+  await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/utils");
 const { ARIA_LABEL } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/constants");
 
@@ -33,6 +63,7 @@ const closeMenu = jest.fn();
 beforeEach(() => {
   jest.clearAllMocks();
   mockAsPath = "/";
+  mockPathname = "/";
 });
 
 describe("Authentication Sign In button", () => {
@@ -75,6 +106,51 @@ describe("Authentication Sign In button", () => {
   });
 });
 
+describe("navigateToSignIn", () => {
+  test("closes the menu and still rejects when navigation fails", async () => {
+    const error = new Error("navigation failed");
+    jest.mocked(Router.push).mockRejectedValueOnce(error);
+    await expect(
+      navigateToSignIn(CUSTOM_SIGNIN_PATH, PUBLIC_PATH, closeMenu),
+    ).rejects.toBe(error);
+    expect(closeMenu).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Authentication Sign In highlight", () => {
+  test("highlights the labelled button on the default sign-in route", () => {
+    mockPathname = "/login";
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-activeNav");
+  });
+
+  test("highlights the labelled button on a custom sign-in route", () => {
+    mockPathname = CUSTOM_SIGNIN_PATH;
+    render(
+      <Authentication
+        authenticationEnabled={CUSTOM_SIGNIN_PATH}
+        closeMenu={closeMenu}
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-activeNav");
+  });
+
+  test("does not highlight the labelled button on other routes", () => {
+    mockPathname = PUBLIC_PATH;
+    render(
+      <Authentication
+        authenticationEnabled={CUSTOM_SIGNIN_PATH}
+        closeMenu={closeMenu}
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-nav");
+    expect(button.classList).not.toContain("MuiButton-activeNav");
+  });
+});
+
 describe("Authentication button variants", () => {
   /*
    * Both variants are named "Sign in", so the accessible name alone cannot
@@ -93,5 +169,27 @@ describe("Authentication button variants", () => {
     render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
     const button = screen.getByRole("button", { name: "Sign in" });
     expect(button.textContent).toContain("Sign in");
+  });
+});
+
+describe("Authentication in the Header", () => {
+  /*
+   * A component-type prop created inline in Header would be a new type on
+   * every render, so React would unmount and remount the Sign In button each
+   * time. The same DOM node across a rerender proves the button is kept.
+   */
+  test("keeps the same Sign In button across Header re-renders", () => {
+    const { rerender } = render(
+      <ThemeProvider theme={createAppTheme()}>
+        <Header authenticationEnabled logo={null} />
+      </ThemeProvider>,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    rerender(
+      <ThemeProvider theme={createAppTheme()}>
+        <Header authenticationEnabled logo={null} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByRole("button", { name: "Sign in" })).toBe(button);
   });
 });

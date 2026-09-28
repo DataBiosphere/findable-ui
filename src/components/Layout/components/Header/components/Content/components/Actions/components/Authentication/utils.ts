@@ -1,3 +1,4 @@
+import Router from "next/router";
 import { escapeRegExp } from "../../../../../../../../../../common/utils";
 import { ROUTE } from "../../../../../../../../../../routes/constants";
 
@@ -8,17 +9,13 @@ import { ROUTE } from "../../../../../../../../../../routes/constants";
  * sign-in path (e.g. when NextAuth's `pages.signIn` is configured to `"/"`).
  * Otherwise fall back to the library default (`ROUTE.LOGIN` = `"/login"`).
  *
- * Tolerates `false`/`undefined`, returning the default, so the path can be
- * resolved without first knowing whether the auth UI is enabled. That case is
- * not reached from `Authentication`, which calls this only after its own falsy
- * guard and so renders nothing rather than a button pointing at the default.
+ * Accepts only enabled values: callers check that auth is enabled first, so a
+ * disabled header can never resolve to a working `/login` link.
  *
- * @param authenticationEnabled - The `authenticationEnabled` prop value.
+ * @param authenticationEnabled - The enabled `authenticationEnabled` prop value.
  * @returns The path to navigate to when the user clicks Sign In.
  */
-export function getSignInPath(
-  authenticationEnabled: boolean | string | undefined,
-): string {
+export function getSignInPath(authenticationEnabled: string | true): string {
   return typeof authenticationEnabled === "string"
     ? authenticationEnabled
     : ROUTE.LOGIN;
@@ -43,4 +40,28 @@ export function getSignInPathPattern(signInPath: string): string {
   const path = signInPath === "/" ? signInPath : signInPath.replace(/\/+$/, "");
   if (path === "/") return "^/$";
   return `^${escapeRegExp(path)}/?$`;
+}
+
+/**
+ * Navigates to the sign-in page, returning to the current page afterwards, and
+ * closes the header menu once the navigation settles.
+ *
+ * The menu closes whether or not the navigation succeeds, so a rejected
+ * navigation cannot leave the mobile menu open. The rejection itself is not
+ * swallowed: the returned promise still rejects.
+ *
+ * @param signInPath - The resolved sign-in path (see `getSignInPath`).
+ * @param callbackUrl - The path to return to after signing in.
+ * @param closeMenu - Closes the header menu.
+ * @returns The navigation promise, settling after the menu has closed.
+ */
+export function navigateToSignIn(
+  signInPath: string,
+  callbackUrl: string,
+  closeMenu: () => void,
+): Promise<boolean> {
+  return Router.push({
+    pathname: signInPath,
+    query: { callbackUrl },
+  }).finally(closeMenu);
 }

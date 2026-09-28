@@ -1,10 +1,10 @@
 import { Skeleton } from "@mui/material";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { JSX } from "react";
 import { useProfile } from "../../../../../../../../../../hooks/authentication/profile/useProfile";
 import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticationMenu";
 import { Button } from "./components/Button/button";
-import { getSignInPath } from "./utils";
+import { getSignInPath, navigateToSignIn } from "./utils";
 
 export interface AuthenticationProps {
   /**
@@ -32,12 +32,8 @@ export const Authentication = ({
   return (
     <Button
       isMenuIn={isMenuIn}
-      onClick={async (): Promise<void> => {
-        await Router.push({
-          pathname: signInPath,
-          query: { callbackUrl: asPath },
-        });
-        closeMenu();
+      onClick={(): void => {
+        void navigateToSignIn(signInPath, asPath, closeMenu);
       }}
       signInPath={signInPath}
     />
