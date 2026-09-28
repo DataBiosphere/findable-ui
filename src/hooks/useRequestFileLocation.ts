@@ -105,7 +105,6 @@ const scheduleFileLocation = (
             reject,
             active,
             result.retryAfter,
-            method,
           );
         } else if (result.status === FILE_LOCATION_SUCCESSFULLY) {
           resolve(result);
