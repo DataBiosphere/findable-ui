@@ -149,7 +149,7 @@ export const useRequestFileLocation = (
   }, []);
 
   const run = useMemo(() => {
-    const getAccessToken = (): string | undefined => tokenRef.current ?? token;
+    const getAccessToken = (): string | undefined => tokenRef.current;
 
     return (): void => {
       if (url) {
