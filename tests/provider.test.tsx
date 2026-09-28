@@ -203,11 +203,11 @@ describe("LoginGuardProvider", () => {
 
   it("should send the new token when a deferred request runs after sign-in", async () => {
     jest.useFakeTimers();
-    const fetchMock = jest.fn().mockResolvedValue({
+    const fetchMock = jest.fn<typeof fetch>().mockResolvedValue({
       json: async () => ({ Location: "", Status: 302 }),
     } as Response);
     const originalFetch = global.fetch;
-    global.fetch = fetchMock as typeof fetch;
+    global.fetch = fetchMock;
 
     /**
      * Requests a file location, behind the login guard.

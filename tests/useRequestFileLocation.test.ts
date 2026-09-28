@@ -37,8 +37,10 @@ describe("useRequestFileLocation", () => {
 
   it("uses the latest token when a stale run callback is invoked after a token change", async () => {
     jest.useFakeTimers();
-    const fetchMock = jest.fn().mockResolvedValue(createFileLocationResponse());
-    global.fetch = fetchMock as typeof fetch;
+    const fetchMock = jest
+      .fn<typeof fetch>()
+      .mockResolvedValue(createFileLocationResponse());
+    global.fetch = fetchMock;
 
     const tokenState: { current: string | undefined } = { current: undefined };
     MOCK_USE_TOKEN.mockImplementation(() => ({ token: tokenState.current }));
@@ -68,8 +70,10 @@ describe("useRequestFileLocation", () => {
 
   it("changes run identity and re-requests when the token becomes available", async () => {
     jest.useFakeTimers();
-    const fetchMock = jest.fn().mockResolvedValue(createFileLocationResponse());
-    global.fetch = fetchMock as typeof fetch;
+    const fetchMock = jest
+      .fn<typeof fetch>()
+      .mockResolvedValue(createFileLocationResponse());
+    global.fetch = fetchMock;
 
     const tokenState: { current: string | undefined } = { current: undefined };
     MOCK_USE_TOKEN.mockImplementation(() => ({ token: tokenState.current }));
@@ -112,7 +116,7 @@ describe("useRequestFileLocation", () => {
   it("uses the latest token for retry polls", async () => {
     jest.useFakeTimers();
     const fetchMock = jest
-      .fn()
+      .fn<typeof fetch>()
       .mockResolvedValueOnce(
         createFileLocationResponse({
           Location: RETRY_URL,
@@ -121,7 +125,7 @@ describe("useRequestFileLocation", () => {
         }),
       )
       .mockResolvedValueOnce(createFileLocationResponse());
-    global.fetch = fetchMock as typeof fetch;
+    global.fetch = fetchMock;
 
     const tokenState: { current: string | undefined } = { current: "token-1" };
     MOCK_USE_TOKEN.mockImplementation(() => ({ token: tokenState.current }));
