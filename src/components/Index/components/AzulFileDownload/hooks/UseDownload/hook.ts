@@ -22,18 +22,38 @@ export function useDownload({
   relatedEntityName,
   url,
 }: UseDownloadProps): UseDownload {
-  const { fileUrl, isLoading, run } = useFileLocation(url);
+  const { data, isLoading, run } = useFileLocation(url);
   const downloadRef = useRef<HTMLAnchorElement>(null);
+
+  // Latest `run` and `url`. The login guard calls `requestDownload` after login,
+  // from the render the click happened in: reading `run` from a ref gives it the
+  // post-login token rather than the one captured before login.
+  const runRef = useRef(run);
+  const urlRef = useRef(url);
+
+  // The URL the most recent request was made for.
+  const requestedUrlRef = useRef<string | undefined>(undefined);
 
   // Prompt user for login before download, if required.
   const { requireLogin } = useLoginGuard();
 
-  // Initiates file download when file location request is successful.
+  // Keeps the refs current. Declared before the download effect so the refs
+  // are updated first when both run in the same commit.
   useEffect(() => {
-    if (!fileUrl) return;
+    runRef.current = run;
+    urlRef.current = url;
+  }, [run, url]);
+
+  // Initiates file download each time a file location request resolves. Keyed
+  // on the resolved object, not its location, so a request that resolves to
+  // the same location as the last one still downloads. A request made for a
+  // URL the component no longer shows is dropped.
+  useEffect(() => {
+    if (!data) return;
     if (!downloadRef.current) return;
-    startDownload(downloadRef.current, fileUrl);
-  }, [fileUrl]);
+    if (requestedUrlRef.current !== urlRef.current) return;
+    startDownload(downloadRef.current, data.location);
+  }, [data]);
 
   /**
    * Initiates file download when the download button is clicked, prompting the
@@ -49,12 +69,13 @@ export function useDownload({
   };
 
   /**
-   * Requests the file location, and tracks the download.
+   * Requests the file location for the current URL, and tracks the download.
    * @returns void.
    */
   const requestDownload = (): void => {
     trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
-    run();
+    requestedUrlRef.current = urlRef.current;
+    runRef.current();
   };
 
   return { downloadRef, isRequestPending: isLoading, onDownload };

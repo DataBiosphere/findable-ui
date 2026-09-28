@@ -46,7 +46,7 @@ export const AzulFileDownload = ({
        * ARIA form is omitted rather than duplicating it -- including when the
        * URL disappears while a request is still in flight. */}
       <StyledIconButton
-        aria-busy={isRequestPending}
+        aria-busy={isRequestPending || undefined}
         aria-disabled={url && isRequestPending ? true : undefined}
         aria-label={getDownloadLabel(isRequestPending)}
         color={ICON_BUTTON_PROPS.COLOR.PRIMARY}

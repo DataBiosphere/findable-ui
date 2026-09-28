@@ -26,7 +26,7 @@ export interface UseRequestFileLocationResult {
 export type Method = METHOD;
 
 type ResolveFn = (file: FileLocation | PromiseLike<FileLocation>) => void;
-type RejectFn = (reason: FileLocation) => void;
+type RejectFn = (reason: Error | FileLocation) => void;
 type AccessTokenGetter = () => string | undefined;
 
 /**
@@ -70,6 +70,8 @@ export const getFileLocation = async (
 
 /**
  * Function that will recursively keep making requests to get the file location until gets a 302 or an error.
+ * A failed request (network error, or a response that is not JSON) rejects the promise, rather than leaving it
+ * pending indefinitely.
  * @param url - url for the get request
  * @param getAccessToken - Access token getter.
  * @param resolve - function to resolve the running promise
@@ -112,6 +114,7 @@ const scheduleFileLocation = (
           reject(result);
         }
       },
+      reject,
     );
   }, retryAfter * 1000);
 };
@@ -165,7 +168,9 @@ export const useRequestFileLocation = (
             method,
           );
         }),
-      );
+        // useAsync records the error and throws it on the next render; the
+        // returned rejection has no other handler, so don't leave it unhandled.
+      ).catch(() => undefined);
     }
     // `token` is read through `tokenRef`, but stays a dependency so `run` keeps
     // changing identity with the token (as before), and effects that depend on

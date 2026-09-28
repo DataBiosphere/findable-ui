@@ -23,6 +23,7 @@ const { useFileLocation } = await import("../src/hooks/useFileLocation");
 
 describe("AzulFileDownload", () => {
   const FILE_URL = "https://example.com/storage/file";
+  const FILE_LOCATION = { location: FILE_URL, status: 302 };
   const MOCK_RUN = jest.fn();
   const URL = "https://example.com/repository/file";
   const TRACKING_PARAMETERS = {
@@ -32,14 +33,14 @@ describe("AzulFileDownload", () => {
   };
   beforeEach(() => {
     (useFileLocation as jest.Mock).mockReturnValue({
-      fileUrl: undefined,
+      data: undefined,
       isLoading: false,
       run: MOCK_RUN,
     });
     // Like useAsync, running the request marks it pending.
     MOCK_RUN.mockImplementation(() =>
       (useFileLocation as jest.Mock).mockReturnValue({
-        fileUrl: undefined,
+        data: undefined,
         isLoading: true,
         run: MOCK_RUN,
       }),
@@ -74,7 +75,7 @@ describe("AzulFileDownload", () => {
       render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       expect(buttonEl.getAttribute("aria-label")).toBe(ARIA_LABEL.DOWNLOAD);
-      expect(buttonEl.getAttribute("aria-busy")).toBe("false");
+      expect(buttonEl.getAttribute("aria-busy")).toBeNull();
       expect(buttonEl.getAttribute("aria-disabled")).toBeNull();
       expect(getComputedStyle(buttonEl).pointerEvents).not.toBe("none");
     });
@@ -148,19 +149,21 @@ describe("AzulFileDownload", () => {
       fireEvent.click(buttonEl);
       expect(MOCK_RUN).toHaveBeenCalledTimes(1);
     });
-    test("should initiate download when fileUrl is available", () => {
-      (useFileLocation as jest.Mock).mockReturnValue({
-        fileUrl: FILE_URL,
-        isLoading: false,
-        run: MOCK_RUN,
-      });
-      render(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
+    test("should initiate download when the file location resolves", () => {
+      const { rerender } = render(
+        <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />,
+      );
       const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
       const anchorEl = getAnchorEl(AZUL_FILE_DOWNLOAD_TEST_ID);
       fireEvent.click(buttonEl);
+      (useFileLocation as jest.Mock).mockReturnValue({
+        data: FILE_LOCATION,
+        isLoading: false,
+        run: MOCK_RUN,
+      });
+      rerender(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       expect(anchorEl.download).not.toBeNull();
       expect(anchorEl.href).toBe(FILE_URL);
-      expect(screen.queryByTestId(AZUL_FILE_DOWNLOAD_TEST_ID)).not.toBeNull();
     });
     test("should return the button to its idle state once the download starts", async () => {
       const { rerender } = render(
@@ -173,13 +176,13 @@ describe("AzulFileDownload", () => {
       expect(buttonEl.getAttribute("aria-busy")).toBe("true");
       // The location request resolves, handing the component a file URL.
       (useFileLocation as jest.Mock).mockReturnValue({
-        fileUrl: FILE_URL,
+        data: FILE_LOCATION,
         isLoading: false,
         run: MOCK_RUN,
       });
       rerender(<AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />);
       await waitFor(() => {
-        expect(buttonEl.getAttribute("aria-busy")).toBe("false");
+        expect(buttonEl.getAttribute("aria-busy")).toBeNull();
       });
       expect(anchorEl.href).toBe(FILE_URL);
       expect(buttonEl.getAttribute("aria-label")).toBe(ARIA_LABEL.DOWNLOAD);
