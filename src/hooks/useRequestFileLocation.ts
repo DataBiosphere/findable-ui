@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useMemo, useRef } from "react";
+import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 import {
   FILE_LOCATION_PENDING,
   FILE_LOCATION_SUCCESSFULLY,
@@ -120,7 +120,7 @@ const scheduleFileLocation = (
  * Hook to get a file location using a retry-after approach
  * @param url - to be used on the get request
  * @param method - Method to be used by the request
- * @returns data object with the file location. The returned `run` callback reads the current token at request time and changes identity when the token changes so dependent effects can retry with refreshed credentials.
+ * @returns data object with the file location. `run` reads the latest token when each request is sent, and changes identity when the token changes.
  */
 export const useRequestFileLocation = (
   url?: string,
@@ -137,9 +137,6 @@ export const useRequestFileLocation = (
   const active = useRef<boolean>(true);
   const tokenRef = useRef<string | undefined>(token);
 
-  // eslint-disable-next-line react-hooks/refs -- Keep the request token synchronized during render so deferred login callbacks and same-commit effects observe the latest token immediately.
-  tokenRef.current = token;
-
   useEffect(() => {
     active.current = true;
     return (): void => {
@@ -147,26 +144,33 @@ export const useRequestFileLocation = (
     };
   }, []);
 
-  const run = useMemo(() => {
-    const getAccessToken = (): string | undefined => tokenRef.current;
+  // Keep the latest token in a ref, so a `run` held across sign-in (e.g. by the
+  // login guard) and in-flight retries send the current credentials. Synced
+  // after commit: child effects run before the login guard's parent effect.
+  useEffect(() => {
+    tokenRef.current = token;
+  }, [token]);
 
-    return (): void => {
-      if (url) {
-        runAsync(
-          new Promise<FileLocation>((resolve, reject) => {
-            scheduleFileLocation(
-              url,
-              getAccessToken,
-              resolve,
-              reject,
-              active,
-              0,
-              method,
-            );
-          }),
-        );
-      }
-    };
+  const run = useCallback(() => {
+    if (url) {
+      runAsync(
+        new Promise<FileLocation>((resolve, reject) => {
+          scheduleFileLocation(
+            url,
+            () => tokenRef.current,
+            resolve,
+            reject,
+            active,
+            0,
+            method,
+          );
+        }),
+      );
+    }
+    // `token` is read through `tokenRef`, but stays a dependency so `run` keeps
+    // changing identity with the token (as before), and effects that depend on
+    // `run` (e.g. useFileManifestSpreadsheet) re-request with the new token.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- see above.
   }, [method, runAsync, token, url]);
 
   return { data, isIdle, isLoading, isSuccess, run };

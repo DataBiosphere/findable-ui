@@ -2,7 +2,6 @@ import { Tooltip } from "@mui/material";
 import { ElementType, JSX, ReactNode } from "react";
 import { useDownloadStatus } from "../../../../../../hooks/useDownloadStatus";
 import { useFileManifestState } from "../../../../../../hooks/useFileManifestState";
-import { withTokenRequirement } from "../../../../../../providers/loginGuard/common/types";
 import { useLoginGuard } from "../../../../../../providers/loginGuard/hook";
 import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
 
@@ -33,7 +32,7 @@ export const ExportButton = ({
             isLoading || downloadStatus.disabled || downloadStatus.isLoading
           }
           onClick={() => {
-            requireLogin(withTokenRequirement(onClick));
+            requireLogin(onClick);
           }}
         >
           <span>{children}</span>
