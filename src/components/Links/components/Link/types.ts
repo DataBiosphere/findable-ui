@@ -1,5 +1,6 @@
 import type { LinkProps as MLinkProps } from "@mui/material";
 import type { AnchorHTMLAttributes } from "react";
+import type { TypographyProps } from "../../../common/Typography/common/entities";
 
 /**
  * Attributes that only mean something on an anchor, and so must not reach the
@@ -19,8 +20,24 @@ export type AnchorOnlyProps = Pick<
 >;
 
 /**
- * Link props that need custom handling before reaching the invalid-URL fallback
- * span.
+ * Typography classes that may be applied to the invalid-URL fallback span.
+ */
+export type FallbackClasses = NonNullable<
+  NonNullable<TypographyProps>["classes"]
+>;
+
+/**
+ * Props that may safely reach the invalid-URL fallback span.
+ */
+export type FallbackProps<P> = Omit<
+  Omit<P, keyof AnchorOnlyProps>,
+  keyof LinkOnlyProps
+> & {
+  classes?: FallbackClasses;
+};
+
+/**
+ * Link props that need custom handling before reaching the invalid-URL fallback span.
  */
 export type LinkOnlyProps = Pick<
   MLinkProps,

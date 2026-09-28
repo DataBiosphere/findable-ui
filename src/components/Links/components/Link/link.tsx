@@ -53,21 +53,19 @@ export const Link = ({
   }
   if (isURLString(url)) {
     if (isClientSideNavigation(url)) {
-      const { className: typographyClassName, ...linkTypographyProps } =
-        TypographyProps ?? {};
       /* Client-side navigation */
       return (
         <>
           <MLink
-            className={mergeClassNames(className, typographyClassName)}
             component={NLink}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
-            {...linkTypographyProps}
+            {...TypographyProps}
             {...props}
+            className={mergeClassNames(className, TypographyProps?.className)}
           >
             {label}
           </MLink>
@@ -76,20 +74,18 @@ export const Link = ({
       );
     }
     if (isValidUrl(url)) {
-      const { className: typographyClassName, ...linkTypographyProps } =
-        TypographyProps ?? {};
       /* External navigation */
       return (
         <>
           <MLink
-            className={mergeClassNames(className, typographyClassName)}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
-            {...linkTypographyProps}
+            {...TypographyProps}
             {...props}
+            className={mergeClassNames(className, TypographyProps?.className)}
           >
             {label}
           </MLink>
@@ -99,16 +95,14 @@ export const Link = ({
     }
   }
   /* Invalid URL - renders a span, so anchor-only and Link-only attributes are omitted. */
-  const { className: typographyClassName, ...fallbackTypographyProps } =
-    TypographyProps ?? {};
   return (
     <MTypography
       component="span"
       noWrap={noWrap}
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
-      {...fallbackTypographyProps}
+      {...TypographyProps}
       {...getFallbackProps(props, TypographyProps)}
-      className={mergeClassNames(className, typographyClassName)}
+      className={mergeClassNames(className, TypographyProps?.className)}
     >
       {label}
     </MTypography>

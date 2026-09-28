@@ -1,10 +1,5 @@
 import type { TypographyProps } from "../../../common/Typography/common/entities";
-import type { AnchorOnlyProps, LinkOnlyProps } from "./types";
-
-type FallbackClasses = NonNullable<NonNullable<TypographyProps>["classes"]>;
-type FallbackProps<P> = Omit<P, keyof AnchorOnlyProps | keyof LinkOnlyProps> & {
-  classes?: FallbackClasses;
-};
+import type { AnchorOnlyProps, FallbackProps, LinkOnlyProps } from "./types";
 
 /**
  * Returns the props that should reach the invalid-URL fallback span.
@@ -31,12 +26,13 @@ export function getFallbackProps<P extends AnchorOnlyProps & LinkOnlyProps>(
       typographyProps?.classes?.root,
     ),
   };
-  return {
-    ...spanProps,
-    ...(Object.values(fallbackClasses).some(Boolean)
-      ? { classes: fallbackClasses }
-      : undefined),
-  } as FallbackProps<P>;
+  const fallbackProps: FallbackProps<P> = { ...spanProps };
+
+  if (Object.values(fallbackClasses).some(Boolean)) {
+    fallbackProps.classes = fallbackClasses;
+  }
+
+  return fallbackProps;
 }
 
 /**
