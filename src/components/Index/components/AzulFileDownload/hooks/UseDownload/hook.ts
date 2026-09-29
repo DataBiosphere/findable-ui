@@ -25,10 +25,7 @@ export function useDownload({
   const { data, isLoading, run } = useFileLocation(url);
   const downloadRef = useRef<HTMLAnchorElement>(null);
 
-  // Latest `run` and `url`. The login guard calls `requestDownload` after login,
-  // from the render the click happened in: reading `run` from a ref gives it the
-  // post-login token rather than the one captured before login.
-  const runRef = useRef(run);
+  // The URL the component currently shows.
   const urlRef = useRef(url);
 
   // The URL the most recent request was made for.
@@ -37,12 +34,11 @@ export function useDownload({
   // Prompt user for login before download, if required.
   const { requireLogin } = useLoginGuard();
 
-  // Keeps the refs current. Declared before the download effect so the refs
-  // are updated first when both run in the same commit.
+  // Keeps the URL ref current. Declared before the download effect so the ref
+  // is updated first when both run in the same commit.
   useEffect(() => {
-    runRef.current = run;
     urlRef.current = url;
-  }, [run, url]);
+  }, [url]);
 
   // Initiates file download each time a file location request resolves. Keyed
   // on the resolved object, not its location, so a request that resolves to
@@ -69,13 +65,16 @@ export function useDownload({
   };
 
   /**
-   * Requests the file location for the current URL, and tracks the download.
+   * Requests the file location, and tracks the download. The login guard may
+   * call this after login, from the render the click happened in: `run` sends
+   * the latest token, but requests that render's URL, so that URL is recorded
+   * and the download effect drops the request if the URL has since changed.
    * @returns void.
    */
   const requestDownload = (): void => {
     trackFileDownloaded(entityName, relatedEntityId, relatedEntityName);
-    requestedUrlRef.current = urlRef.current;
-    runRef.current();
+    requestedUrlRef.current = url;
+    run();
   };
 
   return { downloadRef, isRequestPending: isLoading, onDownload };

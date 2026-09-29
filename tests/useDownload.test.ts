@@ -46,20 +46,16 @@ describe("useDownload", () => {
    * @param state - File location state.
    * @param state.data - Resolved file location, if any.
    * @param state.isLoading - True while the location request is in flight.
-   * @param run - Run function returned by the hook; defaults to MOCK_RUN.
    */
-  function mockFileLocation(
-    state: {
-      data?: typeof FILE_LOCATION;
-      isLoading: boolean;
-    },
-    run = MOCK_RUN,
-  ): void {
+  function mockFileLocation(state: {
+    data?: typeof FILE_LOCATION;
+    isLoading: boolean;
+  }): void {
     // Like useFileLocation, fileUrl mirrors the resolved location.
     (useFileLocation as jest.Mock).mockReturnValue({
       ...state,
       fileUrl: state.data?.location,
-      run,
+      run: MOCK_RUN,
     });
   }
 
@@ -146,31 +142,42 @@ describe("useDownload", () => {
     expect(result.current.isRequestPending).toBe(true);
   });
 
-  it("should run the latest request when the login guard defers the download", () => {
-    // Stands in for LoginGuardProvider while the user is logged out: the
-    // callback is stored and called after login, from a later render.
-    let deferredCallback: LoginGuardCallback | undefined;
-    const requireLogin = (callback?: LoginGuardCallback): void => {
-      deferredCallback = callback;
-    };
-    const { rerender, result } = renderHook(() => useDownload(PROPS), {
-      wrapper: ({ children }: { children: ReactNode }) =>
-        createElement(
-          LoginGuardContext.Provider,
-          { value: { requireLogin } },
-          children,
-        ),
-    });
-    act(() => result.current.onDownload());
-    expect(MOCK_RUN).not.toHaveBeenCalled();
-    // Login updates the token, so useFileLocation hands back a new run.
-    const runAfterLogin = jest.fn();
-    mockFileLocation({ data: undefined, isLoading: false }, runAfterLogin);
-    act(() => rerender());
-    act(() => deferredCallback?.());
-    expect(runAfterLogin).toHaveBeenCalledTimes(1);
-    expect(MOCK_RUN).not.toHaveBeenCalled();
-  });
+  it.each([
+    ["should download", "is unchanged", URL, 1],
+    ["should not download", "changes", OTHER_URL, 0],
+  ])(
+    "%s when the login guard defers the download and the URL %s before login",
+    (_, __, nextUrl, clicks) => {
+      // Stands in for LoginGuardProvider while the user is logged out: the
+      // callback is stored and called after login, from a later render.
+      let deferredCallback: LoginGuardCallback | undefined;
+      const requireLogin = (callback?: LoginGuardCallback): void => {
+        deferredCallback = callback;
+      };
+      const { rerender, result } = renderHook(
+        ({ url }: { url: string }) => useDownload({ ...PROPS, url }),
+        {
+          initialProps: { url: URL },
+          wrapper: ({ children }: { children: ReactNode }) =>
+            createElement(
+              LoginGuardContext.Provider,
+              { value: { requireLogin } },
+              children,
+            ),
+        },
+      );
+      const anchorEl = attachAnchor(result.current.downloadRef);
+      act(() => result.current.onDownload());
+      expect(MOCK_RUN).not.toHaveBeenCalled();
+      act(() => rerender({ url: nextUrl }));
+      act(() => deferredCallback?.());
+      expect(MOCK_RUN).toHaveBeenCalledTimes(1);
+      // The request resolves.
+      mockFileLocation({ data: FILE_LOCATION, isLoading: false });
+      act(() => rerender({ url: nextUrl }));
+      expect(anchorEl.click).toHaveBeenCalledTimes(clicks);
+    },
+  );
 
   it("should download again when a later request resolves to the same location", () => {
     const { rerender, result } = renderHook(() => useDownload(PROPS));
