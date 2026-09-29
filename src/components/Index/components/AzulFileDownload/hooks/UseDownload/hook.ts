@@ -43,9 +43,10 @@ export function useDownload({
   // Initiates file download each time a file location request resolves. Keyed
   // on the resolved object, not its location, so a request that resolves to
   // the same location as the last one still downloads. A request made for a
-  // URL the component no longer shows is dropped.
+  // URL the component no longer shows, or one that resolves without a
+  // location, is dropped.
   useEffect(() => {
-    if (!data) return;
+    if (!data?.location) return;
     if (!downloadRef.current) return;
     if (requestedUrlRef.current !== urlRef.current) return;
     startDownload(downloadRef.current, data.location);

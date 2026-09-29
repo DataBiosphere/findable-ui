@@ -121,6 +121,21 @@ describe("useDownload", () => {
     expect(result.current.isRequestPending).toBe(false);
   });
 
+  it("should not start a download when the location resolves empty", () => {
+    const { rerender, result } = renderHook(() => useDownload(PROPS));
+    const anchorEl = attachAnchor(result.current.downloadRef);
+    act(() => result.current.onDownload());
+    act(() => rerender());
+    // The location request resolves without a location.
+    mockFileLocation({
+      data: { ...FILE_LOCATION, location: "" },
+      isLoading: false,
+    });
+    act(() => rerender());
+    expect(anchorEl.click).not.toHaveBeenCalled();
+    expect(result.current.isRequestPending).toBe(false);
+  });
+
   it("should accept a further download once the previous one has started", () => {
     const { rerender, result } = renderHook(() => useDownload(PROPS));
     attachAnchor(result.current.downloadRef);
