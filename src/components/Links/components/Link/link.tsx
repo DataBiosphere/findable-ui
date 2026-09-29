@@ -17,7 +17,7 @@ import {
   isURLString,
 } from "../../common/utils";
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
-import { omitAnchorOnlyProps } from "./utils";
+import { getFallbackProps, mergeClassNames } from "./utils";
 
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
@@ -57,7 +57,6 @@ export const Link = ({
       return (
         <>
           <MLink
-            className={className}
             component={NLink}
             href={url}
             noWrap={noWrap}
@@ -66,6 +65,7 @@ export const Link = ({
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
+            className={mergeClassNames(className, TypographyProps?.className)}
           >
             {label}
           </MLink>
@@ -78,7 +78,6 @@ export const Link = ({
       return (
         <>
           <MLink
-            className={className}
             href={url}
             noWrap={noWrap}
             onClick={onClick}
@@ -86,6 +85,7 @@ export const Link = ({
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}
+            className={mergeClassNames(className, TypographyProps?.className)}
           >
             {label}
           </MLink>
@@ -94,13 +94,18 @@ export const Link = ({
       );
     }
   }
-  /* Invalid URL - renders a span, so anchor-only attributes are omitted. */
+  /* Invalid URL - renders a Typography span. Anchor-only props and `underline` are
+   * omitted, and Link class props are remapped onto Typography classes. Link's own
+   * `onClick` is intentionally not forwarded, so parent click handling still works.
+   * Handlers passed via `TypographyProps` still apply, as on main. */
   return (
     <MTypography
       component="span"
+      noWrap={noWrap}
       variant={TYPOGRAPHY_PROPS.VARIANT.INHERIT}
       {...TypographyProps}
-      {...omitAnchorOnlyProps(props)}
+      {...getFallbackProps(props, TypographyProps)}
+      className={mergeClassNames(className, TypographyProps?.className)}
     >
       {label}
     </MTypography>

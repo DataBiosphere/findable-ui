@@ -1,4 +1,51 @@
-import type { AnchorOnlyProps } from "./types";
+import type { TypographyProps } from "../../../common/Typography/common/entities";
+import type { AnchorOnlyProps, FallbackProps, LinkOnlyProps } from "./types";
+
+/**
+ * Returns the props that should reach the invalid-URL fallback span.
+ * @param props - Remaining Link props.
+ * @param typographyProps - Typography props supplied to Link.
+ * @returns The fallback-safe span props, including the merged Typography class map.
+ */
+export function getFallbackProps<P extends AnchorOnlyProps & LinkOnlyProps>(
+  props: P,
+  typographyProps?: TypographyProps,
+): FallbackProps<P> {
+  const {
+    classes,
+    TypographyClasses,
+    underline: _underline,
+    ...spanProps
+  } = omitAnchorOnlyProps(props);
+  const fallbackClasses = {
+    ...TypographyClasses,
+    ...typographyProps?.classes,
+    root: mergeClassNames(
+      classes?.root,
+      TypographyClasses?.root,
+      typographyProps?.classes?.root,
+    ),
+  };
+  const fallbackProps: FallbackProps<P> = { ...spanProps };
+
+  if (Object.values(fallbackClasses).some(Boolean)) {
+    fallbackProps.classes = fallbackClasses;
+  }
+
+  return fallbackProps;
+}
+
+/**
+ * Merges class name values into a single className string.
+ * @param classNames - Class names to merge.
+ * @returns The merged className, or undefined when no class names are provided.
+ */
+export function mergeClassNames(
+  ...classNames: (string | undefined)[]
+): string | undefined {
+  const mergedClassName = classNames.filter(Boolean).join(" ");
+  return mergedClassName || undefined;
+}
 
 /**
  * Removes anchor-only attributes from the props spread onto the invalid-URL
