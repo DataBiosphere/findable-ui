@@ -12,12 +12,7 @@ import {
 import { Navigation, SocialMedia } from "./common/entities";
 import { Announcements } from "./components/Announcements/announcements";
 import { Actions } from "./components/Content/components/Actions/actions";
-import {
-  Authentication,
-  renderButton as renderAuthenticationButton,
-  renderIconButton as renderAuthenticationIconButton,
-} from "./components/Content/components/Actions/components/Authentication/authentication";
-import { getSignInPath } from "./components/Content/components/Actions/components/Authentication/utils";
+import { Authentication } from "./components/Content/components/Actions/components/Authentication/authentication";
 import { Menu } from "./components/Content/components/Actions/components/Menu/menu";
 import { Search } from "./components/Content/components/Actions/components/Search/search";
 import { NAVIGATION_TEST_ID } from "./components/Content/components/Navigation/constants";
@@ -139,17 +134,9 @@ export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
                 />
                 {/* Authentication */}
                 <Authentication
-                  Button={({ ...props }): JSX.Element =>
-                    isIn.isMenuIn
-                      ? renderAuthenticationIconButton(props)
-                      : renderAuthenticationButton(
-                          props,
-                          pathname,
-                          getSignInPath(authenticationEnabled),
-                        )
-                  }
                   authenticationEnabled={authenticationEnabled}
                   closeMenu={onClose}
+                  isMenuIn={isIn.isMenuIn}
                 />
                 {/* Additional actions i.e. call-to-action button */}
                 {actions}

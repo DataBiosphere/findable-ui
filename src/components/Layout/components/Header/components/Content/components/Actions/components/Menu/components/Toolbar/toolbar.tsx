@@ -5,10 +5,7 @@ import { ComponentsConfig } from "../../../../../../../../../../../../config/ent
 import { Left, Right } from "../../../../../../../../header.styles";
 import { Announcements } from "../../../../../../../Announcements/announcements";
 import { Actions } from "../../../../actions";
-import {
-  Authentication,
-  renderIconButton as renderAuthenticationIconButton,
-} from "../../../Authentication/authentication";
+import { Authentication } from "../../../Authentication/authentication";
 import { Search } from "../../../Search/search";
 import { ARIA_LABEL } from "./constants";
 
@@ -48,8 +45,8 @@ export const Toolbar = ({
             {/* Authentication */}
             <Authentication
               authenticationEnabled={authenticationEnabled}
-              Button={renderAuthenticationIconButton}
               closeMenu={onClose}
+              isMenuIn
             />
             {/* Additional actions i.e. call-to-action button */}
             {actions}

@@ -1,13 +1,13 @@
 import { jest } from "@jest/globals";
-import { ButtonProps as MButtonProps } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { JSX } from "react";
 
 const PUBLIC_PATH = "/requesting-elevated-permissions";
 const CUSTOM_SIGNIN_PATH = "/";
 
 let mockAsPath = "/";
+let mockPathname = "/";
 
 jest.unstable_mockModule("next/router", () => {
   const push = jest.fn(async (): Promise<boolean> => true);
@@ -17,6 +17,29 @@ jest.unstable_mockModule("next/router", () => {
     useRouter: jest.fn(() => ({ asPath: mockAsPath, push })),
   };
 });
+jest.unstable_mockModule("next/navigation", () => ({
+  ...jest.requireActual<typeof import("next/navigation")>("next/navigation"),
+  usePathname: jest.fn(() => mockPathname),
+}));
+// jsdom has no matchMedia, so no breakpoint resolves and Header renders no
+// actions. Pin a desktop breakpoint so the labelled Sign In button renders.
+jest.unstable_mockModule("../src/hooks/useBreakpoint", () => ({
+  useBreakpoint: jest.fn(() => ({
+    breakpoint: "lg",
+    lg: true,
+    lgDown: false,
+    lgUp: true,
+    md: false,
+    mdDown: false,
+    mdUp: true,
+    sm: false,
+    smDown: false,
+    smUp: true,
+    xs: false,
+    xsDown: false,
+    xsUp: true,
+  })),
+}));
 jest.unstable_mockModule(
   "../src/hooks/authentication/profile/useProfile",
   () => ({
@@ -25,42 +48,35 @@ jest.unstable_mockModule(
 );
 
 const Router = (await import("next/router")).default;
-const { Authentication, renderIconButton } =
+const { Authentication } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/authentication");
+const { createAppTheme } = await import("../src/theme/theme");
+const { Header } =
+  await import("../src/components/Layout/components/Header/header");
+const { navigateToSignIn } =
+  await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/utils");
 const { ARIA_LABEL } =
   await import("../src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/constants");
 
-const TestButton = ({ onClick }: MButtonProps): JSX.Element => (
-  <button onClick={onClick}>Sign in</button>
-);
 const closeMenu = jest.fn();
 
 beforeEach(() => {
   jest.clearAllMocks();
   mockAsPath = "/";
+  mockPathname = "/";
 });
 
 describe("Authentication Sign In button", () => {
   test("does not render when authenticationEnabled is falsy", () => {
     const { container } = render(
-      <Authentication
-        authenticationEnabled={false}
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
+      <Authentication authenticationEnabled={false} closeMenu={closeMenu} />,
     );
     expect(container.firstChild).toBeNull();
   });
 
   test("navigates to ROUTE.LOGIN with current asPath as callbackUrl when authenticationEnabled is true", async () => {
     mockAsPath = PUBLIC_PATH;
-    render(
-      <Authentication
-        authenticationEnabled
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
-    );
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(Router.push).toHaveBeenCalledWith({
       pathname: "/login",
@@ -73,7 +89,6 @@ describe("Authentication Sign In button", () => {
     render(
       <Authentication
         authenticationEnabled={CUSTOM_SIGNIN_PATH}
-        Button={TestButton}
         closeMenu={closeMenu}
       />,
     );
@@ -85,42 +100,96 @@ describe("Authentication Sign In button", () => {
   });
 
   test("closes the menu after navigating", async () => {
-    render(
-      <Authentication
-        authenticationEnabled
-        Button={TestButton}
-        closeMenu={closeMenu}
-      />,
-    );
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
     await userEvent.click(screen.getByRole("button", { name: "Sign in" }));
     expect(closeMenu).toHaveBeenCalledTimes(1);
   });
 });
 
-describe("renderIconButton", () => {
-  // The LoginRounded icon is aria-hidden (MUI sets that on every SvgIcon), so
-  // the button has no text to fall back on if the name is lost.
-  test("names the button by default", () => {
-    render(renderIconButton({}));
-    expect(
-      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
-    ).not.toBeNull();
+describe("navigateToSignIn", () => {
+  test("closes the menu and still rejects when navigation fails", async () => {
+    const error = new Error("navigation failed");
+    jest.mocked(Router.push).mockRejectedValueOnce(error);
+    await expect(
+      navigateToSignIn(CUSTOM_SIGNIN_PATH, PUBLIC_PATH, closeMenu),
+    ).rejects.toBe(error);
+    expect(closeMenu).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("Authentication Sign In highlight", () => {
+  test("highlights the labelled button on the default sign-in route", () => {
+    mockPathname = "/login";
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-activeNav");
   });
 
-  test("lets a caller give the button a more specific name", () => {
-    render(renderIconButton({ "aria-label": "Sign in to Terra" }));
-    expect(
-      screen.getByRole("button", { name: "Sign in to Terra" }),
-    ).not.toBeNull();
+  test("highlights the labelled button on a custom sign-in route", () => {
+    mockPathname = CUSTOM_SIGNIN_PATH;
+    render(
+      <Authentication
+        authenticationEnabled={CUSTOM_SIGNIN_PATH}
+        closeMenu={closeMenu}
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-activeNav");
   });
 
-  test.each([
-    ["empty", ""],
-    ["whitespace-only", "   "],
-  ])("falls back when a caller passes a %s name", (_, label) => {
-    render(renderIconButton({ "aria-label": label }));
-    expect(
-      screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN }),
-    ).not.toBeNull();
+  test("does not highlight the labelled button on other routes", () => {
+    mockPathname = PUBLIC_PATH;
+    render(
+      <Authentication
+        authenticationEnabled={CUSTOM_SIGNIN_PATH}
+        closeMenu={closeMenu}
+      />,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.classList).toContain("MuiButton-nav");
+    expect(button.classList).not.toContain("MuiButton-activeNav");
+  });
+});
+
+describe("Authentication button variants", () => {
+  /*
+   * Both variants are named "Sign in", so the accessible name alone cannot
+   * tell them apart. The text node can: the icon variant renders only an
+   * aria-hidden icon, while the labelled variant renders visible text.
+   */
+  test("renders the icon variant when isMenuIn is set", () => {
+    render(
+      <Authentication authenticationEnabled closeMenu={closeMenu} isMenuIn />,
+    );
+    const button = screen.getByRole("button", { name: ARIA_LABEL.SIGN_IN });
+    expect(button.textContent).toBe("");
+  });
+
+  test("renders the labelled variant when isMenuIn is not set", () => {
+    render(<Authentication authenticationEnabled closeMenu={closeMenu} />);
+    const button = screen.getByRole("button", { name: "Sign in" });
+    expect(button.textContent).toContain("Sign in");
+  });
+});
+
+describe("Authentication in the Header", () => {
+  /*
+   * A component-type prop created inline in Header would be a new type on
+   * every render, so React would unmount and remount the Sign In button each
+   * time. The same DOM node across a rerender proves the button is kept.
+   */
+  test("keeps the same Sign In button across Header re-renders", () => {
+    const { rerender } = render(
+      <ThemeProvider theme={createAppTheme()}>
+        <Header authenticationEnabled logo={null} />
+      </ThemeProvider>,
+    );
+    const button = screen.getByRole("button", { name: "Sign in" });
+    rerender(
+      <ThemeProvider theme={createAppTheme()}>
+        <Header authenticationEnabled logo={null} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByRole("button", { name: "Sign in" })).toBe(button);
   });
 });
