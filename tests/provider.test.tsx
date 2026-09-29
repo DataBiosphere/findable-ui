@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react";
-import { JSX } from "react";
+import { JSX, useContext } from "react";
 import { LoginGuardContext } from "../src/providers/loginGuard/context";
 
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
@@ -17,6 +17,10 @@ jest.unstable_mockModule(
     useAuthenticationConfig: jest.fn(),
   }),
 );
+
+jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
+  useToken: jest.fn(),
+}));
 
 const TEST_ID_LOGIN_DIALOG = "login-dialog";
 const TEXT_DIALOG_CLOSED = "closed";
@@ -36,11 +40,17 @@ const { useConfig } = await import("../src/hooks/useConfig");
 const { useAuth } = await import("../src/auth/hooks/useAuth");
 const { useAuthenticationConfig } =
   await import("../src/hooks/authentication/config/useAuthenticationConfig");
+const { useToken } = await import("../src/hooks/authentication/token/useToken");
+const { useRequestFileLocation } =
+  await import("../src/hooks/useRequestFileLocation");
 
 const { LoginGuardProvider } =
   await import("../src/providers/loginGuard/provider");
 
+const ORIGINAL_FETCH = global.fetch;
+const REQUEST_URL = "https://example.com/file-location";
 const TEXT_BUTTON_EXPORT = "export";
+const TOKEN = "new-token";
 
 describe("LoginGuardProvider", () => {
   beforeEach(() => {
@@ -56,6 +66,12 @@ describe("LoginGuardProvider", () => {
       },
     });
     (useAuthenticationConfig as jest.Mock).mockReturnValue({});
+    (useToken as jest.Mock).mockReturnValue({ token: undefined });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+    global.fetch = ORIGINAL_FETCH;
   });
 
   it("should render children and login dialog closed", () => {
@@ -185,5 +201,63 @@ describe("LoginGuardProvider", () => {
 
     // Callback should be called (in useEffect called on re-render).
     expect(callback).toHaveBeenCalled();
+  });
+
+  it("should send the new token when a deferred request runs after sign-in", async () => {
+    jest.useFakeTimers();
+    const fetchMock = jest.fn<typeof fetch>().mockResolvedValue({
+      json: async () => ({ Location: "", Status: 302 }),
+    } as Response);
+    global.fetch = fetchMock;
+
+    /**
+     * Requests a file location, behind the login guard.
+     * @returns Button that runs the guarded request.
+     */
+    function RequestButton(): JSX.Element {
+      const { requireLogin } = useContext(LoginGuardContext);
+      const { run } = useRequestFileLocation(REQUEST_URL);
+      return (
+        <button onClick={() => requireLogin(run)}>{TEXT_BUTTON_EXPORT}</button>
+      );
+    }
+
+    const { rerender } = render(
+      <LoginGuardProvider>
+        <RequestButton />
+      </LoginGuardProvider>,
+    );
+
+    // Click while signed out; the guard holds this render's `run`.
+    act(() => {
+      screen.getByText(TEXT_BUTTON_EXPORT).click();
+    });
+
+    // Sign in: auth state and token arrive in the same render, as the Google
+    // and Terra providers dispatch them together.
+    (useAuth as jest.Mock).mockReturnValue({
+      authState: { isAuthenticated: true },
+    });
+    (useToken as jest.Mock).mockReturnValue({ token: TOKEN });
+    await act(async () => {
+      rerender(
+        <LoginGuardProvider>
+          <RequestButton />
+        </LoginGuardProvider>,
+      );
+    });
+
+    // Send the scheduled request.
+    await act(async () => {
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledWith(
+      REQUEST_URL,
+      expect.objectContaining({
+        headers: expect.objectContaining({ Authorization: `Bearer ${TOKEN}` }),
+      }),
+    );
   });
 });
