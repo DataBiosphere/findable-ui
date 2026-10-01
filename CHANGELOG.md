@@ -1,5 +1,36 @@
 # Changelog
 
+## [57.0.0](https://github.com/DataBiosphere/findable-ui/compare/v56.0.0...v57.0.0) (2026-10-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* removes the published exports AZUL_FILE_REQUEST_DOWNLOAD_PENDING_TEST_ID and the azulFileDownload.styles module (StyledIconButton). the azul-file-request-download-pending test id no longer appears in the dom; the single button carries azul-file-request-download throughout.
+* Authentication no longer takes a `Button` component prop; it takes `isMenuIn` and owns its button. The exported `renderButton` and `renderIconButton` helpers are removed. Callers that passed `Button` should pass `isMenuIn` instead. The sign-in icon button's `aria-label` can no longer be overridden by a caller, since there is no longer a prop to pass it through.
+* `id` is a required field on the exported `DrawerContextProps` and `UseMenu` types, and `DIALOG_PROPS` for the header menu no longer carries `PaperProps` (moved to `DIALOG_PAPER_PROPS`). Consumers constructing a `DrawerContext` value or mocking `useMenu`/`useDrawer` must supply an `id`.
+* `PAPER_PROPS.VARIANT.SEARCH_BAR` and the `searchbar` Paper variant are removed, along with its `PaperPropsVariantOverrides` augmentation. `useCloseOnEscape` has moved to `lib/hooks/UseCloseOnEscape/hook`. `SearchProps.Button` is replaced by `isMenuIn`, and `renderButton` / `renderIconButton` are no longer exported from the Search module. No consumer in the workspace uses any of these. Requires React >= 19.2 for `useEffectEvent`.
+
+### Bug Fixes
+
+* dialogtitle close button has no accessible name ([#1005](https://github.com/DataBiosphere/findable-ui/issues/1005)) ([#1007](https://github.com/DataBiosphere/findable-ui/issues/1007)) ([0bd0835](https://github.com/DataBiosphere/findable-ui/commit/0bd0835adc865a503ebe4c24d83bc40012ad0e00))
+* filter drawer forwards filtersort props to the dom, warning on every mobile render ([#1004](https://github.com/DataBiosphere/findable-ui/issues/1004)) ([#1017](https://github.com/DataBiosphere/findable-ui/issues/1017)) ([ec69242](https://github.com/DataBiosphere/findable-ui/commit/ec6924216541c516431a375b0b8b2dee4243e838))
+* give every icon-only iconbutton an accessible name ([#1006](https://github.com/DataBiosphere/findable-ui/issues/1006)) ([#1011](https://github.com/DataBiosphere/findable-ui/issues/1011)) ([c0238b4](https://github.com/DataBiosphere/findable-ui/commit/c0238b4a36360e65fed41ea755b147bb45184072))
+* link fallback span leaks muilink-only props and drops classname ([#1022](https://github.com/DataBiosphere/findable-ui/issues/1022)) ([#1023](https://github.com/DataBiosphere/findable-ui/issues/1023)) ([fed0db9](https://github.com/DataBiosphere/findable-ui/commit/fed0db952e09c0b035ff7f687292dae4f0975ece))
+* link spreads anchor-only props onto the invalid-url span, emitting invalid markup ([#1009](https://github.com/DataBiosphere/findable-ui/issues/1009)) ([#1016](https://github.com/DataBiosphere/findable-ui/issues/1016)) ([703883a](https://github.com/DataBiosphere/findable-ui/commit/703883a6211663d18d0441d53a665ce35a9f4a40))
+* login-guarded requests run with the pre-login token after sign-in ([#1024](https://github.com/DataBiosphere/findable-ui/issues/1024)) ([#1025](https://github.com/DataBiosphere/findable-ui/issues/1025)) ([169752b](https://github.com/DataBiosphere/findable-ui/commit/169752b2ca894d68aefe394d1e5c5f095b2c6dbf))
+* popup triggers announce no expanded state or popup role ([#1012](https://github.com/DataBiosphere/findable-ui/issues/1012)) ([#1015](https://github.com/DataBiosphere/findable-ui/issues/1015)) ([42159cc](https://github.com/DataBiosphere/findable-ui/commit/42159cc3fbb53aab38b39f2d82cfd1a2f523ba70))
+
+
+### Code Refactoring
+
+* collapse azulfiledownload into a single state-driven icon button ([#1013](https://github.com/DataBiosphere/findable-ui/issues/1013)) ([#1019](https://github.com/DataBiosphere/findable-ui/issues/1019)) ([12d6c95](https://github.com/DataBiosphere/findable-ui/commit/12d6c95d4b867fdf5721403dbde2761f374c6823))
+* replace the header search dialog with a non-modal dropdown anchored to the toolbar ([#999](https://github.com/DataBiosphere/findable-ui/issues/999)) ([#1001](https://github.com/DataBiosphere/findable-ui/issues/1001)) ([6768fbf](https://github.com/DataBiosphere/findable-ui/commit/6768fbfd3bcc68ab5a7fcd06767711e184286072))
+
+
+### Performance Improvements
+
+* remove the authentication button render-prop to stop it remounting each render ([#1000](https://github.com/DataBiosphere/findable-ui/issues/1000)) ([#1018](https://github.com/DataBiosphere/findable-ui/issues/1018)) ([65d15ce](https://github.com/DataBiosphere/findable-ui/commit/65d15ce50d0949122c542e34277209b8dcec2db6))
+
 ## [56.0.0](https://github.com/DataBiosphere/findable-ui/compare/v55.0.0...v56.0.0) (2026-07-30)
 
 
