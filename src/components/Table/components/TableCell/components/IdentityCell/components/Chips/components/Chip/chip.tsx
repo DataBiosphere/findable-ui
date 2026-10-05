@@ -27,7 +27,7 @@ export const Chip = (props: IdentityChipProps): JSX.Element => {
   return (
     <Tooltip arrow describeChild {...tooltipProps}>
       {/* Taps that open the tooltip on touch devices stop here so they don't also toggle row expansion. */}
-      <span onClick={(e): void => e.stopPropagation()}>{chip}</span>
+      <div onClick={(e): void => e.stopPropagation()}>{chip}</div>
     </Tooltip>
   );
 };
