@@ -26,13 +26,15 @@ export const IdentityCell = ({
 }: IdentityCellProps): JSX.Element => {
   return (
     <StyledStack className={className} spacing={2} useFlexGap>
-      {/* Link clicks stop at the cell so they don't also toggle row expansion. */}
+      {/* Link clicks stop at the cell so they don't also toggle row expansion.
+       * The consumer onClick still runs, falling back to the TypographyProps
+       * onClick as Link does. */}
       {title && (
         <Link
           {...title}
           onClick={(e): void => {
             e.stopPropagation();
-            title.onClick?.(e);
+            (title.onClick ?? title.TypographyProps?.onClick)?.(e);
           }}
         />
       )}
@@ -48,7 +50,7 @@ export const IdentityCell = ({
             {...subtitle}
             onClick={(e): void => {
               e.stopPropagation();
-              subtitle.onClick?.(e);
+              (subtitle.onClick ?? subtitle.TypographyProps?.onClick)?.(e);
             }}
           />
         </Typography>

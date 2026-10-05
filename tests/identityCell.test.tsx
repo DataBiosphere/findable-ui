@@ -45,6 +45,31 @@ describe("IdentityCell", () => {
         expect(onRowClick).not.toHaveBeenCalled();
       },
     );
+
+    it.each([
+      ["subtitle", SUBTITLE_LABEL],
+      ["title", TITLE_LABEL],
+    ])(
+      "should run a TypographyProps onClick on a %s link without reaching the row",
+      (key, label) => {
+        const onClick = jest.fn((event: { preventDefault: () => void }): void =>
+          event.preventDefault(),
+        );
+        const onRowClick = jest.fn();
+        render(
+          <div onClick={onRowClick}>
+            <IdentityCell
+              {...{ [key]: { TypographyProps: { onClick }, label, url: URL } }}
+            />
+          </div>,
+        );
+
+        fireEvent.click(screen.getByText(label));
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onRowClick).not.toHaveBeenCalled();
+      },
+    );
   });
 
   describe("chips", () => {
