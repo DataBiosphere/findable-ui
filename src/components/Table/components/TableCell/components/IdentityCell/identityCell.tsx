@@ -12,17 +12,19 @@ import type { IdentityCellProps } from "./types";
  * that is present.
  * @param props - Component props.
  * @param props.chips - Chips rendered under the title.
+ * @param props.className - Optional class name for the root stack element.
  * @param props.subtitle - Subtitle link props; the consumer builds its label.
  * @param props.title - Title link props.
  * @returns The identity cell.
  */
 export const IdentityCell = ({
   chips,
+  className,
   subtitle,
   title,
 }: IdentityCellProps): JSX.Element => {
   return (
-    <Stack spacing={2} useFlexGap>
+    <Stack className={className} spacing={2} useFlexGap>
       {/* Link clicks stop at the cell so they don't also toggle row expansion. */}
       {title && (
         <Link
