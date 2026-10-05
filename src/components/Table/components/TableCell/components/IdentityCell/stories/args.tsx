@@ -49,6 +49,7 @@ export const COLORED_CHIPS_ARGS: ComponentProps<typeof IdentityCell> = {
       slotProps: {
         tooltip: { title: "Priority pathogen: Plasmodium falciparum" },
       },
+      tabIndex: 0 /* the tooltip adds information, so keyboard users need to reach it */,
     },
     { label: buildLabel("strain", "3D7") },
   ],
