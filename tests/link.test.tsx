@@ -283,4 +283,59 @@ describe("Link", () => {
       expect(screen.getByText(LABEL)).toHaveClass("caller");
     });
   });
+
+  // Regression: TypographyProps was spread after Link's onClick, so a
+  // TypographyProps.onClick replaced it on anchors.
+  describe("onClick", () => {
+    it.each([
+      ["a client-side", "/explore"],
+      ["an external", "https://www.example.com"],
+    ])(
+      "should run Link's onClick, not TypographyProps.onClick, on %s link",
+      (_kind, url) => {
+        // preventDefault stops jsdom attempting to navigate.
+        const onClick = jest.fn((event: { preventDefault: () => void }): void =>
+          event.preventDefault(),
+        );
+        const onTypographyClick = jest.fn();
+        render(
+          <Link
+            TypographyProps={{ onClick: onTypographyClick }}
+            label={LABEL}
+            onClick={onClick}
+            url={url}
+          />,
+        );
+
+        fireEvent.click(screen.getByText(LABEL));
+
+        expect(onClick).toHaveBeenCalledTimes(1);
+        expect(onTypographyClick).not.toHaveBeenCalled();
+      },
+    );
+
+    it.each([
+      ["a client-side", "/explore"],
+      ["an external", "https://www.example.com"],
+    ])(
+      "should still run TypographyProps.onClick on %s link without its own onClick",
+      (_kind, url) => {
+        const onTypographyClick = jest.fn(
+          (event: { preventDefault: () => void }): void =>
+            event.preventDefault(),
+        );
+        render(
+          <Link
+            TypographyProps={{ onClick: onTypographyClick }}
+            label={LABEL}
+            url={url}
+          />,
+        );
+
+        fireEvent.click(screen.getByText(LABEL));
+
+        expect(onTypographyClick).toHaveBeenCalledTimes(1);
+      },
+    );
+  });
 });
