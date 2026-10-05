@@ -1,13 +1,13 @@
 import type { ChipProps, TooltipProps } from "@mui/material";
 
 /**
- * MUI Chip props, without click and delete handlers (identity chips are not
+ * MUI Chip props, without click and delete behaviour (identity chips are not
  * interactive), and with the chip's slot props extended by a `tooltip` slot.
  * When the tooltip slot is set, the chip renders inside a tooltip.
  */
 export interface IdentityChipProps extends Omit<
   ChipProps,
-  "onClick" | "onDelete" | "slotProps"
+  "clickable" | "onClick" | "onDelete" | "slotProps"
 > {
   slotProps?: IdentityChipSlotProps;
 }
