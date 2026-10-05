@@ -7,6 +7,9 @@ import type { IdentityChipProps } from "./types";
  * Renders a chip, wrapped in a tooltip when the tooltip slot is set.
  * `describeChild` defaults on, making the tooltip the chip's description rather
  * than its accessible name, so the chip keeps its label as its name.
+ * The tooltip opens on hover only; chips aren't focusable by default. If the
+ * tooltip carries information shown nowhere else, pass `tabIndex: 0` on the
+ * chip so keyboard users can open it.
  * Clicks on a tooltip chip stop at the chip, so taps that open the tooltip on
  * touch devices don't also toggle row expansion.
  * @param props - Identity chip props.
