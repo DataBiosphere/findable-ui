@@ -36,16 +36,6 @@ export const Chip = (props: IdentityChipProps): JSX.Element => {
 
   if (!tooltipProps) return chip;
 
-  // A disabled chip ignores pointer events, so the tooltip and click handling
-  // sit on a wrapping div.
-  if (chipProps.disabled) {
-    return (
-      <Tooltip arrow describeChild {...tooltipProps}>
-        <div onClick={(e): void => e.stopPropagation()}>{chip}</div>
-      </Tooltip>
-    );
-  }
-
   return (
     <Tooltip arrow describeChild {...tooltipProps}>
       {chip}
