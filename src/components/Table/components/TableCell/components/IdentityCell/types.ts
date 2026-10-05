@@ -10,6 +10,13 @@ export interface IdentityCellProps extends BaseComponentProps {
 
 /**
  * Link props without `copyable`: the copy button would render as its own item in
- * the cell's column stack, apart from the link it copies.
+ * the cell's column stack, apart from the link it copies. `TypographyProps`
+ * omits `onClick`, because Link spreads it after its own `onClick` and it would
+ * replace the cell's handler that stops clicks toggling row expansion.
  */
-export type IdentityLinkProps = Omit<LinkProps, "copyable">;
+export interface IdentityLinkProps extends Omit<
+  LinkProps,
+  "copyable" | "TypographyProps"
+> {
+  TypographyProps?: Omit<NonNullable<LinkProps["TypographyProps"]>, "onClick">;
+}
