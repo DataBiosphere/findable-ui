@@ -1,8 +1,9 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { type JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { Link } from "../../../../../Links/components/Link/link";
 import { Chips } from "./components/Chips/chips";
+import { StyledStack } from "./identityCell.styles";
 import type { IdentityCellProps } from "./types";
 
 /**
@@ -14,7 +15,7 @@ import type { IdentityCellProps } from "./types";
  * @param props.chips - Chips rendered under the title.
  * @param props.className - Optional class name for the root stack element.
  * @param props.subtitle - Subtitle link props; the consumer builds its label.
- * @param props.title - Title link props.
+ * @param props.title - Optional title link props.
  * @returns The identity cell.
  */
 export const IdentityCell = ({
@@ -24,7 +25,7 @@ export const IdentityCell = ({
   title,
 }: IdentityCellProps): JSX.Element => {
   return (
-    <Stack className={className} spacing={2} useFlexGap>
+    <StyledStack className={className} spacing={2} useFlexGap>
       {/* Link clicks stop at the cell so they don't also toggle row expansion. */}
       {title && (
         <Link
@@ -41,7 +42,9 @@ export const IdentityCell = ({
           color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
           variant={TYPOGRAPHY_PROPS.VARIANT.BODY_SMALL_400}
         >
+          {/* Inherits the light ink colour; a consumer color overrides it. */}
           <Link
+            color={TYPOGRAPHY_PROPS.COLOR.INHERIT}
             {...subtitle}
             onClick={(e): void => {
               e.stopPropagation();
@@ -50,6 +53,6 @@ export const IdentityCell = ({
           />
         </Typography>
       )}
-    </Stack>
+    </StyledStack>
   );
 };
