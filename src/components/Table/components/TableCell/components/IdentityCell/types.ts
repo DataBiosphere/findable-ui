@@ -5,11 +5,16 @@ import type { IdentityChipProps } from "./components/Chips/components/Chip/types
 export interface IdentityCellProps extends BaseComponentProps {
   chips?: IdentityChipProps[];
   subtitle?: IdentityLinkProps /* label rendered as given, e.g. a dataset title or "3 datasets" */;
-  title?: IdentityLinkProps /* rendered as plain text when the url is an empty or invalid string */;
+  title?: IdentityLinkProps /* rendered as plain text when the url is empty or invalid */;
 }
 
 /**
- * Link props without `copyable`: the copy button would render as its own item in
- * the cell's column stack, apart from the link it copies.
+ * Link props without `copyable`, and with a string `url` only:
+ * - `copyable` would render the copy button as its own item in the cell's column
+ *   stack, apart from the link it copies.
+ * - URL objects render an explore view link, which drops Link's styling and
+ *   throws on an invalid href or query rather than falling back to plain text.
  */
-export type IdentityLinkProps = Omit<LinkProps, "copyable">;
+export interface IdentityLinkProps extends Omit<LinkProps, "copyable" | "url"> {
+  url: string;
+}
