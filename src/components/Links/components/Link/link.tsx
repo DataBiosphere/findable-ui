@@ -60,12 +60,13 @@ export const Link = ({
             component={NLink}
             href={url}
             noWrap={noWrap}
-            onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER}
             target={target || ANCHOR_TARGET.SELF}
             {...TypographyProps}
             {...props}
             className={mergeClassNames(className, TypographyProps?.className)}
+            /* Link's own onClick wins over a TypographyProps one. */
+            onClick={onClick ?? TypographyProps?.onClick}
           >
             {label}
           </MLink>
@@ -80,12 +81,13 @@ export const Link = ({
           <MLink
             href={url}
             noWrap={noWrap}
-            onClick={onClick}
             rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
             target={target || ANCHOR_TARGET.BLANK}
             {...TypographyProps}
             {...props}
             className={mergeClassNames(className, TypographyProps?.className)}
+            /* Link's own onClick wins over a TypographyProps one. */
+            onClick={onClick ?? TypographyProps?.onClick}
           >
             {label}
           </MLink>
