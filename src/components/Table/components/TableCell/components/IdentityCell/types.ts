@@ -5,7 +5,7 @@ import type { IdentityChipProps } from "./components/Chips/components/Chip/types
 export interface IdentityCellProps extends BaseComponentProps {
   chips?: IdentityChipProps[];
   subtitle?: IdentityLinkProps /* label rendered as given, e.g. a dataset title or "3 datasets" */;
-  title?: IdentityLinkProps /* rendered as plain text when the url is empty or invalid */;
+  title?: IdentityLinkProps /* rendered as plain text when the url is an empty or invalid string */;
 }
 
 /**
