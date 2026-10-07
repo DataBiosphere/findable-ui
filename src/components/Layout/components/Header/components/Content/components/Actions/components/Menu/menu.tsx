@@ -83,7 +83,6 @@ export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
           open={open}
           slotProps={{ paper: applySlotId(dialogId, DIALOG_PAPER_PROPS) }}
           TransitionComponent={Fade}
-          transitionDuration={isMenuIn ? 600 : 0}
         >
           <AppBar component="div" elevation={0}>
             <Toolbar onClose={closeMenu} {...headerProps} />
