@@ -8,10 +8,11 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Exported components wrapped in memo(...) or forwardRef(...), including the
-// React.memo / React.forwardRef forms, which the function contexts miss.
+// Exported components wrapped in memo(...) or forwardRef(...), named or
+// default, including the React.memo / React.forwardRef forms, which the
+// function contexts miss.
 const WRAPPED_COMPONENT =
-  "ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > CallExpression";
+  ":matches(ExportNamedDeclaration > VariableDeclaration > VariableDeclarator, ExportDefaultDeclaration) > CallExpression";
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
