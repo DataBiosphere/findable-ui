@@ -17,3 +17,6 @@ node_modules
 
 # editors
 .vscode
+
+# eslint bulk suppressions (written by eslint --prune-suppressions)
+eslint-suppressions.json

@@ -1,5 +1,5 @@
-import { BaseComponentProps } from "components/types";
 import { ClassAttributes, JSX, TableHTMLAttributes } from "react";
+import type { BaseComponentProps } from "../../../types";
 import { StyledTable } from "./table.styles";
 
 export const Table = (

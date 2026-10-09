@@ -1,10 +1,10 @@
 import { JSX } from "react";
-import { EntityDetailViewProps } from "views/EntityDetailView/entityDetailView";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
 import { useEntityExportConfig } from "../../hooks/useEntityExportConfig";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
+import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
 export const EntityExportView = (props: EntityDetailViewProps): JSX.Element => {
   // Update the catalog param if necessary.

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import type { ParsedUrlQuery } from "querystring";
 import { JSX } from "react";
-import { EntityDetailViewProps } from "views/EntityDetailView/entityDetailView";
 import { PARAMS_INDEX_EXPORT_METHOD } from "../../common/constants";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
@@ -9,6 +8,7 @@ import { ExportMethodConfig } from "../../config/entities";
 import { useEntityExportConfig } from "../../hooks/useEntityExportConfig";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
+import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
 export const EntityExportMethodView = (
   props: EntityDetailViewProps,
