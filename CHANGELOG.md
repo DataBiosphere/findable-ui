@@ -1,5 +1,17 @@
 # Changelog
 
+## [57.0.1](https://github.com/DataBiosphere/findable-ui/compare/v57.0.0...v57.0.1) (2026-10-09)
+
+
+### Bug Fixes
+
+* published .d.ts files keep bare src-relative imports, breaking sidebarprops ([#1058](https://github.com/DataBiosphere/findable-ui/issues/1058)) ([#1059](https://github.com/DataBiosphere/findable-ui/issues/1059)) ([75f547e](https://github.com/DataBiosphere/findable-ui/commit/75f547e965b383af229c0bbeec0db4813f3b8817))
+
+
+### Chores
+
+* enforce the jsdoc requirement with jsdoc/require-jsdoc ([#1008](https://github.com/DataBiosphere/findable-ui/issues/1008)) ([#1031](https://github.com/DataBiosphere/findable-ui/issues/1031)) ([57f3460](https://github.com/DataBiosphere/findable-ui/commit/57f34602a097e53dd492a19b1e42cb883033e3cc))
+
 ## [57.0.0](https://github.com/DataBiosphere/findable-ui/compare/v56.0.0...v57.0.0) (2026-10-06)
 
 
