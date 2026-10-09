@@ -140,6 +140,13 @@ function transformRoute(routes: string[]): string | undefined {
 - `@param` tags with descriptions (hyphen required before description)
 - `@returns` tag with description
 
+**Enforcement:** `jsdoc/require-jsdoc` fails lint on any exported function (including arrow-function components and `memo`/`forwardRef`-wrapped components) or exported interface without a JSDoc block. Lint checks exports only; the convention above still applies to non-exported functions. `*.styles.ts(x)` and `*.test.ts(x)` files are exempt.
+
+Violations that predate the rule are recorded per file in `eslint-suppressions.json` (ESLint bulk suppressions), which `npm run lint` applies automatically. The file only shrinks:
+
+- Never add to it (don't run `--suppress-all` or `--suppress-rule`); document new code instead.
+- After documenting a suppressed function or interface, run `npx eslint . --prune-suppressions` and commit the updated file — lint fails until you do.
+
 ### React Patterns
 
 - Use functional components with hooks

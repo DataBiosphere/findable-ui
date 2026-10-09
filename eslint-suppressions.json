@@ -1,0 +1,2867 @@
+{
+  "src/apis/azul/common/filterTransformer.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/common/ai/config/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/common/chart/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/common/filters/sort/models/utils.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/ComponentCreator/ComponentCreator.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/ComponentCreator/components/ConditionalComponent/conditionalComponent.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/ComponentCreator/components/RenderComponent/renderComponent.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/DataDictionary/components/Description/description.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Description/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Entities/entities.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Entities/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Entity/entity.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Entity/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/components/ColumnFilterTags/columnFilterTags.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/components/ColumnFilterTags/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/components/ColumnFilters/columnFilters.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/components/ColumnFilters/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/filters.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Filters/stories/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/DataDictionary/components/Filters/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/EntitiesLayout/entitiesLayout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/EntitiesLayout/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/FiltersLayout/filtersLayout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/FiltersLayout/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/OutlineLayout/outlineLayout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/OutlineLayout/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/TitleLayout/titleLayout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Layout/components/TitleLayout/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Outline/components/ContentsTab/contentsTab.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Outline/outline.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Outline/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/components/BasicCell/basicCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/options/columnFilters/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/options/globalFilter/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/options/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/table.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Table/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Title/title.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Tooltip/components/Title/title.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Tooltip/components/Title/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/components/Tooltip/tooltip.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/dataDictionary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/hooks/UseDataDictionaryConfig/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/hooks/UseDataDictionaryConfig/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/hooks/UseMeasureFilters/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/hooks/UseMeasureFilters/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/DataDictionary/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Detail/components/AccessibilityBadge/accessibilityBadge.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Detail/components/DetailViewTable/detailViewTable.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Detail/components/Table/components/TableBody/tableBody.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Detail/components/Table/components/TableRows/components/CollapsableRows/collapsableRows.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Detail/components/Table/components/TableRows/tableRows.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Detail/components/Table/table.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Detail/detail.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Error/error.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/DownloadCurlCommand/components/DownloadCurlCommandForm/downloadCurlCommandForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/DownloadCurlCommand/components/DownloadCurlCommandNotStarted/downloadCurlCommandNotStarted.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/DownloadCurlCommand/components/DownloadCurlCommandReady/downloadCurlCommandReady.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/DownloadCurlCommand/downloadCurlCommand.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportForm/components/ExportButton/exportButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportForm/components/ExportExecutionEnvironmentForm/exportExecutionEnvironmentForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportForm/components/ExportFileSummaryForm/exportFileSummaryForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportForm/components/ExportManifestDownloadFormatForm/exportManifestDownloadFormatForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportForm/components/ExportSpeciesForm/exportSpeciesForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportForm/exportForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportMethod/exportMethod.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportSummary/components/ExportCurrentQuery/exportCurrentQuery.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportSummary/components/ExportSelectedDataSummary/exportSelectedDataSummary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportSummary/exportSummary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/ExportToTerraForm/exportToTerraForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/ExportToTerraNotStarted/exportToTerraNotStarted.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/ExportToTerraReady/exportToTerraReady.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/Button/button.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/Button/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/FormStep/components/AcceptTerraTOS/acceptTerraTOS.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/FormStep/components/ConnectTerraToNIHAccount/connectTerraToNIHAccount.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/FormStep/components/CreateTerraAccount/createTerraAccount.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/FormStep/formStep.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/components/NIHAccountExpiryWarning/nihAccountExpiryWarning.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/terraSetUpForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportToTerra/components/TerraSetUpForm/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Export/components/ExportToTerra/exportToTerra.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadEntity/components/FileManifestDownload/fileManifestDownload.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadEntity/components/FileManifestSpreadsheet/fileManifestSpreadsheet.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadEntity/manifestDownloadEntity.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadForm/manifestDownloadForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadNotStarted/manifestDownloadNotStarted.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/components/ManifestDownloadReady/manifestDownloadReady.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Export/components/ManifestDownload/manifestDownload.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/ClearAllFilters/clearAllFilters.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/components/Backdrop/backdrop.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/components/Backdrop/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/components/DrawerTransition/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/components/MenuTransition/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/filter.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/Filter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterCountChip/filterCountChip.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterCountChip/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterLabel/filterLabel.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/FilterMenu/filterMenu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Filter/components/FilterMenuSearch/filterMenuSearch.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/FilterNoResultsFound/filterNoResultsFound.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/FilterRange/filterRange.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterRange/hooks/UseFilterRange/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterRange/hooks/UseFilterRange/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/FilterRange/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterTag/filterTag.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/FilterTag/hooks/UseTooltipTitle/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/FilterTags/filterTags.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/Filters/filters.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Filter/components/HighlightedLabel/highlightedLabel.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 4
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/components/OutlinedInput/outlinedInput.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/components/VariableSizeList/VariableSizeList.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/components/VariableSizeListItem/variableSizeListItem.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/context/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/searchAllFilters.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/SearchAllFilters/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/VariableSizeList/VariableSizeList.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/VariableSizeListItem/variableSizeListItem.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/adapters/tanstack/ColumnFiltersAdapter/columnFiltersAdapter.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/adapters/tanstack/ColumnFiltersAdapter/hooks/UseUpdateFilterSort/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/adapters/tanstack/ColumnFiltersAdapter/hooks/UseUpdateFilterSort/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/adapters/tanstack/ColumnFiltersAdapter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/controls/Controls/components/FilterSort/filterSort.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/controls/Controls/controls.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/controls/Controls/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/drawer/Drawer/drawer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/drawer/Drawer/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/drawer/components/Button/button.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/drawer/components/ButtonBase/buttonBase.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/drawer/components/IconButton/iconButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/surfaces/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/SelectListItem/selectListItem.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/SelectListItem/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Filter/components/views/select/components/Checkbox/checkbox.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/components/ListItemButton/listItemButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/components/ListItemText/components/Count/count.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/components/ListItemText/components/Term/term.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Filter/components/views/select/components/ListItemText/listItemText.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Head/head.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Index/components/AzulFileDownload/azulFileDownload.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Index/components/AzulFileDownload/hooks/UseDownload/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/ActionButton/actionButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/ExportButton/exportButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/FilterButton/filterButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/ViewToggle/hooks/UseViewToggle/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/ViewToggle/hooks/UseViewToggle/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Index/components/EntityView/components/controls/ViewToggle/viewToggle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/layout/Summary/summary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/layout/Title/title.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/navigation/Tabs/tabs.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/slots/EntityListSlot/entityListSlot.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/slots/EntityViewSlot/entityViewSlot.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/chartView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/barX/plot.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/chart.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/hooks/UseBarCount/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/hooks/UsePlotOptions/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/hooks/UsePlotOptions/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/components/Chart/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/hooks/UseChartView/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/hooks/UseChartView/useChartView.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/ChartView/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/TableView/tableView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/components/views/TableView/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/components/EntityView/context/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/indexView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/table/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Index/table/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Index/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/BackPage/backPageView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/BackPage/components/BackPageHero/backPageHero.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/BackPage/components/BackPageHero/components/Actions/actions.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/BackPage/components/BackPageHero/components/SubTitle/subTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/ContentLayout/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/ContentLayout/components/Main/main.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/ContentLayout/contentLayout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Floating/floating.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Footer/components/VersionInfo/components/Tooltip/components/Title/title.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Footer/components/VersionInfo/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Footer/components/VersionInfo/versionInfo.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Footer/footer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Announcements/announcements.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/actions.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/authentication.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/components/AuthenticationMenu/authenticationMenu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Authentication/components/Button/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Menu/components/Toolbar/toolbar.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Menu/menu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/components/Button/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/components/Disclosure/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/components/SearchBar/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/hooks/UseSearch/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/hooks/UseSubmit/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Actions/components/Search/search.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Logo/logo.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationButtonLabel/navigationButtonLabel.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationDrawer/components/Slide/slide.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationDrawer/navigationDrawer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationMenu/navigationMenu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationMenuItems/navigationMenuItems.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Navigation/navigation.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Layout/components/Header/components/Content/components/Slogan/slogan.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/header.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/hooks/useHeaderNavigation.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Header/hooks/useHeaderVisibility.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Header/hooks/useMenu.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Main/main.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Nav/components/NavBarHero/navBarHero.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Nav/nav.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Layout/components/Outline/components/ContentsTab/contentsTab.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Outline/components/ContentsTab/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Outline/hooks/UseHash/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Outline/hooks/UseTabs/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Outline/outline.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Layout/components/Outline/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Sidebar/components/SidebarButton/sidebarButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Sidebar/components/SidebarDrawer/sidebarDrawer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Sidebar/components/SidebarLabel/sidebarLabel.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Sidebar/components/SidebarPositioner/sidebarPositioner.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Layout/components/Sidebar/sidebar.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Links/components/Link/components/ExploreViewLink/exploreViewLink.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Links/components/Link/link.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Links/links.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Loading/loading.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Login/components/Buttons/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/components/Section/components/Consent/consent.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/components/Section/components/Consent/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/hooks/useRequestLogin/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/hooks/useUserConsent/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/hooks/useUserConsent/useUserConsent.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/hooks/useUserLogin/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/hooks/useUserLogin/useUserLogin.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/login.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Login/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownRenderer/components/Anchor/anchor.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownRenderer/components/Table/table.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownRenderer/markdownRenderer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/MarkdownRenderer/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/NoResults/noResults.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/NoResults/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Plot/components/BarX/barX.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Plot/components/BarX/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Project/components/Citation/citation.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/CollaboratingOrganizations/collaboratingOrganizations.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/Contacts/contacts.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/Contributors/contributors.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/DataCurators/dataCurators.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/DataReleasePolicy/dataReleasePolicy.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Project/components/Description/description.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/Details/details.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/Publications/publications.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Project/components/SupplementaryLinks/supplementaryLinks.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Redirect/redirect.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepContent/stepContent.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepIcon/components/CompletedIcon/completedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepIcon/stepIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepLabel/components/Label/components/Icon/icon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepLabel/components/Label/components/Icon/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepLabel/components/Label/label.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepLabel/components/Optional/optional.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/components/StepLabel/stepLabel.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Stepper/components/Step/step.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Support/components/SupportRequest/components/Dialog/dialog.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Support/components/SupportRequest/components/Dropzone/dropzone.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Support/components/SupportRequest/components/SupportRequestForm/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 4
+    }
+  },
+  "src/components/Support/components/SupportRequest/components/SupportRequestForm/supportRequestForm.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Support/components/SupportRequest/components/SupportRequestSubmitted/supportRequestSubmitted.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Support/components/SupportRequest/supportRequest.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Support/components/ViewSupport/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Support/components/ViewSupport/viewSupport.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/columnDef/globalFilter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/PaginationSummary/paginationSummary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableBody/tableBody.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/BasicCell/basicCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/ChipCell/chipCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/CodeCell/codeCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/CollapsableCell/collapsableCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/IdentityCell/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/LinkCell/linkCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/MarkdownCell/markdownCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/NTagCell/components/NTag/components/Tooltip/tooltip.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/NTagCell/components/NTag/nTag.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/NTagCell/nTagCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableCell/components/RankedCell/rankedCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/RowPositionCell/rowPositionCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableCell/components/RowSelectionCell/rowSelectionCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/ColumnFilter/columnFilter.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/ColumnFilter/components/ColumnFilterTag/columnFilterTag.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/ColumnFilter/components/ColumnFilterTag/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/ColumnFilter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/GlobalFilter/globalFilter.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/GlobalFilter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/TableDownload/tableDownload.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableFeatures/TableDownload/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableHead/components/HeadSelectionCell/headSelectionCell.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableHead/tableHead.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableHead/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TablePagination/tablePagination.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TablePagination/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableRow/components/CollapsableTableRow/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableRow/components/VirtualizedTableRow/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableRows/components/CollapsableRows/collapsableRows.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableRows/components/VirtualizedRow/virtualizedRow.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableRows/tableRows.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnGrouping/columnGrouping.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnGrouping/components/MenuItems/menuItems.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnGrouping/components/MenuItems/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnGrouping/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnVisibility/columnVisibility.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnVisibility/components/MenuItems/menuItems.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnVisibility/components/MenuItems/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/ColumnVisibility/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowPreview/components/RowDrawer/rowDrawer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowPreview/components/Section/components/RowDetail/rowDetail.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowPreview/components/Section/section.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowPreview/rowPreview.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowSelection/components/DropdownMenu/dropdownMenu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/components/RowSelection/rowSelection.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar/tableToolbar.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/components/TableToolbar2/tableToolbar2.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/components/TableToolbar2/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/features/RowPosition/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/features/RowPreview/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 4
+    }
+  },
+  "src/components/Table/features/RowSelectionValidation/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/Table/features/TableDownload/onDownload/utils.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/features/TableDownload/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 4
+    }
+  },
+  "src/components/Table/features/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/Table/hooks/UseVirtualization/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/hooks/UseVirtualization/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/Table/table.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/TableCreator/options/expanded/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/grouping/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/initialState/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/rowSelection/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/sorting/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/options/visibility/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TableCreator/tableCreator.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/TempError/components/errorBox.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/TempError/tempError.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Accordion/accordion.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Alert/alert.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Alert/hooks/useTransition/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/AnchorLink/anchorLink.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Banner/banner.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Banner/components/CookieBanner/cookieBanner.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Banner/components/SessionTimeout/sessionTimeout.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Banner/components/SystemIndexing/systemIndexing.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Banner/components/SystemStatus/systemStatus.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Breadcrumbs/breadcrumbs.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Button/button.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Button/components/ButtonOutline/buttonOutline.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonPrimary/buttonPrimary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonSecondary/buttonSecondary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonSecondaryOutline/buttonSecondaryOutline.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonText/buttonText.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonTextPrimary/buttonTextPrimary.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/ButtonTextUnderline/buttonTextUnderline.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/CallToActionButton/callToActionButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Button/components/DropdownButton/dropdownButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/DropdownButton/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Button/components/FileDownloadButton/fileDownloadButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Button/components/HelpIconButton/helpIconButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Button/components/NavigationButton/navigationButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/ButtonGroup/buttonGroup.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/ButtonGroup/components/ButtonGroupButton/buttonGroupButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/card.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/components/CardAction/cardAction.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/components/CardActionArea/cardActionArea.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/components/CardActions/cardActions.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/components/CardMedia/cardMedia.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Card/components/CardSecondaryText/cardSecondaryText.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Card/components/CardSecondaryTitle/cardSecondaryTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Card/components/CardText/cardText.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Card/components/CardTitle/cardTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Card/components/RoundedCard/roundedCard.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Code/code.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/CopyToClipboard/copyToClipboard.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/CustomIcon/common/constants.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/CustomIcon/components/AddIcon/addIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/AddLinkIcon/addLinkIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/AlertIcon/alertIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/BackArrowIcon/backArrowIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/CheckedIcon/checkedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/CloseIcon/closeIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/ContactSupportIcon/contactSupportIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/ContentCopyIcon/contentCopyIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/DiscourseIcon/discourseIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/DownloadIcon/downloadIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/EmailReadIcon/emailReadIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/ErrorIcon/errorIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/FacebookIcon/facebookIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/FeedbackIcon/feedbackIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/FormStatusCompletedIcon/formStatusCompletedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/FormStatusIncompleteIcon/formStatusIncompleteIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/ForwardArrowIcon/forwardArrowIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/GitHubIcon/gitHubIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/GoogleIcon/googleIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/HelpIcon/helpIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/InProgressIcon/inProgressIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/IndeterminateIcon/indeterminateIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/InfoIcon/infoIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/InventoryIcon/inventoryIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/LinkedInIcon/linkedInIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/LoadingIcon/loadingIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/OpenInNewIcon/openInNewIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/RadioCheckedIcon/radioCheckedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/RadioUncheckedIcon/radioUncheckedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/RemoveIcon/removeIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/SearchIcon/searchIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/SearchOffIcon/searchOffIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/Segment/segment.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/SlackIcon/slackIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/SouthIcon/southIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/SuccessIcon/successIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UnLinkIcon/unLinkIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UncheckedDisabledIcon/uncheckedDisabledIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UncheckedIcon/uncheckedIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UnfoldMoreIcon/unfoldMoreIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/UpArrowIcon/upArrowIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/WarningIcon/warningIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/XIcon/xIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/CustomIcon/components/YouTubeIcon/youTubeIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Dialog/components/DialogTitle/dialogTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Dialog/dialog.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Dialog/hooks/useDialog.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Dot/dot.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Drawer/components/DrawerTitle/drawerTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Drawer/drawer.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Drawer/provider/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/DropdownMenu/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/DropdownMenu/components/MenuItem/menuItem.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/DropdownMenu/dropdownMenu.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/EllipsisContent/ellipsisContent.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Form/components/Input/input.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Form/components/Select/components/DropDownIcon/dropDownIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Form/components/Select/select.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Form/components/UploadFile/uploadFile.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Grid/components/GridItem/gridItem.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Grid/grid.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/IconBadge/iconBadge.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/IconButton/iconButton.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Input/input.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/KeyValuePairs/components/KeyElType/keyElType.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/KeyValuePairs/components/KeyValueElType/keyValueElType.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/KeyValuePairs/components/ValueElType/valueElType.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/KeyValuePairs/keyValuePairs.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/LoginDialog/loginDialog.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/LoginDialog/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Menu/hooks/useMenu.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/OutlinedInput/components/InputAdornment/components/ClearInputAdornment/clearInputAdornment.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/OutlinedInput/components/InputAdornment/components/ClearInputAdornment/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/OutlinedInput/components/InputAdornment/components/SearchInputAdornment/searchInputAdornment.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Paper/components/FlatPaper/flatPaper.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Paper/components/FluidPaper/fluidPaper.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Paper/components/RoundedPaper/roundedPaper.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Paper/paper.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Popper/provider/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Progress/components/CircularProgress/circularProgress.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Progress/components/CircularProgress/components/CircularProgressTrack/circularProgressTrack.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/RadioGroup/radioGroup.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Section/components/CollapsableSection/collapsableSection.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Section/components/SectionDetailsEmpty/sectionDetailsEmpty.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Section/components/SectionTitle/sectionTitle.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Sections/sections.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Socials/socials.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Stack/components/Divider/divider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Stack/stack.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/StaticImage/staticImage.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/StatusBadge/statusBadge.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/StatusIcon/statusIcon.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/common/Tabs/tabs.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Tag/tag.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/Title/title.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/ToggleButtonGroup/hooks/UseToggleButtonGroup/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/components/common/ToggleButtonGroup/toggleButtonGroup.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/components/common/Typography/TypographyWordBreak/TypographyWordBreak.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/components/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 5
+    }
+  },
+  "src/config/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 5
+    }
+  },
+  "src/entity/tsv/service.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 5
+    }
+  },
+  "src/hooks/UseCloseOnEscape/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/UseLayoutSpacing/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/UseLayoutSpacing/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/authentication/profile/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/providers/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/providers/useProviders.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/session/useSessionActive.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/session/useSessionCallbackUrl.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/authentication/terra/useAuthenticationForm.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/token/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/authentication/token/useToken.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/stateSyncManager/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/stateSyncManager/hooks/UseBeforePopState/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/stateSyncManager/hooks/UseMetaCommands/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/stateSyncManager/hooks/UseStateSync/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/stateSyncManager/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 5
+    }
+  },
+  "src/hooks/useBreakpoint.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useBreakpointHelper.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useCurrentBreakpoint.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useDownloadStatus.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useEntityService.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useFileLocation.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/useFileManifest/common/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/useFileManifest/useFileManifestDownload.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useFileManifest/useFileManifestFormat.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useFileManifest/useFileManifestSpreadsheet.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useHtmlStyle/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useRequestFileLocation.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/useRequestManifest/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useRouteHistory.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/hooks/useRouteRoot.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useSummary.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/hooks/useWindowResize.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/config.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/providers/dataDictionary/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/actions/updateColumnFilters/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/actions/updateGlobalFilter/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/dictionaries/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/providers/dataDictionaryState/hooks/UseDataDictionaryInitialArgs/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/hooks/UseDataDictionaryInitialArgs/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/hooks/UseDataDictionaryReducer/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/dataDictionaryState/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/providers/exploreState/entities.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 4
+    }
+  },
+  "src/providers/exploreState/entities/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/providers/fileManifestState.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/providers/layoutDimensions/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/layoutDimensions/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/layoutDimensions/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 3
+    }
+  },
+  "src/providers/services/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/services/wasPop/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/services/wasPop/provider.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/services/wasPop/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/providers/systemStatus.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/services/beforePopState/useOnPopState.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/services/beforePopState/usePopStateBus.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/storybook/decorators.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/styles/common/mixins/breakpoints.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 10
+    }
+  },
+  "src/theme/common/typography.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/theme/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/utils/ariaPopup.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/utils/fetchQueryParams.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/utils/mdx/staticGeneration/staticProps.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/utils/replaceParameters.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ContentView/contentView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/views/DataDictionaryView/dataDictionaryView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/DataDictionaryView/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/EntityDetailView/entityDetailView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/views/EntityExportMethodView/entityExportMethodView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/EntityExportView/entityExportView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ExploreView/exploreView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/views/ExploreView/hooks/UseUpdateFilterSort/hook.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ExploreView/hooks/UseUpdateFilterSort/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ExportMethodView/exportMethodView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ExportView/exportView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/LoginView/loginView.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/views/ResearchView/assistant/components/Drawer/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Input/hooks/UseControlledInput/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Input/hooks/UseKeyShortCuts/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 2
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/AssistantMessage/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/ErrorMessage/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/PromptMessage/components/Chips/chips.tsx": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/PromptMessage/components/Chips/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/PromptMessage/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/components/UserMessage/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/selector/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "src/views/ResearchView/assistant/components/Messages/types.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  },
+  "types/data-explorer-ui.d.ts": {
+    "jsdoc/require-jsdoc": {
+      "count": 1
+    }
+  }
+}
