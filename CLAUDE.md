@@ -221,4 +221,4 @@ describe("ComponentName", () => {
 
 - **Release Management:** Uses release-please for automated versioning and changelog
 - **Storybook:** Available for component development and visual testing
-- **Import Paths:** Base URL is `./src` (configured in tsconfig.json), allowing absolute imports within src
+- **Import Paths:** Use relative imports within `src`. tsconfig.json deliberately has no `baseUrl`: tsc copies import paths verbatim into the published `.d.ts` files, so bare paths like `components/types` don't resolve in consuming apps

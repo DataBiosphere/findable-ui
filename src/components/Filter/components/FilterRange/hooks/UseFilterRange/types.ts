@@ -1,6 +1,6 @@
 import { ToggleButtonGroupProps } from "@mui/material";
-import { OnFilterFn } from "hooks/useCategoryFilter";
 import { FormEventHandler } from "react";
+import type { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { FIELD_NAME } from "./constants";
 
 export type FieldErrors = Partial<Record<FieldName, string>>;
