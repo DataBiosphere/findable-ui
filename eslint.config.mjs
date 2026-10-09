@@ -8,6 +8,12 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Exported components wrapped in memo(...) or forwardRef(...), named or
+// default, including the React.memo / React.forwardRef forms, which the
+// function contexts miss.
+const WRAPPED_COMPONENT =
+  ":matches(ExportNamedDeclaration > VariableDeclaration > VariableDeclarator, ExportDefaultDeclaration) > CallExpression";
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
@@ -86,6 +92,31 @@ const config = [
     ignores: ["**/*.styles.ts", "**/*.styles.tsx"],
     rules: {
       "@typescript-eslint/explicit-function-return-type": "error",
+    },
+  },
+  // Violations that predate this rule are recorded in eslint-suppressions.json
+  // (ESLint bulk suppressions), which `eslint .` applies automatically. After
+  // documenting a suppressed file, run `npx eslint . --prune-suppressions`.
+  {
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"],
+    ignores: ["**/*.styles.ts", "**/*.styles.tsx", "**/*.test.{ts,tsx}"],
+    rules: {
+      "jsdoc/require-jsdoc": [
+        "error",
+        {
+          contexts: [
+            "TSInterfaceDeclaration",
+            `${WRAPPED_COMPONENT}[callee.name=/^(memo|forwardRef)$/]`,
+            `${WRAPPED_COMPONENT}[callee.property.name=/^(memo|forwardRef)$/]`,
+          ],
+          publicOnly: true,
+          require: {
+            ArrowFunctionExpression: true,
+            FunctionDeclaration: true,
+            FunctionExpression: true,
+          },
+        },
+      ],
     },
   },
   {
