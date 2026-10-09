@@ -12,9 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",
     "paths": {
-      "@databiosphere/findable-ui/lib/*": ["*"]
+      "@databiosphere/findable-ui/lib/*": ["./src/*"]
     },
     "rootDir": "./src",
     "outDir": "lib",

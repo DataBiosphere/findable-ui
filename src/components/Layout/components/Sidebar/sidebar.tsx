@@ -1,4 +1,3 @@
-import { ChildrenProps } from "components/types";
 import { JSX, useEffect } from "react";
 import {
   BREAKPOINT_FN_NAME,
@@ -6,6 +5,7 @@ import {
 } from "../../../../hooks/useBreakpointHelper";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { useDrawer } from "../../../common/Drawer/provider/hook";
+import type { ChildrenProps } from "../../../types";
 import { SidebarDrawer } from "./components/SidebarDrawer/sidebarDrawer";
 import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositioner";
 import { Sidebar as PermanentSidebar } from "./sidebar.styles";

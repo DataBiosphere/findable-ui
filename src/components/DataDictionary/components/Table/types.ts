@@ -1,5 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import { Class } from "common/entities";
+import type { Class } from "../../../../common/entities";
 
 export type ClassMeta = Record<
   Class["name"],
