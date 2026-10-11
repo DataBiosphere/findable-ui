@@ -31,3 +31,10 @@ export function fetchApi<T>(
   else url = url.replace(/^\//, "");
   return kyInstance.get(url, options);
 }
+
+/**
+ * Intended for use in testing -- removes the stored Ky instance so that it will be recreated on the next `fetchApi` call.
+ */
+export function clearKyInstance(): void {
+  kyInstance = null;
+}

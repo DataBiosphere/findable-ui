@@ -2,16 +2,24 @@ import { jest } from "@jest/globals";
 import fetchMock from "jest-fetch-mock";
 import { SiteConfig } from "../src/config/entities";
 
+type TestSiteConfig = Pick<SiteConfig, "dataSource" | "kyOptions">;
+
+const DEFAULT_SITE_CONFIG: TestSiteConfig = {
+  dataSource: {
+    url: "http://example.com",
+  },
+};
+
 jest.unstable_mockModule("../src/config/config", () => ({
   // `getConfig` is mocked with only the relevant parts of the site config included in the return value
-  getConfig: (): Partial<SiteConfig> => ({
-    dataSource: {
-      url: "http://example.com",
-    },
-  }),
+  getConfig: jest.fn((): TestSiteConfig => DEFAULT_SITE_CONFIG),
 }));
 
-const { fetchApi } = await import("../src/entity/common/client");
+const mockGetConfig = (await import("../src/config/config"))
+  .getConfig as unknown as jest.Mock<() => TestSiteConfig>;
+
+const { clearKyInstance, fetchApi } =
+  await import("../src/entity/common/client");
 
 const actualSetTimeout = setTimeout;
 
@@ -96,4 +104,50 @@ describe("api", () => {
     expect(mockSetTimeout).toBeCalledTimes(3);
     expect(mockSetTimeout.mock.calls[1][1]).toBe(7000);
   });
+
+  it("retries based on ky options in site config", async () => {
+    let shouldRetry: boolean | undefined;
+    withSiteConfig(
+      {
+        ...DEFAULT_SITE_CONFIG,
+        kyOptions: {
+          retry: {
+            shouldRetry: () => shouldRetry,
+          },
+        },
+      },
+      async () => {
+        shouldRetry = false;
+
+        fetchMock.mockResponseOnce("", { status: 429 });
+        await expect(fetchApi("")).rejects.toMatchObject({
+          response: {
+            status: 429,
+          },
+        });
+
+        shouldRetry = undefined;
+
+        fetchMock.mockResponseOnce("", { status: 429 });
+        fetchMock.mockResponseOnce("after-retry");
+        const resTrue = await fetchApi("");
+        expect(resTrue.status).toBe(200);
+        expect(await resTrue.text()).toBe("after-retry");
+      },
+    );
+  });
 });
+
+async function withSiteConfig(
+  config: TestSiteConfig,
+  f: () => Promise<void>,
+): Promise<void> {
+  const originalGetConfig = mockGetConfig.getMockImplementation();
+  if (!originalGetConfig)
+    throw new Error("Missing initial `getConfig` mock implementation");
+  mockGetConfig.mockReturnValue(config);
+  clearKyInstance();
+  await f();
+  mockGetConfig.mockImplementation(originalGetConfig);
+  clearKyInstance();
+}
