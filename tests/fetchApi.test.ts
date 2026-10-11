@@ -1,8 +1,14 @@
 import { jest } from "@jest/globals";
 import fetchMock from "jest-fetch-mock";
+import { SiteConfig } from "../src/config/entities";
 
-jest.unstable_mockModule("../src/shared/utils", () => ({
-  getURL: (): string => "http://example.com",
+jest.unstable_mockModule("../src/config/config", () => ({
+  // `getConfig` is mocked with only the relevant parts of the site config included in the return value
+  getConfig: (): Partial<SiteConfig> => ({
+    dataSource: {
+      url: "http://example.com",
+    },
+  }),
 }));
 
 const { fetchApi } = await import("../src/entity/common/client");
