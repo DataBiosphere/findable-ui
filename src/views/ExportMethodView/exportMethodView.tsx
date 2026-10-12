@@ -6,6 +6,10 @@ import { ExportMethodConfig } from "../../config/entities";
 import { useExportConfig } from "../../hooks/useExportConfig";
 import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams";
 
+/**
+ * Renders the export page for the export method that matches the current pathname.
+ * @returns The export method view.
+ */
 export const ExportMethodView = (): JSX.Element => {
   useUpdateURLSearchParams();
   const pathname = usePathname() ?? "";

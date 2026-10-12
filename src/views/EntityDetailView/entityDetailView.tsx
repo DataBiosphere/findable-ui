@@ -12,6 +12,9 @@ import { useEntityHeadTitle } from "../../hooks/useEntityHeadTitle";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
 
+/**
+ * Props for views that display a single entity: the entity list type and, when statically fetched, the entity data.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- this data type can't be determined beforehand
 export interface EntityDetailViewProps<T = any> {
   data?: T;
@@ -34,6 +37,11 @@ function getTabs(entity: EntityConfig): Tab[] {
   );
 }
 
+/**
+ * Renders the detail page for an entity: the page title, the tabs (unless hidden by config) and the configured detail columns.
+ * @param props - Component props.
+ * @returns The entity detail view, or an empty span while the entity loads.
+ */
 export const EntityDetailView = (props: EntityDetailViewProps): JSX.Element => {
   useUpdateURLCatalogParams();
   const { currentTab, route: tabRoute } = useCurrentDetailTab();

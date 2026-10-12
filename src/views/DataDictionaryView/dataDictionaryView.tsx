@@ -12,6 +12,13 @@ import { useDataDictionaryState } from "../../providers/dataDictionaryState/hook
 import { DataDictionaryViewProps } from "./types";
 import { buildStateSyncManagerContext } from "./utils";
 
+/**
+ * Renders the given data dictionary and keeps its filter state in sync with the URL.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the data dictionary.
+ * @param props.dictionary - Key of the data dictionary to display.
+ * @returns The data dictionary view.
+ */
 export const DataDictionaryView = ({
   className,
   dictionary,

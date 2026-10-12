@@ -36,10 +36,19 @@ import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { useValidateFilterParam } from "./hooks/UseValidateFilterParam/hook";
 import { buildStateSyncManagerContext } from "./utils";
 
+/**
+ * Props for the ExploreView component.
+ */
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
 }
 
+/**
+ * Renders the explore page: the entity list, plus the filter sidebar when there are categories to filter by.
+ * Fetches the entity list, keeps explore state in sync with the URL, and tracks the selected entity type.
+ * @param props - Component props.
+ * @returns The explore view.
+ */
 export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.

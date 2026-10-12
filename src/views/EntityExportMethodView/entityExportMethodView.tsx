@@ -10,6 +10,11 @@ import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
 import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
+/**
+ * Renders the export page for the export method selected in the URL, scoped to a single entity.
+ * @param props - Component props.
+ * @returns The entity export method view, or an empty span while the entity loads.
+ */
 export const EntityExportMethodView = (
   props: EntityDetailViewProps,
 ): JSX.Element => {

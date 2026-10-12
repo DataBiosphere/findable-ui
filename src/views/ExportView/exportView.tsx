@@ -9,6 +9,11 @@ import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams";
 
 export type ExportViewProps = AzulEntityStaticResponse;
 
+/**
+ * Renders the export page and fetches the file manifest for the filters in place when it mounts.
+ * @param props - Component props.
+ * @returns The export view.
+ */
 export const ExportView = (props: ExportViewProps): JSX.Element => {
   const {
     exploreState: { filterState },

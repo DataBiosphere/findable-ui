@@ -6,6 +6,11 @@ import { useFetchEntity } from "../../hooks/useFetchEntity";
 import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
 import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
+/**
+ * Renders the export page for a single entity.
+ * @param props - Component props.
+ * @returns The entity export view, or an empty span while the entity loads.
+ */
 export const EntityExportView = (props: EntityDetailViewProps): JSX.Element => {
   // Update the catalog param if necessary.
   useUpdateURLCatalogParams();
