@@ -5,5 +5,4 @@ export const DIALOG_PROPS: Partial<MDialogProps> = {
   fullScreen: true,
   hideBackdrop: true,
   keepMounted: false,
-  transitionDuration: 300,
 };
