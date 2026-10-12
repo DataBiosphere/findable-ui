@@ -26,7 +26,9 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
     {
       buttonSize = "medium",
       className,
-      IconButton = StyledIconButton,
+      // Bound as SocialLink: it renders a link (href), and the jsx-a11y
+      // components map treats IconButton as a button.
+      IconButton: SocialLink = StyledIconButton,
       socials,
       style,
     }: SocialsProps,
@@ -35,7 +37,7 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
     return (
       <StyledSocials className={className} ref={ref} style={style}>
         {socials.map(({ Icon, label, url }, i) => (
-          <IconButton
+          <SocialLink
             key={i}
             aria-label={getSocialLabel(label, url)}
             href={url}
@@ -44,7 +46,7 @@ export const Socials = forwardRef<HTMLDivElement, SocialsProps>(
             target={ANCHOR_TARGET.BLANK}
           >
             <Icon fontSize="small" />
-          </IconButton>
+          </SocialLink>
         ))}
       </StyledSocials>
     );

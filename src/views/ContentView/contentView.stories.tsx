@@ -41,7 +41,7 @@ export const ContentViewStory: Story = {
           healthcare utilization, health outcomes and metrics, and the ethical,
           legal, and social implications of sequencing in diverse populations.
         </p>
-        <h2></h2>
+        <h2>Goals</h2>
         <p>
           In CSER, we aim to improve the use of genetic information in medicine
           and reduce barriers to genetic services among underserved groups. Our

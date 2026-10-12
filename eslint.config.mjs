@@ -1,6 +1,7 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import next from "eslint-config-next";
+import jsxA11y from "eslint-plugin-jsx-a11y";
 import sonarjs from "eslint-plugin-sonarjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,6 +14,12 @@ const __dirname = path.dirname(__filename);
 // function contexts miss.
 const WRAPPED_COMPONENT =
   ":matches(ExportNamedDeclaration > VariableDeclaration > VariableDeclarator, ExportDefaultDeclaration) > CallExpression";
+
+// jsx-a11y ships control-has-associated-label off, but with recommended options.
+const CONTROL_LABEL_OPTIONS =
+  jsxA11y.flatConfigs.recommended.rules[
+    "jsx-a11y/control-has-associated-label"
+  ][1];
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -92,6 +99,53 @@ const config = [
     ignores: ["**/*.styles.ts", "**/*.styles.tsx"],
     rules: {
       "@typescript-eslint/explicit-function-return-type": "error",
+    },
+  },
+  // jsx-a11y reasons about the JSX it can see, so a wrapper or styled() alias
+  // is invisible to it unless mapped to the element it renders. A local wrapper
+  // that labels itself is flagged if its name is mapped, so `Button`, which
+  // names many such wrappers and is mostly MUI's Button with text children, is
+  // left unmapped. `IconButton` is mapped because it is mostly MUI's own; the
+  // odd self-labelling wrapper takes a disable comment. Add any new styled()
+  // alias of an icon button here, or it goes unchecked.
+  //
+  // Even mapped, two cases pass: a spread (<IconButton {...props} />), which
+  // may carry a label, and an icon child (<IconButton><CloseRounded />
+  // </IconButton>), since the rule can't know MUI hides SvgIcon from assistive
+  // tech. tests/a11y.test.tsx runs axe over the rendered stories to cover them.
+  // eslint-config-next registers the plugin, so only its rules are taken here.
+  {
+    files: ["src/**/*.{jsx,tsx}"],
+    rules: {
+      ...jsxA11y.flatConfigs.recommended.rules,
+      "jsx-a11y/control-has-associated-label": [
+        "error",
+        {
+          ...CONTROL_LABEL_OPTIONS,
+          // Table cells take the gridcell role, but an empty spacer cell is
+          // not a control.
+          ignoreElements: [...CONTROL_LABEL_OPTIONS.ignoreElements, "td"],
+        },
+      ],
+    },
+    settings: {
+      "jsx-a11y": {
+        components: {
+          ButtonBase: "button",
+          DXButton: "button",
+          DXIconButton: "button",
+          Fab: "button",
+          FabLink: "a",
+          IconButton: "button",
+          MButton: "button",
+          MIconButton: "button",
+          SocialLink: "a",
+          StyledButton: "button",
+          StyledButtonBase: "button",
+          StyledIconButton: "button",
+          UserIcon: "button",
+        },
+      },
     },
   },
   // Violations that predate this rule are recorded in eslint-suppressions.json

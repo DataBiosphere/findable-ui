@@ -26,6 +26,6 @@ type Story = StoryObj<typeof meta>;
 export const DetailsStory: Story = {
   args: {
     keyValuePairs: details,
-    title: "",
+    title: "Project Details",
   },
 };
