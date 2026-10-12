@@ -8,14 +8,17 @@ import { WasPopContext } from "./context";
  * was triggered by a popstate event (browser back/forward navigation).
  *
  * This provider:
- * 1. Registers callbacks for route change events.
+ * 1. Registers a callback that runs before browser back/forward navigation (beforePopState).
  * 2. Tracks when navigation occurs via browser back/forward buttons
  * 3. Provides this state via context to child components
  *
  * This allows components to respond differently to user-initiated navigation versus
  * browser history navigation.
+ *
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @returns The wasPop provider.
  */
-
 export function WasPopProvider({
   children,
 }: {

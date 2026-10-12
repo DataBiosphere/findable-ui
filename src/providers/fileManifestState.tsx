@@ -54,10 +54,20 @@ export const FileManifestStateContext =
     fileManifestState: FILE_MANIFEST_STATE,
   });
 
+/**
+ * Props for the FileManifestStateProvider component.
+ */
 export interface FileManifestStateProps {
   children: ReactNode | ReactNode[];
 }
 
+/**
+ * Provides the file manifest state and dispatch through FileManifestStateContext.
+ * Fetches the files facets and summary for the current filters while the file manifest is enabled, and the file summary when a file summary facet name is set.
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @returns The file manifest state provider.
+ */
 export function FileManifestStateProvider({
   children,
 }: FileManifestStateProps): JSX.Element {

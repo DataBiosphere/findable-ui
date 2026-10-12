@@ -6,6 +6,9 @@ export type UpdateColumnFiltersAction = {
   type: DataDictionaryActionKind.UpdateColumnFilters;
 };
 
+/**
+ * Payload for the update column filters action.
+ */
 export interface UpdateColumnFiltersPayload {
   dictionary: string;
   updaterOrValue: Updater<ColumnFiltersState>;

@@ -6,6 +6,12 @@ import {
 import { LayoutDimensionsContext } from "./context";
 import { LayoutDimensions, LayoutDimensionsProviderProps } from "./types";
 
+/**
+ * Provides the header and footer heights through LayoutDimensionsContext, measured with a resize observer on the header and footer refs.
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @returns The layout dimensions provider.
+ */
 export const LayoutDimensionsProvider = ({
   children,
 }: LayoutDimensionsProviderProps): JSX.Element => {
