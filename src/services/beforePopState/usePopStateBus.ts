@@ -6,7 +6,6 @@ import { registerPopStateHandler } from "./popStateBus";
  * fans out to all feature listeners.
  * Safe to call multiple times - only the first invocation does the real install.
  */
-
 export const usePopStateBus = (): void => {
   useEffect(() => {
     registerPopStateHandler();

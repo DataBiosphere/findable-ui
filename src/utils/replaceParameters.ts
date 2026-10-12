@@ -1,3 +1,6 @@
+/**
+ * Map of path parameter names to their values.
+ */
 export interface Parameter {
   [key: string]: string;
 }

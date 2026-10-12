@@ -237,6 +237,9 @@ declare module "@mui/material/Typography" {
 }
 
 declare module "@emotion/react" {
+  /**
+   * Emotion theme, extended from the MUI theme.
+   */
   export interface Theme extends MTheme {
     name: "EmotionTheme";
   }

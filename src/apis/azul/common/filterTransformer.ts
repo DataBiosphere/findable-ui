@@ -51,6 +51,11 @@ export function transformFilters(filters: Filters): string {
   return JSON.stringify(params);
 }
 
+/**
+ * Transforms Azul pagination into the pagination response used by the entity list.
+ * @param azulPagination - Azul pagination, if any.
+ * @returns Pagination response; an empty one (no pages or rows) when Azul pagination is missing.
+ */
 export function transformAzulPagination(
   azulPagination: AzulPaginationResponse | undefined,
 ): PaginationResponse {

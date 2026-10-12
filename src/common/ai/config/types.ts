@@ -11,12 +11,18 @@ export interface AiConfig {
   url: string;
 }
 
+/**
+ * AI prompt configuration.
+ */
 export interface AiPrompt {
   inputPlaceholder?: string;
   suggestions?: AiSuggestions[];
   text: string;
 }
 
+/**
+ * Suggested query shown with the AI prompt.
+ */
 export interface AiSuggestions {
   label: string;
   query: string;
