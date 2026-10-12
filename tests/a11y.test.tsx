@@ -78,23 +78,6 @@ const KNOWN_VIOLATIONS: Record<string, Record<string, number>> = {
     { "aria-prohibited-attr": 4 },
 };
 
-/**
- * Story files jsdom cannot load, with the reason. Their stories go unchecked
- * here; the Storybook a11y panel still covers them.
- */
-const UNLOADABLE_STORY_FILES: Record<string, string> = {
-  "components/Stepper/components/Step/components/StepLabel/components/Label/stories/label.stories.tsx":
-    "composeStories from @storybook/nextjs-vite loads its next/image shim, which only resolves under the Storybook builder",
-  "components/Stepper/components/Step/components/StepLabel/stories/stepLabel.stories.tsx":
-    "imports label.stories.tsx",
-  "components/Stepper/components/Step/stories/step.stories.tsx":
-    "composeStories from @storybook/nextjs-vite loads its next/image shim, which only resolves under the Storybook builder",
-};
-
-// What jsdom fails with on the files above: the shim itself, or a later import
-// of the module it left errored.
-const UNLOADABLE_ERROR = /sb-original\/image-context|'@storybook\/nextjs-vite'/;
-
 // jsdom does no layout, so it lacks these: the assistant's message list scrolls,
 // and the chart measures its labels in a requestAnimationFrame callback. jsdom
 // has no SVGTextElement, so the measuring methods go on SVGElement.
@@ -111,6 +94,9 @@ Object.assign(SVGElement.prototype, {
   getCTM: (): DOMMatrix | null => null,
 });
 
+// Matches the story globs in .storybook/main.ts.
+const STORY_FILE = /\.stories\.(js|jsx|mjs|ts|tsx)$/;
+
 /**
  * Finds every story file under a directory.
  * @param dir - Directory to search.
@@ -119,7 +105,7 @@ Object.assign(SVGElement.prototype, {
 function findStoryFiles(dir: string): string[] {
   return fs
     .readdirSync(dir, { recursive: true, withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".stories.tsx"))
+    .filter((entry) => entry.isFile() && STORY_FILE.test(entry.name))
     .map((entry) => path.relative(dir, path.join(entry.parentPath, entry.name)))
     .sort();
 }
@@ -128,7 +114,6 @@ const STORIES: { Story: ComponentType; id: string }[] = [];
 
 // Imported one at a time: concurrent imports race in Jest's ESM module linker.
 for (const file of findStoryFiles(SRC_DIR)) {
-  if (file in UNLOADABLE_STORY_FILES) continue;
   const stories = composeStories(await import(path.join(SRC_DIR, file)));
   for (const [name, Story] of Object.entries(stories)) {
     STORIES.push({ Story: Story as ComponentType, id: `${file}#${name}` });
@@ -185,15 +170,4 @@ describe("stories", () => {
       [],
     );
   });
-
-  // Like KNOWN_VIOLATIONS, the skip list only shrinks: a file that loads again
-  // should be removed from it so its stories are checked.
-  it.each(Object.keys(UNLOADABLE_STORY_FILES))(
-    "%s should still be unloadable",
-    async (file) => {
-      await expect(import(path.join(SRC_DIR, file))).rejects.toThrow(
-        UNLOADABLE_ERROR,
-      );
-    },
-  );
 });
