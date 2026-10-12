@@ -48,6 +48,7 @@ export const Input = ({
         </Typography>
       )}
       <InputField
+        // eslint-disable-next-line jsx-a11y/no-autofocus -- predates the rule; the filter menu's search relies on it to take focus as the menu opens, and consumers of this exported component may too.
         autoFocus
         fullWidth
         inputProps={{ spellCheck: false }}

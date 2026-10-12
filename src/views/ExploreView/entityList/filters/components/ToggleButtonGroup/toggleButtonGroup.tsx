@@ -17,7 +17,12 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
   return (
     <StyledBox>
       <StyledToggleButtonGroup exclusive>
+        {/* These are links between views, so the current one is marked with
+        aria-current; aria-pressed, which ToggleButton sets, is not allowed on
+        a link. */}
         <ToggleButton
+          aria-current="page"
+          aria-pressed={undefined}
           component={Link}
           href={routes.search}
           selected
@@ -25,7 +30,12 @@ export const ToggleButtonGroup = (): JSX.Element | null => {
         >
           Search
         </ToggleButton>
-        <ToggleButton component={Link} href={routes.research} value="research">
+        <ToggleButton
+          aria-pressed={undefined}
+          component={Link}
+          href={routes.research}
+          value="research"
+        >
           Research <Beta />
         </ToggleButton>
       </StyledToggleButtonGroup>

@@ -36,6 +36,7 @@ export const Drawer = ({
             }}
           >
             {/* Closes drawer */}
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label -- this local wrapper names itself ("Close filters"); the rule only sees an empty IconButton. */}
             <IconButton />
             {/* Clear all button */}
             <Controls onFilter={onFilter} />

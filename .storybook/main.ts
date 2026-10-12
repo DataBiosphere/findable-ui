@@ -1,6 +1,7 @@
 import { defineMain } from "@storybook/nextjs-vite/node";
 
 export default defineMain({
+  addons: ["@storybook/addon-a11y"],
   core: {
     builder: "@storybook/builder-vite",
     disableTelemetry: true,

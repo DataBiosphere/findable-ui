@@ -35,7 +35,7 @@ export const CardActionsStory: Story = {
 export const CardMediaStory: Story = {
   args: {
     cardUrl: "https://anvilproject.org/data",
-    media: { ...logo, height: 100, width: 89 },
+    media: { ...logo, alt: "Logo", height: 100, width: 89 },
     secondaryTitle:
       "Baylor College of Medicine, Houston: Sharon Plon, MD, PhD; Will Parsons, MD, PhD; and Amy McGuire, PhD",
     text: "The Baylor College of Medicine Texas KidsCanSeq Study aims to assess the utility of genome-scale testing, compared with more targeted methods, in diverse pediatric cancer patient populations and diverse healthcare settings in Texas.",
