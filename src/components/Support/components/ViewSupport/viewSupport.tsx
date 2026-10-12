@@ -26,8 +26,9 @@ export const ViewSupport = ({
       rel={rel}
       target={target}
       {...props}
-      // Applied after the spread so a consumer can rename the link but not blank
-      // it: a blank aria-label is discarded, leaving the icon-only link unnamed.
+      // Applied after the spread so a consumer can rename the link. A missing or
+      // blank label falls back to the default, since a blank aria-label would be
+      // ignored and leave the icon-only link unnamed.
       aria-label={resolveAriaLabel(
         props["aria-label"],
         ARIA_LABEL.CONTACT_SUPPORT,
