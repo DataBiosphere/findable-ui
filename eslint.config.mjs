@@ -139,6 +139,7 @@ const config = [
           IconButton: "button",
           MButton: "button",
           MIconButton: "button",
+          SocialLink: "a",
           StyledButton: "button",
           StyledButtonBase: "button",
           StyledIconButton: "button",

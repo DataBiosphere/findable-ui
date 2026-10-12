@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import { act, render, screen } from "@testing-library/react";
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import type { ComponentType } from "react";
 import { formatA11yViolations, getA11yViolations } from "./utils/a11y";
 
@@ -100,13 +100,19 @@ const STORY_FILE = /\.stories\.(js|jsx|mjs|ts|tsx)$/;
 /**
  * Finds every story file under a directory.
  * @param dir - Directory to search.
- * @returns Story file paths, relative to the directory.
+ * @returns Story file paths, relative to the directory, with "/" separators so
+ * they match the story ids keyed below on any platform.
  */
 function findStoryFiles(dir: string): string[] {
   return fs
     .readdirSync(dir, { recursive: true, withFileTypes: true })
     .filter((entry) => entry.isFile() && STORY_FILE.test(entry.name))
-    .map((entry) => path.relative(dir, path.join(entry.parentPath, entry.name)))
+    .map((entry) =>
+      path
+        .relative(dir, path.join(entry.parentPath, entry.name))
+        .split(path.sep)
+        .join("/"),
+    )
     .sort();
 }
 
@@ -114,7 +120,10 @@ const STORIES: { Story: ComponentType; id: string }[] = [];
 
 // Imported one at a time: concurrent imports race in Jest's ESM module linker.
 for (const file of findStoryFiles(SRC_DIR)) {
-  const stories = composeStories(await import(path.join(SRC_DIR, file)));
+  // A file URL, as import() reads a bare Windows path as a "c:" URL scheme.
+  const stories = composeStories(
+    await import(pathToFileURL(path.join(SRC_DIR, file)).href),
+  );
   for (const [name, Story] of Object.entries(stories)) {
     STORIES.push({ Story: Story as ComponentType, id: `${file}#${name}` });
   }
