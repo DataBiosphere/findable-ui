@@ -4,7 +4,7 @@ import { UseDataDictionaryInitialArgs } from "./types";
 
 /**
  * Returns the initial arguments for the data dictionary state reducer.
- * @returns The data dictionaries from the site config.
+ * @returns An object with the data dictionaries from the site config.
  */
 export const useDataDictionaryInitialArgs =
   (): UseDataDictionaryInitialArgs => {
