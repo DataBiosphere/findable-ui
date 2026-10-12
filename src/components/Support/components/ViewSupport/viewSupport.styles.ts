@@ -3,7 +3,7 @@ import { PALETTE } from "../../../../styles/common/constants/palette";
 import { SHADOWS } from "../../../../styles/common/constants/shadows";
 import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 
-export const Fab = styled("a")`
+export const FabLink = styled("a")`
   align-items: center;
   background-color: ${PALETTE.PRIMARY_MAIN};
   border: none;
@@ -29,3 +29,9 @@ export const Fab = styled("a")`
     bottom: 72px;
   }
 `;
+
+/**
+ * @deprecated Use `FabLink`. Renamed so the jsx-a11y components map can tell
+ * this link apart from MUI's Fab button.
+ */
+export const Fab = FabLink;

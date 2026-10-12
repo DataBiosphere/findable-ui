@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { FeedbackIcon } from "../../../../../common/CustomIcon/components/FeedbackIcon/feedbackIcon";
+import { ARIA_LABEL } from "./constants";
 import { Fab, Popover } from "./dialog.styles";
 
 export interface FormDialogProps {
@@ -32,7 +33,13 @@ export const FormDialog = ({
 
   return (
     <>
-      <Fab color="primary" onClick={toggleOpen} open={open} size="medium">
+      <Fab
+        aria-label={ARIA_LABEL.CONTACT_US}
+        color="primary"
+        onClick={toggleOpen}
+        open={open}
+        size="medium"
+      >
         {open ? <CloseRounded /> : <FeedbackIcon fontSize="medium" />}
       </Fab>
       <Popover
