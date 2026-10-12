@@ -9,6 +9,15 @@ import { rehypeSlug } from "../plugins/rehypeSlug";
 import { remarkHeadings } from "../plugins/remarkHeadings";
 import { StaticProps } from "./types";
 
+/**
+ * Builds the static props for an MDX page: validated frontmatter, serialized MDX source, outline and page title.
+ * @param fileName - MDX file name.
+ * @param slug - Page slug.
+ * @param frontmatterFn - Transforms the validated frontmatter; defaults to returning it unchanged.
+ * @param serializeOptions - Options passed to next-mdx-remote's serialize; plugin lists given in mdxOptions replace the default plugins.
+ * @param otherProps - Extra props added to the page props; they override built props with the same key.
+ * @returns The page props, or undefined when the file name or slug is missing, or the frontmatter is invalid, hidden or has no title.
+ */
 export async function buildStaticProps<F extends object, P extends object>(
   fileName: string | undefined,
   slug: string[] | undefined,

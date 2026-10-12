@@ -26,7 +26,6 @@ export function sortCategoryValueViews(
  * @param cvv1 - Second category value view to compare.
  * @returns Number indicating sort precedence of cvv0 vs cvv1.
  */
-
 export function sortCategoryValueViewsAlpha(
   cvv0: SelectCategoryValueView,
   cvv1: SelectCategoryValueView,

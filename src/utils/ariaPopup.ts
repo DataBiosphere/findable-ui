@@ -25,6 +25,9 @@ export type MenuSlotPropsSource = Pick<
   "MenuListProps" | "PaperProps" | "slotProps" | "TransitionProps"
 >;
 
+/**
+ * Options for building the ARIA attributes of a control that opens a popup or disclosure.
+ */
 export interface PopupAriaOptions {
   /**
    * Whether the control is disabled. A disabled control cannot open its
@@ -52,6 +55,9 @@ export interface PopupAriaOptions {
   open: boolean;
 }
 
+/**
+ * ARIA attributes for a control that opens a popup or disclosure.
+ */
 export interface PopupAriaProps {
   "aria-controls": string | undefined;
   "aria-expanded": boolean | undefined;

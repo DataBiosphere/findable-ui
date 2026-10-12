@@ -2,6 +2,9 @@ import { AZUL_PARAM } from "../apis/azul/common/entities";
 import { transformFilters } from "../apis/azul/common/filterTransformer";
 import { Filters } from "../common/entities";
 
+/**
+ * Custom search parameters added to the request query string.
+ */
 export interface SearchParams {
   size: string;
 }
@@ -10,7 +13,7 @@ export interface SearchParams {
  * Build up URL query string for the given search results and custom search parameters.
  * @param filters - Selected filters.
  * @param catalog - Configured catalog.
- * @param searchParams - Custom search parameters i.e. "size" and sorting behaviour.
+ * @param searchParams - Custom search parameters, e.g. "size".
  * @returns URL query string.
  */
 export const fetchQueryParams = (

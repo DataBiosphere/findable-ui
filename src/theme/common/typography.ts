@@ -134,6 +134,11 @@ const uppercase500: TypographyStyle = {
   textTransform: "uppercase",
 };
 
+/**
+ * Builds the theme's typography variants.
+ * @param theme - Theme.
+ * @returns Typography variants.
+ */
 export const typography = (theme: Theme): TypographyVariantsOptions => ({
   "body-400": body400,
   "body-400-2lines": body4002Lines,

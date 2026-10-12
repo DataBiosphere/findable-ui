@@ -50,6 +50,9 @@ export interface AuthenticationConfig {
   warning?: ReactNode;
 }
 
+/**
+ * Authentication service endpoints.
+ */
 export interface AuthService {
   endpoint: Record<string, string>;
   id: string;
@@ -189,6 +192,9 @@ export interface EntityConfig<T = any, I = any> extends TabConfig {
  */
 export type EntityMapper<T, I> = (input: I) => T;
 
+/**
+ * UI configuration for an entity's list and view pages.
+ */
 export interface EntityUIConfig {
   actionButton?: ReactNode; // Action button.
   enableExportButton?: boolean; // Flag to show/hide the export button.
@@ -297,11 +303,17 @@ interface OAuthProviderBase<P = any> {
   userinfo: string;
 }
 
+/**
+ * OAuth provider that signs in with the implicit flow.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
 export interface ImplicitFlowProvider<P = any> extends OAuthProviderBase<P> {
   flow: OAUTH_FLOW.IMPLICIT;
 }
 
+/**
+ * OAuth provider that signs in with the authorization code flow.
+ */
 export interface AuthorizationCodeFlowProvider<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Use of `any` is intentional to allow for flexibility in the model.
   P = any,
@@ -338,6 +350,9 @@ export interface Override {
   withdrawn?: boolean;
 }
 
+/**
+ * Saved filter preset.
+ */
 export interface SavedFilter {
   filters: SelectedFilter[];
   grouping?: GroupingState;
