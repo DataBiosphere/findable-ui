@@ -13,12 +13,24 @@ import {
   SectionText,
 } from "./collapsableSection.styles";
 
+/**
+ * Props for the CollapsableSection component.
+ */
 export interface CollapsableSectionProps {
   children: ReactNode;
   collapsable?: boolean;
   title: string;
 }
 
+/**
+ * Section with a title and content.
+ * When collapsable, the content can be expanded and collapsed below the "sm" breakpoint, where it starts collapsed; otherwise the content is always shown.
+ * @param props - Component props.
+ * @param props.children - Section content.
+ * @param props.collapsable - Whether the section can be collapsed below the "sm" breakpoint; defaults to false.
+ * @param props.title - Section title.
+ * @returns The collapsable section.
+ */
 export const CollapsableSection = ({
   children,
   collapsable = false,

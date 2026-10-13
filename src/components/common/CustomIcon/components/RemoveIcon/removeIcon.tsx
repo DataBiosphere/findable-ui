@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom remove icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The remove icon.
  */
-
 export const RemoveIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

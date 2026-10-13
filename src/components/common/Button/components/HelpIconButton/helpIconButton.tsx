@@ -11,6 +11,9 @@ import { HelpIcon } from "../../../CustomIcon/components/HelpIcon/helpIcon";
 import { ARIA_LABEL } from "./constants";
 import { HelpIconButton as Button } from "./helpIconButton.styles";
 
+/**
+ * Props for the HelpIconButton component.
+ */
 export interface HelpIconButtonProps {
   label?: string; // Accessible name for the link. Override when a page renders more than one help link, so each says what it helps with e.g. "Help with file formats"; a missing or blank value falls back to ARIA_LABEL.HELP.
   size?: SvgIconProps["fontSize"]; // Icon font size. Defaults to "small".
@@ -18,6 +21,16 @@ export interface HelpIconButtonProps {
   url: string;
 }
 
+/**
+ * Help icon button, linking to the help url.
+ * Internal urls use client-side navigation and open in the same tab by default; external urls open in a new tab by default.
+ * @param props - Component props.
+ * @param props.label - Accessible name for the link; a missing or blank value falls back to ARIA_LABEL.HELP.
+ * @param props.size - Icon font size; defaults to "small".
+ * @param props.target - Link target.
+ * @param props.url - Help url.
+ * @returns The help icon button.
+ */
 export const HelpIconButton = ({
   label,
   size = "small",

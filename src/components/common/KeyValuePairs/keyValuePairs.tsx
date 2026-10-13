@@ -1,17 +1,15 @@
 import { ElementType, Fragment, JSX, ReactNode } from "react";
 import { Stack } from "../Stack/stack";
 
-/**
- * Basic key value pairs component.
- * Optional wrapper components for the key values, key value tuple, key and value for complete ui flexibility.
- */
-
 export type Key = ReactNode;
 export type KeyValue = [Key, Value];
 export type Value = ReactNode | ReactNode[];
 export type KeyValueFn = (keyValue: KeyValue) => void; // An KeyValue element onClick function.
 export type KeyValues = Map<Key, Value>;
 
+/**
+ * Props for the KeyValuePairs component.
+ */
 export interface KeyValuePairsProps {
   KeyElType?: ElementType; // Wrapper element around key.
   KeyValueElType?: ElementType; // Wrapper element around key value tuple.
@@ -20,6 +18,17 @@ export interface KeyValuePairsProps {
   ValueElType?: ElementType; // Wrapper elements around value.
 }
 
+/**
+ * Basic key value pairs component.
+ * Optional wrapper components for the key values, key value tuple, key and value for complete ui flexibility.
+ * @param props - Component props.
+ * @param props.KeyElType - Wrapper element around each key; defaults to "span".
+ * @param props.KeyValueElType - Wrapper element around each key value tuple; defaults to Stack.
+ * @param props.keyValuePairs - Key value pairs to render.
+ * @param props.KeyValuesElType - Wrapper element around the key value pairs; defaults to Stack.
+ * @param props.ValueElType - Wrapper element around each value; defaults to "span".
+ * @returns The key value pairs.
+ */
 export const KeyValuePairs = ({
   KeyElType: Key = "span",
   KeyValueElType: KeyValue = Stack,

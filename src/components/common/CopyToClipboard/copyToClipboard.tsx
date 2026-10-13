@@ -4,10 +4,19 @@ import copy from "copy-to-clipboard";
 import { JSX, useEffect, useState } from "react";
 import { ARIA_LABEL } from "./constants";
 
+/**
+ * Props for the CopyToClipboard component.
+ */
 export interface CopyToClipboardProps {
   copyStr: string;
 }
 
+/**
+ * Renders an icon button that copies the given string to the clipboard, showing a "Link Copied" tooltip for 2 seconds.
+ * @param props - Component props.
+ * @param props.copyStr - String to copy to the clipboard.
+ * @returns The copy to clipboard button.
+ */
 export const CopyToClipboard = ({
   copyStr,
 }: CopyToClipboardProps): JSX.Element => {

@@ -2,6 +2,13 @@ import { SvgIcon, SvgIconProps } from "@mui/material";
 import { JSX } from "react";
 import { PALETTE } from "../../../../../styles/common/constants/palette";
 
+/**
+ * Custom unchecked disabled icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The unchecked disabled icon.
+ */
 export const UncheckedDisabledIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

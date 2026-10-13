@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom form status completed icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The form status completed icon.
  */
-
 export const FormStatusCompletedIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

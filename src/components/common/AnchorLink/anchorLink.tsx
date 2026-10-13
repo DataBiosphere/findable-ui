@@ -3,19 +3,23 @@ import { useRouter } from "next/router";
 import { JSX, MouseEvent } from "react";
 import { StyledNextLink } from "./anchorLink.styles";
 
-/**
- * An anchor link component that provides deep linking functionality.
- * @important The parent element must have `position: relative` CSS property
- * to ensure proper positioning of the anchor link icon, and hover pseudo-class
- * to change opacity of the icon.
- */
-
 interface AnchorLinkProps {
   anchorLink: string;
   className?: string;
   onClick?: (e: MouseEvent) => void;
 }
 
+/**
+ * An anchor link component that provides deep linking functionality.
+ * @important The parent element must have `position: relative` CSS property
+ * to ensure proper positioning of the anchor link icon, and hover pseudo-class
+ * to change opacity of the icon.
+ * @param props - Component props.
+ * @param props.anchorLink - Anchor (hash) to link to, also used as the link's accessible name.
+ * @param props.className - Class name applied to the link.
+ * @param props.onClick - Function invoked when the link is clicked.
+ * @returns The anchor link.
+ */
 export const AnchorLink = ({
   anchorLink,
   className,

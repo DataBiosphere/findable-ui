@@ -3,8 +3,11 @@ import { JSX } from "react";
 
 /**
  * Custom Google logo icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 20 20".
+ * @returns The Google logo icon.
  */
-
 export const GoogleIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 20 20",

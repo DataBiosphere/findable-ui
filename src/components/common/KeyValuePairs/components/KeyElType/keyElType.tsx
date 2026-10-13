@@ -4,8 +4,13 @@ import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
 /**
  * Basic KeyValuePairs "key" wrapper component.
+ * @param props - Typography props.
+ * @param props.children - Key content.
+ * @param props.color - Text color; defaults to light ink.
+ * @param props.component - Root element; defaults to "div".
+ * @param props.variant - Typography variant; defaults to "body-400-2lines".
+ * @returns The key wrapper.
  */
-
 export const KeyElType = ({
   children,
   color = TYPOGRAPHY_PROPS.COLOR.INK_LIGHT,

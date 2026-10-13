@@ -3,6 +3,9 @@ import { JSX } from "react";
 import { ButtonProps } from "../../button";
 import { Button } from "./navigationButton.styles";
 
+/**
+ * Props for the NavigationButton component.
+ */
 export interface NavigationButtonProps extends Exclude<
   ButtonProps,
   "StartIcon"
@@ -10,6 +13,13 @@ export interface NavigationButtonProps extends Exclude<
   isActive: boolean;
 }
 
+/**
+ * Navigation button, rendering a nav variant button with a dropdown arrow end icon.
+ * @param props - Component props.
+ * @param props.children - Button content.
+ * @param props.isActive - Whether the navigation item is active.
+ * @returns The navigation button.
+ */
 export const NavigationButton = ({
   children,
   isActive,

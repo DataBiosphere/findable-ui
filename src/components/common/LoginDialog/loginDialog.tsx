@@ -23,6 +23,13 @@ import {
 import { StyledDialog, StyledTypography } from "./loginDialog.styles";
 import { LoginDialogProps } from "./types";
 
+/**
+ * Dialog prompting the user to sign in, showing the terms of service consent, the configured login provider buttons and any authentication warning.
+ * @param props - Component props.
+ * @param props.onClose - Function invoked when the dialog closes.
+ * @param props.open - Whether the dialog is open.
+ * @returns The login dialog, or null when there is no authentication config.
+ */
 export const LoginDialog = ({
   onClose,
   open,

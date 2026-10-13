@@ -4,6 +4,12 @@ import { BaseComponentProps } from "../../types";
 import { StyledAlert } from "./banner.styles";
 import { ALERT_PROPS } from "./constants";
 
+/**
+ * Banner, rendering the styled Mui Alert with the banner alert props.
+ * @param props - Component props.
+ * @param ref - Ref forwarded to the alert element.
+ * @returns The banner.
+ */
 export const Banner = forwardRef<
   HTMLDivElement,
   AlertProps & BaseComponentProps

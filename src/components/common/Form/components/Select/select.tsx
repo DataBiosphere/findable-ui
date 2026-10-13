@@ -8,9 +8,8 @@ import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { InputFormControl } from "./select.styles";
 
 /**
- * Basic form select component.
+ * Props for the Select component.
  */
-
 export type SelectProps = MSelectProps & {
   children: ReactNode;
   className?: string;
@@ -18,6 +17,16 @@ export type SelectProps = MSelectProps & {
   label?: string;
 };
 
+/**
+ * Basic form select component, rendering an optional label above a small, full-width select.
+ * @param props - Component props.
+ * @param props.children - Select options.
+ * @param props.className - Class name applied to the form control.
+ * @param props.isFilled - Whether the select has a value.
+ * @param props.label - Label shown above the select.
+ * @param props.onBlur - Function invoked when the select's input loses focus.
+ * @returns The form select.
+ */
 export const Select = ({
   children,
   className,

@@ -3,6 +3,13 @@ import { Fragment, JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { StyledTypography } from "./title.styles";
 
+/**
+ * Page title, rendering string children as an h1 heading.
+ * @param props - Component props.
+ * @param props.children - Title content.
+ * @param props.className - Class name applied to the heading.
+ * @returns The title, the children as given when not a string, or null when there are no children.
+ */
 export const Title = ({
   children,
   className,

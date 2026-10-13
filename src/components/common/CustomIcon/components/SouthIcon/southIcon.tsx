@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom south (back arrow) icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The south icon.
  */
-
 export const SouthIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

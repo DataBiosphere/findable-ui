@@ -8,6 +8,9 @@ import {
   PopupAriaProps,
 } from "../../../../utils/ariaPopup";
 
+/**
+ * Return type for the useMenu hook.
+ */
 export interface UseMenu<E extends HTMLElement> {
   anchorEl: E | null;
   /**
@@ -43,6 +46,9 @@ export interface UseMenu<E extends HTMLElement> {
   triggerProps: PopupAriaProps;
 }
 
+/**
+ * Options for the useMenu hook.
+ */
 export interface UseMenuOptions {
   /**
    * Whether the control that opens the menu is disabled, so `triggerProps`

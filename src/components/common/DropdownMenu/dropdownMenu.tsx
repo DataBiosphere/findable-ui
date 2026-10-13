@@ -10,6 +10,9 @@ import {
 } from "./common/entities";
 import { StyledMenu } from "./dropdownMenu.styles";
 
+/**
+ * Props for the DropdownMenu component.
+ */
 export interface DropdownMenuProps extends Omit<
   MMenuProps,
   "children" | "open"
@@ -37,6 +40,19 @@ export interface DropdownMenuProps extends Omit<
   disabled?: boolean;
 }
 
+/**
+ * Renders a control, via the `button` render prop, that opens a menu of the items built by `children`.
+ * @param props - Component props.
+ * @param props.button - Renders the control that opens the menu, given its ARIA, disabled, onClick and open props.
+ * @param props.children - Builds the menu items, given a function that closes the menu.
+ * @param props.className - Class name applied to the menu.
+ * @param props.disabled - Whether the control that opens the menu is disabled.
+ * @param props.MenuListProps - Deprecated Mui menu list props, merged into the menu's slot props.
+ * @param props.PaperProps - Deprecated Mui paper props, merged into the menu's slot props.
+ * @param props.slotProps - Mui menu slot props, merged with the default dropdown menu slot props.
+ * @param props.TransitionProps - Deprecated Mui transition props, merged into the menu's slot props.
+ * @returns The menu control and the menu.
+ */
 export const DropdownMenu = ({
   button,
   children,

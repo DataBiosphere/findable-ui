@@ -4,6 +4,14 @@ import { useSystemStatus } from "../../../../../hooks/useSystemStatus";
 import { BaseComponentProps, ContentProps } from "../../../../types";
 import { Banner } from "../../banner";
 
+/**
+ * System indexing banner, fading in when the system status has loaded, is ok, and is indexing.
+ * @param props - Component props.
+ * @param props.children - Banner content, used when no content is given.
+ * @param props.className - Class name applied to the banner.
+ * @param props.content - Banner content; takes precedence over children.
+ * @returns The system indexing banner.
+ */
 export const SystemIndexing = ({
   children,
   className,

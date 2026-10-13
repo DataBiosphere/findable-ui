@@ -8,6 +8,9 @@ import { useTransition } from "../../../Alert/hooks/useTransition/useTransition"
 import { ALERT_PROPS } from "./constants";
 import { StyledAlert } from "./cookieBanner.styles";
 
+/**
+ * Props for the CookieBanner component.
+ */
 export interface CookieBannerProps
   extends Omit<AlertProps, "children">, BaseComponentProps {
   localStorageKey: string;
@@ -15,6 +18,16 @@ export interface CookieBannerProps
   secondaryAction?: ReactNode;
 }
 
+/**
+ * Cookie banner, fading in when no value is stored under the given local storage key.
+ * Clicking "Ok, Got It" stores the value and fades the banner out.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the banner.
+ * @param props.localStorageKey - Local storage key that records the cookie banner was accepted.
+ * @param props.message - Banner message.
+ * @param props.secondaryAction - Action rendered after the "Ok, Got It" button.
+ * @returns The cookie banner.
+ */
 export const CookieBanner = ({
   className,
   localStorageKey,

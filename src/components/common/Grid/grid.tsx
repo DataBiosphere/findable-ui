@@ -1,6 +1,9 @@
 import { Box, SxProps } from "@mui/material";
 import { JSX, ReactNode } from "react";
 
+/**
+ * Props for the Grid component.
+ */
 export interface GridProps {
   children: ReactNode | ReactNode[];
   gridSx?: SxProps;
@@ -8,8 +11,11 @@ export interface GridProps {
 
 /**
  * A basic Grid component for rendering CSS grid.
+ * @param props - Component props.
+ * @param props.children - Grid content.
+ * @param props.gridSx - Styles applied to the grid.
+ * @returns The grid.
  */
-
 export const Grid = ({
   children,
   gridSx,

@@ -16,11 +16,21 @@ export enum PRIORITY {
   NORMAL = "NORMAL",
 }
 
+/**
+ * Props for the StatusIcon component.
+ */
 export interface StatusIconProps {
   priority: Priority;
   StatusIcon: ElementType;
 }
 
+/**
+ * Status icon displayed in a circle styled by priority.
+ * @param props - Component props.
+ * @param props.priority - Priority, used to style the circle.
+ * @param props.StatusIcon - Icon component rendered within the circle.
+ * @returns The status icon.
+ */
 export const StatusIcon = ({
   priority,
   StatusIcon,

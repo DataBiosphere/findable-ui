@@ -8,12 +8,18 @@ import {
 import { isClientSideNavigation } from "../../../../Links/common/utils";
 import { ButtonPrimary } from "../ButtonPrimary/buttonPrimary";
 
+/**
+ * A call to action, with its label, link target and url.
+ */
 export interface CallToAction {
   label: string;
   target?: ANCHOR_TARGET;
   url: string;
 }
 
+/**
+ * Props for the CallToActionButton component.
+ */
 export interface CallToActionButtonProps {
   ButtonElType?: ElementType;
   buttonProps?: Partial<ButtonProps>;
@@ -22,6 +28,17 @@ export interface CallToActionButtonProps {
   disabled?: boolean;
 }
 
+/**
+ * Call to action button, linking to the call to action url.
+ * Internal urls use client-side navigation and open in the same tab by default; external urls open in a new tab by default.
+ * @param props - Component props.
+ * @param props.ButtonElType - Button component to render; defaults to ButtonPrimary.
+ * @param props.buttonProps - Props passed to the button.
+ * @param props.callToAction - Call to action label, target and url.
+ * @param props.className - Class name applied to the button.
+ * @param props.disabled - Whether the button is disabled; defaults to false.
+ * @returns The call to action button.
+ */
 export const CallToActionButton = ({
   ButtonElType: Button = ButtonPrimary,
   buttonProps,

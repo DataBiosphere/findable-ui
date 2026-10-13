@@ -15,6 +15,9 @@ import { CardSecondaryTitle } from "./components/CardSecondaryTitle/cardSecondar
 import { CardText } from "./components/CardText/cardText";
 import { CardTitle } from "./components/CardTitle/cardTitle";
 
+/**
+ * Props for the Card component.
+ */
 export interface CardProps {
   cardActions?: CardActionProps[];
   cardUrl?: string;
@@ -26,6 +29,19 @@ export interface CardProps {
   title?: ReactNode;
 }
 
+/**
+ * Card, rendering the given title, text, media and actions; the card is clickable when a card url is given.
+ * @param props - Component props.
+ * @param props.cardActions - Actions rendered at the bottom of the card.
+ * @param props.cardUrl - Url the card navigates to when clicked.
+ * @param props.media - Image rendered in the card.
+ * @param props.Paper - Paper component the card renders as; defaults to RoundedPaper.
+ * @param props.secondaryText - Secondary text, e.g. a date.
+ * @param props.secondaryTitle - Secondary title.
+ * @param props.text - Card text.
+ * @param props.title - Card title.
+ * @returns The card.
+ */
 export const Card = ({
   cardActions,
   cardUrl,

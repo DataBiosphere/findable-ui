@@ -11,6 +11,14 @@ import {
 } from "./constants";
 import { ClearInputAdornmentProps } from "./types";
 
+/**
+ * Input adornment with an icon button that clears the input.
+ * @param props - Component props.
+ * @param props.in - Whether the adornment is shown; renders nothing when false or omitted.
+ * @param props.label - Accessible name for the clear button; falls back to the default clear label when missing or blank.
+ * @param props.onClick - Function invoked when the clear button is clicked.
+ * @returns The clear input adornment, or null when not shown.
+ */
 export const ClearInputAdornment = ({
   in: isIn,
   label,

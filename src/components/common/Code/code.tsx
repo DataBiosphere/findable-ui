@@ -2,11 +2,21 @@ import copy from "copy-to-clipboard";
 import { JSX, useEffect, useState } from "react";
 import { CodeBlock } from "./code.styles";
 
+/**
+ * Props for the Code component.
+ */
 export interface CodeProps {
   className?: string;
   code: string;
 }
 
+/**
+ * Renders a code block that copies its code to the clipboard on click, showing a copied state for 2 seconds.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the code block.
+ * @param props.code - Code to display and copy.
+ * @returns The code block.
+ */
 export const Code = ({ className, code }: CodeProps): JSX.Element => {
   const [copied, setCopied] = useState<boolean>(false);
 
