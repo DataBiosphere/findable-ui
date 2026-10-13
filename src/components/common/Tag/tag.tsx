@@ -3,6 +3,12 @@ import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../styles/common/mui/typography";
 import { BaseComponentProps } from "../../types";
 
+/**
+ * Tag text, rendered as a span with the body 500 typography variant.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the tag.
+ * @returns The tag.
+ */
 export const Tag = ({
   className,
   ...props

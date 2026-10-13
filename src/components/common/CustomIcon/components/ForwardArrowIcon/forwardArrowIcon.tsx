@@ -2,6 +2,13 @@ import { SvgIcon } from "@mui/material";
 import { JSX } from "react";
 import { CustomSVGIconProps } from "../../common/entities";
 
+/**
+ * Custom forward arrow icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The forward arrow icon.
+ */
 export const ForwardArrowIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

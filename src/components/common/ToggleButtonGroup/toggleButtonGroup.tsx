@@ -6,20 +6,22 @@ import {
 } from "@mui/material";
 import { JSX, MouseEvent, useState } from "react";
 
-/**
- * An extension of the basic Mui ToggleButtonGroup component with available ToggleButtonGroup props.
- */
-
 export type OnToggleButtonFn = () => void; // Function invoked when selected toggle button value changes.
 type ToggleButtonValue = MToggleButtonProps["value"];
 type ToggleButtonGroupValue = MToggleButtonGroupProps["value"];
 
+/**
+ * Toggle button configuration.
+ */
 export interface ToggleButton {
   label: string;
   onToggle: OnToggleButtonFn;
   value: ToggleButtonValue;
 }
 
+/**
+ * Props for the ToggleButtonGroup component.
+ */
 export interface ToggleButtonGroupProps {
   toggleButtons: ToggleButton[];
 }
@@ -37,6 +39,12 @@ function getSelectedToggleButtonAction(
   return toggleButtons.find(({ value }) => value === toggleValue)?.onToggle;
 }
 
+/**
+ * Renders an exclusive Mui toggle button group with the first toggle button selected, and invokes the selected toggle button's onToggle action on change, ignoring falsy values.
+ * @param props - Component props.
+ * @param props.toggleButtons - Toggle buttons.
+ * @returns The toggle button group.
+ */
 export const ToggleButtonGroup = ({
   toggleButtons,
   ...props

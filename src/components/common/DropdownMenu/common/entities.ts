@@ -13,6 +13,9 @@ import type { PopupAriaProps } from "../../../../utils/ariaPopup";
 export type DropdownMenuButtonKey =
   keyof PopupAriaProps | "disabled" | "onClick" | "open";
 
+/**
+ * Props DropdownMenu hands to its `children` render function, used to build the menu items.
+ */
 export interface DropdownMenuItemProps {
   closeMenu: () => void;
 }

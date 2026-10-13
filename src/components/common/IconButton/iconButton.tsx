@@ -6,10 +6,8 @@ import { ElementType, JSX } from "react";
 import { Button } from "./iconButton.styles";
 
 /**
- * Basic icon button component.
- * Use IconButtonSecondary styles to render secondary icon button.
+ * Props for the IconButton component.
  */
-
 export interface IconButtonProps extends MIconButtonProps {
   className?: string;
   Icon: ElementType;
@@ -17,6 +15,17 @@ export interface IconButtonProps extends MIconButtonProps {
   open?: boolean;
 }
 
+/**
+ * Basic icon button component.
+ * Use IconButtonSecondary styles to render secondary icon button.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @param props.Icon - Icon component.
+ * @param props.iconProps - Props passed to the icon; defaults to a small font size.
+ * @param props.open - Whether the button is in its open state; defaults to false.
+ * @param props.size - Button size; defaults to "large".
+ * @returns The icon button.
+ */
 export const IconButton = ({
   className,
   Icon,

@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom feedback icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The feedback icon.
  */
-
 export const FeedbackIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

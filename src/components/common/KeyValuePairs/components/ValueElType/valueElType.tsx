@@ -4,8 +4,12 @@ import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 
 /**
  * Basic KeyValuePairs "value" wrapper component.
+ * @param props - Typography props.
+ * @param props.children - Value content.
+ * @param props.component - Root element; defaults to "div".
+ * @param props.variant - Typography variant; defaults to "body-400-2lines".
+ * @returns The value wrapper.
  */
-
 export const ValueElType = ({
   children,
   component = "div",

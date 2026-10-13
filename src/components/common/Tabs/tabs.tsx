@@ -12,6 +12,9 @@ export type TabsValue = MTabsProps["value"]; // any
 export type TabValue = MTabProps["value"]; // any
 export type OnTabChangeFn = (tabValue: TabValue) => void; // Function invoked when selected tab value changes.
 
+/**
+ * Tab configuration.
+ */
 export interface Tab {
   annotation?: DataDictionaryAnnotation;
   count?: string;
@@ -21,6 +24,9 @@ export interface Tab {
   value: TabValue;
 }
 
+/**
+ * Props for the Tabs component.
+ */
 export interface TabsProps {
   className?: string;
   onTabChange: OnTabChangeFn;
@@ -28,6 +34,15 @@ export interface TabsProps {
   value: TabsValue;
 }
 
+/**
+ * Tabs, one per given tab, with mobile scroll buttons. Each tab label shows its optional count, and a tooltip of its annotation when the annotation has a description.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the tabs.
+ * @param props.onTabChange - Function invoked with the selected tab value when the selection changes.
+ * @param props.tabs - Tab configurations.
+ * @param props.value - Selected tab value.
+ * @returns The tabs.
+ */
 export const Tabs = ({
   className,
   onTabChange,

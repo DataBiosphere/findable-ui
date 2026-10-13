@@ -4,6 +4,14 @@ import { useSessionTimeout } from "../../../../../hooks/authentication/session/u
 import { BaseComponentProps, ContentProps } from "../../../../types";
 import { Banner } from "../../banner";
 
+/**
+ * Session timeout banner, fading in when the session has timed out; closing it clears the session timeout, unless an onClose prop is given, which replaces that handler.
+ * @param props - Component props.
+ * @param props.children - Banner content, used when content is falsy.
+ * @param props.className - Class name applied to the banner.
+ * @param props.content - Banner content, used in place of children when truthy.
+ * @returns The session timeout banner.
+ */
 export const SessionTimeout = ({
   children,
   className,

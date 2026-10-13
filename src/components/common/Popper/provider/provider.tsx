@@ -2,6 +2,12 @@ import { JSX, MouseEvent, useCallback, useState } from "react";
 import { PopperContext } from "./context";
 import { PopperProviderProps } from "./types";
 
+/**
+ * Provides the popper anchor element, open state, and open and close handlers through PopperContext.
+ * @param props - Component props.
+ * @param props.children - Children, or a render function receiving the popper context values.
+ * @returns The popper provider.
+ */
 export function PopperProvider({ children }: PopperProviderProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

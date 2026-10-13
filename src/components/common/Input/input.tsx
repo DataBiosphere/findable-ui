@@ -5,9 +5,8 @@ import { SetSearchTermFn } from "../../Filter/common/entities";
 import { InputField, InputFormControl } from "./input.styles";
 
 /**
- * Basic input component.
+ * Props for the Input component.
  */
-
 export interface InputProps {
   className?: string;
   label?: string;
@@ -31,6 +30,17 @@ function onChangeInputField(
   setSearchTerm(searchTerm);
 }
 
+/**
+ * Basic input component, rendering an optional label above an autofocused search input that sets the search term as it changes.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the form control.
+ * @param props.label - Label shown above the input.
+ * @param props.placeholder - Input placeholder.
+ * @param props.searchTerm - Current search term, shown as the input value.
+ * @param props.setSearchTerm - Function invoked with the search term when the input changes.
+ * @param props.StartAdornment - Icon component rendered at the start of the input.
+ * @returns The input.
+ */
 export const Input = ({
   className,
   label,

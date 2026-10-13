@@ -11,11 +11,21 @@ enum EllipsisMode {
   ON = "ON",
 }
 
+/**
+ * Props for the EllipsisContent component.
+ */
 export interface OverviewDescriptionProps {
   children: ReactNode | ReactNode[];
   maxLineCount: number;
 }
 
+/**
+ * Renders content clamped to the given number of lines when it overflows, with a "Read More" / "Read Less" toggle.
+ * @param props - Component props.
+ * @param props.children - Content.
+ * @param props.maxLineCount - Maximum number of lines shown while the content is clamped.
+ * @returns The content, and the toggle when the content overflows.
+ */
 export const EllipsisContent = ({
   children,
   maxLineCount,
@@ -139,7 +149,7 @@ function getEllipsisMode(
 
 /**
  * Returns applicable button text for display corresponding with current mode.
- * When the current mode is "ON" the return value will be "Show More", otherwise the return value is "Show Less".
+ * When the current mode is "ON" the return value will be "Read More", otherwise the return value is "Read Less".
  * @param currentMode - current ellipsis mode.
  * @returns string for display as button text.
  */

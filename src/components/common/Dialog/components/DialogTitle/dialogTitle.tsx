@@ -4,6 +4,9 @@ import { JSX, ReactNode } from "react";
 import { resolveAriaLabel } from "../../../../../utils/ariaLabel";
 import { ARIA_LABEL } from "./constants";
 
+/**
+ * Props for the DialogTitle component.
+ */
 export interface DialogTitleProps {
   className?: string;
   closeLabel?: string;

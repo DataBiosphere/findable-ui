@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom GitHub icon (socials).
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The GitHub icon.
  */
-
 export const GitHubIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

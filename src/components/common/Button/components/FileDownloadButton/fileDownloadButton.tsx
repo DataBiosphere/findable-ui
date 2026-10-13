@@ -1,11 +1,21 @@
 import { Box } from "@mui/material";
 import { JSX, useEffect, useRef } from "react";
 
+/**
+ * Props for the FileDownloadButton component.
+ */
 export interface FileDownloadButtonProps {
   fileName?: string;
   fileUrl?: string;
 }
 
+/**
+ * Hidden anchor that downloads the file once both the file name and file url are set.
+ * @param props - Component props.
+ * @param props.fileName - Name to save the downloaded file as.
+ * @param props.fileUrl - Url of the file to download.
+ * @returns The hidden download anchor.
+ */
 export const FileDownloadButton = ({
   fileName,
   fileUrl,

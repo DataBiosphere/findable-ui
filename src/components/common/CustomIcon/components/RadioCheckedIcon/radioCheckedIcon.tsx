@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom radio checked icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The radio checked icon.
  */
-
 export const RadioCheckedIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

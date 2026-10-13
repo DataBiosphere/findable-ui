@@ -3,8 +3,11 @@ import { JSX } from "react";
 
 /**
  * Custom search icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 20 20".
+ * @returns The search icon.
  */
-
 export const SearchIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 20 20",

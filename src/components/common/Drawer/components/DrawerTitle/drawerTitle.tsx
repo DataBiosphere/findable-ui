@@ -5,6 +5,9 @@ import { resolveAriaLabel } from "../../../../../utils/ariaLabel";
 import { ARIA_LABEL } from "./constants";
 import { DrawerTitle as Title } from "./drawerTitle.styles";
 
+/**
+ * Props for the DrawerTitle component.
+ */
 export interface DrawerTitleProps {
   className?: string;
   closeLabel?: string;

@@ -2,6 +2,13 @@ import { SvgIcon } from "@mui/material";
 import { JSX } from "react";
 import { CustomSVGIconProps } from "../../common/entities";
 
+/**
+ * Custom segment icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 18 18".
+ * @returns The segment icon.
+ */
 export const Segment = ({
   fontSize = "xsmall",
   viewBox = "0 0 18 18",

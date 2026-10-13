@@ -4,8 +4,11 @@ import { CustomSVGIconProps } from "../../common/entities";
 
 /**
  * Custom loading icon.
+ * @param props - Icon props.
+ * @param props.fontSize - Icon font size; defaults to "xsmall".
+ * @param props.viewBox - SVG view box; defaults to "0 0 105 105".
+ * @returns The loading icon.
  */
-
 export const LoadingIcon = ({
   fontSize = "xsmall",
   viewBox = "0 0 105 105",

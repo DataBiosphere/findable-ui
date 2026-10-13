@@ -9,6 +9,9 @@ import { ErrorIcon } from "../../../CustomIcon/components/ErrorIcon/errorIcon";
 import { InputFormControl } from "../Input/input.styles";
 import { Button, Underline } from "./uploadFile.styles";
 
+/**
+ * Props for the UploadFile component.
+ */
 export interface UploadFileProps {
   attachmentName: FormState["attachmentName"];
   attachmentRejected: FormState["attachmentRejected"];
@@ -22,6 +25,22 @@ export interface UploadFileProps {
   open: DropzoneState["open"];
 }
 
+/**
+ * Renders a file attachment control. Clicking it opens the file picker, or removes the attachment once one is attached.
+ * Shows a loading indicator while uploading and an error message when the file is rejected.
+ * @param props - Component props.
+ * @param props.attachmentName - Name of the attached file.
+ * @param props.attachmentRejected - Whether the file was rejected.
+ * @param props.attachmentRejections - Reasons the file was rejected.
+ * @param props.attachmentToken - Token of the uploaded attachment; the file counts as attached when set.
+ * @param props.attachmentUploading - Whether the file is uploading.
+ * @param props.className - Class name applied to the form control.
+ * @param props.isDragActive - Whether a file is being dragged over the drop zone.
+ * @param props.label - Label shown above the control.
+ * @param props.onAttachmentDeleted - Function invoked to remove the attachment.
+ * @param props.open - Function invoked to open the file picker.
+ * @returns The file attachment control.
+ */
 export const UploadFile = ({
   attachmentName,
   attachmentRejected,

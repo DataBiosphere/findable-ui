@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
 
+/**
+ * Return type for the useDialog hook.
+ */
 export interface UseDialog {
   onClose: () => void;
   onOpen: () => void;
