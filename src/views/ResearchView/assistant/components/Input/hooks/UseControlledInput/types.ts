@@ -4,6 +4,9 @@ export type InputElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type SetValue = Dispatch<SetStateAction<string>>;
 
+/**
+ * Return type for the useControlledInput hook.
+ */
 export interface UseControlledInputProps {
   inputRef: RefObject<InputElement | null>;
   onChange: (e: ChangeEvent<InputElement>) => void;
