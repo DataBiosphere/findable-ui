@@ -32,7 +32,7 @@ export interface FooterProps {
  * @param props.navLinks - Nav links; each link's target defaults to the same tab.
  * @param props.poweredByCC - Powered by CleverCanary logo props; the logo renders only when a src is given.
  * @param props.socials - Social links.
- * @param props.versionInfo - Version info; a boolean renders the default VersionInfo component, any other value renders as given.
+ * @param props.versionInfo - Version info; when the links section renders, a boolean (including false) renders the default VersionInfo component and any other value renders as given. On its own, false does not render the links section.
  * @returns The footer.
  */
 export const Footer = ({

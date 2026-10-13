@@ -21,7 +21,7 @@ export interface NavProps {
 }
 
 /**
- * Nav bar, rendering the hero above a list of nav items. Each item links to its URL using client-side navigation, and is disabled when it has no URL.
+ * Nav bar, rendering the hero above a list of nav items. Each item links to its URL with a Next.js link, and is disabled when it has no URL.
  * @param props - Component props.
  * @param props.Hero - Hero rendered above the nav items.
  * @param props.navigation - Nav items.
