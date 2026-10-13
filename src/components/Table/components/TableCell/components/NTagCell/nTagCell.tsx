@@ -45,7 +45,7 @@ const Tag = forwardRef<HTMLDivElement, MChipProps>(function Tag(props, ref) {
  * @param props.label - Label following the value count in the tag, e.g. "species".
  * @param props.TypographyProps - Mui Typography props applied to each value's text, overriding the inherited variant; not applied to the tag.
  * @param props.values - Metadata values.
- * @returns The value text, or the tag.
+ * @returns The value text, the tag, or nothing when there are no values.
  */
 export const NTagCell = ({
   label,

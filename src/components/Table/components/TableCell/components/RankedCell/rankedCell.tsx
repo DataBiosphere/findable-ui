@@ -8,7 +8,7 @@ import { getTokens, getTokensRegex, isRankedCell } from "./utils";
  * When the global filter is set and the cell's value matched it, the filter's terms are highlighted.
  * @param props - Component props, the TanStack cell context plus a class name and children.
  * @param props.children - Content rendered after the value, e.g. an AnchorLink.
- * @param props.className - Class name applied to the span, which only wraps highlighted text.
+ * @param props.className - Class name applied to the span wrapping the value and children, which renders only when terms are highlighted.
  * @param props.column - TanStack column.
  * @param props.getValue - Function returning the cell value.
  * @param props.row - TanStack row.
