@@ -17,7 +17,7 @@ export interface BasicCellProps {
  * @param props - Component props.
  * @param props.TypographyProps - Mui Typography props applied to each text element, overriding the inherited variant.
  * @param props.value - Cell value; defaults to "Unspecified" when undefined.
- * @returns The cell text, or null when the value is not a number, a string, or an array of them.
+ * @returns The cell text, nothing when the value is an empty array, or null when the value is not a number, a string, or an array of them.
  */
 export const BasicCell = ({
   TypographyProps,

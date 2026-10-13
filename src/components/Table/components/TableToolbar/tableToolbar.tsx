@@ -23,7 +23,7 @@ export interface TableToolbarProps<T extends RowData> {
 }
 
 /**
- * Table toolbar. On one side, the view toggle with the row selection actions when any row is selected, or otherwise the explore state's pagination summary.
+ * Table toolbar. On one side, the view toggle with the row selection actions when any row on the current page is selected, or otherwise the explore state's pagination summary.
  * On the other, the download, grouping and column visibility controls. The row preview renders after the toolbar.
  * @param props - Component props.
  * @param props.listView - List view config, providing the row preview and row selection views.
