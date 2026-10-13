@@ -6,6 +6,14 @@ import { StyledOutlinedInput } from "../../../../common/OutlinedInput/outlinedIn
 import { OUTLINED_INPUT_PROPS } from "./constants";
 import { GlobalFilterProps } from "./types";
 
+/**
+ * Global filter, a search input that sets the table's global filter as the user types, with a clear button shown while the filter is set.
+ * The given Mui OutlinedInput props override the defaults, including the change handler and value.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the input.
+ * @param props.table - TanStack table instance.
+ * @returns The global filter input, or null when the table's global filter is not enabled.
+ */
 export const GlobalFilter = <T extends RowData>({
   className,
   table,

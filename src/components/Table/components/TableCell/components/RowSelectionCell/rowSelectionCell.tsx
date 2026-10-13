@@ -6,6 +6,13 @@ import { UncheckedDisabledIcon } from "../../../../../common/CustomIcon/componen
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { TOOLTIP_PROPS } from "./constants";
 
+/**
+ * Row selection checkbox, disabled when the row cannot be selected, with a tooltip of the row's selection validation message when there is one.
+ * Clicking the checkbox does not propagate to parent components.
+ * @param props - Component props, the TanStack cell context.
+ * @param props.row - TanStack row.
+ * @returns The row selection checkbox.
+ */
 export const RowSelectionCell = <T extends RowData, TValue = unknown>({
   row,
 }: CellContext<T, TValue>): JSX.Element => {

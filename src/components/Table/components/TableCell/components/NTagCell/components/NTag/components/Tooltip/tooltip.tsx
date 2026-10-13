@@ -24,10 +24,22 @@ const DEFAULT_PREVENT_OVERFLOW_MODIFIER = {
   },
 };
 
+/**
+ * Props for the NTag Tooltip component.
+ */
 export interface TooltipProps extends MTooltipProps {
   className?: string;
 }
 
+/**
+ * Tooltip with an arrow, whose content flips to the bottom, right or left to fit, and is height-limited to the space available so long content scrolls.
+ * The given Mui Tooltip props override these defaults: a slotProps prop replaces the popper modifiers and tooltip style, and an onClose prop stops the max height resetting on close.
+ * @param props - Component props.
+ * @param props.children - Element the tooltip is attached to.
+ * @param props.className - Class name applied to the tooltip.
+ * @param props.title - Tooltip content.
+ * @returns The tooltip.
+ */
 export const Tooltip = ({
   children,
   className,

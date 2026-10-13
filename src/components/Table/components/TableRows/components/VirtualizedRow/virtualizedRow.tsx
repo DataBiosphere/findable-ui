@@ -1,11 +1,21 @@
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { JSX, useMemo } from "react";
 
+/**
+ * Props for the VirtualizedRow component.
+ */
 export interface VirtualizedRowProps {
   isUpperRow: boolean;
   virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
+/**
+ * Spacer row filling the space of the rows the virtualizer has not rendered, above or below the rendered rows.
+ * @param props - Component props.
+ * @param props.isUpperRow - Whether the spacer sits above the rendered rows; otherwise it sits below them.
+ * @param props.virtualizer - Row virtualizer.
+ * @returns The spacer row, or nothing when there is no space to fill.
+ */
 export const VirtualizedRow = ({
   isUpperRow,
   virtualizer,

@@ -13,6 +13,9 @@ const MAX_DISPLAYABLE_VALUES = 1;
 
 export type MetadataValue = string;
 
+/**
+ * Props for the NTagCell component.
+ */
 export interface NTagCellProps {
   label: string;
   TypographyProps?: TypographyProps;
@@ -36,6 +39,14 @@ const Tag = forwardRef<HTMLDivElement, MChipProps>(function Tag(props, ref) {
   return <MChip ref={ref} {...props} />;
 });
 
+/**
+ * NTag cell, rendering a single value as text, or more than one value as an "N label" tag with a tooltip listing the values.
+ * @param props - Component props.
+ * @param props.label - Label following the value count in the tag, e.g. "species".
+ * @param props.TypographyProps - Mui Typography props applied to each value's text, overriding the inherited variant; not applied to the tag.
+ * @param props.values - Metadata values.
+ * @returns The value text, the tag, or nothing when there are no values.
+ */
 export const NTagCell = ({
   label,
   TypographyProps,

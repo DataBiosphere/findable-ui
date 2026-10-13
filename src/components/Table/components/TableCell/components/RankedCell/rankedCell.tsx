@@ -3,6 +3,18 @@ import { Fragment, JSX } from "react";
 import { BaseComponentProps, ChildrenProps } from "../../../../../types";
 import { getTokens, getTokensRegex, isRankedCell } from "./utils";
 
+/**
+ * Ranked cell, rendering the cell value as text followed by the children.
+ * When the global filter is set and the cell's value matched it, the filter's terms are highlighted.
+ * @param props - Component props, the TanStack cell context plus a class name and children.
+ * @param props.children - Content rendered after the value, e.g. an AnchorLink.
+ * @param props.className - Class name applied to the span wrapping the value and children, which renders only when terms are highlighted.
+ * @param props.column - TanStack column.
+ * @param props.getValue - Function returning the cell value.
+ * @param props.row - TanStack row.
+ * @param props.table - TanStack table instance.
+ * @returns The cell text, or null when the cell value is undefined or null.
+ */
 export const RankedCell = <
   T extends RowData,
   TValue = string | undefined | null,

@@ -12,6 +12,9 @@ import {
 } from "./collapsableCell.styles";
 import { getToggleLabel } from "./utils";
 
+/**
+ * Props for the CollapsableCell component.
+ */
 export interface CollapsableCellProps<T extends RowData> {
   isDisabled?: boolean;
   /**
@@ -24,6 +27,16 @@ export interface CollapsableCellProps<T extends RowData> {
   row: Row<T>;
 }
 
+/**
+ * Collapsable cell, rendering the row's pinned cell with a toggle that expands the row, and the row's other visible cells in a collapse below it.
+ * A grouped row's collapse shows its sub-rows' visible cells instead, where only the first sub-row's cell at the pinned cell's position is left out.
+ * Aggregated and placeholder cells are not shown, and each shown cell is preceded by its column meta's header when set.
+ * @param props - Component props.
+ * @param props.isDisabled - Whether the toggle is disabled; defaults to false.
+ * @param props.position - Zero-based position of the row among the rendered rows, numbering the toggle's accessible name; defaults to the row's index.
+ * @param props.row - TanStack row.
+ * @returns The collapsable cell.
+ */
 export const CollapsableCell = <T extends RowData>({
   isDisabled = false,
   position,

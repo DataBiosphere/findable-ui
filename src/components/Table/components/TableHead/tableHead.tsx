@@ -16,6 +16,13 @@ import { handleToggleSorting } from "../TableFeatures/RowSorting/utils";
 import { TableHeadProps } from "./types";
 import { isSortDisabled, shouldSortColumn } from "./utils";
 
+/**
+ * Table head, with a header row per header group and a cell per header whose column is not grouped.
+ * Each header shows a tooltip of its column's annotation when the annotation has a description, and is a sort label when sorting interaction is enabled for the table and the column can sort.
+ * @param props - Component props.
+ * @param props.tableInstance - TanStack table instance.
+ * @returns The table head.
+ */
 export const TableHead = <T extends RowData>({
   tableInstance,
 }: TableHeadProps<T>): JSX.Element => {

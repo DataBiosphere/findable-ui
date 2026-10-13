@@ -5,6 +5,13 @@ import { DownloadIcon } from "../../../../common/CustomIcon/components/DownloadI
 import { StyledButton } from "./tableDownload.styles";
 import { TableDownloadProps } from "./types";
 
+/**
+ * "Download TSV" button that downloads the table's data.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @param props.table - TanStack table instance.
+ * @returns The download button, or null when the table's download is not enabled.
+ */
 export const TableDownload = <T extends RowData>({
   className,
   table,

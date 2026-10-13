@@ -6,6 +6,12 @@ import { MenuItems } from "./components/MenuItems/menuItems";
 import { MENU_PROPS } from "./constants";
 import { ColumnVisibilityProps } from "./types";
 
+/**
+ * Column visibility dropdown, an "Edit Columns" button opening a menu of the columns that can be hidden.
+ * @param props - Component props.
+ * @param props.tableInstance - TanStack table instance.
+ * @returns The column visibility dropdown, or null when the table's hiding is not enabled.
+ */
 export const ColumnVisibility = <T extends RowData>({
   tableInstance,
 }: ColumnVisibilityProps<T>): JSX.Element | null => {

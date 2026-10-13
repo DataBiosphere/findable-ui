@@ -5,6 +5,17 @@ import { BaseComponentProps } from "../../../../../types";
 import { getTokens, getTokensRegex, isRankedCell } from "../RankedCell/utils";
 import { StyledMarkdownRenderer } from "./markdownCell.styles";
 
+/**
+ * Markdown cell, rendering the cell value as markdown with the column meta's components merged over the default components.
+ * When the global filter is set and the cell's value matched it, the filter's terms are highlighted.
+ * @param props - Component props, the TanStack cell context plus a class name.
+ * @param props.className - Class name applied to the markdown.
+ * @param props.column - TanStack column.
+ * @param props.getValue - Function returning the cell value, the markdown.
+ * @param props.row - TanStack row.
+ * @param props.table - TanStack table instance.
+ * @returns The markdown, or null when the cell value is falsy.
+ */
 export const MarkdownCell = <
   T extends RowData,
   TValue extends string = string,

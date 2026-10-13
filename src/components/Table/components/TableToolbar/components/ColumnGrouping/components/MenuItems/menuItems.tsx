@@ -14,6 +14,15 @@ import {
   isToggleGroupingDisabled,
 } from "./utils";
 
+/**
+ * Column grouping menu items, one per groupable column with a string header, selected when the column is grouped, then a "Clear Grouping" item.
+ * A column's item is disabled when the column is hidden, or is the only visible column other than row position and row selection.
+ * Clicking an item toggles the column's grouping, or clears all grouping, then closes the menu.
+ * @param props - Component props.
+ * @param props.closeMenu - Function invoked to close the menu.
+ * @param props.tableInstance - TanStack table instance.
+ * @returns The column grouping menu items.
+ */
 export const MenuItems = <T extends RowData>({
   closeMenu,
   tableInstance,

@@ -13,6 +13,14 @@ import {
   isToggleVisibilityDisabled,
 } from "./utils";
 
+/**
+ * Column visibility menu items, one checkbox item per hideable column with a string header, checked when the column is visible, then a "Reset" item.
+ * A column's item is disabled when the column is grouped, or is the only one of these columns that is visible and ungrouped.
+ * Clicking an item toggles the column's visibility; "Reset" resets column visibility to its initial state, keeping grouped columns visible.
+ * @param props - Component props.
+ * @param props.tableInstance - TanStack table instance.
+ * @returns The column visibility menu items.
+ */
 export const MenuItems = <T extends RowData>({
   tableInstance,
 }: MenuItemsProps<T>): JSX.Element => {

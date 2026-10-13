@@ -4,11 +4,21 @@ import { LABEL } from "../../../../../../apis/azul/common/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";
 
+/**
+ * Props for the BasicCell component.
+ */
 export interface BasicCellProps {
   TypographyProps?: TypographyProps;
   value?: ReactNode;
 }
 
+/**
+ * Basic cell, rendering a number or string value as text, and an array of numbers or strings as one text element per item.
+ * @param props - Component props.
+ * @param props.TypographyProps - Mui Typography props applied to each text element, overriding the inherited variant.
+ * @param props.value - Cell value; defaults to "Unspecified" when undefined.
+ * @returns The cell text, nothing when the value is an empty array, or null when the value is not a number, a string, or an array of them.
+ */
 export const BasicCell = ({
   TypographyProps,
   value = LABEL.UNSPECIFIED,

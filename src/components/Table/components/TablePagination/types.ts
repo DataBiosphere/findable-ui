@@ -1,3 +1,6 @@
+/**
+ * Props for the TablePagination component.
+ */
 export interface TablePaginationProps {
   canNextPage?: boolean;
   canPreviousPage?: boolean;

@@ -17,10 +17,19 @@ import { ColumnFilterProps } from "./types";
 import { updater } from "./utils";
 
 /**
- *  Column filter component with supported filter functions:
- *  - `arrIncludesSome`
+ * Column filter, a button labelled with the column header and its selected filter value count, opening a menu of the column's faceted values with their counts and a "Clear All" item.
+ * Selecting a value adds it to the column's filter value, or removes it if already selected. Supports the `arrIncludesSome` filter function.
+ * The button is disabled when the column has no faceted values.
+ * @param props - Component props.
+ * @param props.Button - Button component opening the menu; defaults to the styled column filter button.
+ * @param props.className - Class name applied to the menu.
+ * @param props.column - TanStack column.
+ * @param props.MenuListProps - Deprecated Mui menu list props, merged into the menu's slot props.
+ * @param props.PaperProps - Deprecated Mui paper props, merged into the menu's slot props.
+ * @param props.slotProps - Mui menu slot props, merged with the default column filter menu slot props.
+ * @param props.TransitionProps - Deprecated Mui transition props, merged into the menu's slot props.
+ * @returns The column filter button and menu.
  */
-
 export const ColumnFilter = <T extends RowData>({
   Button = StyledButton,
   className,

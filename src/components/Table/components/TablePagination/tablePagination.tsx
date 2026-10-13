@@ -9,6 +9,17 @@ import { ARIA_LABEL } from "./constants";
 import { StyledGrid } from "./tablePagination.styles";
 import { TablePaginationProps } from "./types";
 
+/**
+ * Table pagination, with previous and next page buttons around a "Page X of Y" label.
+ * @param props - Component props.
+ * @param props.canNextPage - Whether the next page button is enabled; defaults to true.
+ * @param props.canPreviousPage - Whether the previous page button is enabled; defaults to true.
+ * @param props.currentPage - Current page number.
+ * @param props.onNextPage - Function invoked when the next page button is clicked.
+ * @param props.onPreviousPage - Function invoked when the previous page button is clicked.
+ * @param props.totalPage - Total number of pages.
+ * @returns The table pagination.
+ */
 export const TablePagination = ({
   canNextPage = true,
   canPreviousPage = true,

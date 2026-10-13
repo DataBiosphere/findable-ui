@@ -18,11 +18,17 @@ import {
 
 export type CustomFeatureColumn = TableDownloadColumn;
 
+/**
+ * Custom feature APIs added to the TanStack table instance.
+ */
 export interface CustomFeatureInstance<T extends RowData>
   extends TableDownloadInstance, RowPreviewInstance<T> {}
 
 export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
 
+/**
+ * Custom feature options added to the TanStack table options.
+ */
 export interface CustomFeatureOptions<T extends RowData>
   extends
     TableDownloadOptions<T>,
@@ -30,6 +36,9 @@ export interface CustomFeatureOptions<T extends RowData>
     RowPreviewOptions,
     RowSelectionValidationOptions<T> {}
 
+/**
+ * Custom feature APIs added to the TanStack row.
+ */
 export interface CustomFeatureRow
   extends RowPositionRow, RowPreviewRow, RowSelectionValidationRow {}
 
