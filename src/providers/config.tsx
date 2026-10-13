@@ -14,6 +14,9 @@ export type ConfigContextProps = {
   entityListType: string;
 };
 
+/**
+ * Props for the ConfigProvider component.
+ */
 export interface ConfigProps {
   children: ReactNode | ReactNode[];
   config: SiteConfig;
@@ -27,6 +30,16 @@ export const ConfigContext = createContext<ConfigContextProps>({
   entityListType: "",
 });
 
+/**
+ * Provides the site config and the config for the current entity through ConfigContext.
+ * Annotates the site config in place, once, on first render; a different config passed on a later render is not annotated.
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @param props.config - Site config.
+ * @param props.entityListType - Current entity list type; when empty, the entity config is resolved from the site's default route.
+ * @returns The config provider.
+ * @throws If no entity config matches the entity list type.
+ */
 export function ConfigProvider({
   children,
   config,

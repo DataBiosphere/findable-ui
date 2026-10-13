@@ -11,8 +11,11 @@ import { WasPopProvider } from "./wasPop/provider";
  * 2. Provides the WasPopProvider context to track browser back/forward navigation
  *
  * This provider should be placed at the _app root level to ensure all components have access to these services.
+ *
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @returns The services provider.
  */
-
 export function ServicesProvider({
   children,
 }: {

@@ -44,10 +44,20 @@ export const SystemStatusContext = createContext<SystemStatus>(
   DEFAULT_SYSTEM_STATUS,
 );
 
+/**
+ * Props for the SystemStatusProvider component.
+ */
 export interface SystemStatusProps {
   children: ReactNode | ReactNode[];
 }
 
+/**
+ * Provides the system status through SystemStatusContext.
+ * Fetches the status from the configured system status API and binds the response; uses the default status when no system status API is configured.
+ * @param props - Component props.
+ * @param props.children - Children.
+ * @returns The system status provider.
+ */
 export function SystemStatusProvider<R>({
   children,
 }: SystemStatusProps): JSX.Element {

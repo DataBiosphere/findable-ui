@@ -20,6 +20,9 @@ import {
 } from "../../config/entities";
 import { META_COMMAND } from "../../hooks/stateSyncManager/hooks/UseMetaCommands/types";
 
+/**
+ * State for an entity's list page: its table state and selected category group config.
+ */
 export interface EntityPageState {
   categoryGroupConfigKey: CategoryGroupConfigKey;
   columnVisibility: VisibilityState;
@@ -30,10 +33,16 @@ export interface EntityPageState {
   sorting: ColumnSort[];
 }
 
+/**
+ * Entity page state, keyed by entity path.
+ */
 export interface EntityPageStateMapper {
   [key: EntityPath]: EntityPageState;
 }
 
+/**
+ * Explore state for one category group config, stored in EntityStateByCategoryGroupConfigKey.
+ */
 export interface EntityState {
   categoryConfigs?: CategoryConfig[];
   categoryGroups?: CategoryGroup[];
@@ -56,6 +65,9 @@ export type EntityStateSavedFilter = SavedFilter;
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any -- TODO revisit when adding react query or similar
 export type ListItem = any;
 
+/**
+ * Explore state meta: the pending state sync command.
+ */
 export interface Meta {
   command: META_COMMAND;
 }
