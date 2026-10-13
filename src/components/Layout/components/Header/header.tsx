@@ -25,6 +25,9 @@ import { useHeaderNavigation } from "./hooks/useHeaderNavigation";
 import { useHeaderVisibility } from "./hooks/useHeaderVisibility";
 import { useMenu } from "./hooks/useMenu";
 
+/**
+ * Props for the Header component.
+ */
 export interface HeaderProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
@@ -46,6 +49,13 @@ export interface HeaderProps {
   socialMedia?: SocialMedia;
 }
 
+/**
+ * App header, rendering announcements above a toolbar with left, center and right groups.
+ * The left group holds the logo, slogan and left navigation; the center group the center navigation; and the right group the right navigation, socials and actions (search, authentication, additional actions and the menu).
+ * Which content shows depends on the configured content and the current breakpoint.
+ * @param props - Component props.
+ * @returns The header.
+ */
 export const Header = ({ ...headerProps }: HeaderProps): JSX.Element => {
   const { navigation } = useHeaderNavigation(headerProps);
   const { isIn } = useHeaderVisibility({ ...headerProps, navigation });

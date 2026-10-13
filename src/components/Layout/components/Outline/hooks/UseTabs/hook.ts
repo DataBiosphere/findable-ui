@@ -6,6 +6,13 @@ import { OutlineItem } from "../../types";
 import { useHash } from "../UseHash/hook";
 import { getNextValue } from "./utils";
 
+/**
+ * Returns the outline tabs' props for the current URL hash.
+ * The selected tab is the outline item matching the hash, unless it is missing or disabled, when the default tab is selected and the indicator is hidden.
+ * Changing tabs pushes the tab's hash to the router.
+ * @param outline - Outline items.
+ * @returns The tabs' indicator color, onChange handler, vertical orientation and selected value.
+ */
 export function useTabs(
   outline: OutlineItem[],
 ): Pick<TabsProps, "indicatorColor" | "onChange" | "orientation" | "value"> {

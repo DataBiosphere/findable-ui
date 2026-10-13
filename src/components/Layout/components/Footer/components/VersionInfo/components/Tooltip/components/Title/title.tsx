@@ -8,6 +8,13 @@ import { getGitHash, getVersion } from "../../../../utils";
 import { LINK_PROPS } from "./constants";
 import { getCommitUrl, getReleaseUrl } from "./utils";
 
+/**
+ * Version info tooltip title, listing the build date, version, git commit and catalog.
+ * When the config's GitHub URL is set, a set version links to its GitHub release and a set git commit links to its GitHub commit; the build date, git commit and catalog are shown only when set.
+ * @param props - Component props.
+ * @param props.versionInfo - Version info.
+ * @returns The version info tooltip title, or null when there is no version info.
+ */
 export const Title = ({
   versionInfo,
 }: Pick<VersionInfoProps, "versionInfo">): JSX.Element | null => {

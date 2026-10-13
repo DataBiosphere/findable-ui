@@ -17,6 +17,9 @@ import { NavigationMenu } from "./components/NavigationMenu/navigationMenu";
 import { MenuItem } from "./components/NavigationMenuItems/navigationMenuItems";
 import { Navigation as Links } from "./navigation.styles";
 
+/**
+ * A header navigation link, optionally with menu items.
+ */
 export interface NavLinkItem {
   divider?: boolean;
   flatten?: Partial<Record<BreakpointKey, boolean>>;
@@ -29,6 +32,9 @@ export interface NavLinkItem {
   visible?: Partial<Record<BreakpointKey, boolean>>;
 }
 
+/**
+ * Props for the Navigation component.
+ */
 export interface NavigationProps extends TestIdProps {
   className?: string;
   closeAncestor?: () => void;
@@ -39,6 +45,21 @@ export interface NavigationProps extends TestIdProps {
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
 
+/**
+ * Header navigation. A link with menu items renders as a navigation drawer when the header is collapsed to a menu, and as a navigation menu otherwise; any other link renders as a nav button, disabled when it has no URL.
+ * Internal URLs use client-side navigation. Clicking a nav button closes the ancestor menu.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the navigation.
+ * @param props.closeAncestor - Function invoked to close the ancestor menu.
+ * @param props.headerProps - Header props, passed to navigation drawers.
+ * @param props.isMenuIn - Whether the header is collapsed to a menu; defaults to false.
+ * @param props.links - Navigation links.
+ * @param props.pathname - Current pathname, used to mark selected links.
+ * @param props.style - Style applied to the navigation; required for the Fade transition.
+ * @param props.testId - Test id, set as the navigation's data-testid attribute.
+ * @param ref - Ref forwarded to the navigation element.
+ * @returns The navigation.
+ */
 export const Navigation = forwardRef<HTMLDivElement, NavigationProps>(
   function Navigation(
     {

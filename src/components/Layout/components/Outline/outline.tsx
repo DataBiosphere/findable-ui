@@ -4,6 +4,14 @@ import { useTabs } from "./hooks/UseTabs/hook";
 import { StyledTab, StyledTabs } from "./outline.styles";
 import { OutlineProps } from "./types";
 
+/**
+ * Page outline, rendering vertical tabs: the contents tab, then a tab for each outline item, linked to its hash.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the tabs.
+ * @param props.Contents - Contents tab component.
+ * @param props.outline - Outline items.
+ * @returns The outline, or null when there are no outline items.
+ */
 export const Outline = ({
   className,
   Contents,

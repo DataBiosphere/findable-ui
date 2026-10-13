@@ -9,6 +9,9 @@ import { getDrawerSlotProps } from "./utils";
 
 const DEFAULT_POSITION: PopoverPosition = { left: 0, top: 0 };
 
+/**
+ * Props for the SidebarDrawer component.
+ */
 export interface SidebarDrawerProps {
   children: ReactNode | ReactNode[];
   /** Id of the drawer surface, owned by the `DrawerProvider`. */
@@ -22,6 +25,16 @@ export interface SidebarDrawerProps {
   open?: boolean;
 }
 
+/**
+ * Sidebar drawer, rendering the sidebar content in a temporary drawer with a close button.
+ * @param props - Component props.
+ * @param props.children - Sidebar content.
+ * @param props.id - Id of the drawer surface.
+ * @param props.label - Accessible name for the drawer dialog; defaults to "Sidebar".
+ * @param props.onClose - Function invoked when the drawer closes.
+ * @param props.open - Whether the drawer is open; defaults to false.
+ * @returns The sidebar drawer.
+ */
 export const SidebarDrawer = ({
   children,
   id,

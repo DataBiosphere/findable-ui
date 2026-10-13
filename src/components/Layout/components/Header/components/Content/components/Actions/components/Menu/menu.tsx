@@ -27,6 +27,9 @@ import { Navigation } from "./components/Content/components/Navigation/navigatio
 import { Socials } from "./components/Content/components/Socials/socials.styles";
 import { Toolbar } from "./components/Toolbar/toolbar";
 
+/**
+ * Props for the Menu component.
+ */
 export interface MenuProps {
   closeMenu: () => void;
   headerProps: HeaderProps;
@@ -37,6 +40,20 @@ export interface MenuProps {
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
 
+/**
+ * Header menu: a menu button that opens a full-screen dialog with the toolbar, slogan, navigation links and socials.
+ * Closes the menu when the header expands again.
+ * @param props - Component props.
+ * @param props.closeMenu - Function invoked to close the menu.
+ * @param props.headerProps - Header props, providing the navigation, slogan, social media and toolbar props.
+ * @param props.isMenuIn - Whether the header is collapsed to a menu.
+ * @param props.open - Whether the menu dialog is open.
+ * @param props.openMenu - Function invoked to open the menu.
+ * @param props.pathname - Current pathname, used to mark the selected navigation link.
+ * @param props.style - Style applied to the menu button; required for the Fade transition.
+ * @param ref - Ref forwarded to the menu button element.
+ * @returns The header menu, or null when the header is not collapsed to a menu.
+ */
 export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
   function HeaderMenu(
     {

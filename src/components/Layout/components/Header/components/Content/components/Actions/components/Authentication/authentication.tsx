@@ -6,6 +6,9 @@ import { AuthenticationMenu } from "./components/AuthenticationMenu/authenticati
 import { Button } from "./components/Button/button";
 import { getSignInPath, navigateToSignIn } from "./utils";
 
+/**
+ * Props for the Authentication component.
+ */
 export interface AuthenticationProps {
   /**
    * `true` to enable the auth UI with the default sign-in path (`/login`),
@@ -18,6 +21,15 @@ export interface AuthenticationProps {
   isMenuIn?: boolean;
 }
 
+/**
+ * Header authentication control.
+ * Renders a loading skeleton while the profile loads, the account menu once signed in, and otherwise a sign in button that navigates to the sign-in path and back to the current page.
+ * @param props - Component props.
+ * @param props.authenticationEnabled - `true` to enable with the default sign-in path, a string to enable with that sign-in path; falsy disables it.
+ * @param props.closeMenu - Function invoked to close the header menu once the sign-in navigation settles.
+ * @param props.isMenuIn - Whether to render the icon button variant, used when the header is collapsed to a menu.
+ * @returns The authentication control, or null when authentication is not enabled.
+ */
 export const Authentication = ({
   authenticationEnabled,
   closeMenu,

@@ -14,6 +14,9 @@ import {
   Positioner,
 } from "./contentLayout.styles";
 
+/**
+ * Props for the ContentLayout component.
+ */
 export interface ContentLayoutProps {
   content: ReactNode;
   layoutStyle?: LayoutStyle;
@@ -21,6 +24,17 @@ export interface ContentLayoutProps {
   outline?: ReactNode;
 }
 
+/**
+ * Content page layout, rendering the content between optional navigation and outline panels.
+ * The navigation and outline panels are positioned below the header, and the outline remounts when the path (excluding the hash) changes.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the layout.
+ * @param props.content - Page content.
+ * @param props.layoutStyle - Panel background colors for the content, navigation and outline panels.
+ * @param props.navigation - Navigation, rendered in its own panel when truthy.
+ * @param props.outline - Outline, rendered in its own panel when truthy.
+ * @returns The content layout.
+ */
 export const ContentLayout = ({
   className,
   content,

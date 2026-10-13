@@ -1,6 +1,9 @@
 import { JSX } from "react";
 import { Disclosure } from "./components/Disclosure/disclosure";
 
+/**
+ * Props for the Search component.
+ */
 export interface SearchProps {
   closeMenu: () => void;
   /** Renders the icon button variant, used once the header collapses to a menu. */

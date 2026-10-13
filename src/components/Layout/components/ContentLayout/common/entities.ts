@@ -1,3 +1,6 @@
+/**
+ * Panel background colors for the content layout's content, navigation and outline panels.
+ */
 export interface LayoutStyle {
   content?: PanelBackgroundColor;
   navigation?: PanelBackgroundColor;

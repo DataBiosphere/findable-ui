@@ -10,12 +10,23 @@ import {
   HeroLogo as Logo,
 } from "./navBarHero.styles";
 
+/**
+ * Props for the NavBarHero component.
+ */
 export interface NavBarHeroProps {
   byline?: string;
   logo?: StaticImageProps;
   slogan?: string;
 }
 
+/**
+ * Nav bar hero, rendering the logo, slogan and byline, when given, above a divider.
+ * @param props - Component props.
+ * @param props.byline - Byline text.
+ * @param props.logo - Logo image.
+ * @param props.slogan - Slogan text.
+ * @returns The nav bar hero, or nothing when there is no logo, slogan or byline.
+ */
 export const NavBarHero = ({
   byline,
   logo,

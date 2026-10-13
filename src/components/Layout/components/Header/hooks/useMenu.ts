@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
 
+/**
+ * Return type for the useMenu hook.
+ */
 export interface UseMenu {
   onClose: () => void;
   onOpen: () => void;

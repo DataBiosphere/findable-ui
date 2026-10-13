@@ -16,6 +16,9 @@ import {
 import { POPPER_PROPS } from "./common/constants";
 import { Button, StyledMenuItem, StyledPopper } from "./navigationMenu.styles";
 
+/**
+ * Props for the NavigationMenu component.
+ */
 export interface NavLinkMenuProps {
   closeAncestor?: () => void;
   isSelected?: boolean;
@@ -26,6 +29,20 @@ export interface NavLinkMenuProps {
   popperProps?: Partial<MPopperProps>;
 }
 
+/**
+ * Navigation menu for a navigation link with menu items. Renders a nav button that opens a popper menu of the menu items.
+ * A top-level menu locks page scroll while open; a submenu renders within a menu item and does not lock scroll.
+ * Choosing a menu item closes the menu and the ancestor menu.
+ * @param props - Component props.
+ * @param props.closeAncestor - Function invoked to close the ancestor menu.
+ * @param props.isSelected - Whether the navigation link is selected; defaults to false.
+ * @param props.isSubMenu - Whether the menu is nested within another menu; defaults to false.
+ * @param props.menuItems - Menu items.
+ * @param props.menuLabel - Nav button label.
+ * @param props.pathname - Current pathname, used to mark selected menu items.
+ * @param props.popperProps - Popper props, each overriding the default popper prop of the same name; anchorEl and open are controlled by the menu and cannot be overridden.
+ * @returns The nav button and the navigation menu.
+ */
 export const NavigationMenu = ({
   closeAncestor,
   isSelected = false,

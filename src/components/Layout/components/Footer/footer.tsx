@@ -11,6 +11,9 @@ import { PoweredByCleverCanary } from "./components/PoweredByCleverCanary/powere
 import { VersionInfo } from "./components/VersionInfo/versionInfo";
 import { AppBar, Link, Links, Socials } from "./footer.styles";
 
+/**
+ * Props for the Footer component.
+ */
 export interface FooterProps {
   Branding?: ReactNode;
   className?: string;
@@ -20,6 +23,18 @@ export interface FooterProps {
   versionInfo?: ReactNode;
 }
 
+/**
+ * Site footer, rendering the branding followed by the nav links, socials, version info and Powered by CleverCanary logo.
+ * The links section renders only when nav links, socials, version info or Powered by CleverCanary props are given.
+ * @param props - Component props.
+ * @param props.Branding - Branding, rendered first.
+ * @param props.className - Class name applied to the footer.
+ * @param props.navLinks - Nav links; each link's target defaults to the same tab.
+ * @param props.poweredByCC - Powered by CleverCanary logo props; the logo renders only when a src is given.
+ * @param props.socials - Social links.
+ * @param props.versionInfo - Version info; when the links section renders, a boolean (including false) renders the default VersionInfo component and any other value renders as given. On its own, false does not render the links section.
+ * @returns The footer.
+ */
 export const Footer = ({
   Branding,
   className,

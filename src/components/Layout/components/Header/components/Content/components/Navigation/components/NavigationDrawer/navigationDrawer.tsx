@@ -16,6 +16,9 @@ import {
   Dialog,
 } from "./navigationDrawer.styles";
 
+/**
+ * Props for the NavigationDrawer component.
+ */
 export interface NavigationDrawerProps {
   closeAncestor?: () => void;
   headerProps?: HeaderProps;
@@ -26,6 +29,20 @@ export interface NavigationDrawerProps {
   pathname?: string;
 }
 
+/**
+ * Navigation drawer for a navigation link with menu items, used in the header menu.
+ * Renders a nav button that opens a dialog listing the menu items, with a back button that closes this drawer only.
+ * Closing the dialog, or choosing a menu item, also closes the ancestor menu.
+ * @param props - Component props.
+ * @param props.closeAncestor - Function invoked to close the ancestor menu.
+ * @param props.headerProps - Header props, passed to the dialog's toolbar and navigation.
+ * @param props.isMenuIn - Whether the header is collapsed to a menu.
+ * @param props.isSelected - Whether the navigation link is selected; defaults to false.
+ * @param props.menuItems - Menu items.
+ * @param props.menuLabel - Label for the nav button and the back button.
+ * @param props.pathname - Current pathname, used to mark selected menu items.
+ * @returns The nav button and the navigation drawer.
+ */
 export const NavigationDrawer = ({
   closeAncestor,
   headerProps,

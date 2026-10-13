@@ -1,6 +1,13 @@
 import { Slide as MSlide, SlideProps as MSlideProps } from "@mui/material";
 import { JSX, forwardRef } from "react";
 
+/**
+ * Slide transition for the navigation drawer. Defaults to sliding in from the right with ease-out easing and unmounting its children on exit; the given props override these defaults.
+ * @param props - Mui slide props.
+ * @param props.children - Content to transition.
+ * @param ref - Ref forwarded to the slide transition.
+ * @returns The slide transition.
+ */
 export const Slide = forwardRef<Element, MSlideProps>(function Slide(
   {
     children,

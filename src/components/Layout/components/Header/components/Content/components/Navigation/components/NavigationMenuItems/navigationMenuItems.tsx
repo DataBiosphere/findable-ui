@@ -18,17 +18,32 @@ import { NavLinkItem } from "../../navigation";
 import { NavigationMenu } from "../NavigationMenu/navigationMenu";
 import { POPPER_PROPS } from "./common/constants";
 
+/**
+ * A navigation menu item, with an optional description and icon.
+ */
 export interface MenuItem extends NavLinkItem {
   description?: string;
   icon?: ReactNode;
 }
 
+/**
+ * Props for the NavigationMenuItems component.
+ */
 export interface NavLinkMenuProps {
   closeMenu: () => void;
   menuItems: MenuItem[];
   pathname?: string;
 }
 
+/**
+ * Navigation menu items. A menu item with nested menu items renders as a submenu; any other renders as a link menu item, disabled when it has no URL.
+ * Internal URLs use client-side navigation. Choosing a link menu item closes the menu.
+ * @param props - Component props.
+ * @param props.closeMenu - Function invoked to close the menu.
+ * @param props.menuItems - Menu items.
+ * @param props.pathname - Current pathname, used to mark selected menu items.
+ * @returns The navigation menu items.
+ */
 export const NavigationMenuItems = ({
   closeMenu,
   menuItems,

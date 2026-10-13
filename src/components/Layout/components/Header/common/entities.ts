@@ -16,6 +16,9 @@ export enum SELECTED_MATCH {
   STARTS_WITH = "STARTS_WITH", // Default value.
 }
 
+/**
+ * Header social links, with the breakpoints at which they are visible.
+ */
 export interface SocialMedia {
   socials: Social[];
   visible?: Partial<Record<BreakpointKey, boolean>>;

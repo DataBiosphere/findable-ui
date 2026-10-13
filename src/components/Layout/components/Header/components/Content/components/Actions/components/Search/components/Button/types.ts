@@ -1,5 +1,8 @@
 import type { Ref } from "react";
 
+/**
+ * Props for the search Button component.
+ */
 export interface ButtonProps {
   /** Renders the icon button variant, used once the header collapses to a menu. */
   isMenuIn?: boolean;
