@@ -2,6 +2,9 @@ import type { LinkProps } from "../../../../../Links/components/Link/link";
 import type { BaseComponentProps } from "../../../../../types";
 import type { IdentityChipProps } from "./components/Chips/components/Chip/types";
 
+/**
+ * Props for the IdentityCell component.
+ */
 export interface IdentityCellProps extends BaseComponentProps {
   chips?: IdentityChipProps[];
   subtitle?: IdentityLinkProps /* label rendered as given, e.g. a dataset title or "3 datasets" */;

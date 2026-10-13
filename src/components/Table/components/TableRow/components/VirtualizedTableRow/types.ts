@@ -1,5 +1,8 @@
 import { Cell, Row, RowData } from "@tanstack/react-table";
 
+/**
+ * Props for the VirtualizedTableRow component.
+ */
 export interface VirtualizedTableRowProps<T extends RowData> {
   canExpand: boolean;
   canSelect: boolean;

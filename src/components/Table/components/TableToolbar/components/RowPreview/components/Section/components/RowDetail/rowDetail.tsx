@@ -17,6 +17,17 @@ interface RowDetailProps<T extends RowData> {
   rowData: T;
 }
 
+/**
+ * Row detail, rendering each column's header above its component built from the row data, with a "Show more" or "Show less" button toggling between all columns and the first few.
+ * Each header is styled with its component config's TypographyProps, when given.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the section.
+ * @param props.columns - Columns to show.
+ * @param props.expanded - Whether all columns show initially; defaults to true.
+ * @param props.minColumns - Number of columns shown when collapsed; defaults to 6.
+ * @param props.rowData - Row data.
+ * @returns The row detail, or null when the row data is falsy.
+ */
 export const RowDetail = <T extends RowData>({
   className,
   columns,

@@ -6,12 +6,23 @@ import { CollapsableTableRow } from "../../../TableRow/components/CollapsableTab
 import { useCollapsableRows } from "./hook";
 import { getSubRowSelectionSignature } from "./utils";
 
+/**
+ * Props for the CollapsableRows component.
+ */
 export interface CollapsableRowsProps<T extends RowData> {
   rows: Row<T>[];
   tableInstance: Table<T>;
   virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
+/**
+ * Collapsable rows for the virtualizer's current virtual items. When grouping is applied, sub-rows are not rendered.
+ * @param props - Component props.
+ * @param props.rows - Rows to virtualize.
+ * @param props.tableInstance - TanStack table instance.
+ * @param props.virtualizer - Row virtualizer.
+ * @returns The collapsable rows.
+ */
 export const CollapsableRows = <T extends RowData>({
   rows,
   tableInstance,

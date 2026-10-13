@@ -5,6 +5,14 @@ import { ROW_DIRECTION } from "../../common/entities";
 import { UseVirtualizationProps } from "./types";
 import { getRowsForVirtualization } from "./utils";
 
+/**
+ * Virtualizes the table's rows within a scroll container.
+ * In the vertical row direction with grouping applied, only grouped rows are virtualized.
+ * @param options - Hook options.
+ * @param options.rowDirection - Row direction.
+ * @param options.table - TanStack table instance.
+ * @returns The rows to virtualize, a ref for the scroll container and the virtualizer.
+ */
 export const useVirtualization = <T extends RowData>({
   rowDirection,
   table,

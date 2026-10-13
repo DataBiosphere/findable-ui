@@ -7,6 +7,16 @@ import { isClientSideNavigation } from "../../../../../Links/common/utils";
 import type { BaseComponentProps } from "../../../../../types";
 import { getComponent, getRelAttribute, getTargetAttribute } from "./utils";
 
+/**
+ * Link cell, rendering a link from the cell value's link props.
+ * Internal (root-relative or hash) hrefs use client-side navigation and open in the same tab by default; external URLs open in a new tab by default.
+ * Clicking the link does not propagate to parent components, unless the link props include an onClick, which replaces that handler.
+ * An invalid href renders the children as plain text instead, without the color, rel, target and underline link props.
+ * @param props - Component props, the TanStack cell context plus a class name.
+ * @param props.className - Class name applied to the link or text.
+ * @param props.getValue - Function returning the cell value, the link props.
+ * @returns The link or text, or null when the cell value is falsy.
+ */
 export const LinkCell = <
   T extends RowData,
   TValue extends LinkProps = LinkProps,

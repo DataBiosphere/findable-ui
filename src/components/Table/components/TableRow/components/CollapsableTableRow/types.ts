@@ -1,5 +1,8 @@
 import { Cell, Row, RowData } from "@tanstack/react-table";
 
+/**
+ * Props for the CollapsableTableRow component.
+ */
 export interface CollapsableTableRowProps<T extends RowData> {
   // `getVisibleCells()` is memoized by TanStack keyed on column visibility;
   // passed as a memo-comparison key so column-visibility toggles re-render the

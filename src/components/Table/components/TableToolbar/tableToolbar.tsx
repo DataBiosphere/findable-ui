@@ -14,11 +14,22 @@ import { RowSelection } from "./components/RowSelection/rowSelection";
 import { GRID_PROPS } from "./constants";
 import { StyledToolbar } from "./tableToolbar.styles";
 
+/**
+ * Props for the TableToolbar component.
+ */
 export interface TableToolbarProps<T extends RowData> {
   listView?: ListViewConfig;
   tableInstance: Table<T>;
 }
 
+/**
+ * Table toolbar. On one side, the view toggle with the row selection actions when any row is selected, or otherwise the explore state's pagination summary.
+ * On the other, the download, grouping and column visibility controls. The row preview renders after the toolbar.
+ * @param props - Component props.
+ * @param props.listView - List view config, providing the row preview and row selection views.
+ * @param props.tableInstance - TanStack table instance.
+ * @returns The table toolbar and row preview.
+ */
 export const TableToolbar = <T extends RowData>({
   listView,
   tableInstance,

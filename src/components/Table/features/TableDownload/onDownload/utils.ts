@@ -41,6 +41,11 @@ export function formatDataToTSV(data: unknown[][]): string {
     .join("\n");
 }
 
+/**
+ * Builds a TSV blob of the table's row model, with a header row, from the columns that can be downloaded.
+ * @param table - Table.
+ * @returns The TSV blob, or undefined when the row model has no rows.
+ */
 export function getBlob<T extends RowData>(table: Table<T>): Blob | undefined {
   const rows = table.getRowModel().rows;
 

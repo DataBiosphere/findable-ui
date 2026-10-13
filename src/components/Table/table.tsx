@@ -27,12 +27,25 @@ import { TableToolbar } from "./components/TableToolbar/tableToolbar";
 import { useVirtualization } from "./hooks/UseVirtualization/hook";
 import { GridTable } from "./table.styles";
 
+/**
+ * Props for the Table component.
+ */
 export interface TableProps<T extends RowData> {
   listView?: ListViewConfig;
   loading: boolean;
   table: TanStackTable<T>;
 }
 
+/**
+ * Virtualized table with its toolbar, head, body and pagination, showing "No Results found" when not loading and there are no rows.
+ * Rows render horizontally from the sm breakpoint up and as collapsable vertical rows below it.
+ * Paging calls the TanStack table's next and previous page functions when client filtering is enabled; otherwise it dispatches a table pagination action to the explore state and tracks the event.
+ * @param props - Component props.
+ * @param props.listView - List view config; pagination is hidden when its disablePagination is true.
+ * @param props.loading - Whether the table data is loading.
+ * @param props.table - TanStack table instance.
+ * @returns The table, or the no results message.
+ */
 export const Table = <T extends RowData>({
   listView,
   loading,

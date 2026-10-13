@@ -3,11 +3,21 @@ import { Virtualizer } from "@tanstack/react-virtual";
 import { Fragment, JSX } from "react";
 import { VirtualizedTableRow } from "../TableRow/components/VirtualizedTableRow/virtualizedTableRow";
 
+/**
+ * Props for the TableRows component.
+ */
 export interface TableRowsProps<T extends RowData> {
   rows: Row<T>[];
   virtualizer: Virtualizer<HTMLDivElement, Element>;
 }
 
+/**
+ * Table rows for the virtualizer's current virtual items.
+ * @param props - Component props.
+ * @param props.rows - Rows to virtualize.
+ * @param props.virtualizer - Row virtualizer.
+ * @returns The table rows.
+ */
 export const TableRows = <T extends RowData>({
   rows,
   virtualizer,

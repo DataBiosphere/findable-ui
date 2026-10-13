@@ -6,6 +6,14 @@ import { StyledChip } from "./columnFilterTag.styles";
 import { CHIP_PROPS, SVG_ICON_PROPS } from "./constants";
 import { ColumnFilterTagProps } from "./types";
 
+/**
+ * Column filter tags, one chip per value in the column's filter value; clicking or deleting a chip removes its value from the filter.
+ * The given Mui Chip props override the defaults, including the click and delete handlers.
+ * @param props - Component props.
+ * @param props.className - Class name applied to each chip.
+ * @param props.column - TanStack column, which must have a filter value.
+ * @returns The column filter tags.
+ */
 export const ColumnFilterTag = <T extends RowData>({
   className,
   column,
