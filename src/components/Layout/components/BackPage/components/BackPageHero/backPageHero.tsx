@@ -14,9 +14,8 @@ import {
 import { SubTitle } from "./components/SubTitle/subTitle";
 
 /**
- * Back page hero component comprising breadcrumbs, title, status and tabs.
+ * Props for the BackPageHero component.
  */
-
 export interface BackPageHeroProps {
   actions?: ReactNode;
   breadcrumbs?: Breadcrumb[] | ReactNode;
@@ -26,6 +25,17 @@ export interface BackPageHeroProps {
   title?: ReactNode;
 }
 
+/**
+ * Back page hero, rendering the breadcrumbs, title and subtitle, followed by any actions and call to action button, then the children.
+ * @param props - Component props.
+ * @param props.actions - Actions rendered after the title and subtitle.
+ * @param props.breadcrumbs - Breadcrumbs, rendered with the Breadcrumbs component when an array, otherwise rendered as given.
+ * @param props.callToAction - Call to action, rendered as a call to action button when given.
+ * @param props.children - Content rendered below the hero headline.
+ * @param props.subTitle - Subtitle.
+ * @param props.title - Title.
+ * @returns The back page hero.
+ */
 export const BackPageHero = ({
   actions,
   breadcrumbs,

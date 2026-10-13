@@ -10,6 +10,9 @@ import { SidebarDrawer } from "./components/SidebarDrawer/sidebarDrawer";
 import { SidebarPositioner } from "./components/SidebarPositioner/sidebarPositioner";
 import { Sidebar as PermanentSidebar } from "./sidebar.styles";
 
+/**
+ * Props for the Sidebar component.
+ */
 export interface SidebarProps extends ChildrenProps {
   /**
    * Accessible name for the sidebar while it renders as a drawer dialog, below
@@ -18,6 +21,14 @@ export interface SidebarProps extends ChildrenProps {
   label?: string;
 }
 
+/**
+ * Sidebar. Below the "md" breakpoint it renders as a drawer, controlled by the drawer context; otherwise it renders as a permanent sidebar.
+ * An open drawer closes when the breakpoint changes to "md" or above.
+ * @param props - Component props.
+ * @param props.children - Sidebar content.
+ * @param props.label - Accessible name for the drawer dialog.
+ * @returns The sidebar.
+ */
 export const Sidebar = ({ children, label }: SidebarProps): JSX.Element => {
   const { id, onClose, open } = useDrawer();
   const bpDownMd = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "md");

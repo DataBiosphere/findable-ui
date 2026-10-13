@@ -5,6 +5,13 @@ import { Segment } from "../../../../../common/CustomIcon/components/Segment/seg
 import { StyledTab } from "./contentsTab.styles";
 import { ContentsTabProps } from "./types";
 
+/**
+ * "Contents" tab, with a segment icon at the start.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the tab.
+ * @param props.value - Tab value.
+ * @returns The contents tab.
+ */
 export const ContentsTab = ({
   className,
   value,

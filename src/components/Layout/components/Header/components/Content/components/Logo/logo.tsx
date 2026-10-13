@@ -7,6 +7,9 @@ import { ANCHOR_TARGET } from "../../../../../../../Links/common/entities";
 import { BaseComponentProps } from "../../../../../../../types";
 import { StyledLink } from "./logo.styles";
 
+/**
+ * Props for the Logo component.
+ */
 export interface LogoProps extends BaseComponentProps {
   alt: string;
   height?: number;
@@ -16,6 +19,18 @@ export interface LogoProps extends BaseComponentProps {
   width?: number;
 }
 
+/**
+ * Header logo, rendering the logo image as a link.
+ * @param props - Component props.
+ * @param props.alt - Logo image alt text.
+ * @param props.className - Class name applied to the link.
+ * @param props.height - Logo image height.
+ * @param props.link - URL the logo links to.
+ * @param props.src - Logo image source.
+ * @param props.target - Link target; defaults to "_self".
+ * @param props.width - Logo image width.
+ * @returns The logo link.
+ */
 export const Logo = ({
   alt,
   className,

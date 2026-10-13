@@ -13,10 +13,19 @@ import {
 import { MENU_PROPS } from "./constants";
 import { getAccountMenuLabel } from "./utils";
 
+/**
+ * Props for the AuthenticationMenu component.
+ */
 export interface AuthenticationMenuProps {
   profile: UserProfile;
 }
 
+/**
+ * Account menu for a signed-in user: an avatar button that opens a menu showing the user's name and a logout item.
+ * @param props - Component props.
+ * @param props.profile - Signed-in user's profile, providing the name and avatar image.
+ * @returns The account menu.
+ */
 export const AuthenticationMenu = ({
   profile,
 }: AuthenticationMenuProps): JSX.Element => {

@@ -2,6 +2,9 @@ import { useBreakpoint } from "../../../../../hooks/useBreakpoint";
 import { isSocialsVisible } from "../common/utils";
 import { HeaderProps } from "../header";
 
+/**
+ * Return type for the useHeaderVisibility hook.
+ */
 export interface UseHeaderVisibility {
   isIn: {
     isActionsIn: boolean;

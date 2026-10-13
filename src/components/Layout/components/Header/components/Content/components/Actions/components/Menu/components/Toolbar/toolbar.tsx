@@ -9,6 +9,9 @@ import { Authentication } from "../../../Authentication/authentication";
 import { Search } from "../../../Search/search";
 import { ARIA_LABEL } from "./constants";
 
+/**
+ * Props for the Toolbar component.
+ */
 export interface DialogTitleProps {
   actions?: ReactNode;
   announcements?: ComponentsConfig;
@@ -19,6 +22,18 @@ export interface DialogTitleProps {
   searchURL?: string;
 }
 
+/**
+ * Header menu dialog toolbar, rendering the announcements above the logo, the search and authentication controls, any additional actions, and a close menu button.
+ * @param props - Component props.
+ * @param props.actions - Additional actions, e.g. a call to action button.
+ * @param props.announcements - Announcements components config.
+ * @param props.authenticationEnabled - `true` to enable authentication with the default sign-in path, a string to enable it with that sign-in path; falsy disables it.
+ * @param props.logo - Logo.
+ * @param props.onClose - Function invoked to close the menu.
+ * @param props.searchEnabled - Whether search is enabled.
+ * @param props.searchURL - Search page URL.
+ * @returns The menu toolbar.
+ */
 export const Toolbar = ({
   actions,
   announcements,
