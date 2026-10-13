@@ -21,6 +21,7 @@ export interface AccordionProps extends MAccordionProps {
 
 /**
  * Accordion with a title summary, managing its own expanded state and swapping the expand and collapse icons on toggle.
+ * A given onChange prop replaces the toggle handler, so the accordion then no longer expands or collapses.
  * @param props - Component props.
  * @param props.children - Accordion details content.
  * @param props.collapseIcon - Icon shown when the accordion is expanded; defaults to a primary remove icon.
