@@ -8,7 +8,7 @@ import { StyledTypography } from "./title.styles";
  * @param props - Component props.
  * @param props.children - Title content.
  * @param props.className - Class name applied to the heading.
- * @returns The title, the children as given when not a string, or null when there are no children.
+ * @returns The title when children is a string, the children as given when truthy and not a string, or null when children is falsy.
  */
 export const Title = ({
   children,

@@ -35,7 +35,7 @@ export interface TabsProps {
 }
 
 /**
- * Tabs, one per given tab, with mobile scroll buttons. Each tab label shows its optional count and an annotation tooltip.
+ * Tabs, one per given tab, with mobile scroll buttons. Each tab label shows its optional count, and a tooltip of its annotation when the annotation has a description.
  * @param props - Component props.
  * @param props.className - Class name applied to the tabs.
  * @param props.onTabChange - Function invoked with the selected tab value when the selection changes.
