@@ -20,8 +20,11 @@ import { StateSyncManagerActions, UseStateSyncManagerProps } from "./types";
  * Required setup:
  * - Action creators for state/URL operations.
  * - State containing command flags, URL parameters, and sync configuration.
+ * @param props - Hook props.
+ * @param props.actions - Action creators; only the first value is used, so later changes are ignored.
+ * @param props.dispatch - Dispatches the actions; nothing is dispatched when null.
+ * @param props.state - State holding the pending command, the query and the param keys to sync.
  */
-
 export const useStateSyncManager = <Action>({
   actions: actionCreators,
   dispatch,

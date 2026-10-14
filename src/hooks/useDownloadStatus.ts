@@ -10,6 +10,9 @@ const DOWNLOAD_STATUS_MESSAGE = {
   INDEXING: "Downloads and exports are disabled while indexing is in progress.",
 };
 
+/**
+ * Return value of the useDownloadStatus hook.
+ */
 export interface DownloadStatus {
   disabled: boolean;
   isLoading: boolean;

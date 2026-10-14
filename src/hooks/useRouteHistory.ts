@@ -7,10 +7,19 @@ const MAX_HISTORY_LENGTH = 4;
 
 export type TransformRouteFn = (routes: string[]) => string | undefined;
 
+/**
+ * Return value of the useRouteHistory hook.
+ */
 export interface UseRouteHistory {
   callbackUrl: (transformFn?: TransformRouteFn) => string;
 }
 
+/**
+ * Keeps a history of the routes navigated to, most recent first.
+ * @param maxHistory - Number of routes to keep, including the current one. Defaults to 4.
+ * @returns callbackUrl, which returns the transform's route when a transform is given,
+ * otherwise the previous route; the root path when either is missing.
+ */
 export function useRouteHistory(
   maxHistory = MAX_HISTORY_LENGTH,
 ): UseRouteHistory {

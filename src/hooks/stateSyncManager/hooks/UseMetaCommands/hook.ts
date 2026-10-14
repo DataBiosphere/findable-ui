@@ -3,6 +3,14 @@ import { useEffect } from "react";
 import { UseStateSyncManagerProps } from "../../types";
 import { META_COMMAND } from "./types";
 
+/**
+ * Once the router is ready, carries out the state's pending command: pushes or
+ * replaces the URL query with the state's query (shallow), then clears the command.
+ * @param props - Hook props.
+ * @param props.actions - Action creators; clearMeta clears the command.
+ * @param props.dispatch - Dispatches the actions; nothing is dispatched when null.
+ * @param props.state - State holding the pending command and the query.
+ */
 export const useMetaCommands = <Action>({
   actions,
   dispatch,

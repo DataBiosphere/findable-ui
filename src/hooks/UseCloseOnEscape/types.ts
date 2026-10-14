@@ -1,5 +1,8 @@
 import type { RefObject } from "react";
 
+/**
+ * Props for the useCloseOnEscape hook.
+ */
 export interface UseCloseOnEscapeProps {
   /**
    * When given, Escape only closes while focus is inside this element, and

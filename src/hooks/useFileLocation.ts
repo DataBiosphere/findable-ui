@@ -5,10 +5,19 @@ import {
 
 const NOT_PREPENDED_WITH_FETCH_REGEX = /^(\/(?!fetch))/;
 
+/**
+ * Return value of the useFileLocation hook.
+ */
 export interface UseFileLocation extends UseRequestFileLocationResult {
   fileUrl?: string;
 }
 
+/**
+ * Requests the location of a file from its URL, with "/fetch" prepended to the
+ * path unless it already starts with "/fetch". Throws when the URL is invalid.
+ * @param fileUrl - File URL.
+ * @returns The file location request, with fileUrl set to the resolved location.
+ */
 export const useFileLocation = (fileUrl?: string): UseFileLocation => {
   const url = buildFetchFileUrl(fileUrl);
   const fileLocation = useRequestFileLocation(url);

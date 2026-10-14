@@ -14,6 +14,15 @@ interface FetcherResponse<T, I> extends EntityService {
   path: string;
 }
 
+/**
+ * Returns the entity service for the entity's explore mode: the API service for
+ * server-side filtering, the API service with client-side filtering, or the TSV
+ * service for client-side fetching. Throws when the entity has no data path for
+ * its explore mode.
+ * @param entityConfig - Entity config.
+ * @param catalog - Catalog; unused by the TSV service.
+ * @returns The entity service and its fetch config.
+ */
 export const getEntityService = <T, I>(
   entityConfig: EntityConfig,
   catalog: string | undefined,

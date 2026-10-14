@@ -10,6 +10,12 @@ interface UseSummaryResponse {
   summaries: [string, string][];
 }
 
+/**
+ * Fetches the summary for the current filters and maps it with the configured
+ * summary config.
+ * @returns The summaries; undefined when summaries are disabled or not configured, and until
+ * the first response arrives. While a refetch is pending, the previous summaries are returned.
+ */
 export const useSummary = (): UseSummaryResponse | undefined => {
   const { token } = useToken();
   const { config, entityConfig } = useConfig();

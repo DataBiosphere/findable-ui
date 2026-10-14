@@ -9,6 +9,9 @@ import {
 } from "../useRequestFileLocation";
 import { buildRequestManifest } from "../useRequestManifest/utils";
 
+/**
+ * Return value of the useFileManifestDownload hook.
+ */
 export interface ManifestDownload {
   fileName?: string;
   isIdle: boolean;

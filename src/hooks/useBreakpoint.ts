@@ -20,6 +20,11 @@ export type UseBreakpoint = {
   xsUp: boolean;
 };
 
+/**
+ * Returns the current breakpoint and, for each breakpoint, whether the viewport
+ * is at it, below it (down), or at or above it (up).
+ * @returns The current breakpoint and breakpoint flags.
+ */
 export const useBreakpoint = (): UseBreakpoint => {
   const breakpoint = useCurrentBreakpoint();
   // Current breakpoint.

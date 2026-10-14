@@ -8,6 +8,9 @@ import { useToken } from "./authentication/token/useToken";
 import { METHOD } from "./types";
 import { useAsync } from "./useAsync";
 
+/**
+ * File location returned by the API, with the retry interval while the file is being prepared.
+ */
 export interface FileLocation {
   commandLine?: { [key: string]: string };
   location: string;
@@ -15,6 +18,9 @@ export interface FileLocation {
   status: number;
 }
 
+/**
+ * Return value of the useRequestFileLocation hook.
+ */
 export interface UseRequestFileLocationResult {
   data: FileLocation | undefined;
   isIdle: boolean;

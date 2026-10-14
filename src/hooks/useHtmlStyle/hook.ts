@@ -1,6 +1,12 @@
 import { useLayoutEffect } from "react";
 import { CSSPropHyphen } from "./types";
 
+/**
+ * Sets a CSS property on the html element; on cleanup, restores the previous
+ * value or removes the property.
+ * @param property - CSS property, hyphenated.
+ * @param value - Value to set; null sets nothing.
+ */
 export const useHtmlStyle = (
   property: CSSPropHyphen,
   value: string | null,

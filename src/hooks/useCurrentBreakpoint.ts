@@ -10,6 +10,11 @@ export type UseCurrentBreakpoint = BreakpointKey | undefined;
 
 const breakpointKeys: BreakpointKey[] = ["xs", "sm", "md", "lg"];
 
+/**
+ * Returns the breakpoint the viewport is at.
+ * @returns The current breakpoint (xs, sm, md or lg); undefined until the media queries
+ * resolve (e.g. the first render), or above lg when the theme defines a larger breakpoint.
+ */
 export const useCurrentBreakpoint = (): UseCurrentBreakpoint => {
   const xs = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "xs");
   const sm = useBreakpointHelper(BREAKPOINT_FN_NAME.ONLY, "sm");
