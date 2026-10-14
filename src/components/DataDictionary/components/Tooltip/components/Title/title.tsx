@@ -5,6 +5,14 @@ import { BaseComponentProps } from "../../../../../types";
 import { STACK_PROPS } from "./constants";
 import { TitleProps } from "./types";
 
+/**
+ * Data dictionary tooltip content: a title above its description.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the stack.
+ * @param props.description - Tooltip description.
+ * @param props.title - Tooltip title.
+ * @returns The tooltip title.
+ */
 export const Title = ({
   className,
   description,

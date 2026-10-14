@@ -11,6 +11,9 @@ import {
 import { getDownloadLabel } from "./common/utils";
 import { useDownload } from "./hooks/UseDownload/hook";
 
+/**
+ * Props for the AzulFileDownload component.
+ */
 export interface AzulFileDownloadProps {
   entityName: string; // The name of the file downloaded.
   ref?: Ref<HTMLSpanElement>; // Ref attached to the outer span; allows direct use as a Tooltip child without a span wrapper at the call site.
@@ -19,6 +22,17 @@ export interface AzulFileDownloadProps {
   url?: string; // Original "file fetch URL" as returned from Azul endpoint.
 }
 
+/**
+ * Azul file download button. Clicking it requests the file location from Azul, prompting the user to log in first when required, then downloads the file through a hidden anchor.
+ * While the request is in flight, the button shows a loading icon and is busy, and aria-disabled when it has a URL; without a URL, it is disabled.
+ * @param props - Component props.
+ * @param props.entityName - The name of the file downloaded.
+ * @param props.ref - Ref attached to the outer span.
+ * @param props.relatedEntityId - ID of the file's dataset / project.
+ * @param props.relatedEntityName - Name of the file's dataset / project.
+ * @param props.url - Original "file fetch URL" as returned from Azul endpoint.
+ * @returns The file download button.
+ */
 export const AzulFileDownload = ({
   entityName,
   ref,

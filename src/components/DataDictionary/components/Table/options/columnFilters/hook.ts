@@ -11,6 +11,10 @@ import { updateColumnFilters } from "../../../../../../providers/dataDictionaryS
 import { useDataDictionaryState } from "../../../../../../providers/dataDictionaryState/hooks/UseDataDictionaryState/hook";
 import { COLUMN_FILTERS_OPTIONS } from "./constants";
 
+/**
+ * Column filters options for the data dictionary table, dispatching column filter changes to the data dictionary state.
+ * @returns The column filters options.
+ */
 export const useColumnFiltersOptions = <
   T extends RowData = Attribute,
 >(): ColumnFiltersOptions<T> => {

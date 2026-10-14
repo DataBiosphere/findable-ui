@@ -11,6 +11,10 @@ import { PAGINATION_OPTIONS } from "./pagination/constants";
 import { SORTING_OPTIONS } from "./sorting/constants";
 import { VISIBILITY_OPTIONS } from "./visibility/constants";
 
+/**
+ * Default table options for the data dictionary table, with column filter and global filter changes dispatched to the data dictionary state.
+ * @returns The default table options.
+ */
 export const useTableOptions = <T extends RowData = Attribute>(): Omit<
   TableOptions<T>,
   "columns" | "data" | "initialState"

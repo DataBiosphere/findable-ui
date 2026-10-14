@@ -6,6 +6,10 @@ import { TabValue } from "../../../../../../common/Tabs/tabs";
 import { getEntityListTabs } from "./common/utils";
 import { StyledTabs } from "./tabs.styles";
 
+/**
+ * Entity list tabs, one per configured entity, with the explore state's tab value selected. Changing tab navigates to the entity's route.
+ * @returns The tabs, or null when tabs are not enabled on the entity's UI config.
+ */
 export const Tabs = (): JSX.Element | null => {
   const { config, entityConfig } = useConfig();
   const { exploreState } = useExploreState();

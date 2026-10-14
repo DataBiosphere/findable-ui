@@ -10,6 +10,14 @@ import { StyledTypography } from "./entity.styles";
 import { EntityProps } from "./types";
 import { getClassMeta } from "./utils";
 
+/**
+ * Data dictionary entity: the class title with an anchor link, its description when it has one, and a table of its attributes.
+ * The class is looked up by the row's class key in the table's class metadata.
+ * @param props - Component props.
+ * @param props.row - TanStack grouped row for the class.
+ * @param props.table - TanStack table instance.
+ * @returns The entity, or null when the class is not found in the table's class metadata.
+ */
 export const Entity = <T extends RowData = Attribute>({
   row,
   table,

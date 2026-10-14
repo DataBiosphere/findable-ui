@@ -10,6 +10,12 @@ import { Drawer } from "../../../../../Filter/components/surfaces/drawer/Drawer/
 import { ColumnFilter } from "../../../../../Table/components/TableFeatures/ColumnFilter/columnFilter";
 import { ColumnFiltersProps } from "./types";
 
+/**
+ * Data dictionary column filters: a button group with a filter for each filterable column, or, below 820px, a drawer of the column filters.
+ * @param props - Component props.
+ * @param props.table - TanStack table instance.
+ * @returns The column filters, or null when column filters are not enabled on the table.
+ */
 export const ColumnFilters = <T extends RowData = Attribute>({
   table,
 }: ColumnFiltersProps<T>): JSX.Element | null => {

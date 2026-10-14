@@ -10,6 +10,14 @@ import { useDataDictionaryState } from "../../../../providers/dataDictionaryStat
 import { useTableOptions } from "./options/hook";
 import { buildClassMeta, buildTableData } from "./utils";
 
+/**
+ * Builds the data dictionary's TanStack table: one row per class attribute, tagged with its class key, with the class titles and descriptions on the table meta.
+ * Table state is read from the dictionary's entry in the data dictionary state.
+ * @param dictionary - Data dictionary path, used to look up the dictionary's table state.
+ * @param classes - Data dictionary classes.
+ * @param tableOptions - Table options, overriding the default table options; the table's data, meta and state are always set by this hook.
+ * @returns The TanStack table instance.
+ */
 export const useTable = <T extends RowData = Attribute>(
   dictionary: string,
   classes: Class<T>[],

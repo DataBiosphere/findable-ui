@@ -6,6 +6,9 @@ export type ClassMeta = Record<
   Pick<Class, "description" | "title">
 >;
 
+/**
+ * Props for the Table component.
+ */
 export interface TableProps<T extends RowData> {
   row: Row<T>;
   table: Table<T>;

@@ -10,6 +10,13 @@ import { getColumnTrackSizing } from "../../../TableCreator/options/columnTrackS
 import { StyledFluidPaper } from "./table.styles";
 import { TableProps } from "./types";
 
+/**
+ * Data dictionary class table: the table head and the row's leaf rows, laid out vertically below the "sm" breakpoint.
+ * @param props - Component props.
+ * @param props.row - TanStack grouped row for the class, whose leaf rows are rendered.
+ * @param props.table - TanStack table instance.
+ * @returns The table.
+ */
 export const Table = <T extends RowData>({
   row,
   table,

@@ -26,6 +26,22 @@ import { useMeasureFilters } from "./hooks/UseMeasureFilters/hook";
 import { DataDictionaryProps } from "./types";
 import { extractColumnId, getValidColumnIds } from "./utils";
 
+/**
+ * Data dictionary view: the title, the outline of classes, the filters with their tags, and the description and entities.
+ * Throws during render when no configured data dictionary has a matching path, or when the column filters URL param is malformed or names an unknown column.
+ * Sets the HTML scroll-padding-top to the filters height.
+ * Fades in once the header is measured, and the entities fade in once the filters are measured.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the view.
+ * @param props.dictionary - Data dictionary path, matched against the configured data dictionaries.
+ * @param props.EntitiesLayout - Entities layout component; defaults to EntitiesLayout.
+ * @param props.FiltersLayout - Filters layout component; defaults to FiltersLayout.
+ * @param props.Outline - Outline component; defaults to Outline.
+ * @param props.OutlineLayout - Outline layout component; defaults to OutlineLayout.
+ * @param props.Title - Title component; defaults to Title.
+ * @param props.TitleLayout - Title layout component; defaults to TitleLayout.
+ * @returns The data dictionary.
+ */
 export const DataDictionary = <T extends RowData = Attribute>({
   className,
   dictionary,

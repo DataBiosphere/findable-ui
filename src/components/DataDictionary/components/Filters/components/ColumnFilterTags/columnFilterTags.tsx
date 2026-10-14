@@ -8,6 +8,13 @@ import { StyledGrid } from "./columnFilterTags.styles";
 import { GRID_PROPS } from "./constants";
 import { ColumnFilterTagsProps } from "./types";
 
+/**
+ * Tags for the filtered columns' filter values, one chip per value that removes the value from its filter, followed by a "Clear all" button that resets the column filters to an empty state.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the tags grid.
+ * @param props.table - TanStack table instance.
+ * @returns The column filter tags, or null when no column is filtered or below 820px.
+ */
 export const ColumnFilterTags = <T extends RowData = Attribute>({
   className,
   table,

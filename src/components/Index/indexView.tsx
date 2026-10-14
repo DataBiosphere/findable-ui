@@ -23,6 +23,17 @@ import {
 import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
 
+/**
+ * Entity list view: the title, tabs, summary and controls above the entity list, shown as a table or, in the graph view mode, the lazily loaded chart view.
+ * Provides the view mode, its change handler and the view status through the entity view context.
+ * @param props - Component props.
+ * @param props.categoryFilters - Category filters, charted in the graph view.
+ * @param props.className - Class name applied to the view.
+ * @param props.entityListType - Entity list type.
+ * @param props.entityName - Entity name, used in the chart titles.
+ * @param props.loading - Whether the entity list is loading.
+ * @returns The entity list view.
+ */
 export const Index = ({
   categoryFilters,
   className,
