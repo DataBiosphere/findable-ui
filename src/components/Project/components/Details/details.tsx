@@ -10,6 +10,9 @@ import { CollapsableSection } from "../../../common/Section/components/Collapsab
 import { SectionDetailsEmpty } from "../../../common/Section/components/SectionDetailsEmpty/sectionDetailsEmpty";
 import { Stack } from "../../../common/Stack/stack";
 
+/**
+ * Props for the Details component.
+ */
 export interface DetailsProps {
   keyValuePairs?: KeyValues;
   title: string;
@@ -29,13 +32,20 @@ function renderKey(props: { children: Key }): JSX.Element {
   );
 }
 
+/**
+ * Section of a project page listing key-value pairs.
+ * @param props - Component props.
+ * @param props.keyValuePairs - Key-value pairs.
+ * @param props.title - Section title.
+ * @returns The section, or an empty state when key-value pairs are not given or empty.
+ */
 export const Details = ({
   keyValuePairs,
   title,
 }: DetailsProps): JSX.Element => {
   return (
     <CollapsableSection collapsable title={title}>
-      {keyValuePairs ? (
+      {keyValuePairs?.size ? (
         <KeyValuePairs
           KeyElType={renderKey}
           keyValuePairs={keyValuePairs}

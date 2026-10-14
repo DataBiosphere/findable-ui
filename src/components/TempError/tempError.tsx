@@ -6,6 +6,12 @@ interface TempErrorProps {
   error: Error | HTTPError;
 }
 
+/**
+ * Error details: the status code and request URL for an HTTP error, and the message.
+ * @param props - Component props.
+ * @param props.error - Error.
+ * @returns The error details.
+ */
 export const TempError = ({ error }: TempErrorProps): JSX.Element => {
   const { code, request } =
     error instanceof HTTPError

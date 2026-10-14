@@ -6,11 +6,21 @@ import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { Link } from "../../../Links/components/Link/link";
 import { CitationLink, SectionContent } from "./citation.styles";
 
+/**
+ * Props for the Citation component.
+ */
 export interface CitationProps {
   projectPath?: string;
   url?: string;
 }
 
+/**
+ * Citation section of a project page: a copyable link to the project.
+ * @param props - Component props.
+ * @param props.projectPath - Project path, appended to the URL.
+ * @param props.url - Base URL.
+ * @returns The citation section, or an empty state unless both a project path and URL are given.
+ */
 export const Citation = ({ projectPath, url }: CitationProps): JSX.Element => {
   return (
     <CollapsableSection collapsable title="Citation">

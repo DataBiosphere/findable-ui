@@ -6,16 +6,25 @@ import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { Link } from "../../../Links/components/Link/link";
 import { Publication } from "../../common/entities";
 
+/**
+ * Props for the Publications component.
+ */
 export interface PublicationsProps {
   publications?: Publication[];
 }
 
+/**
+ * Publications section of a project page.
+ * @param props - Component props.
+ * @param props.publications - Publications.
+ * @returns The publications section, or an empty state when not given or empty.
+ */
 export const Publications = ({
   publications,
 }: PublicationsProps): JSX.Element => {
   return (
     <CollapsableSection collapsable title="Publications">
-      {publications ? (
+      {publications?.length ? (
         <div>
           {publications.map(
             (

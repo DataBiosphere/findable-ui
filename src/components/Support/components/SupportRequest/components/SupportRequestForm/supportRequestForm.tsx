@@ -38,11 +38,23 @@ import {
 import { createSupportRequest, uploadAttachment } from "./common/utils";
 import { Section } from "./supportRequestForm.styles";
 
+/**
+ * Props for the SupportRequestForm component.
+ */
 export interface SupportRequestFormProps {
   setFormSubmitted: Dispatch<SetStateAction<boolean>>;
   supportRequest: SupportRequest;
 }
 
+/**
+ * Support request form, with an optional attachment that can be dropped or chosen.
+ * Fields show errors once touched; Send stays disabled while any field is
+ * invalid or the request is being sent.
+ * @param props - Component props.
+ * @param props.setFormSubmitted - Set to true once the request is sent.
+ * @param props.supportRequest - Support request URLs and field ids.
+ * @returns The support request form.
+ */
 export const SupportRequestForm = ({
   setFormSubmitted,
   supportRequest,
@@ -271,7 +283,7 @@ export const SupportRequestForm = ({
               name={FORM_CONTROL_NAME.DESCRIPTION}
               onBlur={onBlur}
               onChange={onInputChange}
-              placeholder="Enter a decription"
+              placeholder="Enter a description"
               rows={2}
             />
             <UploadFile

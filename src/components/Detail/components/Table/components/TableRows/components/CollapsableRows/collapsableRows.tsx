@@ -5,16 +5,26 @@ import { CollapsableCell } from "../../../../../../../Table/components/TableCell
 import { StyledTableRow } from "../../../../../../../Table/components/TableRow/tableRow.styles";
 import { useCollapsableRows } from "../../../../../../../Table/components/TableRows/components/CollapsableRows/hook";
 
+/**
+ * Props for the CollapsableRows component.
+ */
 export interface CollapsableRowsProps<T extends RowData> {
   /**
    * Optional override for the rows rendered by <CollapsableRows>.
-   * - Omit to show the table’s full leaf-level row model.
+   * - Omit to show the table’s top-level rows.
    * - Pass `group.subRows` (or any other subset) to display a “mini-table” for a single group e.g. the rows that belong to one Data-Dictionary entity.
    */
   rows?: Row<T>[];
   tableInstance: Table<T>;
 }
 
+/**
+ * Table rows stacked as collapsable cells, for narrow viewports.
+ * @param props - Component props.
+ * @param props.rows - Rows to render; defaults to the table's top-level rows.
+ * @param props.tableInstance - Table instance.
+ * @returns The collapsable rows.
+ */
 export const CollapsableRows = <T extends RowData>({
   rows: leafOrSubRows,
   tableInstance,

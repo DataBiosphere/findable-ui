@@ -11,11 +11,21 @@ import { FeedbackIcon } from "../../../../../common/CustomIcon/components/Feedba
 import { ARIA_LABEL } from "./constants";
 import { Fab, Popover } from "./dialog.styles";
 
+/**
+ * Props for the FormDialog component.
+ */
 export interface FormDialogProps {
   children: ReactNode;
   setFormSubmitted: Dispatch<SetStateAction<boolean>>;
 }
 
+/**
+ * Floating button that opens the support request form in a popover.
+ * @param props - Component props.
+ * @param props.children - Popover content.
+ * @param props.setFormSubmitted - Sets whether the form was submitted; reset to false when the popover closes.
+ * @returns The button and popover.
+ */
 export const FormDialog = ({
   children,
   setFormSubmitted,

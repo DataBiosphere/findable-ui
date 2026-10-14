@@ -11,11 +11,21 @@ import {
   SectionContent,
 } from "../../../../../common/Section/section.styles";
 
+/**
+ * Props for the SupportRequestSubmitted component.
+ */
 export interface SupportRequestSubmittedProps {
   description?: ReactNode;
   title?: ReactNode;
 }
 
+/**
+ * Confirmation shown once a support request is sent.
+ * @param props - Component props.
+ * @param props.description - Description. Defaults to "Your request has been submitted.".
+ * @param props.title - Title. Defaults to "Thank You!".
+ * @returns The confirmation.
+ */
 export const SupportRequestSubmitted = ({
   description = "Your request has been submitted.",
   title = "Thank You!",

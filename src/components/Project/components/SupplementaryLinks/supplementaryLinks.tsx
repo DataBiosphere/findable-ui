@@ -12,16 +12,25 @@ import {
   SupplementaryList,
 } from "./supplementaryLinks.styles";
 
+/**
+ * Props for the SupplementaryLinks component.
+ */
 export interface SupplementaryLinksProps {
   supplementaryLinks?: SupplementaryLink[];
 }
 
+/**
+ * Supplementary links section of a project page.
+ * @param props - Component props.
+ * @param props.supplementaryLinks - Supplementary link URLs.
+ * @returns The supplementary links section, or an empty state when not given or empty.
+ */
 export const SupplementaryLinks = ({
   supplementaryLinks,
 }: SupplementaryLinksProps): JSX.Element => {
   return (
     <CollapsableSection collapsable title="Supplementary Links">
-      {supplementaryLinks ? (
+      {supplementaryLinks?.length ? (
         <Stack gap={2}>
           <Typography>
             Supplementary links are provided by contributors and represent items

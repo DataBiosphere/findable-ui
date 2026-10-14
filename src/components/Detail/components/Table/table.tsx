@@ -29,12 +29,18 @@ import { GridTable } from "../../../Table/table.styles";
 import { generateColumnDefinitions } from "./common/utils";
 import { TableBody } from "./components/TableBody/tableBody";
 
+/**
+ * Table view options; only `table.stickyHeader`, `tableCell.size` and `tableContainer.sx` are used.
+ */
 export interface TableView {
   table?: Partial<MTableProps>;
   tableCell?: Partial<MTableCellProps>;
   tableContainer?: Partial<MTableContainerProps>;
 }
 
+/**
+ * Props for the Table component.
+ */
 export interface TableProps<T extends RowData> {
   className?: string;
   collapsable?: boolean;
@@ -45,6 +51,19 @@ export interface TableProps<T extends RowData> {
   tableView?: TableView;
 }
 
+/**
+ * Detail page table; the sticky header only applies when rows are laid out in
+ * columns.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the table container.
+ * @param props.collapsable - Whether rows stack below the sm breakpoint. Defaults to true.
+ * @param props.columns - Column definitions; a row position column is added first.
+ * @param props.gridTemplateColumns - Grid template columns for the table.
+ * @param props.items - Rows of data.
+ * @param props.tableOptions - Table options, merged over the defaults.
+ * @param props.tableView - Table view options: the sticky header, cell size and container sx.
+ * @returns The table.
+ */
 export const Table = <T extends RowData>({
   className,
   collapsable = true,

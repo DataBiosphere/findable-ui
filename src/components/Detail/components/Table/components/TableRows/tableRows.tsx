@@ -9,6 +9,9 @@ import { handleToggleExpanded } from "../../../../../Table/components/TableFeatu
 import { StyledTableRow } from "../../../../../Table/components/TableRow/tableRow.styles";
 import { TableView } from "../../table";
 
+/**
+ * Props for the TableRows component.
+ */
 export interface TableRowsProps<T extends RowData> {
   /**
    * Optional override for the rows rendered by <TableRows>.
@@ -20,6 +23,15 @@ export interface TableRowsProps<T extends RowData> {
   tableView?: TableView;
 }
 
+/**
+ * Table rows with their visible cells; clicking a row toggles it when it can
+ * expand. Aggregated and placeholder cells are not shown.
+ * @param props - Component props.
+ * @param props.rows - Rows to render; defaults to the table's row model.
+ * @param props.tableInstance - Table instance.
+ * @param props.tableView - Table view options; the cell size defaults to medium.
+ * @returns The table rows.
+ */
 export const TableRows = <T extends RowData>({
   rows: leafOrSubRows,
   tableInstance,

@@ -12,10 +12,19 @@ const FAV_ICONS = {
   siteWebManifest: "/favicons/site.webmanifest",
 };
 
+/**
+ * Props for the Head component.
+ */
 export interface HeadProps {
   pageTitle?: string;
 }
 
+/**
+ * Page head: the title and favicons.
+ * @param props - Component props.
+ * @param props.pageTitle - Page title, prefixed to the app title; the app title alone when not given.
+ * @returns The page head.
+ */
 export const Head = ({ pageTitle }: HeadProps): JSX.Element => {
   const { config } = useConfig();
   const router = useRouter();

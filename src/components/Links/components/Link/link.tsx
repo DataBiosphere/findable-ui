@@ -19,6 +19,9 @@ import {
 import { ExploreViewLink } from "./components/ExploreViewLink/exploreViewLink";
 import { getFallbackProps, mergeClassNames } from "./utils";
 
+/**
+ * Props for the Link component.
+ */
 export interface LinkProps
   extends BaseComponentProps, Omit<MLinkProps, "children" | "component"> {
   copyable?: boolean;
@@ -28,6 +31,20 @@ export interface LinkProps
   url: Url /* url specified as UrlObject with href and query defined, and is currently only used for internal links */;
 }
 
+/**
+ * Link for an explore view, a client-side route or an external URL. An invalid
+ * URL renders the label as plain text.
+ * @param props - Component props; other props are passed to the MUI link, and ignored for explore URLs along with copyable, noWrap and TypographyProps.
+ * @param props.className - Class name applied to the link.
+ * @param props.copyable - Whether to show a copy to clipboard button. Defaults to false.
+ * @param props.label - Link label.
+ * @param props.noWrap - Whether the label is kept on one line. Defaults to false.
+ * @param props.onClick - Invoked on click; not called for an invalid URL.
+ * @param props.target - Link target. Defaults to the same tab for internal links and a new tab for external ones.
+ * @param props.TypographyProps - Typography props for the link.
+ * @param props.url - URL, or an explore URL object.
+ * @returns The link.
+ */
 export const Link = ({
   className,
   copyable = false,

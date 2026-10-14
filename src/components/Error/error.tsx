@@ -27,6 +27,13 @@ interface ErrorDetailSectionProps {
   title: string;
 }
 
+/**
+ * Error detail with its title.
+ * @param props - Component props.
+ * @param props.detail - Detail.
+ * @param props.title - Title.
+ * @returns The error detail.
+ */
 const ErrorMessage = ({
   detail,
   title,
@@ -44,6 +51,9 @@ const ErrorMessage = ({
   </Content>
 );
 
+/**
+ * Props for the Error component.
+ */
 export interface ErrorProps {
   errorMessage?: string;
   onReset?: () => void;
@@ -51,6 +61,16 @@ export interface ErrorProps {
   rootPath?: string;
 }
 
+/**
+ * Error page, with the request URL and error message when given. "To Homepage"
+ * resets the error and the explore state.
+ * @param props - Component props.
+ * @param props.errorMessage - Error message.
+ * @param props.onReset - Clears the caught error.
+ * @param props.requestUrlMessage - Request URL that failed.
+ * @param props.rootPath - Homepage path; the "To Homepage" button renders only when given.
+ * @returns The error page.
+ */
 export const Error = ({
   errorMessage,
   onReset,

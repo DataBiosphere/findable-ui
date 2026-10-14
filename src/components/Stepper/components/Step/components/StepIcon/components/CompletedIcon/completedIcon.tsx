@@ -4,6 +4,12 @@ import { TestIdProps } from "../../../../../../../types";
 import { StyledSvgIcon } from "./completedIcon.styles";
 import { SVG_ICON_PROPS } from "./contants";
 
+/**
+ * Check mark icon for a completed step.
+ * @param props - Component props.
+ * @param props.testId - Test id.
+ * @returns The completed icon.
+ */
 export const CompletedIcon = ({ testId }: TestIdProps): JSX.Element => {
   return (
     <StyledSvgIcon

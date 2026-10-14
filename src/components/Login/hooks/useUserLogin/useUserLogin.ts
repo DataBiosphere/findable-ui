@@ -4,6 +4,11 @@ import { useRequestLogin } from "../useRequestLogin/useRequestLogin";
 import { useUserConsent } from "../useUserConsent/useUserConsent";
 import { UseUserLogin } from "./types";
 
+/**
+ * Signs the user in with a provider. When consent to the terms of service is
+ * required but not given, shows the consent error instead.
+ * @returns The login and consent handlers and state.
+ */
 export const useUserLogin = (): UseUserLogin => {
   const { submit, submittingProviderId } = useRequestLogin();
   const { handleConsent, handleError, state: consentState } = useUserConsent();

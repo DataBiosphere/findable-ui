@@ -6,6 +6,11 @@ import { useInitialState } from "./initialState/hook";
 import { useSortingOptions } from "./sorting/hook";
 import { useVisibilityOptions } from "./visibility/hook";
 
+/**
+ * Returns the table options for the current entity: the default options,
+ * overridden by the entity's configured table options, with the initial state.
+ * @returns Table options.
+ */
 export function useTableOptions<T extends RowData>(): Partial<TableOptions<T>> {
   const { entityConfig } = useConfig();
   const tableOptions = entityConfig.list.tableOptions;

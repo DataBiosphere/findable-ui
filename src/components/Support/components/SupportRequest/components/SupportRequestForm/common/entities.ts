@@ -28,6 +28,9 @@ export enum FORM_CONTROL_NAME {
 
 export type FormControlValue = Record<FORM_CONTROL_NAME, string>;
 
+/**
+ * Support request form state.
+ */
 export interface FormState extends FormControlValue {
   attachmentName: string;
   attachmentRejected: boolean;
@@ -39,6 +42,9 @@ export interface FormState extends FormControlValue {
   touched: Touched;
 }
 
+/**
+ * Option in the message topic select.
+ */
 export interface FormOption {
   disabled?: boolean;
   label: string;
@@ -49,10 +55,16 @@ export type Touched = {
   [key in FORM_CONTROL_NAME]?: boolean;
 };
 
+/**
+ * Attachment returned by the upload.
+ */
 export interface UploadAttachment {
   file_name: string;
 }
 
+/**
+ * Response from the attachment upload.
+ */
 export interface UploadResponse {
   attachment: UploadAttachment;
   token: string;

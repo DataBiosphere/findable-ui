@@ -5,6 +5,9 @@ import {
   RoundedPaper,
 } from "../common/Paper/paper.styles";
 
+/**
+ * Props for the NoResults component.
+ */
 export interface NoResultsProps {
   actions?: ReactNode;
   description?: string;

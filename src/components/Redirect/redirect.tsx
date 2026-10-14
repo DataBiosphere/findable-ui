@@ -1,11 +1,21 @@
 import { useRouter } from "next/router";
 import { JSX, useEffect } from "react";
 
+/**
+ * Props for the Redirect component.
+ */
 export interface RedirectProps {
   destination: string;
   replace?: boolean;
 }
 
+/**
+ * Navigates to the destination.
+ * @param props - Component props.
+ * @param props.destination - Destination URL.
+ * @param props.replace - Whether to replace the current history entry instead of pushing a new one.
+ * @returns An empty fragment.
+ */
 export const Redirect = ({
   destination,
   replace,

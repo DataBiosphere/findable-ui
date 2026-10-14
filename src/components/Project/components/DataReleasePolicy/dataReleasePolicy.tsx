@@ -3,6 +3,10 @@ import { JSX } from "react";
 import { CollapsableSection } from "../../../common/Section/components/CollapsableSection/collapsableSection";
 import { ANCHOR_TARGET, REL_ATTRIBUTE } from "../../../Links/common/entities";
 
+/**
+ * Data access policy section of a project page, linking to the AnVIL data security FAQ.
+ * @returns The data access policy section.
+ */
 export const DataReleasePolicy = (): JSX.Element => {
   return (
     <CollapsableSection title="Data Access Policy">

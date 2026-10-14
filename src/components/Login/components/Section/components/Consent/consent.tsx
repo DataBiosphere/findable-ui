@@ -8,6 +8,16 @@ import { BaseComponentProps } from "../../../../../types";
 import { StyledGrid } from "./consent.styles";
 import { ConsentProps } from "./types";
 
+/**
+ * Terms of service consent checkbox; shows the error icon after a sign-in attempt without consent.
+ * @param props - Component props; other props are passed to the grid.
+ * @param props.children - Consent label.
+ * @param props.className - Class name applied to the grid.
+ * @param props.handleConsent - Invoked when the checkbox changes.
+ * @param props.isDisabled - Whether consent is not required.
+ * @param props.isError - Whether to show the error state.
+ * @returns The consent checkbox, or null when consent is not required.
+ */
 export const Consent = ({
   children,
   className,

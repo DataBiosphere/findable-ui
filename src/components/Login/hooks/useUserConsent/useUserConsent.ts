@@ -2,6 +2,11 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useAuthenticationConfig } from "../../../../hooks/authentication/config/useAuthenticationConfig";
 import { UseUserConsent } from "./types";
 
+/**
+ * Manages consent to the terms of service. Consent is not required when no terms
+ * of service are configured.
+ * @returns The consent handlers and state.
+ */
 export const useUserConsent = (): UseUserConsent => {
   const authConfig = useAuthenticationConfig();
   const [isDisabled] = useState<boolean>(Boolean(!authConfig?.termsOfService));
