@@ -9,6 +9,12 @@ import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { BaseComponentProps } from "../../../../../../types";
 import { StyledBox } from "./exportButton.styles";
 
+/**
+ * Export button linking to the export page. It is disabled while the system is indexing, with a tooltip saying so, and while the system status is loading.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @returns The export button, or null when the export button is not enabled on the entity's UI config.
+ */
 export const ExportButton = ({
   className,
 }: BaseComponentProps): JSX.Element | null => {

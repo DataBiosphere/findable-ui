@@ -7,6 +7,12 @@ import { BaseComponentProps } from "../../../../../../types";
 import { GRID_PROPS } from "./constants";
 import { StyledDot, StyledGrid } from "./summary.styles";
 
+/**
+ * Entity list summary: each summary's count and, when it has one, its label, separated by dots.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the summary grid.
+ * @returns The summary, or null when the summary is disabled, not configured, or not yet loaded.
+ */
 export const Summary = ({
   className,
 }: BaseComponentProps): JSX.Element | null => {

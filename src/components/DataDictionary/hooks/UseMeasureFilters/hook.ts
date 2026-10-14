@@ -6,6 +6,10 @@ import {
 import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { UseMeasureFilters } from "./types";
 
+/**
+ * Measures the height of the data dictionary filters, once the header has been measured.
+ * @returns The filters ref and height; the height is 0 until measured.
+ */
 export const useMeasureFilters = (): UseMeasureFilters => {
   // Get header dimensions.
   const { dimensions } = useLayoutDimensions();

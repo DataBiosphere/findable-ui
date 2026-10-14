@@ -11,6 +11,16 @@ import { Chart } from "./components/Chart/chart";
 import { useChartView } from "./hooks/UseChartView/useChartView";
 import { ChartViewProps } from "./types";
 
+/**
+ * Entity list chart view, with a loading overlay and a bar chart for each category view selected by useChartView, titled "<entity name> by <category label>".
+ * Each chart's values are sorted by the category's configured chart sort.
+ * @param props - Component props.
+ * @param props.categoryFilters - Category filters.
+ * @param props.entityName - Entity name, used in the chart titles.
+ * @param props.loading - Whether the loading overlay is shown.
+ * @param props.testId - Test ID applied to the charts grid.
+ * @returns The chart view, or null when no category has a chart.
+ */
 export const ChartView = ({
   categoryFilters,
   entityName,

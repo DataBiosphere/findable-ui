@@ -7,6 +7,12 @@ import { Entity } from "../Entity/entity";
 import { GRID_PROPS, NO_RESULTS_PROPS } from "./constants";
 import { ClassesProps } from "./types";
 
+/**
+ * Data dictionary entities: one entity per grouped row of the table, where each group is a class (e.g. "donor").
+ * @param props - Component props.
+ * @param props.table - TanStack table instance, grouped by class.
+ * @returns The entities, or a no results message when the table has no grouped rows.
+ */
 export const Entities = <T extends RowData = Attribute>({
   table,
 }: ClassesProps<T>): JSX.Element => {

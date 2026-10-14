@@ -1,6 +1,9 @@
 import { RowData, TableOptions } from "@tanstack/react-table";
 import { Attribute, Class } from "../../../../common/entities";
 
+/**
+ * Return type for the useDataDictionaryConfig hook.
+ */
 export interface UseDataDictionaryConfig<T extends RowData = Attribute> {
   classes: Class<T>[];
   description?: string;

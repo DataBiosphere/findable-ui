@@ -45,6 +45,14 @@ import { useTableOptions } from "../../TableCreator/options/hook";
 import { createCell } from "./coreOptions/columns/cellFactory";
 import { UseTable, UseTableProps } from "./types";
 
+/**
+ * Builds the entity list's TanStack table from the explore state's list items and the configured columns, after a row position and a row selection column.
+ * Table state is read from, and changes dispatched to, the explore state. With client filtering, the table filters, sorts and facets its own rows and reports the result back to the explore state for the current tab.
+ * Options from useTableOptions take precedence.
+ * @param props - Hook props.
+ * @param props.entityListType - Entity list type.
+ * @returns The TanStack table instance.
+ */
 export const useTable = <T extends RowData>({
   entityListType,
 }: UseTableProps): UseTable<T> => {

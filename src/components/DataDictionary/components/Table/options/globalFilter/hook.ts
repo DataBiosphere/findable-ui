@@ -6,6 +6,10 @@ import { updateGlobalFilter } from "../../../../../../providers/dataDictionarySt
 import { useDataDictionaryState } from "../../../../../../providers/dataDictionaryState/hooks/UseDataDictionaryState/hook";
 import { GLOBAL_FILTER_OPTIONS } from "./constants";
 
+/**
+ * Global filter options for the data dictionary table, dispatching global filter changes to the data dictionary state.
+ * @returns The global filter options.
+ */
 export const useGlobalFilterOptions = <
   T extends RowData = Attribute,
 >(): GlobalFilterOptions<T> => {

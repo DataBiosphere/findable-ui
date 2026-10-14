@@ -5,18 +5,22 @@ import { useConfig } from "../../../../hooks/useConfig";
 import { UseDataDictionaryConfig } from "./types";
 import { throwDictionaryConfigNotFoundError } from "./utils";
 
+/**
+ * Returns the data dictionary config whose path matches the given dictionary.
+ * @param dictionary - Data dictionary path.
+ * @returns The dictionary's classes, description, table options and title.
+ * @throws Error when no data dictionary config has a matching path.
+ */
 export const useDataDictionaryConfig = <T extends RowData = Attribute>(
   dictionary: string,
 ): UseDataDictionaryConfig<T> => {
   const {
     config: { dataDictionaries: dataDictionaryConfigs },
   } = useConfig();
-  // Get dictionary config by matching the current path with the data dictionary path
+  // Get dictionary config by matching the given dictionary with the data dictionary path
   const dataDictionaryConfig = useMemo(() => {
     if (!dataDictionaryConfigs?.length) return undefined;
 
-    // Find the data dictionary with a path that matches the current route
-    // We check if the current path starts with the dictionary path to handle nested routes
     return dataDictionaryConfigs.find(
       (config) => config.path === dictionary,
     ) as DataDictionaryConfig<T> | undefined;
@@ -25,7 +29,7 @@ export const useDataDictionaryConfig = <T extends RowData = Attribute>(
   // Throw error if the dictionary config is not found.
   if (!dataDictionaryConfig) throwDictionaryConfigNotFoundError(dictionary);
 
-  // Get configured dictionary classes, column definitions and table options.
+  // Return the dictionary's classes, description, table options and title.
   return useMemo(() => {
     // Using non-null assertion (!) because we've already checked dataDictionaryConfig
     // exists above and would have thrown an error if undefined.

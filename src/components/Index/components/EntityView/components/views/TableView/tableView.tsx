@@ -5,6 +5,14 @@ import { useExploreState } from "../../../../../../../hooks/useExploreState";
 import { TableCreator } from "../../../../../../TableCreator/tableCreator";
 import { EntityListProps } from "./types";
 
+/**
+ * Entity list table view, rendering the table with the entity's list view config.
+ * @param props - Component props.
+ * @param props.entityListType - Entity list type.
+ * @param props.loading - Whether the table is loading.
+ * @param props.table - TanStack table instance.
+ * @returns The table view, or null when the entity list type is not the explore state's tab value.
+ */
 export const TableView = <T extends RowData>({
   entityListType,
   loading,

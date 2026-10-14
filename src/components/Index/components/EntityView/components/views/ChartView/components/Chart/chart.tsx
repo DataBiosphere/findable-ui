@@ -7,6 +7,14 @@ import { usePlotOptions } from "./hooks/UsePlotOptions/hook";
 import { ChartProps } from "./types";
 import { renderButtonText } from "./utils";
 
+/**
+ * Bar chart of the category values. With more values than the maximum bar count, it shows a limited number of bars (see useBarCount) and a button to show the additional results or show less; showing less scrolls the chart into view.
+ * @param props - Component props.
+ * @param props.selectCategoryValueViews - Category values, in display order.
+ * @param props.testId - Test ID applied to the chart.
+ * @param props.width - Chart width.
+ * @returns The chart.
+ */
 export const Chart = ({
   selectCategoryValueViews,
   testId,

@@ -13,6 +13,14 @@ import { FilterCountChip } from "../../../../../../Filter/components/FilterCount
 import { BaseComponentProps } from "../../../../../../types";
 import { StyledButton } from "./filterButton.styles";
 
+/**
+ * Filter button that opens the filter drawer, showing the explore state's filter count.
+ * When the explore state has category views, the button carries the dialog popup ARIA props for the drawer.
+ * The given Mui Button props override the defaults, so an onClick prop replaces the drawer's open handler.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @returns The filter button, rendered on the client only.
+ */
 export const FilterButton = ({
   className,
   ...props

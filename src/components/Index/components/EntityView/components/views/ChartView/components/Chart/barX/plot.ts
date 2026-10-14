@@ -19,6 +19,14 @@ import {
   renderText,
 } from "./utils";
 
+/**
+ * Returns the Observable Plot options for a horizontal bar chart of the category values, in the given order.
+ * Each bar is labelled with its category value (suffixed "(selected)" when selected) and its count and percentage of the total; when any value is selected, the selected bars are highlighted and the others muted.
+ * @param selectCategoryValueViews - Category values to plot.
+ * @param totalCount - Total count, used for the percentages.
+ * @param width - Plot width.
+ * @returns The plot options.
+ */
 export function getPlotOptions(
   selectCategoryValueViews: SelectCategoryValueView[],
   totalCount: number,
