@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { Dialog } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 import { ARIA_LABEL } from "../src/components/common/Dialog/components/DialogTitle/constants";
 import { DialogTitle } from "../src/components/common/Dialog/components/DialogTitle/dialogTitle";
@@ -46,6 +47,38 @@ describe("DialogTitle", () => {
       ).not.toBeNull();
     },
   );
+
+  it("should label the heading with a text title", () => {
+    render(<DialogTitle onClose={jest.fn()} title={TITLE} />);
+    expect(screen.getByRole("heading").getAttribute("aria-label")).toBe(TITLE);
+  });
+
+  it("should not set an aria-label when the title is an element", () => {
+    render(<DialogTitle onClose={jest.fn()} title={<span>{TITLE}</span>} />);
+    expect(screen.getByRole("heading").hasAttribute("aria-label")).toBe(false);
+  });
+
+  // jsdom's name computation skips a button's aria-label, so it can't show the
+  // close button joining the dialog's name; check the element the dialog is
+  // named by instead.
+  it("should name the dialog from the title only", () => {
+    render(
+      <Dialog open>
+        <DialogTitle
+          closeLabel={CLOSE_LABEL}
+          onClose={jest.fn()}
+          title={TITLE}
+        />
+      </Dialog>,
+    );
+    const labelledBy = screen
+      .getByRole("dialog")
+      .getAttribute("aria-labelledby");
+    expect(labelledBy).not.toBeNull();
+    expect(
+      document.getElementById(labelledBy as string)?.getAttribute("aria-label"),
+    ).toBe(TITLE);
+  });
 
   it("should not render a close button when onClose is not given", () => {
     render(<DialogTitle title={TITLE} />);

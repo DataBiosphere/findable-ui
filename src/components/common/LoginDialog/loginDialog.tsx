@@ -19,6 +19,7 @@ import {
   DIALOG_TITLE_PROPS,
   ICON_BUTTON_PROPS,
   ICON_PROPS,
+  TITLE,
 } from "./constants";
 import { StyledDialog, StyledTypography } from "./loginDialog.styles";
 import { LoginDialogProps } from "./types";
@@ -42,8 +43,10 @@ export const LoginDialog = ({
 
   return (
     <StyledDialog {...DIALOG_PROPS} onClose={onClose} open={open}>
-      <DialogTitle {...DIALOG_TITLE_PROPS}>
-        <div>Sign In Required</div>
+      {/* MUI points the dialog's aria-labelledby at the title, so name it from the
+      title alone; otherwise the close button's label joins the name. */}
+      <DialogTitle {...DIALOG_TITLE_PROPS} aria-label={TITLE}>
+        <div>{TITLE}</div>
         <IconButton
           {...ICON_BUTTON_PROPS}
           aria-label={ARIA_LABEL.CLOSE}
