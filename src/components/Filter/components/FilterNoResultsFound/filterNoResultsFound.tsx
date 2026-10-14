@@ -6,10 +6,20 @@ import { FilterNoResultsFound as FilterNoResults } from "./filterNoResultsFound.
 
 type OnClearSearchTermFn = () => void;
 
+/**
+ * Props for the FilterNoResultsFound component.
+ */
 export interface FilterNoResultsFoundProps {
   onClearSearchTerm?: OnClearSearchTermFn;
 }
 
+/**
+ * No results message for a filter search, with a "Clear Search" button when onClearSearchTerm is given.
+ * @param props - Component props.
+ * @param props.onClearSearchTerm - Function invoked to clear the search term.
+ * @param ref - Ref forwarded to the message element.
+ * @returns The no results message.
+ */
 export const FilterNoResultsFound = forwardRef<
   HTMLDivElement,
   FilterNoResultsFoundProps

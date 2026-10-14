@@ -41,6 +41,9 @@ import VariableSizeListItem from "../VariableSizeListItem/variableSizeListItem";
 
 export type ItemSizeByItemKey = Map<string, number>;
 
+/**
+ * Props for the search all filters VariableSizeList component.
+ */
 export interface VariableSizeListProps {
   autocompleteListProps: Omit<MListProps, "children">;
   height?: number; // Height of list; vertical list must be a number.
@@ -112,6 +115,22 @@ const OuterElement = forwardRef<HTMLDivElement>(function OuterElement(
   );
 });
 
+/**
+ * Virtualized search all filters list: the values matching the search term, grouped by category under category headers and separated by dividers, skipping disabled categories, or a no results item when nothing matches.
+ * In the popper drawer the list fills the window below it; otherwise it fits its items, up to the window below it.
+ * @param props - Component props.
+ * @param props.autocompleteListProps - Mui Autocomplete listbox props, applied to the list.
+ * @param props.height - Initial list height; defaults to the maximum list height.
+ * @param props.itemSize - Item height used until an item is measured; defaults to the list item height.
+ * @param props.onFilter - Function invoked when a value is toggled.
+ * @param props.overscanCount - Number of items rendered outside the visible area; defaults to twice the maximum displayable list items.
+ * @param props.searchTerm - Search term.
+ * @param props.selectCategoryViews - Select category views to search.
+ * @param props.surfaceType - Filter surface type.
+ * @param props.width - List width; defaults to 100%.
+ * @param autocompleteListRef - Ref forwarded to the list element.
+ * @returns The search all filters list.
+ */
 export const VariableSizeList = forwardRef<
   HTMLUListElement,
   VariableSizeListProps

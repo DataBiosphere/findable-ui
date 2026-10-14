@@ -12,6 +12,12 @@ import {
 } from "./types";
 import { getFormValues } from "./utils";
 
+/**
+ * Manages the range filter form's operator, field errors and submit handler.
+ * The submit handler validates min and max for the current operator (between: min or max, with min below max when both are non-zero; less than: max; greater than: min); when valid it clears the errors and invokes onSubmit with the [min, max] range as a range filter, otherwise it sets the field errors.
+ * @param initialValue - Initial range operator; defaults to RANGE_OPERATOR.BETWEEN.
+ * @returns The range operator and its change handler, the field errors, a function to clear them, and the submit handler factory.
+ */
 export const useFilterRange = (
   initialValue: RANGE_OPERATOR = RANGE_OPERATOR.BETWEEN,
 ): UseFilterRange => {

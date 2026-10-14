@@ -5,6 +5,10 @@ import { BUTTON_PROPS } from "../../../../styles/common/mui/button";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { StyledButton } from "./clearAllFilters.styles";
 
+/**
+ * "Clear All" button that clears the explore state's filters.
+ * @returns The clear all filters button.
+ */
 export const ClearAllFilters = (): JSX.Element => {
   const { exploreDispatch } = useExploreState();
 

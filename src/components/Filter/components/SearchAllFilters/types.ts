@@ -4,6 +4,9 @@ import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { BaseComponentProps } from "../../../types";
 import { SURFACE_TYPE } from "../surfaces/types";
 
+/**
+ * Props for the SearchAllFilters component.
+ */
 export interface SearchAllFiltersProps
   extends
     Omit<

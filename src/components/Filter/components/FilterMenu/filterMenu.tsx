@@ -15,6 +15,9 @@ import { SURFACE_TYPE } from "../surfaces/types";
 import { VariableSizeList } from "../VariableSizeList/VariableSizeList";
 import { FilterView, FilterViewTools } from "./filterMenu.styles";
 
+/**
+ * Props for the FilterMenu component.
+ */
 export interface FilterMenuProps {
   categoryKey: CategoryKey;
   categoryLabel: string;
@@ -26,6 +29,21 @@ export interface FilterMenuProps {
   values: SelectCategoryValueView[];
 }
 
+/**
+ * Filter menu of a category's values, with a search when in the drawer or when there are more values than the menu displays at once.
+ * Shows a no results message, with a clear search button, when no value matches the search or the category has no values.
+ * In the drawer, a button labelled with the category closes the filter panel.
+ * @param props - Component props.
+ * @param props.categoryKey - Category key.
+ * @param props.categoryLabel - Category label, shown in the drawer.
+ * @param props.categorySection - Category section label, passed to onFilter.
+ * @param props.menuWidth - Menu width in pixels; defaults to 312.
+ * @param props.onCloseFilter - Function invoked by the drawer's category button to close the filter panel.
+ * @param props.onFilter - Function invoked when a value is toggled.
+ * @param props.surfaceType - Filter surface type.
+ * @param props.values - Category values.
+ * @returns The filter menu.
+ */
 export const FilterMenu = ({
   categoryKey,
   categoryLabel,
@@ -74,6 +92,12 @@ export const FilterMenu = ({
   );
 };
 
+/**
+ * Filters the category values to those whose label, or else key, matches every word of the search term, best matches first, with their matched label ranges when the label matched. An empty search term matches all values.
+ * @param values - Category values.
+ * @param searchTerm - Search term.
+ * @returns The matching values.
+ */
 export function applyMenuFilter(
   values: SelectCategoryValueView[],
   searchTerm: string,

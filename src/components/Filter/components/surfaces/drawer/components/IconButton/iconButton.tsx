@@ -8,9 +8,12 @@ import { ARIA_LABEL, ICON_BUTTON_PROPS, SVG_ICON_PROPS } from "./constants";
 import { StyledIconButton } from "./iconButton.styles";
 
 /**
- * Closes facet-filters drawer.
+ * Close icon button that closes the filters drawer, named by the given aria-label; a missing or blank value falls back to ARIA_LABEL.CLOSE.
+ * The given Mui IconButton props override the defaults, including the click handler.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @returns The close button.
  */
-
 export const IconButton = ({
   className,
   ...props /* MuiIconButtonProps */

@@ -2,6 +2,9 @@ import { BaseComponentProps } from "../../../../types";
 import { SurfaceProps } from "../../surfaces/types";
 import { FilterSortProps } from "./components/FilterSort/types";
 
+/**
+ * Props for the Controls component.
+ */
 export interface ControlsProps
   extends
     BaseComponentProps,

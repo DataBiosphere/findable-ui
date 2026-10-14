@@ -4,6 +4,9 @@ import { TrackFilterOpenedFunction } from "../../../../config/entities";
 import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { SURFACE_TYPE } from "../surfaces/types";
 
+/**
+ * Props for the Filter component.
+ */
 export interface FilterProps {
   categorySection?: string;
   categoryView: CategoryView;

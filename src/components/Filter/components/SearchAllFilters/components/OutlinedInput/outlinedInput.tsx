@@ -7,6 +7,11 @@ import { useAutocomplete } from "../../context/hook";
 import { TEXT_FIELD_PROPS } from "./constants";
 import { isButtonIn } from "./utils";
 
+/**
+ * Search all filters input, with a search adornment and a clear button that invokes the autocomplete context's onClear. The clear button shows while the autocomplete is open: always in the popper drawer, otherwise only with a search term.
+ * @param props - Component props, the Mui Autocomplete input params; the input label props are not applied.
+ * @returns The search all filters input.
+ */
 export const OutlinedInput = (
   props: AutocompleteRenderInputParams,
 ): JSX.Element => {

@@ -7,6 +7,9 @@ export type FieldErrors = Partial<Record<FieldName, string>>;
 
 export type FieldName = (typeof FIELD_NAME)[keyof typeof FIELD_NAME];
 
+/**
+ * Range filter form field values.
+ */
 export interface FieldValues {
   max: FormDataEntryValue | null;
   min: FormDataEntryValue | null;
@@ -28,6 +31,9 @@ export type SubmitParams = {
   categorySection?: OnSubmitParams[3];
 };
 
+/**
+ * Return type for the useFilterRange hook.
+ */
 export interface UseFilterRange {
   clearErrors: () => void;
   formState: { errors: FieldErrors };

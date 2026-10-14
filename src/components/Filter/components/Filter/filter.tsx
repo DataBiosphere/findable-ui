@@ -18,11 +18,21 @@ import { FilterProps } from "./types";
 import { getCloseCategoryLabel } from "./utils";
 
 /**
- * Filter component.
+ * Category filter: a label button that opens the category's filter panel, followed by the given tags.
+ * The panel is a non-modal dialog over a backdrop, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in with a close button; otherwise it grows as a menu.
+ * Closing the panel from the backdrop, with Escape, or with the drawer's close button also invokes closeAncestor.
  * TODO(cc) refactor: build tags from categoryView for selected values.
  * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
+ * @param props - Component props.
+ * @param props.categorySection - Category section label, passed to onFilter.
+ * @param props.categoryView - Category view to filter.
+ * @param props.closeAncestor - Function invoked after the panel is closed from the backdrop, with Escape, or with the drawer's close button.
+ * @param props.onFilter - Function invoked when a filter value is toggled or a range is submitted.
+ * @param props.surfaceType - Filter surface type.
+ * @param props.tags - Content rendered after the panel, e.g. filter tags.
+ * @param props.trackFilterOpened - Function invoked with the category when the panel is opened.
+ * @returns The filter.
  */
-
 export const Filter = ({
   categorySection,
   categoryView,

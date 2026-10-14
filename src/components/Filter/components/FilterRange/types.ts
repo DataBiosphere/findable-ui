@@ -4,6 +4,9 @@ import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { BaseComponentProps } from "../../../types";
 import { SURFACE_TYPE } from "../surfaces/types";
 
+/**
+ * Props for the FilterRange component.
+ */
 export interface FilterRangeProps
   extends Omit<RangeCategoryView, "key" | "label">, BaseComponentProps {
   categoryKey: CategoryKey;

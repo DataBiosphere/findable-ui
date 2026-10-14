@@ -6,6 +6,9 @@ import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { StyledButton } from "./filterLabel.styles";
 
+/**
+ * Props for the FilterLabel component.
+ */
 export interface FilterLabelProps {
   annotation?: DataDictionaryAnnotation;
   count?: number;
@@ -22,6 +25,20 @@ export interface FilterLabelProps {
   surfaceType: SURFACE_TYPE;
 }
 
+/**
+ * Filter label button that opens the filter panel, announced as a dialog popup, showing the label with the count in parentheses when the count is non-zero.
+ * The annotation is shown in a data dictionary tooltip.
+ * @param props - Component props.
+ * @param props.annotation - Data dictionary annotation, shown in the tooltip.
+ * @param props.count - Number of category values.
+ * @param props.disabled - Whether the button is disabled; defaults to false.
+ * @param props.isOpen - Whether the filter panel is open.
+ * @param props.label - Filter label.
+ * @param props.onClick - Function invoked when the button is clicked.
+ * @param props.panelId - Id of the filter panel this label opens; without it, no aria-controls is set.
+ * @param props.surfaceType - Filter surface type.
+ * @returns The filter label.
+ */
 export const FilterLabel = ({
   annotation,
   count,

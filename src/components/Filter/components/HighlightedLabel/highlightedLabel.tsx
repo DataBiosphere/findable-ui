@@ -8,6 +8,14 @@ interface HighlightedLabelProps extends TestIdProps {
   ranges?: FilterMenuSearchMatchRange[];
 }
 
+/**
+ * Label with its search match ranges highlighted, merging overlapping or adjacent ranges.
+ * @param props - Component props.
+ * @param props.label - Label text.
+ * @param props.ranges - Match ranges to highlight; without them, the label is shown as is.
+ * @param props.testId - Test id, set as the wrapping span's data-testid attribute.
+ * @returns The highlighted label.
+ */
 export const HighlightedLabel = ({
   label,
   ranges,

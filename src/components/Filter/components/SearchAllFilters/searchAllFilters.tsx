@@ -41,6 +41,17 @@ const Listbox = forwardRef<HTMLUListElement, MListProps>(
   },
 );
 
+/**
+ * Search all filters: an autocomplete searching the values of all select categories, listing the matches in a virtualized list grouped by category.
+ * Opening it in the popper menu stops the page and sidebar scrolling. Closing it clears the search term, restores the scrolling, and blurs the input. Clearing the search also closes it in the popper drawer.
+ * The given Mui Autocomplete props override the defaults, including open, value, and the open, close and input change handlers.
+ * @param props - Component props.
+ * @param props.categoryViews - Category views; only select category views are searched.
+ * @param props.className - Class name applied to the autocomplete.
+ * @param props.onFilter - Function invoked when a value is toggled.
+ * @param props.surfaceType - Filter surface type; defaults to the popper menu.
+ * @returns The search all filters autocomplete.
+ */
 export const SearchAllFilters = ({
   categoryViews,
   className,

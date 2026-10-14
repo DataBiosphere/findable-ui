@@ -4,6 +4,11 @@ import { FILTER_SORT } from "../../../../../../../../common/filters/sort/config/
 import { UseUpdateFilterSort } from "./types";
 import { initFilterSort, isFilterSortEnabled } from "./utils";
 
+/**
+ * Manages the filter value sort for a TanStack table's column filters, initialised and enabled from the table meta's filter sort.
+ * @param table - TanStack table instance.
+ * @returns The filter sort, its change handler, and whether sorting is enabled.
+ */
 export const useUpdateFilterSort = <T extends RowData>(
   table: Table<T>,
 ): UseUpdateFilterSort => {

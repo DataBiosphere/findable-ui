@@ -6,6 +6,15 @@ import { Count } from "./components/Count/count";
 import { Term } from "./components/Term/term";
 import { StyledListItemText } from "./listItemText.styles";
 
+/**
+ * Select list item text, rendering a string primary as a term and a string secondary as a count; other content is rendered as is.
+ * The given Mui ListItemText props override the defaults.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the text.
+ * @param props.primary - Primary content.
+ * @param props.secondary - Secondary content.
+ * @returns The list item text.
+ */
 export const ListItemText = ({
   className,
   primary,

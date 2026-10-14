@@ -12,6 +12,14 @@ import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { ColumnFiltersAdapterProps } from "./types";
 import { buildColumnFilters, getColumnFiltersCount } from "./utils";
 
+/**
+ * Adapts a TanStack table's column filters to a filter surface: builds the category filters, selected count and filter sort state from the table, and renders the surface with them.
+ * The surface's filter handler clears all column filters for "clear all", sets a range filter's value directly, and otherwise toggles the value in the column's filter, clearing the filter when no values remain.
+ * @param props - Component props.
+ * @param props.renderSurface - Renders the filter surface from the surface props.
+ * @param props.table - TanStack table instance.
+ * @returns The rendered filter surface, or null when the surface renders nothing.
+ */
 export const ColumnFiltersAdapter = <T extends RowData>({
   renderSurface,
   table,
