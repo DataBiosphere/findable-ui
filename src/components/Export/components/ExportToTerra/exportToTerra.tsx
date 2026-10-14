@@ -16,6 +16,9 @@ import {
 import { ExportToTerraNotStarted } from "./components/ExportToTerraNotStarted/exportToTerraNotStarted";
 import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerraReady";
 
+/**
+ * Props for the ExportToTerra component.
+ */
 export interface ExportToTerraProps {
   ExportForm: ElementType;
   ExportToTerraStart: ElementType;
@@ -30,6 +33,25 @@ export interface ExportToTerraProps {
   speciesFacetName: string;
 }
 
+/**
+ * Export to Terra. Shows the form until the manifest is returned, then shows
+ * a link to Terra built from the configured export to Terra URL; without that
+ * URL configured, the form stays. Requesting the link tracks the export request
+ * in analytics.
+ * @param props - Component props.
+ * @param props.ExportForm - Form component.
+ * @param props.ExportToTerraStart - Content rendered above the form.
+ * @param props.ExportToTerraSuccess - Content rendered above the link once it is ready.
+ * @param props.fileManifestState - File manifest state.
+ * @param props.fileSummaryFacetName - Name of the file type facet.
+ * @param props.filters - Filters the file manifest is initialized with.
+ * @param props.formFacet - Species and file type facets for the form.
+ * @param props.isDatasetExport - Whether the export is of a dataset, tracked as a dataset export; defaults to false.
+ * @param props.manifestDownloadFormat - Initially selected manifest format.
+ * @param props.manifestDownloadFormats - Manifest formats to choose from.
+ * @param props.speciesFacetName - Name of the species facet.
+ * @returns The export to Terra form, or the link once it is ready.
+ */
 export const ExportToTerra = ({
   ExportForm,
   ExportToTerraStart,

@@ -32,6 +32,22 @@ interface DownloadCurlCommandProps {
   speciesFacetName: string;
 }
 
+/**
+ * Curl command download. Shows the form until a curl command for the selected
+ * shell is returned, then shows the command. Requesting the command tracks the
+ * bulk download request in analytics.
+ * @param props - Component props.
+ * @param props.DownloadCurlForm - Form component.
+ * @param props.DownloadCurlStart - Content rendered above the form.
+ * @param props.DownloadCurlSuccess - Content rendered above the command once it is ready.
+ * @param props.fileManifestState - File manifest state.
+ * @param props.fileSummaryFacetName - Name of the file type facet.
+ * @param props.filters - Filters the file manifest is initialized with.
+ * @param props.formFacet - Species and file type facets for the form.
+ * @param props.manifestDownloadFormat - Manifest format to request; defaults to MANIFEST_DOWNLOAD_FORMAT.CURL.
+ * @param props.speciesFacetName - Name of the species facet.
+ * @returns The curl command form, or the command once it is ready.
+ */
 export const DownloadCurlCommand = ({
   DownloadCurlForm,
   DownloadCurlStart,

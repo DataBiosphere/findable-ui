@@ -15,6 +15,9 @@ import { trackFileManifestRequested } from "../../common/tracking";
 import { ManifestDownloadNotStarted } from "./components/ManifestDownloadNotStarted/manifestDownloadNotStarted";
 import { ManifestDownloadReady } from "./components/ManifestDownloadReady/manifestDownloadReady";
 
+/**
+ * Props for the ManifestDownload component.
+ */
 export interface ManifestDownloadProps {
   fileManifestState: FileManifestState;
   fileSummaryFacetName: string;
@@ -27,6 +30,21 @@ export interface ManifestDownloadProps {
   speciesFacetName: string;
 }
 
+/**
+ * Manifest download. Shows the form until a manifest URL is returned, then
+ * shows the URL. Requesting the manifest tracks the request in analytics.
+ * @param props - Component props.
+ * @param props.fileManifestState - File manifest state.
+ * @param props.fileSummaryFacetName - Name of the file type facet.
+ * @param props.filters - Filters the file manifest is initialized with.
+ * @param props.formFacet - Species and file type facets for the form.
+ * @param props.ManifestDownloadForm - Form component.
+ * @param props.manifestDownloadFormat - Manifest format to request; defaults to MANIFEST_DOWNLOAD_FORMAT.COMPACT.
+ * @param props.ManifestDownloadStart - Content rendered above the form.
+ * @param props.ManifestDownloadSuccess - Content rendered above the URL once it is ready.
+ * @param props.speciesFacetName - Name of the species facet.
+ * @returns The manifest download form, or the URL once it is ready.
+ */
 export const ManifestDownload = ({
   fileManifestState,
   fileSummaryFacetName,

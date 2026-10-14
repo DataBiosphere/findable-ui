@@ -25,10 +25,23 @@ import {
   TableContainer,
 } from "../../manifestDownloadEntity.styles";
 
+/**
+ * Props for the FileManifestSpreadsheet component.
+ */
 export interface FileManifestSpreadsheetProps {
   filters: Filters;
 }
 
+/**
+ * Metadata spreadsheet download. Shows a "Request link" button, disabled under
+ * a loading overlay while the request runs, until the request completes; then
+ * download and copy buttons with the file name, or a message that the metadata
+ * is not available. The button is disabled while downloads are disabled during
+ * indexing, with a tooltip saying so.
+ * @param props - Component props.
+ * @param props.filters - Filters for the spreadsheet.
+ * @returns The metadata section.
+ */
 export const FileManifestSpreadsheet = ({
   filters,
 }: FileManifestSpreadsheetProps): JSX.Element => {

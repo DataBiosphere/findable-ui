@@ -6,12 +6,24 @@ import {
   OnRequestManifestFn,
 } from "../../../ExportForm/exportForm";
 
+/**
+ * Props for the ManifestDownloadForm component.
+ */
 export interface ManifestDownloadFormProps {
   formFacet: FormFacet;
   isLoading: boolean;
   onRequestManifest: OnRequestManifestFn;
 }
 
+/**
+ * Export form for the manifest download: the species and file type forms and
+ * a "Prepare Manifest" button.
+ * @param props - Component props.
+ * @param props.formFacet - Species and file type facets for the form.
+ * @param props.isLoading - Whether the form's facets are loading.
+ * @param props.onRequestManifest - Invoked when the form is submitted with a species and file type selected.
+ * @returns The manifest download form.
+ */
 export const ManifestDownloadForm = ({
   formFacet,
   isLoading,

@@ -6,11 +6,21 @@ import { RadioUncheckedIcon } from "../../../../../common/CustomIcon/components/
 import { ManifestDownloadFormat } from "../../../../common/entities";
 import { FormControl } from "../../exportForm.styles";
 
+/**
+ * Props for the ExportManifestDownloadFormatForm component.
+ */
 export interface ExportManifestDownloadFormatFormProps {
   fileManifestFormatState: FileManifestFormatState;
   manifestDownloadFormats: ManifestDownloadFormat[];
 }
 
+/**
+ * Manifest download format choice for the export form.
+ * @param props - Component props.
+ * @param props.fileManifestFormatState - Selected format and its setter.
+ * @param props.manifestDownloadFormats - Formats to choose from.
+ * @returns The download format radio group.
+ */
 export const ExportManifestDownloadFormatForm = ({
   fileManifestFormatState,
   manifestDownloadFormats,

@@ -19,6 +19,13 @@ import { STEPS_REGION_ID } from "./constants";
 import { StyledFluidPaper, StyledStack } from "./terraSetUpForm.styles";
 import { TerraSetUpFormProps } from "./types";
 
+/**
+ * Terra setup steps: create a Terra account, accept the Terra terms of service
+ * and, when it is part of onboarding, connect an NIH account.
+ * @param props - Component props.
+ * @param props.collapsible - Whether a button shows and hides the steps; defaults to false, which always shows them.
+ * @returns The setup form, or null when the user is not authenticated, authentication is pending or onboarding is complete.
+ */
 export const TerraSetUpForm = ({
   collapsible = false,
 }: TerraSetUpFormProps): JSX.Element | null => {

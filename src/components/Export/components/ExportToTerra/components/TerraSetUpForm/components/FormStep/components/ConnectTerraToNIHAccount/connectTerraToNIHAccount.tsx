@@ -6,12 +6,25 @@ import {
 } from "../../../../../../../../../Links/common/entities";
 import { FormStep } from "../../formStep";
 
+/**
+ * Props for the ConnectTerraToNIHAccount component.
+ */
 export interface ConnectTerraToNIHAccountProps {
   active: boolean;
   completed: boolean;
   step: ReactNode;
 }
 
+/**
+ * Terra setup step to connect the Terra account to an NIH Researcher Auth
+ * Service (RAS) account, with a button that opens the Terra tutorial in a new
+ * tab.
+ * @param props - Component props.
+ * @param props.active - Whether the step is the current step; shows its text and button.
+ * @param props.completed - Whether the step is done.
+ * @param props.step - Step number.
+ * @returns The NIH account step.
+ */
 export const ConnectTerraToNIHAccount = ({
   active,
   completed,

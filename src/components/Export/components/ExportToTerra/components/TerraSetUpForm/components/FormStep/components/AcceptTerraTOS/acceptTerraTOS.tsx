@@ -10,12 +10,25 @@ import {
 } from "../../../../../../../../../Links/common/entities";
 import { FormStep } from "../../formStep";
 
+/**
+ * Props for the AcceptTerraTOS component.
+ */
 export interface AcceptTerraTOSProps {
   active: boolean;
   completed: boolean;
   step: ReactNode;
 }
 
+/**
+ * Terra setup step to accept the Terra terms of service, with a button that
+ * opens the configured Terra URL in a new tab. Its text asks the user to
+ * accept the updated terms when they accepted an earlier version.
+ * @param props - Component props.
+ * @param props.active - Whether the step is the current step; shows its text and button.
+ * @param props.completed - Whether the step is done.
+ * @param props.step - Step number.
+ * @returns The terms of service step.
+ */
 export const AcceptTerraTOS = ({
   active,
   completed,

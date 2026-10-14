@@ -8,11 +8,22 @@ import { Label, Values } from "../../exportSummary.styles";
 export type SummaryValue = ReactNode | ReactNode[];
 export type Summary = [ReactNode, SummaryValue];
 
+/**
+ * Props for the ExportSelectedDataSummary component.
+ */
 export interface ExportSelectedDataSummaryProps {
   isLoading: boolean;
   summaries: Summary[];
 }
 
+/**
+ * Selected data summary section of the export summary: a label and value for
+ * each summary.
+ * @param props - Component props.
+ * @param props.isLoading - Whether the summary is loading; shows the loading overlay.
+ * @param props.summaries - Label and value of each summary.
+ * @returns The selected data summary section.
+ */
 export const ExportSelectedDataSummary = ({
   isLoading,
   summaries,

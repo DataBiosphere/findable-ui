@@ -19,6 +19,9 @@ import { TrackingProps } from "../../../types";
 import { CHIP_PROPS } from "./constants";
 import { StyledCard } from "./exportMethod.styles";
 
+/**
+ * Props for the ExportMethod component.
+ */
 export interface ExportMethodProps extends TrackingProps {
   comingSoon?: boolean;
   description: ReactNode;
@@ -29,6 +32,21 @@ export interface ExportMethodProps extends TrackingProps {
   title: string;
 }
 
+/**
+ * Export method card linking to the method's route. Disabled when the method is
+ * coming soon, while downloads are disabled during indexing (with a tooltip
+ * saying so) or when the method is not accessible.
+ * @param props - Component props.
+ * @param props.comingSoon - Whether the method is coming soon; shows a chip in place of the arrow.
+ * @param props.description - Card description.
+ * @param props.footnote - Footnote rendered below the description.
+ * @param props.icon - Icon rendered before the title.
+ * @param props.isAccessible - Whether the user can access the method; defaults to true.
+ * @param props.route - Route the card links to.
+ * @param props.title - Card title, also the link's accessible name.
+ * @param props.trackingId - Id set on the link, for analytics tracking.
+ * @returns The export method card.
+ */
 export const ExportMethod = ({
   comingSoon,
   description,

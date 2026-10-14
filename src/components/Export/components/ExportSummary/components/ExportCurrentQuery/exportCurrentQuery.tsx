@@ -6,11 +6,22 @@ import { Label, Values } from "../../exportSummary.styles";
 
 export type CurrentQuery = [string, string[]];
 
+/**
+ * Props for the ExportCurrentQuery component.
+ */
 export interface ExportCurrentQueryProps {
   isLoading: boolean;
   queries: CurrentQuery[];
 }
 
+/**
+ * Current query section of the export summary: each query's label and its
+ * values joined by "OR".
+ * @param props - Component props.
+ * @param props.isLoading - Whether the summary is loading; shows the loading overlay.
+ * @param props.queries - Label and values of each query.
+ * @returns The current query section, showing "All Data" when there are no queries.
+ */
 export const ExportCurrentQuery = ({
   isLoading,
   queries,
