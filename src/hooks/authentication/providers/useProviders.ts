@@ -7,7 +7,6 @@ import { UseProviders } from "./types";
  * Hook to facilitate the retrieval of authentication providers.
  * @returns authentication providers and a function to find a provider by id.
  */
-
 export const useProviders = (): UseProviders => {
   const { config } = useConfig();
   const providers = config.authentication?.providers;

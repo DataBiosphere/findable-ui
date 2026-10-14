@@ -6,6 +6,10 @@ import {
 } from "../../../../services/beforePopState/types";
 import { useOnPopState } from "../../../../services/beforePopState/useOnPopState";
 
+/**
+ * On browser back/forward navigation, blocks Next's default handling and does a
+ * full (non-shallow) replace to the same URL, so page props are refreshed.
+ */
 export const useBeforePopState = (): void => {
   // Callback to handle beforePopState.
   const onBeforePopState = useCallback<BeforePopStateCallback>(

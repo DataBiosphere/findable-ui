@@ -9,12 +9,18 @@ export interface EntitySearchResults {
   facets: FileFacet[];
 }
 
+/**
+ * Return value of the useFetchFilesFacets hook.
+ */
 export interface FetchFilesFacets {
   filesFacets: FileFacet[];
   isLoading: boolean;
   isSuccess: boolean;
 }
 
+/**
+ * Return value of the useFetchSummary hook.
+ */
 export interface FetchFileSummary {
   isLoading: boolean;
   summary?: AzulSummaryResponse;

@@ -3,6 +3,10 @@ import { useTerraProfile } from "../../../terra/hooks/useTerraProfile";
 import { LoginStatus } from "../../../terra/types/common";
 import { TerraProfileContextProps } from "../../../terra/types/context";
 
+/**
+ * Status of a Terra onboarding step: whether it is the step to do next, and
+ * whether it is done.
+ */
 export interface OnboardingStatus {
   active: boolean;
   completed: boolean;

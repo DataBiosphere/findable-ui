@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * Window height and width, in pixels.
+ */
 export interface WindowSize {
   height: number;
   width: number;

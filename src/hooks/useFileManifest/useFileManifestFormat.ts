@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { ManifestDownloadFormat } from "../../components/Export/common/entities";
 
+/**
+ * Return value of the useFileManifestFormat hook.
+ */
 export interface FileManifestFormatState {
   fileManifestFormat: ManifestDownloadFormat | undefined;
   setFileManifestFormat: Dispatch<

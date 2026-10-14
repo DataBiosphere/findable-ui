@@ -11,6 +11,9 @@ import { useCatalog } from "../useCatalog";
 import { useFetchRequestURL } from "../useFetchRequestURL";
 import { useRequestFileLocation } from "../useRequestFileLocation";
 
+/**
+ * File manifest spreadsheet and its request state.
+ */
 export interface ManifestSpreadsheet {
   fileName?: string;
   fileUrl?: string;

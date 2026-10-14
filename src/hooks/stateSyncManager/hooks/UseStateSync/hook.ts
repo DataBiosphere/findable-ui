@@ -5,6 +5,16 @@ import { useWasPop } from "../../../../providers/services/wasPop/hook";
 import { UseStateSyncManagerProps } from "../../types";
 import { hasParams, isSynced, wasPop } from "./utils";
 
+/**
+ * When the route changes and the router is ready, syncs state and URL: takes the
+ * URL's query into state after back/forward navigation or when the URL has any
+ * of the param keys, and otherwise replaces the URL with the state's query.
+ * Does nothing when they already match.
+ * @param props - Hook props.
+ * @param props.actions - Action creators for the URL to state and state to URL syncs.
+ * @param props.dispatch - Dispatches the actions; nothing is dispatched when null.
+ * @param props.state - State holding the query and the param keys to sync.
+ */
 export const useStateSync = <Action>({
   actions,
   dispatch,
