@@ -13,8 +13,9 @@ import { INACTIVITY_PARAM } from "./useSessionTimeout";
 /**
  * Once both the auth and authentication states settle, navigates to the
  * same-origin `callbackUrl` in the query, or else to the most recent route that
- * isn't the login page (of the last two), with the inactivity parameter stripped;
- * see `transformRoute`. Falls back to the root route.
+ * isn't the login page (of the last two), without its query string when the
+ * query starts with the inactivity parameter; see `transformRoute`. Falls back to
+ * the root route.
  * @param authState - Auth state; settled when its status is SETTLED.
  * @param authenticationState - Authentication state; settled when its status is SETTLED.
  */
@@ -62,13 +63,15 @@ export function getQueryCallbackUrl(
 }
 
 /**
- * Finds the most recent route in the history that is not the login route and removes the inactivity timeout query parameter.
+ * Finds the most recent route in the history that is not the login route, removing its query string when the query starts
+ * with the inactivity timeout parameter.
  * The inactivity timeout query parameter is appended to a URL to indicate that a session has expired. This function iterates
  * through the history from most recent, skipping any routes that lead to the login page, and returns the first route
  * that isn't the login route. When the query string starts with the inactivity timeout parameter, the whole query string
  * is removed.
  * @param routes - An array of routes representing the navigation history, most recent first.
- * @returns The most recent valid route without the inactivity timeout parameter, or `undefined` if no such route is found.
+ * @returns The most recent route that isn't the login route, without its query string when the query starts with the
+ * inactivity timeout parameter, or `undefined` if no such route is found.
  */
 export function transformRoute(routes: string[]): string | undefined {
   for (const route of routes) {
