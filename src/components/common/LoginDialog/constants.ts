@@ -35,3 +35,5 @@ export const ICON_BUTTON_PROPS: IconButtonProps = {
 export const ICON_PROPS: Pick<IconProps, "fontSize"> = {
   fontSize: FONT_SIZE.SMALL,
 };
+
+export const TITLE = "Sign In Required";
