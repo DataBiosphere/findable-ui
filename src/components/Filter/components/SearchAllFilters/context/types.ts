@@ -2,6 +2,9 @@ import { SelectCategoryView } from "../../../../../common/entities";
 import { OnFilterFn } from "../../../../../hooks/useCategoryFilter";
 import { SURFACE_TYPE } from "../../surfaces/types";
 
+/**
+ * Search all filters autocomplete context.
+ */
 export interface AutocompleteContextProps {
   onClear: () => void;
   onFilter: OnFilterFn;

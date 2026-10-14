@@ -25,6 +25,17 @@ interface Props {
   style: CSSProperties;
 }
 
+/**
+ * Filter menu list item: a value with a checkbox, highlighted label and count, which toggles the value when clicked. The count is hidden for the saved filters category. Records its height for the list.
+ * @param props - Component props.
+ * @param props.categoryKey - Category key, passed to onFilter.
+ * @param props.categorySection - Category section label, passed to onFilter.
+ * @param props.matchedItem - Value matching the search, with its matched label ranges.
+ * @param props.onFilter - Function invoked when the value is clicked.
+ * @param props.onUpdateItemSizeByItemKey - Function invoked with the value key and measured height.
+ * @param props.style - Virtualized list item style; its height is not applied.
+ * @returns The list item.
+ */
 export default function VariableSizeListItem({
   categoryKey,
   categorySection,

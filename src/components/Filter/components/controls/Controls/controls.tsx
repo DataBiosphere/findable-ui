@@ -8,9 +8,15 @@ import { StyledGrid } from "./controls.styles";
 import { ControlsProps } from "./types";
 
 /**
- * Renders filter title and "Clear All" button.
+ * Filter controls: the "Filters" title, a "Clear All" button that clears all filters, and the filter sort control.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the controls grid.
+ * @param props.filterSort - Current filter sort.
+ * @param props.filterSortEnabled - Whether the filter sort control is shown, which also needs onFilterSortChange; defaults to false.
+ * @param props.onFilter - Function invoked to clear all filters.
+ * @param props.onFilterSortChange - Function invoked with the selected filter sort.
+ * @returns The filter controls.
  */
-
 export const Controls = ({
   className,
   filterSort,

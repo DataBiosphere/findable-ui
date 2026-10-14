@@ -3,6 +3,9 @@ import { Chip, Tooltip } from "@mui/material";
 import { JSX } from "react";
 import { useTooltipTitle } from "./hooks/UseTooltipTitle/hook";
 
+/**
+ * Props for the FilterTag component.
+ */
 export interface FilterTagProps {
   label: string;
   onRemove: () => void;
@@ -25,6 +28,13 @@ const DEFAULT_SLOT_PROPS = {
   },
 };
 
+/**
+ * Filter tag chip that removes its filter when clicked or deleted, with a tooltip of the full label when the label is truncated.
+ * @param props - Component props.
+ * @param props.label - Tag label.
+ * @param props.onRemove - Function invoked to remove the filter.
+ * @returns The filter tag.
+ */
 export const FilterTag = ({ label, onRemove }: FilterTagProps): JSX.Element => {
   const { ref, title } = useTooltipTitle(label);
 

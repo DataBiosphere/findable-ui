@@ -24,6 +24,16 @@ interface Props {
   style: CSSProperties;
 }
 
+/**
+ * Search all filters list item: a value with a checkbox, highlighted label and count that toggles the value when clicked; a category header; or a no results message. Records its height for the list.
+ * @param props - Component props.
+ * @param props.item - List item.
+ * @param props.onFilter - Function invoked with the value and search term when a value is clicked.
+ * @param props.onUpdateItemSizeByItemKey - Function invoked with the item key and measured height.
+ * @param props.searchTerm - Search term.
+ * @param props.style - Virtualized list item style.
+ * @returns The list item.
+ */
 export default function VariableSizeListItem({
   item,
   onFilter,

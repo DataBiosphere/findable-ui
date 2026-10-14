@@ -20,6 +20,9 @@ import { SURFACE_TYPE } from "../surfaces/types";
 
 export type ItemSizeByItemKey = Map<unknown, number>;
 
+/**
+ * Props for the filter menu VariableSizeList component.
+ */
 export interface VariableSizeListProps {
   categoryKey: CategoryKey;
   categorySection?: string;
@@ -58,6 +61,21 @@ function renderListItem(props: ListChildComponentProps): JSX.Element {
   );
 }
 
+/**
+ * Virtualized list of a category's values matching the filter menu search.
+ * In the drawer the list fills the window below it. Otherwise it fits its items, up to the given height, or is the given height when there are more values than the menu displays at once.
+ * @param props - Component props.
+ * @param props.categoryKey - Category key, passed to onFilter.
+ * @param props.categorySection - Category section label, passed to onFilter.
+ * @param props.height - Maximum list height outside the drawer; defaults to the maximum list height.
+ * @param props.itemSize - Item height used until an item is measured; defaults to the list item height.
+ * @param props.matchedItems - Values matching the search.
+ * @param props.onFilter - Function invoked when a value is toggled.
+ * @param props.overscanCount - Number of items rendered outside the visible area; defaults to twice the maximum displayable list items.
+ * @param props.surfaceType - Filter surface type.
+ * @param props.width - List width; defaults to 100%.
+ * @returns The filter menu list.
+ */
 export const VariableSizeList = ({
   categoryKey,
   categorySection,

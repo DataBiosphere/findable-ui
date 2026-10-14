@@ -10,6 +10,19 @@ import { StyledDrawer } from "./drawer.styles";
 import { DrawerProps } from "./types";
 import { getPaperSlotProps } from "./utils";
 
+/**
+ * Filters drawer surface: the button that opens the drawer, and the drawer with a close button, the filter controls and the filters. The drawer does not show the filter sort control.
+ * The drawer's paper has a default accessible name, which the caller's paper props can override, and always carries the id the button's aria-controls points at.
+ * Other given Mui Drawer props override the defaults, including open and onClose.
+ * @param props - Component props.
+ * @param props.Button - Button that opens the drawer; defaults to the filter Button.
+ * @param props.categoryFilters - Category filter groups.
+ * @param props.className - Class name applied to the drawer.
+ * @param props.count - Filter count, shown on the button.
+ * @param props.onFilter - Function invoked when a filter changes or all filters are cleared.
+ * @param props.PaperProps - Deprecated Mui paper props, merged into the paper slot props.
+ * @returns The filters drawer.
+ */
 export const Drawer = ({
   Button = BaseButton,
   categoryFilters,

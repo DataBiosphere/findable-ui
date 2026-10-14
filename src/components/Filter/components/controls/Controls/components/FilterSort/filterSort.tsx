@@ -17,6 +17,14 @@ import {
 import { StyledIconButton, StyledMenu } from "./filterSort.styles";
 import { FilterSortProps } from "./types";
 
+/**
+ * Filter value sort control: an icon button opening a menu to sort filter values alphabetically or by count (descending), with the current sort checked.
+ * @param props - Component props.
+ * @param props.enabled - Whether the sort control is shown; defaults to false.
+ * @param props.filterSort - Current filter sort; defaults to alphabetical.
+ * @param props.onFilterSortChange - Function invoked with the selected filter sort.
+ * @returns The filter sort control, or null when not enabled or without an onFilterSortChange.
+ */
 export const FilterSort = ({
   enabled = false,
   filterSort = FILTER_SORT.ALPHA,

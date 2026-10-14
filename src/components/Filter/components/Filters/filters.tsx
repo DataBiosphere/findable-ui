@@ -16,11 +16,17 @@ import { FilterTags } from "../FilterTags/filterTags";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { Filters as FilterList, StyledTypography } from "./filters.styles";
 
+/**
+ * Group of category views shown together in the filters, with an optional label.
+ */
 export interface CategoryFilter {
   categoryViews: CategoryView[];
   label?: string;
 }
 
+/**
+ * Props for the Filters component.
+ */
 export interface FiltersProps extends BaseComponentProps {
   categoryFilters: CategoryFilter[];
   disabled?: boolean; // Global disabling of filters.
@@ -70,6 +76,18 @@ function renderFilterTags(
   return <FilterTags tags={tags} />;
 }
 
+/**
+ * Filters: each group of category views, separated by dividers and headed by its label when it has one, with a filter per category view followed by tags of its selected values or range.
+ * In the drawer, the list's height fills the window below it and updates on window resize. Closing a filter panel from its backdrop, with Escape, or with its close button also closes the enclosing drawer, if any.
+ * @param props - Component props.
+ * @param props.categoryFilters - Category filter groups.
+ * @param props.className - Class name applied to the filters list.
+ * @param props.disabled - Whether pointer interaction with all filters is blocked; keyboard interaction is not. Defaults to false.
+ * @param props.onFilter - Function invoked when a filter value is toggled, a range is submitted, or a tag is removed.
+ * @param props.surfaceType - Filter surface type; defaults to the menu.
+ * @param props.trackFilterOpened - Function invoked with the category when a filter panel is opened.
+ * @returns The filters.
+ */
 export const Filters = ({
   categoryFilters,
   className,

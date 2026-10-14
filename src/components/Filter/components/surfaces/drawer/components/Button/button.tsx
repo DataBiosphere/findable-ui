@@ -13,9 +13,13 @@ import { FilterCountChip } from "../../../../FilterCountChip/filterCountChip";
 import { FilterCountChipProps } from "../../../../FilterCountChip/types";
 
 /**
- * Opens facet-filters drawer.
+ * "Filter" button that opens the filters drawer, showing the filter count and announcing the drawer as a dialog popup.
+ * The given Mui Button props override the defaults, including the click handler.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the button.
+ * @param props.count - Filter count; defaults to 0, which hides the count.
+ * @returns The filter button.
  */
-
 export const Button = ({
   className,
   count = 0,

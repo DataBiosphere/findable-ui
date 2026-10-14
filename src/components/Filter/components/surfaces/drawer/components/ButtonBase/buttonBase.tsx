@@ -7,9 +7,13 @@ import { BaseComponentProps } from "../../../../../../types";
 import { StyledButtonBase } from "./buttonBase.styles";
 
 /**
- * Closes facet-filter drawer.
+ * Button with a south arrow icon before its children that closes the filters drawer, unless an onClick prop replaces that (as the filter menu and range do, to close the filter panel).
+ * The given Mui Button props override the defaults, including the click handler.
+ * @param props - Component props.
+ * @param props.children - Button content.
+ * @param props.className - Class name applied to the button.
+ * @returns The button.
  */
-
 export const ButtonBase = ({
   children,
   className,

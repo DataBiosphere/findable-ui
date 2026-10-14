@@ -28,6 +28,25 @@ import { RANGE_OPERATOR } from "./hooks/UseFilterRange/types";
 import { FilterRangeProps } from "./types";
 import { getRangeOperator } from "./utils";
 
+/**
+ * Range filter form: a toggle between "Between", "Less Than" and "Greater Than", the min and/or max inputs that operator needs with their allowed values or errors, and a "Filter" button.
+ * The operator starts from the selected range (a 0 bound counts as not selected), or the hook's default when none is selected. Submitting a valid form invokes onFilter with the [min, max] range, null for an omitted bound; changing the operator or focusing an input clears the errors.
+ * In the drawer, a button labelled with the category closes the filter panel.
+ * @param props - Component props.
+ * @param props.categoryKey - Category key, passed to onFilter.
+ * @param props.categoryLabel - Category label, shown in the drawer.
+ * @param props.categorySection - Category section label, passed to onFilter.
+ * @param props.className - Class name applied to the form.
+ * @param props.max - Category maximum, shown as help text; not validated.
+ * @param props.min - Category minimum, shown as help text; not validated.
+ * @param props.onCloseFilter - Function invoked by the drawer's category button to close the filter panel.
+ * @param props.onFilter - Function invoked with the submitted range.
+ * @param props.selectedMax - Selected maximum, the max input's initial value.
+ * @param props.selectedMin - Selected minimum, the min input's initial value.
+ * @param props.surfaceType - Filter surface type.
+ * @param props.unit - Unit, shown in the input labels.
+ * @returns The range filter form.
+ */
 export const FilterRange = ({
   categoryKey,
   categoryLabel,

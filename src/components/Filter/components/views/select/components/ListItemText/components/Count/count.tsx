@@ -3,6 +3,14 @@ import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../styles/common/mui/typography";
 import { BaseComponentProps, TestIdProps } from "../../../../../../../../types";
 
+/**
+ * Select list item count text.
+ * The given Mui Typography props override the defaults.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the text.
+ * @param props.testId - Test id, set as the text's data-testid attribute.
+ * @returns The count.
+ */
 export const Count = ({
   className,
   testId,
