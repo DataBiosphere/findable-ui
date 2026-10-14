@@ -8,6 +8,9 @@ import {
 } from "../../../ExportForm/exportForm";
 import { Button } from "./downloadCurlCommandForm.styles";
 
+/**
+ * Props for the DownloadCurlCommandForm component.
+ */
 export interface DownloadCurlCommandFormProps {
   executionEnvironment: ExecutionEnvironment;
   formFacet: FormFacet;
@@ -16,6 +19,17 @@ export interface DownloadCurlCommandFormProps {
   setExecutionEnvironment: Dispatch<SetStateAction<ExecutionEnvironment>>;
 }
 
+/**
+ * Export form for the curl command download: the species and file type
+ * forms, a shell choice and a "Request curl Command" button.
+ * @param props - Component props.
+ * @param props.executionEnvironment - Selected shell.
+ * @param props.formFacet - Species and file type facets for the form.
+ * @param props.isLoading - Whether the form's facets are loading.
+ * @param props.onRequestManifest - Invoked when the form is submitted with a species and file type selected.
+ * @param props.setExecutionEnvironment - Sets the selected shell.
+ * @returns The curl command form.
+ */
 export const DownloadCurlCommandForm = ({
   executionEnvironment,
   formFacet,

@@ -12,11 +12,22 @@ import {
   SectionContent,
 } from "../../../../export.styles";
 
+/**
+ * Props for the ExportToTerraReady component.
+ */
 export interface ExportToTerraReadyProps {
   ExportToTerraSuccess: ElementType;
   exportURL: string;
 }
 
+/**
+ * Export to Terra once the link is ready: the success content and an
+ * "Open Terra" button that opens the link in a new tab.
+ * @param props - Component props.
+ * @param props.ExportToTerraSuccess - Content rendered above the button.
+ * @param props.exportURL - Terra URL to open.
+ * @returns The ready export to Terra view.
+ */
 export const ExportToTerraReady = ({
   ExportToTerraSuccess,
   exportURL,

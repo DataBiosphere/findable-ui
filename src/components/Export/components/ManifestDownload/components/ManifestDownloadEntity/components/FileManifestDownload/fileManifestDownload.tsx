@@ -27,10 +27,25 @@ import {
   TableContainer,
 } from "../../manifestDownloadEntity.styles";
 
+/**
+ * Props for the FileManifestDownload component.
+ */
 export interface FileManifestDownloadProps {
   filters: Filters;
 }
 
+/**
+ * File manifest download. Shows a "Request link" button, disabled under a
+ * loading overlay while the request runs, until the request completes; then
+ * download and copy buttons with the file name, or a message that the manifest
+ * is not available. Requesting the link tracks the request in analytics, after
+ * prompting the user to log in when exports require it and they are not logged
+ * in. The button is disabled while downloads are disabled during indexing, with
+ * a tooltip saying so.
+ * @param props - Component props.
+ * @param props.filters - Filters for the manifest.
+ * @returns The file manifest section.
+ */
 export const FileManifestDownload = ({
   filters,
 }: FileManifestDownloadProps): JSX.Element => {

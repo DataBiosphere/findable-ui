@@ -29,6 +29,9 @@ export type OnClearError = (isError: boolean, error: ERROR) => void;
 
 export type OnRequestManifestFn = () => void;
 
+/**
+ * Props for the ExportForm component.
+ */
 export interface ExportFormProps {
   Button: ElementType;
   children?: ReactNode | ReactNode[];
@@ -37,6 +40,20 @@ export interface ExportFormProps {
   onRequestManifest: OnRequestManifestFn;
 }
 
+/**
+ * Export form: the species and file type forms followed by any additional
+ * fields, rendered once both facets are available, and the submit button.
+ * Submitting with no species or no file type selected does not request the
+ * manifest, and shows the error in the species and file type forms when they
+ * are rendered.
+ * @param props - Component props.
+ * @param props.Button - Submit button component, rendered with the submit handler as onClick.
+ * @param props.children - Additional fields rendered after the species and file type forms.
+ * @param props.formFacet - Species and file type facets.
+ * @param props.isLoading - Whether the facets are loading; shows the loading overlay.
+ * @param props.onRequestManifest - Invoked on submit when a species and file type are selected.
+ * @returns The export form.
+ */
 export const ExportForm = ({
   Button,
   children,

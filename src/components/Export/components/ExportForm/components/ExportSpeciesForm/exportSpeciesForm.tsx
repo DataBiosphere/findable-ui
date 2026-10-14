@@ -15,6 +15,9 @@ import { FormFileFacet } from "../../../../common/entities";
 import { ERROR, OnClearError } from "../../exportForm";
 import { FormControl } from "../../exportForm.styles";
 
+/**
+ * Props for the ExportSpeciesForm component.
+ */
 export interface ExportSpeciesFormProps {
   error: boolean;
   onClearError: OnClearError;
@@ -22,6 +25,15 @@ export interface ExportSpeciesFormProps {
   speciesFacet: FormFileFacet;
 }
 
+/**
+ * Species selection for the export form. Changing a selection clears the error.
+ * @param props - Component props.
+ * @param props.error - Whether no species is selected on submit; shows the error message.
+ * @param props.onClearError - Clears the species error.
+ * @param props.onFilter - Toggles a species.
+ * @param props.speciesFacet - Species facet; its form label falls back to "Species".
+ * @returns The species form.
+ */
 export const ExportSpeciesForm = ({
   error,
   onClearError,

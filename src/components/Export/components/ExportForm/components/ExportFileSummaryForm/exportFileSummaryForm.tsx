@@ -24,6 +24,9 @@ import {
   GridPaper,
 } from "../../exportForm.styles";
 
+/**
+ * Props for the ExportFileSummaryForm component.
+ */
 export interface ExportFileSummaryFormProps {
   error: boolean;
   fileSummaryFacet: FileSummaryFacet;
@@ -32,6 +35,19 @@ export interface ExportFileSummaryFormProps {
   onUpdateFilterFacet: OnUpdateFilterFacet;
 }
 
+/**
+ * File type selection for the export form: a table of file types with their
+ * file counts, and file sizes when any file type has a size. The header
+ * checkbox selects or clears all file types. Changing a selection clears the
+ * error.
+ * @param props - Component props.
+ * @param props.error - Whether no file type is selected on submit; shows the error message.
+ * @param props.fileSummaryFacet - File type facet; its form label falls back to "File Type".
+ * @param props.onClearError - Clears the file type error.
+ * @param props.onFilter - Toggles a file type.
+ * @param props.onUpdateFilterFacet - Selects or clears all file types.
+ * @returns The file type form.
+ */
 export const ExportFileSummaryForm = ({
   error,
   fileSummaryFacet,

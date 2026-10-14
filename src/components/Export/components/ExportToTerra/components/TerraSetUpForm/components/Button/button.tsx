@@ -5,6 +5,13 @@ import { STEPS_REGION_ID } from "../../constants";
 import { StyledButton } from "./button.styles";
 import { ButtonProps } from "./types";
 
+/**
+ * Button that shows or hides the Terra setup steps, labelled "Continue" when
+ * they are hidden and "Save & continue later" when they are shown.
+ * @param props - Component props.
+ * @param props.collapsible - Whether the steps can be shown and hidden; defaults to false.
+ * @returns The toggle button, or null when the steps are not collapsible.
+ */
 export const Button = ({
   collapsible = false,
 }: ButtonProps): JSX.Element | null => {

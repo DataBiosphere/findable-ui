@@ -8,6 +8,11 @@ import { ALERT_PROPS } from "../../../../../../../common/Alert/constants";
 import { FluidPaper } from "../../../../../../../common/Paper/paper.styles";
 import { Link } from "../../../../../../../Links/components/Link/link";
 
+/**
+ * Warning that the user's NIH Researcher Auth Service (RAS) account link has
+ * expired or will expire, with a link to renew it.
+ * @returns The warning, or null until the expiry check is complete or when the link is not expiring.
+ */
 export const NIHAccountExpiryWarning = (): JSX.Element | null => {
   const expiryStatus = useAuthenticationNIHExpiry();
   const { expirationTimestamp, isReady, linkExpired, linkWillExpire } =

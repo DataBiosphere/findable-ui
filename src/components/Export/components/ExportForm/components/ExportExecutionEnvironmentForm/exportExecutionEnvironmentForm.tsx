@@ -8,11 +8,21 @@ import {
 } from "../../../../common/entities";
 import { FormControl } from "../../exportForm.styles";
 
+/**
+ * Props for the ExportExecutionEnvironmentForm component.
+ */
 export interface ExportExecutionEnvironmentFormProps {
   executionEnvironment: ExecutionEnvironment;
   setExecutionEnvironment: Dispatch<SetStateAction<ExecutionEnvironment>>;
 }
 
+/**
+ * Shell choice for the curl command: Bash or cmd.exe.
+ * @param props - Component props.
+ * @param props.executionEnvironment - Selected shell.
+ * @param props.setExecutionEnvironment - Sets the selected shell.
+ * @returns The shell radio group.
+ */
 export const ExportExecutionEnvironmentForm = ({
   executionEnvironment,
   setExecutionEnvironment,

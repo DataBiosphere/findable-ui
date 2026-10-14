@@ -7,12 +7,24 @@ import {
 } from "../../../../../../../../../Links/common/entities";
 import { FormStep } from "../../formStep";
 
+/**
+ * Props for the CreateTerraAccount component.
+ */
 export interface CreateTerraAccountProps {
   active: boolean;
   completed: boolean;
   step: ReactNode;
 }
 
+/**
+ * Terra setup step to create a Terra account, with a button that opens the
+ * configured Terra URL in a new tab.
+ * @param props - Component props.
+ * @param props.active - Whether the step is the current step; shows its text and button.
+ * @param props.completed - Whether the step is done.
+ * @param props.step - Step number.
+ * @returns The create account step.
+ */
 export const CreateTerraAccount = ({
   active,
   completed,
