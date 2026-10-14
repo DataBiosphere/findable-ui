@@ -23,7 +23,7 @@ interface DetailViewTableProps<T extends RowData> extends TableProps<T> {
 /**
  * Table for a detail page, in a paper with optional tools above it.
  * @param props - Component props; other props are passed to the table.
- * @param props.className - Class name applied to the paper.
+ * @param props.className - Class name applied to the paper; not applied to the no results message.
  * @param props.columns - Column definitions.
  * @param props.gridTemplateColumns - Grid template columns for the table.
  * @param props.items - Rows of data.
@@ -55,8 +55,6 @@ export const DetailViewTable = <T extends RowData>({
       </GridPaper>
     </Paper>
   ) : (
-    <Paper className={className}>
-      <NoResults Paper={null} title={noResultsTitle} />
-    </Paper>
+    <NoResults Paper={Paper} title={noResultsTitle} />
   );
 };
