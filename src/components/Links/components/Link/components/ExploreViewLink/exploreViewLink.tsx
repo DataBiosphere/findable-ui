@@ -20,6 +20,9 @@ const PARAM_FILTER = "filter";
 const PARAM_GROUPING = "grouping";
 const PARAM_SORTING = "sorting";
 
+/**
+ * Props for the ExploreViewLink component.
+ */
 export interface ExploreViewLinkProps extends Omit<
   LinkProps,
   "copyable" | "noWrap" | "TypographyProps" | "url"
@@ -27,6 +30,17 @@ export interface ExploreViewLinkProps extends Omit<
   url: UrlObjectWithHrefAndQuery;
 }
 
+/**
+ * Link to an explore view that, on click, applies the filters, grouping and
+ * sorting in its query. Throws when the URL is not a valid explore URL.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the link.
+ * @param props.label - Link label.
+ * @param props.onClick - Invoked on click, after the explore state update is dispatched.
+ * @param props.target - Link target. Defaults to the same tab.
+ * @param props.url - Explore URL, with the entity list path as href and the filters as query.
+ * @returns The explore view link.
+ */
 export const ExploreViewLink = ({
   className,
   label,

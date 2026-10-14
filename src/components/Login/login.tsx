@@ -18,6 +18,19 @@ import {
 } from "./login.styles";
 import { Props } from "./types";
 
+/**
+ * Login panel with a button for each provider. When terms of service are given,
+ * they must be accepted before signing in; signing in without accepting them
+ * shows an error on the checkbox.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the panel.
+ * @param props.providers - Login providers. Defaults to none.
+ * @param props.termsOfService - Terms of service to accept before signing in.
+ * @param props.text - Text under the title.
+ * @param props.title - Title.
+ * @param props.warning - Warning shown under the panel.
+ * @returns The login panel.
+ */
 export const Login = ({
   className,
   providers = [],

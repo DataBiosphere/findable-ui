@@ -11,12 +11,23 @@ const DEFAULT_FADE_PROPS: Partial<MFadeProps> = {
   in: true,
 };
 
+/**
+ * Props for the AccessibilityBadge component.
+ */
 export interface AccessibilityBadgeProps {
   badgeProps: Partial<Omit<MChipProps, "children">>;
   className?: string;
   fadeProps?: Partial<Omit<MFadeProps, "children">>;
 }
 
+/**
+ * Status badge for the entity's accessibility, inside a fade transition.
+ * @param props - Component props.
+ * @param props.badgeProps - Props for the status badge.
+ * @param props.className - Class name applied to the badge.
+ * @param props.fadeProps - Props for the fade. Defaults to shown, without a transition on first render.
+ * @returns The accessibility badge.
+ */
 export const AccessibilityBadge = ({
   badgeProps,
   className,

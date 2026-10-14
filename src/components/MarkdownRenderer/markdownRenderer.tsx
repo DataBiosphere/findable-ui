@@ -22,6 +22,15 @@ import { StyledContainer } from "./markdownRenderer.styles";
 import { rehypeHighlight } from "./rehypeHighlight";
 import { MarkdownRendererProps } from "./types";
 
+/**
+ * Renders sanitized markdown, supporting GitHub Flavored Markdown and raw HTML.
+ * @param props - Component props.
+ * @param props.className - Class name applied to the container.
+ * @param props.components - Components to render elements with; changes after the first render are ignored. Defaults to the built-in components.
+ * @param props.regex - Pattern whose capturing group is highlighted; it must contain a capturing group.
+ * @param props.value - Markdown.
+ * @returns The rendered markdown, or the error message when processing fails.
+ */
 export const MarkdownRenderer = ({
   className,
   components: componentOptions = COMPONENTS,

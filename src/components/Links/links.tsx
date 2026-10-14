@@ -1,11 +1,21 @@
 import { JSX, ReactNode } from "react";
 import { Link, LinkProps } from "./components/Link/link";
 
+/**
+ * Props for the Links component.
+ */
 export interface LinksProps {
   divider?: ReactNode;
   links: LinkProps[];
 }
 
+/**
+ * List of links, with a divider between each.
+ * @param props - Component props.
+ * @param props.divider - Divider shown between links.
+ * @param props.links - Links.
+ * @returns The links.
+ */
 export const Links = ({ divider, links }: LinksProps): JSX.Element => {
   const lastLinkIndex = links.length - 1;
   return (

@@ -6,6 +6,13 @@ import {
 import { useMemo } from "react";
 import { getInitialColumnVisibilityState } from "./columnVisibility";
 
+/**
+ * Returns the table's initial state, with the row position and row selection
+ * columns shown only when enabled, unless the initial column visibility says
+ * otherwise.
+ * @param tableOptions - Table options.
+ * @returns Initial table state.
+ */
 export function useInitialState<T extends RowData>(
   tableOptions?:
     | Partial<TableOptions<T>>

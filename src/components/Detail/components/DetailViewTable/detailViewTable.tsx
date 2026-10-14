@@ -20,6 +20,18 @@ interface DetailViewTableProps<T extends RowData> extends TableProps<T> {
   tools?: ReactNode;
 }
 
+/**
+ * Table for a detail page, in a paper with optional tools above it.
+ * @param props - Component props; other props are passed to the table.
+ * @param props.className - Class name applied to the paper.
+ * @param props.columns - Column definitions.
+ * @param props.gridTemplateColumns - Grid template columns for the table.
+ * @param props.items - Rows of data.
+ * @param props.noResultsTitle - Title shown when there are no items.
+ * @param props.Paper - Paper to render in. Defaults to RoundedPaper.
+ * @param props.tools - Content shown in a toolbar above the table.
+ * @returns The table, or a no results message when there are no items.
+ */
 export const DetailViewTable = <T extends RowData>({
   className,
   columns,
@@ -43,6 +55,8 @@ export const DetailViewTable = <T extends RowData>({
       </GridPaper>
     </Paper>
   ) : (
-    <NoResults Paper={Paper} title={noResultsTitle} />
+    <Paper className={className}>
+      <NoResults Paper={null} title={noResultsTitle} />
+    </Paper>
   );
 };

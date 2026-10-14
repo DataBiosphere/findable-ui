@@ -4,16 +4,25 @@ import { SectionDetailsEmpty } from "../../../common/Section/components/SectionD
 import { CollaboratingOrganization } from "../../common/entities";
 import { Sup } from "../Sup/sup.styles";
 
+/**
+ * Props for the CollaboratingOrganizations component.
+ */
 export interface CollaboratingOrganizationsProps {
   collaboratingOrganizations?: CollaboratingOrganization[];
 }
 
+/**
+ * Collaborating organizations section of a project page.
+ * @param props - Component props.
+ * @param props.collaboratingOrganizations - Collaborating organizations.
+ * @returns The collaborating organizations section, or an empty state when not given or empty.
+ */
 export const CollaboratingOrganizations = ({
   collaboratingOrganizations,
 }: CollaboratingOrganizationsProps): JSX.Element => {
   return (
     <CollapsableSection collapsable title="Collaborating Organizations">
-      {collaboratingOrganizations ? (
+      {collaboratingOrganizations?.length ? (
         <div>
           {collaboratingOrganizations.map(({ citation, name }, c) => (
             <div key={`${name}${c}`}>

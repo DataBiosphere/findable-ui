@@ -8,6 +8,11 @@ import { useExploreState } from "../../../../hooks/useExploreState";
 import { updateVisibility } from "../../../../providers/exploreState/actions/updateVisibility/dispatch";
 import { VISIBILITY_OPTIONS } from "./constants";
 
+/**
+ * Returns the table's column visibility options; columns can be hidden, and
+ * visibility changes update the explore state.
+ * @returns Column visibility options.
+ */
 export function useVisibilityOptions(): VisibilityOptions {
   const { exploreDispatch } = useExploreState();
 

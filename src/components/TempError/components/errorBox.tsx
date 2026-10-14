@@ -5,6 +5,13 @@ interface ErrorBoxProps {
   title: string;
 }
 
+/**
+ * Error detail with its title.
+ * @param props - Component props.
+ * @param props.message - Message.
+ * @param props.title - Title.
+ * @returns The error detail.
+ */
 export const ErrorBox = ({ message, title }: ErrorBoxProps): JSX.Element => {
   return (
     <div>

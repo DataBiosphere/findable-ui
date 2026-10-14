@@ -9,8 +9,14 @@ import { FabLink } from "./viewSupport.styles";
 /**
  * View support button component.
  * Navigates to support URL provided.
+ * @param props - Component props; other props are passed to the link.
+ * @param props.className - Class name applied to the link.
+ * @param props.Icon - Icon. Defaults to the contact support icon.
+ * @param props.rel - Link rel. Defaults to noopener noreferrer.
+ * @param props.target - Link target. Defaults to a new tab.
+ * @param props.url - Support URL.
+ * @returns The view support link.
  */
-
 export const ViewSupport = ({
   className,
   Icon = ContactSupportIcon,

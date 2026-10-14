@@ -6,6 +6,9 @@ import { useExploreState } from "../../hooks/useExploreState";
 import { useFileManifestState } from "../../hooks/useFileManifestState";
 import { useSystemStatus } from "../../hooks/useSystemStatus";
 
+/**
+ * Props for the ComponentCreator component.
+ */
 export interface ComponentCreatorProps<T> {
   components: ComponentsConfig;
   response: T;

@@ -5,11 +5,6 @@ import { LoadingIcon } from "../common/CustomIcon/components/LoadingIcon/loading
 import { PAPER_PANEL_STYLE, PaperPanelStyle } from "../common/Paper/paper";
 import { LoadingPaper, LoadingPositioner } from "./loading.styles";
 
-/**
- * Loading component.
- * For the loading component to consume its parent's container the component should be a direct descendant of the parent container.
- */
-
 export type LoadingPanelStyle =
   keyof typeof LOADING_PANEL_STYLE | PaperPanelStyle;
 
@@ -20,6 +15,9 @@ export enum LOADING_PANEL_STYLE {
   INHERIT = "INHERIT",
 }
 
+/**
+ * Props for the Loading component.
+ */
 export interface LoadingProps {
   /* `appear`, if false, the component will not transition on the initial render and onEnter callbacks will not be called.
    * In this instance, ensure the parent container is styled correctly with position relative.
@@ -35,6 +33,18 @@ export interface LoadingProps {
   text?: string;
 }
 
+/**
+ * Loading component.
+ * For the loading component to consume its parent's container the component should be a direct descendant of the parent container.
+ * @param props - Component props.
+ * @param props.appear - Whether to fade in on first render. Defaults to true.
+ * @param props.autoPosition - Whether to set position relative on the parent while shown. Defaults to true.
+ * @param props.iconSize - Icon size. Defaults to large.
+ * @param props.loading - Whether to show the loading indicator.
+ * @param props.panelStyle - Panel style, to mirror the parent container. Defaults to rounded.
+ * @param props.text - Text shown under the icon.
+ * @returns The loading indicator, faded in while loading.
+ */
 export const Loading = ({
   appear = true,
   autoPosition = true,

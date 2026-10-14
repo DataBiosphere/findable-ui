@@ -17,8 +17,11 @@ import { BaseComponentProps } from "../../../types";
  * are not permitted and will be stripped from anchor tags during sanitization.
  *
  * Note: This component currently does not support these excluded attributes.
+ * Clicks on the link don't bubble to parent components, such as a card or accordion. An href that isn't a
+ * valid or root-relative URL renders as plain text, and clicks on it do bubble.
+ * @param props - Anchor element props.
+ * @returns The link.
  */
-
 export const Anchor = (
   props: BaseComponentProps &
     ClassAttributes<HTMLAnchorElement> &

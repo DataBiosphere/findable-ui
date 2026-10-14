@@ -8,6 +8,15 @@ import { PRIORITY, StatusIcon } from "../common/StatusIcon/statusIcon";
 import { StyledSection, StyledSectionContent } from "./noResults.styles";
 import { NoResultsProps } from "./types";
 
+/**
+ * No results message, with an optional description and actions.
+ * @param props - Component props.
+ * @param props.actions - Actions shown under the message.
+ * @param props.description - Description.
+ * @param props.Paper - Paper to render in; null renders without one.
+ * @param props.title - Title.
+ * @returns The no results message.
+ */
 export const NoResults = ({
   actions,
   description,
