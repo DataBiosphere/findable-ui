@@ -1,4 +1,3 @@
-import { TableContainer } from "@mui/material";
 import { RowData, Table as TanStackTable } from "@tanstack/react-table";
 import { Fragment, JSX, useCallback } from "react";
 import { track } from "../../common/analytics/analytics";
@@ -24,8 +23,15 @@ import { TableBody } from "./components/TableBody/tableBody";
 import { TableHead } from "./components/TableHead/tableHead";
 import { TablePagination } from "./components/TablePagination/tablePagination";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
+import { useStickyHead } from "./hooks/UseStickyHead/hook";
 import { useVirtualization } from "./hooks/UseVirtualization/hook";
-import { GridTable } from "./table.styles";
+import {
+  GridTable,
+  StyledStickyHead,
+  StyledStickyScrollbar,
+  StyledTableContainer,
+  StyledTableScroll,
+} from "./table.styles";
 
 /**
  * Props for the Table component.
@@ -33,6 +39,7 @@ import { GridTable } from "./table.styles";
 export interface TableProps<T extends RowData> {
   listView?: ListViewConfig;
   loading: boolean;
+  stickyHead?: boolean;
   table: TanStackTable<T>;
 }
 
@@ -43,12 +50,14 @@ export interface TableProps<T extends RowData> {
  * @param props - Component props.
  * @param props.listView - List view config; pagination is hidden when its disablePagination is true.
  * @param props.loading - Whether the table data is loading.
+ * @param props.stickyHead - Whether the table head sticks to the window while the page scrolls.
  * @param props.table - TanStack table instance.
  * @returns The table, or the no results message.
  */
 export const Table = <T extends RowData>({
   listView,
   loading,
+  stickyHead = false,
   table,
 }: TableProps<T>): JSX.Element => {
   const bpDownSm = useBreakpointHelper(BREAKPOINT_FN_NAME.DOWN, "sm");
@@ -73,6 +82,15 @@ export const Table = <T extends RowData>({
   } = table;
 
   const noResults = !loading && (!rows || rows.length === 0);
+  const {
+    onScroll,
+    overflowing,
+    scrollbarRef,
+    stickyHeadRef,
+    stuck,
+    tableWidth,
+  } = useStickyHead(scrollElementRef, stickyHead && !noResults);
+  const gridTemplateColumns = getColumnTrackSizing(getVisibleFlatColumns());
 
   const handleTableNextPage = useCallback((): void => {
     let nextPage = tableNextPage;
@@ -128,21 +146,44 @@ export const Table = <T extends RowData>({
         loading={loading}
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
-      <TableContainer ref={scrollElementRef}>
-        <GridTable
-          collapsable={true}
-          gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
-          stickyHeader
+      <StyledTableScroll>
+        {stickyHead && !bpDownSm && (
+          <StyledStickyHead role="presentation" stuck={stuck}>
+            <div ref={stickyHeadRef}>
+              <GridTable
+                collapsable={true}
+                gridTemplateColumns={gridTemplateColumns}
+              >
+                <TableHead tableInstance={table} />
+              </GridTable>
+            </div>
+          </StyledStickyHead>
+        )}
+        <StyledTableContainer
+          onScroll={stickyHead ? onScroll : undefined}
+          ref={scrollElementRef}
+          stickyHead={stickyHead}
         >
-          <TableHead tableInstance={table} />
-          <TableBody
-            rows={rows}
-            rowDirection={rowDirection}
-            tableInstance={table}
-            virtualizer={virtualizer}
-          />
-        </GridTable>
-      </TableContainer>
+          <GridTable
+            collapsable={true}
+            gridTemplateColumns={gridTemplateColumns}
+            stickyHeader
+          >
+            <TableHead tableInstance={table} />
+            <TableBody
+              rows={rows}
+              rowDirection={rowDirection}
+              tableInstance={table}
+              virtualizer={virtualizer}
+            />
+          </GridTable>
+        </StyledTableContainer>
+        {stickyHead && overflowing && (
+          <StyledStickyScrollbar onScroll={onScroll} ref={scrollbarRef}>
+            <div style={{ width: tableWidth }} />
+          </StyledStickyScrollbar>
+        )}
+      </StyledTableScroll>
       {!disablePagination && (
         <TablePagination
           canNextPage={canNextPage()}
