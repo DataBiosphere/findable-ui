@@ -148,9 +148,6 @@ const config = [
       },
     },
   },
-  // Violations that predate this rule are recorded in eslint-suppressions.json
-  // (ESLint bulk suppressions), which `eslint .` applies automatically. After
-  // documenting a suppressed file, run `npx eslint . --prune-suppressions`.
   {
     files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"],
     ignores: ["**/*.styles.ts", "**/*.styles.tsx", "**/*.test.{ts,tsx}"],
