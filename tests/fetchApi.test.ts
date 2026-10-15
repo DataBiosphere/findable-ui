@@ -107,7 +107,7 @@ describe("api", () => {
 
   it("retries based on ky options in site config", async () => {
     let shouldRetry: boolean | undefined;
-    withSiteConfig(
+    await withSiteConfig(
       {
         ...DEFAULT_SITE_CONFIG,
         kyOptions: {
