@@ -1,5 +1,35 @@
 # Changelog
 
+## [57.1.0](https://github.com/DataBiosphere/findable-ui/compare/v57.0.1...v57.1.0) (2026-10-16)
+
+
+### Features
+
+* allow specifying ky options in site config ([#1063](https://github.com/DataBiosphere/findable-ui/issues/1063)) ([#1123](https://github.com/DataBiosphere/findable-ui/issues/1123)) ([9dfd2be](https://github.com/DataBiosphere/findable-ui/commit/9dfd2be1ca9d1ab20fbc63220ce9dda93b5f4a8e))
+
+
+### Bug Fixes
+
+* dialogtitle's close button is included in the dialog's accessible name ([#1111](https://github.com/DataBiosphere/findable-ui/issues/1111)) ([#1112](https://github.com/DataBiosphere/findable-ui/issues/1112)) ([baaea18](https://github.com/DataBiosphere/findable-ui/commit/baaea18903cd745c9c1c8d571061bd42863f601e))
+* speed up the header menu fade to the theme's dialog timing ([#1062](https://github.com/DataBiosphere/findable-ui/issues/1062)) ([#1030](https://github.com/DataBiosphere/findable-ui/issues/1030)) ([9d23804](https://github.com/DataBiosphere/findable-ui/commit/9d23804d6940dab377ffb4125c9d38534c9edae7))
+
+
+### Chores
+
+* add a11y linting and axe story tests so icon-only controls keep their accessible name ([#1010](https://github.com/DataBiosphere/findable-ui/issues/1010)) ([#1070](https://github.com/DataBiosphere/findable-ui/issues/1070)) ([5975ba5](https://github.com/DataBiosphere/findable-ui/commit/5975ba5e232a80f2392851c83035b0e439c60ffe))
+* delete eslint-suppressions.json now that the jsdoc burn-down is complete ([#1118](https://github.com/DataBiosphere/findable-ui/issues/1118)) ([#1119](https://github.com/DataBiosphere/findable-ui/issues/1119)) ([57d1ad2](https://github.com/DataBiosphere/findable-ui/commit/57d1ad2223305a77adaa9a9a211e0ce5df60a3d2))
+* document exported symbols in components/common and prune their jsdoc suppressions ([#1033](https://github.com/DataBiosphere/findable-ui/issues/1033)) ([#1085](https://github.com/DataBiosphere/findable-ui/issues/1085)) ([cff3b5d](https://github.com/DataBiosphere/findable-ui/commit/cff3b5d42144e0599ba5293968f8a4710c2c528d))
+* document exported symbols in components/datadictionary and components/index ([#1036](https://github.com/DataBiosphere/findable-ui/issues/1036)) ([#1101](https://github.com/DataBiosphere/findable-ui/issues/1101)) ([67a9758](https://github.com/DataBiosphere/findable-ui/commit/67a9758cdf4ae01026a5818f05e0bb9300291cbf))
+* document exported symbols in components/export and prune their jsdoc suppressions ([#1038](https://github.com/DataBiosphere/findable-ui/issues/1038)) ([#1110](https://github.com/DataBiosphere/findable-ui/issues/1110)) ([d556c37](https://github.com/DataBiosphere/findable-ui/commit/d556c3766bb29f5ef786e3afd96fbacef68d6396))
+* document exported symbols in components/filter and prune their jsdoc suppressions ([#1037](https://github.com/DataBiosphere/findable-ui/issues/1037)) ([#1105](https://github.com/DataBiosphere/findable-ui/issues/1105)) ([3ddb93e](https://github.com/DataBiosphere/findable-ui/commit/3ddb93e3b05f572066f59bfcb272a5609d10cc4e))
+* document exported symbols in components/layout and prune their jsdoc suppressions ([#1034](https://github.com/DataBiosphere/findable-ui/issues/1034)) ([#1087](https://github.com/DataBiosphere/findable-ui/issues/1087)) ([72f99b0](https://github.com/DataBiosphere/findable-ui/commit/72f99b039ae7159e02c2128050836717dbe1a608))
+* document exported symbols in components/table and prune their jsdoc suppressions ([#1035](https://github.com/DataBiosphere/findable-ui/issues/1035)) ([#1096](https://github.com/DataBiosphere/findable-ui/issues/1096)) ([b6a59a8](https://github.com/DataBiosphere/findable-ui/commit/b6a59a883e1b3d777d86a555509d612714dd6782))
+* document exported symbols in hooks and prune their jsdoc suppressions ([#1039](https://github.com/DataBiosphere/findable-ui/issues/1039)) ([#1113](https://github.com/DataBiosphere/findable-ui/issues/1113)) ([87a1279](https://github.com/DataBiosphere/findable-ui/commit/87a12792f6f9315c29e0aad26e9ac4cf530f878c))
+* document exported symbols in providers and prune their jsdoc suppressions ([#1040](https://github.com/DataBiosphere/findable-ui/issues/1040)) ([#1079](https://github.com/DataBiosphere/findable-ui/issues/1079)) ([5af65ca](https://github.com/DataBiosphere/findable-ui/commit/5af65cabbc06546400419bc0457ffe7bbc50ce00))
+* document exported symbols in remaining components and prune their jsdoc suppressions ([#1042](https://github.com/DataBiosphere/findable-ui/issues/1042)) ([#1115](https://github.com/DataBiosphere/findable-ui/issues/1115)) ([04c1ab9](https://github.com/DataBiosphere/findable-ui/commit/04c1ab9e51353aaccf3869d194b6835dac2cf8b2))
+* document exported symbols in views and prune their jsdoc suppressions ([#1041](https://github.com/DataBiosphere/findable-ui/issues/1041)) ([#1073](https://github.com/DataBiosphere/findable-ui/issues/1073)) ([0136bde](https://github.com/DataBiosphere/findable-ui/commit/0136bde213ae92bc0fb41d91538a6a6021b21dbe))
+* document exported symbols outside components and prune their jsdoc suppressions ([#1043](https://github.com/DataBiosphere/findable-ui/issues/1043)) ([#1075](https://github.com/DataBiosphere/findable-ui/issues/1075)) ([0ba9361](https://github.com/DataBiosphere/findable-ui/commit/0ba93617aa0fd478a7b3ed633ccda92a853e68a1))
+
 ## [57.0.1](https://github.com/DataBiosphere/findable-ui/compare/v57.0.0...v57.0.1) (2026-10-09)
 
 
