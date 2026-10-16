@@ -9,6 +9,7 @@ import {
   Table,
   TableOptions,
 } from "@tanstack/react-table";
+import { KyInstance } from "ky";
 import { JSX, JSXElementConstructor, ReactNode } from "react";
 import { AzulSummaryResponse } from "../apis/azul/common/entities";
 import { AuthState } from "../auth/types/auth";
@@ -418,6 +419,10 @@ export interface SiteConfig {
   exportToTerraUrl?: string; // TODO(cc) revist location; possibly nest inside "export"?
   filterSort?: FilterSortConfig;
   gitHubUrl?: string;
+  /**
+   * Value to be passed to `kyInstance.extend` when creating the Ky instance used for catalog API calls.
+   */
+  kyOptions?: Parameters<KyInstance["extend"]>[0];
   layout: {
     floating?: FloatingConfig;
     footer: FooterProps;

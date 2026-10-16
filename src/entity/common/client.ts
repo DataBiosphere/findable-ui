@@ -1,4 +1,5 @@
 import ky, { KyInstance, Options, ResponsePromise } from "ky";
+import { getConfig } from "../../config/config";
 import { getURL } from "../../shared/utils";
 
 let kyInstance: KyInstance | null = null;
@@ -22,9 +23,18 @@ export function fetchApi<T>(
       },
       timeout: 20 * 1000,
     });
+    const { kyOptions } = getConfig();
+    if (kyOptions !== undefined) kyInstance = kyInstance.extend(kyOptions);
   }
   // If a full URL is provided, there shouldn't be a prefix URL. Otherwise, Ky requires that the URL not start with a slash.
   if (/^https?:\/\//.test(url)) options = { prefixUrl: "", ...options };
   else url = url.replace(/^\//, "");
   return kyInstance.get(url, options);
+}
+
+/**
+ * Intended for use in testing -- removes the stored Ky instance so that it will be recreated on the next `fetchApi` call.
+ */
+export function clearKyInstance(): void {
+  kyInstance = null;
 }
