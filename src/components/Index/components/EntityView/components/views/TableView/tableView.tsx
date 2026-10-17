@@ -26,5 +26,12 @@ export const TableView = <T extends RowData>({
   // loads with the previous tabs data on the first render after switching tabs. (or similar)
   if (entityListType !== exploreState.tabValue) return null;
 
-  return <TableCreator listView={listView} loading={loading} table={table} />;
+  return (
+    <TableCreator
+      listView={listView}
+      loading={loading}
+      stickyHead
+      table={table}
+    />
+  );
 };

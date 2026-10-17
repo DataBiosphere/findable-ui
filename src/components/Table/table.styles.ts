@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { TableContainer } from "@mui/material";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { bpDownSm } from "../../styles/common/mixins/breakpoints";
 import { GridTable as Table } from "./common/gridTable.styles";
@@ -51,5 +52,63 @@ export const GridTable = styled(Table, {
           }
         }
       `};
+  }
+`;
+
+export const StyledTableScroll = styled.div`
+  min-width: 0; /* lets the table container scroll sideways instead of growing */
+`;
+
+export const StyledTableContainer = styled(TableContainer, {
+  shouldForwardProp: (prop) => prop !== "stickyHead",
+})<{ stickyHead: boolean }>`
+  ${({ stickyHead }) =>
+    stickyHead &&
+    css`
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    `}
+`;
+
+export const StyledStickyHead = styled("div", {
+  shouldForwardProp: (prop) => prop !== "stuck",
+})<{ stuck: boolean }>`
+  height: 0;
+  position: sticky;
+  top: var(--table-head-top, 0);
+  visibility: ${({ stuck }) => (stuck ? "visible" : "hidden")};
+  z-index: 3; /* above the table head's z-index 2 in gridTable.styles */
+
+  > div {
+    box-shadow: 0 1px ${PALETTE.SMOKE_MAIN};
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+`;
+
+export const StyledStickyScrollbar = styled.div`
+  bottom: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: sticky;
+  z-index: 2;
+
+  > div {
+    height: 1px;
+  }
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${PALETTE.SMOKE_DARK};
+    border-radius: 4px;
   }
 `;

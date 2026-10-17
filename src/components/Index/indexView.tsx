@@ -1,6 +1,10 @@
 import { Grid } from "@mui/material";
-import { JSX } from "react";
+import { JSX, useRef } from "react";
 import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
+import {
+  getBorderBoxSizeHeight,
+  useResizeObserver,
+} from "../../hooks/useResizeObserver";
 import { ActionButton } from "./components/EntityView/components/controls/ActionButton/actionButton";
 import { ExportButton } from "./components/EntityView/components/controls/ExportButton/exportButton";
 import { FilterButton } from "./components/EntityView/components/controls/FilterButton/filterButton";
@@ -19,6 +23,7 @@ import {
   StyledGridEntityLayout,
   StyledGridEntityList,
   StyledGridEntityView,
+  StyledStickyGap,
 } from "./indexView.styles";
 import { useTable } from "./table/hook";
 import { IndexProps } from "./types";
@@ -44,12 +49,19 @@ export const Index = ({
   const { onChange, viewMode, viewStatus } = useViewToggle();
   const { spacing } = useLayoutSpacing();
   const { table } = useTable({ entityListType });
+  const entityLayoutRef = useRef<HTMLDivElement>(null);
+  const { height: entityLayoutHeight = 0 } =
+    useResizeObserver(entityLayoutRef, getBorderBoxSizeHeight) || {};
   return (
-    <StyledGridEntityView className={className} {...spacing}>
+    <StyledGridEntityView
+      className={className}
+      entityLayoutHeight={entityLayoutHeight}
+      {...spacing}
+    >
       {/* Entity view alerts or other */}
       <EntityViewSlot />
       {/* Entity layout */}
-      <StyledGridEntityLayout container>
+      <StyledGridEntityLayout container ref={entityLayoutRef}>
         <Title />
         <Tabs />
         <Grid container offset="auto">
@@ -66,6 +78,7 @@ export const Index = ({
         <StyledGridEntityList container>
           {/* Entity alerts or other */}
           <EntityListSlot />
+          <StyledStickyGap />
           {/* Entity table or graph */}
           <StyledFluidPaper elevation={0}>
             {viewMode === VIEW_MODE.TABLE ? (
