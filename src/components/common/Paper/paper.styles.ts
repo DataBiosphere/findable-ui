@@ -58,14 +58,19 @@ export const GridPaper = styled.div`
   display: grid;
   gap: 1px;
 
-  > *:first-child:not(style)${ignoreSsrWarning} {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-  }
+  /* Wrapped in "&" so the ignore comment keeps working when this component is
+     wrapped with styled(): Emotion appends the wrapper's declarations after
+     these rules, and a declaration after the rule hides the comment. */
+  & {
+    > *:first-child:not(style)${ignoreSsrWarning} {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
 
-  > style:first-child + *${ignoreSsrWarning} {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
+    > style:first-child + *${ignoreSsrWarning} {
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+    }
   }
 
   > *:last-child {

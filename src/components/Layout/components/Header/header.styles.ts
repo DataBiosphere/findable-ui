@@ -43,7 +43,7 @@ export const Left = styled.div`
   justify-content: flex-start;
 
   .MuiButton-navPrimary {
-    &:first-child:not(style)${ignoreSsrWarning} { {
+    &:first-child:not(style)${ignoreSsrWarning} {
       margin-left: 24px;
     }
   }
