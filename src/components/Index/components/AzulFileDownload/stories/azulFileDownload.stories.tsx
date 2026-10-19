@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { AzulFileDownload } from "../azulFileDownload";
 
@@ -22,3 +23,31 @@ export const DEFAULT: Story = {};
  * disabled and drops out of the tab order.
  */
 export const NO_URL: Story = { args: { url: undefined } };
+
+/**
+ * As a Tooltip child, the way sites render the Files download column. Hovering
+ * or focusing the button shows the tooltip.
+ */
+export const WITH_TOOLTIP: Story = {
+  render: (args) => (
+    <Tooltip arrow title="This open-access file is freely downloadable.">
+      <AzulFileDownload {...args} />
+    </Tooltip>
+  ),
+};
+
+/**
+ * As a Tooltip child without a file URL. The disabled button can't be hovered,
+ * so the tooltip opens from the outer span.
+ */
+export const WITH_TOOLTIP_NO_URL: Story = {
+  args: { url: undefined },
+  render: (args) => (
+    <Tooltip
+      arrow
+      title="Direct file downloads are currently only available for open-access files."
+    >
+      <AzulFileDownload {...args} />
+    </Tooltip>
+  ),
+};

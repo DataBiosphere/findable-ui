@@ -1,4 +1,5 @@
 import { jest } from "@jest/globals";
+import { Tooltip } from "@mui/material";
 import {
   act,
   fireEvent,
@@ -187,6 +188,43 @@ describe("AzulFileDownload", () => {
       expect(anchorEl.href).toBe(FILE_URL);
       expect(buttonEl.getAttribute("aria-label")).toBe(ARIA_LABEL.DOWNLOAD);
       expect(buttonEl.getAttribute("aria-disabled")).toBeNull();
+    });
+  });
+  describe("as a Tooltip child", () => {
+    const TOOLTIP_TITLE = "Tooltip title";
+    // MUI logs this when the child drops the props Tooltip injects.
+    const FORWARDING_WARNING = "not forwarding its props correctly";
+    test("should open the tooltip on hover without a forwarding warning", async () => {
+      const consoleErrorSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => undefined);
+      render(
+        <Tooltip title={TOOLTIP_TITLE}>
+          <AzulFileDownload {...TRACKING_PARAMETERS} url={URL} />
+        </Tooltip>,
+      );
+      const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
+      fireEvent.mouseOver(buttonEl.parentElement as HTMLElement);
+      const tooltipEl = await screen.findByRole("tooltip");
+      expect(tooltipEl.textContent).toBe(TOOLTIP_TITLE);
+      const forwardingWarnings = consoleErrorSpy.mock.calls.filter(
+        ([message]) => String(message).includes(FORWARDING_WARNING),
+      );
+      consoleErrorSpy.mockRestore();
+      expect(forwardingWarnings).toHaveLength(0);
+    });
+    test("should open the tooltip on hover when the button is disabled", async () => {
+      render(
+        <Tooltip title={TOOLTIP_TITLE}>
+          <AzulFileDownload {...TRACKING_PARAMETERS} />
+        </Tooltip>,
+      );
+      const buttonEl = getButtonById(AZUL_FILE_REQUEST_DOWNLOAD_TEST_ID);
+      expect(buttonEl.disabled).toBe(true);
+      // The wrapping span stays hoverable while the button is disabled.
+      fireEvent.mouseOver(buttonEl.parentElement as HTMLElement);
+      const tooltipEl = await screen.findByRole("tooltip");
+      expect(tooltipEl.textContent).toBe(TOOLTIP_TITLE);
     });
   });
 });

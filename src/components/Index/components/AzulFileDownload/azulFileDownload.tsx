@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { JSX, Ref } from "react";
+import { ComponentProps, JSX, Ref } from "react";
 import { ICON_BUTTON_PROPS } from "../../../../styles/common/mui/iconButton";
 import { DownloadIcon } from "../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
@@ -13,8 +13,12 @@ import { useDownload } from "./hooks/UseDownload/hook";
 
 /**
  * Props for the AzulFileDownload component.
+ * Other span props, such as the event handlers and ARIA props a Tooltip injects, are spread onto the outer span.
  */
-export interface AzulFileDownloadProps {
+export interface AzulFileDownloadProps extends Omit<
+  ComponentProps<"span">,
+  "children"
+> {
   entityName: string; // The name of the file downloaded.
   ref?: Ref<HTMLSpanElement>; // Ref attached to the outer span; allows direct use as a Tooltip child without a span wrapper at the call site.
   relatedEntityId: string; // ID of the file's dataset / project.
@@ -39,6 +43,7 @@ export const AzulFileDownload = ({
   relatedEntityId,
   relatedEntityName,
   url,
+  ...props /* Spread props onto the span that receives the ref, e.g. the handlers a Tooltip injects. */
 }: AzulFileDownloadProps): JSX.Element => {
   const { downloadRef, isRequestPending, onDownload } = useDownload({
     entityName,
@@ -48,7 +53,7 @@ export const AzulFileDownload = ({
   });
 
   return (
-    <span ref={ref}>
+    <span ref={ref} {...props}>
       {/* A single button, mounted for the lifetime of the component: swapping
        * between two buttons would destroy the focused node when the request
        * state flips and drop keyboard focus to the document body.
