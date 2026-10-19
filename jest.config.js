@@ -1,6 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   moduleNameMapper: {
+    "\\.css$": "<rootDir>/tests/mocks/style.ts",
     "\\.svg$": "<rootDir>/tests/mocks/staticImage.ts",
     "^sb-original/image-context$": "<rootDir>/tests/mocks/imageContext.ts",
   },

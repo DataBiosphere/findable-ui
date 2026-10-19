@@ -114,7 +114,8 @@
     "prettier-plugin-organize-imports": "^4.3.0",
     "storybook": "^10.4.1",
     "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "yet-another-react-lightbox": "^3.32.2"
   },
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
@@ -145,6 +146,7 @@
     "slugify": "^1.6.6",
     "unified": "^11.0.5",
     "uuid": "^13.0.0",
+    "yet-another-react-lightbox": "^3.32.2",
     "yup": "^1.7.1"
   },
   "peerDependenciesMeta": {
@@ -152,6 +154,9 @@
       "optional": true
     },
     "next-auth": {
+      "optional": true
+    },
+    "yet-another-react-lightbox": {
       "optional": true
     }
   },

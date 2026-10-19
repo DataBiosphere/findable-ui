@@ -15,3 +15,6 @@ declare module "*.jpeg" {
   const content: any;
   export default content;
 }
+
+// Side-effect stylesheet imports, e.g. "yet-another-react-lightbox/styles.css".
+declare module "*.css";
