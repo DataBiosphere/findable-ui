@@ -61,11 +61,6 @@ export const StyledNavButton = styled(IconButton)`
   &.next {
     right: 16px;
   }
-
-  // Phones move between figures by swiping.
-  ${bpDownSm} {
-    display: none;
-  }
 `;
 
 export const StyledCaptionBar = styled.div`

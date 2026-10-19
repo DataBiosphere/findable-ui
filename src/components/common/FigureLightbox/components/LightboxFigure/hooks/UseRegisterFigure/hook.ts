@@ -47,24 +47,6 @@ export function useRegisterFigure({
   useEffect(() => register?.(figure), [figure, register]);
   useEffect(() => (): void => unregister?.(id), [id, unregister]);
 
-  // The latest figure, for the load listener below, which shouldn't be
-  // re-attached each time a JSX caption changes.
-  const latestFigureRef = useRef(figure);
-  useEffect(() => {
-    latestFigureRef.current = figure;
-  }, [figure]);
-
-  // Slide sizes come from the inline image's natural size. If the image hasn't
-  // loaded yet, the figure is registered again once it has, so a lightbox opened
-  // in the meantime rebuilds its slide with the size.
-  useEffect(() => {
-    const image = figureRef.current?.querySelector("img");
-    if (!image || image.naturalWidth || !register) return;
-    const onLoad = (): void => register({ ...latestFigureRef.current });
-    image.addEventListener("load", onLoad, { once: true });
-    return (): void => image.removeEventListener("load", onLoad);
-  }, [register, src]);
-
   const openLightbox = context?.actions.onOpen;
   const onOpen = useCallback(
     (): void => openLightbox?.(id),

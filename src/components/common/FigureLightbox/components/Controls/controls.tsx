@@ -4,6 +4,7 @@ import {
   stopNavigationEventsPropagation,
   useController,
   useLightboxState,
+  useLoseFocus,
 } from "yet-another-react-lightbox";
 import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
@@ -35,6 +36,7 @@ import { ControlsProps } from "./types";
  * @param props.onShowInContext - Records the figure to show on the page once the lightbox has closed.
  * @param props.onZoomIn - Steps the zoom in.
  * @param props.onZoomOut - Steps the zoom out.
+ * @param props.smDown - Whether the viewport is below the sm breakpoint, where the zoom group is hidden and the menu offers zoom.
  * @param props.zoom - Current zoom level.
  * @returns The lightbox controls.
  */
@@ -44,10 +46,17 @@ export const Controls = ({
   onShowInContext,
   onZoomIn,
   onZoomOut,
+  smDown,
   zoom,
 }: ControlsProps): JSX.Element | null => {
   const { currentIndex } = useLightboxState();
-  const { close, next, prev } = useController();
+  const { close, focus, next, prev } = useController();
+  const isFirst = currentIndex === 0;
+  const isLast = currentIndex === figures.length - 1;
+  // Moves focus to the lightbox when a focused button is disabled at the first
+  // or last figure, so Esc and the arrow keys keep working.
+  const previousFocusProps = useLoseFocus(focus, isFirst);
+  const nextFocusProps = useLoseFocus(focus, isLast);
   const figure = figures[currentIndex];
   if (!figure) return null;
   const isGroup = figures.length > 1;
@@ -75,7 +84,15 @@ export const Controls = ({
               {LABEL.FIT}
             </Button>
           </StyledZoomActions>
-          <MoreMenu originalSrc={figure.originalSrc} />
+          <MoreMenu
+            onFit={onFit}
+            onZoomIn={onZoomIn}
+            onZoomOut={onZoomOut}
+            originalSrc={figure.originalSrc}
+            // Phones hide the zoom group, so the menu offers zoom instead.
+            showZoomActions={smDown}
+            zoom={zoom}
+          />
           <IconButton
             aria-label={LABEL.CLOSE}
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
@@ -92,9 +109,10 @@ export const Controls = ({
             aria-label={LABEL.PREVIOUS}
             className="prev"
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
-            disabled={currentIndex === 0}
+            disabled={isFirst}
             onClick={(): void => prev()}
             onPointerDown={onPointerDown}
+            {...previousFocusProps}
             size={ICON_BUTTON_PROPS.SIZE.MEDIUM}
           >
             <BackArrowIcon fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL} />
@@ -103,9 +121,10 @@ export const Controls = ({
             aria-label={LABEL.NEXT}
             className="next"
             color={ICON_BUTTON_PROPS.COLOR.SECONDARY}
-            disabled={currentIndex === figures.length - 1}
+            disabled={isLast}
             onClick={(): void => next()}
             onPointerDown={onPointerDown}
+            {...nextFocusProps}
             size={ICON_BUTTON_PROPS.SIZE.MEDIUM}
           >
             <ForwardArrowIcon fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL} />

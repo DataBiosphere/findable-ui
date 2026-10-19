@@ -10,15 +10,36 @@ import {
 import { JSX, ReactElement } from "react";
 import { createAppTheme } from "../src/theme/theme";
 
+// Router events, so tests can simulate client-side navigation.
+type RouteChangeStartHandler = (
+  url: string,
+  options?: { shallow?: boolean },
+) => void;
+const routeChangeStartHandlers = new Set<RouteChangeStartHandler>();
+const ROUTER_EVENTS = {
+  emit: (options?: { shallow?: boolean }): void =>
+    routeChangeStartHandlers.forEach((handler) => handler("/next", options)),
+  off: (_event: string, handler: RouteChangeStartHandler): void => {
+    routeChangeStartHandlers.delete(handler);
+  },
+  on: (_event: string, handler: RouteChangeStartHandler): void => {
+    routeChangeStartHandlers.add(handler);
+  },
+};
+
 jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
-  useRouter: jest.fn(() => ({ basePath: "/base" })),
+  useRouter: jest.fn(() => ({ basePath: "/base", events: ROUTER_EVENTS })),
 }));
 
 const { LightboxFigure } =
   await import("../src/components/common/FigureLightbox/components/LightboxFigure/lightboxFigure");
 const { FigureLightboxProvider } =
   await import("../src/components/common/FigureLightbox/provider/provider");
+const { MoreMenu } =
+  await import("../src/components/common/FigureLightbox/components/MoreMenu/moreMenu");
+const { showFigure } =
+  await import("../src/components/common/FigureLightbox/hooks/UseShowInContext/utils");
 const {
   formatZoom,
   getCounterLabel,
@@ -234,6 +255,41 @@ describe("FigureLightboxProvider", () => {
     expect(document.querySelector("[inert]")).toBeNull();
   });
 
+  it("keeps focus in the lightbox when Previous is disabled on reaching the first figure", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A, FIGURE_B, FIGURE_C]} />);
+    const dialog = await openFigure(FIGURE_B.alt);
+    const previous = within(dialog).getByRole("button", {
+      name: "Previous figure",
+    }) as HTMLButtonElement;
+    previous.focus();
+    fireEvent.click(previous);
+    await waitFor(() =>
+      expect(within(dialog).getByText("Figure 1 of 3")).toBeTruthy(),
+    );
+    expect(previous.disabled).toBe(true);
+    await waitFor(() => expect(document.activeElement).not.toBe(previous));
+    expect(dialog.contains(document.activeElement)).toBe(true);
+    // Esc still reaches the lightbox.
+    fireEvent.keyDown(document.activeElement as HTMLElement, { key: "Escape" });
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("stays open on a shallow URL update on the same page", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A, FIGURE_B]} />);
+    await openFigure(FIGURE_A.alt);
+    ROUTER_EVENTS.emit({ shallow: true });
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    expect(screen.getByRole("dialog")).toBeTruthy();
+  });
+
+  it("closes on client-side navigation, leaving the page interactive", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A, FIGURE_B]} />);
+    await openFigure(FIGURE_A.alt);
+    ROUTER_EVENTS.emit();
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(document.querySelector("[inert]")).toBeNull();
+  });
+
   it("counts figures in page order after figures on the page are reordered", async () => {
     const { rerender } = renderWithTheme(
       <Group figures={[FIGURE_A, FIGURE_B, FIGURE_C]} />,
@@ -256,26 +312,97 @@ describe("FigureLightboxProvider", () => {
 });
 
 describe("FigureLightbox slides", () => {
-  it("rebuilds an SVG figure's slide when its image loads after the lightbox opens", async () => {
-    const { container } = renderWithTheme(<LightboxFigure {...FIGURE_A} />);
+  it("sizes an SVG slide from the lightbox's own image when the inline image hasn't given a size", async () => {
+    renderWithTheme(<LightboxFigure {...FIGURE_A} />);
     const dialog = await openFigure(FIGURE_A.alt);
-    // Not loaded yet: the slide has no size, so the library's own slide renders it.
-    expect(
-      dialog.querySelector(".yarl__slide_current img.yarl__slide_image"),
-    ).toBeTruthy();
-    const inlineImage = container.querySelector(
-      "figure img",
+    // No size yet: VectorSlide shows the image at its natural size. The library's
+    // own slide isn't used, as the zoom plugin would keep the size it measures.
+    const unsized = dialog.querySelector(
+      ".yarl__slide_current img",
     ) as HTMLImageElement;
-    Object.defineProperty(inlineImage, "naturalWidth", { value: 1120 });
-    Object.defineProperty(inlineImage, "naturalHeight", { value: 328 });
-    fireEvent.load(inlineImage);
-    // Loaded: the slide is sized, so VectorSlide renders it to fill the viewport.
-    await waitFor(() =>
-      expect(
-        dialog.querySelector(".yarl__slide_current img.yarl__slide_image"),
-      ).toBeNull(),
+    expect(unsized.classList.contains("yarl__slide_image")).toBe(false);
+    expect(unsized.style.maxWidth).toBe("100%");
+    Object.defineProperty(unsized, "naturalWidth", { value: 1120 });
+    Object.defineProperty(unsized, "naturalHeight", { value: 328 });
+    fireEvent.load(unsized);
+    // Measured: the slide is rebuilt with the size, so VectorSlide sizes it to fit.
+    await waitFor(() => {
+      const sized = dialog.querySelector(
+        ".yarl__slide_current img",
+      ) as HTMLImageElement;
+      expect(sized.style.maxWidth).toBe("");
+      expect(sized.style.width).not.toBe("");
+    });
+  });
+});
+
+describe("MoreMenu", () => {
+  it("offers zoom in, zoom out and fit when the zoom group is hidden", async () => {
+    const onFit = jest.fn();
+    const onZoomIn = jest.fn();
+    renderWithTheme(
+      <MoreMenu
+        onFit={onFit}
+        onZoomIn={onZoomIn}
+        onZoomOut={jest.fn()}
+        originalSrc="/a.svg"
+        showZoomActions
+        zoom={1}
+      />,
     );
-    expect(dialog.querySelector(".yarl__slide_current img")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    expect(
+      (await screen.findByRole("menuitem", { name: "Zoom out" })).getAttribute(
+        "aria-disabled",
+      ),
+    ).toBe("true");
+    fireEvent.click(screen.getByRole("menuitem", { name: "Zoom in" }));
+    expect(onZoomIn).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    fireEvent.click(
+      await screen.findByRole("menuitem", { name: "Fit to screen" }),
+    );
+    expect(onFit).toHaveBeenCalledTimes(1);
+  });
+
+  it("offers no zoom actions when the zoom group is shown", async () => {
+    renderWithTheme(
+      <MoreMenu
+        onFit={jest.fn()}
+        onZoomIn={jest.fn()}
+        onZoomOut={jest.fn()}
+        originalSrc="/a.svg"
+        showZoomActions={false}
+        zoom={1}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    await screen.findByRole("menuitem", { name: "View original" });
+    expect(screen.queryByRole("menuitem", { name: "Zoom in" })).toBeNull();
+  });
+});
+
+describe("showFigure", () => {
+  it("centres a figure, or aligns a figure taller than the viewport to its top", () => {
+    const figureEl = document.createElement("figure");
+    const scrollIntoView = jest.fn();
+    figureEl.scrollIntoView = scrollIntoView;
+    const figure = {
+      alt: "",
+      figureRef: { current: figureEl },
+      id: "a",
+      originalSrc: "",
+      src: "",
+    };
+    const setHeight = (height: number): void => {
+      figureEl.getBoundingClientRect = (): DOMRect => ({ height }) as DOMRect;
+    };
+    setHeight(window.innerHeight - 1);
+    showFigure(figure);
+    expect(scrollIntoView).toHaveBeenLastCalledWith({ block: "center" });
+    setHeight(window.innerHeight + 1);
+    showFigure(figure);
+    expect(scrollIntoView).toHaveBeenLastCalledWith({ block: "start" });
   });
 });
 

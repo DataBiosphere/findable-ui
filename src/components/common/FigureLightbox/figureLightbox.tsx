@@ -1,5 +1,5 @@
-import { JSX, useCallback, useMemo } from "react";
-import type { SlideImage } from "yet-another-react-lightbox";
+import { JSX, useCallback, useMemo, useRef } from "react";
+import type { ControllerRef, SlideImage } from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import { useBreakpoint } from "../../../hooks/useBreakpoint";
@@ -7,6 +7,8 @@ import { Controls } from "./components/Controls/controls";
 import { VectorSlide } from "./components/VectorSlide/vectorSlide";
 import { CAROUSEL_PADDING, LABEL, LIGHTBOX_PROPS } from "./constants";
 import { StyledLightbox } from "./figureLightbox.styles";
+import { useCloseOnRouteChange } from "./hooks/UseCloseOnRouteChange/hook";
+import { useMeasuredSizes } from "./hooks/UseMeasuredSizes/hook";
 import { useShowInContext } from "./hooks/UseShowInContext/hook";
 import { useZoom } from "./hooks/UseZoom/hook";
 import { FigureLightboxProps } from "./types";
@@ -43,13 +45,19 @@ export const FigureLightbox = ({
     actions: { onExited, onShowInContext },
   } = useShowInContext();
   const { smDown } = useBreakpoint();
+  const controllerRef = useRef<ControllerRef>(null);
+  useCloseOnRouteChange({ controllerRef, open });
+  const {
+    actions: { onMeasure },
+    state: { sizes },
+  } = useMeasuredSizes();
 
   // Slide sizes come from the inline images' natural size, which is only known
   // once they have loaded, so the slides are rebuilt each time the lightbox opens.
   const slides = useMemo(
-    () => figures.map(buildSlide),
+    () => figures.map((figure) => buildSlide(figure, sizes[figure.src])),
     // eslint-disable-next-line react-hooks/exhaustive-deps -- "open" isn't read, but opening is when the inline images' natural size is read.
-    [figures, open],
+    [figures, open, sizes],
   );
 
   // Called when the lightbox opens and each time the figure changes.
@@ -69,6 +77,7 @@ export const FigureLightbox = ({
         padding: smDown ? CAROUSEL_PADDING.SM_DOWN : CAROUSEL_PADDING.DEFAULT,
       }}
       close={onClose}
+      controller={{ ...LIGHTBOX_PROPS.controller, ref: controllerRef }}
       index={index}
       labels={{
         Lightbox: figures[index]?.alt ?? "",
@@ -85,6 +94,7 @@ export const FigureLightbox = ({
         controls: () => (
           <Controls
             figures={figures}
+            smDown={smDown}
             onFit={onFit}
             onShowInContext={onShowInContext}
             onZoomIn={onZoomIn}
@@ -95,7 +105,11 @@ export const FigureLightbox = ({
         // Vector images fill the viewport; other images use the library's slide.
         slide: ({ rect, slide }) =>
           isVectorSlide(slide as SlideImage) ? (
-            <VectorSlide rect={rect} slide={slide as SlideImage} />
+            <VectorSlide
+              onMeasure={onMeasure}
+              rect={rect}
+              slide={slide as SlideImage}
+            />
           ) : undefined,
       }}
       slides={slides}

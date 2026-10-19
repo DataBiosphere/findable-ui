@@ -14,6 +14,8 @@ export interface ControlsProps {
   onZoomIn: () => void;
   /** Steps the zoom out. */
   onZoomOut: () => void;
+  /** Whether the viewport is below the sm breakpoint, where the zoom group is hidden and the menu offers zoom. */
+  smDown: boolean;
   /** Current zoom level, where 1 fits the figure to the screen. */
   zoom: number;
 }

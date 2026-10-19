@@ -1,25 +1,28 @@
 import type { ContainerRect, SlideImage } from "yet-another-react-lightbox";
 import { getStaticImageSrc } from "../StaticImage/utils";
 import { LABEL, VECTOR_SCALE } from "./constants";
-import type { LightboxFigureItem } from "./types";
+import type { ImageSize, LightboxFigureItem } from "./types";
 
 /**
- * Builds the lightbox slide for a figure. The slide size comes from the inline image's natural size, scaled up for vector images so they fit the viewport and zoom past their natural size.
- * Without a loaded inline image, the slide has no size and the lightbox measures the image itself.
+ * Builds the lightbox slide for a figure. The slide size comes from the image's natural size, scaled up for vector images so they fit the viewport and zoom past their natural size.
+ * The natural size is read from the inline image, or else from the size the lightbox measured when it loaded the image. Without either, the slide has no size.
  * @param figure - Figure.
+ * @param measuredSize - Natural size the lightbox measured for the figure's image, if any.
  * @returns The lightbox slide.
  */
-export function buildSlide(figure: LightboxFigureItem): SlideImage {
+export function buildSlide(
+  figure: LightboxFigureItem,
+  measuredSize?: ImageSize,
+): SlideImage {
   const { alt, figureRef, src } = figure;
   const image = figureRef.current?.querySelector("img");
+  const size = image?.naturalWidth
+    ? { height: image.naturalHeight, width: image.naturalWidth }
+    : measuredSize;
   const slide: SlideImage = { alt, src };
-  if (!image?.naturalWidth || !image.naturalHeight) return slide;
+  if (!size?.width || !size.height) return slide;
   const scale = isVectorImage(src) ? VECTOR_SCALE : 1;
-  return {
-    ...slide,
-    height: image.naturalHeight * scale,
-    width: image.naturalWidth * scale,
-  };
+  return { ...slide, height: size.height * scale, width: size.width * scale };
 }
 
 /**
@@ -106,12 +109,12 @@ export function isVectorImage(src: string): boolean {
 }
 
 /**
- * Returns whether a slide is a vector image with a known size, which the lightbox renders with VectorSlide.
+ * Returns whether a slide is a vector image (SVG), which the lightbox renders with VectorSlide.
  * @param slide - Slide.
- * @returns True if the slide is an SVG with its width and height set.
+ * @returns True if the slide is an SVG.
  */
 export function isVectorSlide(slide: SlideImage): boolean {
-  return Boolean(slide.width && slide.height && isVectorImage(slide.src));
+  return isVectorImage(slide.src);
 }
 
 /**

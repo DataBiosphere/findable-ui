@@ -1,5 +1,6 @@
 import { IconButton, Typography } from "@mui/material";
 import { JSX } from "react";
+import { useController, useLoseFocus } from "yet-another-react-lightbox";
 import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
@@ -24,14 +25,19 @@ export const ZoomControl = ({
   onZoomOut,
   zoom,
 }: ZoomControlProps): JSX.Element => {
+  const { focus } = useController();
+  const isFit = zoom <= 1;
+  // Moves focus to the lightbox when Zoom out is disabled while focused, at fit.
+  const zoomOutFocusProps = useLoseFocus(focus, isFit);
   return (
     <StyledZoomControl aria-label={LABEL.ZOOM} role="group">
       <IconButton
         aria-label={LABEL.ZOOM_OUT}
         color={ICON_BUTTON_PROPS.COLOR.INK}
-        disabled={zoom <= 1}
+        disabled={isFit}
         onClick={onZoomOut}
         size={ICON_BUTTON_PROPS.SIZE.SMALL}
+        {...zoomOutFocusProps}
       >
         <RemoveIcon fontSize={SVG_ICON_PROPS.FONT_SIZE.SMALL} />
       </IconButton>

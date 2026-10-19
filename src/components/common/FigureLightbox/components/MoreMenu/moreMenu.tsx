@@ -16,16 +16,29 @@ import { DropdownMenu } from "../../../DropdownMenu/dropdownMenu";
 import { LABEL } from "../../constants";
 import { isCrossOrigin } from "../../utils";
 import { MoreMenuProps } from "./types";
+import { getZoomActions } from "./utils";
 
 /**
- * Lightbox "more actions" menu, with "View original" (opens the original file in a new tab) and "Download".
+ * Lightbox "more actions" menu, with "View original" (opens the original file in a new tab) and "Download", and on phones, where the zoom group is hidden, "Zoom in", "Zoom out" and "Fit to screen".
  * Download opens a file on another origin in a new tab: browsers ignore the download attribute for one, and would otherwise navigate the app away to show it.
  * The menu renders in a portal but its React events still bubble to the lightbox, so its key, pointer and wheel events are stopped there: arrow keys move through the menu rather than between figures.
  * @param props - Component props.
+ * @param props.onFit - Resets the zoom to fit the figure to the screen.
+ * @param props.onZoomIn - Steps the zoom in.
+ * @param props.onZoomOut - Steps the zoom out.
  * @param props.originalSrc - URL of the original file.
+ * @param props.showZoomActions - Whether to offer zoom in, zoom out and fit.
+ * @param props.zoom - Current zoom level.
  * @returns The menu control and the menu.
  */
-export const MoreMenu = ({ originalSrc }: MoreMenuProps): JSX.Element => {
+export const MoreMenu = ({
+  onFit,
+  onZoomIn,
+  onZoomOut,
+  originalSrc,
+  showZoomActions,
+  zoom,
+}: MoreMenuProps): JSX.Element => {
   return (
     <DropdownMenu
       {...stopNavigationEventsPropagation()}
@@ -49,6 +62,22 @@ export const MoreMenu = ({ originalSrc }: MoreMenuProps): JSX.Element => {
       }}
     >
       {({ closeMenu }): JSX.Element[] => [
+        ...(showZoomActions
+          ? getZoomActions({ onFit, onZoomIn, onZoomOut, zoom }).map(
+              ({ disabled, key, label, onClick }) => (
+                <MenuItem
+                  disabled={disabled}
+                  key={key}
+                  onClick={(): void => {
+                    onClick();
+                    closeMenu();
+                  }}
+                >
+                  {label}
+                </MenuItem>
+              ),
+            )
+          : []),
         <MenuItem
           component="a"
           href={originalSrc}
