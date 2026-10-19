@@ -71,7 +71,7 @@ export const FIGURES = [
   {
     alt: "Genotyping calls across laboratories",
     caption:
-      "Figure 4. Genotyping calls across laboratories. Calls agree for 87% of samples.",
+      "Figure 4. Genotyping calls across laboratories. Calls agree for 87% of samples. Disagreements cluster in samples with low parasite load, where fewer than half of the markers amplify, and in two laboratories that used an older primer set. This long caption runs past the lightbox's three-line limit, so it is cut off with an ellipsis and shows in full in a tooltip.",
     src: buildChartSrc("Genotyping calls across laboratories", 43),
   },
 ];

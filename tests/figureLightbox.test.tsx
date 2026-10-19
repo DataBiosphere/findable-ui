@@ -337,6 +337,71 @@ describe("FigureLightbox slides", () => {
   });
 });
 
+describe("Lightbox caption", () => {
+  const LONG_CAPTION = "A long caption that runs past the three-line clamp.";
+
+  /**
+   * Makes elements report the given scroll and client heights, as jsdom has no layout.
+   * @param scrollHeight - Content height.
+   * @param clientHeight - Visible height.
+   * @returns Restores the original properties.
+   */
+  function mockHeights(scrollHeight: number, clientHeight: number): () => void {
+    const proto = HTMLElement.prototype;
+    const scroll = Object.getOwnPropertyDescriptor(proto, "scrollHeight");
+    const client = Object.getOwnPropertyDescriptor(proto, "clientHeight");
+    Object.defineProperty(proto, "scrollHeight", {
+      configurable: true,
+      get: () => scrollHeight,
+    });
+    Object.defineProperty(proto, "clientHeight", {
+      configurable: true,
+      get: () => clientHeight,
+    });
+    return (): void => {
+      if (scroll) Object.defineProperty(proto, "scrollHeight", scroll);
+      if (client) Object.defineProperty(proto, "clientHeight", client);
+    };
+  }
+
+  it("shows a truncated caption in full in a tooltip, and makes it focusable", async () => {
+    const restore = mockHeights(200, 72);
+    try {
+      renderWithTheme(<LightboxFigure {...FIGURE_A} caption={LONG_CAPTION} />);
+      const dialog = await openFigure(FIGURE_A.alt);
+      const caption = within(dialog).getByText(LONG_CAPTION);
+      await waitFor(() => expect(caption.getAttribute("tabindex")).toBe("0"));
+      // MUI opens a tooltip on keyboard focus (focus-visible), which jsdom can't
+      // simulate, so hover opens it here.
+      fireEvent.mouseOver(caption);
+      const tooltip = await screen.findByRole("tooltip");
+      expect(tooltip.textContent).toBe(LONG_CAPTION);
+      // "Show in context" stays outside the clamped caption.
+      expect(
+        within(dialog).getByRole("button", { name: "Show in context" }),
+      ).toBeTruthy();
+      expect(caption.textContent).toBe(LONG_CAPTION);
+    } finally {
+      restore();
+    }
+  });
+
+  it("gives a caption that fits no tooltip and no tab stop", async () => {
+    const restore = mockHeights(48, 72);
+    try {
+      renderWithTheme(<LightboxFigure {...FIGURE_A} />);
+      const dialog = await openFigure(FIGURE_A.alt);
+      const caption = within(dialog).getByText("Caption A");
+      expect(caption.hasAttribute("tabindex")).toBe(false);
+      fireEvent.mouseOver(caption);
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      expect(screen.queryByRole("tooltip")).toBeNull();
+    } finally {
+      restore();
+    }
+  });
+});
+
 describe("MoreMenu", () => {
   it("offers zoom in, zoom out and fit when the zoom group is hidden", async () => {
     const onFit = jest.fn();

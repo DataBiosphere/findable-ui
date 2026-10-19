@@ -1,4 +1,4 @@
-import { Button, IconButton, Link, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import { JSX } from "react";
 import {
   stopNavigationEventsPropagation,
@@ -8,7 +8,6 @@ import {
 } from "yet-another-react-lightbox";
 import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { ICON_BUTTON_PROPS } from "../../../../../styles/common/mui/iconButton";
-import { LINK_PROPS } from "../../../../../styles/common/mui/link";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
 import { BackArrowIcon } from "../../../CustomIcon/components/BackArrowIcon/backArrowIcon";
@@ -18,6 +17,7 @@ import { LABEL } from "../../constants";
 import { getCounterLabel } from "../../utils";
 import { MoreMenu } from "../MoreMenu/moreMenu";
 import { ZoomControl } from "../ZoomControl/zoomControl";
+import { Caption } from "./components/Caption/caption";
 import {
   StyledActions,
   StyledCaptionBar,
@@ -132,25 +132,15 @@ export const Controls = ({
         </>
       )}
       <StyledCaptionBar onPointerDown={onPointerDown} onWheel={onWheel}>
-        {/* A div, not a p: the caption can hold block content, e.g. paragraphs. */}
-        <Typography
-          component="div"
-          variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400}
-        >
-          {figure.caption}{" "}
-          <Link
-            component="button"
-            onClick={(): void => {
-              // Closed through the lightbox's own close action, which calls
-              // on.exited once closed, where the figure is shown.
-              onShowInContext(figure);
-              close();
-            }}
-            underline={LINK_PROPS.UNDERLINE.ALWAYS}
-          >
-            {LABEL.SHOW_IN_CONTEXT}
-          </Link>
-        </Typography>
+        <Caption
+          caption={figure.caption}
+          onShowInContext={(): void => {
+            // Closed through the lightbox's own close action, which calls
+            // on.exited once closed, where the figure is shown.
+            onShowInContext(figure);
+            close();
+          }}
+        />
       </StyledCaptionBar>
     </>
   );

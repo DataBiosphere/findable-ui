@@ -24,6 +24,10 @@ export const LABEL = {
  */
 export const VECTOR_SCALE = 8;
 
+// Lines of caption shown in the lightbox before it is cut off with an ellipsis;
+// the full caption shows in a tooltip.
+export const CAPTION_MAX_LINES = 3;
+
 /**
  * Minimum length, in pixels, of a vector image's longer side as a slide. An SVG
  * with a small natural size would otherwise get a slide smaller than the

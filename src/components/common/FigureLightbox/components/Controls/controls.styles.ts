@@ -65,9 +65,11 @@ export const StyledNavButton = styled(IconButton)`
 
 export const StyledCaptionBar = styled.div`
   ${bar};
+  align-items: center;
   bottom: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
 
   .MuiTypography-root {
     color: ${PALETTE.INK_MAIN};
@@ -76,9 +78,7 @@ export const StyledCaptionBar = styled.div`
   }
 
   .MuiLink-root {
-    color: inherit;
-    font: inherit;
-    vertical-align: baseline;
+    color: ${PALETTE.INK_MAIN};
   }
 
   // The theme sets inline code to a fixed small size; in the caption it matches
