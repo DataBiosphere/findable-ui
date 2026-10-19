@@ -15,7 +15,6 @@ const meta = {
       </div>
     ),
   ],
-  title: "Components/Common/FigureLightbox",
 } satisfies Meta<typeof LightboxFigure>;
 
 export default meta;
