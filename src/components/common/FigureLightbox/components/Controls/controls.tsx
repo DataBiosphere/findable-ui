@@ -113,8 +113,9 @@ export const Controls = ({
         </>
       )}
       <StyledCaptionBar onPointerDown={onPointerDown} onWheel={onWheel}>
+        {/* A div, not a p: the caption can hold block content, e.g. paragraphs. */}
         <Typography
-          component="p"
+          component="div"
           variant={TYPOGRAPHY_PROPS.VARIANT.BODY_LARGE_400}
         >
           {figure.caption}{" "}

@@ -1,6 +1,23 @@
 import type { ReactNode, RefObject } from "react";
 
 /**
+ * Return value of the useRegisterFigure hook.
+ */
+export interface UseRegisterFigure {
+  actions: UseRegisterFigureActions;
+  /** Ref for the inline figure element. */
+  figureRef: RefObject<HTMLElement | null>;
+}
+
+/**
+ * Actions returned by the useRegisterFigure hook.
+ */
+export interface UseRegisterFigureActions {
+  /** Opens the lightbox at this figure. */
+  onOpen: () => void;
+}
+
+/**
  * Props for the useRegisterFigure hook.
  */
 export interface UseRegisterFigureProps {
@@ -12,14 +29,4 @@ export interface UseRegisterFigureProps {
   originalSrc?: string;
   /** Root-relative path to the image, or an image data URL. */
   src: string | undefined;
-}
-
-/**
- * Return value of the useRegisterFigure hook.
- */
-export interface UseRegisterFigure {
-  /** Ref for the inline figure element. */
-  figureRef: RefObject<HTMLElement | null>;
-  /** Opens the lightbox at this figure. */
-  onOpen: () => void;
 }

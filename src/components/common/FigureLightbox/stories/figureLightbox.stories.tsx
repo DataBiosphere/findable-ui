@@ -38,7 +38,7 @@ export const GROUP: Story = {
   args: { ...FIGURES[0] },
   render: (): JSX.Element => (
     <FigureLightboxProvider>
-      {FIGURES.map((figure) => (
+      {FIGURES.map((figure, index) => (
         <div key={figure.alt} style={{ marginBottom: 32 }}>
           <Typography
             component="p"
@@ -49,7 +49,19 @@ export const GROUP: Story = {
             with the controls, the mouse wheel or a pinch, and step to the other
             figures with the arrows.
           </Typography>
-          <LightboxFigure {...figure} />
+          <LightboxFigure
+            {...figure}
+            caption={
+              // The second caption includes inline code.
+              index === 1 ? (
+                <span>
+                  {figure.caption} Marker <code>Nu_CDS1</code>.
+                </span>
+              ) : (
+                figure.caption
+              )
+            }
+          />
         </div>
       ))}
     </FigureLightboxProvider>

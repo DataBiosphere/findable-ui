@@ -37,7 +37,10 @@ export function FigureLightboxProvider({
     [orderedFigures],
   );
 
+  // A new figures array on open re-runs the sort above: figures already on the
+  // page can be reordered without re-registering.
   const onOpen = useCallback((id: string): void => {
+    setFigures((figures) => [...figures]);
     setCurrentId(id);
     setOpen(true);
   }, []);
@@ -55,7 +58,7 @@ export function FigureLightboxProvider({
   }, []);
 
   const value = useMemo(
-    () => ({ onOpen, register, unregister }),
+    () => ({ actions: { onOpen, register, unregister } }),
     [onOpen, register, unregister],
   );
 

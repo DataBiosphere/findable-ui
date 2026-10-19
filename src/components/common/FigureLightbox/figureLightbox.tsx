@@ -33,9 +33,15 @@ export const FigureLightbox = ({
   onIndexChange,
   open,
 }: FigureLightboxProps): JSX.Element => {
-  const { onFit, onZoom, onZoomIn, onZoomOut, zoom, zoomRef } = useZoom();
+  const {
+    actions: { onFit, onZoom, onZoomIn, onZoomOut, resetZoom },
+    state: { zoom },
+    zoomRef,
+  } = useZoom();
 
-  const { onExited, onShowInContext } = useShowInContext();
+  const {
+    actions: { onExited, onShowInContext },
+  } = useShowInContext();
   const { smDown } = useBreakpoint();
 
   // Slide sizes come from the inline images' natural size, which is only known
@@ -46,10 +52,13 @@ export const FigureLightbox = ({
     [figures, open],
   );
 
-  // The zoom plugin resets the zoom on each new figure and reports it through on.zoom.
+  // Called when the lightbox opens and each time the figure changes.
   const onView = useCallback(
-    ({ index }: { index: number }): void => onIndexChange(index),
-    [onIndexChange],
+    ({ index }: { index: number }): void => {
+      resetZoom();
+      onIndexChange(index);
+    },
+    [onIndexChange, resetZoom],
   );
 
   return (

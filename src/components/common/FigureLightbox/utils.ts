@@ -81,6 +81,22 @@ export function getFitSize(
 }
 
 /**
+ * Returns whether a URL is on another origin than the page. Data and blob URLs count as same-origin, as browsers download them with the download attribute.
+ * @param url - URL, absolute or relative to the page.
+ * @returns True if the URL is on another origin.
+ */
+export function isCrossOrigin(url: string): boolean {
+  if (typeof window === "undefined" || /^(?:data|blob):/i.test(url)) {
+    return false;
+  }
+  try {
+    return new URL(url, window.location.href).origin !== window.location.origin;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Returns whether an image URL is a vector image (SVG), by file extension or data URL type.
  * @param src - Image URL.
  * @returns True if the image is an SVG.

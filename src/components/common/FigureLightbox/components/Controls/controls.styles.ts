@@ -85,4 +85,12 @@ export const StyledCaptionBar = styled.div`
     font: inherit;
     vertical-align: baseline;
   }
+
+  // The theme sets inline code to a fixed small size; in the caption it matches
+  // the caption text, keeping the theme's monospace font. The caption is
+  // portalled out of the page, so the page's content styles don't reach it.
+  code {
+    font-size: inherit;
+    line-height: inherit;
+  }
 `;

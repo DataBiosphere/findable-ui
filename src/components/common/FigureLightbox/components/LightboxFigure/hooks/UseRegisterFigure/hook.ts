@@ -13,7 +13,7 @@ import { UseRegisterFigure, UseRegisterFigureProps } from "./types";
  * @param props.caption - Caption content.
  * @param props.originalSrc - Root-relative path to the original file; defaults to src.
  * @param props.src - Root-relative path to the image, or an image data URL.
- * @returns The figure ref and the open handler.
+ * @returns The actions (the open handler) and the figure ref.
  */
 export function useRegisterFigure({
   alt,
@@ -42,16 +42,34 @@ export function useRegisterFigure({
 
   // Updated in place when its props change (a JSX caption changes on every parent
   // render), and removed only when it unmounts, so it keeps its place in the group.
-  const register = context?.register;
-  const unregister = context?.unregister;
+  const register = context?.actions.register;
+  const unregister = context?.actions.unregister;
   useEffect(() => register?.(figure), [figure, register]);
   useEffect(() => (): void => unregister?.(id), [id, unregister]);
 
-  const openLightbox = context?.onOpen;
+  // The latest figure, for the load listener below, which shouldn't be
+  // re-attached each time a JSX caption changes.
+  const latestFigureRef = useRef(figure);
+  useEffect(() => {
+    latestFigureRef.current = figure;
+  }, [figure]);
+
+  // Slide sizes come from the inline image's natural size. If the image hasn't
+  // loaded yet, the figure is registered again once it has, so a lightbox opened
+  // in the meantime rebuilds its slide with the size.
+  useEffect(() => {
+    const image = figureRef.current?.querySelector("img");
+    if (!image || image.naturalWidth || !register) return;
+    const onLoad = (): void => register({ ...latestFigureRef.current });
+    image.addEventListener("load", onLoad, { once: true });
+    return (): void => image.removeEventListener("load", onLoad);
+  }, [register, src]);
+
+  const openLightbox = context?.actions.onOpen;
   const onOpen = useCallback(
     (): void => openLightbox?.(id),
     [id, openLightbox],
   );
 
-  return { figureRef, onOpen };
+  return { actions: { onOpen }, figureRef };
 }

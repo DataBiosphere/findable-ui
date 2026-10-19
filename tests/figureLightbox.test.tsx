@@ -19,8 +19,13 @@ const { LightboxFigure } =
   await import("../src/components/common/FigureLightbox/components/LightboxFigure/lightboxFigure");
 const { FigureLightboxProvider } =
   await import("../src/components/common/FigureLightbox/provider/provider");
-const { formatZoom, getCounterLabel, isVectorImage, resolveFigureSrc } =
-  await import("../src/components/common/FigureLightbox/utils");
+const {
+  formatZoom,
+  getCounterLabel,
+  isCrossOrigin,
+  isVectorImage,
+  resolveFigureSrc,
+} = await import("../src/components/common/FigureLightbox/utils");
 
 const FIGURE_A = { alt: "Figure A", caption: "Caption A", src: "/a.svg" };
 const FIGURE_B = { alt: "Figure B", caption: "Caption B", src: "/b.svg" };
@@ -164,6 +169,8 @@ describe("LightboxFigure", () => {
     expect(viewOriginal.getAttribute("target")).toBe("_blank");
     expect(download.getAttribute("href")).toBe("/base/a-original.svg");
     expect(download.hasAttribute("download")).toBe(true);
+    // A same-origin file downloads in place, without opening a tab.
+    expect(download.getAttribute("target")).toBeNull();
   });
 });
 
@@ -227,6 +234,16 @@ describe("FigureLightboxProvider", () => {
     expect(document.querySelector("[inert]")).toBeNull();
   });
 
+  it("counts figures in page order after figures on the page are reordered", async () => {
+    const { rerender } = renderWithTheme(
+      <Group figures={[FIGURE_A, FIGURE_B, FIGURE_C]} />,
+    );
+    // The same figures, moved on the page without remounting or changing props.
+    rerender(<Group figures={[FIGURE_C, FIGURE_A, FIGURE_B]} />);
+    const dialog = await openFigure(FIGURE_C.alt);
+    expect(within(dialog).getByText("Figure 1 of 3")).toBeTruthy();
+  });
+
   it("counts figures in page order, not mount order", async () => {
     const { rerender } = renderWithTheme(
       <Group figures={[FIGURE_A, FIGURE_C]} />,
@@ -235,6 +252,30 @@ describe("FigureLightboxProvider", () => {
     rerender(<Group figures={[FIGURE_A, FIGURE_B, FIGURE_C]} />);
     const dialog = await openFigure(FIGURE_C.alt);
     expect(within(dialog).getByText("Figure 3 of 3")).toBeTruthy();
+  });
+});
+
+describe("FigureLightbox slides", () => {
+  it("rebuilds an SVG figure's slide when its image loads after the lightbox opens", async () => {
+    const { container } = renderWithTheme(<LightboxFigure {...FIGURE_A} />);
+    const dialog = await openFigure(FIGURE_A.alt);
+    // Not loaded yet: the slide has no size, so the library's own slide renders it.
+    expect(
+      dialog.querySelector(".yarl__slide_current img.yarl__slide_image"),
+    ).toBeTruthy();
+    const inlineImage = container.querySelector(
+      "figure img",
+    ) as HTMLImageElement;
+    Object.defineProperty(inlineImage, "naturalWidth", { value: 1120 });
+    Object.defineProperty(inlineImage, "naturalHeight", { value: 328 });
+    fireEvent.load(inlineImage);
+    // Loaded: the slide is sized, so VectorSlide renders it to fill the viewport.
+    await waitFor(() =>
+      expect(
+        dialog.querySelector(".yarl__slide_current img.yarl__slide_image"),
+      ).toBeNull(),
+    );
+    expect(dialog.querySelector(".yarl__slide_current img")).toBeTruthy();
   });
 });
 
@@ -259,6 +300,14 @@ describe("FigureLightbox utils", () => {
     expect(resolveFigureSrc("/base", "data:image/svg+xml,%3Csvg%3E")).toBe(
       "data:image/svg+xml,%3Csvg%3E",
     );
+  });
+
+  it("treats other-origin URLs as cross-origin, and same-origin, data and blob URLs as not", () => {
+    expect(isCrossOrigin("https://cdn.example.org/fig.svg")).toBe(true);
+    expect(isCrossOrigin("/base/fig.svg")).toBe(false);
+    expect(isCrossOrigin(`${window.location.origin}/fig.svg`)).toBe(false);
+    expect(isCrossOrigin("data:image/svg+xml,%3Csvg%3E")).toBe(false);
+    expect(isCrossOrigin("blob:https://cdn.example.org/1")).toBe(false);
   });
 
   it("recognises SVG images by extension or data URL type", () => {

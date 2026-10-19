@@ -4,7 +4,7 @@ import { UseZoom } from "./types";
 
 /**
  * Tracks the lightbox zoom level and exposes the zoom actions, for the zoom controls in the lightbox top bar.
- * @returns The zoom level, the zoom ref and the zoom actions.
+ * @returns The zoom actions, the zoom state (the zoom level) and the zoom ref.
  */
 export function useZoom(): UseZoom {
   const zoomRef = useRef<ZoomRef>(null);
@@ -26,5 +26,17 @@ export function useZoom(): UseZoom {
     zoomRef.current?.zoomOut();
   }, []);
 
-  return { onFit, onZoom, onZoomIn, onZoomOut, zoom, zoomRef };
+  // Each figure opens fitted to the screen. The zoom plugin resets its own zoom
+  // when the lightbox opens or the figure changes, but it doesn't always report
+  // the reset (it is disabled until the figure has been laid out), so the
+  // recorded zoom is reset here.
+  const resetZoom = useCallback((): void => {
+    setZoom(1);
+  }, []);
+
+  return {
+    actions: { onFit, onZoom, onZoomIn, onZoomOut, resetZoom },
+    state: { zoom },
+    zoomRef,
+  };
 }

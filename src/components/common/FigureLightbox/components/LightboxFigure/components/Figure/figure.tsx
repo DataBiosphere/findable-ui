@@ -29,7 +29,10 @@ export const Figure = ({
   src,
   width,
 }: LightboxFigureProps): JSX.Element => {
-  const { figureRef, onOpen } = useRegisterFigure({
+  const {
+    actions: { onOpen },
+    figureRef,
+  } = useRegisterFigure({
     alt,
     caption,
     originalSrc,
