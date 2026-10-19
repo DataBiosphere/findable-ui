@@ -1,10 +1,10 @@
 import type { ContainerRect, SlideImage } from "yet-another-react-lightbox";
 import { getStaticImageSrc } from "../StaticImage/utils";
-import { LABEL, VECTOR_SCALE } from "./constants";
+import { LABEL, VECTOR_MIN_SIZE, VECTOR_SCALE } from "./constants";
 import type { ImageSize, LightboxFigureItem } from "./types";
 
 /**
- * Builds the lightbox slide for a figure. The slide size comes from the image's natural size, scaled up for vector images so they fit the viewport and zoom past their natural size.
+ * Builds the lightbox slide for a figure. The slide size comes from the image's natural size, scaled up for vector images so they fit the viewport and zoom past their natural size: by VECTOR_SCALE, or more if needed for the longer side to reach VECTOR_MIN_SIZE.
  * The natural size is read from the inline image, or else from the size the lightbox measured when it loaded the image. Without either, the slide has no size.
  * @param figure - Figure.
  * @param measuredSize - Natural size the lightbox measured for the figure's image, if any.
@@ -21,7 +21,12 @@ export function buildSlide(
     : measuredSize;
   const slide: SlideImage = { alt, src };
   if (!size?.width || !size.height) return slide;
-  const scale = isVectorImage(src) ? VECTOR_SCALE : 1;
+  const scale = isVectorImage(src)
+    ? Math.max(
+        VECTOR_SCALE,
+        VECTOR_MIN_SIZE / Math.max(size.width, size.height),
+      )
+    : 1;
   return { ...slide, height: size.height * scale, width: size.width * scale };
 }
 

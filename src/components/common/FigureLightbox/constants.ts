@@ -24,6 +24,14 @@ export const LABEL = {
  */
 export const VECTOR_SCALE = 8;
 
+/**
+ * Minimum length, in pixels, of a vector image's longer side as a slide. An SVG
+ * with a small natural size would otherwise get a slide smaller than the
+ * viewport: VectorSlide still fills the viewport, but the zoom plugin fits the
+ * smaller slide size and can't zoom it.
+ */
+export const VECTOR_MIN_SIZE = 8192;
+
 // Room around the figure: the side arrows need it on larger screens; phones have
 // no arrows, so the figure can use the full width.
 export const CAROUSEL_PADDING = {

@@ -41,6 +41,7 @@ const { MoreMenu } =
 const { showFigure } =
   await import("../src/components/common/FigureLightbox/hooks/UseShowInContext/utils");
 const {
+  buildSlide,
   formatZoom,
   getCounterLabel,
   isCrossOrigin,
@@ -407,6 +408,42 @@ describe("showFigure", () => {
 });
 
 describe("FigureLightbox utils", () => {
+  it("sizes vector slides at 8x their natural size, with a minimum so small SVGs can still zoom", () => {
+    const buildFigure = (
+      src: string,
+      width: number,
+      height: number,
+    ): Parameters<typeof buildSlide>[0] => {
+      const figureEl = document.createElement("figure");
+      const image = document.createElement("img");
+      Object.defineProperty(image, "naturalWidth", { value: width });
+      Object.defineProperty(image, "naturalHeight", { value: height });
+      figureEl.append(image);
+      return {
+        alt: "",
+        figureRef: { current: figureEl },
+        id: src,
+        originalSrc: src,
+        src,
+      };
+    };
+    // A typical figure: 8x its natural size.
+    expect(buildSlide(buildFigure("/figure.svg", 1120, 328))).toMatchObject({
+      height: 2624,
+      width: 8960,
+    });
+    // A small SVG: scaled up so its longer side reaches 8192px, keeping its shape.
+    expect(buildSlide(buildFigure("/icon.svg", 100, 50))).toMatchObject({
+      height: 4096,
+      width: 8192,
+    });
+    // A raster image keeps its natural size.
+    expect(buildSlide(buildFigure("/photo.png", 100, 50))).toMatchObject({
+      height: 50,
+      width: 100,
+    });
+  });
+
   it("formats the zoom level as a percentage of fit", () => {
     expect(formatZoom(1)).toBe("100%");
     expect(formatZoom(2.345)).toBe("235%");
