@@ -9,11 +9,16 @@ export const StyledContainer = styled("div")`
   min-width: 0;
   width: 100%;
 
-  > *:first-child:not(style)${ignoreSsrWarning} {
-    margin-top: 0;
-  }
+  /* Wrapped in "&" so the ignore comment keeps working when this component is
+     wrapped with styled(): Emotion appends the wrapper's declarations after
+     these rules, and a declaration after the rule hides the comment. */
+  & {
+    > *:first-child:not(style)${ignoreSsrWarning} {
+      margin-top: 0;
+    }
 
-  > *:last-child:not(style)${ignoreSsrWarning} {
-    margin-bottom: 0;
+    > *:last-child:not(style)${ignoreSsrWarning} {
+      margin-bottom: 0;
+    }
   }
 `;
