@@ -358,9 +358,13 @@ describe("Lightbox caption", () => {
       configurable: true,
       get: () => clientHeight,
     });
+    // The real properties are inherited from Element.prototype, so there is
+    // usually no own descriptor to put back: delete the overrides instead.
     return (): void => {
       if (scroll) Object.defineProperty(proto, "scrollHeight", scroll);
+      else Reflect.deleteProperty(proto, "scrollHeight");
       if (client) Object.defineProperty(proto, "clientHeight", client);
+      else Reflect.deleteProperty(proto, "clientHeight");
     };
   }
 
@@ -384,6 +388,17 @@ describe("Lightbox caption", () => {
     } finally {
       restore();
     }
+  });
+
+  it("restores the real element heights after mocking them", () => {
+    const element = document.createElement("div");
+    const restore = mockHeights(200, 72);
+    expect(element.scrollHeight).toBe(200);
+    restore();
+    // jsdom has no layout, so the real heights are 0.
+    expect(element.scrollHeight).toBe(0);
+    expect(element.clientHeight).toBe(0);
+    expect(Object.hasOwn(HTMLElement.prototype, "scrollHeight")).toBe(false);
   });
 
   it("gives a caption that fits no tooltip and no tab stop", async () => {
