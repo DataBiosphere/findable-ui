@@ -3,7 +3,7 @@ import { useCallback, useEffect, useId, useMemo, useRef } from "react";
 import { useFigureLightbox } from "../../../../provider/hook";
 import type { LightboxFigureItem } from "../../../../types";
 import { resolveFigureSrc } from "../../../../utils";
-import { UseRegisterFigure, UseRegisterFigureProps } from "./types";
+import type { UseRegisterFigure, UseRegisterFigureProps } from "./types";
 
 /**
  * Registers a figure with the nearest FigureLightboxProvider for as long as it is mounted, and returns the handler that opens the lightbox at it.

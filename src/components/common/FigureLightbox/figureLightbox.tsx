@@ -11,8 +11,8 @@ import { useCloseOnRouteChange } from "./hooks/UseCloseOnRouteChange/hook";
 import { useMeasuredSizes } from "./hooks/UseMeasuredSizes/hook";
 import { useShowInContext } from "./hooks/UseShowInContext/hook";
 import { useZoom } from "./hooks/UseZoom/hook";
-import { FigureLightboxProps } from "./types";
-import { buildSlide, isVectorSlide } from "./utils";
+import type { FigureLightboxProps } from "./types";
+import { buildSlide, getLightboxLabel, isVectorSlide } from "./utils";
 
 const PLUGINS = [Zoom];
 
@@ -36,8 +36,8 @@ export const FigureLightbox = ({
   open,
 }: FigureLightboxProps): JSX.Element => {
   const {
-    actions: { onFit, onZoom, onZoomIn, onZoomOut, resetZoom },
-    state: { zoom },
+    actions: { onFit, onZoomIn, onZoomOut },
+    state: { maxZoom, zoom },
     zoomRef,
   } = useZoom();
 
@@ -62,11 +62,8 @@ export const FigureLightbox = ({
 
   // Called when the lightbox opens and each time the figure changes.
   const onView = useCallback(
-    ({ index }: { index: number }): void => {
-      resetZoom();
-      onIndexChange(index);
-    },
-    [onIndexChange, resetZoom],
+    ({ index }: { index: number }): void => onIndexChange(index),
+    [onIndexChange],
   );
 
   return (
@@ -80,11 +77,11 @@ export const FigureLightbox = ({
       controller={{ ...LIGHTBOX_PROPS.controller, ref: controllerRef }}
       index={index}
       labels={{
-        Lightbox: figures[index]?.alt ?? "",
+        Lightbox: getLightboxLabel(figures[index]),
         "Photo gallery": LABEL.FIGURES,
         "{index} of {total}": LABEL.COUNTER,
       }}
-      on={{ exited: onExited, view: onView, zoom: onZoom }}
+      on={{ exited: onExited, view: onView }}
       open={open}
       plugins={PLUGINS}
       render={{
@@ -95,6 +92,7 @@ export const FigureLightbox = ({
         controls: () => (
           <Controls
             figures={figures}
+            maxZoom={maxZoom}
             smDown={smDown}
             onFit={onFit}
             onShowInContext={onShowInContext}

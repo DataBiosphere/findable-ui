@@ -3,7 +3,7 @@ import { FigureLightbox } from "../figureLightbox";
 import type { LightboxFigureItem } from "../types";
 import { compareDocumentOrder } from "../utils";
 import { FigureLightboxContext } from "./context";
-import { FigureLightboxProviderProps } from "./types";
+import type { FigureLightboxProviderProps } from "./types";
 
 /**
  * Groups the figures inside it, so a click on any of them opens one lightbox that can step between them.

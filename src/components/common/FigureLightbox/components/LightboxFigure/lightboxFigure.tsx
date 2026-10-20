@@ -2,7 +2,7 @@ import { JSX } from "react";
 import { useFigureLightbox } from "../../provider/hook";
 import { FigureLightboxProvider } from "../../provider/provider";
 import { Figure } from "./components/Figure/figure";
-import { LightboxFigureProps } from "./types";
+import type { LightboxFigureProps } from "./types";
 
 /**
  * Figure that opens in a lightbox, with zoom and pan, when clicked.

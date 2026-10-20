@@ -25,13 +25,14 @@ import {
   StyledTopBar,
   StyledZoomActions,
 } from "./controls.styles";
-import { ControlsProps } from "./types";
+import type { ControlsProps } from "./types";
 
 /**
  * Lightbox controls, rendered over the figure: a top bar (figure counter, zoom control, Fit, more actions and close), previous and next buttons, and a caption bar with "Show in context".
  * Pointer and wheel events on the bars are stopped so they don't drag or zoom the figure; key events still reach the lightbox, so Esc and the arrow keys work from any control.
  * @param props - Component props.
  * @param props.figures - Figures in the lightbox.
+ * @param props.maxZoom - Maximum zoom level for the current figure and viewport.
  * @param props.onFit - Resets the zoom to fit the figure to the screen.
  * @param props.onShowInContext - Records the figure to show on the page once the lightbox has closed.
  * @param props.onZoomIn - Steps the zoom in.
@@ -42,6 +43,7 @@ import { ControlsProps } from "./types";
  */
 export const Controls = ({
   figures,
+  maxZoom,
   onFit,
   onShowInContext,
   onZoomIn,
@@ -70,6 +72,7 @@ export const Controls = ({
         <StyledActions>
           <StyledZoomActions>
             <ZoomControl
+              maxZoom={maxZoom}
               onZoomIn={onZoomIn}
               onZoomOut={onZoomOut}
               zoom={zoom}
@@ -85,6 +88,7 @@ export const Controls = ({
             </Button>
           </StyledZoomActions>
           <MoreMenu
+            maxZoom={maxZoom}
             onFit={onFit}
             onZoomIn={onZoomIn}
             onZoomOut={onZoomOut}

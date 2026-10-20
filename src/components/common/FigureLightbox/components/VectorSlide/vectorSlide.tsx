@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { getFitSize } from "../../utils";
-import { VectorSlideProps } from "./types";
+import type { VectorSlideProps } from "./types";
 import { getUnsizedStyle } from "./utils";
 import { StyledImage } from "./vectorSlide.styles";
 

@@ -12,6 +12,8 @@ export interface MenuAction {
  * Props for the lightbox MoreMenu component.
  */
 export interface MoreMenuProps {
+  /** Maximum zoom level for the current figure and viewport. */
+  maxZoom: number;
   /** Resets the zoom to fit the figure to the screen. */
   onFit: () => void;
   /** Steps the zoom in. */

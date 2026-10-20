@@ -7,6 +7,7 @@ export const LABEL = {
   COUNTER: "Figure {index} of {total}",
   DOWNLOAD: "Download",
   EXPAND: "Expand figure",
+  FIGURE: "Figure",
   FIGURES: "Figures",
   FIT: "Fit",
   FIT_ARIA: "Fit to screen",

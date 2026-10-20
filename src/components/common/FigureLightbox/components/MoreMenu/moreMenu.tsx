@@ -14,15 +14,16 @@ import {
 } from "../../../../Links/common/entities";
 import { DropdownMenu } from "../../../DropdownMenu/dropdownMenu";
 import { LABEL } from "../../constants";
-import { isCrossOrigin } from "../../utils";
-import { MoreMenuProps } from "./types";
+import { isCrossOrigin, isDataUrl } from "../../utils";
+import type { MoreMenuProps } from "./types";
 import { getZoomActions } from "./utils";
 
 /**
- * Lightbox "more actions" menu, with "View original" (opens the original file in a new tab) and "Download", and on phones, where the zoom group is hidden, "Zoom in", "Zoom out" and "Fit to screen".
+ * Lightbox "more actions" menu, with "View original" (opens the original file in a new tab; not offered for a data URL, which browsers block opening in a new tab) and "Download", and on phones, where the zoom group is hidden, "Zoom in", "Zoom out" and "Fit to screen".
  * Download opens a file on another origin in a new tab: browsers ignore the download attribute for one, and would otherwise navigate the app away to show it.
  * The menu renders in a portal but its React events still bubble to the lightbox, so its key, pointer and wheel events are stopped there: arrow keys move through the menu rather than between figures.
  * @param props - Component props.
+ * @param props.maxZoom - Maximum zoom level for the current figure and viewport.
  * @param props.onFit - Resets the zoom to fit the figure to the screen.
  * @param props.onZoomIn - Steps the zoom in.
  * @param props.onZoomOut - Steps the zoom out.
@@ -32,6 +33,7 @@ import { getZoomActions } from "./utils";
  * @returns The menu control and the menu.
  */
 export const MoreMenu = ({
+  maxZoom,
   onFit,
   onZoomIn,
   onZoomOut,
@@ -63,7 +65,7 @@ export const MoreMenu = ({
     >
       {({ closeMenu }): JSX.Element[] => [
         ...(showZoomActions
-          ? getZoomActions({ onFit, onZoomIn, onZoomOut, zoom }).map(
+          ? getZoomActions({ maxZoom, onFit, onZoomIn, onZoomOut, zoom }).map(
               ({ disabled, key, label, onClick }) => (
                 <MenuItem
                   disabled={disabled}
@@ -78,16 +80,20 @@ export const MoreMenu = ({
               ),
             )
           : []),
-        <MenuItem
-          component="a"
-          href={originalSrc}
-          key="view-original"
-          onClick={closeMenu}
-          rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
-          target={ANCHOR_TARGET.BLANK}
-        >
-          {LABEL.VIEW_ORIGINAL}
-        </MenuItem>,
+        ...(isDataUrl(originalSrc)
+          ? []
+          : [
+              <MenuItem
+                component="a"
+                href={originalSrc}
+                key="view-original"
+                onClick={closeMenu}
+                rel={REL_ATTRIBUTE.NO_OPENER_NO_REFERRER}
+                target={ANCHOR_TARGET.BLANK}
+              >
+                {LABEL.VIEW_ORIGINAL}
+              </MenuItem>,
+            ]),
         <MenuItem
           component="a"
           download

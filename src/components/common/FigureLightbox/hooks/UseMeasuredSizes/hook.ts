@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import type { ImageSize } from "../../types";
-import { UseMeasuredSizes } from "./types";
+import type { UseMeasuredSizes } from "./types";
 
 /**
  * Records the natural sizes the lightbox measures when it loads a vector image whose inline copy hasn't given a size, e.g. one that hadn't loaded when the lightbox opened. Slides are rebuilt with the size, so the image fits the viewport and zooms.

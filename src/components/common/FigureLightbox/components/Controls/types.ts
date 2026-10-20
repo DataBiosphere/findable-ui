@@ -6,6 +6,8 @@ import type { LightboxFigureItem } from "../../types";
 export interface ControlsProps {
   /** Figures in the lightbox. */
   figures: LightboxFigureItem[];
+  /** Maximum zoom level for the current figure and viewport. */
+  maxZoom: number;
   /** Resets the zoom to fit the figure to the screen. */
   onFit: () => void;
   /** Records the figure to show on the page once the lightbox has closed. */

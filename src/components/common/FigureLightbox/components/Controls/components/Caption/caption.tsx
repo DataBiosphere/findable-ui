@@ -5,7 +5,7 @@ import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typogra
 import { LABEL } from "../../../../constants";
 import { StyledCaptionText } from "./caption.styles";
 import { useIsTruncated } from "./hooks/UseIsTruncated/hook";
-import { CaptionProps } from "./types";
+import type { CaptionProps } from "./types";
 
 /**
  * Lightbox caption: the caption, clamped to a few lines, and "Show in context".

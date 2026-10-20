@@ -45,7 +45,10 @@ const {
   buildSlide,
   formatZoom,
   getCounterLabel,
+  getExpandLabel,
+  getLightboxLabel,
   isCrossOrigin,
+  isDataUrl,
   isVectorImage,
   resolveFigureSrc,
 } = await import("../src/components/common/FigureLightbox/utils");
@@ -457,6 +460,7 @@ describe("MoreMenu", () => {
     const onZoomIn = jest.fn();
     renderWithTheme(
       <MoreMenu
+        maxZoom={2}
         onFit={onFit}
         onZoomIn={onZoomIn}
         onZoomOut={jest.fn()}
@@ -483,6 +487,7 @@ describe("MoreMenu", () => {
   it("offers no zoom actions when the zoom group is shown", async () => {
     renderWithTheme(
       <MoreMenu
+        maxZoom={2}
         onFit={jest.fn()}
         onZoomIn={jest.fn()}
         onZoomOut={jest.fn()}
@@ -494,6 +499,50 @@ describe("MoreMenu", () => {
     fireEvent.click(screen.getByRole("button", { name: "More actions" }));
     await screen.findByRole("menuitem", { name: "View original" });
     expect(screen.queryByRole("menuitem", { name: "Zoom in" })).toBeNull();
+  });
+
+  it("disables zoom in at the maximum zoom", async () => {
+    renderWithTheme(
+      <MoreMenu
+        maxZoom={2}
+        onFit={jest.fn()}
+        onZoomIn={jest.fn()}
+        onZoomOut={jest.fn()}
+        originalSrc="/a.svg"
+        showZoomActions
+        zoom={2}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    expect(
+      (await screen.findByRole("menuitem", { name: "Zoom in" })).getAttribute(
+        "aria-disabled",
+      ),
+    ).toBe("true");
+    expect(
+      screen
+        .getByRole("menuitem", { name: "Zoom out" })
+        .getAttribute("aria-disabled"),
+    ).toBeNull();
+  });
+
+  it("offers Download but not View original for a data URL", async () => {
+    renderWithTheme(
+      <MoreMenu
+        maxZoom={2}
+        onFit={jest.fn()}
+        onZoomIn={jest.fn()}
+        onZoomOut={jest.fn()}
+        originalSrc="data:image/svg+xml,%3Csvg%3E"
+        showZoomActions={false}
+        zoom={1}
+      />,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "More actions" }));
+    await screen.findByRole("menuitem", { name: "Download" });
+    expect(
+      screen.queryByRole("menuitem", { name: "View original" }),
+    ).toBeNull();
   });
 });
 
@@ -558,6 +607,21 @@ describe("FigureLightbox utils", () => {
     });
   });
 
+  it("names the expand button and the lightbox from the alt text, with a fallback for empty alt text", () => {
+    const figure = {
+      alt: "Map of sites",
+      figureRef: { current: null },
+      id: "a",
+      originalSrc: "",
+      src: "",
+    };
+    expect(getExpandLabel("Map of sites")).toBe("Expand figure: Map of sites");
+    expect(getExpandLabel("")).toBe("Expand figure");
+    expect(getLightboxLabel(figure)).toBe("Map of sites");
+    expect(getLightboxLabel({ ...figure, alt: "" })).toBe("Figure");
+    expect(getLightboxLabel(undefined)).toBe("Figure");
+  });
+
   it("formats the zoom level as a percentage of fit", () => {
     expect(formatZoom(1)).toBe("100%");
     expect(formatZoom(2.345)).toBe("235%");
@@ -586,6 +650,14 @@ describe("FigureLightbox utils", () => {
     expect(isCrossOrigin(`${window.location.origin}/fig.svg`)).toBe(false);
     expect(isCrossOrigin("data:image/svg+xml,%3Csvg%3E")).toBe(false);
     expect(isCrossOrigin("blob:https://cdn.example.org/1")).toBe(false);
+  });
+
+  it("recognises data URLs, in any case, and nothing else", () => {
+    expect(isDataUrl("data:image/png;base64,AAAA")).toBe(true);
+    expect(isDataUrl("DATA:image/svg+xml,%3Csvg%3E")).toBe(true);
+    expect(isDataUrl("/a.svg")).toBe(false);
+    expect(isDataUrl("https://cdn.example.org/fig.svg")).toBe(false);
+    expect(isDataUrl("blob:https://cdn.example.org/1")).toBe(false);
   });
 
   it("recognises SVG images by extension or data URL type", () => {

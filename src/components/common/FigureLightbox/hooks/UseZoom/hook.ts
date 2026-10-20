@@ -1,42 +1,43 @@
 import { useCallback, useRef, useState } from "react";
 import type { ZoomRef } from "yet-another-react-lightbox";
-import { UseZoom } from "./types";
+import type { UseZoom } from "./types";
 
 /**
- * Tracks the lightbox zoom level and exposes the zoom actions, for the zoom controls in the lightbox top bar.
- * @returns The zoom actions, the zoom state (the zoom level) and the zoom ref.
+ * Tracks the lightbox zoom level and maximum zoom level, and exposes the zoom actions, for the zoom controls in the lightbox top bar.
+ * @returns The zoom actions, the zoom state (the zoom level and the maximum zoom level) and the zoom ref.
  */
 export function useZoom(): UseZoom {
-  const zoomRef = useRef<ZoomRef>(null);
+  const zoomControlsRef = useRef<ZoomRef>(null);
+  const [maxZoom, setMaxZoom] = useState<number>(1);
   const [zoom, setZoom] = useState<number>(1);
 
-  const onFit = useCallback((): void => {
-    zoomRef.current?.changeZoom(1);
+  // The zoom plugin hands the ref its zoom controls again whenever they change,
+  // so both levels are read from the same controls: the zoom level, which the
+  // plugin resets to fit each time a figure opens, and the maximum zoom, which
+  // depends on the figure and the viewport. The controls also change on each
+  // pan step, when the levels set here are unchanged.
+  const zoomRef = useCallback((controls: ZoomRef | null): void => {
+    zoomControlsRef.current = controls;
+    if (!controls) return;
+    setMaxZoom(controls.maxZoom);
+    setZoom(controls.zoom);
   }, []);
 
-  const onZoom = useCallback(({ zoom }: { zoom: number }): void => {
-    setZoom(zoom);
+  const onFit = useCallback((): void => {
+    zoomControlsRef.current?.changeZoom(1);
   }, []);
 
   const onZoomIn = useCallback((): void => {
-    zoomRef.current?.zoomIn();
+    zoomControlsRef.current?.zoomIn();
   }, []);
 
   const onZoomOut = useCallback((): void => {
-    zoomRef.current?.zoomOut();
-  }, []);
-
-  // Each figure opens fitted to the screen. The zoom plugin resets its own zoom
-  // when the lightbox opens or the figure changes, but it doesn't always report
-  // the reset (it is disabled until the figure has been laid out), so the
-  // recorded zoom is reset here.
-  const resetZoom = useCallback((): void => {
-    setZoom(1);
+    zoomControlsRef.current?.zoomOut();
   }, []);
 
   return {
-    actions: { onFit, onZoom, onZoomIn, onZoomOut, resetZoom },
-    state: { zoom },
+    actions: { onFit, onZoomIn, onZoomOut },
+    state: { maxZoom, zoom },
     zoomRef,
   };
 }

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { UseCloseOnRouteChangeProps } from "./types";
+import type { UseCloseOnRouteChangeProps } from "./types";
 import { createRouteChangeStartListener } from "./utils";
 
 /**

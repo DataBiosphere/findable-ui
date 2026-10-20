@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 import type { LightboxFigureItem } from "../../types";
-import { UseShowInContext } from "./types";
+import type { UseShowInContext } from "./types";
 import { showFigure } from "./utils";
 
 /**

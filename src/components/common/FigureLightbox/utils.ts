@@ -73,6 +73,15 @@ export function getCounterLabel(index: number, total: number): string {
 }
 
 /**
+ * Returns the accessible name of a figure's expand button, e.g. "Expand figure: Map of sites", or "Expand figure" for a figure with no alt text.
+ * @param alt - Image alt text.
+ * @returns The expand button's accessible name.
+ */
+export function getExpandLabel(alt: string): string {
+  return alt ? `${LABEL.EXPAND}: ${alt}` : LABEL.EXPAND;
+}
+
+/**
  * Returns the size at which a slide fits inside an area, keeping its aspect ratio.
  * @param slide - Slide, with its width and height set.
  * @param rect - Size of the area.
@@ -89,6 +98,15 @@ export function getFitSize(
 }
 
 /**
+ * Returns the lightbox dialog's accessible name: the shown figure's alt text, or "Figure" for a figure with no alt text.
+ * @param figure - Shown figure, if any.
+ * @returns The dialog's accessible name.
+ */
+export function getLightboxLabel(figure?: LightboxFigureItem): string {
+  return figure?.alt || LABEL.FIGURE;
+}
+
+/**
  * Returns whether a URL is on another origin than the page. Data and blob URLs count as same-origin, as browsers download them with the download attribute.
  * @param url - URL, absolute or relative to the page.
  * @returns True if the URL is on another origin.
@@ -102,6 +120,15 @@ export function isCrossOrigin(url: string): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * Returns whether a URL is a data URL. Browsers block opening one in a new tab.
+ * @param url - URL.
+ * @returns True if the URL is a data URL.
+ */
+export function isDataUrl(url: string): boolean {
+  return /^data:/i.test(url);
 }
 
 /**

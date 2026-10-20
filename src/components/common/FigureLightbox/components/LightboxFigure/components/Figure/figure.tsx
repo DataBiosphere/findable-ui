@@ -2,7 +2,7 @@ import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
 import { JSX } from "react";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import { StaticImage } from "../../../../../StaticImage/staticImage";
-import { LABEL } from "../../../../constants";
+import { getExpandLabel } from "../../../../utils";
 import { useRegisterFigure } from "../../hooks/UseRegisterFigure/hook";
 import type { LightboxFigureProps } from "../../types";
 import { StyledButton, StyledFigure, StyledHint } from "./figure.styles";
@@ -42,7 +42,7 @@ export const Figure = ({
     <StyledFigure className={className} ref={figureRef}>
       <StyledButton
         aria-haspopup="dialog"
-        aria-label={`${LABEL.EXPAND}: ${alt}`}
+        aria-label={getExpandLabel(alt)}
         onClick={onOpen}
       >
         <StaticImage alt={alt} height={height} src={src} width={width} />
