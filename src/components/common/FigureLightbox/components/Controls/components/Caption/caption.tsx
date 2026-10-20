@@ -9,7 +9,7 @@ import { CaptionProps } from "./types";
 
 /**
  * Lightbox caption: the caption, clamped to a few lines, and "Show in context".
- * A caption cut off by the clamp shows in full in a tooltip on hover or keyboard focus, and only then is focusable. Screen readers read the full caption either way, as the clamp is visual; the tooltip labels the caption with the same text (not describeChild, which would announce it twice). The tooltip ignores the pointer, so its events don't reach the lightbox.
+ * A caption cut off by the clamp shows in full in a tooltip on hover or keyboard focus, and only then is focusable. Screen readers read the full caption either way, as the clamp is visual; the tooltip labels the caption with the same text (not describeChild, which would announce it twice).
  * "Show in context" sits below the caption rather than at its end, so the clamp can't cut it off.
  * @param props - Component props.
  * @param props.caption - Caption content.
@@ -25,11 +25,7 @@ export const Caption = ({
   return (
     <>
       {caption && (
-        <Tooltip
-          disableInteractive
-          placement="top"
-          title={isTruncated ? caption : ""}
-        >
+        <Tooltip placement="top" title={isTruncated ? caption : ""}>
           {/* A div, not a p: the caption can hold block content, e.g. paragraphs. */}
           <StyledCaptionText
             component="div"

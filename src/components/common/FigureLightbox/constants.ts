@@ -1,3 +1,5 @@
+// Loads the zoom plugin's type augmentation, which declares the zoom prop; preserve keeps it in the emitted declarations.
+/// <reference types="yet-another-react-lightbox/plugins/zoom" preserve="true" />
 import type { LightboxExternalProps } from "yet-another-react-lightbox";
 
 export const LABEL = {

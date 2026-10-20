@@ -1,7 +1,7 @@
+// Loads the zoom plugin's type augmentation, which declares ZoomRef; preserve keeps it in the emitted declarations.
+/// <reference types="yet-another-react-lightbox/plugins/zoom" preserve="true" />
 import type { RefObject } from "react";
 import type { ZoomRef } from "yet-another-react-lightbox";
-// Loads the zoom plugin's type augmentation, which declares ZoomRef.
-import type {} from "yet-another-react-lightbox/plugins/zoom";
 
 /**
  * Return value of the useZoom hook.
