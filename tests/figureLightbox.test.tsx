@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 import { ThemeProvider } from "@mui/material";
 import {
+  createEvent,
   fireEvent,
   render,
   screen,
@@ -52,6 +53,22 @@ const {
 const FIGURE_A = { alt: "Figure A", caption: "Caption A", src: "/a.svg" };
 const FIGURE_B = { alt: "Figure B", caption: "Caption B", src: "/b.svg" };
 const FIGURE_C = { alt: "Figure C", caption: "Caption C", src: "/c.svg" };
+
+/**
+ * Fires a pointer event with a pointer ID. jsdom has no PointerEvent, so the ID
+ * is set on the event directly; without one, the lightbox takes the event for
+ * an ongoing swipe.
+ * @param type - Event type.
+ * @param target - Element to fire the event on.
+ */
+function firePointerEvent(
+  type: keyof typeof createEvent,
+  target: HTMLElement,
+): void {
+  const event = createEvent[type](target);
+  Object.defineProperty(event, "pointerId", { value: 1 });
+  fireEvent(target, event);
+}
 
 /**
  * Renders the given figures in a FigureLightboxProvider.
@@ -152,6 +169,23 @@ describe("LightboxFigure", () => {
     const dialog = await openFigure(FIGURE_A.alt);
     fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("closes on a click on the backdrop around the figure", async () => {
+    renderWithTheme(<LightboxFigure {...FIGURE_A} />);
+    const dialog = await openFigure(FIGURE_A.alt);
+    const slide = dialog.querySelector(".yarl__slide") as HTMLElement;
+    firePointerEvent("pointerDown", slide);
+    firePointerEvent("pointerUp", slide);
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("labels the carousel as figures", async () => {
+    renderWithTheme(<LightboxFigure {...FIGURE_A} />);
+    const dialog = await openFigure(FIGURE_A.alt);
+    expect(
+      within(dialog).getByRole("region", { name: "Figures" }),
+    ).toBeTruthy();
   });
 
   it("shows the zoom at 100% when fitted, with zoom out disabled", async () => {

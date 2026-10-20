@@ -61,6 +61,18 @@ export const StyledNavButton = styled(IconButton)`
   &.next {
     right: 16px;
   }
+
+  // MUI lets pointer events pass through a disabled button; here they would
+  // land on the slide behind it and close the lightbox. A disabled button keeps
+  // its background on hover and press.
+  &.Mui-disabled {
+    pointer-events: auto;
+
+    &:hover,
+    &:active {
+      background-color: ${PALETTE.COMMON_WHITE};
+    }
+  }
 `;
 
 export const StyledCaptionBar = styled.div`

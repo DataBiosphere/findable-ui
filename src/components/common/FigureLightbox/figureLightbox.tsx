@@ -81,6 +81,7 @@ export const FigureLightbox = ({
       index={index}
       labels={{
         Lightbox: figures[index]?.alt ?? "",
+        "Photo gallery": LABEL.FIGURES,
         "{index} of {total}": LABEL.COUNTER,
       }}
       on={{ exited: onExited, view: onView, zoom: onZoom }}
