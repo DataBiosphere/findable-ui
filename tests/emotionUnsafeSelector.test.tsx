@@ -5,12 +5,15 @@
 // jsdom doesn't resolve by default; the "development" export condition loads it.
 import styled from "@emotion/styled";
 import { jest } from "@jest/globals";
+import { ThemeProvider } from "@mui/material";
 import { render } from "@testing-library/react";
 import { ElementType } from "react";
 import { GridPaper } from "../src/components/common/Paper/paper.styles";
 import { StyledMarkdownRenderer as StyledDescription } from "../src/components/DataDictionary/components/Description/description.styles";
+import { Layout as FiltersLayout } from "../src/components/DataDictionary/components/Layout/components/FiltersLayout/filtersLayout.styles";
 import { MarkdownRenderer } from "../src/components/MarkdownRenderer/markdownRenderer";
 import { StyledMarkdownRenderer as StyledMarkdownCell } from "../src/components/Table/components/TableCell/components/MarkdownCell/markdownCell.styles";
+import { createAppTheme } from "../src/theme/theme";
 import { StyledMarkdownRenderer as StyledAssistantMessage } from "../src/views/ResearchView/assistant/components/Messages/components/AssistantMessage/assistantMessage.styles";
 
 const UNSAFE_SELECTOR_WARNING = "potentially unsafe";
@@ -36,6 +39,7 @@ const WRAPPERS: [string, ElementType][] = [
   ["styled(MarkdownRenderer)", StyledMarkdownRenderer],
   ["AssistantMessage markdown", StyledAssistantMessage],
   ["DataDictionary description markdown", StyledDescription],
+  ["DataDictionary filters layout", FiltersLayout],
   ["MarkdownCell markdown", StyledMarkdownCell],
 ];
 
@@ -49,9 +53,11 @@ function countUnsafeSelectorWarnings(Component: ElementType): number {
     .spyOn(console, "error")
     .mockImplementation(() => undefined);
   render(
-    <Component value="Text">
-      <div />
-    </Component>,
+    <ThemeProvider theme={createAppTheme()}>
+      <Component value="Text">
+        <div />
+      </Component>
+    </ThemeProvider>,
   );
   const count = consoleErrorSpy.mock.calls.filter(([message]) =>
     String(message).includes(UNSAFE_SELECTOR_WARNING),
