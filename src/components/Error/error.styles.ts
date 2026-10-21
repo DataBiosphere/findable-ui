@@ -3,15 +3,8 @@ import { FONT } from "../../styles/common/constants/font";
 import { bpUpSm } from "../../styles/common/mixins/breakpoints";
 import { Section, sectionMarginXsm } from "../common/Section/section.styles";
 
-interface Props {
-  offset: number;
-}
-
-export const ErrorLayout = styled("div", {
-  shouldForwardProp: (prop) => prop !== "offset",
-})<Props>`
+export const ErrorLayout = styled.div`
   flex: 1;
-  margin-top: ${({ offset }) => offset}px;
 `;
 
 export const Error = styled.div`

@@ -1,6 +1,5 @@
 import { JSX, ReactNode } from "react";
 import { SELECTOR } from "../../../../../../common/selectors";
-import { useLayoutDimensions } from "../../../../../../providers/layoutDimensions/hook";
 import { SidebarPositioner as Positioner } from "./sidebarPositioner.styles";
 
 /**
@@ -11,7 +10,7 @@ export interface SidebarPositionerProps {
 }
 
 /**
- * Positions the sidebar content; from the "md" breakpoint up, it is sticky and offset by the header height.
+ * Positions the sidebar content; from the "md" breakpoint up, it pins below the sticky header.
  * @param props - Component props.
  * @param props.children - Sidebar content.
  * @returns The sidebar positioner.
@@ -19,13 +18,5 @@ export interface SidebarPositionerProps {
 export const SidebarPositioner = ({
   children,
 }: SidebarPositionerProps): JSX.Element => {
-  const { dimensions } = useLayoutDimensions();
-  return (
-    <Positioner
-      headerHeight={dimensions.header.height}
-      id={SELECTOR.SIDEBAR_POSITIONER}
-    >
-      {children}
-    </Positioner>
-  );
+  return <Positioner id={SELECTOR.SIDEBAR_POSITIONER}>{children}</Positioner>;
 };
