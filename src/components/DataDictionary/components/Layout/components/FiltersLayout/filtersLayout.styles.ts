@@ -8,6 +8,7 @@ import {
   pinned,
   pinnedFocus,
 } from "../../../../../../styles/common/mixins/pinned";
+import { FILTERS_CLASS_NAME } from "../../../Filters/constants";
 import { LAYOUT_SPACING, TITLE_BOTTOM } from "../../constants";
 
 const PB = LAYOUT_SPACING.FILTERS_PADDING_BOTTOM; /* bottom padding */
@@ -21,12 +22,12 @@ export const Layout = styled("div")`
   z-index: 2; /* required, filters should be on top of entities */
 
   /* Spacing sits on the children, so a dictionary with no filters collapses the band to nothing. */
-  > :empty {
-    display: none;
-  }
-
-  > :first-child {
+  > .${FILTERS_CLASS_NAME} {
     margin-top: ${PT}px;
+
+    &:empty {
+      display: none;
+    }
   }
 
   > :last-child {
