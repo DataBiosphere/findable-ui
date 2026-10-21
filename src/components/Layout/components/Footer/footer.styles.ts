@@ -5,6 +5,7 @@ import { PALETTE } from "../../../../styles/common/constants/palette";
 import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 import { Socials as DXSocials } from "../../../common/Socials/socials";
 import { Link as DXLink } from "../../../Links/components/Link/link";
+import { FOOTER_HEIGHT } from "./common/constants";
 
 export const AppBar = styled(MAppBar)`
   padding: 16px 0;
@@ -26,7 +27,7 @@ export const AppBar = styled(MAppBar)`
       align-items: center;
       flex-direction: row;
       gap: unset;
-      min-height: 56px;
+      min-height: ${FOOTER_HEIGHT}px;
     }
   }
 ` as typeof MAppBar;

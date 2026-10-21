@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { MenuItem as MMenuItem, Popper as MPopper } from "@mui/material";
 import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
 import { Button as DXButton } from "../../../../../../../../../common/Button/button";
+import { HEADER_HEIGHT_VAR } from "../../../../../../common/constants";
 
 interface Props {
   isActive: boolean;
@@ -14,7 +15,9 @@ export const StyledPopper = styled(MPopper)`
   .MuiPaper-menu {
     border-color: ${PALETTE.SMOKE_MAIN};
     margin: 4px 0;
-    max-height: calc(100vh - 96px);
+    max-height: calc(
+      100vh - ${HEADER_HEIGHT_VAR} - 40px
+    ); /* below the header, with room above the window edge */
     max-width: 324px;
     min-width: 204px;
     overflow-y: auto;

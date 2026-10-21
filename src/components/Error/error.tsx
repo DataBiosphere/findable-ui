@@ -3,7 +3,6 @@ import Link from "next/link";
 import { JSX } from "react";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
-import { useLayoutDimensions } from "../../providers/layoutDimensions/hook";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { ButtonPrimary } from "../common/Button/components/ButtonPrimary/buttonPrimary";
 import { AlertIcon } from "../common/CustomIcon/components/AlertIcon/alertIcon";
@@ -78,7 +77,6 @@ export const Error = ({
   rootPath,
 }: ErrorProps): JSX.Element => {
   const { exploreDispatch } = useExploreState();
-  const { dimensions } = useLayoutDimensions();
 
   const handleToHomePageClicked = (): void => {
     // Explicitly clear the caught error so recovery also works when "To
@@ -94,7 +92,7 @@ export const Error = ({
   };
 
   return (
-    <ErrorLayout offset={dimensions.header.height}>
+    <ErrorLayout>
       <CustomError>
         <ErrorSection>
           <StatusIcon priority={PRIORITY.HIGH} StatusIcon={AlertIcon} />

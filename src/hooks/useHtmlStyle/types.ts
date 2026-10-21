@@ -1,3 +1,6 @@
 import type * as CSS from "csstype";
 
-export type CSSPropHyphen = keyof CSS.PropertiesHyphen;
+/**
+ * Hyphenated CSS property name, or a custom property.
+ */
+export type CSSPropHyphen = keyof CSS.PropertiesHyphen | `--${string}`;

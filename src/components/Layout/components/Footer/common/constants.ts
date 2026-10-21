@@ -1,0 +1,10 @@
+import { PROPERTY } from "../../../../../hooks/useHtmlStyle/constants";
+
+export const FOOTER_HEIGHT = 56;
+
+/**
+ * Footer height as a CSS value. Reads the measured height from the
+ * `--footer-height` custom property, falling back to the footer's toolbar
+ * height (from the "sm" breakpoint up) until the footer is measured.
+ */
+export const FOOTER_HEIGHT_VAR = `var(${PROPERTY.FOOTER_HEIGHT}, ${FOOTER_HEIGHT}px)`;

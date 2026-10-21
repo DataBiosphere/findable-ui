@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 import { JSX } from "react";
-import { useLayoutSpacing } from "../../hooks/UseLayoutSpacing/hook";
 import { ActionButton } from "./components/EntityView/components/controls/ActionButton/actionButton";
 import { ExportButton } from "./components/EntityView/components/controls/ExportButton/exportButton";
 import { FilterButton } from "./components/EntityView/components/controls/FilterButton/filterButton";
@@ -42,10 +41,9 @@ export const Index = ({
   loading,
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useViewToggle();
-  const { spacing } = useLayoutSpacing();
   const { table } = useTable({ entityListType });
   return (
-    <StyledGridEntityView className={className} {...spacing}>
+    <StyledGridEntityView className={className}>
       {/* Entity view alerts or other */}
       <EntityViewSlot />
       {/* Entity layout */}

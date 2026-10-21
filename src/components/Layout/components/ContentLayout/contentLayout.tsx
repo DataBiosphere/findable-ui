@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { JSX, ReactNode } from "react";
-import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
 import { BaseComponentProps } from "../../../types";
 import { LayoutStyle } from "./common/entities";
 import {
@@ -26,7 +25,7 @@ export interface ContentLayoutProps {
 
 /**
  * Content page layout, rendering the content between optional navigation and outline panels.
- * The navigation and outline panels are positioned below the header, and the outline remounts when the path (excluding the hash) changes.
+ * The navigation and outline panels pin below the sticky header, and the outline remounts when the path (excluding the hash) changes.
  * @param props - Component props.
  * @param props.className - Class name applied to the layout.
  * @param props.content - Page content.
@@ -43,7 +42,6 @@ export const ContentLayout = ({
   outline,
 }: BaseComponentProps & ContentLayoutProps): JSX.Element => {
   const { asPath } = useRouter();
-  const { dimensions } = useLayoutDimensions();
   return (
     <Layout
       className={className}
@@ -51,28 +49,21 @@ export const ContentLayout = ({
       panelColor={layoutStyle?.content}
     >
       {navigation && (
-        <NavigationGrid
-          headerHeight={dimensions.header.height}
-          panelColor={layoutStyle?.navigation}
-        >
-          <Positioner headerHeight={dimensions.header.height}>
+        <NavigationGrid panelColor={layoutStyle?.navigation}>
+          <Positioner>
             <Navigation>{navigation}</Navigation>
           </Positioner>
         </NavigationGrid>
       )}
-      <ContentGrid
-        headerHeight={dimensions.header.height}
-        panelColor={layoutStyle?.content}
-      >
+      <ContentGrid panelColor={layoutStyle?.content}>
         <Content>{content}</Content>
       </ContentGrid>
       {outline && (
         <OutlineGrid
           key={getOutlineKey(asPath)}
-          headerHeight={dimensions.header.height}
           panelColor={layoutStyle?.outline}
         >
-          <Positioner headerHeight={dimensions.header.height}>
+          <Positioner>
             <Outline>{outline}</Outline>
           </Positioner>
         </OutlineGrid>
