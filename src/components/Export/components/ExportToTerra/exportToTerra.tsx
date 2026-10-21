@@ -36,8 +36,8 @@ export interface ExportToTerraProps {
 /**
  * Export to Terra. Shows the form until the manifest is returned, then shows
  * a link to Terra built from the configured export to Terra URL; without that
- * URL configured, the form stays. Requesting the link tracks the export request
- * in analytics.
+ * URL configured, it throws once the manifest is returned. Requesting the link
+ * tracks the export request in analytics.
  * @param props - Component props.
  * @param props.ExportForm - Form component.
  * @param props.ExportToTerraStart - Content rendered above the form.
