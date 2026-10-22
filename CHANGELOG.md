@@ -1,5 +1,24 @@
 # Changelog
 
+## [57.2.0](https://github.com/DataBiosphere/findable-ui/compare/v57.1.0...v57.2.0) (2026-10-22)
+
+
+### Features
+
+* add a figure lightbox with zoom and pan ([#1130](https://github.com/DataBiosphere/findable-ui/issues/1130)) ([#1132](https://github.com/DataBiosphere/findable-ui/issues/1132)) ([ac40fbe](https://github.com/DataBiosphere/findable-ui/commit/ac40fbee7e183ea1f70d0f03b054712dd69bba96))
+
+
+### Bug Fixes
+
+* azulfiledownload drops the props tooltip injects, so its tooltip never opens ([#1127](https://github.com/DataBiosphere/findable-ui/issues/1127)) ([#1131](https://github.com/DataBiosphere/findable-ui/issues/1131)) ([e844727](https://github.com/DataBiosphere/findable-ui/commit/e844727e03fccef7186c356e3d23608b21591a04))
+* emotion's :first-child ssr warning fires for styled() markdownrenderer and gridpaper ([#1128](https://github.com/DataBiosphere/findable-ui/issues/1128)) ([#1129](https://github.com/DataBiosphere/findable-ui/issues/1129)) ([abe65b3](https://github.com/DataBiosphere/findable-ui/commit/abe65b3c9b458192a99bb36c6da322c1f36e3296))
+* nih account expiry warning says "1 days" ([#1109](https://github.com/DataBiosphere/findable-ui/issues/1109)) ([#1140](https://github.com/DataBiosphere/findable-ui/issues/1140)) ([a9ae53e](https://github.com/DataBiosphere/findable-ui/commit/a9ae53eb585bf0905b0b33f3440b27b90a6827b3))
+
+
+### Chores
+
+* replace forwardref with ref as a prop in button variants ([#1045](https://github.com/DataBiosphere/findable-ui/issues/1045)) ([#1124](https://github.com/DataBiosphere/findable-ui/issues/1124)) ([0af4323](https://github.com/DataBiosphere/findable-ui/commit/0af432394849139d0e76b67e88e56265498f7b0e))
+
 ## [57.1.0](https://github.com/DataBiosphere/findable-ui/compare/v57.0.1...v57.1.0) (2026-10-16)
 
 
