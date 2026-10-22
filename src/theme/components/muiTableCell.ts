@@ -1,7 +1,10 @@
 import { Components } from "@mui/material";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { TABLE_CELL_PROPS } from "../../styles/common/mui/tableCell";
+import {
+  TABLE_CELL_PADDING_X,
+  TABLE_CELL_PROPS,
+} from "../../styles/common/mui/tableCell";
 
 export const MuiTableCell: Components["MuiTableCell"] = {
   defaultProps: {},
@@ -14,11 +17,11 @@ export const MuiTableCell: Components["MuiTableCell"] = {
       variants: [
         {
           props: { size: TABLE_CELL_PROPS.SIZE.MEDIUM },
-          style: { padding: "10px 16px" },
+          style: { padding: `10px ${TABLE_CELL_PADDING_X}px` },
         },
         {
           props: { size: TABLE_CELL_PROPS.SIZE.SMALL },
-          style: { padding: "8px 16px" },
+          style: { padding: `8px ${TABLE_CELL_PADDING_X}px` },
         },
         {
           props: { padding: TABLE_CELL_PROPS.PADDING.CHECKBOX },
