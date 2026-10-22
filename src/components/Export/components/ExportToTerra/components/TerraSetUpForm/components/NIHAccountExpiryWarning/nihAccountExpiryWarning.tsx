@@ -1,12 +1,10 @@
 import { JSX } from "react";
-import {
-  expireTimeInSeconds,
-  useAuthenticationNIHExpiry,
-} from "../../../../../../../../hooks/authentication/terra/useAuthenticationNIHExpiry";
+import { useAuthenticationNIHExpiry } from "../../../../../../../../hooks/authentication/terra/useAuthenticationNIHExpiry";
 import { Alert } from "../../../../../../../common/Alert/alert";
 import { ALERT_PROPS } from "../../../../../../../common/Alert/constants";
 import { FluidPaper } from "../../../../../../../common/Paper/paper.styles";
 import { Link } from "../../../../../../../Links/components/Link/link";
+import { getExpiryMessage } from "./utils";
 
 /**
  * Warning that the user's NIH Researcher Auth Service (RAS) account link has
@@ -14,9 +12,8 @@ import { Link } from "../../../../../../../Links/components/Link/link";
  * @returns The warning, or null until the expiry check is complete or when the link is not expiring.
  */
 export const NIHAccountExpiryWarning = (): JSX.Element | null => {
-  const expiryStatus = useAuthenticationNIHExpiry();
   const { expirationTimestamp, isReady, linkExpired, linkWillExpire } =
-    expiryStatus || {};
+    useAuthenticationNIHExpiry();
 
   if (!isReady) return null;
 
@@ -36,36 +33,3 @@ export const NIHAccountExpiryWarning = (): JSX.Element | null => {
     </Alert>
   ) : null;
 };
-
-/**
- * Calculates the remaining days until the link expires.
- * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
- * @returns remaining days until the link expires.
- */
-function getExpireTimeInDays(expirationTimestamp?: string): number {
-  if (!expirationTimestamp) {
-    return 0;
-  }
-  return Math.max(
-    Math.ceil(expireTimeInSeconds(expirationTimestamp) / 60 / 60 / 24),
-    0,
-  );
-}
-
-/**
- * Returns an expiration message indicating whether the provided link has already expired or is set to expire.
- * @param linkExpired - Link expired flag.
- * @param expirationTimestamp - Expiration timestamp as an ISO 8601 date-time string.
- * @returns expiration message.
- */
-function getExpiryMessage(
-  linkExpired?: boolean,
-  expirationTimestamp?: string,
-): string {
-  if (linkExpired) {
-    return "Your NIH Researcher Auth Service (RAS) account link has expired.";
-  }
-  return `Your NIH Researcher Auth Service (RAS) account link will expire in ${getExpireTimeInDays(
-    expirationTimestamp,
-  )} days.`;
-}
