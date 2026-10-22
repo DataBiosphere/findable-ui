@@ -38,7 +38,7 @@ describe("useExportToTerraResponseURL", () => {
     MOCK_USE_CONFIG.mockReset();
   });
 
-  test("throws when the file location is returned without a configured exportToTerraUrl", () => {
+  it("throws when the file location is returned without a configured exportToTerraUrl", () => {
     mockConfig({});
     jest.spyOn(console, "error").mockImplementation(() => undefined);
     expect(() =>
@@ -48,7 +48,7 @@ describe("useExportToTerraResponseURL", () => {
     ).toThrow(/exportToTerraUrl/);
   });
 
-  test("returns undefined before the file location is returned without a configured exportToTerraUrl", () => {
+  it("returns undefined before the file location is returned without a configured exportToTerraUrl", () => {
     mockConfig({});
     const { result } = renderHook(() =>
       useExportToTerraResponseURL(REQUEST_PARAMS, undefined),
@@ -56,7 +56,7 @@ describe("useExportToTerraResponseURL", () => {
     expect(result.current).toBeUndefined();
   });
 
-  test("returns the export to Terra URL with a configured exportToTerraUrl", () => {
+  it("returns the export to Terra URL with a configured exportToTerraUrl", () => {
     mockConfig({ exportToTerraUrl: EXPORT_TO_TERRA_URL });
     const { result } = renderHook(() =>
       useExportToTerraResponseURL(REQUEST_PARAMS, FILE_LOCATION),
@@ -70,7 +70,7 @@ describe("useExportToTerraResponseURL", () => {
     );
   });
 
-  test("returns undefined when the request params are missing with a configured exportToTerraUrl", () => {
+  it("returns undefined when the request params are missing with a configured exportToTerraUrl", () => {
     mockConfig({ exportToTerraUrl: EXPORT_TO_TERRA_URL });
     const { result } = renderHook(() =>
       useExportToTerraResponseURL(undefined, FILE_LOCATION),

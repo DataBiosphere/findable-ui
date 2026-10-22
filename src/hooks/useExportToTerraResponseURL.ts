@@ -5,7 +5,7 @@ import { FileLocation } from "./useRequestFileLocation";
 /**
  * Returns the export to Terra response URL for the given request file location.
  * Throws once the file location is returned if the site config has no export to Terra URL.
- * @param requestParams - Export to terra request params.
+ * @param requestParams - Export to Terra request params.
  * @param fileLocation - Request file location.
  * @returns export to Terra response URL, or undefined until the request params and file location are available.
  */
