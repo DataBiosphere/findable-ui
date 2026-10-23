@@ -5,4 +5,5 @@ export const PROPERTY = {
   ENTITY_LAYOUT_HEIGHT: "--entity-layout-height",
   FOOTER_HEIGHT: "--footer-height",
   HEADER_HEIGHT: "--header-height",
+  TABLE_HEAD_HEIGHT: "--table-head-height",
 } as const satisfies Record<string, CSSPropHyphen>;

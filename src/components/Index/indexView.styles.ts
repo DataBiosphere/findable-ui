@@ -15,7 +15,7 @@ import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants"
 import { SUPPORTS_PAGE_SCROLL } from "../Table/common/constants";
 
 const ENTITY_LIST_GAP = 16;
-const TABLE_HEAD_HEIGHT = 57; /* a one-line column head and its bottom line */
+const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
 const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, 57px))`;
 
 /**
@@ -48,7 +48,7 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
       :root {
         scroll-padding-top: calc(
           var(--index-scroll-padding-top) + ${ENTITY_LIST_GAP}px +
-            ${TABLE_HEAD_HEIGHT}px
+            var(${PROPERTY.TABLE_HEAD_HEIGHT}, ${TABLE_HEAD_HEIGHT}px)
         );
       }
     }
