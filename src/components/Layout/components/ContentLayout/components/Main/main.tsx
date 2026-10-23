@@ -1,5 +1,5 @@
 import { JSX, ReactNode } from "react";
-import { Main as ContentMain } from "../../../Main/main.styles";
+import { StyledMain as ContentMain } from "../../../Main/main.styles";
 
 /**
  * Props for the Main component.

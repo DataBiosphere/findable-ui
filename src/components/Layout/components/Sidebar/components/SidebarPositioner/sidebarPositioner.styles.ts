@@ -1,21 +1,18 @@
 import styled from "@emotion/styled";
 import { bpUpMd } from "../../../../../../styles/common/mixins/breakpoints";
+import { pinned } from "../../../../../../styles/common/mixins/pinned";
+import { HEADER_HEIGHT_VAR } from "../../../Header/common/constants";
 
-interface Props {
-  headerHeight: number;
-}
-
-export const SidebarPositioner = styled("div")<Props>`
+export const SidebarPositioner = styled("div")`
   box-sizing: border-box;
   height: 100%;
   overflow: visible;
   padding: 16px 0;
 
   ${bpUpMd} {
-    max-height: 100vh;
+    max-height: calc(100vh - ${HEADER_HEIGHT_VAR});
     overflow: auto;
-    padding: ${({ headerHeight }) => headerHeight}px 0 0;
-    position: sticky;
-    top: 0;
+    padding: 0;
+    ${pinned(HEADER_HEIGHT_VAR)};
   }
 `;

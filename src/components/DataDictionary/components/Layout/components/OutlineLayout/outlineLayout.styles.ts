@@ -1,23 +1,22 @@
 import styled from "@emotion/styled";
-import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { bpDown1024 } from "../../../../../../styles/common/mixins/breakpoints";
-import { LAYOUT_SPACING } from "../../constants";
+import { pinned } from "../../../../../../styles/common/mixins/pinned";
+import { FOOTER_HEIGHT_VAR } from "../../../../../Layout/components/Footer/common/constants";
+import { LAYOUT_SPACING, TITLE_BOTTOM } from "../../constants";
 
 const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.OUTLINE_PADDING_TOP; /* top padding */
-const TITLE_HEIGHT = LAYOUT_SPACING.TITLE_HEIGHT; /* title height */
 
-export const Layout = styled("div")<LayoutSpacing>`
-  grid-column: 1;
-  grid-row: 1;
-  margin-bottom: ${({ bottom }) =>
-    -bottom}px; /* required; prevents sticky element from scrolling when footer scrolls into viewport */
-  max-height: 100vh;
+export const Layout = styled("div")`
+  grid-area: outline;
+  margin-bottom: calc(
+    -1 * ${FOOTER_HEIGHT_VAR}
+  ); /* with the matching padding, keeps the outline pinned whole while the footer scrolls into view */
+  max-height: calc(100vh - ${TITLE_BOTTOM});
   overflow: hidden;
-  padding-bottom: ${({ bottom }) => bottom}px; /* footer height */
-  padding-top: ${({ top }) => top + TITLE_HEIGHT + PT}px;
-  position: sticky;
-  top: 0;
+  padding-bottom: ${FOOTER_HEIGHT_VAR};
+  padding-top: ${PT}px;
+  ${pinned(TITLE_BOTTOM)}; /* below the sticky title */
 
   ${bpDown1024} {
     display: none;

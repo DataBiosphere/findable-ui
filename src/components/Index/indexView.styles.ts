@@ -1,21 +1,23 @@
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
-import { LayoutSpacing } from "../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { bpDownSm } from "../../styles/common/mixins/breakpoints";
+import { bpDownMd, bpDownSm } from "../../styles/common/mixins/breakpoints";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
+import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants";
 
-export const StyledGridEntityView = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== "bottom" && prop !== "top",
-})<LayoutSpacing>`
+export const StyledGridEntityView = styled(Grid)`
   align-content: flex-start;
   display: grid;
   flex: 1;
   gap: 0;
+  contain: size; /* fills the main row without growing it, so the page fits the window */
   height: 100%;
-  max-height: 100vh;
   overflow: hidden;
-  padding-top: ${({ top }) => top}px;
+
+  /* Below md the footer is too tall to keep on screen: fill the window below the header and let the footer follow. */
+  ${bpDownMd} {
+    height: calc(100vh - ${HEADER_HEIGHT_VAR});
+  }
 `;
 
 export const StyledGridEntityLayout = styled(Grid)`

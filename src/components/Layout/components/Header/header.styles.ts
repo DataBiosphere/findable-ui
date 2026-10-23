@@ -2,15 +2,28 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { AppBar as MAppBar } from "@mui/material";
 import { PALETTE } from "../../../../styles/common/constants/palette";
-import { HEADER_HEIGHT } from "./common/constants";
+import { pinnedFocus } from "../../../../styles/common/mixins/pinned";
+import { HEADER_HEIGHT, HEADER_HEIGHT_VAR } from "./common/constants";
 
 // See https://github.com/emotion-js/emotion/issues/1105.
 // See https://github.com/emotion-js/emotion/releases/tag/%40emotion%2Fcache%4011.10.2.
 const ignoreSsrWarning =
   "/* emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason */";
 
+/**
+ * Clears the sticky header when the page scrolls to a target: hash links,
+ * focus and scrollIntoView. Server-rendered, so it applies on first load.
+ */
+export const scrollPadding = css`
+  html {
+    scroll-padding-top: ${HEADER_HEIGHT_VAR};
+  }
+`;
+
 export const AppBar = styled(MAppBar)`
   border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
+
+  ${pinnedFocus};
 
   &.MuiPaper-elevation0 {
     border-bottom: 1px solid transparent;

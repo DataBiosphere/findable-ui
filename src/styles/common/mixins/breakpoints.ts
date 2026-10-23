@@ -19,6 +19,15 @@ export const bpDown1024 = ({ theme }: ThemeProps): string =>
   theme.breakpoints.down(1024);
 
 /**
+ * Media query for viewports at or wider than 1024px.
+ * @param props - Theme props.
+ * @param props.theme - MUI theme.
+ * @returns The media query string.
+ */
+export const bpUp1024 = ({ theme }: ThemeProps): string =>
+  theme.breakpoints.up(1024);
+
+/**
  * Media query for viewports at or wider than 1366px.
  * @param props - Theme props.
  * @param props.theme - MUI theme.
