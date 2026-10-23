@@ -64,6 +64,7 @@ export const Table = <T extends RowData>({
     ? ROW_DIRECTION.VERTICAL
     : ROW_DIRECTION.DEFAULT;
   const { rows, scrollElementRef, virtualizer } = useVirtualization({
+    pageScroll: true,
     rowDirection,
     table,
   });

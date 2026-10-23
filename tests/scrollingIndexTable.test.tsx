@@ -6,11 +6,13 @@ import {
   TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
-import { render, screen } from "@testing-library/react";
+import { render, renderHook, screen } from "@testing-library/react";
 import { JSX } from "react";
+import { ROW_DIRECTION } from "../src/components/Table/common/entities";
 import { TableHead } from "../src/components/Table/components/TableHead/tableHead";
 import { VirtualizedRow } from "../src/components/Table/components/TableRows/components/VirtualizedRow/virtualizedRow";
 import { observeColumnTracks } from "../src/components/Table/hooks/UseStickyHeadColumns/utils";
+import { useVirtualization } from "../src/components/Table/hooks/UseVirtualization/hook";
 import type { TableVirtualizer } from "../src/components/Table/hooks/UseVirtualization/types";
 import {
   getScrollMargin,
@@ -108,6 +110,57 @@ describe("Scrolling index table", () => {
     it("renders no spacer above the first row", () => {
       const virtualizer = stubVirtualizer([{ end: 600, start: 500 }], 100, 500);
       expect(spacerHeight(true, virtualizer)).toBeUndefined();
+    });
+  });
+
+  describe("useVirtualization", () => {
+    /**
+     * Renders the hook with a one-row table and returns the virtualizer's scroll element.
+     * @param pageScroll - Whether the page scrolls rather than the table.
+     * @returns The element the virtualizer scrolls against.
+     */
+    function scrollElement(pageScroll?: boolean): unknown {
+      const { result } = renderHook(() => {
+        const table = useReactTable<Row>({
+          columns: COLUMNS,
+          data: [{ name: "a" }],
+          getCoreRowModel: getCoreRowModel(),
+        });
+        return useVirtualization({
+          pageScroll,
+          rowDirection: ROW_DIRECTION.DEFAULT,
+          table,
+        });
+      });
+      return result.current.virtualizer.options.getScrollElement();
+    }
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("virtualizes against the table's own scroll container by default, as consumers' tables expect", () => {
+      Object.defineProperty(globalThis, "CSS", {
+        configurable: true,
+        value: { supports: () => true },
+      });
+      expect(scrollElement()).not.toBe(window);
+    });
+
+    it("virtualizes against the page with page scroll, where supported", () => {
+      Object.defineProperty(globalThis, "CSS", {
+        configurable: true,
+        value: { supports: () => true },
+      });
+      expect(scrollElement(true)).toBe(window);
+    });
+
+    it("falls back to the table's scroll container where page scroll isn't supported", () => {
+      Object.defineProperty(globalThis, "CSS", {
+        configurable: true,
+        value: { supports: () => false },
+      });
+      expect(scrollElement(true)).not.toBe(window);
     });
   });
 
