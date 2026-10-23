@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
 import { PALETTE } from "../../styles/common/constants/palette";
+import { SUPPORTS_PAGE_SCROLL } from "../../styles/common/constants/supports";
 import {
   bpDownMd,
   bpDownSm,
@@ -12,7 +13,6 @@ import {
 import { pinned, pinnedFocus } from "../../styles/common/mixins/pinned";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants";
-import { SUPPORTS_PAGE_SCROLL } from "../Table/common/constants";
 
 const ENTITY_LIST_GAP = 16;
 const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
