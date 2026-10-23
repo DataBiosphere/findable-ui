@@ -16,11 +16,13 @@ import { SUPPORTS_PAGE_SCROLL } from "../Table/common/constants";
 
 const ENTITY_LIST_GAP = 16;
 const TABLE_HEAD_HEIGHT = 57; /* a one-line column head and its bottom line */
+const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, 57px))`;
 
 /**
- * Index pages pin the tabs row and, from sm up, the column head below the
- * header, so focus and hash links stop below them too. :root outranks the
- * header's html scroll padding.
+ * Index pages pin the entity layout row (with tabs, or below md, where it holds
+ * the filter button) and, from sm up, the column head below the header, so
+ * focus and hash links stop below them too. :root outranks the header's html
+ * scroll padding.
  * @param theme - MUI theme.
  * @returns Global scroll padding styles for index pages.
  */
@@ -31,9 +33,13 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
   }
 
   :root:has(.MuiTabs-root) {
-    --index-scroll-padding-top: calc(
-      ${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, 57px)
-    );
+    --index-scroll-padding-top: ${ENTITY_LAYOUT_BOTTOM};
+  }
+
+  ${bpDownMd({ theme })} {
+    :root {
+      --index-scroll-padding-top: ${ENTITY_LAYOUT_BOTTOM};
+    }
   }
 
   /* The column head pins only where its copy can follow the table's sideways scroll. */
@@ -50,9 +56,9 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
 `;
 
 /**
- * The page scrolls; the tabs row, when there are tabs, and the table's column
- * head pin below the header. The head pins 16px below the tabs row, or 16px
- * below the header when the tabs row (a title) scrolls away.
+ * The page scrolls; the entity layout row, when it has tabs or below md, and the
+ * table's column head pin below the header. The head pins 16px below the entity
+ * layout row, or 16px below the header when the row (a title) scrolls away.
  */
 export const StyledGridEntityView = styled(Grid)`
   --table-head-top: calc(${HEADER_HEIGHT_VAR} + ${ENTITY_LIST_GAP}px);
@@ -63,10 +69,11 @@ export const StyledGridEntityView = styled(Grid)`
   min-width: 0;
 
   &:has(.MuiTabs-root) {
-    --table-head-top: calc(
-      ${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, 57px) +
-        ${ENTITY_LIST_GAP}px
-    );
+    --table-head-top: calc(${ENTITY_LAYOUT_BOTTOM} + ${ENTITY_LIST_GAP}px);
+  }
+
+  ${bpDownMd} {
+    --table-head-top: calc(${ENTITY_LAYOUT_BOTTOM} + ${ENTITY_LIST_GAP}px);
   }
 
   /* Fallback: the page fits the window and the table scrolls in its own box. */
@@ -80,6 +87,13 @@ export const StyledGridEntityView = styled(Grid)`
       height: calc(100vh - ${HEADER_HEIGHT_VAR});
     }
   }
+`;
+
+const pinnedEntityLayout = css`
+  background-color: ${PALETTE.BACKGROUND_DEFAULT};
+  z-index: 5; /* above the band below it */
+  ${pinned(HEADER_HEIGHT_VAR)};
+  ${pinnedFocus};
 `;
 
 export const StyledGridEntityLayout = styled(Grid)`
@@ -112,13 +126,15 @@ export const StyledGridEntityLayout = styled(Grid)`
     }
   }
 
-  /* Tabs stay in reach as the page scrolls; a title alone scrolls away. */
+  /* Tabs, and below md the filter button, stay in reach as the page scrolls;
+     a title alone scrolls away. */
   @supports ${SUPPORTS_PAGE_SCROLL} {
     &:has(.MuiTabs-root) {
-      background-color: ${PALETTE.BACKGROUND_DEFAULT};
-      z-index: 5; /* above the band below it */
-      ${pinned(HEADER_HEIGHT_VAR)};
-      ${pinnedFocus};
+      ${pinnedEntityLayout};
+    }
+
+    ${bpDownMd} {
+      ${pinnedEntityLayout};
     }
   }
 `;
