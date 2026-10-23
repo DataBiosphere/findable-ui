@@ -46,7 +46,12 @@ export const FigureLightbox = ({
   } = useShowInContext();
   const { smDown } = useBreakpoint();
   const controllerRef = useRef<ControllerRef>(null);
-  useCloseOnRouteChange({ controllerRef, open });
+  // The lightbox's own close action also clears the inert it puts on the page.
+  const onRouteChange = useCallback(
+    (): void => controllerRef.current?.close(),
+    [],
+  );
+  useCloseOnRouteChange({ onClose: onRouteChange, open });
   const {
     actions: { onMeasure },
     state: { sizes },
