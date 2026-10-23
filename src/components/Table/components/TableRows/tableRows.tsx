@@ -1,6 +1,6 @@
 import { Row, RowData } from "@tanstack/react-table";
-import { Virtualizer } from "@tanstack/react-virtual";
 import { Fragment, JSX } from "react";
+import type { TableVirtualizer } from "../../hooks/UseVirtualization/types";
 import { VirtualizedTableRow } from "../TableRow/components/VirtualizedTableRow/virtualizedTableRow";
 
 /**
@@ -8,7 +8,7 @@ import { VirtualizedTableRow } from "../TableRow/components/VirtualizedTableRow/
  */
 export interface TableRowsProps<T extends RowData> {
   rows: Row<T>[];
-  virtualizer: Virtualizer<HTMLDivElement, Element>;
+  virtualizer: TableVirtualizer;
 }
 
 /**

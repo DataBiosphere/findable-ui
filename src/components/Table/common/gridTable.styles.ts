@@ -47,7 +47,10 @@ export const GridTable = styled(MTable, {
     .MuiTableHead-root {
       box-shadow: 0px 1px ${PALETTE.SMOKE_MAIN};
       position: sticky;
-      top: 0;
+      top: var(
+        --table-head-top,
+        0px
+      ); /* set by views where the page scrolls, e.g. the index view */
       z-index: 2;
     }
   }
