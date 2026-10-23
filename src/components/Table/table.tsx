@@ -14,7 +14,9 @@ import {
 } from "../../hooks/useBreakpointHelper";
 import { useExploreMode } from "../../hooks/useExploreMode/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
+import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
 import { ExploreActionKind } from "../../providers/exploreState";
+import { useLayoutHeight } from "../Layout/hooks/UseLayoutHeight/hook";
 import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
@@ -76,6 +78,10 @@ export const Table = <T extends RowData>({
   } = table;
   const gridTemplateColumns = getColumnTrackSizing(getVisibleFlatColumns());
   useStickyHeadColumns(scrollElementRef, gridTemplateColumns);
+  // The pinned head's height, for the index page's scroll padding: a column title can wrap.
+  const { ref: stickyHeadRef } = useLayoutHeight<HTMLDivElement>(
+    PROPERTY.TABLE_HEAD_HEIGHT,
+  );
 
   const noResults = !loading && (!rows || rows.length === 0);
 
@@ -136,7 +142,7 @@ export const Table = <T extends RowData>({
       <StyledTableScroll>
         {/* A copy of the column head that pins as the page scrolls. */}
         <StyledStickyHead aria-hidden>
-          <div>
+          <div ref={stickyHeadRef}>
             <GridTable
               gridTemplateColumns={`var(${STICKY_HEAD_COLUMNS}, ${gridTemplateColumns})`}
               stickyHeader
