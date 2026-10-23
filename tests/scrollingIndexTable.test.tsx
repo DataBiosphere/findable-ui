@@ -169,6 +169,33 @@ describe("Scrolling index table", () => {
       expect(wrapper.style.getPropertyValue("--table-columns")).toBe("");
     });
 
+    it("observes the table and each of its head cells, so a column changing width alone is caught", () => {
+      const observe = jest.fn();
+      const resizeObserver = jest
+        .spyOn(globalThis, "ResizeObserver")
+        .mockImplementation(
+          () =>
+            ({
+              disconnect: jest.fn(),
+              observe,
+              unobserve: jest.fn(),
+            }) as unknown as ResizeObserver,
+        );
+      const wrapper = document.createElement("div");
+      const container = document.createElement("div");
+      container.innerHTML =
+        '<table><thead class="MuiTableHead-root"><tr><th></th><th></th></tr></thead></table>';
+      wrapper.appendChild(container);
+      observeColumnTracks(container);
+      const table = container.querySelector("table");
+      const cells = [...container.querySelectorAll("th")];
+      expect(observe.mock.calls.map(([target]) => target)).toEqual([
+        table,
+        ...cells,
+      ]);
+      resizeObserver.mockRestore();
+    });
+
     it("observes nothing without a table", () => {
       expect(
         observeColumnTracks(document.createElement("div")),
