@@ -1,5 +1,8 @@
+import { Global } from "@emotion/react";
 import { Grid } from "@mui/material";
 import { JSX } from "react";
+import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
+import { useLayoutHeight } from "../Layout/hooks/UseLayoutHeight/hook";
 import { ActionButton } from "./components/EntityView/components/controls/ActionButton/actionButton";
 import { ExportButton } from "./components/EntityView/components/controls/ExportButton/exportButton";
 import { FilterButton } from "./components/EntityView/components/controls/FilterButton/filterButton";
@@ -14,6 +17,7 @@ import { LazyChartView } from "./components/EntityView/components/views/ChartVie
 import { TableView } from "./components/EntityView/components/views/TableView/tableView";
 import { EntityViewContext } from "./components/EntityView/context/context";
 import {
+  indexScrollPadding,
   StyledFluidPaper,
   StyledGridEntityLayout,
   StyledGridEntityList,
@@ -42,12 +46,17 @@ export const Index = ({
 }: IndexProps): JSX.Element => {
   const { onChange, viewMode, viewStatus } = useViewToggle();
   const { table } = useTable({ entityListType });
+  // The column head pins below the tabs row, so its height is measured.
+  const { ref: entityLayoutRef } = useLayoutHeight<HTMLDivElement>(
+    PROPERTY.ENTITY_LAYOUT_HEIGHT,
+  );
   return (
     <StyledGridEntityView className={className}>
+      <Global styles={indexScrollPadding} />
       {/* Entity view alerts or other */}
       <EntityViewSlot />
       {/* Entity layout */}
-      <StyledGridEntityLayout container>
+      <StyledGridEntityLayout container ref={entityLayoutRef}>
         <Title />
         <Tabs />
         <Grid container offset="auto">

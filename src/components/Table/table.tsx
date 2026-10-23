@@ -25,7 +25,7 @@ import { TableHead } from "./components/TableHead/tableHead";
 import { TablePagination } from "./components/TablePagination/tablePagination";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
 import { useVirtualization } from "./hooks/UseVirtualization/hook";
-import { GridTable } from "./table.styles";
+import { GridTable, StyledStickyHead, StyledTableScroll } from "./table.styles";
 
 /**
  * Props for the Table component.
@@ -128,21 +128,36 @@ export const Table = <T extends RowData>({
         loading={loading}
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
-      <TableContainer ref={scrollElementRef}>
-        <GridTable
-          collapsable={true}
-          gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
-          stickyHeader
-        >
-          <TableHead tableInstance={table} />
-          <TableBody
-            rows={rows}
-            rowDirection={rowDirection}
-            tableInstance={table}
-            virtualizer={virtualizer}
-          />
-        </GridTable>
-      </TableContainer>
+      <StyledTableScroll>
+        {/* A copy of the column head that pins as the page scrolls. */}
+        <StyledStickyHead aria-hidden>
+          <div>
+            <GridTable
+              gridTemplateColumns={getColumnTrackSizing(
+                getVisibleFlatColumns(),
+              )}
+              stickyHeader
+            >
+              <TableHead sortTabIndex={-1} tableInstance={table} />
+            </GridTable>
+          </div>
+        </StyledStickyHead>
+        <TableContainer ref={scrollElementRef}>
+          <GridTable
+            collapsable={true}
+            gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
+            stickyHeader
+          >
+            <TableHead tableInstance={table} />
+            <TableBody
+              rows={rows}
+              rowDirection={rowDirection}
+              tableInstance={table}
+              virtualizer={virtualizer}
+            />
+          </GridTable>
+        </TableContainer>
+      </StyledTableScroll>
       {!disablePagination && (
         <TablePagination
           canNextPage={canNextPage()}

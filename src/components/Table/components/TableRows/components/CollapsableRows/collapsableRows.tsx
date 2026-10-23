@@ -1,7 +1,7 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import { Virtualizer } from "@tanstack/react-virtual";
 import { Fragment, JSX } from "react";
 import { isCollapsableRowDisabled } from "../../../../common/utils";
+import type { TableVirtualizer } from "../../../../hooks/UseVirtualization/types";
 import { CollapsableTableRow } from "../../../TableRow/components/CollapsableTableRow/collapsableTableRow";
 import { useCollapsableRows } from "./hook";
 import { getSubRowSelectionSignature } from "./utils";
@@ -12,7 +12,7 @@ import { getSubRowSelectionSignature } from "./utils";
 export interface CollapsableRowsProps<T extends RowData> {
   rows: Row<T>[];
   tableInstance: Table<T>;
-  virtualizer: Virtualizer<HTMLDivElement, Element>;
+  virtualizer: TableVirtualizer;
 }
 
 /**
