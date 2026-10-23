@@ -70,7 +70,7 @@ export const StyledTableScroll = styled.div`
 
   /* Keyboard focus in the table's own head shows through the copy over it. */
   &:has(.MuiTableContainer-root .MuiTableHead-root :focus-visible)
-    > :first-child {
+    > [aria-hidden] {
     visibility: hidden;
   }
 

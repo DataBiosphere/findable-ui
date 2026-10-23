@@ -10,6 +10,7 @@ import { render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { TableHead } from "../src/components/Table/components/TableHead/tableHead";
 import { VirtualizedRow } from "../src/components/Table/components/TableRows/components/VirtualizedRow/virtualizedRow";
+import { observeColumnTracks } from "../src/components/Table/hooks/UseStickyHeadColumns/utils";
 import type { TableVirtualizer } from "../src/components/Table/hooks/UseVirtualization/types";
 import {
   getScrollMargin,
@@ -143,6 +144,35 @@ describe("Scrolling index table", () => {
       supports.mockReturnValue(true);
       expect(supportsPageScroll()).toBe(true);
       expect(supports).toHaveBeenCalledWith("(animation-timeline: scroll())");
+    });
+  });
+
+  describe("useStickyHeadColumns utils", () => {
+    afterEach(() => {
+      jest.restoreAllMocks();
+    });
+
+    it("gives the pinned head copy the table's computed column widths, and removes them on cleanup", () => {
+      const wrapper = document.createElement("div");
+      const container = document.createElement("div");
+      const table = document.createElement("table");
+      container.appendChild(table);
+      wrapper.appendChild(container);
+      jest.spyOn(window, "getComputedStyle").mockReturnValue({
+        gridTemplateColumns: "200.8px 340px",
+      } as CSSStyleDeclaration);
+      const cleanup = observeColumnTracks(container);
+      expect(wrapper.style.getPropertyValue("--table-columns")).toBe(
+        "200.8px 340px",
+      );
+      cleanup?.();
+      expect(wrapper.style.getPropertyValue("--table-columns")).toBe("");
+    });
+
+    it("observes nothing without a table", () => {
+      expect(
+        observeColumnTracks(document.createElement("div")),
+      ).toBeUndefined();
     });
   });
 

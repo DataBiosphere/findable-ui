@@ -18,12 +18,14 @@ import { ExploreActionKind } from "../../providers/exploreState";
 import { Loading, LOADING_PANEL_STYLE } from "../Loading/loading";
 import { NoResults } from "../NoResults/noResults";
 import { getColumnTrackSizing } from "../TableCreator/options/columnTrackSizing/utils";
+import { STICKY_HEAD_COLUMNS } from "./common/constants";
 import { ROW_DIRECTION } from "./common/entities";
 import { isClientFilteringEnabled } from "./common/utils";
 import { TableBody } from "./components/TableBody/tableBody";
 import { TableHead } from "./components/TableHead/tableHead";
 import { TablePagination } from "./components/TablePagination/tablePagination";
 import { TableToolbar } from "./components/TableToolbar/tableToolbar";
+import { useStickyHeadColumns } from "./hooks/UseStickyHeadColumns/hook";
 import { useVirtualization } from "./hooks/UseVirtualization/hook";
 import { GridTable, StyledStickyHead, StyledTableScroll } from "./table.styles";
 
@@ -71,6 +73,8 @@ export const Table = <T extends RowData>({
     nextPage: tableNextPage,
     previousPage: tablePreviousPage,
   } = table;
+  const gridTemplateColumns = getColumnTrackSizing(getVisibleFlatColumns());
+  useStickyHeadColumns(scrollElementRef, gridTemplateColumns);
 
   const noResults = !loading && (!rows || rows.length === 0);
 
@@ -133,9 +137,7 @@ export const Table = <T extends RowData>({
         <StyledStickyHead aria-hidden>
           <div>
             <GridTable
-              gridTemplateColumns={getColumnTrackSizing(
-                getVisibleFlatColumns(),
-              )}
+              gridTemplateColumns={`var(${STICKY_HEAD_COLUMNS}, ${gridTemplateColumns})`}
               stickyHeader
             >
               <TableHead sortTabIndex={-1} tableInstance={table} />
@@ -145,7 +147,7 @@ export const Table = <T extends RowData>({
         <TableContainer ref={scrollElementRef}>
           <GridTable
             collapsable={true}
-            gridTemplateColumns={getColumnTrackSizing(getVisibleFlatColumns())}
+            gridTemplateColumns={gridTemplateColumns}
             stickyHeader
           >
             <TableHead tableInstance={table} />
