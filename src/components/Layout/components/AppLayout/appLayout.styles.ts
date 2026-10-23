@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { FOOTER_VIEW_TIMELINE } from "../Footer/common/constants";
 
 /**
  * Grows with the page, so the sticky header stays pinned on long pages. A grid
@@ -11,6 +12,7 @@ export const AppLayout = styled.div`
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  timeline-scope: ${FOOTER_VIEW_TIMELINE}; /* lets the sidebar follow the footer */
 
   > header {
     grid-row: 1;

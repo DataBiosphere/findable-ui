@@ -1,5 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import { SUPPORTS_PAGE_SCROLL } from "../../common/constants";
+import { SUPPORTS_PAGE_SCROLL } from "../../../../styles/common/constants/supports";
 import { ROW_DIRECTION } from "../../common/entities";
 
 /**

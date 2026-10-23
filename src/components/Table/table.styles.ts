@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../styles/common/constants/palette";
+import { SUPPORTS_PAGE_SCROLL } from "../../styles/common/constants/supports";
 import { bpDownSm } from "../../styles/common/mixins/breakpoints";
-import { SUPPORTS_PAGE_SCROLL } from "./common/constants";
 import { GridTable as Table } from "./common/gridTable.styles";
 
 interface Props {

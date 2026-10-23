@@ -5,10 +5,11 @@ import { PALETTE } from "../../../../styles/common/constants/palette";
 import { bpUpSm } from "../../../../styles/common/mixins/breakpoints";
 import { Socials as DXSocials } from "../../../common/Socials/socials";
 import { Link as DXLink } from "../../../Links/components/Link/link";
-import { FOOTER_HEIGHT } from "./common/constants";
+import { FOOTER_HEIGHT, FOOTER_VIEW_TIMELINE } from "./common/constants";
 
 export const AppBar = styled(MAppBar)`
   padding: 16px 0;
+  view-timeline: ${FOOTER_VIEW_TIMELINE} block;
   z-index: 1; /* required for outline or navigation overflow */
 
   .MuiToolbar-root {
