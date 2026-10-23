@@ -15,6 +15,8 @@ export interface UseRegisterFigure {
 export interface UseRegisterFigureActions {
   /** Opens the lightbox at this figure. */
   onOpen: () => void;
+  /** Starts loading the lightbox, so it is ready to open; undefined outside a provider. */
+  onPreload?: () => void;
 }
 
 /**

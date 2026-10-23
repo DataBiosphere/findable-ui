@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 import { ThemeProvider } from "@mui/material";
 import {
+  act,
   createEvent,
   fireEvent,
   render,
@@ -32,6 +33,18 @@ jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
   useRouter: jest.fn(() => ({ basePath: "/base", events: ROUTER_EVENTS })),
 }));
+
+// The loader is spied on, so tests can check when the lightbox loads and make a
+// load fail. By default it loads the real lightbox.
+const loadFigureLightbox = jest.fn(() =>
+  import("../src/components/common/FigureLightbox/figureLightbox").then(
+    ({ FigureLightbox }) => FigureLightbox,
+  ),
+);
+jest.unstable_mockModule(
+  "../src/components/common/FigureLightbox/provider/utils",
+  () => ({ loadFigureLightbox }),
+);
 
 const { LightboxFigure } =
   await import("../src/components/common/FigureLightbox/components/LightboxFigure/lightboxFigure");
@@ -71,6 +84,15 @@ function firePointerEvent(
   const event = createEvent[type](target);
   Object.defineProperty(event, "pointerId", { value: 1 });
   fireEvent(target, event);
+}
+
+/**
+ * Returns the expand button of the figure with the given alt text.
+ * @param alt - Figure alt text.
+ * @returns The expand button.
+ */
+function getExpandButton(alt: string): HTMLElement {
+  return screen.getByRole("button", { name: `Expand figure: ${alt}` });
 }
 
 /**
@@ -115,9 +137,7 @@ function renderWithTheme(ui: ReactElement): {
  * @returns The lightbox dialog.
  */
 async function openFigure(alt: string): Promise<HTMLElement> {
-  fireEvent.click(
-    screen.getByRole("button", { name: `Expand figure: ${alt}` }),
-  );
+  fireEvent.click(getExpandButton(alt));
   return screen.findByRole("dialog", { name: alt });
 }
 
@@ -338,6 +358,15 @@ describe("FigureLightboxProvider", () => {
     expect(within(dialog).getByText("Figure 1 of 3")).toBeTruthy();
   });
 
+  it("opens again after closing, on any figure", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A, FIGURE_B]} />);
+    const dialog = await openFigure(FIGURE_A.alt);
+    fireEvent.click(within(dialog).getByRole("button", { name: "Close" }));
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    const reopened = await openFigure(FIGURE_B.alt);
+    expect(within(reopened).getByText("Figure 2 of 2")).toBeTruthy();
+  });
+
   it("counts figures in page order, not mount order", async () => {
     const { rerender } = renderWithTheme(
       <Group figures={[FIGURE_A, FIGURE_C]} />,
@@ -346,6 +375,76 @@ describe("FigureLightboxProvider", () => {
     rerender(<Group figures={[FIGURE_A, FIGURE_B, FIGURE_C]} />);
     const dialog = await openFigure(FIGURE_C.alt);
     expect(within(dialog).getByText("Figure 3 of 3")).toBeTruthy();
+  });
+});
+
+describe("FigureLightboxProvider loading", () => {
+  beforeEach(() => {
+    loadFigureLightbox.mockClear();
+  });
+
+  it("doesn't load the lightbox until a figure is used, and loads it on open", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A, FIGURE_B]} />);
+    expect(loadFigureLightbox).not.toHaveBeenCalled();
+    const dialog = await openFigure(FIGURE_B.alt);
+    expect(loadFigureLightbox).toHaveBeenCalled();
+    expect(within(dialog).getByText("Figure 2 of 2")).toBeTruthy();
+  });
+
+  it("starts loading the lightbox when an expand button is hovered or focused, without opening it", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A]} />);
+    const button = getExpandButton(FIGURE_A.alt);
+    await act(async () => {
+      fireEvent.pointerEnter(button);
+    });
+    expect(loadFigureLightbox).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      fireEvent.focus(button);
+    });
+    expect(loadFigureLightbox).toHaveBeenCalledTimes(2);
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("opens the lightbox in the same render once it has loaded", async () => {
+    renderWithTheme(<Group figures={[FIGURE_A]} />);
+    await act(async () => {
+      fireEvent.pointerEnter(getExpandButton(FIGURE_A.alt));
+    });
+    fireEvent.click(getExpandButton(FIGURE_A.alt));
+    expect(screen.getByRole("dialog", { name: FIGURE_A.alt })).toBeTruthy();
+  });
+
+  it("cancels an open whose load fails, so a later load doesn't open it unasked, and retries on the next open", async () => {
+    loadFigureLightbox.mockImplementationOnce(() =>
+      Promise.reject(new Error("ChunkLoadError")),
+    );
+    renderWithTheme(<Group figures={[FIGURE_A]} />);
+    await act(async () => {
+      fireEvent.click(getExpandButton(FIGURE_A.alt));
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    await act(async () => {
+      fireEvent.pointerEnter(getExpandButton(FIGURE_A.alt));
+    });
+    expect(screen.queryByRole("dialog")).toBeNull();
+    expect(await openFigure(FIGURE_A.alt)).toBeTruthy();
+  });
+
+  it("cancels an open still waiting on the load on client-side navigation", async () => {
+    let resolveLoad: () => void = () => undefined;
+    const { FigureLightbox } =
+      await import("../src/components/common/FigureLightbox/figureLightbox");
+    loadFigureLightbox.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveLoad = (): void => resolve(FigureLightbox);
+        }),
+    );
+    renderWithTheme(<Group figures={[FIGURE_A]} />);
+    fireEvent.click(getExpandButton(FIGURE_A.alt));
+    act(() => ROUTER_EVENTS.emit());
+    await act(async () => resolveLoad());
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 });
 
