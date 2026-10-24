@@ -9,17 +9,19 @@ import { observeHeight } from "./utils";
  * from the resize observer, before paint and without re-rendering, and is
  * removed on unmount so styles fall back to their default.
  * @param property - Custom property to set, e.g. `--header-height`.
+ * @param key - Optional; observing restarts when it changes, e.g. when the measured element is unmounted and rendered again.
  * @returns The ref to attach to the measured element, and whether it has been measured.
  */
 export const useLayoutHeight = <T extends HTMLElement = HTMLElement>(
   property: CSSPropHyphen,
+  key?: unknown,
 ): UseLayoutHeight<T> => {
   const ref = useRef<T>(null);
   const [isMeasured, setIsMeasured] = useState(false);
 
   useLayoutEffect(
     () => observeHeight(ref.current, property, setIsMeasured),
-    [property],
+    [key, property],
   );
 
   return { isMeasured, ref };
