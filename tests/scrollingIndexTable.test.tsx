@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { render, renderHook, screen } from "@testing-library/react";
 import { JSX } from "react";
+import { STICKY_HEAD_COLUMNS } from "../src/components/Table/common/constants";
 import { ROW_DIRECTION } from "../src/components/Table/common/entities";
 import { TableHead } from "../src/components/Table/components/TableHead/tableHead";
 import { VirtualizedRow } from "../src/components/Table/components/TableRows/components/VirtualizedRow/virtualizedRow";
@@ -19,6 +20,7 @@ import {
   observeScrollMargin,
   supportsPageScroll,
 } from "../src/components/Table/hooks/UseVirtualization/utils";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../src/styles/common/constants/supports";
 
 interface Row {
   name: string;
@@ -91,7 +93,45 @@ function spacerHeight(
   return container.querySelector("td")?.style.height;
 }
 
+/**
+ * Mocks the browser's CSS.supports.
+ * @param supports - Result, or a mock to inspect calls.
+ * @returns The mock.
+ */
+function mockCssSupports(
+  supports: boolean | jest.Mock<(condition: string) => boolean>,
+): jest.Mock<(condition: string) => boolean> {
+  const mock =
+    typeof supports === "boolean" ? jest.fn(() => supports) : supports;
+  Object.defineProperty(globalThis, "CSS", {
+    configurable: true,
+    value: { supports: mock },
+  });
+  return mock;
+}
+
+/**
+ * Builds a table container with its pinned head copy just before it, as the Table renders them.
+ * @param tableHtml - The table's markup.
+ * @returns The head copy and the container.
+ */
+function renderTableScroll(tableHtml = "<table></table>"): {
+  container: HTMLDivElement;
+  stickyHead: HTMLDivElement;
+} {
+  const wrapper = document.createElement("div");
+  const stickyHead = document.createElement("div");
+  const container = document.createElement("div");
+  container.innerHTML = tableHtml;
+  wrapper.append(stickyHead, container);
+  return { container, stickyHead };
+}
+
 describe("Scrolling index table", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   describe("VirtualizedRow", () => {
     it("discounts the table's offset from the top of the page from the spacer rows", () => {
       // Rows 2–3 of 5 (each 100px) are rendered; the table body starts 500px down the page.
@@ -135,40 +175,23 @@ describe("Scrolling index table", () => {
       return result.current.virtualizer.options.getScrollElement();
     }
 
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-
     it("virtualizes against the table's own scroll container by default, as consumers' tables expect", () => {
-      Object.defineProperty(globalThis, "CSS", {
-        configurable: true,
-        value: { supports: () => true },
-      });
+      mockCssSupports(true);
       expect(scrollElement()).not.toBe(window);
     });
 
     it("virtualizes against the page with page scroll, where supported", () => {
-      Object.defineProperty(globalThis, "CSS", {
-        configurable: true,
-        value: { supports: () => true },
-      });
+      mockCssSupports(true);
       expect(scrollElement(true)).toBe(window);
     });
 
     it("falls back to the table's scroll container where page scroll isn't supported", () => {
-      Object.defineProperty(globalThis, "CSS", {
-        configurable: true,
-        value: { supports: () => false },
-      });
+      mockCssSupports(false);
       expect(scrollElement(true)).not.toBe(window);
     });
   });
 
   describe("useVirtualization utils", () => {
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-
     it("measures the table body's offset from the top of the page", () => {
       const container = document.createElement("div");
       const tbody = document.createElement("tbody");
@@ -188,57 +211,41 @@ describe("Scrolling index table", () => {
     });
 
     it("supports the page scroll layout only where the browser supports the feature query", () => {
-      const supports = jest.fn(() => false);
-      Object.defineProperty(globalThis, "CSS", {
-        configurable: true,
-        value: { supports },
-      });
+      const supports = mockCssSupports(false);
       expect(supportsPageScroll()).toBe(false);
       supports.mockReturnValue(true);
       expect(supportsPageScroll()).toBe(true);
-      expect(supports).toHaveBeenCalledWith("(animation-timeline: scroll())");
+      expect(supports).toHaveBeenCalledWith(SUPPORTS_SCROLL_DRIVEN_ANIMATIONS);
     });
   });
 
   describe("useStickyHeadColumns utils", () => {
-    afterEach(() => {
-      jest.restoreAllMocks();
-    });
-
     it("gives the pinned head copy the table's computed column widths, and removes them on cleanup", () => {
-      const wrapper = document.createElement("div");
-      const container = document.createElement("div");
-      const table = document.createElement("table");
-      container.appendChild(table);
-      wrapper.appendChild(container);
+      const { container, stickyHead } = renderTableScroll();
       jest.spyOn(window, "getComputedStyle").mockReturnValue({
         gridTemplateColumns: "200.8px 340px",
       } as CSSStyleDeclaration);
       const cleanup = observeColumnTracks(container);
-      expect(wrapper.style.getPropertyValue("--table-columns")).toBe(
+      expect(stickyHead.style.getPropertyValue(STICKY_HEAD_COLUMNS)).toBe(
         "200.8px 340px",
       );
       cleanup?.();
-      expect(wrapper.style.getPropertyValue("--table-columns")).toBe("");
+      expect(stickyHead.style.getPropertyValue(STICKY_HEAD_COLUMNS)).toBe("");
     });
 
     it("observes the table and each of its head cells, so a column changing width alone is caught", () => {
       const observe = jest.fn();
-      const resizeObserver = jest
-        .spyOn(globalThis, "ResizeObserver")
-        .mockImplementation(
-          () =>
-            ({
-              disconnect: jest.fn(),
-              observe,
-              unobserve: jest.fn(),
-            }) as unknown as ResizeObserver,
-        );
-      const wrapper = document.createElement("div");
-      const container = document.createElement("div");
-      container.innerHTML =
-        '<table><thead class="MuiTableHead-root"><tr><th></th><th></th></tr></thead></table>';
-      wrapper.appendChild(container);
+      jest.spyOn(globalThis, "ResizeObserver").mockImplementation(
+        () =>
+          ({
+            disconnect: jest.fn(),
+            observe,
+            unobserve: jest.fn(),
+          }) as unknown as ResizeObserver,
+      );
+      const { container } = renderTableScroll(
+        '<table><thead class="MuiTableHead-root"><tr><th></th><th></th></tr></thead></table>',
+      );
       observeColumnTracks(container);
       const table = container.querySelector("table");
       const cells = [...container.querySelectorAll("th")];
@@ -246,7 +253,6 @@ describe("Scrolling index table", () => {
         table,
         ...cells,
       ]);
-      resizeObserver.mockRestore();
     });
 
     it("observes nothing without a table", () => {

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { SUPPORTS_PAGE_SCROLL } from "../../styles/common/constants/supports";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../styles/common/constants/supports";
 import {
   bpDownMd,
   bpDownSm,
@@ -13,10 +13,12 @@ import {
 import { pinned, pinnedFocus } from "../../styles/common/mixins/pinned";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants";
+import { TABLE_HEAD_TOP } from "../Table/common/constants";
 
+const ENTITY_LAYOUT_HEIGHT = 57; /* fallback until measured: a one-line entity layout row and its bottom line */
 const ENTITY_LIST_GAP = 16;
 const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
-const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, 57px))`;
+const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, ${ENTITY_LAYOUT_HEIGHT}px))`;
 
 /**
  * Index pages pin the entity layout row (with tabs, or below md, where it holds
@@ -43,7 +45,7 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
   }
 
   /* The column head pins only where its copy can follow the table's sideways scroll. */
-  @supports ${SUPPORTS_PAGE_SCROLL} {
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     ${bpUpSm({ theme })} {
       :root {
         scroll-padding-top: calc(
@@ -57,27 +59,22 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
 
 /**
  * The page scrolls; the entity layout row, when it has tabs or below md, and the
- * table's column head pin below the header. The head pins 16px below the entity
- * layout row, or 16px below the header when the row (a title) scrolls away.
+ * table's column head pin below the header. The head pins 16px below whatever is
+ * pinned above it, which the index scroll padding already resolves.
  */
 export const StyledGridEntityView = styled(Grid)`
-  --table-head-top: calc(${HEADER_HEIGHT_VAR} + ${ENTITY_LIST_GAP}px);
+  ${TABLE_HEAD_TOP}: calc(
+    var(--index-scroll-padding-top, ${HEADER_HEIGHT_VAR}) +
+      ${ENTITY_LIST_GAP}px
+  );
   align-content: flex-start;
   display: grid;
   flex: 1;
   gap: 0;
   min-width: 0;
 
-  &:has(.MuiTabs-root) {
-    --table-head-top: calc(${ENTITY_LAYOUT_BOTTOM} + ${ENTITY_LIST_GAP}px);
-  }
-
-  ${bpDownMd} {
-    --table-head-top: calc(${ENTITY_LAYOUT_BOTTOM} + ${ENTITY_LIST_GAP}px);
-  }
-
   /* Fallback: the page fits the window and the table scrolls in its own box. */
-  @supports not ${SUPPORTS_PAGE_SCROLL} {
+  @supports not ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     contain: size; /* fills the main row without growing it */
     height: 100%;
     overflow: hidden;
@@ -128,7 +125,7 @@ export const StyledGridEntityLayout = styled(Grid)`
 
   /* Tabs, and below md the filter button, stay in reach as the page scrolls;
      a title alone scrolls away. */
-  @supports ${SUPPORTS_PAGE_SCROLL} {
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     &:has(.MuiTabs-root) {
       ${pinnedEntityLayout};
     }
@@ -146,7 +143,7 @@ export const StyledFluidPaper = styled(FluidPaper)`
   overflow: clip; /* not hidden: a scroll container would stop the column head pinning */
   position: relative; /* required; positions table loading indicator */
 
-  @supports not ${SUPPORTS_PAGE_SCROLL} {
+  @supports not ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     overflow: hidden;
   }
 
@@ -162,51 +159,41 @@ export const StyledGridEntityList = styled(Grid)`
   gap: ${ENTITY_LIST_GAP}px;
   margin: ${ENTITY_LIST_GAP}px;
 
-  /* A band that pins with the column head: it masks the rows scrolling through
-     the gap above the head and draws the table's rounded top edge over it.
-     Ordered after the list's alerts, at the top edge of the table. */
-  &::before {
-    border: 1px solid ${PALETTE.SMOKE_MAIN};
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 -8px 0 8px ${PALETTE.BACKGROUND_DEFAULT};
-    content: "";
-    height: 8px;
-    margin-bottom: -8px;
-    order: 1;
-    pointer-events: none;
-    z-index: 4; /* above the column head, including a pinned copy of it */
-    ${pinned("var(--table-head-top)")};
-
-    /* Without scroll-driven animations the column head doesn't pin (see the
-       Table's sticky head), so neither does the band. */
-    @supports not ${SUPPORTS_PAGE_SCROLL} {
-      display: none;
-    }
-  }
-
   > :last-child {
     order: 2;
+  }
 
-    /* Sits under the band; without the band, the gap above it stays. */
-    @supports ${SUPPORTS_PAGE_SCROLL} {
-      margin-top: -${ENTITY_LIST_GAP}px;
+  /* Where the column head pins (from sm up, with scroll-driven animations), a
+     band pins with it: it masks the rows scrolling through the gap above the
+     head and draws the table's rounded top edge over it. Ordered after the
+     list's alerts, at the top edge of the table, which sits under it. */
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
+    ${bpUpSm} {
+      &::before {
+        border: 1px solid ${PALETTE.SMOKE_MAIN};
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+        box-shadow: 0 -8px 0 8px ${PALETTE.BACKGROUND_DEFAULT};
+        content: "";
+        height: 8px;
+        margin-bottom: -8px;
+        order: 1;
+        pointer-events: none;
+        z-index: 4; /* above the column head, including a pinned copy of it */
+        ${pinned(`var(${TABLE_HEAD_TOP})`)};
+      }
+
+      > :last-child {
+        margin-top: -${ENTITY_LIST_GAP}px;
+      }
     }
   }
 
-  @supports not ${SUPPORTS_PAGE_SCROLL} {
+  @supports not ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     overflow: hidden;
   }
 
   ${bpDownSm} {
     margin: ${ENTITY_LIST_GAP}px 0;
-
-    &::before {
-      display: none;
-    }
-
-    > :last-child {
-      margin-top: 0;
-    }
   }
 `;

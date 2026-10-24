@@ -1,5 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import { SUPPORTS_PAGE_SCROLL } from "../../../../styles/common/constants/supports";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../../../styles/common/constants/supports";
 import { ROW_DIRECTION } from "../../common/entities";
 
 /**
@@ -68,5 +68,8 @@ export function subscribeToNothing(): () => void {
  * @returns True if the page scroll layout is supported.
  */
 export function supportsPageScroll(): boolean {
-  return typeof CSS !== "undefined" && CSS.supports(SUPPORTS_PAGE_SCROLL);
+  return (
+    typeof CSS !== "undefined" &&
+    CSS.supports(SUPPORTS_SCROLL_DRIVEN_ANIMATIONS)
+  );
 }

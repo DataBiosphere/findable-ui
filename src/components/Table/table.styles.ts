@@ -1,8 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { PALETTE } from "../../styles/common/constants/palette";
-import { SUPPORTS_PAGE_SCROLL } from "../../styles/common/constants/supports";
-import { bpDownSm } from "../../styles/common/mixins/breakpoints";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../styles/common/constants/supports";
+import { bpDownSm, bpUpSm } from "../../styles/common/mixins/breakpoints";
+import { pinned } from "../../styles/common/mixins/pinned";
+import { TABLE_HEAD_TOP, TABLE_SCROLL_X_TIMELINE } from "./common/constants";
 import { GridTable as Table } from "./common/gridTable.styles";
 
 interface Props {
@@ -66,7 +68,7 @@ export const StyledTableScroll = styled.div`
   border-top: 1px solid ${PALETTE.SMOKE_MAIN}; /* below the toolbar */
   min-width: 0;
   overflow: clip; /* not hidden: a scroll container would stop the head copy pinning */
-  timeline-scope: --table-scroll-x;
+  timeline-scope: ${TABLE_SCROLL_X_TIMELINE};
 
   /* Keyboard focus in the table's own head shows through the copy over it. */
   &:has(.MuiTableContainer-root .MuiTableHead-root :focus-visible)
@@ -75,8 +77,7 @@ export const StyledTableScroll = styled.div`
   }
 
   .MuiTableContainer-root {
-    --table-head-top: 0px; /* the table's own head scrolls away with the rows */
-    scroll-timeline: --table-scroll-x x;
+    scroll-timeline: ${TABLE_SCROLL_X_TIMELINE} x;
   }
 
   &:not(:last-child) {
@@ -89,7 +90,7 @@ export const StyledTableScroll = styled.div`
   }
 
   /* Fallback: the box scrolls both ways and the table's own head pins in it. */
-  @supports not ${SUPPORTS_PAGE_SCROLL} {
+  @supports not ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     display: grid;
     min-height: 0;
     overflow: hidden;
@@ -104,9 +105,8 @@ export const StyledStickyHead = styled.div`
   container-type: inline-size;
   display: none;
   height: 0;
-  position: sticky;
-  top: var(--table-head-top, 0px);
   z-index: 3;
+  ${pinned(`var(${TABLE_HEAD_TOP}, 0px)`)};
 
   > div {
     left: 0;
@@ -117,12 +117,15 @@ export const StyledStickyHead = styled.div`
     top: 0;
   }
 
-  @supports ${SUPPORTS_PAGE_SCROLL} {
-    display: block;
+  /* From sm up (below it, rows are cards without a head). */
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
+    ${bpUpSm} {
+      display: block;
 
-    .MuiTable-root {
-      animation: table-head-scroll-x linear both;
-      animation-timeline: --table-scroll-x;
+      .MuiTable-root {
+        animation: table-head-scroll-x linear both;
+        animation-timeline: ${TABLE_SCROLL_X_TIMELINE};
+      }
     }
   }
 
@@ -130,9 +133,5 @@ export const StyledStickyHead = styled.div`
     to {
       transform: translateX(calc(-100% + 100cqw));
     }
-  }
-
-  ${bpDownSm} {
-    display: none;
   }
 `;

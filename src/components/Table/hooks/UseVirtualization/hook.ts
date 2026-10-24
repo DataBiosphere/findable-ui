@@ -2,6 +2,7 @@ import { RowData, Table } from "@tanstack/react-table";
 import { useVirtualizer, useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ROW_DIRECTION } from "../../common/entities";
+import { VIRTUALIZER_OPTIONS } from "./constants";
 import { UseVirtualizationProps } from "./types";
 import {
   getRowsForVirtualization,
@@ -52,21 +53,16 @@ export const useVirtualization = <T extends RowData>({
   const rows = getRowsForVirtualization(table, rowDirection);
 
   // Build both virtualizers; only the one for the current layout is enabled.
+  const options = { count: rows.length, ...VIRTUALIZER_OPTIONS };
   const windowVirtualizer = useWindowVirtualizer({
-    count: rows.length,
+    ...options,
     enabled: pageScroll,
-    estimateSize: () => 56,
-    gap: 1,
-    overscan: 20,
     scrollMargin,
   });
   const boxVirtualizer = useVirtualizer({
-    count: rows.length,
+    ...options,
     enabled: !pageScroll,
-    estimateSize: () => 56,
-    gap: 1,
     getScrollElement: () => scrollElementRef.current,
-    overscan: 20,
   });
 
   return {

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { SUPPORTS_PAGE_SCROLL } from "../../../../../../styles/common/constants/supports";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../../../../../styles/common/constants/supports";
 import { bpUpMd } from "../../../../../../styles/common/mixins/breakpoints";
 import { pinned } from "../../../../../../styles/common/mixins/pinned";
 import {
@@ -22,7 +22,7 @@ export const SidebarPositioner = styled("div")`
 
     /* Shrinks as the footer scrolls in, by as much of it as is in view, so the
        end of the column doesn't push the top of the sidebar under the header. */
-    @supports ${SUPPORTS_PAGE_SCROLL} {
+    @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
       animation: sidebar-above-footer linear both;
       animation-range: entry 0% entry 100%;
       animation-timeline: ${FOOTER_VIEW_TIMELINE};
