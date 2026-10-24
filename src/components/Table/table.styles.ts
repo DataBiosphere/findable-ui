@@ -4,7 +4,11 @@ import { PALETTE } from "../../styles/common/constants/palette";
 import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../styles/common/constants/supports";
 import { bpDownSm, bpUpSm } from "../../styles/common/mixins/breakpoints";
 import { pinned } from "../../styles/common/mixins/pinned";
-import { TABLE_HEAD_TOP, TABLE_SCROLL_X_TIMELINE } from "./common/constants";
+import {
+  TABLE_HEAD_TOP,
+  TABLE_SCROLL_VIEW_TIMELINE,
+  TABLE_SCROLL_X_TIMELINE,
+} from "./common/constants";
 import { GridTable as Table } from "./common/gridTable.styles";
 
 interface Props {
@@ -62,19 +66,16 @@ export const GridTable = styled(Table, {
  * scrolls, not the table, and the box scrolls sideways, so the table's own head
  * can't pin to the window; the copy pins instead and follows the box's sideways
  * scroll through a scroll-driven animation. Clipping here ends the copy where
- * the table ends.
+ * the table ends. The copy only shows once the table's top has scrolled past the
+ * pin line; until then, the table's own head is in view, focus ring included.
  */
 export const StyledTableScroll = styled.div`
   border-top: 1px solid ${PALETTE.SMOKE_MAIN}; /* below the toolbar */
   min-width: 0;
   overflow: clip; /* not hidden: a scroll container would stop the head copy pinning */
   timeline-scope: ${TABLE_SCROLL_X_TIMELINE};
-
-  /* Keyboard focus in the table's own head shows through the copy over it. */
-  &:has(.MuiTableContainer-root .MuiTableHead-root :focus-visible)
-    > [aria-hidden] {
-    visibility: hidden;
-  }
+  view-timeline: ${TABLE_SCROLL_VIEW_TIMELINE} block;
+  view-timeline-inset: var(${TABLE_HEAD_TOP}, 0px) 0px;
 
   .MuiTableContainer-root {
     scroll-timeline: ${TABLE_SCROLL_X_TIMELINE} x;
@@ -117,15 +118,28 @@ export const StyledStickyHead = styled.div`
     top: 0;
   }
 
-  /* From sm up (below it, rows are cards without a head). */
+  /* From sm up (below it, rows are cards without a head). Shown only while
+     the table's top is above the pin line (exit-crossing of the inset view
+     timeline): at rest the table's own head is in view, not covered. */
   @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     ${bpUpSm} {
+      animation: table-head-pinned linear;
+      animation-range: exit-crossing 0% exit-crossing 100%;
+      animation-timeline: ${TABLE_SCROLL_VIEW_TIMELINE};
       display: block;
+      visibility: hidden;
 
       .MuiTable-root {
         animation: table-head-scroll-x linear both;
         animation-timeline: ${TABLE_SCROLL_X_TIMELINE};
       }
+    }
+  }
+
+  @keyframes table-head-pinned {
+    from,
+    to {
+      visibility: visible;
     }
   }
 

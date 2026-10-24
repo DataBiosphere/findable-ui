@@ -15,3 +15,10 @@ export const TABLE_HEAD_TOP = "--table-head-top";
  * the column head follows.
  */
 export const TABLE_SCROLL_X_TIMELINE = "--table-scroll-x";
+
+/**
+ * View timeline of the table's scroll wrapper, inset to the line where the column
+ * head pins: the pinned copy of the head shows only while the table's top has
+ * scrolled past that line.
+ */
+export const TABLE_SCROLL_VIEW_TIMELINE = "--table-scroll-view";
