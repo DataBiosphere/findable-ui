@@ -161,7 +161,12 @@ export const StyledFluidPaper = styled(FluidPaper)`
      than the middle of the overlay. */
   @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     > div > .MuiPaper-root:has(> .MuiSvgIcon-root) {
-      align-content: start;
+      /* A column flexbox, not the overlay's grid: a grid row would shrink to
+         the icon, leaving it no room to stick. */
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
 
       > .MuiSvgIcon-root {
         margin-top: ${LOADING_ICON_MIN_OFFSET}px;
