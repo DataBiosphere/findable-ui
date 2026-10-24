@@ -6,10 +6,15 @@ import {
   TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
-import { render, renderHook, screen } from "@testing-library/react";
+import { fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { JSX } from "react";
+import { COLUMN_DEF } from "../src/components/Table/common/columnDef";
 import { STICKY_HEAD_COLUMNS } from "../src/components/Table/common/constants";
 import { ROW_DIRECTION } from "../src/components/Table/common/entities";
+import {
+  STICKY_HEAD_CONTEXT_VALUE,
+  TableHeadContext,
+} from "../src/components/Table/components/TableHead/context";
 import { TableHead } from "../src/components/Table/components/TableHead/tableHead";
 import { VirtualizedRow } from "../src/components/Table/components/TableRows/components/VirtualizedRow/virtualizedRow";
 import { observeColumnTracks } from "../src/components/Table/hooks/UseStickyHeadColumns/utils";
@@ -30,27 +35,39 @@ const columnHelper = createColumnHelper<Row>();
 const COLUMNS = [columnHelper.accessor("name", { header: "Name" })];
 
 /**
- * Renders a sortable table head.
+ * Renders a sortable, selectable table's head, as the pinned copy or the table's own.
  * @param props - Component props.
- * @param props.sortTabIndex - Tab index of the sort buttons.
- * @returns The table head, in a table.
+ * @param props.copy - Whether to render it as the pinned copy of the head.
+ * @returns The table head, in a table, with the selection count.
  */
-function SortableHead({
-  sortTabIndex,
-}: {
-  sortTabIndex?: number;
-}): JSX.Element {
+function InteractiveHead({ copy = false }: { copy?: boolean }): JSX.Element {
   const table = useReactTable<Row>({
-    columns: COLUMNS,
-    data: [{ name: "a" }],
+    columns: [COLUMN_DEF.ROW_SELECTION as (typeof COLUMNS)[number], ...COLUMNS],
+    data: [{ name: "a" }, { name: "b" }],
+    enableRowSelection: true,
     enableSortingInteraction: true,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
   } as TableOptions<Row>);
+  const head = <TableHead tableInstance={table} />;
   return (
-    <table>
-      <TableHead sortTabIndex={sortTabIndex} tableInstance={table} />
-    </table>
+    <>
+      <table>
+        {copy ? (
+          <TableHeadContext.Provider value={STICKY_HEAD_CONTEXT_VALUE}>
+            {head}
+          </TableHeadContext.Provider>
+        ) : (
+          head
+        )}
+      </table>
+      <output data-testid="selected">
+        {Object.keys(table.getState().rowSelection).length}
+      </output>
+      <output data-testid="sorting">
+        {JSON.stringify(table.getState().sorting)}
+      </output>
+    </>
   );
 }
 
@@ -301,18 +318,24 @@ describe("Scrolling index table", () => {
   });
 
   describe("TableHead", () => {
-    it("keeps the sort buttons in the tab order by default", () => {
-      render(<SortableHead />);
+    it("keeps the head's controls in the tab order by default", () => {
+      render(<InteractiveHead />);
       expect(
         screen.getByRole("button", { name: /Name/ }).getAttribute("tabindex"),
       ).toBe("0");
+      expect(screen.getByRole("checkbox").getAttribute("tabindex")).toBeNull();
     });
 
-    it("takes the sort buttons of a pinned copy out of the tab order", () => {
-      render(<SortableHead sortTabIndex={-1} />);
-      expect(
-        screen.getByRole("button", { name: /Name/ }).getAttribute("tabindex"),
-      ).toBe("-1");
+    it("takes the pinned copy's controls out of the tab order, and keeps them clickable", () => {
+      render(<InteractiveHead copy />);
+      const sort = screen.getByRole("button", { name: /Name/ });
+      const selectAll = screen.getByRole("checkbox");
+      expect(sort.getAttribute("tabindex")).toBe("-1");
+      expect(selectAll.getAttribute("tabindex")).toBe("-1");
+      fireEvent.click(selectAll);
+      expect(screen.getByTestId("selected").textContent).toBe("2");
+      fireEvent.click(sort);
+      expect(screen.getByTestId("sorting").textContent).toContain('"name"');
     });
   });
 });
