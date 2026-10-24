@@ -88,6 +88,28 @@ describe("useLayoutHeight", () => {
     expect(getValue()).toBe("0px");
   });
 
+  // The measured element can be unmounted and rendered again while the hook
+  // stays mounted, e.g. a table head copy around "No Results"; a changed key
+  // restarts observing on the new element.
+  it("should observe an element rendered again when the key changes", () => {
+    /**
+     * Element, rendered only when shown, whose height is written to the custom property.
+     * @param props - Component props.
+     * @param props.shown - Whether the measured element is rendered.
+     * @returns The measured element, or nothing.
+     */
+    const Toggled = ({ shown }: { shown: boolean }): JSX.Element | null => {
+      const { ref } = useLayoutHeight<HTMLDivElement>(PROPERTY_NAME, shown);
+      return shown ? <div data-testid="measured" ref={ref} /> : null;
+    };
+    const { rerender } = render(<Toggled shown={false} />);
+    expect(global.ResizeObserver).not.toHaveBeenCalled();
+    rerender(<Toggled shown />);
+    expect(global.ResizeObserver).toHaveBeenCalledTimes(1);
+    reportHeight(68);
+    expect(getValue()).toBe("68px");
+  });
+
   it("should remove the property on unmount", () => {
     const unmount = renderMeasured();
     reportHeight(57);

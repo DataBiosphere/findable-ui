@@ -34,20 +34,21 @@ export const indexScrollPadding = (theme: Theme): SerializedStyles => css`
     scroll-padding-top: var(--index-scroll-padding-top);
   }
 
-  :root:has(.MuiTabs-root) {
-    --index-scroll-padding-top: ${ENTITY_LAYOUT_BOTTOM};
-  }
-
-  ${bpDownMd({ theme })} {
-    :root {
+  /* The entity layout row and the column head pin only with scroll-driven
+     animations; the head only from sm up, and only where there's a table. */
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
+    :root:has(.MuiTabs-root) {
       --index-scroll-padding-top: ${ENTITY_LAYOUT_BOTTOM};
     }
-  }
 
-  /* The column head pins only where its copy can follow the table's sideways scroll. */
-  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
-    ${bpUpSm({ theme })} {
+    ${bpDownMd({ theme })} {
       :root {
+        --index-scroll-padding-top: ${ENTITY_LAYOUT_BOTTOM};
+      }
+    }
+
+    ${bpUpSm({ theme })} {
+      :root:has(.MuiTableContainer-root) {
         scroll-padding-top: calc(
           var(--index-scroll-padding-top) + ${ENTITY_LIST_GAP}px +
             var(${PROPERTY.TABLE_HEAD_HEIGHT}, ${TABLE_HEAD_HEIGHT}px)
@@ -140,6 +141,7 @@ export const StyledFluidPaper = styled(FluidPaper)`
   background-color: ${PALETTE.SMOKE_MAIN};
   display: grid;
   gap: 1px;
+  isolation: isolate; /* keeps the loading indicator's z-index under the pinned entity layout row */
   overflow: clip; /* not hidden: a scroll container would stop the column head pinning */
   position: relative; /* required; positions table loading indicator */
 
@@ -163,13 +165,13 @@ export const StyledGridEntityList = styled(Grid)`
     order: 2;
   }
 
-  /* Where the column head pins (from sm up, with scroll-driven animations), a
-     band pins with it: it masks the rows scrolling through the gap above the
-     head and draws the table's rounded top edge over it. Ordered after the
-     list's alerts, at the top edge of the table, which sits under it. */
+  /* Where the column head pins (a table, from sm up, with scroll-driven
+     animations), a band pins with it: it masks the rows scrolling through the
+     gap above the head and draws the table's rounded top edge over it. Ordered
+     after the list's alerts, at the top edge of the table, which sits under it. */
   @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     ${bpUpSm} {
-      &::before {
+      &:has(.MuiTableContainer-root)::before {
         border: 1px solid ${PALETTE.SMOKE_MAIN};
         border-bottom: none;
         border-radius: 8px 8px 0 0;
@@ -183,7 +185,7 @@ export const StyledGridEntityList = styled(Grid)`
         ${pinned(`var(${TABLE_HEAD_TOP})`)};
       }
 
-      > :last-child {
+      &:has(.MuiTableContainer-root) > :last-child {
         margin-top: -${ENTITY_LIST_GAP}px;
       }
     }
