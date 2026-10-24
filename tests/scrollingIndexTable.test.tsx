@@ -130,6 +130,9 @@ function renderTableScroll(tableHtml = "<table></table>"): {
 describe("Scrolling index table", () => {
   afterEach(() => {
     jest.restoreAllMocks();
+    // Property overrides aren't mocks; undo them so they don't leak between tests.
+    Reflect.deleteProperty(globalThis, "CSS");
+    Reflect.deleteProperty(window, "scrollY");
   });
 
   describe("VirtualizedRow", () => {
@@ -183,6 +186,41 @@ describe("Scrolling index table", () => {
     it("virtualizes against the page with page scroll, where supported", () => {
       mockCssSupports(true);
       expect(scrollElement(true)).toBe(window);
+    });
+
+    it('observes the table\'s offset again when rows come back, e.g. after "No Results"', () => {
+      mockCssSupports(true);
+      const observe = jest.fn();
+      jest.spyOn(globalThis, "ResizeObserver").mockImplementation(
+        () =>
+          ({
+            disconnect: jest.fn(),
+            observe,
+            unobserve: jest.fn(),
+          }) as unknown as ResizeObserver,
+      );
+      const container = document.createElement("div");
+      const { rerender } = renderHook(
+        ({ data }: { data: Row[] }) => {
+          const table = useReactTable<Row>({
+            columns: COLUMNS,
+            data,
+            getCoreRowModel: getCoreRowModel(),
+          });
+          const result = useVirtualization({
+            pageScroll: true,
+            rowDirection: ROW_DIRECTION.DEFAULT,
+            table,
+          });
+          // The Table renders its container only while there are rows.
+          result.scrollElementRef.current = data.length > 0 ? container : null;
+          return result;
+        },
+        { initialProps: { data: [] as Row[] } },
+      );
+      expect(observe).not.toHaveBeenCalled();
+      rerender({ data: [{ name: "a" }] });
+      expect(observe).toHaveBeenCalledTimes(1);
     });
 
     it("falls back to the table's scroll container where page scroll isn't supported", () => {

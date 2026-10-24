@@ -9,13 +9,15 @@ import { observeColumnTracks } from "./utils";
  * table or a column resizes.
  * @param scrollElementRef - Ref to the table container.
  * @param gridTemplateColumns - The table's configured track sizing; observing restarts when it changes.
+ * @param isRendered - Whether the table is rendered; observing restarts when it's rendered again, e.g. after "No Results".
  */
 export const useStickyHeadColumns = (
   scrollElementRef: RefObject<HTMLDivElement | null>,
   gridTemplateColumns: string,
+  isRendered: boolean,
 ): void => {
   useLayoutEffect(
     () => observeColumnTracks(scrollElementRef.current),
-    [gridTemplateColumns, scrollElementRef],
+    [gridTemplateColumns, isRendered, scrollElementRef],
   );
 };

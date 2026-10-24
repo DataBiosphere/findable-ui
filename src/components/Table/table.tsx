@@ -77,13 +77,14 @@ export const Table = <T extends RowData>({
     previousPage: tablePreviousPage,
   } = table;
   const gridTemplateColumns = getColumnTrackSizing(getVisibleFlatColumns());
-  useStickyHeadColumns(scrollElementRef, gridTemplateColumns);
+  const noResults = !loading && (!rows || rows.length === 0);
+  // The observers restart when the table is rendered again after "No Results".
+  useStickyHeadColumns(scrollElementRef, gridTemplateColumns, !noResults);
   // The pinned head's height, for the index page's scroll padding: a column title can wrap.
   const { ref: stickyHeadRef } = useLayoutHeight<HTMLDivElement>(
     PROPERTY.TABLE_HEAD_HEIGHT,
+    noResults,
   );
-
-  const noResults = !loading && (!rows || rows.length === 0);
 
   const handleTableNextPage = useCallback((): void => {
     let nextPage = tableNextPage;

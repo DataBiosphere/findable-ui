@@ -41,16 +41,18 @@ export const useVirtualization = <T extends RowData>({
   );
   const pageScroll = wantsPageScroll && supported;
 
+  // Derive the list of rows eligible for virtualization based on grouping and row direction.
+  const rows = getRowsForVirtualization(table, rowDirection);
+  // The table container is unmounted while there are no rows, e.g. "No Results", and rendered again with them.
+  const hasRows = rows.length > 0;
+
   useLayoutEffect(
     () =>
       pageScroll
         ? observeScrollMargin(scrollElementRef.current, setScrollMargin)
         : undefined,
-    [pageScroll],
+    [hasRows, pageScroll],
   );
-
-  // Derive the list of rows eligible for virtualization based on grouping and row direction.
-  const rows = getRowsForVirtualization(table, rowDirection);
 
   // Build both virtualizers; only the one for the current layout is enabled.
   const options = { count: rows.length, ...VIRTUALIZER_OPTIONS };
