@@ -17,6 +17,7 @@ import { TABLE_HEAD_TOP } from "../Table/common/constants";
 
 const ENTITY_LAYOUT_HEIGHT = 57; /* fallback until measured: a one-line entity layout row and its bottom line */
 const ENTITY_LIST_GAP = 16;
+const LOADING_ICON_MIN_OFFSET = 64; /* keeps the loading icon clear of the top of a short or barely visible table */
 const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
 const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, ${ENTITY_LAYOUT_HEIGHT}px))`;
 
@@ -153,6 +154,21 @@ export const StyledFluidPaper = styled(FluidPaper)`
   &:has(.MuiTableContainer-root) {
     background-color: ${PALETTE.COMMON_WHITE};
     gap: 0;
+  }
+
+  /* The loading overlay covers the whole paper, which is as tall as the table
+     when the page scrolls, so its icon pins to the middle of the window rather
+     than the middle of the overlay. */
+  @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
+    > div > .MuiPaper-root:has(> .MuiSvgIcon-root) {
+      align-content: start;
+
+      > .MuiSvgIcon-root {
+        margin-top: ${LOADING_ICON_MIN_OFFSET}px;
+        position: sticky;
+        top: calc(50vh - ${LOADING_ICON_MIN_OFFSET}px);
+      }
+    }
   }
 `;
 
