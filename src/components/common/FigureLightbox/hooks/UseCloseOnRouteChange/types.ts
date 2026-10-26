@@ -1,12 +1,9 @@
-import type { RefObject } from "react";
-import type { ControllerRef } from "yet-another-react-lightbox";
-
 /**
  * Props for the useCloseOnRouteChange hook.
  */
 export interface UseCloseOnRouteChangeProps {
-  /** Ref to the lightbox controller, whose close action closes the lightbox. */
-  controllerRef: RefObject<ControllerRef | null>;
+  /** Closes the lightbox. */
+  onClose: () => void;
   /** Whether the lightbox is open. */
   open: boolean;
 }

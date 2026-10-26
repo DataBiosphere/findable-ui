@@ -13,7 +13,7 @@ import type { UseRegisterFigure, UseRegisterFigureProps } from "./types";
  * @param props.caption - Caption content.
  * @param props.originalSrc - Root-relative path to the original file; defaults to src.
  * @param props.src - Root-relative path to the image, or an image data URL.
- * @returns The actions (the open handler) and the figure ref.
+ * @returns The actions (the open and preload handlers) and the figure ref.
  */
 export function useRegisterFigure({
   alt,
@@ -53,5 +53,8 @@ export function useRegisterFigure({
     [id, openLightbox],
   );
 
-  return { actions: { onOpen }, figureRef };
+  return {
+    actions: { onOpen, onPreload: context?.actions.onPreload },
+    figureRef,
+  };
 }

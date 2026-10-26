@@ -9,6 +9,7 @@ import { StyledButton, StyledFigure, StyledHint } from "./figure.styles";
 
 /**
  * Inline figure: the image, as a button that opens the lightbox, with an expand hint on hover and focus, and the caption.
+ * Hovering or focusing the button starts loading the lightbox, so the first open is quick.
  * Registers itself with the nearest FigureLightboxProvider.
  * @param props - Component props.
  * @param props.alt - Image alt text.
@@ -30,7 +31,7 @@ export const Figure = ({
   width,
 }: LightboxFigureProps): JSX.Element => {
   const {
-    actions: { onOpen },
+    actions: { onOpen, onPreload },
     figureRef,
   } = useRegisterFigure({
     alt,
@@ -44,6 +45,8 @@ export const Figure = ({
         aria-haspopup="dialog"
         aria-label={getExpandLabel(alt)}
         onClick={onOpen}
+        onFocus={onPreload}
+        onPointerEnter={onPreload}
       >
         <StaticImage alt={alt} height={height} src={src} width={width} />
         <StyledHint aria-hidden className="figure-hint">
