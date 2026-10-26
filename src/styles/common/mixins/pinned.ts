@@ -6,7 +6,9 @@ import { css } from "@emotion/react";
  * dictionary title and filters): their focusable elements are always in view, so
  * focusing one (e.g. a menu restoring focus to its trigger) must not scroll the
  * page to clear the padding. Not for regions that scroll internally, where the
- * margin would also stop them scrolling a focused element into view.
+ * margin would also stop them scrolling a focused element into view. Browsers
+ * still scroll for a text input (Chrome ignores the margin on Tab), so a text
+ * input in such a region also needs `useKeepScrollOnFocus` (as GlobalFilter has).
  */
 export const pinnedFocus = css`
   & :is(a, button, input, select, textarea, [tabindex]) {
