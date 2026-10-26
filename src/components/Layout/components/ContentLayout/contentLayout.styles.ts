@@ -6,7 +6,7 @@ import {
   bpUp1366,
   bpUpMd,
 } from "../../../../styles/common/mixins/breakpoints";
-import { pinned } from "../../../../styles/common/mixins/pinned";
+import { pinnedAboveFooter } from "../../../../styles/common/mixins/pinnedAboveFooter";
 import { HEADER_HEIGHT_VAR } from "../Header/common/constants";
 import { PanelBackgroundColor } from "./common/entities";
 
@@ -96,9 +96,8 @@ export const OutlineGrid = styled("div")<GridProps>`
 `;
 
 export const Positioner = styled.div`
-  max-height: calc(100vh - ${HEADER_HEIGHT_VAR});
   overflow: auto;
-  ${pinned(HEADER_HEIGHT_VAR)};
+  ${pinnedAboveFooter(HEADER_HEIGHT_VAR)};
 `;
 
 export const Navigation = styled.div`
