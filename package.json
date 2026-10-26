@@ -72,7 +72,8 @@
     "./auth/*": {
       "types": "./lib/auth/*.d.ts",
       "default": "./lib/auth/*.js"
-    }
+    },
+    "./static/*.css": "./static/*.css"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
