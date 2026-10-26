@@ -84,6 +84,27 @@
  *       .fui-card[class*="fui-grid-item"] { grid-column: 1 / -1; }
  *     }
  *   </style>
+ *
+ * Tooltips:
+ *   A tooltip shows above its trigger on hover or keyboard focus. The trigger
+ *   must be focusable, and the tooltip may contain links:
+ *
+ *   <span class="fui-tooltip-wrapper">
+ *     <span tabindex="0" aria-describedby="users-tooltip">Users</span>
+ *     <span class="fui-tooltip" id="users-tooltip" role="tooltip">
+ *       Unique visitors this month.
+ *     </span>
+ *   </span>
+ *
+ *   Chart libraries draw their own tooltips (Chart.js draws on the canvas),
+ *   so CSS can't style them. To match .fui-tooltip in Chart.js:
+ *
+ *   Object.assign(Chart.defaults.plugins.tooltip, {
+ *     backgroundColor: "#212b36",
+ *     bodyFont: { size: 13 },
+ *     cornerRadius: 4,
+ *     padding: { x: 12, y: 8 },
+ *   });
  */
 
 /* ---------- Custom Properties ---------- */
@@ -653,6 +674,69 @@
   text-decoration-color: currentColor;
   text-decoration-skip-ink: none;
   text-underline-position: from-font;
+}
+
+/* ---------- Tooltip ---------- */
+
+.fui-tooltip-wrapper {
+  display: inline-flex;
+  position: relative;
+}
+
+.fui-tooltip {
+  background-color: var(--fui-ink);
+  border-radius: var(--fui-radius-sm);
+  bottom: 100%;
+  box-shadow: var(--fui-shadow-02);
+  box-sizing: content-box;
+  color: var(--fui-white);
+  font: var(--fui-font-body-small-400);
+  left: 50%;
+  margin-bottom: 14px;
+  max-width: 300px;
+  opacity: 0;
+  padding: var(--fui-space-8) var(--fui-space-12);
+  position: absolute;
+  transform: translateX(-50%);
+  transition:
+    opacity 150ms,
+    visibility 150ms;
+  visibility: hidden;
+  width: max-content;
+  z-index: 1500;
+}
+
+/* Arrow */
+.fui-tooltip::before {
+  background-color: inherit;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  content: "";
+  height: 0.71em;
+  left: 50%;
+  position: absolute;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 1em;
+}
+
+/* Bridges the gap to the trigger, so the pointer can move onto the tooltip */
+.fui-tooltip::after {
+  content: "";
+  height: 14px;
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+
+.fui-tooltip-wrapper:hover .fui-tooltip,
+.fui-tooltip-wrapper:focus-within .fui-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fui-body .fui-tooltip a {
+  color: inherit;
 }
 
 /* ---------- Responsive ---------- */
