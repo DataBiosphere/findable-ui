@@ -620,6 +620,7 @@
 
 .fui-content img {
   display: block;
+  height: auto;
   margin: var(--fui-space-16) 0;
   max-width: 100%;
 }
