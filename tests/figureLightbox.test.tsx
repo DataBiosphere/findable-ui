@@ -667,6 +667,33 @@ describe("showFigure", () => {
     showFigure(figure);
     expect(scrollIntoView).toHaveBeenLastCalledWith({ block: "start" });
   });
+
+  it("treats a figure as tall when it doesn't fit below the page's scroll-padding-top", () => {
+    const root = document.documentElement;
+    root.style.setProperty("scroll-padding-top", "57px");
+    const figureEl = document.createElement("figure");
+    const scrollIntoView = jest.fn();
+    figureEl.scrollIntoView = scrollIntoView;
+    const figure = {
+      alt: "",
+      figureRef: { current: figureEl },
+      id: "a",
+      originalSrc: "",
+      src: "",
+    };
+    const setHeight = (height: number): void => {
+      figureEl.getBoundingClientRect = (): DOMRect => ({ height }) as DOMRect;
+    };
+    // Fits the window, but not the window less the sticky header.
+    setHeight(window.innerHeight - 40);
+    showFigure(figure);
+    expect(scrollIntoView).toHaveBeenLastCalledWith({ block: "start" });
+    // Fits below the header.
+    setHeight(window.innerHeight - 58);
+    showFigure(figure);
+    expect(scrollIntoView).toHaveBeenLastCalledWith({ block: "center" });
+    root.style.removeProperty("scroll-padding-top");
+  });
 });
 
 describe("FigureLightbox utils", () => {

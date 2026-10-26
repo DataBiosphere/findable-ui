@@ -6,6 +6,8 @@ import {
   bpUp1366,
   bpUpMd,
 } from "../../../../styles/common/mixins/breakpoints";
+import { pinned } from "../../../../styles/common/mixins/pinned";
+import { HEADER_HEIGHT_VAR } from "../Header/common/constants";
 import { PanelBackgroundColor } from "./common/entities";
 
 const CONTENT_MAX_WIDTH = 756;
@@ -26,7 +28,6 @@ interface LayoutProps {
 }
 
 interface GridProps {
-  headerHeight: number;
   panelColor?: PanelBackgroundColor;
 }
 
@@ -63,25 +64,12 @@ export const ContentLayout = styled.div<LayoutProps>`
   }
 `;
 
-const content = ({ headerHeight, panelColor }: GridProps) => css`
+const panel = ({ panelColor }: GridProps) => css`
   background-color: ${getPanelBackgroundColor(panelColor)};
-  padding-top: ${headerHeight}px;
-`;
-
-const navigation = ({ panelColor }: GridProps) => css`
-  background-color: ${getPanelBackgroundColor(panelColor)};
-`;
-
-const positioner = ({ headerHeight }: GridProps) => css`
-  max-height: 100vh;
-  overflow: auto;
-  padding-top: ${headerHeight}px;
-  position: sticky;
-  top: 0;
 `;
 
 export const NavigationGrid = styled.div<GridProps>`
-  ${navigation};
+  ${panel};
   box-shadow: inset -1px 0 ${PALETTE.SMOKE_MAIN};
   display: none;
   grid-area: navigation;
@@ -92,13 +80,13 @@ export const NavigationGrid = styled.div<GridProps>`
 `;
 
 export const ContentGrid = styled.div<GridProps>`
-  ${content};
+  ${panel};
   grid-area: content;
   min-width: 0;
 `;
 
 export const OutlineGrid = styled("div")<GridProps>`
-  ${navigation};
+  ${panel};
   display: none;
   grid-area: outline;
 
@@ -107,8 +95,10 @@ export const OutlineGrid = styled("div")<GridProps>`
   }
 `;
 
-export const Positioner = styled.div<GridProps>`
-  ${positioner};
+export const Positioner = styled.div`
+  max-height: calc(100vh - ${HEADER_HEIGHT_VAR});
+  overflow: auto;
+  ${pinned(HEADER_HEIGHT_VAR)};
 `;
 
 export const Navigation = styled.div`

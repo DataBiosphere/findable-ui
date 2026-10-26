@@ -4,7 +4,7 @@ import { FiltersLayoutProps } from "./types";
 
 /**
  * Layout for the data dictionary filters, sticky below the header and title; at narrow widths it is not sticky.
- * @param props - Component props, the layout spacing plus children.
+ * @param props - Component props.
  * @param props.children - Filters content.
  * @param ref - Ref forwarded to the layout element.
  * @returns The filters layout.

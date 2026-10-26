@@ -1,11 +1,12 @@
 import { Toolbar } from "@mui/material";
 import { JSX, ReactNode } from "react";
 import { SELECTOR } from "../../../../common/selectors";
-import { useLayoutDimensions } from "../../../../providers/layoutDimensions/hook";
+import { PROPERTY } from "../../../../hooks/useHtmlStyle/constants";
 import { Social } from "../../../common/Socials/socials";
 import { StaticImageProps } from "../../../common/StaticImage/staticImage";
 import { ANCHOR_TARGET } from "../../../Links/common/entities";
 import { isNodeBoolean } from "../../../utils";
+import { useLayoutHeight } from "../../hooks/UseLayoutHeight/hook";
 import { NavLinkItem } from "../Header/components/Content/components/Navigation/navigation";
 import { PoweredByCleverCanary } from "./components/PoweredByCleverCanary/poweredByCleverCanary";
 import { VersionInfo } from "./components/VersionInfo/versionInfo";
@@ -43,7 +44,7 @@ export const Footer = ({
   socials,
   versionInfo,
 }: FooterProps): JSX.Element => {
-  const { footerRef } = useLayoutDimensions();
+  const { ref: footerRef } = useLayoutHeight(PROPERTY.FOOTER_HEIGHT);
   return (
     <AppBar
       className={className}

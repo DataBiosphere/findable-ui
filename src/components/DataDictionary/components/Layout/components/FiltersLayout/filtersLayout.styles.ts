@@ -1,34 +1,42 @@
 import styled from "@emotion/styled";
-import { LayoutSpacing } from "../../../../../../hooks/UseLayoutSpacing/types";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
-  bpDown1024,
   bpDownSm,
+  bpUp1024,
 } from "../../../../../../styles/common/mixins/breakpoints";
-import { LAYOUT_SPACING } from "../../constants";
+import {
+  pinned,
+  pinnedFocus,
+} from "../../../../../../styles/common/mixins/pinned";
+import { FILTERS_CLASS_NAME } from "../../../Filters/constants";
+import { LAYOUT_SPACING, TITLE_BOTTOM } from "../../constants";
 
 const PB = LAYOUT_SPACING.FILTERS_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.FILTERS_PADDING_TOP; /* top padding */
-const TITLE_HEIGHT = LAYOUT_SPACING.TITLE_HEIGHT; /* title height */
 
-export const Layout = styled("div")<LayoutSpacing>`
-  align-self: flex-start;
+export const Layout = styled("div")`
   background-color: ${PALETTE.BACKGROUND_DEFAULT};
   display: grid;
   gap: 12px;
-  grid-column: 2;
-  grid-row: 1;
-  padding-bottom: ${PB}px;
-  padding-top: ${({ top }) => top + TITLE_HEIGHT + PT}px;
-  position: sticky;
-  top: 0;
+  grid-area: filters;
   z-index: 2; /* required, filters should be on top of entities */
 
-  ${bpDown1024} {
-    grid-column: 1;
-    grid-row: auto;
-    padding-top: ${PT}px;
-    position: relative;
+  /* Spacing sits on the children, so a dictionary with no filters collapses the band to nothing. */
+  > .${FILTERS_CLASS_NAME} {
+    margin-top: ${PT}px;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  > :last-child {
+    margin-bottom: ${PB}px;
+  }
+
+  ${bpUp1024} {
+    ${pinned(TITLE_BOTTOM)}; /* below the sticky title */
+    ${pinnedFocus};
   }
 
   ${bpDownSm} {
