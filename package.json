@@ -22,9 +22,7 @@
   "homepage": "https://github.com/DataBiosphere/findable-ui/tree/main/#readme",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "sideEffects": [
-    "./static/**/*.css"
-  ],
+  "sideEffects": false,
   "files": [
     "lib",
     "static/**/*.css",
@@ -74,8 +72,7 @@
     "./auth/*": {
       "types": "./lib/auth/*.d.ts",
       "default": "./lib/auth/*.js"
-    },
-    "./static/*.css": "./static/*.css"
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
