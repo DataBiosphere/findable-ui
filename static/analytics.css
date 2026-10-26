@@ -587,6 +587,16 @@
   margin: var(--fui-space-24) 0 var(--fui-space-16);
 }
 
+.fui-content h5 {
+  font: var(--fui-font-body-large-500);
+  margin: var(--fui-space-24) 0 var(--fui-space-16);
+}
+
+.fui-content h6 {
+  font: var(--fui-font-body-500);
+  margin: var(--fui-space-24) 0 var(--fui-space-16);
+}
+
 .fui-content img {
   display: block;
   margin: var(--fui-space-16) 0;
