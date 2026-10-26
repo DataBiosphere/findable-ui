@@ -106,6 +106,27 @@
  *     </span>
  *   </span>
  *
+ *   Escape should close an open tooltip (WCAG 1.4.13), which CSS can't do.
+ *   Add this script once per page. It keeps the tooltip closed until the
+ *   pointer and focus have both left its trigger:
+ *
+ *   <script>
+ *     document.addEventListener("keydown", (event) => {
+ *       if (event.key !== "Escape") return;
+ *       document
+ *         .querySelectorAll(".fui-tooltip-wrapper:is(:hover, :focus-within)")
+ *         .forEach((el) => el.classList.add("fui-tooltip-dismissed"));
+ *     });
+ *     ["focusout", "mouseout"].forEach((type) => {
+ *       document.addEventListener(type, (event) => {
+ *         const el = event.target.closest?.(".fui-tooltip-dismissed");
+ *         if (!el || el.contains(event.relatedTarget)) return;
+ *         if (el.matches(type === "focusout" ? ":hover" : ":focus-within")) return;
+ *         el.classList.remove("fui-tooltip-dismissed");
+ *       });
+ *     });
+ *   </script>
+ *
  *   Chart libraries draw their own tooltips (Chart.js draws on the canvas),
  *   so CSS can't style them. To match .fui-tooltip in Chart.js:
  *
@@ -714,12 +735,11 @@
   border-radius: var(--fui-radius-sm);
   bottom: 100%;
   box-shadow: var(--fui-shadow-02);
-  box-sizing: content-box;
   color: var(--fui-white);
   font: var(--fui-font-body-small-400);
   left: 50%;
   margin-bottom: 14px;
-  max-width: 300px;
+  max-width: min(400px, 100vw - 2 * var(--fui-space-16));
   opacity: 0;
   padding: var(--fui-space-8) var(--fui-space-12);
   position: absolute;
@@ -759,6 +779,14 @@
 .fui-tooltip-wrapper:focus-within .fui-tooltip {
   opacity: 1;
   visibility: visible;
+}
+
+/* Set by the Escape script in the usage notes. No transition, so links in
+   the tooltip leave the tab order at once. */
+.fui-tooltip-wrapper.fui-tooltip-dismissed .fui-tooltip {
+  opacity: 0;
+  transition: none;
+  visibility: hidden;
 }
 
 .fui-body .fui-tooltip a {

@@ -267,5 +267,22 @@
         </div>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        document
+          .querySelectorAll(".fui-tooltip-wrapper:is(:hover, :focus-within)")
+          .forEach((el) => el.classList.add("fui-tooltip-dismissed"));
+      });
+      ["focusout", "mouseout"].forEach((type) => {
+        document.addEventListener(type, (event) => {
+          const el = event.target.closest?.(".fui-tooltip-dismissed");
+          if (!el || el.contains(event.relatedTarget)) return;
+          if (el.matches(type === "focusout" ? ":hover" : ":focus-within"))
+            return;
+          el.classList.remove("fui-tooltip-dismissed");
+        });
+      });
+    </script>
   </body>
 </html>
