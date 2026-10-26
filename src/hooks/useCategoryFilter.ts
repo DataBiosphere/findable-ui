@@ -65,15 +65,18 @@ function buildCategoryValueView(
 
 /**
  * Build the view-specific model of the given select category, including the category label pulled from the config.
+ * Values are mapped before they are sorted, so the sort compares the labels that are displayed.
  * @param selectCategory - The select category to build a view model of.
  * @param selectCategoryValueViews - Set of select category value view models for the given category.
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
+ * @param filterSort - Sort configuration (ALPHA or COUNT).
  * @returns Full built select category view, ready for display.
  */
 function buildCategoryView(
   selectCategory: SelectCategory,
   selectCategoryValueViews: SelectCategoryValueView[],
   categoryConfigs: CategoryConfig[],
+  filterSort: FILTER_SORT,
 ): SelectCategoryView {
   const selectCategoryConfig = findSelectCategoryConfig(
     selectCategory.key,
@@ -81,13 +84,18 @@ function buildCategoryView(
   );
   const mapSelectCategoryValue =
     selectCategoryConfig?.mapSelectCategoryValue || getSelectCategoryValue;
+  const values = selectCategoryValueViews.map(mapSelectCategoryValue);
+
+  // Sort category value views based on filter sort configuration.
+  sortCategoryValueViews(values, filterSort);
+
   return {
     annotation: selectCategoryConfig?.annotation,
     chart: selectCategoryConfig?.chart,
     isDisabled: false,
     key: selectCategory.key,
     label: getCategoryLabel(selectCategory.key, selectCategoryConfig),
-    values: selectCategoryValueViews.map(mapSelectCategoryValue),
+    values,
   };
 }
 
@@ -136,11 +144,13 @@ export function buildCategoryViews(
       buildCategoryValueView(categoryValue, categorySelectedFilter),
     );
 
-    // Sort category value views based on filter sort configuration.
-    sortCategoryValueViews(categoryValueViews, filterSort);
-
     // Build category view model.
-    return buildCategoryView(category, categoryValueViews, categoryConfigs);
+    return buildCategoryView(
+      category,
+      categoryValueViews,
+      categoryConfigs,
+      filterSort,
+    );
   });
 
   // Sort and return category views.

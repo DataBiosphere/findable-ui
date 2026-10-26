@@ -198,6 +198,7 @@ function mapColumnToRangeCategoryView<T extends RowData>(
 
 /**
  * Adapter for TanStack column to select category view.
+ * Values are mapped before they are sorted, so the sort compares the labels that are displayed.
  * @param column - Column.
  * @param filterSort - Filter sort.
  * @param categoryConfig - Category config.
@@ -220,9 +221,12 @@ function mapColumnToSelectCategoryView<T extends RowData>(
   }
 
   const isDisabled = facetedUniqueValues.size === 0;
-  const values = mapColumnToSelectCategoryValueView(column, filterSort).map(
+  const values = mapColumnToSelectCategoryValueView(column).map(
     categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue,
   );
+
+  sortCategoryValueViews(values, filterSort);
+
   return {
     annotation: undefined,
     chart: undefined,
@@ -237,14 +241,12 @@ function mapColumnToSelectCategoryView<T extends RowData>(
 /**
  * Adapter for TanStack column to select category value view.
  * @param column - Column.
- * @param filterSort - Filter sort.
  * @returns Select category value view.
  */
 function mapColumnToSelectCategoryValueView<T extends RowData>(
   column: Column<T>,
-  filterSort: FILTER_SORT,
 ): SelectCategoryValueView[] {
-  // Get the faceted unique values and sort them.
+  // Get the faceted unique values.
   const facetedUniqueValues = column.getFacetedUniqueValues();
 
   // Selected values for the column.
@@ -261,8 +263,6 @@ function mapColumnToSelectCategoryValueView<T extends RowData>(
       selected: filterValue.includes(label),
     });
   }
-
-  sortCategoryValueViews(categoryValueViews, filterSort);
 
   return categoryValueViews;
 }
