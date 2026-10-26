@@ -331,6 +331,13 @@
   font: var(--fui-font-heading-xsmall);
 }
 
+/* No custom property: a custom property set to `inherit` inherits the parent's
+   custom property, not the font. */
+.fui-inherit {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
 .fui-uppercase-500 {
   font: var(--fui-font-uppercase-500);
   text-transform: uppercase;
