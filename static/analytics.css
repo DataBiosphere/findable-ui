@@ -790,6 +790,15 @@
 /* ---------- Responsive ---------- */
 
 @media (min-width: 768px) {
+  /* The theme's desktop heading sizes, set on the custom properties so that
+     anything using them directly (not only the heading classes) gets them. */
+  :root {
+    --fui-font-heading: 500 24px/32px var(--fui-font-family);
+    --fui-font-heading-large: 500 30px/40px var(--fui-font-family);
+    --fui-font-heading-small: 500 20px/28px var(--fui-font-family);
+    --fui-font-heading-xlarge: 500 40px/56px var(--fui-font-family);
+  }
+
   .fui-card-content {
     padding: var(--fui-space-20);
   }
@@ -808,45 +817,31 @@
   }
 
   .fui-content h1 {
-    font-size: 30px;
     letter-spacing: -0.8px;
-    line-height: 40px;
   }
 
   .fui-content h2 {
-    font-size: 24px;
     letter-spacing: -0.4px;
-    line-height: 32px;
   }
 
   .fui-content h3 {
-    font-size: 20px;
     letter-spacing: -0.2px;
-    line-height: 28px;
   }
 
   .fui-heading {
-    font-size: 24px;
     letter-spacing: -0.4px;
-    line-height: 32px;
   }
 
   .fui-heading-large {
-    font-size: 30px;
     letter-spacing: -0.8px;
-    line-height: 40px;
   }
 
   .fui-heading-small {
-    font-size: 20px;
     letter-spacing: -0.2px;
-    line-height: 28px;
   }
 
   .fui-heading-xlarge {
-    font-size: 40px;
     letter-spacing: -1.4px;
-    line-height: 56px;
   }
 }
 
