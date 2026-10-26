@@ -22,7 +22,7 @@
  *     <header class="fui-header">
  *       <div class="fui-header-left">
  *         <a class="fui-header-logo" href="/">
- *           <img src="logo.svg" alt="Logo" />
+ *           <img src="logo.svg" alt="Logo" width="140" height="32" />
  *         </a>
  *       </div>
  *       <div class="fui-header-right">
@@ -73,6 +73,16 @@
  *       --fui-ink: #24292e;
  *       --fui-ink-light: #586069;
  *     }
+ *   </style>
+ *
+ * Header logo:
+ *   Put the logo's src, width and height in the HTML, so the header keeps
+ *   its space while the image loads. The logo is 32px tall; to match an
+ *   app's header, set --fui-header-logo-height to the height in its site
+ *   config, per breakpoint if it changes:
+ *
+ *   <style>
+ *     :root { --fui-header-logo-height: 40px; }
  *   </style>
  *
  * Responsive grid:
@@ -137,6 +147,9 @@
   /* Common */
   --fui-background: #f6f6f7;
   --fui-white: #ffffff;
+
+  /* Header */
+  --fui-header-logo-height: 32px;
 
   /* Ink (text) */
   --fui-ink: #212b36;
@@ -400,6 +413,8 @@
   align-items: center;
   background: var(--fui-white);
   border-bottom: 1px solid var(--fui-smoke);
+  box-shadow: var(--fui-shadow-01);
+  box-sizing: content-box; /* 56px plus the border, as in the app */
   display: grid;
   gap: var(--fui-space-16);
   grid-template-areas: "left center right";
@@ -437,11 +452,12 @@
   display: flex;
   font: var(--fui-font-body-large-500);
   gap: var(--fui-space-8);
+  justify-self: start;
 }
 
 .fui-header-logo img {
   display: block;
-  height: 32px;
+  height: var(--fui-header-logo-height);
   width: auto;
 }
 
