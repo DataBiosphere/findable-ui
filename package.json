@@ -22,7 +22,9 @@
   "homepage": "https://github.com/DataBiosphere/findable-ui/tree/main/#readme",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "./static/**/*.css"
+  ],
   "files": [
     "lib",
     "static/**/*.css",
