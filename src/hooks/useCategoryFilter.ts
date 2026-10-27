@@ -18,7 +18,10 @@ import {
   SelectCategoryView,
   SelectedFilter,
 } from "../common/entities";
-import { FILTER_SORT } from "../common/filters/sort/config/types";
+import {
+  FILTER_SORT,
+  type FilterSortCompare,
+} from "../common/filters/sort/config/types";
 import { sortCategoryValueViews } from "../common/filters/sort/models/utils";
 
 /**
@@ -70,6 +73,7 @@ function buildCategoryValueView(
  * @param selectCategoryValueViews - Set of select category value view models for the given category.
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
  * @param filterSort - Sort configuration (ALPHA or COUNT).
+ * @param compare - Optional comparator, used in place of the built-in comparator for the filter sort.
  * @returns Full built select category view, ready for display.
  */
 function buildCategoryView(
@@ -77,6 +81,7 @@ function buildCategoryView(
   selectCategoryValueViews: SelectCategoryValueView[],
   categoryConfigs: CategoryConfig[],
   filterSort: FILTER_SORT,
+  compare?: FilterSortCompare,
 ): SelectCategoryView {
   const selectCategoryConfig = findSelectCategoryConfig(
     selectCategory.key,
@@ -87,7 +92,7 @@ function buildCategoryView(
   const values = selectCategoryValueViews.map(mapSelectCategoryValue);
 
   // Sort category value views based on filter sort configuration.
-  sortCategoryValueViews(values, filterSort);
+  sortCategoryValueViews(values, filterSort, compare);
 
   return {
     annotation: selectCategoryConfig?.annotation,
@@ -105,6 +110,7 @@ function buildCategoryView(
  * @param categoryConfigs - Category configs indicating accept list as well as label configuration.
  * @param filterState - Current set of selected category and category values.
  * @param filterSort - Sort configuration (ALPHA or COUNT).
+ * @param compare - Optional comparator, used in place of the built-in comparator for the filter sort.
  * @returns Array of category view objects.
  */
 export function buildCategoryViews(
@@ -112,6 +118,7 @@ export function buildCategoryViews(
   categoryConfigs: CategoryConfig[] | undefined,
   filterState: FilterState,
   filterSort: FILTER_SORT,
+  compare?: FilterSortCompare,
 ): CategoryView[] {
   if (!categories || !categoryConfigs) {
     return [];
@@ -150,6 +157,7 @@ export function buildCategoryViews(
       categoryValueViews,
       categoryConfigs,
       filterSort,
+      compare,
     );
   });
 

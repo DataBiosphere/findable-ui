@@ -1,6 +1,7 @@
 import { SelectCategoryValueView } from "../src/common/entities";
 import { FILTER_SORT } from "../src/common/filters/sort/config/types";
 import {
+  getFilterSortFn,
   sortCategoryValueViews,
   sortCategoryValueViewsAlpha,
   sortCategoryValueViewsCount,
@@ -18,6 +19,15 @@ const createMockCategoryValueView = (
 });
 
 describe("Filter Sort Utils", () => {
+  describe("getFilterSortFn", () => {
+    it.each([
+      [FILTER_SORT.ALPHA, sortCategoryValueViewsAlpha],
+      [FILTER_SORT.COUNT, sortCategoryValueViewsCount],
+    ])("returns the built-in comparator for %s", (filterSort, expected) => {
+      expect(getFilterSortFn(filterSort)).toBe(expected);
+    });
+  });
+
   describe("sortCategoryValueViewsAlpha", () => {
     it("sorts category value views alphabetically", () => {
       const cvv1 = createMockCategoryValueView("Zebra", 5);
@@ -176,5 +186,26 @@ describe("Filter Sort Utils", () => {
 
       expect(data).toEqual(original);
     });
+
+    it.each([FILTER_SORT.ALPHA, FILTER_SORT.COUNT])(
+      "uses the comparator in place of the built-in one for %s, passing it the sort",
+      (filterSort) => {
+        const data = [...testData];
+        const sortBys = new Set<FILTER_SORT>();
+
+        // Reverse alphabetical, which neither built-in sort produces.
+        sortCategoryValueViews(data, filterSort, (cvv0, cvv1, sortBy) => {
+          sortBys.add(sortBy);
+          return sortCategoryValueViewsAlpha(cvv1, cvv0);
+        });
+
+        expect(data.map((cv) => cv.label)).toEqual([
+          "Zebra",
+          "Banana",
+          "Apple",
+        ]);
+        expect([...sortBys]).toEqual([filterSort]);
+      },
+    );
   });
 });

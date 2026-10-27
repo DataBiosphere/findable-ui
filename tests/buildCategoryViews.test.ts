@@ -3,11 +3,13 @@ import { Category } from "../src/common/categories/models/types";
 import { isSelectCategoryView } from "../src/common/categories/views/select/typeGuards";
 import { SelectCategoryView } from "../src/common/entities";
 import { FILTER_SORT } from "../src/common/filters/sort/config/types";
+import { pinLastCompare } from "../src/components/Filter/components/adapters/tanstack/ColumnFiltersAdapter/stories/utils";
 import {
   buildCategoryViews,
   FilterState,
 } from "../src/hooks/useCategoryFilter";
 import type { ExploreState } from "../src/providers/exploreState";
+import { updateFilterSortAction } from "../src/providers/exploreState/actions/updateFilterSort/action";
 import { sortCategoryViews } from "../src/providers/exploreState/actions/updateFilterSort/utils";
 
 describe("buildCategoryViews", () => {
@@ -316,6 +318,126 @@ describe("buildCategoryViews with mapped values", () => {
       );
 
       expect(toggled).toEqual(pageLoad);
+    },
+  );
+});
+
+describe("buildCategoryViews with a comparator", () => {
+  // Without the comparator, Unspecified and Not applicable are not last in either sort; organ has only one of them.
+  const pinnedCategories: Category[] = [
+    {
+      key: "assay",
+      label: "Assay",
+      values: [
+        { count: 10, key: "apple", label: "Apple", selected: false },
+        { count: 30, key: "banana", label: "Banana", selected: false },
+        { count: 20, key: "zebra", label: "Zebra", selected: false },
+        {
+          count: 40,
+          key: "unspecified",
+          label: "Unspecified",
+          selected: false,
+        },
+        {
+          count: 15,
+          key: "not_applicable",
+          label: "Not applicable",
+          selected: false,
+        },
+      ],
+    },
+    {
+      key: "organ",
+      label: "Organ",
+      values: [
+        { count: 3, key: "cat", label: "Cat", selected: false },
+        { count: 9, key: "unspecified", label: "Unspecified", selected: false },
+        { count: 5, key: "yak", label: "Yak", selected: false },
+      ],
+    },
+  ];
+
+  const pinnedConfigs: CategoryConfig[] = [
+    { key: "assay", label: "Assay" },
+    { key: "organ", label: "Organ" },
+  ];
+
+  /**
+   * Builds the explore state the filter sort action reads, with the given category views.
+   * @param categoryViews - Category views.
+   * @returns Explore state.
+   */
+  function buildState(
+    categoryViews: ExploreState["categoryViews"],
+  ): ExploreState {
+    return {
+      categoryViews,
+      entityPageState: { files: { categoryGroupConfigKey: "files" } },
+      entityStateByCategoryGroupConfigKey: new Map(),
+      tabValue: "files",
+    } as unknown as ExploreState;
+  }
+
+  it.each([
+    [
+      FILTER_SORT.ALPHA,
+      ["Apple", "Banana", "Zebra", "Unspecified", "Not applicable"],
+      ["Cat", "Yak", "Unspecified"],
+    ],
+    [
+      FILTER_SORT.COUNT,
+      ["Banana", "Zebra", "Apple", "Unspecified", "Not applicable"],
+      ["Yak", "Cat", "Unspecified"],
+    ],
+  ])(
+    "sorts %s with the comparator",
+    (filterSort, expectedAssay, expectedOrgan) => {
+      const result = buildCategoryViews(
+        pinnedCategories,
+        pinnedConfigs,
+        [],
+        filterSort,
+        pinLastCompare,
+      ).filter(isSelectCategoryView);
+
+      expect(getCategoryValues(result, "assay", "label")).toEqual(
+        expectedAssay,
+      );
+      expect(getCategoryValues(result, "organ", "label")).toEqual(
+        expectedOrgan,
+      );
+    },
+  );
+
+  it.each([
+    [FILTER_SORT.COUNT, FILTER_SORT.ALPHA, pinLastCompare],
+    [FILTER_SORT.ALPHA, FILTER_SORT.COUNT, pinLastCompare],
+    [FILTER_SORT.COUNT, FILTER_SORT.ALPHA, undefined],
+    [FILTER_SORT.ALPHA, FILTER_SORT.COUNT, undefined],
+  ])(
+    "toggling from %s to %s matches the page load order (comparator: %p)",
+    (fromSort, toSort, compare) => {
+      const pageLoad = buildCategoryViews(
+        pinnedCategories,
+        pinnedConfigs,
+        [],
+        toSort,
+        compare,
+      );
+      const state = buildState(
+        buildCategoryViews(
+          pinnedCategories,
+          pinnedConfigs,
+          [],
+          fromSort,
+          compare,
+        ),
+      );
+
+      const toggled = updateFilterSortAction(state, toSort, compare);
+
+      expect(toggled.categoryViews).toEqual(pageLoad);
+      expect(toggled.filterSort).toBe(toSort);
     },
   );
 });

@@ -1,6 +1,6 @@
 import { RowData, Table } from "@tanstack/react-table";
 import { FILTER_SORT } from "../../../../../../../../common/filters/sort/config/types";
-import { ColumnFiltersTableMeta } from "../../types";
+import { getFilterSortConfig } from "../../utils";
 
 /**
  * Returns the default filter sort type "ALPHA" or "COUNT" from table meta or ALPHA as fallback.
@@ -10,24 +10,16 @@ import { ColumnFiltersTableMeta } from "../../types";
 export function initFilterSort<T extends RowData>(
   table: Table<T>,
 ): FILTER_SORT {
-  const { options } = table;
-  const { meta = {} } = options;
-  const { filterSort } = meta as ColumnFiltersTableMeta<T>;
-
-  return filterSort || FILTER_SORT.ALPHA;
+  return getFilterSortConfig(table).sortBy || FILTER_SORT.ALPHA;
 }
 
 /**
- * Returns true if filter sort is enabled.
+ * Returns true if filter sort is enabled, i.e. the table meta sets a default filter sort.
  * @param table - Table.
  * @returns true if filter sort is enabled.
  */
 export function isFilterSortEnabled<T extends RowData>(
   table: Table<T>,
 ): boolean {
-  const { options } = table;
-  const { meta = {} } = options;
-  const { filterSort } = meta as ColumnFiltersTableMeta<T>;
-
-  return Boolean(filterSort);
+  return Boolean(getFilterSortConfig(table).sortBy);
 }

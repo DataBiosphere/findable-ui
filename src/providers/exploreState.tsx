@@ -535,6 +535,7 @@ function exploreReducer(
             entityState.categoryConfigs,
             [...state.filterState, ...entityState.savedFilterState],
             state.filterSort,
+            config.filterSort?.compare,
           )
         : state.categoryViews;
       const rowPreview = entityPageState.rowPreview;
@@ -705,7 +706,7 @@ function exploreReducer(
      * Update filter sort
      */
     case ExploreActionKind.UpdateFilterSort: {
-      return updateFilterSortAction(state, payload);
+      return updateFilterSortAction(state, payload, config.filterSort?.compare);
     }
     /**
      * Update grouping
