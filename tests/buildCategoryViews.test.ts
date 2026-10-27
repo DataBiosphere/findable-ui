@@ -7,6 +7,8 @@ import {
   buildCategoryViews,
   FilterState,
 } from "../src/hooks/useCategoryFilter";
+import type { ExploreState } from "../src/providers/exploreState";
+import { sortCategoryViews } from "../src/providers/exploreState/actions/updateFilterSort/utils";
 
 describe("buildCategoryViews", () => {
   const mockCategories: Category[] = [
@@ -234,6 +236,88 @@ describe("buildCategoryViews", () => {
       getCategoryValues(selectCategoryViews, "equal_counts", "label"),
     ).toEqual(["Apple", "Banana", "Zebra"]);
   });
+});
+
+describe("buildCategoryViews with mapped values", () => {
+  // Terms a to c tie on count and are in the reverse order of their labels.
+  const LABELS: Record<string, string> = {
+    a: "Zebra",
+    b: "Mango",
+    c: "Apple",
+    d: "Kiwi",
+  };
+
+  const mappedCategories: Category[] = [
+    {
+      key: "ancestry",
+      label: "Ancestry",
+      values: [
+        { count: 10, key: "a", label: "a", selected: false },
+        { count: 10, key: "b", label: "b", selected: false },
+        { count: 10, key: "c", label: "c", selected: false },
+        { count: 20, key: "d", label: "d", selected: false },
+      ],
+    },
+  ];
+
+  const mappedConfigs: CategoryConfig[] = [
+    {
+      key: "ancestry",
+      label: "Ancestry",
+      mapSelectCategoryValue: (value) => ({
+        ...value,
+        label: LABELS[value.label] ?? value.label,
+      }),
+    },
+  ];
+
+  it.each([
+    [FILTER_SORT.ALPHA, ["Apple", "Kiwi", "Mango", "Zebra"]],
+    [FILTER_SORT.COUNT, ["Kiwi", "Apple", "Mango", "Zebra"]],
+  ])("sorts %s by the mapped label", (filterSort, expected) => {
+    const result = buildCategoryViews(
+      mappedCategories,
+      mappedConfigs,
+      [],
+      filterSort,
+    );
+
+    expect(
+      getCategoryValues(
+        result.filter(isSelectCategoryView),
+        "ancestry",
+        "label",
+      ),
+    ).toEqual(expected);
+  });
+
+  it.each([
+    [FILTER_SORT.COUNT, FILTER_SORT.ALPHA],
+    [FILTER_SORT.ALPHA, FILTER_SORT.COUNT],
+  ])(
+    "matches the order the sort toggle produces from %s to %s",
+    (fromSort, toSort) => {
+      const pageLoad = buildCategoryViews(
+        mappedCategories,
+        mappedConfigs,
+        [],
+        toSort,
+      );
+      const toggled = sortCategoryViews(
+        {
+          categoryViews: buildCategoryViews(
+            mappedCategories,
+            mappedConfigs,
+            [],
+            fromSort,
+          ),
+        } as ExploreState,
+        toSort,
+      );
+
+      expect(toggled).toEqual(pageLoad);
+    },
+  );
 });
 
 /**
