@@ -1,5 +1,32 @@
 # Changelog
 
+## [58.0.0](https://github.com/DataBiosphere/findable-ui/compare/v57.2.0...v58.0.0) (2026-10-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* move the app header into flow and replace the measured layout offsets with css ([#998](https://github.com/DataBiosphere/findable-ui/issues/998)) (#1139)
+
+### Features
+
+* add an optional comparator for sorting facet values (filtersort.compare) ([#1160](https://github.com/DataBiosphere/findable-ui/issues/1160)) ([#1162](https://github.com/DataBiosphere/findable-ui/issues/1162)) ([bb78438](https://github.com/DataBiosphere/findable-ui/commit/bb78438f2c742ec3671beb68eb7b2dfba3234484))
+* let a research assistant response set the input placeholder (inputplaceholder) ([#1163](https://github.com/DataBiosphere/findable-ui/issues/1163)) ([#1164](https://github.com/DataBiosphere/findable-ui/issues/1164)) ([482c0ae](https://github.com/DataBiosphere/findable-ui/commit/482c0ae30cd27a87d6e20fd4cb500be7b0093894))
+* make the index table taller with a scrolling page layout ([#1122](https://github.com/DataBiosphere/findable-ui/issues/1122)) ([#1153](https://github.com/DataBiosphere/findable-ui/issues/1153)) ([f5318bf](https://github.com/DataBiosphere/findable-ui/commit/f5318bfe17241acfd7730d6207ce6d7e4ac77ded))
+* move the app header into flow and replace the measured layout offsets with css ([#998](https://github.com/DataBiosphere/findable-ui/issues/998)) ([#1139](https://github.com/DataBiosphere/findable-ui/issues/1139)) ([9a1d05f](https://github.com/DataBiosphere/findable-ui/commit/9a1d05f6b8f166751d5fb02b3eb3a240ab9e47eb))
+
+
+### Bug Fixes
+
+* facet values sort by term on page load but by shown label after toggling the sort ([#1159](https://github.com/DataBiosphere/findable-ui/issues/1159)) ([#1161](https://github.com/DataBiosphere/findable-ui/issues/1161)) ([9d9576d](https://github.com/DataBiosphere/findable-ui/commit/9d9576d7f6f5c3291f5138a819d1e491ca3b9660))
+* focusing the data dictionary search box scrolls the page ([#1137](https://github.com/DataBiosphere/findable-ui/issues/1137)) ([#1157](https://github.com/DataBiosphere/findable-ui/issues/1157)) ([7266da9](https://github.com/DataBiosphere/findable-ui/commit/7266da9c6127622fb8f96abdb352a89042213a37))
+* keep content-page navigation and outline above the footer as it scrolls in ([#1149](https://github.com/DataBiosphere/findable-ui/issues/1149)) ([#1156](https://github.com/DataBiosphere/findable-ui/issues/1156)) ([977affe](https://github.com/DataBiosphere/findable-ui/commit/977affe1d670a60c63857aa98fe72a2d2e705333))
+* polish the static analytics stylesheet's header, tooltip and typography ([#873](https://github.com/DataBiosphere/findable-ui/issues/873)) ([#1155](https://github.com/DataBiosphere/findable-ui/issues/1155)) ([a1c5bdb](https://github.com/DataBiosphere/findable-ui/commit/a1c5bdb0946c9cfadda51f9fdbc08d4778568b1d))
+
+
+### Performance Improvements
+
+* load the figure lightbox only when it opens ([#1146](https://github.com/DataBiosphere/findable-ui/issues/1146)) ([#1147](https://github.com/DataBiosphere/findable-ui/issues/1147)) ([bfe9ba8](https://github.com/DataBiosphere/findable-ui/commit/bfe9ba843ce21622762a3d4a20d9da3f13d7bc46))
+
 ## [57.2.0](https://github.com/DataBiosphere/findable-ui/compare/v57.1.0...v57.2.0) (2026-10-22)
 
 
