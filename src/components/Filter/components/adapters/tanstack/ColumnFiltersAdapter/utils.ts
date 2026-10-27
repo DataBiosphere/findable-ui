@@ -14,7 +14,11 @@ import {
   SelectCategoryValueView,
   SelectCategoryView,
 } from "../../../../../../common/entities";
-import { FILTER_SORT } from "../../../../../../common/filters/sort/config/types";
+import {
+  FILTER_SORT,
+  type FilterSortCompare,
+  type FilterSortConfig,
+} from "../../../../../../common/filters/sort/config/types";
 import { sortCategoryValueViews } from "../../../../../../common/filters/sort/models/utils";
 import { CategoryGroup } from "../../../../../../config/entities";
 import { getSelectCategoryValue } from "../../../../../../hooks/useCategoryFilter";
@@ -107,6 +111,23 @@ export function getColumnFiltersCount<T extends RowData>(
 }
 
 /**
+ * Returns the table meta's filter sort as a filter sort config; a bare filter sort is read as the config's sort.
+ * @param table - Table.
+ * @returns Filter sort config.
+ */
+export function getFilterSortConfig<T extends RowData>(
+  table: Table<T>,
+): FilterSortConfig {
+  const { options } = table;
+  const { meta = {} } = options;
+  const { filterSort } = meta as ColumnFiltersTableMeta<T>;
+
+  if (typeof filterSort === "string") return { sortBy: filterSort };
+
+  return filterSort ?? {};
+}
+
+/**
  * Adapter for TanStack column to category config.
  * @param column - Column.
  * @returns Category config.
@@ -122,6 +143,7 @@ function mapCategoryConfig<T extends RowData>(
 
 /**
  * Adapter for TanStack table to category filter.
+ * Values are sorted with the table meta's filter sort comparator, when one is set.
  * @param table - Table.
  * @param filterSort - Filter sort.
  * @param categoryGroup - Category group.
@@ -133,6 +155,7 @@ function mapCategoryFilter<T extends RowData>(
   categoryGroup: CategoryGroup,
 ): CategoryFilter | undefined {
   const { categoryConfigs, label } = categoryGroup;
+  const { compare } = getFilterSortConfig(table);
 
   const categoryViews = categoryConfigs.reduce<CategoryView[]>(
     (acc, categoryConfig) => {
@@ -151,6 +174,7 @@ function mapCategoryFilter<T extends RowData>(
           column,
           filterSort,
           categoryConfig as SelectCategoryConfig,
+          compare,
         );
       }
 
@@ -202,12 +226,14 @@ function mapColumnToRangeCategoryView<T extends RowData>(
  * @param column - Column.
  * @param filterSort - Filter sort.
  * @param categoryConfig - Category config.
+ * @param compare - Optional comparator, used in place of the built-in comparator for the filter sort.
  * @returns Select category view.
  */
 function mapColumnToSelectCategoryView<T extends RowData>(
   column: Column<T>,
   filterSort: FILTER_SORT,
   categoryConfig?: SelectCategoryConfig,
+  compare?: FilterSortCompare,
 ): SelectCategoryView {
   const facetedUniqueValues = column.getFacetedUniqueValues();
 
@@ -225,7 +251,7 @@ function mapColumnToSelectCategoryView<T extends RowData>(
     categoryConfig?.mapSelectCategoryValue || getSelectCategoryValue,
   );
 
-  sortCategoryValueViews(values, filterSort);
+  sortCategoryValueViews(values, filterSort, compare);
 
   return {
     annotation: undefined,
