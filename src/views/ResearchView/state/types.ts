@@ -82,8 +82,10 @@ export interface Mention {
 
 /**
  * Response from the research API.
+ * inputPlaceholder, set by the research API or by an app that dispatches the response itself, changes the input placeholder from that response on.
  */
 export interface MessageResponse {
+  inputPlaceholder?: string;
   intent: Intent;
   message: string | null;
   query: {

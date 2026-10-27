@@ -6,6 +6,8 @@ export const ARIA_LABEL = {
   SUBMIT: "Send prompt",
 } as const;
 
+export const DEFAULT_PLACEHOLDER = "Ask anything";
+
 export const INPUT_BASE_PROPS: InputBaseProps = {
   autoFocus: true,
   color: MUI_INPUT_BASE_PROPS.COLOR.PRIMARY,
@@ -16,5 +18,5 @@ export const INPUT_BASE_PROPS: InputBaseProps = {
   minRows: 1,
   multiline: true,
   name: FIELD_NAME.AI_PROMPT,
-  placeholder: "Ask anything",
+  placeholder: DEFAULT_PLACEHOLDER,
 };
