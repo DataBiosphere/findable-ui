@@ -11,7 +11,7 @@ export const FOOTER_HEIGHT_VAR = `var(${PROPERTY.FOOTER_HEIGHT}, ${FOOTER_HEIGHT
 
 /**
  * View timeline of the footer scrolling into view, scoped to the app layout,
- * e.g. for a sticky sidebar to shrink as the footer pushes up the end of its
- * column.
+ * so pinned columns (see `pinnedAboveFooter`) shrink as the footer pushes up
+ * the end of their grid area.
  */
 export const FOOTER_VIEW_TIMELINE = "--footer-view";

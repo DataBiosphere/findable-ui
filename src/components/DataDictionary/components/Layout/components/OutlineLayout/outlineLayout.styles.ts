@@ -7,6 +7,14 @@ import { LAYOUT_SPACING, TITLE_BOTTOM } from "../../constants";
 const PB = LAYOUT_SPACING.CONTENT_PADDING_BOTTOM; /* bottom padding */
 const PT = LAYOUT_SPACING.OUTLINE_PADDING_TOP; /* top padding */
 
+/**
+ * Clears the footer in every browser, with footer-height padding the footer
+ * covers as it scrolls in. The cost is a footer's height of blank window below
+ * the outline until the footer arrives. If outlines grow long enough for that
+ * space to matter, move to `pinnedAboveFooter(TITLE_BOTTOM)` (as the content
+ * layout and sidebar do), which uses the whole window but needs scroll-driven
+ * animations.
+ */
 export const Layout = styled("div")`
   grid-area: outline;
   margin-bottom: calc(

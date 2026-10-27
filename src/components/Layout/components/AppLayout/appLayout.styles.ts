@@ -12,7 +12,7 @@ export const AppLayout = styled.div`
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  timeline-scope: ${FOOTER_VIEW_TIMELINE}; /* lets the sidebar follow the footer */
+  timeline-scope: ${FOOTER_VIEW_TIMELINE}; /* lets pinned columns follow the footer (see pinnedAboveFooter) */
 
   > header {
     grid-row: 1;
