@@ -6,7 +6,7 @@ import { TableCreator } from "../../../../../../TableCreator/tableCreator";
 import { EntityListProps } from "./types";
 
 /**
- * Entity list table view, rendering the table with the entity's list view config.
+ * Entity list table view, rendering the table with the entity's list view config. The page scrolls rather than the table.
  * @param props - Component props.
  * @param props.entityListType - Entity list type.
  * @param props.loading - Whether the table is loading.
@@ -26,5 +26,12 @@ export const TableView = <T extends RowData>({
   // loads with the previous tabs data on the first render after switching tabs. (or similar)
   if (entityListType !== exploreState.tabValue) return null;
 
-  return <TableCreator listView={listView} loading={loading} table={table} />;
+  return (
+    <TableCreator
+      listView={listView}
+      loading={loading}
+      pageScroll
+      table={table}
+    />
+  );
 };

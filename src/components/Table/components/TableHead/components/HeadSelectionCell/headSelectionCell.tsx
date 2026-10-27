@@ -1,9 +1,10 @@
 import { Checkbox } from "@mui/material";
 import { HeaderContext, RowData } from "@tanstack/react-table";
-import { JSX } from "react";
+import { JSX, useContext } from "react";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
 import { IndeterminateIcon } from "../../../../../common/CustomIcon/components/IndeterminateIcon/indeterminateIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
+import { TableHeadContext } from "../../context";
 
 /**
  * Header checkbox that is checked when all rows on the page are selected and indeterminate when some are.
@@ -20,6 +21,8 @@ export const HeadSelectionCell = <T extends RowData, TValue = unknown>({
     getIsSomePageRowsSelected,
     getToggleAllRowsSelectedHandler,
   } = table;
+  // -1 in the pinned copy of the head: clickable, but out of the tab order.
+  const { tabIndex } = useContext(TableHeadContext);
   return (
     <Checkbox
       checked={getIsAllPageRowsSelected()}
@@ -28,6 +31,7 @@ export const HeadSelectionCell = <T extends RowData, TValue = unknown>({
       indeterminate={getIsSomePageRowsSelected()}
       indeterminateIcon={<IndeterminateIcon />}
       onChange={getToggleAllRowsSelectedHandler()}
+      tabIndex={tabIndex}
     />
   );
 };

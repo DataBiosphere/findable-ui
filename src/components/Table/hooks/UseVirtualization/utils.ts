@@ -1,4 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
+import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../../../styles/common/constants/supports";
 import { ROW_DIRECTION } from "../../common/entities";
 
 /**
@@ -24,4 +25,51 @@ export function getRowsForVirtualization<T extends RowData>(
 
   // If the row direction is VERTICAL, return only grouped rows.
   return rows.filter(({ getIsGrouped }) => getIsGrouped());
+}
+
+/**
+ * Returns the table body's offset from the top of the page.
+ * @param container - Table container.
+ * @returns The offset, in pixels.
+ */
+export function getScrollMargin(container: HTMLElement): number {
+  const body = container.querySelector("tbody") ?? container;
+  return body.getBoundingClientRect().top + window.scrollY;
+}
+
+/**
+ * Observes the table body's offset from the top of the page, which changes when the content above the table changes (alerts, wrapping, the window width).
+ * @param container - Table container; nothing is observed when null, or where ResizeObserver is unavailable.
+ * @param onChange - Called with the offset, in pixels.
+ * @returns Cleanup that stops observing.
+ */
+export function observeScrollMargin(
+  container: HTMLElement | null,
+  onChange: (scrollMargin: number) => void,
+): (() => void) | undefined {
+  if (!container || typeof ResizeObserver === "undefined") return;
+  const update = (): void => onChange(getScrollMargin(container));
+  update();
+  const observer = new ResizeObserver(update);
+  observer.observe(document.body);
+  return (): void => observer.disconnect();
+}
+
+/**
+ * Subscribes to nothing: whether the page scroll layout is supported doesn't change while the page is open.
+ * @returns Unsubscribe, which does nothing.
+ */
+export function subscribeToNothing(): () => void {
+  return (): void => undefined;
+}
+
+/**
+ * Returns whether the browser supports the page scroll layout, where the page scrolls and the table's column head pins. The same query switches the layout's styles.
+ * @returns True if the page scroll layout is supported.
+ */
+export function supportsPageScroll(): boolean {
+  return (
+    typeof CSS !== "undefined" &&
+    CSS.supports(SUPPORTS_SCROLL_DRIVEN_ANIMATIONS)
+  );
 }
