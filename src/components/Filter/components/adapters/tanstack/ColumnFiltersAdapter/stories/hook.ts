@@ -1,5 +1,6 @@
 import {
   getCoreRowModel,
+  getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
   type Table,
@@ -31,6 +32,7 @@ export function useStoryTable(
     columns: COLUMNS,
     data,
     getCoreRowModel: getCoreRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
     meta,
