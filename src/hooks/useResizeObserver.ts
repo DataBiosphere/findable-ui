@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useState } from "react";
 
 export type ElementRect = {
   bottom: number;
@@ -13,6 +13,9 @@ export type ElementRect = {
 
 /**
  * Element resizing and repositioning observer.
+ * Reads ref.current only when observation starts (on mount, or when onResizeFn or shouldObserve changes), so an element
+ * that mounts later or is swapped is not observed. A conditionally rendered element should set shouldObserve from the
+ * condition that renders it, so both change in the same render.
  * @param ref - element to be observed for changes to its size or position.
  * @param onResizeFn - action to be performed when the observed element is resized or repositioned.
  * @param shouldObserve - boolean flag to determine if the observer should be active.
@@ -24,7 +27,6 @@ export function useResizeObserver(
   shouldObserve: boolean = true,
 ): Partial<ElementRect> | undefined {
   const [elementRect, setElementRect] = useState<Partial<ElementRect>>();
-  const observerRef = useRef<ResizeObserver>(null);
 
   // Observed element is resized or repositioned - set state elementRect with the element's new dimensions or position.
   const onResize = useCallback(
@@ -41,12 +43,10 @@ export function useResizeObserver(
   useEffect(() => {
     if (!ref.current) return;
     if (!shouldObserve) return;
-    observerRef.current = new ResizeObserver(onResize);
-    const observer = observerRef.current;
-    const observedEl = ref.current;
-    observer.observe(observedEl);
+    const observer = new ResizeObserver(onResize);
+    observer.observe(ref.current);
     return (): void => {
-      observer.unobserve(observedEl);
+      observer.disconnect();
     };
   }, [onResize, ref, shouldObserve]);
 
