@@ -1,4 +1,5 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useMemo } from "react";
+import { reset } from "../../actions/reset/dispatch";
 import { setError } from "../../actions/setError/dispatch";
 import { setMessage } from "../../actions/setMessage/dispatch";
 import { setQuery } from "../../actions/setQuery/dispatch";
@@ -13,6 +14,10 @@ import { UseChatDispatch } from "./types";
  */
 export const useChatDispatch = (): UseChatDispatch => {
   const { dispatch } = useContext(ChatContext);
+
+  const onReset = useCallback(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   const onSetError = useCallback(
     (error: string) => {
@@ -42,5 +47,8 @@ export const useChatDispatch = (): UseChatDispatch => {
     [dispatch],
   );
 
-  return { onSetError, onSetMessage, onSetQuery, onSetStatus };
+  return useMemo(
+    () => ({ onReset, onSetError, onSetMessage, onSetQuery, onSetStatus }),
+    [onReset, onSetError, onSetMessage, onSetQuery, onSetStatus],
+  );
 };
