@@ -118,6 +118,9 @@
     "typescript": "^5.9.3",
     "yet-another-react-lightbox": "^3.32.2"
   },
+  "overrides": {
+    "nwsapi": "2.2.25"
+  },
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
