@@ -1,3 +1,5 @@
+import { resetAction } from "../src/views/ResearchView/state/actions/reset/action";
+import { reset } from "../src/views/ResearchView/state/actions/reset/dispatch";
 import { setErrorAction } from "../src/views/ResearchView/state/actions/setError/action";
 import { setError } from "../src/views/ResearchView/state/actions/setError/dispatch";
 import { setMessageAction } from "../src/views/ResearchView/state/actions/setMessage/action";
@@ -34,6 +36,68 @@ const mockResponse = (message: string | null = null): MessageResponse => ({
     pipelineMs: 0,
     totalMs: 0,
   },
+});
+
+/**
+ * Creates a chat state that has moved on from the given initial state: a follow-up prompt, a query, an assistant
+ * message and an error appended, and loading set.
+ * @param state - Initial chat state.
+ * @returns Chat state with messages appended and loading set.
+ */
+const mockActiveState = (state: ChatState): ChatState => ({
+  messages: [
+    ...state.messages,
+    { createdAt: 1000, text: "Query", type: MESSAGE_TYPE.USER },
+    {
+      createdAt: 2000,
+      response: mockResponse("Test"),
+      type: MESSAGE_TYPE.ASSISTANT,
+    },
+    { createdAt: 3000, text: "Follow-up prompt", type: MESSAGE_TYPE.PROMPT },
+    { createdAt: 4000, error: "Network error", type: MESSAGE_TYPE.ERROR },
+  ],
+  status: { loading: true },
+});
+
+describe("reset action creator", () => {
+  it("should return correct action shape", () => {
+    const action = reset();
+
+    expect(action).toEqual({
+      payload: null,
+      type: ChatActionKind.Reset,
+    });
+  });
+});
+
+describe("resetAction", () => {
+  it("should return the initial prompt alone when initialArgs were given", () => {
+    const initialState = initializer({ text: "Welcome to the assistant" });
+    const state = mockActiveState(initialState);
+
+    const result = resetAction(state);
+
+    expect(result).toEqual(initialState);
+  });
+
+  it("should return the initial state when no initialArgs were given", () => {
+    const state = mockActiveState(initializer());
+
+    const result = resetAction(state);
+
+    expect(result).toEqual(INITIAL_STATE);
+  });
+
+  it("should not mutate original state", () => {
+    const state = mockActiveState(initializer({ text: "Welcome" }));
+    const messages = [...state.messages];
+
+    const result = resetAction(state);
+
+    expect(state.messages).toEqual(messages);
+    expect(state.status.loading).toBe(true);
+    expect(result).not.toBe(state);
+  });
 });
 
 describe("setError action creator", () => {
@@ -304,6 +368,15 @@ describe("chatReducer", () => {
     const result = chatReducer(state, unknownAction);
 
     expect(result).toBe(state);
+  });
+
+  it("should handle Reset action", () => {
+    const initialState = initializer({ text: "Welcome" });
+    const state = mockActiveState(initialState);
+
+    const result = chatReducer(state, reset());
+
+    expect(result).toEqual(initialState);
   });
 
   it("should handle SetMessage action", () => {

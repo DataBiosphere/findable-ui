@@ -1,3 +1,4 @@
+import { resetAction } from "./actions/reset/action";
 import { setErrorAction } from "./actions/setError/action";
 import { setMessageAction } from "./actions/setMessage/action";
 import { setQueryAction } from "./actions/setQuery/action";
@@ -15,6 +16,9 @@ import { ChatState } from "./types";
 export function chatReducer(state: ChatState, action: ChatAction): ChatState {
   const { payload, type } = action;
   switch (type) {
+    case ChatActionKind.Reset: {
+      return resetAction(state);
+    }
     case ChatActionKind.SetError: {
       return setErrorAction(state, payload);
     }
