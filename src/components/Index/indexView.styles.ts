@@ -211,6 +211,7 @@ export const StyledFluidPaper = styled(FluidPaper)`
         background-color: transparent;
         height: 100%;
         max-height: ${LOADING_PANEL_MAX_HEIGHT};
+        min-height: min-content; /* never smaller than the icon; pinning then keeps it inside the overlay */
         ${pinned(TABLE_HEAD_TOP_VAR)};
       }
     }
