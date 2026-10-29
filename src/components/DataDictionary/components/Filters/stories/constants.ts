@@ -1,4 +1,5 @@
 import { fn } from "storybook/test";
+import type { DataDictionaryDownload } from "../../../../../common/entities";
 import { PartialColumn } from "./types";
 
 export const BIONETWORK: PartialColumn = {
@@ -26,6 +27,11 @@ export const DESCRIPTION: PartialColumn = {
       ["Platform used for sequencing.", 1],
     ]),
   id: "description",
+};
+
+export const DOWNLOAD: DataDictionaryDownload = {
+  href: "/downloads/tier-1-metadata.xlsx",
+  label: "Download",
 };
 
 export const EXAMPLE: PartialColumn = {

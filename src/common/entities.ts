@@ -83,6 +83,7 @@ export interface DataDictionary<T extends RowData = Attribute> {
  */
 export interface DataDictionaryConfig<T extends RowData = Attribute> {
   dataDictionary: DataDictionary<T>;
+  download?: DataDictionaryDownload; // Download link shown in the filters; no button without it
   path: string; // Used as a key to find the dictionary to display
   tableOptions: Omit<TableOptions<T>, "data" | "getCoreRowModel">;
 }
@@ -94,6 +95,14 @@ export interface DataDictionaryConfig<T extends RowData = Attribute> {
 export interface DataDictionaryAnnotation {
   description: string;
   label: string;
+}
+
+/**
+ * Download link for a data dictionary: a file the user downloads from the data dictionary filters.
+ */
+export interface DataDictionaryDownload {
+  href: string; // URL of the file to download, used as-is (include any base path) e.g. "/downloads/hca-tier-1-metadata.xlsx"
+  label: string; // Button label, and the tooltip and accessible name of the icon button below 820px e.g. "Download"
 }
 
 /**

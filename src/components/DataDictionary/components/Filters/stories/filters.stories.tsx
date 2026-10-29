@@ -4,7 +4,8 @@ import { functionalUpdate, Table } from "@tanstack/react-table";
 import { JSX } from "react";
 import { action } from "storybook/actions";
 import { Filters } from "../filters";
-import { COLUMNS } from "./constants";
+import type { FiltersProps } from "../types";
+import { COLUMNS, DOWNLOAD } from "./constants";
 import { useFilterStore, useGlobalFilterStore } from "./hook";
 import { PartialColumn } from "./types";
 import { buildColumnFilters } from "./utils";
@@ -24,7 +25,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const DefaultStory = (): JSX.Element => {
+const DefaultStory = ({
+  download,
+}: Pick<FiltersProps, "download">): JSX.Element => {
   const { filterStore, setFilterStore } = useFilterStore();
   const { globalFilter, setGlobalFilter } = useGlobalFilterStore();
 
@@ -54,9 +57,13 @@ const DefaultStory = (): JSX.Element => {
     setGlobalFilter,
   } as Table<unknown>;
 
-  return <Filters table={table} />;
+  return <Filters download={download} table={table} />;
 };
 
 export const Default: Story = {
   render: () => <DefaultStory />,
+};
+
+export const WithDownload: Story = {
+  render: () => <DefaultStory download={DOWNLOAD} />,
 };

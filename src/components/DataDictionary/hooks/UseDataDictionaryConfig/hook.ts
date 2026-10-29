@@ -8,7 +8,7 @@ import { throwDictionaryConfigNotFoundError } from "./utils";
 /**
  * Returns the data dictionary config whose path matches the given dictionary.
  * @param dictionary - Data dictionary path.
- * @returns The dictionary's classes, description, table options and title.
+ * @returns The dictionary's classes, description, download link, table options and title.
  * @throws Error when no data dictionary config has a matching path.
  */
 export const useDataDictionaryConfig = <T extends RowData = Attribute>(
@@ -29,13 +29,14 @@ export const useDataDictionaryConfig = <T extends RowData = Attribute>(
   // Throw error if the dictionary config is not found.
   if (!dataDictionaryConfig) throwDictionaryConfigNotFoundError(dictionary);
 
-  // Return the dictionary's classes, description, table options and title.
+  // Return the dictionary's classes, description, download link, table options and title.
   return useMemo(() => {
     // Using non-null assertion (!) because we've already checked dataDictionaryConfig
     // exists above and would have thrown an error if undefined.
     return {
       classes: dataDictionaryConfig!.dataDictionary.classes,
       description: dataDictionaryConfig!.dataDictionary.description,
+      download: dataDictionaryConfig!.download,
       tableOptions: dataDictionaryConfig!.tableOptions,
       title: dataDictionaryConfig!.dataDictionary.title,
     };

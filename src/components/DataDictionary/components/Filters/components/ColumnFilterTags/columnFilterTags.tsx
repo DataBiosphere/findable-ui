@@ -2,6 +2,7 @@ import { Button, Theme, useMediaQuery } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import { JSX } from "react";
 import { Attribute } from "../../../../../../common/entities";
+import { bpDown820 } from "../../../../../../styles/common/mixins/breakpoints";
 import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
 import { ColumnFilterTag } from "../../../../../Table/components/TableFeatures/ColumnFilter/components/ColumnFilterTag/columnFilterTag";
 import { StyledGrid } from "./columnFilterTags.styles";
@@ -21,7 +22,7 @@ export const ColumnFilterTags = <T extends RowData = Attribute>({
 }: ColumnFilterTagsProps<T>): JSX.Element | null => {
   const { getAllColumns, resetColumnFilters } = table;
   const columns = getAllColumns().filter((column) => column.getIsFiltered());
-  const isDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.down(820));
+  const isDrawer = useMediaQuery((theme: Theme) => bpDown820({ theme }));
 
   if (columns.length === 0) return null;
 

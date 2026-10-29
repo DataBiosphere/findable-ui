@@ -53,7 +53,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
   TitleLayout = DefaultTitleLayout,
 }: DataDictionaryProps): JSX.Element => {
   // Get dictionary configuration.
-  const { classes, description, tableOptions, title } =
+  const { classes, description, download, tableOptions, title } =
     useDataDictionaryConfig<T>(dictionary);
 
   // Measure the filters; their height clears deep links below the sticky filters.
@@ -87,7 +87,7 @@ export const DataDictionary = <T extends RowData = Attribute>({
         <Outline outline={outline} />
       </OutlineLayout>
       <FiltersLayout ref={filtersRef}>
-        <Filters table={table} />
+        <Filters download={download} table={table} />
         <ColumnFilterTags table={table} />
       </FiltersLayout>
       <Fade in={isMeasured}>

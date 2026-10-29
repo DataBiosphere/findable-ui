@@ -2,6 +2,7 @@ import { ButtonGroup, Theme, useMediaQuery } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import { ComponentProps, JSX } from "react";
 import { Attribute } from "../../../../../../common/entities";
+import { bpDown820 } from "../../../../../../styles/common/mixins/breakpoints";
 import { BUTTON_PROPS } from "../../../../../../styles/common/mui/button";
 import { BUTTON_GROUP_PROPS } from "../../../../../common/ButtonGroup/constants";
 import { ColumnFiltersAdapter } from "../../../../../Filter/components/adapters/tanstack/ColumnFiltersAdapter/columnFiltersAdapter";
@@ -22,7 +23,7 @@ export const ColumnFilters = <T extends RowData = Attribute>({
   const columns = table.getAllColumns();
   const columnFilters = columns.filter((column) => column.getCanFilter());
   const enableColumnFilters = table.options.enableColumnFilters;
-  const isDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.down(820));
+  const isDrawer = useMediaQuery((theme: Theme) => bpDown820({ theme }));
 
   if (!enableColumnFilters) return null;
 
