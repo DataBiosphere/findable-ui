@@ -1,10 +1,10 @@
-import { Divider, Typography } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 import Link from "next/link";
 import { JSX } from "react";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
-import { ButtonPrimary } from "../common/Button/components/ButtonPrimary/buttonPrimary";
+import { BUTTON_PROPS } from "../common/Button/constants";
 import { AlertIcon } from "../common/CustomIcon/components/AlertIcon/alertIcon";
 import { Grid } from "../common/Grid/grid";
 import { RoundedPaper } from "../common/Paper/paper.styles";
@@ -109,13 +109,14 @@ export const Error = ({
           </SectionContent>
           {rootPath && (
             <SectionActions>
-              <ButtonPrimary
+              <Button
+                {...BUTTON_PROPS.PRIMARY_CONTAINED}
                 component={Link}
                 href={rootPath}
                 onClick={handleToHomePageClicked}
               >
                 To Homepage
-              </ButtonPrimary>
+              </Button>
             </SectionActions>
           )}
         </ErrorSection>

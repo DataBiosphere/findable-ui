@@ -1,4 +1,4 @@
-import { MenuItem, SelectChangeEvent, Typography } from "@mui/material";
+import { Button, MenuItem, SelectChangeEvent, Typography } from "@mui/material";
 import {
   ChangeEvent,
   Dispatch,
@@ -11,7 +11,7 @@ import {
 import { FileRejection } from "react-dropzone";
 import { ValidationError } from "yup";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
-import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
+import { BUTTON_PROPS } from "../../../../../common/Button/constants";
 import { Input } from "../../../../../common/Form/components/Input/input";
 import { Select } from "../../../../../common/Form/components/Select/select";
 import { UploadFile } from "../../../../../common/Form/components/UploadFile/uploadFile";
@@ -296,14 +296,15 @@ export const SupportRequestForm = ({
           </Section>
           <Section>
             <SectionActions>
-              <ButtonPrimary
+              <Button
+                {...BUTTON_PROPS.PRIMARY_CONTAINED}
                 disabled={Boolean(errorFields) || formState.submitting}
                 fullWidth
                 onClick={onSupportRequestSubmitted}
                 id="button-support-request"
               >
                 Send
-              </ButtonPrimary>
+              </Button>
             </SectionActions>
           </Section>
         </GridPaper>

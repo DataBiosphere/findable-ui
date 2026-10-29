@@ -1,5 +1,5 @@
+import type { ButtonProps } from "@mui/material";
 import { JSX } from "react";
-import { ButtonProps } from "../../button";
 import { ButtonOutline as Button } from "./buttonOutline.styles";
 
 /**

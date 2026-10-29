@@ -1,6 +1,6 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { JSX, ReactNode, useCallback } from "react";
-import { Button } from "../../../../../../../../../common/Button/button";
 import { BackArrowIcon } from "../../../../../../../../../common/CustomIcon/components/BackArrowIcon/backArrowIcon";
 import { useDialog } from "../../../../../../../../../common/Dialog/hooks/useDialog";
 import { HeaderProps } from "../../../../../../header";
@@ -60,7 +60,7 @@ export const NavigationDrawer = ({
   return (
     <>
       <Button
-        EndIcon={ArrowDropDownRounded}
+        endIcon={<ArrowDropDownRounded fontSize="small" />}
         onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}
       >
@@ -79,7 +79,7 @@ export const NavigationDrawer = ({
           <BackButton
             fullWidth
             onClick={onClose}
-            StartIcon={BackArrowIcon}
+            startIcon={<BackArrowIcon fontSize="small" />}
             variant="backNav"
           >
             {menuLabel}

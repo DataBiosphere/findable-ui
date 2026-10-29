@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { ButtonTextPrimary } from "../Button/components/ButtonTextPrimary/buttonTextPrimary";
+import { Button as MButton } from "@mui/material";
 
 interface Props {
   isEllipsis: boolean;
@@ -18,7 +18,7 @@ export const Content = styled("div")<Props>`
     `}
 `;
 
-export const Button = styled(ButtonTextPrimary)`
+export const Button = styled(MButton)`
   align-self: flex-start;
   margin-top: 8px;
 `;

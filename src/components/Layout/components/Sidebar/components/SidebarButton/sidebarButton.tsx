@@ -1,5 +1,6 @@
 import { FilterListRounded } from "@mui/icons-material";
 import { JSX, ReactNode } from "react";
+import { BUTTON_PROPS } from "../../../../../common/Button/constants";
 import { Badge, SidebarButton as Button } from "./sidebarButton.styles";
 
 /**
@@ -29,7 +30,12 @@ export const SidebarButton = ({
   ...props
 }: SidebarButtonProps): JSX.Element => {
   return (
-    <Button className={className} onClick={onClick} {...props}>
+    <Button
+      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      className={className}
+      onClick={onClick}
+      {...props}
+    >
       <FilterListRounded fontSize="small" />
       {label}
       {count > 0 && <Badge>{count}</Badge>}
