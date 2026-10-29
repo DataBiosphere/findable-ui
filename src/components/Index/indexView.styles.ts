@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
+import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SUPPORTS_SCROLL_DRIVEN_ANIMATIONS } from "../../styles/common/constants/supports";
 import {
@@ -11,14 +12,16 @@ import {
   bpUpSm,
 } from "../../styles/common/mixins/breakpoints";
 import { pinned, pinnedFocus } from "../../styles/common/mixins/pinned";
+import { pinnedAboveFooter } from "../../styles/common/mixins/pinnedAboveFooter";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants";
+import { LOADING_CLASS_NAME } from "../Loading/constants";
 import { TABLE_HEAD_TOP } from "../Table/common/constants";
 
 const ENTITY_LAYOUT_HEIGHT = 57; /* fallback until measured: a one-line entity layout row and its bottom line */
 const ENTITY_LIST_GAP = 16;
-const LOADING_ICON_MIN_OFFSET = 64; /* keeps the loading icon clear of the top of a short or barely visible table */
 const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
+const TABLE_HEAD_TOP_VAR = `var(${TABLE_HEAD_TOP})`;
 const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, ${ENTITY_LAYOUT_HEIGHT}px))`;
 
 /**
@@ -157,21 +160,19 @@ export const StyledFluidPaper = styled(FluidPaper)`
   }
 
   /* The loading overlay covers the whole paper, which is as tall as the table
-     when the page scrolls, so its icon pins to the middle of the window rather
-     than the middle of the overlay. */
+     when the page scrolls. The overlay keeps the white cover; the panel holding
+     the icon pins where the column head pins and fits the window below that line,
+     shrinking as the footer scrolls in, so the icon centres on the part of the
+     table in view, or on a table that fits. */
   @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
-    > div > .MuiPaper-root:has(> .MuiSvgIcon-root) {
-      /* A column flexbox, not the overlay's grid: a grid row would shrink to
-         the icon, leaving it no room to stick. */
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+    > .${LOADING_CLASS_NAME} {
+      background-color: ${COLOR_MIXES.COMMON_WHITE_80}; /* LoadingPaper's cover */
+      grid-template-rows: 100%; /* a definite row, so the panel's height can resolve against it */
 
-      > .MuiSvgIcon-root {
-        margin-top: ${LOADING_ICON_MIN_OFFSET}px;
-        position: sticky;
-        top: calc(50vh - ${LOADING_ICON_MIN_OFFSET}px);
+      > .MuiPaper-root {
+        background-color: transparent;
+        height: 100%;
+        ${pinnedAboveFooter(TABLE_HEAD_TOP_VAR)};
       }
     }
   }
@@ -203,7 +204,7 @@ export const StyledGridEntityList = styled(Grid)`
         order: 1;
         pointer-events: none;
         z-index: 4; /* above the column head, including a pinned copy of it */
-        ${pinned(`var(${TABLE_HEAD_TOP})`)};
+        ${pinned(TABLE_HEAD_TOP_VAR)};
       }
 
       &:has(.MuiTableContainer-root) > :last-child {
