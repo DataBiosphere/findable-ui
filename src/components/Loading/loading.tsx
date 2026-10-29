@@ -3,6 +3,7 @@ import { JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { LoadingIcon } from "../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { PAPER_PANEL_STYLE, PaperPanelStyle } from "../common/Paper/paper";
+import { LOADING_CLASS_NAME } from "./constants";
 import { LoadingPaper, LoadingPositioner } from "./loading.styles";
 
 export type LoadingPanelStyle =
@@ -63,7 +64,7 @@ export const Loading = ({
       timeout={300}
       unmountOnExit
     >
-      <LoadingPositioner panelStyle={panelStyle}>
+      <LoadingPositioner className={LOADING_CLASS_NAME} panelStyle={panelStyle}>
         <LoadingPaper panelStyle={panelStyle}>
           <LoadingIcon color="primary" fontSize={iconSize} />
           {text && (
