@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { Dialog as MDialog } from "@mui/material";
+import { Button as MButton, Dialog as MDialog } from "@mui/material";
 import { FONT } from "../../../../../../../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
-import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 
 export const Dialog = styled(MDialog)`
   + .MuiDialog-root {
@@ -32,7 +31,7 @@ export const Content = styled.div`
   overflow-y: auto;
 `;
 
-export const Button = styled(DXButton)`
+export const Button = styled(MButton)`
   gap: 8px;
   justify-content: flex-start;
   padding: 12px 24px;

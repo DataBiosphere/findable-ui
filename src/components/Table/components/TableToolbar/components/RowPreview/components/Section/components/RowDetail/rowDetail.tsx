@@ -1,9 +1,9 @@
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import { JSX, useState } from "react";
 import { ListConfig } from "../../../../../../../../../../config/entities";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../../../../styles/common/mui/typography";
-import { ButtonTextPrimary } from "../../../../../../../../../common/Button/components/ButtonTextPrimary/buttonTextPrimary";
+import { BUTTON_PROPS } from "../../../../../../../../../common/Button/constants";
 import { ComponentCreator } from "../../../../../../../../../ComponentCreator/ComponentCreator";
 import { Section } from "./rowDetail.styles";
 
@@ -54,9 +54,9 @@ export const RowDetail = <T extends RowData>({
           <ComponentCreator components={[componentConfig]} response={rowData} />
         </Grid>
       ))}
-      <ButtonTextPrimary onClick={onToggleShowMore}>
+      <Button {...BUTTON_PROPS.PRIMARY_TEXT} onClick={onToggleShowMore}>
         {buttonText}
-      </ButtonTextPrimary>
+      </Button>
     </Section>
   );
 };

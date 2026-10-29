@@ -1,8 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { MenuItem as MMenuItem, Popper as MPopper } from "@mui/material";
+import {
+  Button as MButton,
+  MenuItem as MMenuItem,
+  Popper as MPopper,
+} from "@mui/material";
 import { PALETTE } from "../../../../../../../../../../styles/common/constants/palette";
-import { Button as DXButton } from "../../../../../../../../../common/Button/button";
 import { HEADER_HEIGHT_VAR } from "../../../../../../common/constants";
 
 interface Props {
@@ -82,7 +85,7 @@ export const StyledPopper = styled(MPopper)`
   }
 `;
 
-export const Button = styled(DXButton, {
+export const Button = styled(MButton, {
   shouldForwardProp: (prop) => prop !== "isActive",
 })<Props>`
   // Button is "active" i.e. menu is open.

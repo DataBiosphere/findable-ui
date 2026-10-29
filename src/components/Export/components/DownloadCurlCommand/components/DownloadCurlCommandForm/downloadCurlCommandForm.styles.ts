@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { ButtonPrimary } from "../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
+import { Button as MButton } from "@mui/material";
 
-export const Button = styled(ButtonPrimary)`
+export const Button = styled(MButton)`
   text-transform: none;
 `;

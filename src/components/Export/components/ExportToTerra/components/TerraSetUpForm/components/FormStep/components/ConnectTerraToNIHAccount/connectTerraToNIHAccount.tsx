@@ -1,5 +1,6 @@
+import { Button } from "@mui/material";
 import { JSX, ReactNode } from "react";
-import { ButtonPrimary } from "../../../../../../../../../common/Button/components/ButtonPrimary/buttonPrimary";
+import { BUTTON_PROPS } from "../../../../../../../../../common/Button/constants";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -40,7 +41,9 @@ export const ConnectTerraToNIHAccount = ({
   return (
     <FormStep
       action={
-        <ButtonPrimary onClick={onGotoTutorial}>Go to Tutorial</ButtonPrimary>
+        <Button {...BUTTON_PROPS.PRIMARY_CONTAINED} onClick={onGotoTutorial}>
+          Go to Tutorial
+        </Button>
       }
       active={active}
       completed={completed}

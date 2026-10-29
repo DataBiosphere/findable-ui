@@ -3,6 +3,7 @@ import {
   getBorderBoxSizeHeight,
   useResizeObserver,
 } from "../../../hooks/useResizeObserver";
+import { BUTTON_PROPS } from "../Button/constants";
 import { Button, Content } from "./ellipsisContent.styles";
 
 enum EllipsisMode {
@@ -69,7 +70,9 @@ export const EllipsisContent = ({
         <div>{children}</div>
       </Content>
       {isModeActivated(ellipsisMode) && (
-        <Button onClick={onToggleMode}>{getModeText(ellipsisMode)}</Button>
+        <Button {...BUTTON_PROPS.PRIMARY_TEXT} onClick={onToggleMode}>
+          {getModeText(ellipsisMode)}
+        </Button>
       )}
     </>
   );

@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
 import {
   bpUpMd,
   bpUpSm,
 } from "../../../../../../styles/common/mixins/breakpoints";
-import { ButtonSecondary } from "../../../../../common/Button/components/ButtonSecondary/buttonSecondary";
 
-export const SidebarButton = styled(ButtonSecondary)`
+export const SidebarButton = styled(Button)`
   grid-column: 1 / -1;
   padding: 10px;
 

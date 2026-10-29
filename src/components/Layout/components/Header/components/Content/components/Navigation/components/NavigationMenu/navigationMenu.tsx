@@ -75,7 +75,7 @@ export const NavigationMenu = ({
     <MenuItem>
       <Button
         {...triggerProps}
-        EndIcon={ArrowDropDownRounded}
+        endIcon={<ArrowDropDownRounded fontSize="small" />}
         isActive={open}
         onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}
