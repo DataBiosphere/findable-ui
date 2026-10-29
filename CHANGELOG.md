@@ -1,5 +1,33 @@
 # Changelog
 
+## [59.0.0](https://github.com/DataBiosphere/findable-ui/compare/v58.0.0...v59.0.0) (2026-10-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* the modules under `lib/components/common/Button` listed here are removed; use MUI's `Button` from `@mui/material` instead. `button` (`Button`, `ButtonProps`): use MUI `Button` / `ButtonProps`, passing `startIcon={<Icon fontSize="small" />}` / `endIcon={...}` elements instead of the `StartIcon` / `EndIcon` component props. `components/ButtonPrimary`: use `<Button color="primary" variant="contained">` (`BUTTON_PROPS.PRIMARY_CONTAINED`). `components/ButtonSecondary`: use `<Button color="secondary" variant="contained">` (`BUTTON_PROPS.SECONDARY_CONTAINED`). `components/ButtonSecondaryOutline`: use `<Button color="secondary" variant="outlined">`. `components/ButtonTextPrimary`: use `<Button color="primary" variant="text">` (`BUTTON_PROPS.PRIMARY_TEXT`); the theme gives it the same transparent hover and underline. `components/ButtonText`, `components/ButtonTextUnderline` and `components/NavigationButton` are removed with no replacement (unused). `ButtonOutline` is now typed with MUI's `ButtonProps`, so it no longer accepts `StartIcon` / `EndIcon`; pass `startIcon` / `endIcon` elements instead. `ExportButton` (export form) now defaults to MUI `Button` and always passes the primary contained preset to the button it renders, including a `Button` passed in: a passed-in button that spreads its props after its own color and variant (e.g. `ButtonOutline`) renders primary contained. `CallToActionButton` defaults to MUI `Button` with the primary contained preset; a `ButtonElType` passed in gets no preset.
+
+### Features
+
+* add a download button to the data dictionary page ([#1143](https://github.com/DataBiosphere/findable-ui/issues/1143)) ([#1174](https://github.com/DataBiosphere/findable-ui/issues/1174)) ([fcb7dac](https://github.com/DataBiosphere/findable-ui/commit/fcb7dac21ca74d372204040412cfb587ee47fa66))
+* let a consumer reset the chat state to its welcome prompt ([#1166](https://github.com/DataBiosphere/findable-ui/issues/1166)) ([#1171](https://github.com/DataBiosphere/findable-ui/issues/1171)) ([3edab3e](https://github.com/DataBiosphere/findable-ui/commit/3edab3ee8212e4822002562a468987b43136b1da))
+
+
+### Bug Fixes
+
+* centre the explore table's loading indicator on the visible part of the table ([#1173](https://github.com/DataBiosphere/findable-ui/issues/1173)) ([#1176](https://github.com/DataBiosphere/findable-ui/issues/1176)) ([5ae2113](https://github.com/DataBiosphere/findable-ui/commit/5ae2113add7602c526f3c0868da196779f2db675))
+
+
+### Chores
+
+* pin nwsapi so the a11y suite stops timing out in the no-lock ci job ([#1167](https://github.com/DataBiosphere/findable-ui/issues/1167)) ([#1169](https://github.com/DataBiosphere/findable-ui/issues/1169)) ([512312e](https://github.com/DataBiosphere/findable-ui/commit/512312eac276948579552d419b95a758a717ee98))
+
+
+### Code Refactoring
+
+* remove the button wrapper components and the core button ([#1126](https://github.com/DataBiosphere/findable-ui/issues/1126)) ([#1178](https://github.com/DataBiosphere/findable-ui/issues/1178)) ([211e7c9](https://github.com/DataBiosphere/findable-ui/commit/211e7c91d63855ebb399b4165f3489b6b8bcefc5))
+* tidy useresizeobserver: disconnect on cleanup, document late mounts ([#1165](https://github.com/DataBiosphere/findable-ui/issues/1165)) ([#1170](https://github.com/DataBiosphere/findable-ui/issues/1170)) ([8eea111](https://github.com/DataBiosphere/findable-ui/commit/8eea111c270df29526f024c219cf43e055780834))
+
 ## [58.0.0](https://github.com/DataBiosphere/findable-ui/compare/v57.2.0...v58.0.0) (2026-10-27)
 
 
