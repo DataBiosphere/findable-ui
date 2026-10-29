@@ -1,5 +1,5 @@
 import type { SerializedStyles, Theme } from "@emotion/react";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Grid } from "@mui/material";
 import { PROPERTY } from "../../hooks/useHtmlStyle/constants";
@@ -12,7 +12,6 @@ import {
   bpUpSm,
 } from "../../styles/common/mixins/breakpoints";
 import { pinned, pinnedFocus } from "../../styles/common/mixins/pinned";
-import { pinnedAboveFooter } from "../../styles/common/mixins/pinnedAboveFooter";
 import { FluidPaper } from "../common/Paper/components/FluidPaper/fluidPaper";
 import { HEADER_HEIGHT_VAR } from "../Layout/components/Header/common/constants";
 import { LOADING_CLASS_NAME } from "../Loading/constants";
@@ -23,6 +22,32 @@ const ENTITY_LIST_GAP = 16;
 const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head and its bottom line */
 const TABLE_HEAD_TOP_VAR = `var(${TABLE_HEAD_TOP})`;
 const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, ${ENTITY_LAYOUT_HEIGHT}px))`;
+const LOADING_OVERLAY_VIEW_TIMELINE = "--loading-overlay-view";
+const LOADING_PANEL_MAX_HEIGHT = `calc(100vh - ${TABLE_HEAD_TOP_VAR})`; /* the window below where the column head pins */
+
+/* Added to the loading panel's max height: takes off the part of the overlay
+   still below the window, until the overlay's top reaches the pin line. */
+const loadingPanelEntry = keyframes`
+  from {
+    max-height: calc(-1 * ${LOADING_PANEL_MAX_HEIGHT});
+  }
+
+  to {
+    max-height: 0px;
+  }
+`;
+
+/* Added to the loading panel's max height: takes off the part of the overlay
+   gone above the pin line, as the overlay's bottom scrolls up to it. */
+const loadingPanelExit = keyframes`
+  from {
+    max-height: 0px;
+  }
+
+  to {
+    max-height: calc(-1 * ${LOADING_PANEL_MAX_HEIGHT});
+  }
+`;
 
 /**
  * Index pages pin the entity layout row (with tabs, or below md, where it holds
@@ -161,18 +186,32 @@ export const StyledFluidPaper = styled(FluidPaper)`
 
   /* The loading overlay covers the whole paper, which is as tall as the table
      when the page scrolls. The overlay keeps the white cover; the panel holding
-     the icon pins where the column head pins and fits the window below that line,
-     shrinking as the footer scrolls in, so the icon centres on the part of the
-     table in view, or on a table that fits. */
+     the icon is the part of the overlay in view below where the column head
+     pins, so the icon centres on the part of the table in view. The panel pins
+     at that line and starts as tall as the window below it; one animation takes
+     off what's still below the window as the overlay's top scrolls up to the
+     line, the other what's gone above it as the overlay's bottom does. They add
+     (animation-composition), so both apply on a table shorter than the window. */
   @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
     > .${LOADING_CLASS_NAME} {
       background-color: ${COLOR_MIXES.COMMON_WHITE_80}; /* LoadingPaper's cover */
       grid-template-rows: 100%; /* a definite row, so the panel's height can resolve against it */
+      view-timeline: ${LOADING_OVERLAY_VIEW_TIMELINE} block;
+      view-timeline-inset: ${TABLE_HEAD_TOP_VAR} 0px;
 
       > .MuiPaper-root {
+        animation:
+          ${loadingPanelEntry} linear both,
+          ${loadingPanelExit} linear both;
+        animation-composition: add;
+        animation-range:
+          cover 0% exit-crossing 0%,
+          entry-crossing 100% cover 100%;
+        animation-timeline: ${LOADING_OVERLAY_VIEW_TIMELINE};
         background-color: transparent;
         height: 100%;
-        ${pinnedAboveFooter(TABLE_HEAD_TOP_VAR)};
+        max-height: ${LOADING_PANEL_MAX_HEIGHT};
+        ${pinned(TABLE_HEAD_TOP_VAR)};
       }
     }
   }
