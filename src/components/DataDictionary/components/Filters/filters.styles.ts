@@ -5,5 +5,6 @@ export const StyledGrid = styled(Grid)`
   align-items: center;
   display: grid;
   gap: 16px;
-  grid-template-columns: 1fr auto;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr; /* search fills the row; column filters and download take their own width */
 `;
