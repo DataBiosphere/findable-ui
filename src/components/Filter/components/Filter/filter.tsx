@@ -15,7 +15,7 @@ import { MenuTransition } from "./components/MenuTransition/menuTransition";
 import { POPPER_PROPS } from "./components/Popper/constants";
 import { StyledPopper } from "./filter.styles";
 import { FilterProps } from "./types";
-import { getCloseCategoryLabel } from "./utils";
+import { getCloseCategoryLabel, getPopperOptions } from "./utils";
 
 /**
  * Category filter: a label button that opens the category's filter panel, followed by the given tags.
@@ -83,6 +83,7 @@ export const Filter = ({
               data-testid={TEST_IDS.FILTER_POPOVER}
               id={panelId}
               open={open}
+              popperOptions={getPopperOptions(surfaceType)}
               // Popper defaults its root to role="tooltip", which would have
               // the label's aria-controls resolve to a tooltip. The label
               // declares aria-haspopup="dialog", and this is a non-modal

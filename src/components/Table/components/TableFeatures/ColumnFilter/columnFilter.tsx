@@ -58,7 +58,7 @@ export const ColumnFilter = <T extends RowData>({
   const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
     useMenu({ disabled });
 
-  const { onClose: onMenuClose } = useScrollWithPage({
+  const { menuAnchorEl, onClose: onMenuClose } = useScrollWithPage({
     anchorEl,
     onClose,
     open,
@@ -93,7 +93,7 @@ export const ColumnFilter = <T extends RowData>({
         {...MENU_PROPS}
         {...props}
         className={className}
-        anchorEl={anchorEl}
+        anchorEl={menuAnchorEl}
         onClose={onMenuClose}
         open={open}
         slotProps={getSlotProps(MENU_PROPS.slotProps, {

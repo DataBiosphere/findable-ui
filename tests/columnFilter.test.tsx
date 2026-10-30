@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@mui/material";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -9,6 +10,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { ColumnFilter } from "../src/components/Table/components/TableFeatures/ColumnFilter/columnFilter";
 import { ColumnFilterProps } from "../src/components/Table/components/TableFeatures/ColumnFilter/types";
+import { createAppTheme } from "../src/theme/theme";
 import { expectControlsResolveToMenu } from "./utils/ariaPopup";
 
 interface Row {
@@ -49,11 +51,14 @@ function TestColumnFilter({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+  // The menu's z-index reads the theme's app bar z-index.
   return (
-    <ColumnFilter
-      column={table.getAllColumns()[0]}
-      MenuListProps={MenuListProps}
-    />
+    <ThemeProvider theme={createAppTheme()}>
+      <ColumnFilter
+        column={table.getAllColumns()[0]}
+        MenuListProps={MenuListProps}
+      />
+    </ThemeProvider>
   );
 }
 
@@ -98,5 +103,18 @@ describe("ColumnFilter", () => {
     const menu = screen.getByRole("menu", { hidden: true });
     expect(menu.classList.contains("from-list")).toBe(true);
     expect(menu.id).toBe(trigger.getAttribute("aria-controls"));
+  });
+
+  // The menu opens without taking focus, so focus stays on the trigger, outside
+  // the menu where MUI's own Escape handling is bound.
+  it("should close on Escape while focus is on the trigger", () => {
+    render(<TestColumnFilter />);
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+
+    fireEvent.click(trigger);
+    trigger.focus();
+    fireEvent.keyDown(trigger, { key: "Escape" });
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
 });
