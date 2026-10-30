@@ -19,7 +19,7 @@ import { getCloseCategoryLabel } from "./utils";
 
 /**
  * Category filter: a label button that opens the category's filter panel, followed by the given tags.
- * The panel is a non-modal dialog over a backdrop, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in with a close button; otherwise it grows as a menu.
+ * The panel is a non-modal dialog over a backdrop, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in with a close button; otherwise it grows as a menu, and the page scrolls beneath it.
  * Closing the panel from the backdrop, with Escape, or with the drawer's close button also invokes closeAncestor.
  * TODO(cc) refactor: build tags from categoryView for selected values.
  * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
@@ -74,6 +74,7 @@ export const Filter = ({
                 closeAncestor?.();
               }}
               open={open}
+              surfaceType={surfaceType}
             />
             <StyledPopper
               {...POPPER_PROPS}

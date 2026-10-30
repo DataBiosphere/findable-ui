@@ -34,11 +34,13 @@ export const StyledButton = styled(Button, {
 export const StyledMenu = styled(Menu)`
   .${paperClasses.root} {
     margin: 4px 0;
+    overscroll-behavior: none; /* the wheel over the menu does not scroll the page */
     width: 288px;
 
     .${menuClasses.list} {
       max-height: ${MAX_LIST_HEIGHT_PX}px;
       overflow-wrap: break-word;
+      overscroll-behavior: none; /* the list is the scroller; at its end the wheel stops here */
 
       ${MuiListItemButtonRoot}
 
