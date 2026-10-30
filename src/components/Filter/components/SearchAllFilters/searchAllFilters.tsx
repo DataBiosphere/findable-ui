@@ -43,7 +43,7 @@ const Listbox = forwardRef<HTMLUListElement, MListProps>(
 
 /**
  * Search all filters: an autocomplete searching the values of all select categories, listing the matches in a virtualized list grouped by category.
- * Opening it in the popper menu stops the page and sidebar scrolling. Closing it clears the search term, restores the scrolling, and blurs the input. Clearing the search also closes it in the popper drawer.
+ * Opening it in the popper menu stops the sidebar scrolling, so the input stays in view; the page still scrolls. Closing it clears the search term, restores the sidebar scrolling, and blurs the input. Clearing the search also closes it in the popper drawer.
  * The given Mui Autocomplete props override the defaults, including open, value, and the open, close and input change handlers.
  * @param props - Component props.
  * @param props.categoryViews - Category views; only select category views are searched.
@@ -64,15 +64,12 @@ export const SearchAllFilters = ({
   const [searchTerm, setSearchTerm] = useState("");
   const selectCategoryViews = categoryViews.filter(isSelectCategoryView);
 
-  // Handles background scroll action.
+  // Locks or restores the sidebar scroll; the page keeps scrolling, and the input stays in view.
   const handleBackgroundScroll = useCallback(
     (overflowStyle: OVERFLOW_STYLE): void => {
       if (surfaceType === SURFACE_TYPE.POPPER_MENU) {
         setElementsOverflowStyle(
-          [
-            document.querySelector(SELECTOR.BODY),
-            document.getElementById(SELECTOR.SIDEBAR_POSITIONER),
-          ],
+          [document.getElementById(SELECTOR.SIDEBAR_POSITIONER)],
           overflowStyle,
         );
       }

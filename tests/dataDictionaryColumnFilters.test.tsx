@@ -36,8 +36,8 @@ describe("DataDictionaryColumnFilters", () => {
   it("renders BioNetwork filter options", async () => {
     const buttonEl = getButton("BioNetwork");
     fireEvent.click(buttonEl);
-    // Wait for menu to open.
-    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
+    // Wait for the panel to open.
+    await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
     expect(getText("Brain")).toBeInTheDocument();
     expect(getText("Lung")).toBeInTheDocument();
     expect(getText("Nervous System")).toBeInTheDocument();
@@ -46,9 +46,9 @@ describe("DataDictionaryColumnFilters", () => {
   it("renders BioNetwork filter options in alphabetical order", async () => {
     const buttonEl = getButton("BioNetwork");
     fireEvent.click(buttonEl);
-    // Wait for menu to open.
-    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
-    const optionEls = within(getRole("menu")).getAllByRole("button");
+    // Wait for the panel to open.
+    await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
+    const optionEls = within(getRole("dialog")).getAllByRole("button");
     ["Brain", "Lung", "Nervous System", "Clear All"].forEach((expected, i) => {
       expect(optionEls[i].textContent).toMatch(getStartsWithRegex(expected));
     });
@@ -57,10 +57,10 @@ describe("DataDictionaryColumnFilters", () => {
   it("can select and deselect a filter option", async () => {
     const buttonEl = getButton("BioNetwork");
     fireEvent.click(buttonEl);
-    // Wait for menu to open.
-    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
+    // Wait for the panel to open.
+    await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
     // Select first option.
-    const optionEls = within(getRole("menu")).getAllByRole("button");
+    const optionEls = within(getRole("dialog")).getAllByRole("button");
     const optionEl = optionEls[0];
     fireEvent.click(optionEl);
     await waitFor(() => expect(optionEl).toHaveClass(MUI_CLASSES.SELECTED));
@@ -72,10 +72,10 @@ describe("DataDictionaryColumnFilters", () => {
   it("clears all filters", async () => {
     const buttonEl = getButton("BioNetwork");
     fireEvent.click(buttonEl);
-    // Wait for menu to open.
-    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
+    // Wait for the panel to open.
+    await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
     // Select all options.
-    const optionEls = within(getRole("menu")).getAllByRole("button");
+    const optionEls = within(getRole("dialog")).getAllByRole("button");
     optionEls.forEach(async (el) => {
       fireEvent.click(el);
       await waitFor(() => expect(el).toHaveClass(MUI_CLASSES.SELECTED));
@@ -94,7 +94,7 @@ describe("DataDictionaryColumnFilters", () => {
   it("disables Clear All when nothing selected", async () => {
     const buttonEl = getButton("BioNetwork");
     fireEvent.click(buttonEl);
-    await waitFor(() => expect(getRole("menu")).toBeInTheDocument());
+    await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
     expect(getButton("Clear All")).toHaveClass(MUI_CLASSES.DISABLED);
   });
 });

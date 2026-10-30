@@ -1,4 +1,11 @@
+import type { PopperProps } from "@mui/material";
 import { resolveAriaLabel } from "../../../../utils/ariaLabel";
+import { withHeaderPadding } from "../../common/popper";
+import { SURFACE_TYPE } from "../surfaces/types";
+import {
+  MENU_POPPER_OPTIONS,
+  POPPER_PROPS,
+} from "./components/Popper/constants";
 import { ARIA_LABEL } from "./constants";
 
 /**
@@ -15,4 +22,17 @@ export function getCloseCategoryLabel(categoryLabel: string): string {
     label && `Close ${label} filter`,
     ARIA_LABEL.CLOSE_CATEGORY,
   );
+}
+
+/**
+ * Returns the popper options for the filter panel: over the menu surface, fixed to the window, updated after each scroll (see MENU_POPPER_OPTIONS), and kept clear of the header; in the drawer, the defaults.
+ * The options are constants, so the popper is not rebuilt on every render.
+ * @param surfaceType - Filter surface type.
+ * @returns The popper options.
+ */
+export function getPopperOptions(
+  surfaceType: SURFACE_TYPE,
+): PopperProps["popperOptions"] {
+  if (surfaceType === SURFACE_TYPE.DRAWER) return POPPER_PROPS.popperOptions;
+  return withHeaderPadding(MENU_POPPER_OPTIONS);
 }
