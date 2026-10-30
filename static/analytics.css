@@ -893,6 +893,12 @@
   visibility: visible;
 }
 
+/* No transition while closed, so the content (and its links) hides at once. */
+.fui-toggletip:not(:has(.fui-toggletip-trigger[aria-expanded="true"]))::before,
+.fui-toggletip-trigger:not([aria-expanded="true"]) ~ .fui-toggletip-content {
+  transition: none;
+}
+
 /* Set by the tooltip Escape script in the usage notes. No transition, so the
    tooltip hides at once. */
 .fui-tooltip-wrapper.fui-tooltip-dismissed::before,
