@@ -77,12 +77,8 @@ describe("isOutOfView", () => {
     expect(isOutOfView(createButton(100, 140))).toBe(false);
   });
 
-  it("should treat an element partly below the header as in view", () => {
-    expect(isOutOfView(createButton(40, 80))).toBe(false);
-  });
-
-  it("should treat an element wholly under the header as out of view", () => {
-    expect(isOutOfView(createButton(10, 50))).toBe(true);
+  it("should treat an element whose top has reached the header as out of view", () => {
+    expect(isOutOfView(createButton(40, 80))).toBe(true);
   });
 
   it("should treat an element above the viewport as out of view", () => {
@@ -137,7 +133,7 @@ describe("useScrollWithPage", () => {
     expect(onClose).not.toHaveBeenCalled();
   });
 
-  it("should close the menu, and return focus to its button, once the button is under the header", () => {
+  it("should close the menu at once, and return focus to its button, once the button reaches the header", () => {
     const anchorEl = createButton(100, 140);
     const onClose = jest.fn();
     renderHook(() => useScrollWithPage({ anchorEl, onClose, open: true }));
@@ -150,6 +146,25 @@ describe("useScrollWithPage", () => {
 
     expect(onClose).toHaveBeenCalledTimes(1);
     expect(document.activeElement).toBe(anchorEl);
+  });
+
+  it("should close a menu closed by scrolling without its exit transition, and restore it on reopening", () => {
+    const anchorEl = createButton(100, 140);
+    const onClose = jest.fn();
+    const { rerender, result } = renderHook(
+      ({ open }) => useScrollWithPage({ anchorEl, onClose, open }),
+      { initialProps: { open: true } },
+    );
+    expect(result.current.closeProps).toEqual({});
+
+    setRect(anchorEl, 10, 50);
+    scrollPage();
+    expect(result.current.closeProps).toEqual({ transitionDuration: 0 });
+
+    rerender({ open: false });
+    setRect(anchorEl, 100, 140);
+    rerender({ open: true });
+    expect(result.current.closeProps).toEqual({});
   });
 
   it("should not listen for scrolling while the menu is closed", () => {

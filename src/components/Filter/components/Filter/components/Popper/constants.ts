@@ -1,6 +1,6 @@
 import { PopperProps } from "@mui/material";
 import { POPPER_PROPS as MUI_POPPER_PROPS } from "../../../../../../styles/common/mui/popper";
-import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../../common/constants";
+import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../../common/popper";
 
 export const POPPER_PROPS: Omit<PopperProps, "open"> = {
   placement: MUI_POPPER_PROPS.PLACEMENT.BOTTOM_START,

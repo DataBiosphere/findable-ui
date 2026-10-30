@@ -1,5 +1,5 @@
 import { AutocompleteProps, PaperProps, PopperProps } from "@mui/material";
-import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../common/constants";
+import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../common/popper";
 import { DividerItem, ITEM_TYPE, NoResultsItem } from "./entities";
 
 export const DEFAULT_LIST_HEIGHT = 0;

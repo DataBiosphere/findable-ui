@@ -27,15 +27,17 @@ function getHeaderHeight(): number {
 }
 
 /**
- * Returns true when the element is missing or lies wholly outside the viewport below the header; an element under the header is hidden by it.
+ * Returns true when the element is missing, has reached the header, or lies wholly outside the viewport.
+ * An element counts as gone once its top edge reaches the header, so the menu below it closes before it can pass under, or over, the header.
  * @param element - Element to check.
- * @returns True if no part of the element is in view.
+ * @returns True if the element is out of view.
  */
 export function isOutOfView(element: Element | null): boolean {
   if (!element) return true;
   const { bottom, left, right, top } = element.getBoundingClientRect();
   return (
-    bottom <= getHeaderHeight() ||
+    top < getHeaderHeight() ||
+    bottom <= 0 ||
     left >= window.innerWidth ||
     right <= 0 ||
     top >= window.innerHeight
