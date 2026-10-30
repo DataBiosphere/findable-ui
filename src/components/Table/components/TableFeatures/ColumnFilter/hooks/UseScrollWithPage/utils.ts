@@ -43,25 +43,6 @@ export function isOutOfView(element: Element | null): boolean {
 }
 
 /**
- * Calls the function on the animation frame after each page scroll, at most once a frame.
- * The frame wait lets the page settle first: MUI's own scroll listener, which moves the menu, may run after this one.
- * @param onFrame - Function to call after the page scrolls.
- * @returns A function removing the listener and any pending frame.
- */
-export function onScrollFrame(onFrame: () => void): () => void {
-  let frame = 0;
-  const listener = (): void => {
-    cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(onFrame);
-  };
-  window.addEventListener("scroll", listener, { passive: true });
-  return (): void => {
-    cancelAnimationFrame(frame);
-    window.removeEventListener("scroll", listener);
-  };
-}
-
-/**
  * Focuses the element once the menu has closed, without scrolling it into view.
  * Focus waits a frame: until the menu re-renders closed, its focus trap would pull focus back in.
  * Scrolling is prevented because the browser would otherwise scroll a button pinned within the page's `scroll-padding-top`, making the page jump.

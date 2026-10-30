@@ -32,6 +32,9 @@ export const StyledButton = styled(Button, {
 `;
 
 export const StyledMenu = styled(Menu)`
+  /* Below the header: the page scrolls while the menu is open, and a menu following its button must pass under the header, not over it. */
+  z-index: ${({ theme }) => theme.zIndex.appBar - 1};
+
   .${paperClasses.root} {
     margin: 4px 0;
     overscroll-behavior: none; /* the wheel over the menu does not scroll the page */
