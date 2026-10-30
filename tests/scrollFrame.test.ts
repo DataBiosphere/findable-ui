@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import { onScrollFrame } from "../src/utils/scrollFrame";
+import { onScrollFrame } from "../src/components/Filter/common/scrollFrame";
 
 /**
  * Dispatches a scroll event on the window.
@@ -43,5 +43,25 @@ describe("onScrollFrame", () => {
     jest.runOnlyPendingTimers();
 
     expect(onFrame).not.toHaveBeenCalled();
+  });
+
+  it("should ignore scrolling inside the ignored element", () => {
+    const onFrame = jest.fn();
+    const panel = document.createElement("div");
+    const list = document.createElement("div");
+    panel.appendChild(list);
+    document.body.appendChild(panel);
+    const remove = onScrollFrame(onFrame, panel);
+
+    list.dispatchEvent(new Event("scroll"));
+    jest.runOnlyPendingTimers();
+    expect(onFrame).not.toHaveBeenCalled();
+
+    scroll();
+    jest.runOnlyPendingTimers();
+    expect(onFrame).toHaveBeenCalledTimes(1);
+
+    remove();
+    panel.remove();
   });
 });

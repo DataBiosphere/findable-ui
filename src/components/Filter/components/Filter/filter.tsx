@@ -27,7 +27,7 @@ import { getCloseCategoryLabel, getPopperOptions } from "./utils";
  * @param props - Component props.
  * @param props.categorySection - Category section label, passed to onFilter.
  * @param props.categoryView - Category view to filter.
- * @param props.closeAncestor - Function invoked after the panel is closed from the backdrop, with Escape, or with the drawer's close button.
+ * @param props.closeAncestor - Function invoked after the panel is closed in the drawer: from its backdrop, with Escape, or with its close button.
  * @param props.onFilter - Function invoked when a filter value is toggled or a range is submitted.
  * @param props.surfaceType - Filter surface type.
  * @param props.tags - Content rendered after the panel, e.g. filter tags.
@@ -86,7 +86,7 @@ export const Filter = ({
               data-testid={TEST_IDS.FILTER_POPOVER}
               id={panelId}
               open={open}
-              popperOptions={getPopperOptions(surfaceType)}
+              popperOptions={open ? getPopperOptions(surfaceType) : undefined}
               // Popper defaults its root to role="tooltip", which would have
               // the label's aria-controls resolve to a tooltip. The label
               // declares aria-haspopup="dialog", and this is a non-modal

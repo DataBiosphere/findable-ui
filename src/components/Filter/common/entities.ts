@@ -1,5 +1,11 @@
+import type { PopperProps } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 import { SelectCategoryValueView } from "../../../common/entities";
+
+/**
+ * Popper.js options of a filter panel.
+ */
+export type PopperOptions = NonNullable<PopperProps["popperOptions"]>;
 
 /**
  * Function invoked to update state for the search term.

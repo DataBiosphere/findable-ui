@@ -60,8 +60,8 @@ export const FilterLabel = ({
     >
       <StyledButton
         {...getPopupAriaProps({
-          // The panel is a Popper in a portal behind a backdrop — a floating
-          // dialog, not a region expanding in place — so it is a popup.
+          // The panel is a Popper in a portal — a floating dialog, not a
+          // region expanding in place — so it is a popup.
           disabled,
           hasPopup: HAS_POPUP.DIALOG,
           id: panelId,

@@ -1,8 +1,8 @@
 import { GridProps, PopperProps } from "@mui/material";
 import { POPPER_PROPS as MUI_POPPER_PROPS } from "../../../../../styles/common/mui/popper";
+import type { PopperOptions } from "../../../../Filter/common/entities";
 import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../../Filter/common/popper";
-
-type PopperOptions = NonNullable<PopperProps["popperOptions"]>;
+import type { ColumnFilterPlacement } from "./types";
 
 /**
  * Edge of its button the column filter panel lines up with.
@@ -22,7 +22,7 @@ export const GRID_PROPS: GridProps = {
 /**
  * Popper.js modifiers shared by both placements: a gap below the button, the panel shifted to stay on screen when it fits neither below nor above (covering the button rather than being cut off), and an update after each page scroll.
  */
-const SHARED_MODIFIERS: PopperOptions["modifiers"] = [
+const SHARED_MODIFIERS: NonNullable<PopperOptions["modifiers"]> = [
   { name: "offset", options: { offset: [0, 4] } },
   { name: "preventOverflow", options: { altAxis: true, tether: false } },
   UPDATE_AFTER_SCROLL_MODIFIER,
@@ -31,17 +31,14 @@ const SHARED_MODIFIERS: PopperOptions["modifiers"] = [
 /**
  * Popper options by placement: the panel flips above its button when there is no room below, and is fixed to the window, so it follows a sticky button without bouncing.
  */
-export const POPPER_OPTIONS: Record<
-  (typeof COLUMN_FILTER_PLACEMENT)[keyof typeof COLUMN_FILTER_PLACEMENT],
-  PopperOptions
-> = {
+export const POPPER_OPTIONS: Record<ColumnFilterPlacement, PopperOptions> = {
   [COLUMN_FILTER_PLACEMENT.BOTTOM_END]: {
     modifiers: [
       {
         name: "flip",
         options: { fallbackPlacements: [MUI_POPPER_PROPS.PLACEMENT.TOP_END] },
       },
-      ...(SHARED_MODIFIERS ?? []),
+      ...SHARED_MODIFIERS,
     ],
     strategy: "fixed",
   },
@@ -53,7 +50,7 @@ export const POPPER_OPTIONS: Record<
           fallbackPlacements: [MUI_POPPER_PROPS.PLACEMENT.TOP_START],
         },
       },
-      ...(SHARED_MODIFIERS ?? []),
+      ...SHARED_MODIFIERS,
     ],
     strategy: "fixed",
   },

@@ -5,7 +5,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { ColumnFilter } from "../src/components/Table/components/TableFeatures/ColumnFilter/columnFilter";
 
@@ -55,6 +55,16 @@ function openPanel(): { panel: HTMLElement; trigger: HTMLElement } {
   return { panel: screen.getByRole("dialog", { name: "Organism" }), trigger };
 }
 
+/**
+ * Waits for the click-away listener to activate: MUI ClickAwayListener starts
+ * listening a tick after it mounts, so the opening click does not close it.
+ */
+async function waitForClickAway(): Promise<void> {
+  await act(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  });
+}
+
 describe("ColumnFilter", () => {
   it("should declare that the trigger opens a dialog", () => {
     render(<TestColumnFilter />);
@@ -102,5 +112,32 @@ describe("ColumnFilter", () => {
 
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     expect(document.activeElement).toBe(trigger);
+  });
+
+  it("should move focus to the first value when the panel opens", () => {
+    const { panel } = openPanel();
+    expect(document.activeElement).toBe(panel.querySelector('[role="button"]'));
+    expect(document.activeElement?.textContent).toContain("Homo sapiens");
+  });
+
+  // A press away from the panel closes it; the click still reaches its target.
+  it("should close on a press outside the panel", async () => {
+    const { trigger } = openPanel();
+    await waitForClickAway();
+
+    fireEvent.mouseDown(document.body);
+    fireEvent.click(document.body);
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("should stay open when a press starts inside the panel", async () => {
+    const { panel, trigger } = openPanel();
+    await waitForClickAway();
+
+    fireEvent.mouseDown(panel.querySelector('[role="button"]') as Element);
+    fireEvent.click(document.body);
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
   });
 });
