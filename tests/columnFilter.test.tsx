@@ -8,8 +8,6 @@ import {
 import { fireEvent, render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { ColumnFilter } from "../src/components/Table/components/TableFeatures/ColumnFilter/columnFilter";
-import { ColumnFilterProps } from "../src/components/Table/components/TableFeatures/ColumnFilter/types";
-import { expectControlsResolveToMenu } from "./utils/ariaPopup";
 
 interface Row {
   organism: string;
@@ -25,17 +23,11 @@ const TRIGGER_NAME = /Organism/;
 /**
  * Renders a column filter over a column with facetable values, which is the
  * only state in which its trigger is enabled.
- * @param props - Column filter props to pass through.
+ * @param props - Test props.
  * @param props.data - Table rows; empty rows leave the trigger disabled.
- * @param props.MenuListProps - Deprecated MUI list props, as a consumer may pass.
  * @returns Column filter under test.
  */
-function TestColumnFilter({
-  data = DATA,
-  MenuListProps,
-}: Pick<ColumnFilterProps<Row>, "MenuListProps"> & {
-  data?: Row[];
-}): JSX.Element {
+function TestColumnFilter({ data = DATA }: { data?: Row[] }): JSX.Element {
   const columnHelper = createColumnHelper<Row>();
   const table = useReactTable<Row>({
     columns: [
@@ -49,67 +41,66 @@ function TestColumnFilter({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
   });
-  return (
-    <ColumnFilter
-      column={table.getAllColumns()[0]}
-      MenuListProps={MenuListProps}
-    />
-  );
+  return <ColumnFilter column={table.getAllColumns()[0]} />;
+}
+
+/**
+ * Renders the column filter and opens its panel.
+ * @returns The trigger and the open panel.
+ */
+function openPanel(): { panel: HTMLElement; trigger: HTMLElement } {
+  render(<TestColumnFilter />);
+  const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+  fireEvent.click(trigger);
+  return { panel: screen.getByRole("dialog", { name: "Organism" }), trigger };
 }
 
 describe("ColumnFilter", () => {
-  it("should declare that the trigger opens a menu", () => {
+  it("should declare that the trigger opens a dialog", () => {
     render(<TestColumnFilter />);
     const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
-    expect(trigger.getAttribute("aria-haspopup")).toBe("true");
+    expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
 
-  it("should reference the menu list once it is open", () => {
-    render(<TestColumnFilter />);
-    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
-
-    fireEvent.click(trigger);
-
-    expectControlsResolveToMenu(trigger);
-    // The list keeps its component="div" default alongside the added id.
-    expect(screen.getByRole("menu", { hidden: true }).tagName).toBe("DIV");
+  it("should open a dialog, named after the column, that the trigger controls", () => {
+    const { panel, trigger } = openPanel();
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    expect(trigger.getAttribute("aria-controls")).toBe(panel.id);
   });
 
   // With no faceted values the trigger is disabled and cannot open, so it
-  // announces no expanded state or controlled menu.
+  // announces no expanded state or controlled panel.
   it("should omit expanded state and controls while disabled", () => {
     render(<TestColumnFilter data={[]} />);
     const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
     expect(trigger.hasAttribute("disabled")).toBe(true);
     expect(trigger.hasAttribute("aria-expanded")).toBe(false);
     expect(trigger.hasAttribute("aria-controls")).toBe(false);
-    expect(trigger.getAttribute("aria-haspopup")).toBe("true");
+    expect(trigger.getAttribute("aria-haspopup")).toBe("dialog");
   });
 
-  // MUI Menu builds `{ list: MenuListProps, ...slotProps }`, so setting the
-  // list slot for the id would silently drop a caller's deprecated MenuListProps.
-  it("should keep a caller's MenuListProps alongside the id", () => {
-    render(<TestColumnFilter MenuListProps={{ className: "from-list" }} />);
-    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+  it("should toggle a value in the column filter when it is selected", () => {
+    const { panel } = openPanel();
+    const value = (): HTMLInputElement =>
+      panel.querySelector("input[type='checkbox']") as HTMLInputElement;
 
-    fireEvent.click(trigger);
+    fireEvent.click(screen.getByText("Homo sapiens"));
+    expect(value().checked).toBe(true);
 
-    const menu = screen.getByRole("menu", { hidden: true });
-    expect(menu.classList.contains("from-list")).toBe(true);
-    expect(menu.id).toBe(trigger.getAttribute("aria-controls"));
+    fireEvent.click(screen.getByText("Homo sapiens"));
+    expect(value().checked).toBe(false);
   });
 
-  // The menu opens without taking focus, so focus stays on the trigger, outside
-  // the menu where MUI's own Escape handling is bound.
-  it("should close on Escape while focus is on the trigger", () => {
-    render(<TestColumnFilter />);
-    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
-
-    fireEvent.click(trigger);
+  // Focus stays on the trigger, outside the panel; Escape is handled app-wide
+  // while the panel is open.
+  it("should close on Escape and return focus to the trigger", () => {
+    const { trigger } = openPanel();
     trigger.focus();
+
     fireEvent.keyDown(trigger, { key: "Escape" });
 
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(trigger);
   });
 });

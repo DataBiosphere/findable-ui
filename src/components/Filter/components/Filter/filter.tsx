@@ -10,6 +10,7 @@ import { FilterRange } from "../FilterRange/filterRange";
 import { IconButton } from "../surfaces/drawer/components/IconButton/iconButton";
 import { SURFACE_TYPE } from "../surfaces/types";
 import { Backdrop } from "./components/Backdrop/backdrop";
+import { ClickAway } from "./components/ClickAway/clickAway";
 import { DrawerTransition } from "./components/DrawerTransition/drawerTransition";
 import { MenuTransition } from "./components/MenuTransition/menuTransition";
 import { POPPER_PROPS } from "./components/Popper/constants";
@@ -19,8 +20,8 @@ import { getCloseCategoryLabel, getPopperOptions } from "./utils";
 
 /**
  * Category filter: a label button that opens the category's filter panel, followed by the given tags.
- * The panel is a non-modal dialog over a backdrop, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in with a close button; otherwise it grows as a menu, and the page scrolls beneath it.
- * Closing the panel from the backdrop, with Escape, or with the drawer's close button also invokes closeAncestor.
+ * The panel is a non-modal dialog, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in over a backdrop with a close button, and closing it from the backdrop, with Escape, or with the close button also invokes closeAncestor.
+ * Otherwise it grows as a menu below its label, kept clear of the header. The page and the sidebar scroll while it is open: it follows its label, and hides while the label is scrolled out of view. A click away from it, which still reaches what it lands on, or Escape closes it, and its label toggles it.
  * TODO(cc) refactor: build tags from categoryView for selected values.
  * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
  * @param props - Component props.
@@ -62,20 +63,22 @@ export const Filter = ({
               isOpen={open}
               label={categoryView.label}
               onClick={(e) => {
+                if (open) return onClose();
                 onOpen(e);
                 trackFilterOpened?.({ category: categoryView.key });
               }}
               panelId={panelId}
               surfaceType={surfaceType}
             />
-            <Backdrop
-              onClick={() => {
-                onClose();
-                closeAncestor?.();
-              }}
-              open={open}
-              surfaceType={surfaceType}
-            />
+            {isDrawer && (
+              <Backdrop
+                onClick={() => {
+                  onClose();
+                  closeAncestor?.();
+                }}
+                open={open}
+              />
+            )}
             <StyledPopper
               {...POPPER_PROPS}
               anchorEl={anchorEl}
@@ -87,53 +90,62 @@ export const Filter = ({
               // Popper defaults its root to role="tooltip", which would have
               // the label's aria-controls resolve to a tooltip. The label
               // declares aria-haspopup="dialog", and this is a non-modal
-              // dialog: floating over a backdrop, without a focus trap.
+              // dialog, without a focus trap.
               role="dialog"
               surfaceType={surfaceType}
             >
               {({ placement, TransitionProps }): JSX.Element => {
                 return (
-                  <TransitionComponent
-                    {...TransitionProps}
-                    placement={placement}
+                  <ClickAway
+                    anchorEl={anchorEl}
+                    disabled={isDrawer}
+                    onClose={onClose}
+                    open={open}
                   >
-                    <Paper variant={PAPER_PROPS.VARIANT.MENU}>
-                      {isDrawer && (
-                        <IconButton
-                          aria-label={getCloseCategoryLabel(categoryView.label)}
-                          onClick={() => {
-                            onClose();
-                            closeAncestor?.();
-                          }}
-                        />
-                      )}
-                      {isRangeView ? (
-                        <FilterRange
-                          categoryKey={categoryView.key}
-                          categoryLabel={categoryView.label}
-                          categorySection={categorySection}
-                          max={categoryView.max}
-                          min={categoryView.min}
-                          selectedMax={categoryView.selectedMax}
-                          selectedMin={categoryView.selectedMin}
-                          onCloseFilter={onClose}
-                          onFilter={onFilter}
-                          surfaceType={surfaceType}
-                          unit={categoryView.unit}
-                        />
-                      ) : (
-                        <FilterMenu
-                          categoryKey={categoryView.key}
-                          categoryLabel={categoryView.label}
-                          categorySection={categorySection}
-                          onCloseFilter={onClose}
-                          onFilter={onFilter}
-                          surfaceType={surfaceType}
-                          values={categoryView.values}
-                        />
-                      )}
-                    </Paper>
-                  </TransitionComponent>
+                    <TransitionComponent
+                      {...TransitionProps}
+                      placement={placement}
+                    >
+                      <Paper variant={PAPER_PROPS.VARIANT.MENU}>
+                        {isDrawer && (
+                          <IconButton
+                            aria-label={getCloseCategoryLabel(
+                              categoryView.label,
+                            )}
+                            onClick={() => {
+                              onClose();
+                              closeAncestor?.();
+                            }}
+                          />
+                        )}
+                        {isRangeView ? (
+                          <FilterRange
+                            categoryKey={categoryView.key}
+                            categoryLabel={categoryView.label}
+                            categorySection={categorySection}
+                            max={categoryView.max}
+                            min={categoryView.min}
+                            selectedMax={categoryView.selectedMax}
+                            selectedMin={categoryView.selectedMin}
+                            onCloseFilter={onClose}
+                            onFilter={onFilter}
+                            surfaceType={surfaceType}
+                            unit={categoryView.unit}
+                          />
+                        ) : (
+                          <FilterMenu
+                            categoryKey={categoryView.key}
+                            categoryLabel={categoryView.label}
+                            categorySection={categorySection}
+                            onCloseFilter={onClose}
+                            onFilter={onFilter}
+                            surfaceType={surfaceType}
+                            values={categoryView.values}
+                          />
+                        )}
+                      </Paper>
+                    </TransitionComponent>
+                  </ClickAway>
                 );
               }}
             </StyledPopper>

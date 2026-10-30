@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Button, Menu, menuClasses, paperClasses } from "@mui/material";
+import { Button, listClasses, paperClasses, Popper } from "@mui/material";
 import { PALETTE } from "../../../../../styles/common/constants/palette";
 import { MAX_LIST_HEIGHT_PX } from "../../../../Filter/common/constants";
+import { REFERENCE_HIDDEN_ATTRIBUTE } from "../../../../Filter/common/popper";
 import {
   MuiListItemButtonRoot,
   MuiListItemTextRoot,
@@ -31,15 +32,23 @@ export const StyledButton = styled(Button, {
   }
 `;
 
-export const StyledMenu = styled(Menu)`
+export const StyledPopper = styled(Popper)`
+  z-index: 1300;
+
+  /* Hidden while its button is out of view after a scroll, e.g. passed under the header; it shows again when the button returns. */
+  &[${REFERENCE_HIDDEN_ATTRIBUTE}] {
+    visibility: hidden;
+  }
+
   .${paperClasses.root} {
-    margin: 4px 0;
-    overscroll-behavior: none; /* the wheel over the menu does not scroll the page */
+    overflow: hidden;
+    overscroll-behavior: none; /* the wheel over the panel does not scroll the page */
     width: 288px;
 
-    .${menuClasses.list} {
+    .${listClasses.root} {
       max-height: ${MAX_LIST_HEIGHT_PX}px;
       overflow-wrap: break-word;
+      overflow-y: auto;
       overscroll-behavior: none; /* the list is the scroller; at its end the wheel stops here */
 
       ${MuiListItemButtonRoot}
