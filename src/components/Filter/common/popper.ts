@@ -9,16 +9,20 @@ export const REFERENCE_HIDDEN_ATTRIBUTE = "data-reference-hidden-by-scroll";
 
 /**
  * Popper.js modifier updating an open filter popper on the frame after each page scroll. A scroll event can fire mid-layout, e.g. while the footer pushes the sticky sidebar up before the sidebar's scroll-driven shrink applies; popper.js would position the panel from that reading and, with no further scroll event, keep it there.
- * Each update also marks the popper with REFERENCE_HIDDEN_ATTRIBUTE while popper.js reports its reference clipped out of view. It is set only after a scroll, from the real layout.
+ * Each update after a scroll also marks the popper with REFERENCE_HIDDEN_ATTRIBUTE while popper.js reports its reference clipped out of view; the mark is set only after a scroll, from the real layout. Every update, including one after a resize, clears it once the reference is visible again.
  */
 export const UPDATE_AFTER_SCROLL_MODIFIER: NonNullable<
   PopperProps["modifiers"]
 >[number] = {
   effect: ({ instance }) => onScrollFrame(() => updateAfterScroll(instance)),
   enabled: true,
-  fn: (): void => undefined,
+  fn: ({ state }): void => {
+    if (!state.modifiersData.hide?.isReferenceHidden)
+      state.elements.popper.removeAttribute(REFERENCE_HIDDEN_ATTRIBUTE);
+  },
   name: "updateAfterScroll",
   phase: "write",
+  requiresIfExists: ["hide"],
 };
 
 /**
