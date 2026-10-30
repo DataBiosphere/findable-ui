@@ -1,6 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { RowData } from "@tanstack/react-table";
 import { Fragment, JSX, useCallback } from "react";
+import { useCloseOnEscape } from "../../../../../hooks/UseCloseOnEscape/hook";
 import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
@@ -13,6 +14,7 @@ import { getColumnHeader } from "../../../common/utils";
 import { getSortedFacetedValues } from "../../../featureOptions/facetedColumn/utils";
 import { StyledButton, StyledMenu } from "./columnFilter.styles";
 import { GRID_PROPS, MENU_PROPS } from "./constants";
+import { useScrollWithPage } from "./hooks/UseScrollWithPage/hook";
 import { ColumnFilterProps } from "./types";
 import { updater } from "./utils";
 
@@ -20,6 +22,7 @@ import { updater } from "./utils";
  * Column filter, a button labelled with the column header and its selected filter value count, opening a menu of the column's faceted values with their counts and a "Clear All" item.
  * Selecting a value adds it to the column's filter value, or removes it if already selected. Supports the `arrIncludesSome` filter function.
  * The button is disabled when the column has no faceted values.
+ * The page scrolls while the menu is open: the menu moves with its button, and closes once the button is out of view. Escape or a click outside closes it and returns focus to the button.
  * @param props - Component props.
  * @param props.Button - Button component opening the menu; defaults to the styled column filter button.
  * @param props.className - Class name applied to the menu.
@@ -55,6 +58,15 @@ export const ColumnFilter = <T extends RowData>({
   const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
     useMenu({ disabled });
 
+  const { onClose: onMenuClose } = useScrollWithPage({
+    anchorEl,
+    onClose,
+    open,
+  });
+
+  // The menu opens without taking focus, so MUI's own Escape handling, bound inside the menu, would not see the key.
+  useCloseOnEscape({ onClose: onMenuClose, open });
+
   const onFilter = useCallback(
     (value: unknown) => {
       column.setFilterValue(updater(value));
@@ -82,7 +94,7 @@ export const ColumnFilter = <T extends RowData>({
         {...props}
         className={className}
         anchorEl={anchorEl}
-        onClose={onClose}
+        onClose={onMenuClose}
         open={open}
         slotProps={getSlotProps(MENU_PROPS.slotProps, {
           MenuListProps,

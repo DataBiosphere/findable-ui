@@ -7,10 +7,12 @@ import { BackdropProps } from "./types";
 
 /**
  * Filter backdrop, rendered in a portal and unmounted when hidden. Clicking it, or pressing Escape while it is open, invokes onClick; while it is open, Escape is captured app-wide and not propagated.
+ * In the drawer the backdrop stops the wheel; otherwise the wheel passes through to the page, so the page scrolls while the filter is open.
  * The given Mui Backdrop props override the defaults.
  * @param props - Component props.
  * @param props.onClick - Function invoked to close the filter.
  * @param props.open - Whether the backdrop is shown.
+ * @param props.surfaceType - Filter surface type.
  * @returns The backdrop.
  */
 export const Backdrop = (props: BackdropProps): JSX.Element => {
