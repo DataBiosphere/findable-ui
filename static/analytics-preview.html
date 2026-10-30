@@ -173,15 +173,20 @@
             <p class="fui-card-header-description fui-body-small-400">
               Total page views over the last 30 days
               <span class="fui-tooltip-wrapper">
-                <span tabindex="0" aria-describedby="page-views-tooltip"
-                  >&#9432;</span
+                <button
+                  aria-describedby="page-views-tooltip"
+                  aria-label="About page views"
+                  class="fui-tooltip-trigger"
+                  type="button"
                 >
+                  &#9432;
+                </button>
                 <span
                   class="fui-tooltip"
                   id="page-views-tooltip"
                   role="tooltip"
                 >
-                  Counted once per page load. <a href="#">Learn more</a>
+                  Counted once per page load.
                 </span>
               </span>
             </p>
@@ -205,6 +210,21 @@
             </h3>
             <p class="fui-card-header-description fui-body-small-400">
               Distinct users by session
+              <span class="fui-toggletip">
+                <button
+                  aria-controls="unique-visitors-help"
+                  aria-expanded="false"
+                  aria-label="About unique visitors"
+                  class="fui-toggletip-trigger"
+                  type="button"
+                >
+                  &#9432;
+                </button>
+                <span class="fui-toggletip-content" id="unique-visitors-help">
+                  Each visitor is counted once, however many sessions they
+                  start. <a href="#">Learn more</a>
+                </span>
+              </span>
             </p>
           </div>
           <hr class="fui-divider" />
@@ -282,6 +302,44 @@
             return;
           el.classList.remove("fui-tooltip-dismissed");
         });
+      });
+    </script>
+    <script>
+      document.addEventListener("pointerdown", (event) => {
+        document
+          .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
+          .forEach((trigger) => {
+            if (!trigger.closest(".fui-toggletip").contains(event.target)) {
+              trigger.setAttribute("aria-expanded", "false");
+            }
+          });
+      });
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest(".fui-toggletip-trigger");
+        if (!trigger) return;
+        const expanded = trigger.getAttribute("aria-expanded") === "true";
+        trigger.setAttribute("aria-expanded", String(!expanded));
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        document
+          .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
+          .forEach((trigger) => {
+            const toggletip = trigger.closest(".fui-toggletip");
+            if (toggletip.contains(document.activeElement)) trigger.focus();
+            trigger.setAttribute("aria-expanded", "false");
+          });
+      });
+      document.addEventListener("focusout", (event) => {
+        const toggletip = event.target.closest(".fui-toggletip");
+        // No relatedTarget: a press on the page (left to the pointerdown
+        // handler, so a press on the content's text keeps it open) or focus
+        // leaving the page.
+        if (!toggletip || !event.relatedTarget) return;
+        if (toggletip.contains(event.relatedTarget)) return;
+        toggletip
+          .querySelector(".fui-toggletip-trigger")
+          .setAttribute("aria-expanded", "false");
       });
     </script>
   </body>
