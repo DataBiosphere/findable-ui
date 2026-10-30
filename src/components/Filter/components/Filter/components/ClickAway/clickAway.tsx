@@ -5,7 +5,7 @@ import type { ClickAwayProps } from "./types";
 import { onClickAway } from "./utils";
 
 /**
- * Dismisses a non-modal panel: a press away from it, or Escape while it is open, closes it. The click still reaches whatever it lands on, so one click both closes the panel and acts; clicks on the panel's trigger are left to the trigger, which toggles the panel.
+ * Dismisses a non-modal panel: a mouse press or a tap away from it, or Escape while it is open, closes it; scrolling outside it, by wheel or touch, does not. The click still reaches whatever it lands on, so one click both closes the panel and acts; clicks on the panel's trigger are left to the trigger, which toggles the panel.
  * @param props - Component props.
  * @param props.anchorEl - The panel's trigger.
  * @param props.children - The panel, which must hold a ref.
@@ -27,10 +27,11 @@ export const ClickAway = ({
   if (disabled) return children;
   return (
     <ClickAwayListener
-      // On press, not click: a drag that starts in the panel and ends outside it does not close it.
+      // A mouse press, not a click: a drag that starts in the panel and ends
+      // outside it does not close it. Touch keeps MUI's default, the end of a
+      // tap: a touch that moved (a scroll) does not close it.
       mouseEvent="onMouseDown"
       onClickAway={(event) => onClickAway(event, anchorEl, onClose)}
-      touchEvent="onTouchStart"
     >
       {children}
     </ClickAwayListener>
