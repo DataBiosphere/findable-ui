@@ -22,7 +22,7 @@ import { updater } from "./utils";
  * Column filter, a button labelled with the column header and its selected filter value count, opening a menu of the column's faceted values with their counts and a "Clear All" item.
  * Selecting a value adds it to the column's filter value, or removes it if already selected. Supports the `arrIncludesSome` filter function.
  * The button is disabled when the column has no faceted values.
- * The page scrolls while the menu is open: the menu moves with its button, and closes once the button is out of view. Escape or a click outside closes it and returns focus to the button.
+ * The page scrolls while the menu is open: the menu moves with its button, and closes at once when the button reaches the header or leaves the window. Escape or a click outside closes it and returns focus to the button.
  * @param props - Component props.
  * @param props.Button - Button component opening the menu; defaults to the styled column filter button.
  * @param props.className - Class name applied to the menu.
@@ -58,7 +58,11 @@ export const ColumnFilter = <T extends RowData>({
   const { anchorEl, getSlotProps, onClose, onOpen, open, triggerProps } =
     useMenu({ disabled });
 
-  const { menuAnchorEl, onClose: onMenuClose } = useScrollWithPage({
+  const {
+    closeProps,
+    menuAnchorEl,
+    onClose: onMenuClose,
+  } = useScrollWithPage({
     anchorEl,
     onClose,
     open,
@@ -92,6 +96,7 @@ export const ColumnFilter = <T extends RowData>({
       <StyledMenu
         {...MENU_PROPS}
         {...props}
+        {...closeProps}
         className={className}
         anchorEl={menuAnchorEl}
         onClose={onMenuClose}

@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@mui/material";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -10,7 +9,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { JSX } from "react";
 import { ColumnFilter } from "../src/components/Table/components/TableFeatures/ColumnFilter/columnFilter";
 import { ColumnFilterProps } from "../src/components/Table/components/TableFeatures/ColumnFilter/types";
-import { createAppTheme } from "../src/theme/theme";
 import { expectControlsResolveToMenu } from "./utils/ariaPopup";
 
 interface Row {
@@ -51,14 +49,11 @@ function TestColumnFilter({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFilteredRowModel: getFilteredRowModel(),
   });
-  // The menu's z-index reads the theme's app bar z-index.
   return (
-    <ThemeProvider theme={createAppTheme()}>
-      <ColumnFilter
-        column={table.getAllColumns()[0]}
-        MenuListProps={MenuListProps}
-      />
-    </ThemeProvider>
+    <ColumnFilter
+      column={table.getAllColumns()[0]}
+      MenuListProps={MenuListProps}
+    />
   );
 }
 
