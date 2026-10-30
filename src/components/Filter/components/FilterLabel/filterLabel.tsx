@@ -27,7 +27,7 @@ export interface FilterLabelProps {
 
 /**
  * Filter label button that opens the filter panel, announced as a dialog popup, showing the label with the count in parentheses when the count is non-zero.
- * The annotation is shown in a data dictionary tooltip.
+ * The annotation is shown in a data dictionary tooltip, except while the panel is open.
  * @param props - Component props.
  * @param props.annotation - Data dictionary annotation, shown in the tooltip.
  * @param props.count - Number of category values.
@@ -52,7 +52,8 @@ export const FilterLabel = ({
   const filterLabel = count ? `${label}\xa0(${count})` : label; // When the count is present, a non-breaking space is used to prevent it from being on its own line
   return (
     <Tooltip
-      description={annotation?.description}
+      // No tooltip while the panel is open: it would sit beside the panel.
+      description={isOpen ? undefined : annotation?.description}
       enterDelay={300}
       placement="right"
       title={annotation?.label}

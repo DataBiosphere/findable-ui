@@ -1,4 +1,16 @@
-import { GridProps, MenuProps } from "@mui/material";
+import { GridProps, PopperProps } from "@mui/material";
+import { POPPER_PROPS as MUI_POPPER_PROPS } from "../../../../../styles/common/mui/popper";
+import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../../Filter/common/popper";
+
+type PopperOptions = NonNullable<PopperProps["popperOptions"]>;
+
+/**
+ * Edge of its button the column filter panel lines up with.
+ */
+export const COLUMN_FILTER_PLACEMENT = {
+  BOTTOM_END: MUI_POPPER_PROPS.PLACEMENT.BOTTOM_END,
+  BOTTOM_START: MUI_POPPER_PROPS.PLACEMENT.BOTTOM_START,
+} as const;
 
 export const GRID_PROPS: GridProps = {
   alignItems: "center",
@@ -7,24 +19,46 @@ export const GRID_PROPS: GridProps = {
   gap: 1,
 };
 
-export const MENU_PROPS: Omit<MenuProps, "anchorEl" | "onClose" | "open"> = {
-  anchorOrigin: {
-    horizontal: "right",
-    vertical: "bottom",
+/**
+ * Popper.js modifiers shared by both placements: a gap below the button, the panel shifted to stay on screen when it fits neither below nor above (covering the button rather than being cut off), and an update after each page scroll.
+ */
+const SHARED_MODIFIERS: PopperOptions["modifiers"] = [
+  { name: "offset", options: { offset: [0, 4] } },
+  { name: "preventOverflow", options: { altAxis: true, tether: false } },
+  UPDATE_AFTER_SCROLL_MODIFIER,
+];
+
+/**
+ * Popper options by placement: the panel flips above its button when there is no room below, and is fixed to the window, so it follows a sticky button without bouncing.
+ */
+export const POPPER_OPTIONS: Record<
+  (typeof COLUMN_FILTER_PLACEMENT)[keyof typeof COLUMN_FILTER_PLACEMENT],
+  PopperOptions
+> = {
+  [COLUMN_FILTER_PLACEMENT.BOTTOM_END]: {
+    modifiers: [
+      {
+        name: "flip",
+        options: { fallbackPlacements: [MUI_POPPER_PROPS.PLACEMENT.TOP_END] },
+      },
+      ...(SHARED_MODIFIERS ?? []),
+    ],
+    strategy: "fixed",
   },
-  /* Prevents the browser from auto‑focusing the menu on open, which can trigger a scrollIntoView jump when the viewport has `scroll-padding-top` (e.g., on <html>). */
-  disableAutoFocus: true,
-  /* Skips MUI's focus restore, which would trigger a similar scroll adjustment with `scroll-padding-top`; focus is restored without scrolling instead (see useScrollWithPage). */
-  disableRestoreFocus: true,
-  /* Lets the page scroll while the menu is open; the menu repositions on scroll to follow its button. */
-  disableScrollLock: true,
-  marginThreshold: 8,
-  slotProps: {
-    list: { component: "div" },
-    paper: { variant: "menu" },
+  [COLUMN_FILTER_PLACEMENT.BOTTOM_START]: {
+    modifiers: [
+      {
+        name: "flip",
+        options: {
+          fallbackPlacements: [MUI_POPPER_PROPS.PLACEMENT.TOP_START],
+        },
+      },
+      ...(SHARED_MODIFIERS ?? []),
+    ],
+    strategy: "fixed",
   },
-  transformOrigin: {
-    horizontal: "right",
-    vertical: "top",
-  },
+};
+
+export const POPPER_PROPS: Omit<PopperProps, "open"> = {
+  transition: true,
 };

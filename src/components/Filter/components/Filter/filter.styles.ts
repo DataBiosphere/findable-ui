@@ -16,7 +16,7 @@ export const StyledPopper = styled(Popper, {
     overscroll-behavior: none;
   }
 
-  /* Hidden while its label is clipped out of view after a page scroll, e.g. by the sidebar shrinking as the footer scrolls in; it shows again when the label returns. */
+  /* Hidden while its label is clipped out of view after a scroll, e.g. scrolled out of the sidebar, or cut off as the sidebar shrinks when the footer scrolls in; it shows again when the label returns. */
   &[${REFERENCE_HIDDEN_ATTRIBUTE}] {
     visibility: hidden;
   }
