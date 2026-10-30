@@ -5,10 +5,12 @@ import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typogra
 import { ListItemButton } from "../../../../../../Filter/components/views/select/components/ListItemButton/listItemButton";
 import { SelectListItem } from "../../../../../../Filter/components/views/select/SelectListItem/selectListItem";
 import { updater } from "../../utils";
+import { useFocusFirstItem } from "./hooks/UseFocusFirstItem/hook";
 import type { ColumnFilterListProps } from "./types";
 
 /**
  * Column filter panel list: the column's faceted values with their counts, each toggling the value in the column's filter, and a "Clear All" item.
+ * Focus moves to its first item when it opens.
  * @param props - Component props.
  * @param props.column - TanStack column.
  * @param props.filterValue - The column's selected filter values.
@@ -20,8 +22,10 @@ export const ColumnFilterList = <T extends RowData>({
   filterValue,
   sortedValues,
 }: ColumnFilterListProps<T>): JSX.Element => {
+  const listRef = useFocusFirstItem();
   return (
-    <List>
+    // A div, not a ul: its items are buttons, not list items.
+    <List component="div" ref={listRef}>
       {sortedValues.map(([value, occurrence]) => {
         const checked = filterValue.includes(value);
         const onClick = (): void => column.setFilterValue(updater(value));

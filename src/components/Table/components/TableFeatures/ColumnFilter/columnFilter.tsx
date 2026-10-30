@@ -87,7 +87,9 @@ export const ColumnFilter = <T extends RowData>({
             id={panelId}
             open={open}
             placement={placement}
-            popperOptions={withHeaderPadding(POPPER_OPTIONS[placement])}
+            popperOptions={
+              open ? withHeaderPadding(POPPER_OPTIONS[placement]) : undefined
+            }
             // Popper defaults its root to role="tooltip"; the button declares
             // aria-haspopup="dialog", and this is a non-modal dialog.
             role="dialog"

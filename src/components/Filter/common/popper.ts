@@ -1,9 +1,8 @@
 import type { PopperProps } from "@mui/material";
 import type { Instance, State } from "@popperjs/core";
 import { PROPERTY } from "../../../hooks/useHtmlStyle/constants";
-import { onScrollFrame } from "../../../utils/scrollFrame";
-
-type PopperOptions = NonNullable<PopperProps["popperOptions"]>;
+import type { PopperOptions } from "./entities";
+import { onScrollFrame } from "./scrollFrame";
 
 /**
  * Name of the after-scroll update modifier.
@@ -35,7 +34,8 @@ export const REFERENCE_HIDDEN_ATTRIBUTE = "data-reference-hidden-by-scroll";
 export const UPDATE_AFTER_SCROLL_MODIFIER: NonNullable<
   PopperProps["modifiers"]
 >[number] = {
-  effect: ({ instance }) => onScrollFrame(() => updateAfterScroll(instance)),
+  effect: ({ instance, state }) =>
+    onScrollFrame(() => updateAfterScroll(instance), state.elements.popper),
   enabled: true,
   fn: ({ name, state }): void => {
     const hidden = isReferenceHidden(state);

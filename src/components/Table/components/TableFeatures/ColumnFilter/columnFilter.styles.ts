@@ -8,6 +8,7 @@ import {
   MuiListItemButtonRoot,
   MuiListItemTextRoot,
 } from "../../../../Filter/components/FilterList/filterList.styles";
+import { HEADER_HEIGHT_VAR } from "../../../../Layout/components/Header/common/constants";
 
 interface Props {
   open: boolean;
@@ -46,7 +47,11 @@ export const StyledPopper = styled(Popper)`
     width: 288px;
 
     .${listClasses.root} {
-      max-height: ${MAX_LIST_HEIGHT_PX}px;
+      /* Fits the window below the header, less the panel's edge gaps and border, so its end is never cut off. */
+      max-height: min(
+        ${MAX_LIST_HEIGHT_PX}px,
+        calc(100vh - ${HEADER_HEIGHT_VAR} - 24px)
+      );
       overflow-wrap: break-word;
       overflow-y: auto;
       overscroll-behavior: none; /* the list is the scroller; at its end the wheel stops here */
