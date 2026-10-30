@@ -1,5 +1,12 @@
 # Changelog
 
+## [59.1.0](https://github.com/DataBiosphere/findable-ui/compare/v59.0.0...v59.1.0) (2026-10-30)
+
+
+### Features
+
+* analytics stylesheet: don't recommend links inside `role="tooltip"` ([#1175](https://github.com/DataBiosphere/findable-ui/issues/1175)) ([#1179](https://github.com/DataBiosphere/findable-ui/issues/1179)) ([7e14318](https://github.com/DataBiosphere/findable-ui/commit/7e14318faa7cbdcd6af2946f2d15ebf2bd309d4e))
+
 ## [59.0.0](https://github.com/DataBiosphere/findable-ui/compare/v58.0.0...v59.0.0) (2026-10-29)
 
 
