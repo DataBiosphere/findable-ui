@@ -1,5 +1,5 @@
 import { Button, Typography } from "@mui/material";
-import { JSX, forwardRef } from "react";
+import type { JSX, Ref } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { BUTTON_PROPS } from "../../../common/Button/constants";
 import { FilterNoResultsFound as FilterNoResults } from "./filterNoResultsFound.styles";
@@ -11,22 +11,20 @@ type OnClearSearchTermFn = () => void;
  */
 export interface FilterNoResultsFoundProps {
   onClearSearchTerm?: OnClearSearchTermFn;
+  ref?: Ref<HTMLDivElement>;
 }
 
 /**
  * No results message for a filter search, with a "Clear Search" button when onClearSearchTerm is given.
  * @param props - Component props.
  * @param props.onClearSearchTerm - Function invoked to clear the search term.
- * @param ref - Ref forwarded to the message element.
+ * @param props.ref - Ref forwarded to the message element.
  * @returns The no results message.
  */
-export const FilterNoResultsFound = forwardRef<
-  HTMLDivElement,
-  FilterNoResultsFoundProps
->(function FilterNoResultsFound(
-  { onClearSearchTerm }: FilterNoResultsFoundProps,
+export const FilterNoResultsFound = ({
+  onClearSearchTerm,
   ref,
-): JSX.Element {
+}: FilterNoResultsFoundProps): JSX.Element => {
   return (
     <FilterNoResults ref={ref}>
       <Typography component="div" variant={TYPOGRAPHY_PROPS.VARIANT.BODY_500}>
@@ -48,4 +46,4 @@ export const FilterNoResultsFound = forwardRef<
       )}
     </FilterNoResults>
   );
-});
+};
