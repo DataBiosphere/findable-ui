@@ -1,10 +1,19 @@
-import type {
-  DefaultError,
-  PlaceholderDataFunction,
-  UseQueryResult,
+import {
+  type DefaultError,
+  type PlaceholderDataFunction,
+  QueryClient,
 } from "@tanstack/react-query";
 import type { AzulEntitiesResponse } from "../../../../../../../apis/azul/common/entities";
+import { QUERY_CLIENT_CONFIG } from "./constants";
 import type { QueryKey } from "./types";
+
+/**
+ * Creates the entity list's query client, with its defaults.
+ * @returns Query client.
+ */
+export function createQueryClient(): QueryClient {
+  return new QueryClient(QUERY_CLIENT_CONFIG);
+}
 
 /**
  * Returns placeholder data that keeps the previous query's data while the next one loads, only for the same entity
@@ -24,16 +33,4 @@ export function keepPreviousEntityData(
     if (previousQuery?.queryKey[1] !== entityListType) return undefined;
     return previousData;
   };
-}
-
-/**
- * Throws the query's error, for the error boundary, once its request has settled.
- * Unlike TanStack Query's `throwOnError`, this leaves the query free to be requested again when it is next used,
- * rather than throwing the failed query's error again without a request.
- * @param result - Query result.
- */
-export function throwSettledError(
-  result: UseQueryResult<AzulEntitiesResponse, DefaultError>,
-): void {
-  if (result.error && !result.isFetching) throw result.error;
 }

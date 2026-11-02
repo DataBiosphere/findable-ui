@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { JSX, useEffect, useMemo } from "react";
+import { JSX, Suspense, useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
@@ -32,7 +32,7 @@ import { urlToState } from "../../providers/exploreState/actions/urlToState/disp
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { ARIA_LABEL } from "./constants";
-import { SSFetchSSFilter } from "./entityList/data/strategies/SSFetchSSFilter/ssFetchSSFilter";
+import { LazySSFetchSSFilter } from "./entityList/data/strategies/SSFetchSSFilter/lazy";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
@@ -153,7 +153,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   return (
     <DrawerProvider>
       {exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING && (
-        <SSFetchSSFilter entityListType={entityListType} />
+        <Suspense fallback={null}>
+          <LazySSFetchSSFilter entityListType={entityListType} />
+        </Suspense>
       )}
       {categoryViews && !!categoryViews.length && (
         <Sidebar label={ARIA_LABEL.SIDEBAR}>

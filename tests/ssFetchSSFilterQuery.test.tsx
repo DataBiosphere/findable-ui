@@ -80,15 +80,17 @@ class ErrorBoundary extends Component<
  * Creates explore state for the projects entity list.
  * @param sorting - Sorting.
  * @param url - Pagination link of the requested page, if any.
+ * @param filterState - Filter state.
  * @returns Explore state.
  */
 function makeExploreState(
   sorting: ExploreState["entityPageState"][string]["sorting"],
   url?: string,
+  filterState: ExploreState["filterState"] = [],
 ): ExploreState {
   return {
     entityPageState: { projects: { sorting } },
-    filterState: [],
+    filterState,
     paginationState: {
       index: url ? { url } : null,
     },
@@ -110,19 +112,23 @@ function responseBody(id: string): string {
 }
 
 /**
- * Creates a wrapper providing a query client.
+ * Creates a wrapper with an error boundary, and no query client unless an app's is given: the hook uses its own.
  * @param onError - Called with the error caught by the error boundary.
- * @param queryClient - Query client; a new one by default.
+ * @param appQueryClient - An app's query client, provided above the hook, if any.
  * @returns Wrapper.
  */
 function makeWrapper(
   onError: (error: Error) => void = jest.fn(),
-  queryClient = new QueryClient(),
+  appQueryClient?: QueryClient,
 ): ({ children }: { children: ReactNode }) => JSX.Element {
   return function Wrapper({ children }: { children: ReactNode }): JSX.Element {
+    const boundary = (
+      <ErrorBoundary onError={onError}>{children}</ErrorBoundary>
+    );
+    if (!appQueryClient) return boundary;
     return (
-      <QueryClientProvider client={queryClient}>
-        <ErrorBoundary onError={onError}>{children}</ErrorBoundary>
+      <QueryClientProvider client={appQueryClient}>
+        {boundary}
       </QueryClientProvider>
     );
   };
@@ -138,10 +144,13 @@ describe("useQuery", () => {
   it("keeps the current query's response when an earlier query's response arrives last", async () => {
     // Responses resolve when the test says so, keyed by request URL.
     const pending = new Map<string, Deferred>();
-    fetchMock.mockResponse(
-      (request) =>
-        new Promise<string>((resolve) => pending.set(request.url, { resolve })),
-    );
+    const requests = new Map<string, Request>();
+    fetchMock.mockResponse((request) => {
+      requests.set(request.url, request);
+      return new Promise<string>((resolve) =>
+        pending.set(request.url, { resolve }),
+      );
+    });
 
     // Page 2 of the ascending sort is requested.
     exploreState = makeExploreState(
@@ -158,6 +167,12 @@ describe("useQuery", () => {
     rerender();
     await waitFor(() => expect(pending.size).toBe(2));
     const [pageRequestUrl, sortRequestUrl] = [...pending.keys()];
+
+    // The earlier request is cancelled.
+    await waitFor(() =>
+      expect(requests.get(pageRequestUrl)?.signal.aborted).toBe(true),
+    );
+    expect(requests.get(sortRequestUrl)?.signal.aborted).toBe(false);
 
     // The newer response arrives first.
     pending.get(sortRequestUrl)?.resolve(responseBody("newer"));
@@ -194,9 +209,13 @@ describe("useQuery", () => {
     expect(result.current.data?.apiPath).toBe(API_PATH);
   });
 
-  it("requests the first page with the sort and no sort key", async () => {
+  it("requests the first page with the filters and sort, and no sort key", async () => {
     fetchMock.mockResponseOnce(responseBody("page-1"));
-    exploreState = makeExploreState([{ desc: true, id: "projectTitle" }]);
+    exploreState = makeExploreState(
+      [{ desc: true, id: "projectTitle" }],
+      undefined,
+      [{ categoryKey: "genusSpecies", value: ["Homo sapiens"] }],
+    );
 
     const { result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
@@ -205,6 +224,9 @@ describe("useQuery", () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     const url = new URL(getRequests()[0].url);
     expect(url.searchParams.get("catalog")).toBe("dcp1");
+    expect(url.searchParams.get("filters")).toBe(
+      JSON.stringify({ genusSpecies: { is: ["Homo sapiens"] } }),
+    );
     expect(url.searchParams.get("sort")).toBe("projectTitle");
     expect(url.searchParams.get("order")).toBe("desc");
     expect(url.searchParams.has("search_after")).toBe(false);
@@ -248,36 +270,47 @@ describe("useQuery", () => {
   });
 
   // E.g. the error page's "To Homepage", then back to the same explore page.
-  it.each([
-    ["by default", {}],
-    [
-      "when the app's query client throws errors by default",
-      { throwOnError: true },
-    ],
-  ])(
-    "requests a failed query again when it is next used, %s",
-    async (_, queries) => {
-      jest.spyOn(console, "error").mockImplementation(() => undefined);
-      fetchMock.mockResponseOnce("", { status: 404 });
-      fetchMock.mockResponseOnce(responseBody("recovered"));
-      exploreState = makeExploreState([]);
-      const queryClient = new QueryClient({ defaultOptions: { queries } });
-      const onError = jest.fn<(error: Error) => void>();
+  it("requests a failed query again when it is next used", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => undefined);
+    fetchMock.mockResponseOnce("", { status: 404 });
+    fetchMock.mockResponseOnce(responseBody("recovered"));
+    exploreState = makeExploreState([]);
+    const onError = jest.fn<(error: Error) => void>();
 
-      const { unmount } = renderHook(() => useQuery("projects"), {
-        wrapper: makeWrapper(onError, queryClient),
-      });
-      await waitFor(() => expect(onError).toHaveBeenCalled());
-      unmount();
+    const { unmount } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(onError),
+    });
+    await waitFor(() => expect(onError).toHaveBeenCalled());
+    unmount();
 
-      const { result } = renderHook(() => useQuery("projects"), {
-        wrapper: makeWrapper(jest.fn(), queryClient),
-      });
+    const { result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
 
-      await waitFor(() =>
-        expect(result.current.data?.hits).toEqual([{ id: "recovered" }]),
-      );
-      expect(getRequests()).toHaveLength(2);
-    },
-  );
+    await waitFor(() =>
+      expect(result.current.data?.hits).toEqual([{ id: "recovered" }]),
+    );
+    expect(getRequests()).toHaveLength(2);
+  });
+
+  it("uses its own query client, so an app's client defaults don't apply", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => undefined);
+    fetchMock.mockResponse("", { status: 404 });
+    exploreState = makeExploreState([]);
+    const onError = jest.fn<(error: Error) => void>();
+    const appQueryClient = new QueryClient({
+      defaultOptions: {
+        queries: { retry: 3, retryDelay: 0, throwOnError: true },
+      },
+    });
+
+    renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(onError, appQueryClient),
+    });
+
+    await waitFor(() => expect(onError).toHaveBeenCalled());
+    expect(onError.mock.calls[0][0]).toBeInstanceOf(DataExplorerError);
+    expect(getRequests()).toHaveLength(1); // No retries, though the app's client retries 3 times.
+    expect(appQueryClient.getQueryCache().getAll()).toHaveLength(0);
+  });
 });

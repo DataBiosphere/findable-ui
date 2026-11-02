@@ -186,7 +186,7 @@ describe("ComponentName", () => {
 - Material-UI v7 (@mui/material, @mui/icons-material)
 - Next.js 14.2+ and next-auth
 - Emotion (@emotion/react, @emotion/styled)
-- TanStack Table, Virtual and Query (apps with server-side filtering also mount a `QueryClientProvider`)
+- TanStack Table, Virtual and Query (findable-ui creates its own query client; apps need no `QueryClientProvider`)
 - Various utilities (ky, uuid, yup, etc.)
 
 **Critical:** New dependencies should go in `peerDependencies` or `devDependencies`, NOT `dependencies`.
