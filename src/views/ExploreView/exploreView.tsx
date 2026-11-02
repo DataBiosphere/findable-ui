@@ -22,6 +22,8 @@ import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useEntityList } from "../../hooks/useEntityList";
+import { EXPLORE_MODE } from "../../hooks/useExploreMode/types";
+import { useExploreMode } from "../../hooks/useExploreMode/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
@@ -30,6 +32,7 @@ import { urlToState } from "../../providers/exploreState/actions/urlToState/disp
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { ARIA_LABEL } from "./constants";
+import { SSFetchSSFilter } from "./entityList/data/strategies/SSFetchSSFilter/ssFetchSSFilter";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
@@ -56,6 +59,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { trackingConfig } = config;
   const { label } = entityConfig;
   const { categoryGroups, categoryViews, loading } = exploreState;
+  const exploreMode = useExploreMode();
   useValidateFilterParam();
   useEntityList(props); // Fetch entities.
   const { entityListType } = props;
@@ -148,6 +152,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 
   return (
     <DrawerProvider>
+      {exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING && (
+        <SSFetchSSFilter entityListType={entityListType} />
+      )}
       {categoryViews && !!categoryViews.length && (
         <Sidebar label={ARIA_LABEL.SIDEBAR}>
           <ToggleButtonGroup />

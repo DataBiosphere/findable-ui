@@ -1,5 +1,6 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 import next from "eslint-config-next";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import sonarjs from "eslint-plugin-sonarjs";
@@ -32,6 +33,7 @@ const config = [
   },
   ...next,
   sonarjs.configs.recommended,
+  ...pluginQuery.configs["flat/recommended"],
   ...compat.config({
     extends: [
       "eslint:recommended",

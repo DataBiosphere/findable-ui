@@ -2,16 +2,9 @@ import { useEffect } from "react";
 import {
   AzulEntitiesResponse,
   AzulEntitiesStaticResponse,
-  AzulListParams,
 } from "../apis/azul/common/entities";
-import {
-  transformAzulPagination,
-  transformFilters,
-  transformTermFacets,
-} from "../apis/azul/common/filterTransformer";
 import { EntityMapper } from "../config/entities";
 import { getEntityConfig } from "../config/utils";
-import { fetchEntitiesFromApiURL } from "../entity/api/service";
 import { ExploreActionKind } from "../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../providers/exploreState/initializer/constants";
 import { useToken } from "./authentication/token/useToken";
@@ -25,6 +18,7 @@ import { useExploreState } from "./useExploreState";
 /**
  * Hook handling the load and transformation of the values used by index pages. If the current entity loaded statically,
  * this hook will return the already loaded data. Otherwise, it will make a request for the entity's pathUrl.
+ * Server-side fetching with server-side filtering is handled by the explore view's `SSFetchSSFilter` strategy instead.
  * @param staticResponse - Statically loaded data, if any.
  * @returns Model of the entities list including pagination, sort, filter and loading indicator.
  */
@@ -36,101 +30,26 @@ export const useEntityList = (
   const { config } = useConfig();
   const { apiPath } = getEntityConfig(config.entities, entityListType);
   const exploreMode = useExploreMode();
-  const {
-    catalog,
-    entityMapper,
-    fetchAllEntities,
-    fetchEntitiesFromQuery,
-    path,
-  } = useEntityService();
+  const { entityMapper, fetchAllEntities, path } = useEntityService();
   const { exploreDispatch, exploreState } = useExploreState();
-  const { data, isIdle, isLoading, run } = useAsync<AzulEntitiesResponse>();
-  const { entityPageState, filterState, tabValue } = exploreState;
-  const { index: paginationIndex } = exploreState.paginationState;
-  const { pagination, termFacets } = data || {};
-  const { sorting } = entityPageState[tabValue];
+  const { data, run } = useAsync<AzulEntitiesResponse>();
+  const { tabValue } = exploreState;
   const entities = getEntities(staticData, data);
   const shouldDispatchResponse = isDispatchable(
     exploreMode,
     data?.apiPath === apiPath,
     entityListType === tabValue,
   );
-  const isFetching = isIdle || isLoading;
 
-  // Reset explore response when token changes - server-side fetched modes only.
+  // Reset explore response when token changes - server-side fetching and client-side filtering only.
   useEffect(() => {
-    if (
-      exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING ||
-      exploreMode === EXPLORE_MODE.SS_FETCH_CS_FILTERING
-    ) {
+    if (exploreMode === EXPLORE_MODE.SS_FETCH_CS_FILTERING) {
       exploreDispatch({
         payload: undefined,
         type: ExploreActionKind.ResetExploreResponse,
       });
     }
   }, [exploreDispatch, exploreMode, token]);
-
-  // Fetch entities - on change of filter state - server-side fetching and server-side filtering.
-  useEffect(() => {
-    if (exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING) {
-      // A next or previous page: request Azul's pagination link exactly as given.
-      if (paginationIndex) {
-        run(fetchEntitiesFromApiURL(path, paginationIndex.url, token));
-        return;
-      }
-
-      // The first page: build list params from UI state, with no sort key.
-      const [sort] = sorting;
-      const listParams: AzulListParams = sort
-        ? { order: sort.desc ? "desc" : "asc", sort: sort.id }
-        : {};
-
-      // Build filter query params, if any
-      const filtersParam = transformFilters(filterState);
-      if (filtersParam) {
-        listParams.filters = filtersParam;
-      }
-
-      // Execute the fetch.
-      run(fetchEntitiesFromQuery(path, listParams, catalog, token));
-    }
-  }, [
-    catalog,
-    exploreMode,
-    fetchEntitiesFromQuery,
-    filterState,
-    paginationIndex,
-    path,
-    run,
-    sorting,
-    token,
-  ]);
-
-  // Process explore response - on change of filter state - server-side fetching and server-side filtering.
-  useEffect(() => {
-    if (!termFacets) return;
-    if (!shouldDispatchResponse) return;
-    if (exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING) {
-      exploreDispatch({
-        payload: {
-          listItems: entities,
-          loading: isFetching,
-          paginationResponse: transformAzulPagination(pagination),
-          selectCategories: transformTermFacets(termFacets, filterState),
-        },
-        type: ExploreActionKind.ProcessExploreResponse,
-      });
-    }
-  }, [
-    entities,
-    exploreDispatch,
-    exploreMode,
-    filterState,
-    isFetching,
-    pagination,
-    shouldDispatchResponse,
-    termFacets,
-  ]);
 
   // Fetch entities - server-side fetching and client-side filtering.
   useEffect(() => {
