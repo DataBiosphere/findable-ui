@@ -1,5 +1,7 @@
 import { jest } from "@jest/globals";
 import { render, screen } from "@testing-library/react";
+import type { Ref } from "react";
+import { createRef } from "react";
 
 const TRIGGER_NAME = "Open menu";
 
@@ -16,8 +18,9 @@ const { Menu } =
 /**
  * Renders the collapsed header's menu trigger and the dialog it opens.
  * @param open - Whether the dialog is open.
+ * @param ref - Optional ref passed to the menu trigger.
  */
-function renderMenu(open: boolean): void {
+function renderMenu(open: boolean, ref?: Ref<HTMLButtonElement>): void {
   render(
     <Menu
       closeMenu={jest.fn()}
@@ -28,6 +31,7 @@ function renderMenu(open: boolean): void {
       isMenuIn
       open={open}
       openMenu={jest.fn()}
+      ref={ref}
     />,
   );
 }
@@ -54,5 +58,15 @@ describe("Header Menu", () => {
     });
     expect(trigger.getAttribute("aria-expanded")).toBe("true");
     expect(trigger.getAttribute("aria-controls")).toBe(dialog.id);
+  });
+
+  // React 19 passes ref as a regular prop, so with forwardRef removed the ref
+  // must still reach the menu button.
+  it("should forward ref to the menu button", () => {
+    const ref = createRef<HTMLButtonElement>();
+    renderMenu(false, ref);
+    expect(ref.current).toBe(
+      screen.getByRole("button", { name: TRIGGER_NAME }),
+    );
   });
 });
