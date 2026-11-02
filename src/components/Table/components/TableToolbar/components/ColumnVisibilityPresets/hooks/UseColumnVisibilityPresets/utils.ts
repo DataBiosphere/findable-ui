@@ -60,7 +60,7 @@ export function getUngroupTooltip<T extends RowData>(
 
 /**
  * Applies the chosen preset. A null key, emitted when the selected preset is clicked again, is ignored, as is a preset
- * that can't be applied.
+ * that can't be applied. An empty-string key is a valid preset key.
  * @param table - Table.
  * @param key - Chosen preset key, or null.
  */
@@ -68,7 +68,7 @@ export function onPresetChange<T extends RowData>(
   table: Table<T>,
   key: string | null,
 ): void {
-  if (!key) return;
+  if (key === null) return;
   applyColumnVisibilityPreset(table, key);
 }
 

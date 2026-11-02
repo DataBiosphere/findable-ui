@@ -411,6 +411,38 @@ describe("ColumnVisibilityPresets on a table without the feature registered", ()
   });
 });
 
+describe("ColumnVisibilityPresets with an empty-string preset key", () => {
+  it("applies the preset whose key is an empty string", () => {
+    /**
+     * Renders the preset toggle for a table with a preset keyed "".
+     * @returns The preset toggle.
+     */
+    function TestToggle(): JSX.Element {
+      const table = useReactTable({
+        columnVisibilityPresets: [
+          { columnVisibility: { source: false }, key: "lean", label: "Lean" },
+          { columnVisibility: {}, key: "", label: "All" },
+        ],
+        columns: [
+          { accessorKey: "organism", header: "Organism" },
+          { accessorKey: "source", header: "Source" },
+        ],
+        data: [],
+        enableHiding: true,
+        getCoreRowModel: getCoreRowModel(),
+        initialState: { columnVisibility: { source: false } },
+      });
+      return <ColumnVisibilityPresets tableInstance={table} />;
+    }
+    render(<TestToggle />);
+    const all = screen.getByRole("button", { name: "All" });
+
+    fireEvent.click(all);
+
+    expect(all).toHaveAttribute("aria-pressed", "true");
+  });
+});
+
 describe("ColumnVisibilityPresets while grouped", () => {
   let table: Table<Row>;
 
