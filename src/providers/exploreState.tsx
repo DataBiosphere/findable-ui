@@ -8,7 +8,6 @@ import {
   useReducer,
   useState,
 } from "react";
-import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { CategoryView } from "../common/categories/views/types";
 import { SelectedFilter } from "../common/entities";
 import { FILTER_SORT } from "../common/filters/sort/config/types";
@@ -127,12 +126,8 @@ export type ListItems = ListItem[] | undefined;
  * Pagination index.
  */
 export interface PaginationIndex {
-  /** @deprecated Unused; the page is requested from `url`. */
-  type: AzulSearchIndex;
   /** Azul's next or previous pagination link, requested exactly as given. */
   url: string;
-  /** @deprecated Unused; the page is requested from `url`. */
-  value: string | null;
 }
 
 /**

@@ -20,10 +20,11 @@ import {
 import { convertUrlParams } from "../../utils/url";
 import { fetchApi } from "../common/client";
 import { fetchEntitiesFromURL } from "../common/service";
-import { getKyRequestOptions } from "../common/utils";
+import { assertDataSourceOrigin, getKyRequestOptions } from "../common/utils";
 
 /**
  * Requests entities from the given URL, exactly as given, e.g. Azul's next or previous pagination link, which carries the catalog, filters, sort, order, size and sort key it was issued with.
+ * Throws unless the URL is on the configured data source's origin.
  * @param apiPath - Path of the entity list the URL requests; set on the response to match it to its entity list.
  * @param url - URL to request.
  * @param accessToken - Access token.
@@ -34,6 +35,7 @@ export const fetchEntitiesFromApiURL = async (
   url: string,
   accessToken: string | undefined,
 ): Promise<AzulEntitiesResponse> => {
+  assertDataSourceOrigin(url);
   const response = await fetchEntitiesFromURL(url, accessToken);
   response.apiPath = apiPath;
   return response;
@@ -63,7 +65,8 @@ export const fetchEntitiesFromQuery = async (
 };
 
 /**
- * Recursively call the endpoint to get a list of entities. This will iterate over the entity list until the next entity comes null
+ * Recursively call the endpoint to get a list of entities. This will iterate over the entity list until the next entity comes null.
+ * Throws unless each next page link is on the configured data source's origin.
  * @param apiPath - Path that will be used to compose the API url
  * @param accessToken - Access token.
  * @param catalog - Catalog.
@@ -85,7 +88,11 @@ export const fetchAllEntities = async (
   let hits = result.hits;
   let nextPage = result.pagination.next;
   while (nextPage) {
-    const nextPageJson = await fetchEntitiesFromURL(nextPage, accessToken);
+    const nextPageJson = await fetchEntitiesFromApiURL(
+      apiPath,
+      nextPage,
+      accessToken,
+    );
     nextPage = nextPageJson.pagination.next;
     hits = [...hits, ...nextPageJson.hits];
   }

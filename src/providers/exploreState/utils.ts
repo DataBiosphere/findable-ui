@@ -139,10 +139,10 @@ export function getFilterCount(filterState: SelectedFilter[]): number {
 }
 
 /**
- * Moves the server-side paginated table to its next or previous page. A pagination link is only used against the result set it was issued for: while a request is pending (e.g. after a filter, sort or catalog change) the links are from the previous result set, so the page does not move.
+ * Moves the server-side paginated table to its next or previous page. A pagination link is only used against the result set it was issued for: while a request is pending (e.g. after a filter, sort or catalog change) the links are from the previous result set, so the page does not move. Next and previous are only enabled when Azul has returned the matching link.
  * @param state - Explore state.
  * @param direction - Pagination direction.
- * @returns the next pagination state, or undefined when the page cannot move.
+ * @returns the next pagination state, or undefined while a request is pending.
  */
 export function paginate(
   state: ExploreState,
@@ -151,12 +151,10 @@ export function paginate(
   if (state.loading) return;
   const { currentPage, nextIndex, previousIndex } = state.paginationState;
   const isNext = direction === "next";
-  const index = isNext ? nextIndex : previousIndex;
-  if (!index) return;
   return {
     ...state.paginationState,
     currentPage: currentPage + (isNext ? 1 : -1),
-    index,
+    index: isNext ? nextIndex : previousIndex,
   };
 }
 

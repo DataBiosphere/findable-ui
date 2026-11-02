@@ -103,14 +103,6 @@ export enum AZUL_PARAM {
 }
 
 /**
- * Azul search index.
- */
-export type AzulSearchIndex = keyof Pick<
-  AzulListParams,
-  "search_before" | "search_after"
->;
-
-/**
  * Model of response returned from /index/summary API endpoint.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- this type can't be determined beforehand

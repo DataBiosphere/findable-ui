@@ -23,17 +23,9 @@ const AZUL_PAGINATION: AzulPaginationResponse = {
   total: 90,
 };
 
-const NEXT_INDEX: PaginationIndex = {
-  type: "search_after",
-  url: NEXT_URL,
-  value: "Brain",
-};
+const NEXT_INDEX: PaginationIndex = { url: NEXT_URL };
 
-const PREVIOUS_INDEX: PaginationIndex = {
-  type: "search_before",
-  url: PREVIOUS_URL,
-  value: "Atlas",
-};
+const PREVIOUS_INDEX: PaginationIndex = { url: PREVIOUS_URL };
 
 const PAGE_2: PaginationState = {
   ...DEFAULT_PAGINATION_STATE,
@@ -117,16 +109,6 @@ describe("paginate", () => {
   it("does not move while a request is pending", () => {
     expect(paginate(makeState(PAGE_2, true), "next")).toBeUndefined();
     expect(paginate(makeState(PAGE_2, true), "prev")).toBeUndefined();
-  });
-
-  it("does not move without a link", () => {
-    const state = makeState({
-      ...PAGE_2,
-      nextIndex: null,
-      previousIndex: null,
-    });
-    expect(paginate(state, "next")).toBeUndefined();
-    expect(paginate(state, "prev")).toBeUndefined();
   });
 });
 

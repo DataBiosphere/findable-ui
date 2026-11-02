@@ -1,6 +1,7 @@
 import { jest } from "@jest/globals";
 import fetchMock from "jest-fetch-mock";
-import { SiteConfig } from "../src/config/entities";
+import type { SiteConfig } from "../src/config/entities";
+import { getRequests, mockGlobalFetch } from "./utils/fetchMock";
 
 type TestSiteConfig = Pick<SiteConfig, "dataSource">;
 
@@ -37,20 +38,7 @@ function responseBody(hits: unknown[], next?: string): string {
   });
 }
 
-/**
- * Returns the requests made to the mocked fetch.
- * @returns Requests.
- */
-function getRequests(): Request[] {
-  return fetchMock.mock.calls.map(([request]) => request as Request);
-}
-
-beforeAll(() => {
-  fetchMock.doMock();
-  globalThis.fetch = ((...args) => {
-    return fetchMock(...(args as Parameters<typeof fetchMock>));
-  }) as typeof fetch;
-});
+beforeAll(mockGlobalFetch);
 
 beforeEach(() => {
   fetchMock.resetMocks();
@@ -80,6 +68,34 @@ describe("fetchEntitiesFromApiURL", () => {
   });
 });
 
+describe("fetchEntitiesFromApiURL origin check", () => {
+  it("requests a relative URL, resolved against the data source", async () => {
+    fetchMock.mockResponseOnce(responseBody([]));
+
+    await fetchEntitiesFromApiURL(
+      "index/projects",
+      "index/projects?size=25",
+      TOKEN,
+    );
+
+    const [request] = getRequests();
+    expect(request.url).toBe(
+      "https://service.azul.data/index/projects?size=25",
+    );
+  });
+
+  it("refuses a URL on another origin, sending nothing", async () => {
+    await expect(
+      fetchEntitiesFromApiURL(
+        API_PATH,
+        "https://elsewhere.example/index/projects",
+        TOKEN,
+      ),
+    ).rejects.toThrow("is not on the data source https://service.azul.data");
+    expect(getRequests()).toHaveLength(0);
+  });
+});
+
 describe("fetchAllEntities", () => {
   it("follows the next links as given, sending the token on every page", async () => {
     fetchMock.mockResponseOnce(responseBody([{ id: "a" }], NEXT_URL));
@@ -94,5 +110,19 @@ describe("fetchAllEntities", () => {
       expect(request.headers.get("Authorization")).toBe(`Bearer ${TOKEN}`),
     );
     expect(response.hits).toEqual([{ id: "a" }, { id: "b" }]);
+  });
+
+  it("refuses a next link on another origin, sending nothing more", async () => {
+    fetchMock.mockResponseOnce(
+      responseBody(
+        [{ id: "a" }],
+        "https://elsewhere.example/index/projects?search_after=a",
+      ),
+    );
+
+    await expect(fetchAllEntities(API_PATH, TOKEN, "dcp1")).rejects.toThrow(
+      "is not on the data source https://service.azul.data",
+    );
+    expect(getRequests()).toHaveLength(1);
   });
 });
