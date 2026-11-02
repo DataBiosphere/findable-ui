@@ -23,6 +23,23 @@ import { fetchEntitiesFromURL } from "../common/service";
 import { getKyRequestOptions } from "../common/utils";
 
 /**
+ * Requests entities from the given URL, exactly as given, e.g. Azul's next or previous pagination link, which carries the catalog, filters, sort, order, size and sort key it was issued with.
+ * @param apiPath - Path of the entity list the URL requests; set on the response to match it to its entity list.
+ * @param url - URL to request.
+ * @param accessToken - Access token.
+ * @returns entities response.
+ */
+export const fetchEntitiesFromApiURL = async (
+  apiPath: string,
+  url: string,
+  accessToken: string | undefined,
+): Promise<AzulEntitiesResponse> => {
+  const response = await fetchEntitiesFromURL(url, accessToken);
+  response.apiPath = apiPath;
+  return response;
+};
+
+/**
  * Make a GET or POST request for a list of entities
  * @param apiPath - Path that will be used to compose the API url
  * @param listParams - Params to be used on the request. If none passed, it will default to page's size 25 and the current catalog version
@@ -38,12 +55,11 @@ export const fetchEntitiesFromQuery = async (
 ): Promise<AzulEntitiesResponse> => {
   const catalogParam = catalog ? { [AZUL_PARAM.CATALOG]: catalog } : undefined;
   const params = { ...getDefaultListParams(), ...catalogParam, ...listParams };
-  const response = await fetchEntitiesFromURL(
+  return fetchEntitiesFromApiURL(
+    apiPath,
     `${apiPath}?${convertUrlParams(params)}`,
     accessToken,
   );
-  response.apiPath = apiPath;
-  return response;
 };
 
 /**
@@ -69,9 +85,7 @@ export const fetchAllEntities = async (
   let hits = result.hits;
   let nextPage = result.pagination.next;
   while (nextPage) {
-    const nextPageJson = await (
-      await fetchApi<AzulEntitiesResponse>(nextPage)
-    ).json();
+    const nextPageJson = await fetchEntitiesFromURL(nextPage, accessToken);
     nextPage = nextPageJson.pagination.next;
     hits = [...hits, ...nextPageJson.hits];
   }

@@ -67,6 +67,7 @@ import {
   getEntityState,
   getEntityStateSavedProperty,
   getFilterCount,
+  paginate,
   patchEntityListItems,
   resetPage,
   updateEntityPageState,
@@ -126,7 +127,11 @@ export type ListItems = ListItem[] | undefined;
  * Pagination index.
  */
 export interface PaginationIndex {
+  /** @deprecated Unused; the page is requested from `url`. */
   type: AzulSearchIndex;
+  /** Azul's next or previous pagination link, requested exactly as given. */
+  url: string;
+  /** @deprecated Unused; the page is requested from `url`. */
   value: string | null;
 }
 
@@ -482,14 +487,8 @@ function exploreReducer(
      * Paginate table
      **/
     case ExploreActionKind.PaginateTable: {
-      const nextPaginationState = { ...state.paginationState };
-      if (payload == "next") {
-        nextPaginationState.currentPage++;
-        nextPaginationState.index = nextPaginationState.nextIndex;
-      } else {
-        nextPaginationState.currentPage--;
-        nextPaginationState.index = nextPaginationState.previousIndex;
-      }
+      const nextPaginationState = paginate(state, payload);
+      if (!nextPaginationState) return state;
       const rowPreview = closeRowPreview(state.rowPreview);
       return {
         ...state,

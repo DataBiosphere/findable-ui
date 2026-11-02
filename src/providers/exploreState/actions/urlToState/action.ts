@@ -8,13 +8,14 @@ import { buildNextEntities } from "../../entities/state";
 import {
   getEntityCategoryGroupConfigKey,
   getFilterCount,
+  resetPage,
   updateEntityStateByCategoryGroupConfigKey,
 } from "../../utils";
 import { UrlToStatePayload } from "./types";
 import { decodeFilterParamValue } from "./utils";
 
 /**
- * Reducer function to handle the "URL >> state sync" action.
+ * Reducer function to handle the "URL >> state sync" action. The URL's catalog or filters differ from state (e.g. after back/forward navigation), so the current entity's table returns to its first page: a pagination link from the previous result set must not be requested. Selecting another entity resets the page itself.
  * @param state - State.
  * @param payload - Payload.
  * @returns state.
@@ -70,5 +71,9 @@ export function urlToStateAction(
         : state.filterCount,
     filterState:
       entityListType === state.tabValue ? filterState : state.filterState,
+    paginationState:
+      entityListType === state.tabValue
+        ? resetPage(state.paginationState)
+        : state.paginationState,
   };
 }

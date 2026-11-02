@@ -11,6 +11,7 @@ import {
 } from "../apis/azul/common/filterTransformer";
 import { EntityMapper } from "../config/entities";
 import { getEntityConfig } from "../config/utils";
+import { fetchEntitiesFromApiURL } from "../entity/api/service";
 import { ExploreActionKind } from "../providers/exploreState";
 import { DEFAULT_PAGINATION_STATE } from "../providers/exploreState/initializer/constants";
 import { useToken } from "./authentication/token/useToken";
@@ -45,6 +46,7 @@ export const useEntityList = (
   const { exploreDispatch, exploreState } = useExploreState();
   const { data, isIdle, isLoading, run } = useAsync<AzulEntitiesResponse>();
   const { entityPageState, filterState, tabValue } = exploreState;
+  const { index: paginationIndex } = exploreState.paginationState;
   const { pagination, termFacets } = data || {};
   const { sorting } = entityPageState[tabValue];
   const entities = getEntities(staticData, data);
@@ -71,7 +73,13 @@ export const useEntityList = (
   // Fetch entities - on change of filter state - server-side fetching and server-side filtering.
   useEffect(() => {
     if (exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING) {
-      // Build basic list params
+      // A next or previous page: request Azul's pagination link exactly as given.
+      if (paginationIndex) {
+        run(fetchEntitiesFromApiURL(path, paginationIndex.url, token));
+        return;
+      }
+
+      // The first page: build list params from UI state, with no sort key.
       const [sort] = sorting;
       const listParams: AzulListParams = sort
         ? { order: sort.desc ? "desc" : "asc", sort: sort.id }
@@ -83,23 +91,15 @@ export const useEntityList = (
         listParams.filters = filtersParam;
       }
 
-      if (
-        exploreState.paginationState?.index?.type &&
-        exploreState.paginationState.index.value
-      ) {
-        listParams[exploreState.paginationState.index.type] =
-          exploreState.paginationState.index.value;
-      }
-
       // Execute the fetch.
       run(fetchEntitiesFromQuery(path, listParams, catalog, token));
     }
   }, [
     catalog,
     exploreMode,
-    exploreState.paginationState.index,
     fetchEntitiesFromQuery,
     filterState,
+    paginationIndex,
     path,
     run,
     sorting,

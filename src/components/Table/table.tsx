@@ -129,12 +129,13 @@ export const Table = <T extends RowData>({
     previousPage();
   }, [clientFiltering, exploreDispatch, exploreState, tablePreviousPage]);
 
+  // Paging waits for the pending request: until it resolves, the pagination links are from the previous result set.
   function canNextPage(): boolean {
-    return currentPage < pages;
+    return !loading && currentPage < pages;
   }
 
   function canPreviousPage(): boolean {
-    return currentPage > 1;
+    return !loading && currentPage > 1;
   }
 
   // The table's own scroll box; with page scroll it only scrolls sideways.

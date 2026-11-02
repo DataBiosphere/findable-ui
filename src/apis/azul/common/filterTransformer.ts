@@ -77,6 +77,12 @@ export function transformAzulPagination(
   };
 }
 
+/**
+ * Returns the pagination index for an Azul pagination link: the link itself, requested exactly as given, and its sort key.
+ * @param type - Sort key parameter: "search_after" for the next page, "search_before" for the previous one.
+ * @param urlString - Azul's next or previous pagination link, if any.
+ * @returns Pagination index, or null when there is no link.
+ */
 function extractIndex(
   type: AzulSearchIndex,
   urlString: string | undefined,
@@ -88,6 +94,7 @@ function extractIndex(
   const params = new URLSearchParams(url.search);
   return {
     type: type,
+    url: urlString,
     value: params.get(type),
   };
 }
