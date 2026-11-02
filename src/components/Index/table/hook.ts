@@ -35,6 +35,7 @@ import {
 } from "../../Table/common/utils";
 import { getFacetedMinMaxValues } from "../../Table/featureOptions/facetedColumn/getFacetedMinMaxValues";
 import { TABLE_DOWNLOAD_OPTIONS } from "../../Table/featureOptions/tableDownload/constants";
+import { COLUMN_VISIBILITY_PRESETS } from "../../Table/features/ColumnVisibilityPresets/constants";
 import { ROW_POSITION } from "../../Table/features/RowPosition/constants";
 import { ROW_PREVIEW } from "../../Table/features/RowPreview/constants";
 import { RowPreviewState } from "../../Table/features/RowPreview/entities";
@@ -173,6 +174,7 @@ export const useTable = <T extends RowData>({
    */
   const table = useReactTable<T>({
     _features: [
+      COLUMN_VISIBILITY_PRESETS,
       ROW_POSITION,
       ROW_PREVIEW,
       ROW_SELECTION_VALIDATION,

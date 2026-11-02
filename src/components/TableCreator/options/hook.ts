@@ -9,6 +9,9 @@ import { useVisibilityOptions } from "./visibility/hook";
 /**
  * Returns the table options for the current entity: the default options,
  * overridden by the entity's configured table options, with the initial state.
+ * The table instance is reused across entities and TanStack merges new options
+ * into the old ones, so options an entity may leave unset are passed explicitly
+ * (undefined when unset) to clear the previous entity's value.
  * @returns Table options.
  */
 export function useTableOptions<T extends RowData>(): Partial<TableOptions<T>> {
@@ -25,6 +28,7 @@ export function useTableOptions<T extends RowData>(): Partial<TableOptions<T>> {
     ...sortingOptions, // TODO(cc) merge of all sorting options.
     ...visibilityOptions,
     ...tableOptions,
+    columnVisibilityPresets: tableOptions?.columnVisibilityPresets,
     initialState,
   };
 }

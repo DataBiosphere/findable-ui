@@ -2,6 +2,9 @@ import { RowData, Table, VisibilityState } from "@tanstack/react-table";
 
 /**
  * Resets column visibility state of the table.
+ * ### Reset Option:
+ * - When the table has an `onColumnVisibilityReset` option, it is called instead, e.g. to reset explore state's column
+ * visibility for the current entity.
  * ### Default Behavior:
  * - Column visibility state is reset to initial state.
  * ### Grouping State:
@@ -13,6 +16,10 @@ export function handleResetVisibilityState<T extends RowData>(
 ): void {
   const { getState, initialState, resetColumnVisibility, setColumnVisibility } =
     table;
+  if (table.options.onColumnVisibilityReset) {
+    table.options.onColumnVisibilityReset();
+    return;
+  }
   const { grouping } = getState();
   if (grouping.length === 0) {
     resetColumnVisibility(); // Resets column visibility state.
