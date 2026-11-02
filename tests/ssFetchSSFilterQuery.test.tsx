@@ -1,5 +1,9 @@
 import { jest } from "@jest/globals";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  onlineManager,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { act, renderHook, waitFor } from "@testing-library/react";
 import fetchMock from "jest-fetch-mock";
 import { Component, type JSX, type ReactNode } from "react";
@@ -224,28 +228,56 @@ describe("useQuery", () => {
     expect(getRequests()).toHaveLength(1);
   });
 
-  // E.g. the error page's "To Homepage", then back to the same explore page.
-  it("requests a failed query again when it is next used", async () => {
-    jest.spyOn(console, "error").mockImplementation(() => undefined);
-    fetchMock.mockResponseOnce("", { status: 404 });
-    fetchMock.mockResponseOnce(responseBody("recovered"));
+  it("requests the list while the browser reports being offline", async () => {
+    fetchMock.mockResponseOnce(responseBody("offline"));
     exploreState = makeExploreState([]);
-    const queryClient = new QueryClient();
-    const onError = jest.fn<(error: Error) => void>();
+    onlineManager.setOnline(false);
 
-    const { unmount } = renderHook(() => useQuery("projects"), {
-      wrapper: makeWrapper(onError, queryClient),
-    });
-    await waitFor(() => expect(onError).toHaveBeenCalled());
-    unmount();
+    try {
+      const { result } = renderHook(() => useQuery("projects"), {
+        wrapper: makeWrapper(),
+      });
 
-    const { result } = renderHook(() => useQuery("projects"), {
-      wrapper: makeWrapper(jest.fn(), queryClient),
-    });
-
-    await waitFor(() =>
-      expect(result.current.data?.hits).toEqual([{ id: "recovered" }]),
-    );
-    expect(getRequests()).toHaveLength(2);
+      await waitFor(() =>
+        expect(result.current.data?.hits).toEqual([{ id: "offline" }]),
+      );
+      expect(getRequests()).toHaveLength(1);
+    } finally {
+      onlineManager.setOnline(true);
+    }
   });
+
+  // E.g. the error page's "To Homepage", then back to the same explore page.
+  it.each([
+    ["by default", {}],
+    [
+      "when the app's query client throws errors by default",
+      { throwOnError: true },
+    ],
+  ])(
+    "requests a failed query again when it is next used, %s",
+    async (_, queries) => {
+      jest.spyOn(console, "error").mockImplementation(() => undefined);
+      fetchMock.mockResponseOnce("", { status: 404 });
+      fetchMock.mockResponseOnce(responseBody("recovered"));
+      exploreState = makeExploreState([]);
+      const queryClient = new QueryClient({ defaultOptions: { queries } });
+      const onError = jest.fn<(error: Error) => void>();
+
+      const { unmount } = renderHook(() => useQuery("projects"), {
+        wrapper: makeWrapper(onError, queryClient),
+      });
+      await waitFor(() => expect(onError).toHaveBeenCalled());
+      unmount();
+
+      const { result } = renderHook(() => useQuery("projects"), {
+        wrapper: makeWrapper(jest.fn(), queryClient),
+      });
+
+      await waitFor(() =>
+        expect(result.current.data?.hits).toEqual([{ id: "recovered" }]),
+      );
+      expect(getRequests()).toHaveLength(2);
+    },
+  );
 });

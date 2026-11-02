@@ -38,6 +38,9 @@ export const useQuery = (
     QueryKey
   >({
     gcTime: 0,
+    // Requests go to ky even when the browser reports being offline, as before; a paused query would show the previous
+    // response's rows as loaded.
+    networkMode: "always",
     placeholderData: keepPreviousEntityData(entityListType),
     // The key holds the entity list type for the path, and whether the user is signed in for the token: a token refresh
     // for the same user doesn't fetch again, and the token stays out of the query cache.
@@ -56,6 +59,8 @@ export const useQuery = (
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
     retry: false,
+    // Errors are thrown by `throwSettledError`, whatever the app's query client defaults.
+    throwOnError: false,
   });
 
   throwSettledError(result);
