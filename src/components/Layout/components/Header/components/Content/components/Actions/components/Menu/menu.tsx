@@ -1,13 +1,7 @@
 import { MenuRounded } from "@mui/icons-material";
 import { Fade, IconButton, Dialog as MDialog } from "@mui/material";
-import {
-  CSSProperties,
-  forwardRef,
-  Fragment,
-  JSX,
-  useEffect,
-  useId,
-} from "react";
+import type { Ref } from "react";
+import { CSSProperties, Fragment, JSX, useEffect, useId } from "react";
 import {
   getPopupAriaProps,
   HAS_POPUP,
@@ -37,6 +31,7 @@ export interface MenuProps {
   open: boolean;
   openMenu: () => void;
   pathname?: string;
+  ref?: Ref<HTMLButtonElement>;
   style?: CSSProperties; // Required for Fade component. See https://mui.com/material-ui/transitions/#child-requirement.
 }
 
@@ -50,75 +45,71 @@ export interface MenuProps {
  * @param props.open - Whether the menu dialog is open.
  * @param props.openMenu - Function invoked to open the menu.
  * @param props.pathname - Current pathname, used to mark the selected navigation link.
+ * @param props.ref - Ref forwarded to the menu button element.
  * @param props.style - Style applied to the menu button; required for the Fade transition.
- * @param ref - Ref forwarded to the menu button element.
  * @returns The header menu, or null when the header is not collapsed to a menu.
  */
-export const Menu = forwardRef<HTMLButtonElement, MenuProps>(
-  function HeaderMenu(
-    {
-      closeMenu,
-      headerProps,
-      isMenuIn,
-      open,
-      openMenu,
-      pathname,
-      style,
-    }: MenuProps,
-    ref,
-  ): JSX.Element | null {
-    const { navigation, slogan, socialMedia } = headerProps;
-    const dialogId = useId();
+export const Menu = ({
+  closeMenu,
+  headerProps,
+  isMenuIn,
+  open,
+  openMenu,
+  pathname,
+  ref,
+  style,
+}: MenuProps): JSX.Element | null => {
+  const { navigation, slogan, socialMedia } = headerProps;
+  const dialogId = useId();
 
-    // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
-    useEffect(() => {
-      if (isMenuIn) return;
-      closeMenu();
-    }, [closeMenu, isMenuIn]);
+  // Set drawer open state to false on change of media breakpoint from small desktop "md" and up.
+  useEffect(() => {
+    if (isMenuIn) return;
+    closeMenu();
+  }, [closeMenu, isMenuIn]);
 
-    if (!isMenuIn) return null;
+  if (!isMenuIn) return null;
 
-    return (
-      <Fragment>
-        <IconButton
-          {...getPopupAriaProps({
-            hasPopup: HAS_POPUP.DIALOG,
-            id: dialogId,
-            open,
-          })}
-          aria-label={ARIA_LABEL.OPEN_MENU}
-          color="ink"
-          onClick={openMenu}
-          ref={ref}
-          style={style}
-        >
-          <MenuRounded />
-        </IconButton>
-        <MDialog
-          {...DIALOG_PROPS}
-          onClose={closeMenu}
-          open={open}
-          slotProps={{ paper: applySlotId(dialogId, DIALOG_PAPER_PROPS) }}
-          TransitionComponent={Fade}
-        >
-          <AppBar component="div" elevation={0}>
-            <Toolbar onClose={closeMenu} {...headerProps} />
-          </AppBar>
-          <Content>
-            {slogan && <Slogan slogan={slogan} />}
-            <Navigation
-              closeAncestor={closeMenu}
-              headerProps={headerProps}
-              isMenuIn={isMenuIn}
-              links={getMenuNavigationLinks(navigation)}
-              pathname={pathname}
-            />
-            {socialMedia && (
-              <Socials buttonSize="xlarge" socials={socialMedia.socials} />
-            )}
-          </Content>
-        </MDialog>
-      </Fragment>
-    );
-  },
-);
+  return (
+    <Fragment>
+      <IconButton
+        {...getPopupAriaProps({
+          hasPopup: HAS_POPUP.DIALOG,
+          id: dialogId,
+          open,
+        })}
+        aria-label={ARIA_LABEL.OPEN_MENU}
+        color="ink"
+        onClick={openMenu}
+        ref={ref}
+        style={style}
+      >
+        <MenuRounded />
+      </IconButton>
+      <MDialog
+        {...DIALOG_PROPS}
+        onClose={closeMenu}
+        open={open}
+        slotProps={{ paper: applySlotId(dialogId, DIALOG_PAPER_PROPS) }}
+        TransitionComponent={Fade}
+      >
+        <AppBar component="div" elevation={0}>
+          <Toolbar onClose={closeMenu} {...headerProps} />
+        </AppBar>
+        <Content>
+          {slogan && <Slogan slogan={slogan} />}
+          <Navigation
+            closeAncestor={closeMenu}
+            headerProps={headerProps}
+            isMenuIn={isMenuIn}
+            links={getMenuNavigationLinks(navigation)}
+            pathname={pathname}
+          />
+          {socialMedia && (
+            <Socials buttonSize="xlarge" socials={socialMedia.socials} />
+          )}
+        </Content>
+      </MDialog>
+    </Fragment>
+  );
+};
