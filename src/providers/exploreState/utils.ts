@@ -1,6 +1,7 @@
 import {
   CategoryKey,
   CategoryValueKey,
+  PaginationDirectionType,
   SelectedFilter,
 } from "../../common/entities";
 import { COLUMN_IDENTIFIER } from "../../components/Table/common/columnIdentifier";
@@ -135,6 +136,26 @@ export function getEntityStateSavedProperty<K extends "sorting" | "grouping">(
  */
 export function getFilterCount(filterState: SelectedFilter[]): number {
   return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
+}
+
+/**
+ * Moves the server-side paginated table to its next or previous page. A pagination link is only used against the result set it was issued for: while a request is pending (e.g. after a filter, sort or catalog change) the links are from the previous result set, so the page does not move. Next and previous are only enabled when Azul has returned the matching link.
+ * @param state - Explore state.
+ * @param direction - Pagination direction.
+ * @returns the next pagination state, or undefined while a request is pending.
+ */
+export function paginate(
+  state: ExploreState,
+  direction: PaginationDirectionType,
+): PaginationState | undefined {
+  if (state.loading) return;
+  const { currentPage, nextIndex, previousIndex } = state.paginationState;
+  const isNext = direction === "next";
+  return {
+    ...state.paginationState,
+    currentPage: currentPage + (isNext ? 1 : -1),
+    index: isNext ? nextIndex : previousIndex,
+  };
 }
 
 /**

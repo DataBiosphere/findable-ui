@@ -12,7 +12,6 @@ import {
 import {
   AZUL_FILTER_OPERATOR,
   AzulPaginationResponse,
-  AzulSearchIndex,
   AzulTermFacets,
   LABEL,
 } from "./entities";
@@ -69,27 +68,21 @@ export function transformAzulPagination(
     };
   }
   return {
-    nextIndex: extractIndex("search_after", azulPagination.next),
+    nextIndex: extractIndex(azulPagination.next),
     pageSize: azulPagination.size,
     pages: azulPagination.pages,
-    previousIndex: extractIndex("search_before", azulPagination.previous),
+    previousIndex: extractIndex(azulPagination.previous),
     rows: azulPagination.total,
   };
 }
 
-function extractIndex(
-  type: AzulSearchIndex,
-  urlString: string | undefined,
-): PaginationIndex | null {
-  if (!urlString) {
-    return null;
-  }
-  const url = new URL(urlString);
-  const params = new URLSearchParams(url.search);
-  return {
-    type: type,
-    value: params.get(type),
-  };
+/**
+ * Returns the pagination index for an Azul pagination link: the link itself, requested exactly as given.
+ * @param url - Azul's next or previous pagination link, if any.
+ * @returns Pagination index, or null when there is no link.
+ */
+function extractIndex(url: string | undefined): PaginationIndex | null {
+  return url ? { url } : null;
 }
 
 /**

@@ -8,7 +8,6 @@ import {
   useReducer,
   useState,
 } from "react";
-import { AzulSearchIndex } from "../apis/azul/common/entities";
 import { CategoryView } from "../common/categories/views/types";
 import { SelectedFilter } from "../common/entities";
 import { FILTER_SORT } from "../common/filters/sort/config/types";
@@ -67,6 +66,7 @@ import {
   getEntityState,
   getEntityStateSavedProperty,
   getFilterCount,
+  paginate,
   patchEntityListItems,
   resetPage,
   updateEntityPageState,
@@ -126,8 +126,8 @@ export type ListItems = ListItem[] | undefined;
  * Pagination index.
  */
 export interface PaginationIndex {
-  type: AzulSearchIndex;
-  value: string | null;
+  /** Azul's next or previous pagination link, requested exactly as given. */
+  url: string;
 }
 
 /**
@@ -482,14 +482,8 @@ function exploreReducer(
      * Paginate table
      **/
     case ExploreActionKind.PaginateTable: {
-      const nextPaginationState = { ...state.paginationState };
-      if (payload == "next") {
-        nextPaginationState.currentPage++;
-        nextPaginationState.index = nextPaginationState.nextIndex;
-      } else {
-        nextPaginationState.currentPage--;
-        nextPaginationState.index = nextPaginationState.previousIndex;
-      }
+      const nextPaginationState = paginate(state, payload);
+      if (!nextPaginationState) return state;
       const rowPreview = closeRowPreview(state.rowPreview);
       return {
         ...state,
