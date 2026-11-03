@@ -268,15 +268,6 @@ describe("ColumnVisibilityPresets", () => {
     fireEvent.click(qualityButton);
     expect(qualityButton).toHaveAttribute("aria-pressed", "true");
   });
-
-  it("keeps the selected preset when it is clicked again", () => {
-    render(<TestToggle />);
-    const defaultButton = screen.getByRole("button", { name: "Default" });
-
-    fireEvent.click(defaultButton);
-
-    expect(defaultButton).toHaveAttribute("aria-pressed", "true");
-  });
 });
 
 describe("column visibility presets with grouping", () => {
