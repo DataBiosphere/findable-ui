@@ -9,16 +9,18 @@ import { getKyRequestOptions } from "./utils";
  * Fetch entities from the given URL.
  * @param URL - URL.
  * @param accessToken - Access token.
+ * @param signal - Signal that cancels the request, if any.
  * @returns entities.
  */
 export const fetchEntitiesFromURL = async (
   URL: string,
   accessToken?: string,
+  signal?: AbortSignal,
 ): Promise<AzulEntitiesResponse> => {
-  const res = await fetchApi<AzulEntitiesResponse>(
-    URL,
-    getKyRequestOptions(accessToken),
-  );
+  const res = await fetchApi<AzulEntitiesResponse>(URL, {
+    ...getKyRequestOptions(accessToken),
+    signal,
+  });
   return await res.json();
 };
 

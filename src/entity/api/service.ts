@@ -28,15 +28,17 @@ import { assertDataSourceOrigin, getKyRequestOptions } from "../common/utils";
  * @param apiPath - Path of the entity list the URL requests; set on the response to match it to its entity list.
  * @param url - URL to request.
  * @param accessToken - Access token.
+ * @param signal - Signal that cancels the request, if any.
  * @returns entities response.
  */
 export const fetchEntitiesFromApiURL = async (
   apiPath: string,
   url: string,
   accessToken: string | undefined,
+  signal?: AbortSignal,
 ): Promise<AzulEntitiesResponse> => {
   assertDataSourceOrigin(url);
-  const response = await fetchEntitiesFromURL(url, accessToken);
+  const response = await fetchEntitiesFromURL(url, accessToken, signal);
   response.apiPath = apiPath;
   return response;
 };
@@ -47,6 +49,7 @@ export const fetchEntitiesFromApiURL = async (
  * @param listParams - Params to be used on the request. If none passed, it will default to page's size 25 and the current catalog version
  * @param catalog - Catalog.
  * @param accessToken - string - auth token
+ * @param signal - Signal that cancels the request, if any.
  * @returns @see ListResponseType
  */
 export const fetchEntitiesFromQuery = async (
@@ -54,6 +57,7 @@ export const fetchEntitiesFromQuery = async (
   listParams: AzulListParams,
   catalog: string | undefined,
   accessToken: string | undefined,
+  signal?: AbortSignal,
 ): Promise<AzulEntitiesResponse> => {
   const catalogParam = catalog ? { [AZUL_PARAM.CATALOG]: catalog } : undefined;
   const params = { ...getDefaultListParams(), ...catalogParam, ...listParams };
@@ -61,6 +65,7 @@ export const fetchEntitiesFromQuery = async (
     apiPath,
     `${apiPath}?${convertUrlParams(params)}`,
     accessToken,
+    signal,
   );
 };
 
