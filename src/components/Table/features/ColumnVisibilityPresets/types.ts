@@ -26,10 +26,12 @@ export interface ColumnVisibilityPresetsInstance {
  */
 export interface ColumnVisibilityPresetsOptions {
   /**
-   * Column visibility presets. When set, the first preset is the table's initial column visibility, in place of
-   * `initialState.columnVisibility`, so list any always-hidden columns (e.g. columns that can't be hidden and are only
-   * used for filtering) as hidden in the first preset. Applying a preset only changes columns that can be hidden, so
-   * always-hidden columns stay hidden.
+   * Column visibility presets. When the table's initial state is built with `getInitialColumnVisibilityState`, as
+   * findable-ui's index table does, the first preset is the table's initial column visibility, in place of
+   * `initialState.columnVisibility`. Registering the feature alone doesn't change the initial visibility: a table built
+   * another way must set it, e.g. from `getInitialColumnVisibilityState`. List any always-hidden columns (e.g. columns
+   * that can't be hidden and are only used for filtering) as hidden in the first preset. Applying a preset only changes
+   * columns that can be hidden, so always-hidden columns stay hidden.
    */
   columnVisibilityPresets?: ColumnVisibilityPreset[];
 }
