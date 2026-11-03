@@ -32,6 +32,7 @@ import { urlToState } from "../../providers/exploreState/actions/urlToState/disp
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { ARIA_LABEL } from "./constants";
+import { LazySSFetchCSFilter } from "./entityList/data/strategies/SSFetchCSFilter/lazy";
 import { LazySSFetchSSFilter } from "./entityList/data/strategies/SSFetchSSFilter/lazy";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
@@ -61,7 +62,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { categoryGroups, categoryViews, loading } = exploreState;
   const exploreMode = useExploreMode();
   useValidateFilterParam();
-  useEntityList(props); // Fetch entities.
+  useEntityList(props); // Process statically loaded entities.
   const { entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
@@ -155,6 +156,11 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
       {exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING && (
         <Suspense fallback={null}>
           <LazySSFetchSSFilter entityListType={entityListType} />
+        </Suspense>
+      )}
+      {exploreMode === EXPLORE_MODE.SS_FETCH_CS_FILTERING && (
+        <Suspense fallback={null}>
+          <LazySSFetchCSFilter entityListType={entityListType} />
         </Suspense>
       )}
       {categoryViews && !!categoryViews.length && (
