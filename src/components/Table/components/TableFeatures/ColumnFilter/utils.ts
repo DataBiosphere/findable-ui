@@ -1,3 +1,18 @@
+import type { PopperProps } from "@mui/material";
+
+/**
+ * Closes the panel and returns focus to its button, without scrolling the page.
+ * @param onClose - Function to close the panel.
+ * @param anchorEl - The panel's button.
+ */
+export function closeAndRestoreFocus(
+  onClose: () => void,
+  anchorEl: PopperProps["anchorEl"],
+): void {
+  onClose();
+  if (anchorEl instanceof HTMLElement) anchorEl.focus({ preventScroll: true });
+}
+
 /**
  * Returns an updater function for column filter.
  * @param value - Value.

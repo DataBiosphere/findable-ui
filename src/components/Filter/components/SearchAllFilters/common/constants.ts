@@ -1,4 +1,5 @@
 import { AutocompleteProps, PaperProps, PopperProps } from "@mui/material";
+import { UPDATE_AFTER_SCROLL_MODIFIER } from "../../../common/popper";
 import { DividerItem, ITEM_TYPE, NoResultsItem } from "./entities";
 
 export const DEFAULT_LIST_HEIGHT = 0;
@@ -10,6 +11,11 @@ const POPPER_MENU_PAPER_PROPS: Partial<PaperProps> = { variant: "menu" };
 const POPPER_MENU_POPPER_PROPS: Partial<PopperProps> = {
   modifiers: [{ name: "offset", options: { offset: [0, 8] } }],
   placement: "bottom-start",
+  /* Fixed to the window: the input sits in the sticky sidebar, so an absolutely positioned list would bounce as the page scrolls. */
+  popperOptions: {
+    modifiers: [UPDATE_AFTER_SCROLL_MODIFIER],
+    strategy: "fixed",
+  },
 };
 
 export const POPPER_MENU_SLOT_PROPS: AutocompleteProps<

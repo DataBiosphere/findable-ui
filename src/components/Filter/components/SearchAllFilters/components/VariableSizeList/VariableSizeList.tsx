@@ -227,6 +227,7 @@ export const VariableSizeList = forwardRef<
         outerRef={outerRef}
         overscanCount={overscanCount}
         ref={listRef}
+        style={{ overscrollBehavior: "none" }} // The page scrolls while the list is open; the wheel at the list's end stops here.
         width={width}
       >
         {renderListItem}
