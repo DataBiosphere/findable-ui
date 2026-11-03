@@ -1,4 +1,9 @@
 import { RowData } from "@tanstack/react-table";
+import type { ColumnVisibilityResetOptions } from "../components/TableFeatures/ColumnVisibility/types";
+import type {
+  ColumnVisibilityPresetsInstance,
+  ColumnVisibilityPresetsOptions,
+} from "./ColumnVisibilityPresets/types";
 import { RowPositionOptions, RowPositionRow } from "./RowPosition/types";
 import {
   RowPreviewInstance,
@@ -22,7 +27,10 @@ export type CustomFeatureColumn = TableDownloadColumn;
  * Custom feature APIs added to the TanStack table instance.
  */
 export interface CustomFeatureInstance<T extends RowData>
-  extends TableDownloadInstance, RowPreviewInstance<T> {}
+  extends
+    ColumnVisibilityPresetsInstance,
+    TableDownloadInstance,
+    RowPreviewInstance<T> {}
 
 export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
 
@@ -31,6 +39,8 @@ export type CustomFeatureInitialTableState = Partial<RowPreviewTableState>;
  */
 export interface CustomFeatureOptions<T extends RowData>
   extends
+    ColumnVisibilityPresetsOptions,
+    ColumnVisibilityResetOptions,
     TableDownloadOptions<T>,
     RowPositionOptions,
     RowPreviewOptions,

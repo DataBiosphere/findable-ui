@@ -9,6 +9,7 @@ import { PaginationSummary } from "../PaginationSummary/paginationSummary";
 import { TableDownload } from "../TableFeatures/TableDownload/tableDownload";
 import { ColumnGrouping } from "./components/ColumnGrouping/columnGrouping";
 import { ColumnVisibility } from "./components/ColumnVisibility/columnVisibility";
+import { ColumnVisibilityPresets } from "./components/ColumnVisibilityPresets/columnVisibilityPresets";
 import { RowPreview } from "./components/RowPreview/rowPreview";
 import { RowSelection } from "./components/RowSelection/rowSelection";
 import { GRID_PROPS } from "./constants";
@@ -24,7 +25,7 @@ export interface TableToolbarProps<T extends RowData> {
 
 /**
  * Table toolbar. On one side, the view toggle with the row selection actions when any row on the current page is selected, or otherwise the explore state's pagination summary.
- * On the other, the download, grouping and column visibility controls. The row preview renders after the toolbar.
+ * On the other, the download, grouping, column visibility preset and column visibility controls. The row preview renders after the toolbar.
  * @param props - Component props.
  * @param props.listView - List view config, providing the row preview and row selection views.
  * @param props.tableInstance - TanStack table instance.
@@ -60,6 +61,7 @@ export const TableToolbar = <T extends RowData>({
         <Grid {...GRID_PROPS}>
           <TableDownload table={tableInstance} />
           <ColumnGrouping tableInstance={tableInstance} />
+          <ColumnVisibilityPresets tableInstance={tableInstance} />
           <ColumnVisibility tableInstance={tableInstance} />
         </Grid>
       </StyledToolbar>

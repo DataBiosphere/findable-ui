@@ -1,8 +1,10 @@
 import { RowData, TableOptions, VisibilityState } from "@tanstack/react-table";
 import { COLUMN_IDENTIFIER } from "../../../Table/common/columnIdentifier";
+import { getInitialPresetVisibility } from "../../../Table/features/ColumnVisibilityPresets/utils";
 
 /**
- * Returns initial column visibility state.
+ * Returns initial column visibility state: the row position and row selection columns, then the first column
+ * visibility preset when presets are set, or otherwise `initialState.columnVisibility`.
  * @param tableOptions - Table options.
  * @returns column visibility state.
  */
@@ -17,6 +19,7 @@ export function getInitialColumnVisibilityState<T extends RowData>(
   return {
     [COLUMN_IDENTIFIER.ROW_POSITION]: enableRowPosition,
     [COLUMN_IDENTIFIER.ROW_SELECTION]: enableRowSelection,
-    ...initialState?.columnVisibility,
+    ...(getInitialPresetVisibility(tableOptions?.columnVisibilityPresets) ??
+      initialState?.columnVisibility),
   };
 }

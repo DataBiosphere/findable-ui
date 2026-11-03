@@ -22,6 +22,8 @@ import { useConfig } from "../hooks/useConfig";
 import { useURLFilterParams } from "../hooks/useURLFilterParams";
 import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
 import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
+import { resetColumnVisibilityAction } from "./exploreState/actions/resetVisibility/action";
+import { ResetColumnVisibilityAction } from "./exploreState/actions/resetVisibility/types";
 import { stateToUrlAction } from "./exploreState/actions/stateToUrl/action";
 import { StateToUrlAction } from "./exploreState/actions/stateToUrl/types";
 import { updateFilterSortAction } from "./exploreState/actions/updateFilterSort/action";
@@ -228,6 +230,7 @@ export enum ExploreActionKind {
   PaginateTable = "PAGINATE_TABLE",
   PatchExploreResponse = "PATCH_EXPLORE_RESPONSE",
   ProcessExploreResponse = "PROCESS_EXPLORE_RESPONSE",
+  ResetColumnVisibility = "RESET_COLUMN_VISIBILITY",
   ResetExploreResponse = "RESET_EXPLORE_RESPONSE",
   ResetState = "RESET_STATE",
   SelectEntityType = "SELECT_ENTITY_TYPE",
@@ -258,6 +261,7 @@ export type ExploreAction =
   | ResetStateAction
   | SelectEntityTypeAction
   | StateToUrlAction
+  | ResetColumnVisibilityAction
   | UpdateColumnVisibilityAction
   | UpdateEntityFiltersAction
   | UpdateEntityViewAccessAction
@@ -601,6 +605,12 @@ function exploreReducer(
      **/
     case ExploreActionKind.UpdateColumnVisibility: {
       return updateColumnVisibilityAction(state, payload);
+    }
+    /**
+     * Reset column visibility
+     **/
+    case ExploreActionKind.ResetColumnVisibility: {
+      return resetColumnVisibilityAction(state, config);
     }
     /**
      * Update entity filters.

@@ -8,6 +8,7 @@ import { CategoryConfig } from "../../../common/categories/config/types";
 import { SelectCategory, SelectedFilter } from "../../../common/entities";
 import { getFilterSortType } from "../../../common/filters/sort/config/utils";
 import { parseFilterParam } from "../../../common/filters/typeGuards";
+import { assertColumnVisibilityPresets } from "../../../components/Table/features/ColumnVisibilityPresets/utils";
 import { getInitialColumnVisibilityState } from "../../../components/TableCreator/options/initialState/columnVisibility";
 import {
   CategoryGroup,
@@ -172,14 +173,21 @@ function initCategoryGroups(
 }
 
 /**
- * Initializes column visibility for the given entity.
+ * Initializes column visibility for the given entity. Throws when its column visibility presets share a key, show the
+ * same columns, or the first preset hides a column the table is initially grouped by.
  * @param entityConfig - Entity config.
  * @returns column visibility.
  */
 function initColumnVisibility(entityConfig: EntityConfig): VisibilityState {
   const {
     list: { tableOptions = {} },
+    route,
   } = entityConfig;
+  assertColumnVisibilityPresets(
+    tableOptions.columnVisibilityPresets,
+    route,
+    tableOptions.initialState?.grouping,
+  );
   return getInitialColumnVisibilityState(tableOptions);
 }
 
