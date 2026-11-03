@@ -2,7 +2,9 @@ import type { QueryClientConfig } from "@tanstack/react-query";
 
 /**
  * The entity list's query client defaults. findable-ui owns this client, so apps need no QueryClientProvider and their
- * own query client defaults never apply here.
+ * own query client defaults never apply here. Each strategy keeps its own copy of these defaults, and its own
+ * client, rather than sharing them with SSFetchCSFilter: each strategy is set up on its own, so an app that only
+ * needs one of them gets just that one, and changing one strategy's defaults doesn't change the other's.
  * - `gcTime: 0`: responses aren't cached; explore state holds the response, and each query is requested when it is used.
  * - `networkMode: "always"`: requests go to ky even when the browser reports being offline; a paused query would show
  * the previous response's rows as loaded.
