@@ -20,8 +20,7 @@ See below a list of the currently available events.
 
 Some GA4 Events are tracked using ids instead of events. Below is an inventory of the ids that, when clicked, trigger an event:
 
-| Component            | Id name                          | "All Elements" or "Just Links"? | Purpose                                     |
-| -------------------- | -------------------------------- | ------------------------------- | ------------------------------------------- |
-| `SupportRequestForm` | `button-support-request`         | "All Elements"                  | To track submitted support requests         |
-| `ExportMethod`       | The value passed as `trackingId` | "All Elements"                  | To separately track ExportMethod events     |
-| `ExportButton`       | `button-cohort-export`           | "Just Links"                    | To track clicks to the Cohort Export button |
+| Component      | Id name                          | "All Elements" or "Just Links"? | Purpose                                     |
+| -------------- | -------------------------------- | ------------------------------- | ------------------------------------------- |
+| `ExportMethod` | The value passed as `trackingId` | "All Elements"                  | To separately track ExportMethod events     |
+| `ExportButton` | `button-cohort-export`           | "Just Links"                    | To track clicks to the Cohort Export button |

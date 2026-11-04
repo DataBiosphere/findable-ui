@@ -140,7 +140,6 @@
     "next-mdx-remote": "^6.0.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-dropzone": "^14.3.8",
     "react-idle-timer": "^5.7.2",
     "react-window": "^1.8.11",
     "rehype-raw": "^7.0.0",
