@@ -11,7 +11,7 @@ export const StyledAlert = styled(Alert)`
   margin: 8px;
   position: fixed;
   width: calc(100vw - 16px);
-  z-index: 1100; // Above support fab, below support form.
+  z-index: 1100;
 
   .MuiAlert-message {
     font: ${FONT.BODY_400};

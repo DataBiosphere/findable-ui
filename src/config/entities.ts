@@ -225,7 +225,7 @@ export interface ExportMethodConfig {
 }
 
 /**
- * Floating configuration - for support and other floating components e.g. banners.
+ * Floating configuration - for floating components e.g. banners.
  */
 export interface FloatingConfig {
   components: ComponentsConfig;
