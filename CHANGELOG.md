@@ -1,5 +1,38 @@
 # Changelog
 
+## [60.0.0](https://github.com/DataBiosphere/findable-ui/compare/v59.0.0...v60.0.0) (2026-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* apps that import ViewSupport or ContactSupportIcon must drop those imports before upgrading.
+* the supportrequest support form is removed, along with the components only it used. apps importing any of these lib paths must drop the imports before upgrading:
+* ColumnFilterProps no longer extends MUI MenuProps; use the new placement prop (COLUMN_FILTER_PLACEMENT) instead of anchorOrigin/transformOrigin. the column filter panel is a role="dialog" (aria-haspopup="dialog"), not a role="menu", and MENU_PROPS is removed. desktop filter panels no longer render a .MuiBackdrop-root overlay.
+* `PaginationIndex` no longer has `type` or `value`; it is `{ url }`, Azul's pagination link. The `AzulSearchIndex` type is removed.
+
+### Features
+
+* analytics stylesheet: don't recommend links inside `role="tooltip"` ([#1175](https://github.com/DataBiosphere/findable-ui/issues/1175)) ([#1179](https://github.com/DataBiosphere/findable-ui/issues/1179)) ([7e14318](https://github.com/DataBiosphere/findable-ui/commit/7e14318faa7cbdcd6af2946f2d15ebf2bd309d4e))
+* fetch the explore view's client-side-filtered entity list with tanstack query ([#1190](https://github.com/DataBiosphere/findable-ui/issues/1190)) ([#1198](https://github.com/DataBiosphere/findable-ui/issues/1198)) ([f83f9a0](https://github.com/DataBiosphere/findable-ui/commit/f83f9a08485aab0d165cc7ad79a28c54b81548c6))
+* let an index table switch between column presets from its toolbar ([#1182](https://github.com/DataBiosphere/findable-ui/issues/1182)) ([#1194](https://github.com/DataBiosphere/findable-ui/issues/1194)) ([09a375d](https://github.com/DataBiosphere/findable-ui/commit/09a375dbea481c5ae9c8bb3e522558b3fedab588))
+* let the page scroll while a filter dropdown is open ([#1142](https://github.com/DataBiosphere/findable-ui/issues/1142)) ([#1180](https://github.com/DataBiosphere/findable-ui/issues/1180)) ([db3fa93](https://github.com/DataBiosphere/findable-ui/commit/db3fa934faaac2daf259b92d52caf9eccfe912f9))
+* pilot tanstack query for the explore view's azul entity list ([#1185](https://github.com/DataBiosphere/findable-ui/issues/1185)) ([#1189](https://github.com/DataBiosphere/findable-ui/issues/1189)) ([df43510](https://github.com/DataBiosphere/findable-ui/commit/df43510bb4a81c0405d696716bd3bbf7d3b3f787))
+* remove the supportrequest support form, which posted to terra's zendesk ([#1196](https://github.com/DataBiosphere/findable-ui/issues/1196)) ([#1200](https://github.com/DataBiosphere/findable-ui/issues/1200)) ([7fec0fc](https://github.com/DataBiosphere/findable-ui/commit/7fec0fca509be432aa919e65c54bd11b72ee11d2))
+* remove the viewsupport floating support button, the last of the support components ([#1203](https://github.com/DataBiosphere/findable-ui/issues/1203)) ([#1204](https://github.com/DataBiosphere/findable-ui/issues/1204)) ([3531c9b](https://github.com/DataBiosphere/findable-ui/commit/3531c9b1f68f5b965becee22e4088c01d9c3ff45))
+
+
+### Bug Fixes
+
+* follow azul's next and previous pagination links instead of rebuilding paging requests ([#1183](https://github.com/DataBiosphere/findable-ui/issues/1183)) ([#1184](https://github.com/DataBiosphere/findable-ui/issues/1184)) ([864b022](https://github.com/DataBiosphere/findable-ui/commit/864b022dc89407cef462f872bf67c993927a30a8))
+* pin the @observablehq/plot dev dependency to 0.6.17, whose types 0.6.18 breaks ([#1201](https://github.com/DataBiosphere/findable-ui/issues/1201)) ([#1202](https://github.com/DataBiosphere/findable-ui/issues/1202)) ([9605dfe](https://github.com/DataBiosphere/findable-ui/commit/9605dfebe5e8fdf8066f23367e83b429e199a82c))
+* pin the devdependency to exactly 0.6.17. an exact version is needed: ([9605dfe](https://github.com/DataBiosphere/findable-ui/commit/9605dfebe5e8fdf8066f23367e83b429e199a82c))
+
+
+### Chores
+
+* replace forwardref with ref as a prop in filternoresultsfound ([#1057](https://github.com/DataBiosphere/findable-ui/issues/1057)) ([#1187](https://github.com/DataBiosphere/findable-ui/issues/1187)) ([2863bc7](https://github.com/DataBiosphere/findable-ui/commit/2863bc7d37a9834f48864d5dde32c5634e768d50))
+* replace forwardref with ref as a prop in header navigation, slogan and menu ([#1047](https://github.com/DataBiosphere/findable-ui/issues/1047)) ([#1186](https://github.com/DataBiosphere/findable-ui/issues/1186)) ([bf50657](https://github.com/DataBiosphere/findable-ui/commit/bf50657cf6f57da6eaf1b48b028392851a76ebf5))
+
 ## [59.0.0](https://github.com/DataBiosphere/findable-ui/compare/v58.0.0...v59.0.0) (2026-10-29)
 
 
