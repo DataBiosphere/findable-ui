@@ -136,8 +136,6 @@ const config = [
           ButtonBase: "button",
           DXButton: "button",
           DXIconButton: "button",
-          Fab: "button",
-          FabLink: "a",
           IconButton: "button",
           MButton: "button",
           MIconButton: "button",
