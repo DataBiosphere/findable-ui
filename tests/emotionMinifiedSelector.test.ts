@@ -15,9 +15,32 @@ const COLLAPSING_SELECTOR = /[^\s,>+~(]\s+::?[a-zA-Z-]/;
 
 const COMMENT_LINE = /^\s*(\/\/|\/\*|\*)/;
 
+// Loading Next's native SWC bindings can take a few seconds on a cold start.
+const SWC_TIMEOUT_MS = 30000;
+
 const SOURCE_FILE = /\.tsx?$/;
 
 const SRC_DIR = fileURLToPath(new URL("../src", import.meta.url));
+
+const PINNED_MIXIN = path.join(SRC_DIR, "styles/common/mixins/pinned.ts");
+
+/**
+ * Compiles a source file the way a Next consumer with `compiler.emotion` does.
+ * @param filePath - Source file to compile.
+ * @returns Compiled code, with each Emotion template minified.
+ */
+async function compileWithNextEmotion(filePath: string): Promise<string> {
+  // Stops loadBindings rewriting package-lock.json when it lacks an SWC binary.
+  process.env.NEXT_IGNORE_INCORRECT_LOCKFILE = "1";
+  const swc = await import("next/dist/build/swc/index.js");
+  await swc.loadBindings();
+  const { code } = await swc.transform(fs.readFileSync(filePath, "utf8"), {
+    emotion: { enabled: true },
+    filename: filePath,
+    jsc: { parser: { syntax: "typescript" } },
+  });
+  return code;
+}
 
 /**
  * Finds every source line holding a selector the minifier would collapse.
@@ -80,4 +103,14 @@ describe("Emotion minified selector", () => {
   it("should find no collapsing selector in src", () => {
     expect(findCollapsingSelectors(SRC_DIR)).toEqual([]);
   });
+
+  it(
+    "should keep pinnedFocus a descendant selector through Next's SWC Emotion transform",
+    async () => {
+      expect(await compileWithNextEmotion(PINNED_MIXIN)).toContain(
+        "& *:is(a,button,input,select,textarea,[tabindex])",
+      );
+    },
+    SWC_TIMEOUT_MS,
+  );
 });
