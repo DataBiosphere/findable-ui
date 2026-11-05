@@ -13,7 +13,7 @@ export const StyledForm = styled("form")`
     height: 40px;
     padding: 0;
 
-    &&.Mui-focused ::placeholder {
+    &.Mui-focused *::placeholder {
       color: ${PALETTE.INK_LIGHT};
       opacity: 1;
     }

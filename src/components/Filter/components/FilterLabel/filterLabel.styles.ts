@@ -15,7 +15,7 @@ export const StyledButton = styled(Button, {
   text-transform: none;
   text-align: left;
 
-  :hover {
+  &:hover {
     background-color: ${PALETTE.SMOKE_MAIN};
   }
 

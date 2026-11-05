@@ -9,9 +9,11 @@ import { css } from "@emotion/react";
  * margin would also stop them scrolling a focused element into view. Browsers
  * still scroll for a text input (Chrome ignores the margin on Tab), so a text
  * input in such a region also needs `useKeepScrollOnFocus` (as GlobalFilter has).
+ * The `*` keeps the selector a descendant one: Next's SWC Emotion plugin drops the
+ * space in `& :is(…)`, which would leave the rule on the region itself.
  */
 export const pinnedFocus = css`
-  & :is(a, button, input, select, textarea, [tabindex]) {
+  & *:is(a, button, input, select, textarea, [tabindex]) {
     scroll-margin-top: -100vh;
   }
 `;
