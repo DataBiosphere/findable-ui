@@ -17,11 +17,11 @@ export const InputFormControl = styled(FormControl)`
 export const InputField = styled(OutlinedInput, {
   shouldForwardProp: (prop) => prop !== "isFilled",
 })<Props>`
-  && ::placeholder {
+  && *::placeholder {
     opacity: 0.8;
   }
 
-  &&.Mui-focused ::placeholder {
+  &&.Mui-focused *::placeholder {
     opacity: 0;
   }
 
