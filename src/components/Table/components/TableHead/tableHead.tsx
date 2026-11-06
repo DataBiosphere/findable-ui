@@ -9,8 +9,8 @@ import { flexRender, RowData } from "@tanstack/react-table";
 import { Fragment, JSX, useContext } from "react";
 import { Tooltip } from "../../../DataDictionary/components/Tooltip/tooltip";
 import {
+  getColumnCellPadding,
   getTableCellAlign,
-  getTableCellPadding,
 } from "../TableCell/common/utils";
 import { handleToggleSorting } from "../TableFeatures/RowSorting/utils";
 import { TableHeadContext } from "./context";
@@ -41,7 +41,7 @@ export const TableHead = <T extends RowData>({
                 <TableCell
                   key={id}
                   align={getTableCellAlign(column)}
-                  padding={getTableCellPadding(id)}
+                  padding={getColumnCellPadding(column)}
                 >
                   <Tooltip
                     description={annotation?.description}
