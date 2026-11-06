@@ -1,5 +1,12 @@
 # Changelog
 
+## [60.0.1](https://github.com/DataBiosphere/findable-ui/compare/v60.0.0...v60.0.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* pinned controls scroll the page on focus under next's swc emotion plugin ([#1206](https://github.com/DataBiosphere/findable-ui/issues/1206)) ([#1207](https://github.com/DataBiosphere/findable-ui/issues/1207)) ([4e61f46](https://github.com/DataBiosphere/findable-ui/commit/4e61f46871f17b4d76ce0317aad062baa0b757fd))
+
 ## [60.0.0](https://github.com/DataBiosphere/findable-ui/compare/v59.0.0...v60.0.0) (2026-11-04)
 
 
