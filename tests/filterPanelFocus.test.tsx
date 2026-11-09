@@ -29,6 +29,8 @@ describe("Filter panel focus", () => {
 
     expect(document.activeElement).toBe(second);
     expect(within(first).getByRole("checkbox").tabIndex).toBe(-1);
+    // The tab stop carries the term's selected state, as its checkbox is out of the tab order.
+    expect(first.getAttribute("aria-pressed")).toBe("false");
   });
 
   it("moves focus to the first control when a range panel opens by keyboard", async () => {

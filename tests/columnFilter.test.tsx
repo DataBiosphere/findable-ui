@@ -146,9 +146,11 @@ describe("ColumnFilter", () => {
     const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
     fireEvent.click(trigger);
     const panel = screen.getByRole("dialog", { name: "Organism" });
-    fireEvent.click(
-      within(panel).getByRole("button", { name: /Mus musculus/ }),
-    );
+    const value = within(panel).getByRole("button", { name: /Mus musculus/ });
+    expect(value.getAttribute("aria-pressed")).toBe("false");
+    fireEvent.click(value);
+    // The value's tab stop carries its selected state, as its checkbox is out of the tab order.
+    expect(value.getAttribute("aria-pressed")).toBe("true");
     const clearAll = within(panel).getByRole("button", { name: "Clear All" });
     clearAll.focus();
     fireEvent.click(clearAll);

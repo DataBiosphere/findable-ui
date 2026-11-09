@@ -58,6 +58,8 @@ export default function VariableSizeListItem({
 
   return (
     <ListItemButton
+      // The button is the term's one tab stop, so it carries the selected state; its checkbox is out of the tab order.
+      aria-pressed={selected}
       data-testid={TEST_IDS.FILTER_ITEM}
       ref={listItemRef}
       onClick={handleItemClicked}
