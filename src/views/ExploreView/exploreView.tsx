@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { JSX, Suspense, useEffect, useMemo } from "react";
+import { JSX, useEffect, useMemo } from "react";
 import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
@@ -21,9 +21,6 @@ import { CategoryGroup } from "../../config/entities";
 import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
-import { useEntityList } from "../../hooks/useEntityList";
-import { EXPLORE_MODE } from "../../hooks/useExploreMode/types";
-import { useExploreMode } from "../../hooks/useExploreMode/useExploreMode";
 import { useExploreState } from "../../hooks/useExploreState";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
@@ -32,8 +29,7 @@ import { urlToState } from "../../providers/exploreState/actions/urlToState/disp
 import { SELECT_CATEGORY_KEY } from "../../providers/exploreState/constants";
 import { TEST_IDS } from "../../tests/testIds";
 import { ARIA_LABEL } from "./constants";
-import { LazySSFetchCSFilter } from "./entityList/data/strategies/SSFetchCSFilter/lazy";
-import { LazySSFetchSSFilter } from "./entityList/data/strategies/SSFetchSSFilter/lazy";
+import { DataSelector } from "./entityList/data/selector/dataSelector";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
@@ -42,6 +38,8 @@ import { buildStateSyncManagerContext } from "./utils";
 
 /**
  * Props for the ExploreView component.
+ * Shares its name with the generic `ExploreViewProps` in ./types.ts, the props of explore view 2 (EV2), which the
+ * entity list's data strategies already take. This Azul-based one is to be cleaned up, leaving that one.
  */
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
@@ -60,10 +58,8 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { trackingConfig } = config;
   const { label } = entityConfig;
   const { categoryGroups, categoryViews, loading } = exploreState;
-  const exploreMode = useExploreMode();
   useValidateFilterParam();
-  useEntityList(props); // Process statically loaded entities.
-  const { entityListType } = props;
+  const { data, entityListType } = props;
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews],
@@ -153,16 +149,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 
   return (
     <DrawerProvider>
-      {exploreMode === EXPLORE_MODE.SS_FETCH_SS_FILTERING && (
-        <Suspense fallback={null}>
-          <LazySSFetchSSFilter entityListType={entityListType} />
-        </Suspense>
-      )}
-      {exploreMode === EXPLORE_MODE.SS_FETCH_CS_FILTERING && (
-        <Suspense fallback={null}>
-          <LazySSFetchCSFilter entityListType={entityListType} />
-        </Suspense>
-      )}
+      <DataSelector data={data?.hits} entityListType={entityListType} />
       {categoryViews && !!categoryViews.length && (
         <Sidebar label={ARIA_LABEL.SIDEBAR}>
           <ToggleButtonGroup />
