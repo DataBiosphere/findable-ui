@@ -32,8 +32,13 @@ jest.unstable_mockModule("../src/hooks/useCatalog", () => ({
 jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
   useToken: jest.fn(() => ({ token: undefined })),
 }));
-jest.unstable_mockModule("../src/hooks/useEntityService", () => ({
-  useEntityService: jest.fn(() => ({ path: API_PATH })),
+jest.unstable_mockModule("../src/hooks/useConfig", () => ({
+  useConfig: jest.fn(() => ({
+    config: {
+      dataSource: SITE_CONFIG.dataSource,
+      entities: [{ apiPath: API_PATH, route: "projects" }],
+    },
+  })),
 }));
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
   useExploreState: jest.fn(() => ({ exploreDispatch, exploreState })),

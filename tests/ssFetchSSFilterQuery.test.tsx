@@ -15,7 +15,8 @@ type TestSiteConfig = Pick<SiteConfig, "dataSource">;
 
 const SITE_CONFIG: TestSiteConfig = {
   dataSource: {
-    defaultListParams: { size: "25" },
+    // The default sort is never sent: the sort comes from explore state.
+    defaultListParams: { size: "25", sort: "entryId" },
     url: "https://service.azul.data/",
   },
 };
@@ -36,8 +37,16 @@ jest.unstable_mockModule("../src/hooks/useCatalog", () => ({
 jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
   useToken: jest.fn(() => ({ token: TOKEN })),
 }));
-jest.unstable_mockModule("../src/hooks/useEntityService", () => ({
-  useEntityService: jest.fn(() => ({ path: API_PATH })),
+jest.unstable_mockModule("../src/hooks/useConfig", () => ({
+  useConfig: jest.fn(() => ({
+    config: {
+      dataSource: SITE_CONFIG.dataSource,
+      entities: [
+        { apiPath: API_PATH, route: "projects" },
+        { route: "platforms" }, // Client-side fetched: no API path.
+      ],
+    },
+  })),
 }));
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
   useExploreState: jest.fn(() => ({
@@ -77,24 +86,33 @@ class ErrorBoundary extends Component<
 }
 
 /**
- * Creates explore state for the projects entity list.
+ * Creates explore state for the selected entity list.
  * @param sorting - Sorting.
- * @param url - Pagination link of the requested page, if any.
- * @param filterState - Filter state.
+ * @param options - Options.
+ * @param options.filterState - Filter state.
+ * @param options.tabValue - Selected entity list type.
+ * @param options.url - Pagination link of the requested page, if any.
  * @returns Explore state.
  */
 function makeExploreState(
   sorting: ExploreState["entityPageState"][string]["sorting"],
-  url?: string,
-  filterState: ExploreState["filterState"] = [],
+  {
+    filterState = [],
+    tabValue = "projects",
+    url,
+  }: {
+    filterState?: ExploreState["filterState"];
+    tabValue?: string;
+    url?: string;
+  } = {},
 ): ExploreState {
   return {
-    entityPageState: { projects: { sorting } },
+    entityPageState: { [tabValue]: { sorting } },
     filterState,
     paginationState: {
       index: url ? { url } : null,
     },
-    tabValue: "projects",
+    tabValue,
   } as unknown as ExploreState;
 }
 
@@ -153,10 +171,9 @@ describe("useQuery", () => {
     });
 
     // Page 2 of the ascending sort is requested.
-    exploreState = makeExploreState(
-      [{ desc: false, id: "projectTitle" }],
-      NEXT_URL,
-    );
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: NEXT_URL,
+    });
     const { rerender, result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
     });
@@ -191,10 +208,9 @@ describe("useQuery", () => {
 
   it("requests the pagination link exactly as given, with the token", async () => {
     fetchMock.mockResponseOnce(responseBody("page-2"));
-    exploreState = makeExploreState(
-      [{ desc: false, id: "projectTitle" }],
-      NEXT_URL,
-    );
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: NEXT_URL,
+    });
 
     const { result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
@@ -206,16 +222,13 @@ describe("useQuery", () => {
     const [request] = getRequests();
     expect(request.url).toBe(NEXT_URL);
     expect(request.headers.get("Authorization")).toBe(`Bearer ${TOKEN}`);
-    expect(result.current.data?.apiPath).toBe(API_PATH);
   });
 
   it("requests the first page with the filters and sort, and no sort key", async () => {
     fetchMock.mockResponseOnce(responseBody("page-1"));
-    exploreState = makeExploreState(
-      [{ desc: true, id: "projectTitle" }],
-      undefined,
-      [{ categoryKey: "genusSpecies", value: ["Homo sapiens"] }],
-    );
+    exploreState = makeExploreState([{ desc: true, id: "projectTitle" }], {
+      filterState: [{ categoryKey: "genusSpecies", value: ["Homo sapiens"] }],
+    });
 
     const { result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
@@ -229,8 +242,58 @@ describe("useQuery", () => {
     );
     expect(url.searchParams.get("sort")).toBe("projectTitle");
     expect(url.searchParams.get("order")).toBe("desc");
+    expect(url.searchParams.get("size")).toBe("25");
     expect(url.searchParams.has("search_after")).toBe(false);
     expect(url.searchParams.has("search_before")).toBe(false);
+  });
+
+  it("requests the first page with the default page size, and no sort or order, when there is no sort", async () => {
+    fetchMock.mockResponseOnce(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+
+    const { result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    const url = new URL(getRequests()[0].url);
+    expect(url.origin + url.pathname).toBe(API_PATH);
+    expect(url.searchParams.get("catalog")).toBe("dcp1");
+    expect(url.searchParams.get("filters")).toBe("{}");
+    expect(url.searchParams.get("size")).toBe("25");
+    expect(url.searchParams.has("sort")).toBe(false);
+    expect(url.searchParams.has("order")).toBe(false);
+  });
+
+  it("refuses a pagination link on another origin, without requesting it", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => undefined);
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: "https://elsewhere.example/index/projects?search_after=Brain",
+    });
+    const onError = jest.fn<(error: Error) => void>();
+
+    renderHook(() => useQuery("projects"), { wrapper: makeWrapper(onError) });
+
+    await waitFor(() => expect(onError).toHaveBeenCalled());
+    expect(onError.mock.calls[0][0]).toBeInstanceOf(DataExplorerError);
+    expect(getRequests()).toHaveLength(0);
+  });
+
+  it("doesn't request an entity list with no API path", async () => {
+    exploreState = makeExploreState([], { tabValue: "platforms" });
+
+    const { result } = renderHook(() => useQuery("platforms"), {
+      wrapper: makeWrapper(),
+    });
+
+    // A query that would fetch reports "fetching" from its first render; a skipped one stays idle.
+    expect(result.current.fetchStatus).toBe("idle");
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+    expect(result.current.fetchStatus).toBe("idle");
+    expect(result.current.data).toBeUndefined();
+    expect(getRequests()).toHaveLength(0);
   });
 
   it("throws a failed request to the error boundary as a DataExplorerError", async () => {
