@@ -5,7 +5,7 @@ import {
   getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { JSX } from "react";
 import { ColumnFilter } from "../src/components/Table/components/TableFeatures/ColumnFilter/columnFilter";
 
@@ -109,6 +109,68 @@ describe("ColumnFilter", () => {
     trigger.focus();
 
     fireEvent.keyDown(trigger, { key: "Escape" });
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it("should close and move focus to what follows the trigger on Tab from the last value", () => {
+    render(
+      <>
+        <TestColumnFilter />
+        <button>Next</button>
+      </>,
+    );
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+    fireEvent.click(trigger);
+    const lastValue = within(
+      screen.getByRole("dialog", { name: "Organism" }),
+    ).getByRole("button", { name: /Mus musculus/ });
+    lastValue.focus();
+
+    fireEvent.keyDown(lastValue, { key: "Tab" });
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(
+      screen.getByRole("button", { name: "Next" }),
+    );
+  });
+
+  it("should still move on with Tab when focus is on Clear All after it disabled itself", () => {
+    render(
+      <>
+        <TestColumnFilter />
+        <button>Next</button>
+      </>,
+    );
+    const trigger = screen.getByRole("button", { name: TRIGGER_NAME });
+    fireEvent.click(trigger);
+    const panel = screen.getByRole("dialog", { name: "Organism" });
+    fireEvent.click(
+      within(panel).getByRole("button", { name: /Mus musculus/ }),
+    );
+    const clearAll = within(panel).getByRole("button", { name: "Clear All" });
+    clearAll.focus();
+    fireEvent.click(clearAll);
+    expect(clearAll.getAttribute("aria-disabled")).toBe("true");
+    expect(document.activeElement).toBe(clearAll);
+
+    fireEvent.keyDown(clearAll, { key: "Tab" });
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(document.activeElement).toBe(
+      screen.getByRole("button", { name: "Next" }),
+    );
+  });
+
+  it("should close and return focus to the trigger on Shift+Tab from the first value", () => {
+    const { panel, trigger } = openPanel();
+    const firstValue = within(panel).getByRole("button", {
+      name: /Homo sapiens/,
+    });
+    firstValue.focus();
+
+    fireEvent.keyDown(firstValue, { key: "Tab", shiftKey: true });
 
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     expect(document.activeElement).toBe(trigger);

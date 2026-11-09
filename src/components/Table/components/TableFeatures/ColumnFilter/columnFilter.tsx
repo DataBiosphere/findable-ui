@@ -7,6 +7,10 @@ import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { getPopupAriaProps, HAS_POPUP } from "../../../../../utils/ariaPopup";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { PopperProvider } from "../../../../common/Popper/provider/provider";
+import {
+  closeAndRestoreFocus,
+  getKeyDownHandler,
+} from "../../../../Filter/common/focus";
 import { withHeaderPadding } from "../../../../Filter/common/popper";
 import { ClickAway } from "../../../../Filter/components/Filter/components/ClickAway/clickAway";
 import { MenuTransition } from "../../../../Filter/components/Filter/components/MenuTransition/menuTransition";
@@ -22,13 +26,12 @@ import {
   POPPER_PROPS,
 } from "./constants";
 import { ColumnFilterProps } from "./types";
-import { closeAndRestoreFocus } from "./utils";
 
 /**
  * Column filter, a button labelled with the column header and its selected filter value count, opening a panel of the column's faceted values with their counts and a "Clear All" item.
  * Selecting a value adds it to the column's filter value, or removes it if already selected. Supports the `arrIncludesSome` filter function.
  * The button is disabled when the column has no faceted values, and toggles the panel otherwise.
- * The panel is a non-modal dialog, as the sidebar category filter's: the page scrolls beneath it, and it follows its button, flipping above it when there is no room below and staying clear of the header. It hides while the button is out of view, e.g. passed under the header, and shows again when it returns. A click away (which still reaches what it lands on) closes it, as does Escape, which returns focus to the button.
+ * The panel is a non-modal dialog, as the sidebar category filter's: the page scrolls beneath it, and it follows its button, flipping above it when there is no room below and staying clear of the header. It hides while the button is out of view, e.g. passed under the header, and shows again when it returns. A click away (which still reaches what it lands on) closes it, as does Escape, which returns focus to the button. Tab flows on from its edges as if it sat right after its button: Tab from its last item closes it and moves to what follows the button, and Shift+Tab from its first item returns to the button.
  * @param props - Component props.
  * @param props.Button - Button component opening the panel; defaults to the styled column filter button.
  * @param props.className - Class name applied to the panel.
@@ -102,7 +105,10 @@ export const ColumnFilter = <T extends RowData>({
                 open={open}
               >
                 <MenuTransition {...TransitionProps} placement={placement}>
-                  <Paper variant={PAPER_PROPS.VARIANT.MENU}>
+                  <Paper
+                    onKeyDown={getKeyDownHandler(anchorEl, onClose)}
+                    variant={PAPER_PROPS.VARIANT.MENU}
+                  >
                     <ColumnFilterList
                       column={column}
                       filterValue={filterValue}

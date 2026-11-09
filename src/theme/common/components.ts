@@ -145,11 +145,7 @@ const MuiButton: Components<Theme>["MuiButton"] = {
       boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
       color: PALETTE.INK_MAIN,
       // eslint-disable-next-line sort-keys -- disabling key order for readability
-      "&.Mui-focusVisible": {
-        backgroundColor: PALETTE.COMMON_WHITE,
-        boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
-      },
-      "&:hover": {
+      "&:hover, &.Mui-focusVisible": {
         backgroundColor: PALETTE.SMOKE_LIGHTEST,
         boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`,
       },
@@ -815,14 +811,14 @@ const MuiListItemButton: Components["MuiListItemButton"] = {
       minHeight: "unset",
       padding: "10px 16px",
       // eslint-disable-next-line sort-keys -- disabling key order for readability
-      "&:hover": {
+      "&:hover, &.Mui-focusVisible": {
         backgroundColor: PALETTE.SMOKE_LIGHT,
       },
       // eslint-disable-next-line sort-keys -- disabling key order for readability
       "&.Mui-selected": {
         backgroundColor: "unset",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:hover": {
+        "&:hover, &.Mui-focusVisible": {
           backgroundColor: PALETTE.SMOKE_LIGHT,
         },
       },

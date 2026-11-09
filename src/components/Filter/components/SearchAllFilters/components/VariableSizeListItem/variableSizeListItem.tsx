@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   ListItemButton,
   ListItemText,
   ListSubheader,
@@ -10,10 +9,9 @@ import { VIEW_KIND } from "../../../../../../common/categories/views/types";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../../../tests/testIds";
-import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
-import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FilterNoResultsFound } from "../../../FilterNoResultsFound/filterNoResultsFound";
 import { HighlightedLabel } from "../../../HighlightedLabel/highlightedLabel";
+import { Checkbox } from "../../../views/select/components/Checkbox/checkbox";
 import { ITEM_TYPE, SearchAllFiltersDynamicItem } from "../../common/entities";
 
 interface Props {
@@ -77,11 +75,7 @@ export default function VariableSizeListItem({
         selected={selected}
         style={style}
       >
-        <Checkbox
-          checked={selected}
-          checkedIcon={<CheckedIcon />}
-          icon={<UncheckedIcon />}
-        />
+        <Checkbox checked={selected} />
         <ListItemText
           disableTypography
           primary={
