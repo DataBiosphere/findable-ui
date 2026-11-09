@@ -24,8 +24,7 @@ export function buildExploreResponse(
 
 /**
  * Maps the entities to list items with the entity mapper, or passes them through when there is none. Duplicates the
- * SSFetchCSFilter strategy's `selectEntities` on purpose: strategies don't share code, and both are dropped once explore
- * view 2 keeps response data out of explore state.
+ * SSFetchCSFilter strategy's `selectEntities` on purpose: strategies don't share code.
  * @param entities - Entities.
  * @param entityMapper - Entity mapper, if any.
  * @returns List items.
