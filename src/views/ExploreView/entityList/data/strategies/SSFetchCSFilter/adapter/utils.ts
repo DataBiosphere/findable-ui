@@ -3,8 +3,7 @@ import type { ProcessExploreResponsePayload } from "../../../../../../../provide
 
 /**
  * Builds the explore response for the list items: loaded, and paginated as a single page of every item; filtering and
- * paging happen on the client. Duplicated in the CSFetchCSFilter strategy on purpose: strategies don't share code, and
- * both copies are dropped once explore view 2 keeps response data out of explore state.
+ * paging happen on the client. Duplicated in the CSFetchCSFilter strategy on purpose: strategies don't share code.
  * @param listItems - List items, mapped from the fetched entities.
  * @returns Explore response payload.
  */

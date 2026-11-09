@@ -38,8 +38,8 @@ import { buildStateSyncManagerContext } from "./utils";
 
 /**
  * Props for the ExploreView component.
- * Shares its name with the generic `ExploreViewProps` in ./types.ts, the props of explore view 2 (EV2), which the
- * entity list's data strategies already take. This Azul-based one is to be cleaned up, leaving that one.
+ * Shares its name with the generic `ExploreViewProps` in ./types.ts, which the entity list's data strategies already
+ * take. This Azul-based one is to be cleaned up, leaving that one.
  */
 export interface ExploreViewProps extends AzulEntitiesStaticResponse {
   className?: string;
