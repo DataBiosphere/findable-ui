@@ -11,20 +11,24 @@ import type { SiteConfig } from "../src/config/entities";
 import type { ExploreState } from "../src/providers/exploreState";
 import { getRequests, mockGlobalFetch } from "./utils/fetchMock";
 
-type TestSiteConfig = Pick<SiteConfig, "dataSource">;
+type TestSiteConfig = Pick<SiteConfig, "dataSource" | "kyOptions">;
 
 const SITE_CONFIG: TestSiteConfig = {
   dataSource: {
-    defaultListParams: { size: "25" },
+    // The default sort is never sent: the sort comes from explore state.
+    defaultListParams: { size: "30", sort: "entryId" },
     url: "https://service.azul.data/",
   },
+  // jsdom has no `AbortSignal.any`, so ky would retry a cancelled request into a later test; browsers don't.
+  kyOptions: { retry: 0 },
 };
 
 const API_PATH = "https://service.azul.data/index/projects";
-const NEXT_URL = `${API_PATH}?catalog=dcp1&filters=%7B%7D&size=25&sort=projectTitle&order=asc&search_after=Brain&search_after_uid=doc%23a`;
+const NEXT_URL = `${API_PATH}?catalog=dcp1&filters=%7B%7D&size=30&sort=projectTitle&order=asc&search_after=Brain&search_after_uid=doc%23a`;
 const TOKEN = "test-token";
 
 let exploreState: ExploreState;
+let token: string | undefined;
 
 jest.unstable_mockModule("../src/config/config", () => ({
   // `getConfig` is mocked with only the relevant parts of the site config included in the return value
@@ -34,10 +38,18 @@ jest.unstable_mockModule("../src/hooks/useCatalog", () => ({
   useCatalog: jest.fn(() => "dcp1"),
 }));
 jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
-  useToken: jest.fn(() => ({ token: TOKEN })),
+  useToken: jest.fn(() => ({ token })),
 }));
-jest.unstable_mockModule("../src/hooks/useEntityService", () => ({
-  useEntityService: jest.fn(() => ({ path: API_PATH })),
+jest.unstable_mockModule("../src/hooks/useConfig", () => ({
+  useConfig: jest.fn(() => ({
+    config: {
+      dataSource: SITE_CONFIG.dataSource,
+      entities: [
+        { apiPath: API_PATH, route: "projects" },
+        { route: "platforms" }, // Client-side fetched: no API path.
+      ],
+    },
+  })),
 }));
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
   useExploreState: jest.fn(() => ({
@@ -77,24 +89,33 @@ class ErrorBoundary extends Component<
 }
 
 /**
- * Creates explore state for the projects entity list.
+ * Creates explore state for the selected entity list.
  * @param sorting - Sorting.
- * @param url - Pagination link of the requested page, if any.
- * @param filterState - Filter state.
+ * @param options - Options.
+ * @param options.filterState - Filter state.
+ * @param options.tabValue - Selected entity list type.
+ * @param options.url - Pagination link of the requested page, if any.
  * @returns Explore state.
  */
 function makeExploreState(
   sorting: ExploreState["entityPageState"][string]["sorting"],
-  url?: string,
-  filterState: ExploreState["filterState"] = [],
+  {
+    filterState = [],
+    tabValue = "projects",
+    url,
+  }: {
+    filterState?: ExploreState["filterState"];
+    tabValue?: string;
+    url?: string;
+  } = {},
 ): ExploreState {
   return {
-    entityPageState: { projects: { sorting } },
+    entityPageState: { [tabValue]: { sorting } },
     filterState,
     paginationState: {
       index: url ? { url } : null,
     },
-    tabValue: "projects",
+    tabValue,
   } as unknown as ExploreState;
 }
 
@@ -138,6 +159,7 @@ beforeAll(mockGlobalFetch);
 
 beforeEach(() => {
   fetchMock.resetMocks();
+  token = TOKEN;
 });
 
 describe("useQuery", () => {
@@ -153,10 +175,9 @@ describe("useQuery", () => {
     });
 
     // Page 2 of the ascending sort is requested.
-    exploreState = makeExploreState(
-      [{ desc: false, id: "projectTitle" }],
-      NEXT_URL,
-    );
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: NEXT_URL,
+    });
     const { rerender, result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
     });
@@ -191,10 +212,9 @@ describe("useQuery", () => {
 
   it("requests the pagination link exactly as given, with the token", async () => {
     fetchMock.mockResponseOnce(responseBody("page-2"));
-    exploreState = makeExploreState(
-      [{ desc: false, id: "projectTitle" }],
-      NEXT_URL,
-    );
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: NEXT_URL,
+    });
 
     const { result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
@@ -206,16 +226,13 @@ describe("useQuery", () => {
     const [request] = getRequests();
     expect(request.url).toBe(NEXT_URL);
     expect(request.headers.get("Authorization")).toBe(`Bearer ${TOKEN}`);
-    expect(result.current.data?.apiPath).toBe(API_PATH);
   });
 
   it("requests the first page with the filters and sort, and no sort key", async () => {
     fetchMock.mockResponseOnce(responseBody("page-1"));
-    exploreState = makeExploreState(
-      [{ desc: true, id: "projectTitle" }],
-      undefined,
-      [{ categoryKey: "genusSpecies", value: ["Homo sapiens"] }],
-    );
+    exploreState = makeExploreState([{ desc: true, id: "projectTitle" }], {
+      filterState: [{ categoryKey: "genusSpecies", value: ["Homo sapiens"] }],
+    });
 
     const { result } = renderHook(() => useQuery("projects"), {
       wrapper: makeWrapper(),
@@ -229,8 +246,95 @@ describe("useQuery", () => {
     );
     expect(url.searchParams.get("sort")).toBe("projectTitle");
     expect(url.searchParams.get("order")).toBe("desc");
+    expect(url.searchParams.get("size")).toBe("30");
     expect(url.searchParams.has("search_after")).toBe(false);
     expect(url.searchParams.has("search_before")).toBe(false);
+  });
+
+  it("requests the first page with the default page size, and no sort or order, when there is no sort", async () => {
+    fetchMock.mockResponseOnce(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+
+    const { result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    const url = new URL(getRequests()[0].url);
+    expect(url.origin + url.pathname).toBe(API_PATH);
+    expect(url.searchParams.get("catalog")).toBe("dcp1");
+    expect(url.searchParams.get("filters")).toBe("{}");
+    expect(url.searchParams.get("size")).toBe("30");
+    expect(url.searchParams.has("sort")).toBe(false);
+    expect(url.searchParams.has("order")).toBe(false);
+  });
+
+  it("requests the list again when the user signs in, with the token", async () => {
+    fetchMock.mockResponse(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+    token = undefined;
+
+    const { rerender, result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    token = TOKEN;
+    rerender();
+
+    await waitFor(() => expect(getRequests()).toHaveLength(2));
+    const [signedOut, signedIn] = getRequests();
+    expect(signedOut.headers.has("Authorization")).toBe(false);
+    expect(signedIn.headers.get("Authorization")).toBe(`Bearer ${TOKEN}`);
+  });
+
+  it("doesn't request the list again when the token is refreshed for the same user", async () => {
+    fetchMock.mockResponse(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+
+    const { rerender, result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    token = "refreshed-token";
+    rerender();
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+    expect(getRequests()).toHaveLength(1);
+  });
+
+  it("refuses a pagination link on another origin, without requesting it", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => undefined);
+    exploreState = makeExploreState([{ desc: false, id: "projectTitle" }], {
+      url: "https://elsewhere.example/index/projects?search_after=Brain",
+    });
+    const onError = jest.fn<(error: Error) => void>();
+
+    renderHook(() => useQuery("projects"), { wrapper: makeWrapper(onError) });
+
+    await waitFor(() => expect(onError).toHaveBeenCalled());
+    expect(onError.mock.calls[0][0]).toBeInstanceOf(DataExplorerError);
+    expect(getRequests()).toHaveLength(0);
+  });
+
+  it("doesn't request an entity list with no API path", async () => {
+    exploreState = makeExploreState([], { tabValue: "platforms" });
+
+    const { result } = renderHook(() => useQuery("platforms"), {
+      wrapper: makeWrapper(),
+    });
+
+    // A query that would fetch reports "fetching" from its first render; a skipped one stays idle.
+    expect(result.current.fetchStatus).toBe("idle");
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+    expect(result.current.fetchStatus).toBe("idle");
+    expect(result.current.data).toBeUndefined();
+    expect(getRequests()).toHaveLength(0);
   });
 
   it("throws a failed request to the error boundary as a DataExplorerError", async () => {
