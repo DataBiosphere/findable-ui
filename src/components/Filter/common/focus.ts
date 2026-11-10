@@ -32,7 +32,7 @@ export function closeAndRestoreFocus(
 }
 
 /**
- * Closes the panel, returning focus to its button when focus was in the panel: e.g. Escape, or the panel's own close control. A click away leaves focus where the click put it.
+ * Closes the panel on Escape or with the panel's own close control, returning focus to its button when focus was in the panel. Focus elsewhere is left where it is.
  * @param panelId - Id of the panel.
  * @param anchorEl - The panel's button.
  * @param onClose - Function to close the panel.
@@ -50,15 +50,6 @@ function closePanel(
 }
 
 /**
- * Moves focus to the panel's first control as it opens, without scrolling the page, so keyboard users land in the panel. Leaves focus alone when it is already in the panel, e.g. on a search box that focuses itself.
- * @param panel - The panel.
- */
-export function focusFirstControl(panel: HTMLElement): void {
-  if (isFocusWithin(panel)) return;
-  getTabbables(panel)[0]?.focus({ preventScroll: true });
-}
-
-/**
  * Returns the panel's close handler: closes the panel, returning focus to its button when focus was in the panel (see closePanel).
  * @param panelId - Id of the panel.
  * @param anchorEl - The panel's button.
@@ -71,6 +62,21 @@ export function getCloseHandler(
   onClose: () => void,
 ): () => void {
   return () => closePanel(panelId, anchorEl, onClose);
+}
+
+/**
+ * Returns the panel's open handler, which moves focus to its first control as it opens, without scrolling the page, so keyboard users land in the panel. A drawer panel's first control is its close button, which closes the whole drawer, so focus goes to the control after it. Leaves focus alone when it is already in the panel, e.g. on a search box that focuses itself.
+ * @param isDrawer - True when the panel is in the filters drawer.
+ * @returns Open handler, for the panel's transition.
+ */
+export function getFocusOnOpenHandler(
+  isDrawer: boolean,
+): (panel: HTMLElement) => void {
+  const index = isDrawer ? 1 : 0;
+  return (panel) => {
+    if (isFocusWithin(panel)) return;
+    getTabbables(panel)[index]?.focus({ preventScroll: true });
+  };
 }
 
 /**
@@ -144,10 +150,14 @@ function hasTabbableBeyond(
   const position = backwards
     ? Node.DOCUMENT_POSITION_PRECEDING
     : Node.DOCUMENT_POSITION_FOLLOWING;
-  return getTabbables(panel).some(
+  // Checks position first, so only controls in the right direction are measured, stopping at the first tabbable one.
+  return Array.from(
+    panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+  ).some(
     (element) =>
       element !== active &&
-      Boolean(active.compareDocumentPosition(element) & position),
+      Boolean(active.compareDocumentPosition(element) & position) &&
+      isTabbable(element),
   );
 }
 
@@ -198,7 +208,8 @@ function onPanelKeyDown(
 ): void {
   if (event.key !== "Tab" || !(anchorEl instanceof HTMLElement)) return;
   const panel = event.currentTarget;
-  const active = panel.ownerDocument.activeElement;
+  // The element focused when the key was pressed: a dialog's focus trap may already have moved focus to its sentinel.
+  const active = event.target;
   if (!(active instanceof HTMLElement) || !panel.contains(active)) return;
   if (hasTabbableBeyond(panel, active, event.shiftKey)) return;
   event.preventDefault();

@@ -5,8 +5,8 @@ import { PAPER_PROPS } from "../../../../styles/common/mui/paper";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { PopperProvider } from "../../../common/Popper/provider/provider";
 import {
-  focusFirstControl,
   getCloseHandler,
+  getFocusOnOpenHandler,
   getKeyDownHandler,
   getModalContainer,
 } from "../../common/focus";
@@ -118,7 +118,7 @@ export const Filter = ({
                   >
                     <TransitionComponent
                       {...TransitionProps}
-                      onEntering={focusFirstControl}
+                      onEntering={getFocusOnOpenHandler(isDrawer)}
                       placement={placement}
                     >
                       <Paper
