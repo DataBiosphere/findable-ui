@@ -5,7 +5,7 @@ import { transformFilters } from "../../../../../../../apis/azul/common/filterTr
 import { fetchApi } from "../../../../../../../entity/common/client";
 import {
   assertDataSourceOrigin,
-  buildHeaders,
+  getKyRequestOptions,
 } from "../../../../../../../entity/common/utils";
 import { DataExplorerError } from "../../../../../../../types/error";
 import type { QueryKey } from "./types";
@@ -32,8 +32,8 @@ function buildSearchParams(queryKey: QueryKey): Options["searchParams"] {
 /**
  * Requests the entity list. A next or previous page requests Azul's pagination link exactly as given, with no search
  * params: ky would replace the link's query string with them. Otherwise, the first page is requested with search params
- * built from the query key. Throws unless the request is on the data source's origin, so the access token is only ever
- * sent there.
+ * built from the query key. Throws unless a pagination link is on the data source's origin, so a link from the response
+ * can't send the access token elsewhere.
  * @param apiPath - API path of the entity list.
  * @param accessToken - Access token.
  * @param queryKey - Query key.
@@ -47,16 +47,14 @@ function fetchEntities(
   signal: AbortSignal,
 ): Promise<AzulEntitiesResponse> {
   const [, , , , { url }] = queryKey;
-  const headers = buildHeaders(accessToken);
+  const options = { ...getKyRequestOptions(accessToken), signal };
   if (url) {
     assertDataSourceOrigin(url);
-    return fetchApi<AzulEntitiesResponse>(url, { headers, signal }).json();
+    return fetchApi<AzulEntitiesResponse>(url, options).json();
   }
-  assertDataSourceOrigin(apiPath);
   return fetchApi<AzulEntitiesResponse>(apiPath, {
-    headers,
+    ...options,
     searchParams: buildSearchParams(queryKey),
-    signal,
   }).json();
 }
 

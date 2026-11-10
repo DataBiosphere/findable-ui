@@ -11,7 +11,7 @@ import type { SiteConfig } from "../src/config/entities";
 import type { ExploreState } from "../src/providers/exploreState";
 import { getRequests, mockGlobalFetch } from "./utils/fetchMock";
 
-type TestSiteConfig = Pick<SiteConfig, "dataSource">;
+type TestSiteConfig = Pick<SiteConfig, "dataSource" | "kyOptions">;
 
 const SITE_CONFIG: TestSiteConfig = {
   dataSource: {
@@ -19,6 +19,8 @@ const SITE_CONFIG: TestSiteConfig = {
     defaultListParams: { size: "25", sort: "entryId" },
     url: "https://service.azul.data/",
   },
+  // jsdom has no `AbortSignal.any`, so ky would retry a cancelled request into a later test; browsers don't.
+  kyOptions: { retry: 0 },
 };
 
 const API_PATH = "https://service.azul.data/index/projects";
@@ -26,6 +28,7 @@ const NEXT_URL = `${API_PATH}?catalog=dcp1&filters=%7B%7D&size=25&sort=projectTi
 const TOKEN = "test-token";
 
 let exploreState: ExploreState;
+let token: string | undefined;
 
 jest.unstable_mockModule("../src/config/config", () => ({
   // `getConfig` is mocked with only the relevant parts of the site config included in the return value
@@ -35,7 +38,7 @@ jest.unstable_mockModule("../src/hooks/useCatalog", () => ({
   useCatalog: jest.fn(() => "dcp1"),
 }));
 jest.unstable_mockModule("../src/hooks/authentication/token/useToken", () => ({
-  useToken: jest.fn(() => ({ token: TOKEN })),
+  useToken: jest.fn(() => ({ token })),
 }));
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
   useConfig: jest.fn(() => ({
@@ -156,6 +159,7 @@ beforeAll(mockGlobalFetch);
 
 beforeEach(() => {
   fetchMock.resetMocks();
+  token = TOKEN;
 });
 
 describe("useQuery", () => {
@@ -263,6 +267,43 @@ describe("useQuery", () => {
     expect(url.searchParams.get("size")).toBe("25");
     expect(url.searchParams.has("sort")).toBe(false);
     expect(url.searchParams.has("order")).toBe(false);
+  });
+
+  it("requests the list again when the user signs in, with the token", async () => {
+    fetchMock.mockResponse(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+    token = undefined;
+
+    const { rerender, result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    token = TOKEN;
+    rerender();
+
+    await waitFor(() => expect(getRequests()).toHaveLength(2));
+    const [signedOut, signedIn] = getRequests();
+    expect(signedOut.headers.has("Authorization")).toBe(false);
+    expect(signedIn.headers.get("Authorization")).toBe(`Bearer ${TOKEN}`);
+  });
+
+  it("doesn't request the list again when the token is refreshed for the same user", async () => {
+    fetchMock.mockResponse(responseBody("page-1"));
+    exploreState = makeExploreState([]);
+
+    const { rerender, result } = renderHook(() => useQuery("projects"), {
+      wrapper: makeWrapper(),
+    });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    token = "refreshed-token";
+    rerender();
+
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+    expect(getRequests()).toHaveLength(1);
   });
 
   it("refuses a pagination link on another origin, without requesting it", async () => {
