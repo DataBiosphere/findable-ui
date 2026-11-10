@@ -12,7 +12,8 @@ export function createQueryClient(): QueryClient {
 
 /**
  * Returns the query's `select`: maps the fetched entities to list items with the entity mapper, or passes them through
- * when there is none.
+ * when there is none. Duplicated by the CSFetchCSFilter strategy's `mapEntities` on purpose: strategies don't share
+ * code.
  * @param entityMapper - Entity mapper, if any.
  * @returns Select function.
  */
