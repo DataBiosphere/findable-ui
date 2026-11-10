@@ -16,7 +16,7 @@ type TestSiteConfig = Pick<SiteConfig, "dataSource" | "kyOptions">;
 const SITE_CONFIG: TestSiteConfig = {
   dataSource: {
     // The default sort is never sent: the sort comes from explore state.
-    defaultListParams: { size: "25", sort: "entryId" },
+    defaultListParams: { size: "30", sort: "entryId" },
     url: "https://service.azul.data/",
   },
   // jsdom has no `AbortSignal.any`, so ky would retry a cancelled request into a later test; browsers don't.
@@ -24,7 +24,7 @@ const SITE_CONFIG: TestSiteConfig = {
 };
 
 const API_PATH = "https://service.azul.data/index/projects";
-const NEXT_URL = `${API_PATH}?catalog=dcp1&filters=%7B%7D&size=25&sort=projectTitle&order=asc&search_after=Brain&search_after_uid=doc%23a`;
+const NEXT_URL = `${API_PATH}?catalog=dcp1&filters=%7B%7D&size=30&sort=projectTitle&order=asc&search_after=Brain&search_after_uid=doc%23a`;
 const TOKEN = "test-token";
 
 let exploreState: ExploreState;
@@ -246,7 +246,7 @@ describe("useQuery", () => {
     );
     expect(url.searchParams.get("sort")).toBe("projectTitle");
     expect(url.searchParams.get("order")).toBe("desc");
-    expect(url.searchParams.get("size")).toBe("25");
+    expect(url.searchParams.get("size")).toBe("30");
     expect(url.searchParams.has("search_after")).toBe(false);
     expect(url.searchParams.has("search_before")).toBe(false);
   });
@@ -264,7 +264,7 @@ describe("useQuery", () => {
     expect(url.origin + url.pathname).toBe(API_PATH);
     expect(url.searchParams.get("catalog")).toBe("dcp1");
     expect(url.searchParams.get("filters")).toBe("{}");
-    expect(url.searchParams.get("size")).toBe("25");
+    expect(url.searchParams.get("size")).toBe("30");
     expect(url.searchParams.has("sort")).toBe(false);
     expect(url.searchParams.has("order")).toBe(false);
   });
