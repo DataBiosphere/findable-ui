@@ -2,9 +2,10 @@ import {
   createColumnHelper,
   getCoreRowModel,
   getExpandedRowModel,
+  getGroupedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { JSX } from "react";
 import { CollapsableCell } from "../src/components/Table/components/TableCell/components/CollapsableCell/collapsableCell";
 import { ARIA_LABEL } from "../src/components/Table/components/TableCell/components/CollapsableCell/constants";
@@ -19,6 +20,13 @@ const ROWS: RowData[] = [
   { name: "Sample 456", organism: "Mus musculus" },
 ];
 
+// One group of three sub-rows, grouped by organism.
+const GROUPED_ROWS: RowData[] = [
+  { name: "Sample 1", organism: "Homo sapiens" },
+  { name: "Sample 2", organism: "Homo sapiens" },
+  { name: "Sample 3", organism: "Homo sapiens" },
+];
+
 // The first of the two test rows, counted from one.
 const TOGGLE_NAME = `${ARIA_LABEL.ROW_DETAILS}: 1`;
 
@@ -31,6 +39,33 @@ const COLUMNS = [
   }),
   columnHelper.accessor("organism", { header: "Organism" }),
 ];
+
+/**
+ * Renders a collapsable cell per group row of a table grouped by organism, as
+ * the explore view's stacked layout does.
+ * @returns Collapsable cells under test.
+ */
+function GroupedTestCell(): JSX.Element {
+  const table = useReactTable<RowData>({
+    columns: COLUMNS,
+    data: GROUPED_ROWS,
+    getCoreRowModel: getCoreRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getGroupedRowModel: getGroupedRowModel(),
+    initialState: { grouping: ["organism"] },
+  });
+  return (
+    <table>
+      <tbody>
+        {table.getRowModel().rows.map((row, position) => (
+          <tr key={row.id}>
+            <CollapsableCell position={position} row={row} />
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 /**
  * Renders a collapsable cell per row, with expansion driven by the table's own
@@ -153,5 +188,22 @@ describe("CollapsableCell", () => {
     expect(first.getAttribute("aria-controls")).not.toBe(
       second.getAttribute("aria-controls"),
     );
+  });
+
+  // The group's value shows once, in the summary; every sub-row's cell in the
+  // grouped column is a placeholder and is left out, not only the first one's.
+  it("should leave the grouped column out of every sub-row", () => {
+    render(<GroupedTestCell />);
+    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+    fireEvent.click(toggle);
+    const contents = document.getElementById(
+      toggle.getAttribute("aria-controls") as string,
+    ) as HTMLElement;
+
+    expect(screen.getAllByText("Homo sapiens")).toHaveLength(1);
+    expect(within(contents).queryByText("Homo sapiens")).toBeNull();
+    for (const { name } of GROUPED_ROWS) {
+      expect(within(contents).getByText(name)).not.toBeNull();
+    }
   });
 });
