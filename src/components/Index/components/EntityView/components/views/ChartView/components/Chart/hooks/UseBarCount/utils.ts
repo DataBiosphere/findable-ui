@@ -2,16 +2,16 @@ import { SelectCategoryValueView } from "../../../../../../../../../../../common
 import { MAX_BAR_COUNT } from "./constants";
 
 /**
- * Returns the initial bar count for the chart.
- * @param selectCategoryValueViews - Category value views.
- * @returns Initial bar count.
+ * Returns the number of bars the chart shows: the maximum bar count when the chart is expandable and not expanded, otherwise undefined (all bars).
+ * @param expandable - Whether the chart is expandable.
+ * @param expanded - Whether the chart is expanded.
+ * @returns Bar count, or undefined when all bars are shown.
  */
-export function initBarCount(
-  selectCategoryValueViews: SelectCategoryValueView[],
+export function getBarCount(
+  expandable: boolean,
+  expanded: boolean,
 ): number | undefined {
-  return isChartExpandable(selectCategoryValueViews)
-    ? MAX_BAR_COUNT
-    : undefined;
+  return expandable && !expanded ? MAX_BAR_COUNT : undefined;
 }
 
 /**
@@ -27,12 +27,10 @@ export function isChartExpandable(
 }
 
 /**
- * Updates the bar count for the chart.
- * @param barCount - Current bar count.
- * @returns Updated bar count.
+ * Toggles whether the chart is expanded to show all bars.
+ * @param expanded - Whether the chart is expanded.
+ * @returns The toggled expanded state.
  */
-export function updateBarCount(
-  barCount: number | undefined,
-): number | undefined {
-  return barCount === undefined ? MAX_BAR_COUNT : undefined;
+export function toggleExpanded(expanded: boolean): boolean {
+  return !expanded;
 }
