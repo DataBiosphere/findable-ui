@@ -15,7 +15,8 @@ export const StyledButton = styled(Button, {
   text-transform: none;
   text-align: left;
 
-  :hover {
+  :hover,
+  &.Mui-focusVisible {
     background-color: ${PALETTE.SMOKE_MAIN};
   }
 

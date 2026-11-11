@@ -1,9 +1,15 @@
 import { Paper } from "@mui/material";
-import { JSX, useId } from "react";
+import { JSX, useId, useState } from "react";
 import { isRangeCategoryView } from "../../../../common/categories/views/range/typeGuards";
 import { PAPER_PROPS } from "../../../../styles/common/mui/paper";
 import { TEST_IDS } from "../../../../tests/testIds";
 import { PopperProvider } from "../../../common/Popper/provider/provider";
+import {
+  getCloseHandler,
+  getFocusOnOpenHandler,
+  getKeyDownHandler,
+  getModalContainer,
+} from "../../common/focus";
 import { FilterLabel } from "../FilterLabel/filterLabel";
 import { FilterMenu } from "../FilterMenu/filterMenu";
 import { FilterRange } from "../FilterRange/filterRange";
@@ -22,6 +28,7 @@ import { getCloseCategoryLabel, getPopperOptions } from "./utils";
  * Category filter: a label button that opens the category's filter panel, followed by the given tags.
  * The panel is a non-modal dialog, showing a range form for range categories and a menu of values otherwise. In the drawer it slides in over a backdrop with a close button, and closing it from the backdrop, with Escape, or with the close button also invokes closeAncestor.
  * Otherwise it grows as a menu below its label, kept clear of the header. The page and the sidebar scroll while it is open: it follows its label, and hides while the label is scrolled out of view. A click away from it, which still reaches what it lands on, or Escape closes it, and its label toggles it.
+ * Focus moves to the panel's first control as it opens (or stays on its search box), and Tab flows on from its edges as if the panel sat right after its label: Tab from its last control closes it and moves to what follows the label, and Shift+Tab from its first control returns to the label. Escape, or closing it from its own close control, returns focus to the label. When the label sits in a MUI dialog, the panel renders inside the dialog, so the dialog's focus trap doesn't pull focus back out of it.
  * TODO(cc) refactor: build tags from categoryView for selected values.
  * TODO(cc) tests: add tests for selected values (rending of tags) for select and range categories.
  * @param props - Component props.
@@ -48,12 +55,16 @@ export const Filter = ({
   // Generated per instance: one Filter renders per category, and the drawer and
   // sidebar surfaces can both be mounted at once.
   const panelId = useId();
+  // The dialog the label sits in, if any, found when the panel opens. Kept after
+  // it closes, so the panel doesn't move to the body during its exit transition.
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   return (
     <PopperProvider>
       {({ anchorEl, onClose, onOpen, open }): JSX.Element => {
         const TransitionComponent = isDrawer
           ? DrawerTransition
           : MenuTransition;
+        const closeFromPanel = getCloseHandler(panelId, anchorEl, onClose);
         return (
           <>
             <FilterLabel
@@ -64,6 +75,7 @@ export const Filter = ({
               label={categoryView.label}
               onClick={(e) => {
                 if (open) return onClose();
+                setContainer(getModalContainer(e.currentTarget));
                 onOpen(e);
                 trackFilterOpened?.({ category: categoryView.key });
               }}
@@ -83,6 +95,7 @@ export const Filter = ({
               {...POPPER_PROPS}
               anchorEl={anchorEl}
               aria-label={categoryView.label}
+              container={container}
               data-testid={TEST_IDS.FILTER_POPOVER}
               id={panelId}
               open={open}
@@ -100,13 +113,18 @@ export const Filter = ({
                     anchorEl={anchorEl}
                     disabled={isDrawer}
                     onClose={onClose}
+                    onEscape={closeFromPanel}
                     open={open}
                   >
                     <TransitionComponent
                       {...TransitionProps}
+                      onEntering={getFocusOnOpenHandler(isDrawer)}
                       placement={placement}
                     >
-                      <Paper variant={PAPER_PROPS.VARIANT.MENU}>
+                      <Paper
+                        onKeyDown={getKeyDownHandler(anchorEl, onClose)}
+                        variant={PAPER_PROPS.VARIANT.MENU}
+                      >
                         {isDrawer && (
                           <IconButton
                             aria-label={getCloseCategoryLabel(
@@ -127,7 +145,7 @@ export const Filter = ({
                             min={categoryView.min}
                             selectedMax={categoryView.selectedMax}
                             selectedMin={categoryView.selectedMin}
-                            onCloseFilter={onClose}
+                            onCloseFilter={closeFromPanel}
                             onFilter={onFilter}
                             surfaceType={surfaceType}
                             unit={categoryView.unit}
@@ -137,7 +155,7 @@ export const Filter = ({
                             categoryKey={categoryView.key}
                             categoryLabel={categoryView.label}
                             categorySection={categorySection}
-                            onCloseFilter={onClose}
+                            onCloseFilter={closeFromPanel}
                             onFilter={onFilter}
                             surfaceType={surfaceType}
                             values={categoryView.values}

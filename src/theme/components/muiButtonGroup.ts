@@ -50,7 +50,7 @@ export const MuiButtonGroup: Components["MuiButtonGroup"] = {
               color: PALETTE.INK_MAIN,
               minWidth: 0,
               // eslint-disable-next-line sort-keys -- disabling key order for readability
-              "&:hover": {
+              "&:hover, &.Mui-focusVisible": {
                 backgroundColor: PALETTE.SMOKE_LIGHTEST,
                 boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
               },
@@ -58,10 +58,6 @@ export const MuiButtonGroup: Components["MuiButtonGroup"] = {
               "&:active": {
                 backgroundColor: PALETTE.SMOKE_LIGHTEST,
                 boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
-              },
-              // eslint-disable-next-line sort-keys -- disabling key order for readability
-              "&.Mui-focusVisible": {
-                boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}`,
               },
             },
           },

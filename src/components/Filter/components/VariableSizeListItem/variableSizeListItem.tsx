@@ -1,9 +1,4 @@
-import {
-  Checkbox,
-  ListItemButton,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import { ListItemButton, ListItemText, Typography } from "@mui/material";
 import { CSSProperties, JSX, useEffect, useRef } from "react";
 import { VIEW_KIND } from "../../../../common/categories/views/types";
 import { CategoryKey } from "../../../../common/entities";
@@ -11,10 +6,9 @@ import { OnFilterFn } from "../../../../hooks/useCategoryFilter";
 import { SELECT_CATEGORY_KEY } from "../../../../providers/exploreState/constants";
 import { TYPOGRAPHY_PROPS } from "../../../../styles/common/mui/typography";
 import { TEST_IDS } from "../../../../tests/testIds";
-import { CheckedIcon } from "../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
-import { UncheckedIcon } from "../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FilterMenuSearchMatch } from "../../common/entities";
 import { HighlightedLabel } from "../HighlightedLabel/highlightedLabel";
+import { Checkbox } from "../views/select/components/Checkbox/checkbox";
 
 interface Props {
   categoryKey: CategoryKey;
@@ -64,17 +58,15 @@ export default function VariableSizeListItem({
 
   return (
     <ListItemButton
+      // The button is the term's one tab stop, so it carries the selected state; its checkbox is out of the tab order.
+      aria-pressed={selected}
       data-testid={TEST_IDS.FILTER_ITEM}
       ref={listItemRef}
       onClick={handleItemClicked}
       selected={selected}
       style={itemStyle}
     >
-      <Checkbox
-        checked={selected}
-        checkedIcon={<CheckedIcon />}
-        icon={<UncheckedIcon />}
-      />
+      <Checkbox checked={selected} />
       <ListItemText
         disableTypography
         primary={
