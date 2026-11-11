@@ -1,11 +1,12 @@
 import { isSelectCategoryView } from "../../../../../../../common/categories/views/select/typeGuards";
-import { SelectCategoryView } from "../../../../../../../common/entities";
-import { CategoryFilter } from "../../../../../../Filter/components/Filters/filters";
+import { getChartSortFn } from "../../../../../../../common/chart/sort/utils";
+import type { SelectCategoryView } from "../../../../../../../common/entities";
+import type { CategoryFilter } from "../../../../../../Filter/components/Filters/filters";
 
 /**
- * Returns the set of select category views that have chart view enabled.
+ * Returns the select category views that have values and chart view enabled, each with its values sorted by the category's configured chart sort.
  * @param categoryFilters - Category filters.
- * @returns Set of category views with chart view enabled.
+ * @returns Category views with chart view enabled, with sorted values.
  */
 export function getSelectCategoryViews(
   categoryFilters: CategoryFilter[],
@@ -14,7 +15,11 @@ export function getSelectCategoryViews(
     .flatMap(({ categoryViews }) => categoryViews)
     .filter(isSelectCategoryView)
     .filter(({ chart }) => chart?.enable !== false)
-    .filter(({ values }) => values.length > 0);
+    .filter(({ values }) => values.length > 0)
+    .map((view) => ({
+      ...view,
+      values: [...view.values].sort(getChartSortFn(view.chart?.sortBy)),
+    }));
 }
 
 /**

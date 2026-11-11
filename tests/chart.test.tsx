@@ -1,12 +1,13 @@
 import { composeStories } from "@storybook/react";
-import { render, screen } from "@testing-library/react";
-import { SelectCategoryValueView } from "../src/common/entities";
+import { fireEvent, render, screen } from "@testing-library/react";
+import type { SelectCategoryValueView } from "../src/common/entities";
 import {
   getCategoryTotalCount,
   getCountText,
   parseTranslate,
 } from "../src/components/Index/components/EntityView/components/views/ChartView/components/Chart/barX/utils";
 import { CHART_TEST_ID } from "../src/components/Index/components/EntityView/components/views/ChartView/components/Chart/constants";
+import { MAX_BAR_COUNT } from "../src/components/Index/components/EntityView/components/views/ChartView/components/Chart/hooks/UseBarCount/constants";
 import * as stories from "../src/components/Index/components/EntityView/components/views/ChartView/components/Chart/stories/chart.stories";
 import { PALETTE } from "../src/styles/common/constants/palette";
 
@@ -142,6 +143,31 @@ describe("Chart", () => {
         .sort(sortByTransform)
         .map(mapTextContent);
       expect(textContents).toEqual(counts);
+    });
+  });
+
+  describe("bar count", () => {
+    const MANY_DATA: SelectCategoryValueView[] = Array.from(
+      { length: MAX_BAR_COUNT + 5 },
+      (_, i) => ({
+        count: 100 - i,
+        key: `value-${i}`,
+        label: `value-${i}`,
+        selected: false,
+      }),
+    );
+
+    it("draws the maximum bar count, then all bars when shown more", () => {
+      render(
+        <Default selectCategoryValueViews={MANY_DATA} testId={CHART_TEST_ID} />,
+      );
+      expect(getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "text").length).toBe(
+        MAX_BAR_COUNT,
+      );
+      fireEvent.click(screen.getByRole("button", { name: /show/i }));
+      expect(getEls(CLASSNAMES.TEXT_CATEGORY_LABEL, "text").length).toBe(
+        MANY_DATA.length,
+      );
     });
   });
 });
