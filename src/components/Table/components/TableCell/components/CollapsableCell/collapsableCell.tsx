@@ -29,8 +29,9 @@ export interface CollapsableCellProps<T extends RowData> {
 
 /**
  * Collapsable cell, rendering the row's pinned cell with a toggle that expands the row, and the row's other visible cells in a collapse below it.
- * A grouped row's collapse shows its sub-rows' visible cells instead, where only the first sub-row's cell at the pinned cell's position is left out.
- * Aggregated and placeholder cells are not shown, and each shown cell is preceded by its column meta's header when set.
+ * A grouped row's collapse shows its sub-rows' visible cells instead.
+ * Aggregated cells are not shown. Placeholder cells are not shown either, so no sub-row repeats the grouped column.
+ * Each shown cell is preceded by its column meta's header when set.
  * @param props - Component props.
  * @param props.isDisabled - Whether the toggle is disabled; defaults to false.
  * @param props.position - Zero-based position of the row among the rendered rows, numbering the toggle's accessible name; defaults to the row's index.
@@ -73,8 +74,10 @@ export const CollapsableCell = <T extends RowData>({
         <CollapsedContents>
           {getRowVisibleCells(row).map((cell, i) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
-            if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
+            if (cell.getIsPlaceholder()) return null; // A sub-row's cell in the grouped column; the group's value already shows in the summary.
             const header = cell.column.columnDef.meta?.header;
+            // The pinned cell shows in the summary. On a grouped row it is the grouped
+            // cell, so its index lands on the first sub-row's placeholder, skipped above.
             return (
               i !== pinnedIndex && (
                 <Content key={cell.id}>
