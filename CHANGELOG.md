@@ -1,5 +1,31 @@
 # Changelog
 
+## [61.0.0](https://github.com/DataBiosphere/findable-ui/compare/v60.0.1...v61.0.0) (2026-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* `closeAndRestoreFocus` moved from `lib/components/Table/components/TableFeatures/ColumnFilter/utils` to `lib/components/Filter/common/focus`. The `Checkbox` in `lib/components/Filter/components/views/select/components/Checkbox/checkbox` now defaults to `tabIndex={-1}`; pass `tabIndex={0}` for a standalone checkbox.
+* `Footer` no longer renders the version chip for `versionInfo={false}`. The unused `isNodeBoolean` helper is removed, along with its module `lib/components/utils`.
+* the `ky` peer range is now `^1.10.0` (was `^1.7.2`). The server-side-filtered entity list sends only `size` from `dataSource.defaultListParams`; its other keys (in practice only `sort`) are no longer sent. `buildListParams` is removed from the `SSFetchSSFilter` query module, and its exported `QueryKey` and `QueryParams` types change shape.
+* `lib/hooks/useEntityList` is removed; `ExploreView` now sends statically loaded entities into explore state itself, so apps need no replacement.
+
+### Features
+
+* fetch the explore view's server-side-filtered entity list without the entity service ([#1197](https://github.com/DataBiosphere/findable-ui/issues/1197)) ([#1210](https://github.com/DataBiosphere/findable-ui/issues/1210)) ([726b988](https://github.com/DataBiosphere/findable-ui/commit/726b9882f9e60fd61ed8e790b5c368403ea7e388))
+* send the client-side-fetched entity list into explore state from its own strategy ([#1195](https://github.com/DataBiosphere/findable-ui/issues/1195)) ([#1209](https://github.com/DataBiosphere/findable-ui/issues/1209)) ([3eb3abe](https://github.com/DataBiosphere/findable-ui/commit/3eb3abed0a4934611d98a6ba2c591a0f82d7fb62))
+
+
+### Bug Fixes
+
+* hide the footer's version chip when `versionInfo` is false ([#1086](https://github.com/DataBiosphere/findable-ui/issues/1086)) ([#1219](https://github.com/DataBiosphere/findable-ui/issues/1219)) ([777642c](https://github.com/DataBiosphere/findable-ui/commit/777642cadd04898595565b103dd528dcc99da178))
+* move keyboard focus into a filter panel when it opens ([#1205](https://github.com/DataBiosphere/findable-ui/issues/1205)) ([#1212](https://github.com/DataBiosphere/findable-ui/issues/1212)) ([9df52ed](https://github.com/DataBiosphere/findable-ui/commit/9df52edb4ccc3db5cfe63e9ef4bf316d54076b6a))
+
+
+### Tests
+
+* cover `CollapsableCell` grouped rows and correct its JSDoc on placeholder cells ([#1089](https://github.com/DataBiosphere/findable-ui/issues/1089)) ([#1220](https://github.com/DataBiosphere/findable-ui/issues/1220)) ([3241d47](https://github.com/DataBiosphere/findable-ui/commit/3241d471adf37d42c41c654b6e09bf42e5df10ca))
+
 ## [60.0.1](https://github.com/DataBiosphere/findable-ui/compare/v60.0.0...v60.0.1) (2026-11-06)
 
 
