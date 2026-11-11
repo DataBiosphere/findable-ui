@@ -39,12 +39,12 @@ describe("Footer versionInfo", () => {
     (versionInfo) => {
       expect(renderFooterChip(versionInfo)).toBeNull();
       // The nav link shows the links section rendered, so the chip is absent rather than the section.
-      expect(screen.getByText("Help")).not.toBeNull();
+      expect(screen.queryByText("Help")).not.toBeNull();
     },
   );
 
   it("renders a node in place of the default chip", () => {
     expect(renderFooterChip(<span>Custom version</span>)).toBeNull();
-    expect(screen.getByText("Custom version")).not.toBeNull();
+    expect(screen.queryByText("Custom version")).not.toBeNull();
   });
 });
