@@ -1,6 +1,10 @@
 import { Column, RowData, Table } from "@tanstack/react-table";
 import { isRangeCategoryConfig } from "../../../../../../common/categories/config/range/typeGuards";
 import {
+  countFilterValues,
+  getRangeCategoryKeys,
+} from "../../../../../../common/categories/config/range/utils";
+import {
   CategoryConfig,
   SelectCategoryConfig,
 } from "../../../../../../common/categories/config/types";
@@ -96,16 +100,23 @@ export function buildColumnFilters<T extends RowData>(
 
 /**
  * Adapter for TanStack table column filters to selected count.
+ * A range filter counts once; a select filter counts each selected value.
  * @param table - Table.
  * @returns Selected count.
  */
 export function getColumnFiltersCount<T extends RowData>(
   table: Table<T>,
 ): number {
+  const { options } = table;
+  const { meta = {} } = options;
+  const { categoryGroups } = meta as ColumnFiltersTableMeta<T>;
+  const rangeKeys = getRangeCategoryKeys(categoryGroups);
+
   return table
     .getState()
     .columnFilters.reduce(
-      (acc, columnFilter) => acc + (columnFilter.value as unknown[]).length,
+      (acc, { id, value }) =>
+        acc + countFilterValues(rangeKeys, id, value as unknown[]),
       0,
     );
 }
