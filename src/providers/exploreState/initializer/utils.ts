@@ -401,7 +401,7 @@ export function initReducerArguments(
     entityPageState,
     entityStateByCategoryGroupConfigKey,
     featureFlagState: decodedFeatureFlagParam,
-    filterCount: getFilterCount(filterState),
+    filterCount: getFilterCount(filterState, categoryGroups),
     filterSort: getFilterSortType(config),
     filterState,
     tabValue: entityListType,

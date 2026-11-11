@@ -67,7 +67,7 @@ export function urlToStateAction(
     featureFlagState,
     filterCount:
       entityListType === state.tabValue
-        ? getFilterCount(filterState)
+        ? getFilterCount(filterState, state.categoryGroups)
         : state.filterCount,
     filterState:
       entityListType === state.tabValue ? filterState : state.filterState,

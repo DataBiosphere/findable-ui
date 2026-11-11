@@ -1,4 +1,8 @@
 import {
+  countFilterValues,
+  getRangeCategoryKeys,
+} from "../../common/categories/config/range/utils";
+import {
   CategoryKey,
   CategoryValueKey,
   PaginationDirectionType,
@@ -6,6 +10,7 @@ import {
 } from "../../common/entities";
 import { COLUMN_IDENTIFIER } from "../../components/Table/common/columnIdentifier";
 import { RowPreviewState } from "../../components/Table/features/RowPreview/entities";
+import { CategoryGroup } from "../../config/entities";
 import { ExploreState, ListItems, PaginationState } from "../exploreState";
 import {
   CategoryGroupConfigKey,
@@ -130,12 +135,21 @@ export function getEntityStateSavedProperty<K extends "sorting" | "grouping">(
 }
 
 /**
- * Returns the filter count.
+ * Returns the filter count. A range filter counts once; a select filter counts each selected value.
  * @param filterState - Filter state.
+ * @param categoryGroups - Category groups of the filter state's entity, identifying its range categories.
  * @returns filter count.
  */
-export function getFilterCount(filterState: SelectedFilter[]): number {
-  return filterState.reduce((acc, filter) => acc + filter.value.length, 0);
+export function getFilterCount(
+  filterState: SelectedFilter[],
+  categoryGroups: CategoryGroup[] | undefined,
+): number {
+  const rangeKeys = getRangeCategoryKeys(categoryGroups);
+  return filterState.reduce(
+    (acc, { categoryKey, value }) =>
+      acc + countFilterValues(rangeKeys, categoryKey, value),
+    0,
+  );
 }
 
 /**

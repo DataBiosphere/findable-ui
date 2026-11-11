@@ -442,7 +442,7 @@ function exploreReducer(
           state,
           { grouping, rowPreview, rowSelection, sorting },
         ),
-        filterCount: getFilterCount(filterState),
+        filterCount: getFilterCount(filterState, state.categoryGroups),
         filterState,
         meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
         paginationState: resetPage(state.paginationState),
@@ -585,7 +585,10 @@ function exploreReducer(
         ...state,
         categoryGroups: entityState.categoryGroups,
         categoryViews: entityState.categoryViews,
-        filterCount: getFilterCount(entityState.filterState),
+        filterCount: getFilterCount(
+          entityState.filterState,
+          entityState.categoryGroups,
+        ),
         filterState: entityState.filterState,
         listItems: [],
         loading: true,
@@ -658,7 +661,7 @@ function exploreReducer(
         rowPreview: closeRowPreview(state.rowPreview),
         ...(payload.entityListType === state.tabValue
           ? {
-              filterCount: getFilterCount(filterState),
+              filterCount: getFilterCount(filterState, state.categoryGroups),
               filterState,
               paginationState: { ...resetPage(state.paginationState), rows: 0 },
             }
@@ -699,7 +702,7 @@ function exploreReducer(
           state,
           { rowPreview, rowSelection },
         ),
-        filterCount: getFilterCount(filterState),
+        filterCount: getFilterCount(filterState, state.categoryGroups),
         filterState,
         meta: { command: META_COMMAND.STATE_TO_URL_PUSH },
         paginationState: resetPage(state.paginationState),
