@@ -27,7 +27,7 @@ const GROUPED_ROWS: RowData[] = [
   { name: "Sample 3", organism: "Homo sapiens" },
 ];
 
-// The first of the two test rows, counted from one.
+// The first rendered row, counted from one.
 const TOGGLE_NAME = `${ARIA_LABEL.ROW_DETAILS}: 1`;
 
 const columnHelper = createColumnHelper<RowData>();
@@ -41,12 +41,13 @@ const COLUMNS = [
 ];
 
 /**
- * Renders a collapsable cell per group row of a table grouped by organism, as
- * the explore view's stacked layout does.
+ * Renders a collapsable cell per group row of a table grouped by organism,
+ * skipping sub-rows as the explore view's stacked layout does.
  * @returns Collapsable cells under test.
  */
 function GroupedTestCell(): JSX.Element {
   const table = useReactTable<RowData>({
+    autoResetPageIndex: false, // Grouping otherwise queues a page reset outside act().
     columns: COLUMNS,
     data: GROUPED_ROWS,
     getCoreRowModel: getCoreRowModel(),
@@ -57,11 +58,14 @@ function GroupedTestCell(): JSX.Element {
   return (
     <table>
       <tbody>
-        {table.getRowModel().rows.map((row, position) => (
-          <tr key={row.id}>
-            <CollapsableCell position={position} row={row} />
-          </tr>
-        ))}
+        {table
+          .getRowModel()
+          .rows.filter((row) => row.depth === 0)
+          .map((row, position) => (
+            <tr key={row.id}>
+              <CollapsableCell position={position} row={row} />
+            </tr>
+          ))}
       </tbody>
     </table>
   );
@@ -188,6 +192,20 @@ describe("CollapsableCell", () => {
     expect(first.getAttribute("aria-controls")).not.toBe(
       second.getAttribute("aria-controls"),
     );
+  });
+
+  // The pinned cell shows in the summary, so the expanded contents leave it out.
+  it("should leave the pinned cell out of an ungrouped row's contents", () => {
+    render(<TestCell />);
+    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+    fireEvent.click(toggle);
+    const contents = document.getElementById(
+      toggle.getAttribute("aria-controls") as string,
+    ) as HTMLElement;
+
+    expect(screen.getAllByText(ROWS[0].name)).toHaveLength(1);
+    expect(within(contents).queryByText(ROWS[0].name)).toBeNull();
+    expect(within(contents).getByText(ROWS[0].organism)).not.toBeNull();
   });
 
   // The group's value shows once, in the summary; every sub-row's cell in the
