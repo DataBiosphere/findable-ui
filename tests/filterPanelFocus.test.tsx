@@ -58,6 +58,28 @@ describe("Filter panel focus", () => {
     await waitFor(() => expect(document.activeElement).toBe(category));
   });
 
+  it("returns focus to the button when the drawer's category button closes a list panel", async () => {
+    render(<SelectCategory surfaceType={SURFACE_TYPE.DRAWER} />);
+    const button = await openByKeyboard(SELECT_LABEL);
+    const [, category] = within(getPanel()).getAllByRole("button");
+
+    category.focus();
+    await userEvent.keyboard("{Enter}");
+
+    await waitFor(() => expect(document.activeElement).toBe(button));
+  });
+
+  it("returns focus to the button when the drawer's category button closes a range panel", async () => {
+    render(<RangeCategory surfaceType={SURFACE_TYPE.DRAWER} />);
+    const button = await openByKeyboard(RANGE_LABEL);
+    const [, category] = within(getPanel()).getAllByRole("button");
+    await waitFor(() => expect(document.activeElement).toBe(category));
+
+    await userEvent.keyboard("{Enter}");
+
+    await waitFor(() => expect(document.activeElement).toBe(button));
+  });
+
   it("moves focus to the first control when a range panel opens by keyboard", async () => {
     render(<RangeCategory />);
 

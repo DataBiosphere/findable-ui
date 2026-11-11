@@ -7,7 +7,7 @@ import type { KeyboardEvent, KeyboardEventHandler } from "react";
 const FOCUSABLE_SELECTOR = [
   "a[href]",
   "button",
-  "input",
+  "input:not([type='hidden'])",
   "select",
   "textarea",
   "[tabindex]",
@@ -115,11 +115,8 @@ function getNextTabbable(
   const focusables = Array.from(
     root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
   );
-  const index = focusables.indexOf(anchor);
-  if (index < 0) return undefined;
-  // Checks only what follows the anchor, and stops at the first match, so the rest of the page isn't measured.
   return focusables
-    .slice(index + 1)
+    .slice(focusables.indexOf(anchor) + 1)
     .find((element) => !panel.contains(element) && isTabbable(element));
 }
 
@@ -150,7 +147,6 @@ function hasTabbableBeyond(
   const position = backwards
     ? Node.DOCUMENT_POSITION_PRECEDING
     : Node.DOCUMENT_POSITION_FOLLOWING;
-  // Checks position first, so only controls in the right direction are measured, stopping at the first tabbable one.
   return Array.from(
     panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
   ).some(
@@ -182,15 +178,13 @@ function isRendered(element: HTMLElement): boolean {
 }
 
 /**
- * Returns true if the element takes focus from the keyboard: not disabled, not a hidden input, not in an inert or aria-hidden subtree, with a tabindex of 0 or more, and rendered.
+ * Returns true if the element takes focus from the keyboard: not disabled, not in an inert or aria-hidden subtree, with a tabindex of 0 or more, and rendered.
  * @param element - Element.
  * @returns True if the element is tabbable.
  */
 function isTabbable(element: HTMLElement): boolean {
   if (element.tabIndex < 0) return false;
   if (element.matches(":disabled")) return false;
-  if (element instanceof HTMLInputElement && element.type === "hidden")
-    return false;
   if (element.closest("[inert], [aria-hidden='true']")) return false;
   return isRendered(element);
 }
