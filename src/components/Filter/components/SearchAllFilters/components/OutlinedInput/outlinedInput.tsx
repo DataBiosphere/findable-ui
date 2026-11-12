@@ -4,11 +4,12 @@ import { ClearInputAdornment } from "../../../../../common/OutlinedInput/compone
 import { SearchInputAdornment } from "../../../../../common/OutlinedInput/components/InputAdornment/components/SearchInputAdornment/searchInputAdornment";
 import { StyledOutlinedInput } from "../../../../../common/OutlinedInput/outlinedInput.styles";
 import { useAutocomplete } from "../../context/hook";
-import { TEXT_FIELD_PROPS } from "./constants";
+import { ARIA_LABEL, TEXT_FIELD_PROPS } from "./constants";
 import { isButtonIn } from "./utils";
 
 /**
  * Search all filters input, with a search adornment and a clear button that invokes the autocomplete context's onClear. The clear button shows while the autocomplete is open: always in the popper drawer, otherwise only with a search term.
+ * The clear button is out of the tab order, so Tab moves from the input to the next control; Escape clears the search from the keyboard.
  * @param props - Component props, the Mui Autocomplete input params; the input label props are not applied.
  * @returns The search all filters input.
  */
@@ -30,7 +31,9 @@ export const OutlinedInput = (
       endAdornment={
         <ClearInputAdornment
           in={isButtonIn(surfaceType, searchTerm, open)}
+          label={ARIA_LABEL.CLEAR_SEARCH}
           onClick={onClear}
+          tabIndex={-1}
         />
       }
       hasValue={!!searchTerm}

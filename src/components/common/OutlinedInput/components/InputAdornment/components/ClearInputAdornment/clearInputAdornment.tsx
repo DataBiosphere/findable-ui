@@ -17,12 +17,14 @@ import { ClearInputAdornmentProps } from "./types";
  * @param props.in - Whether the adornment is shown; renders nothing when false or omitted.
  * @param props.label - Accessible name for the clear button; falls back to the default clear label when missing or blank.
  * @param props.onClick - Function invoked when the clear button is clicked.
+ * @param props.tabIndex - Clear button tab index; omit to keep it in the tab order.
  * @returns The clear input adornment, or null when not shown.
  */
 export const ClearInputAdornment = ({
   in: isIn,
   label,
   onClick,
+  tabIndex,
 }: ClearInputAdornmentProps): JSX.Element | null => {
   if (!isIn) return null;
   return (
@@ -31,6 +33,7 @@ export const ClearInputAdornment = ({
         {...ICON_BUTTON_PROPS}
         aria-label={resolveAriaLabel(label, ARIA_LABEL.CLEAR)}
         onClick={onClick}
+        tabIndex={tabIndex}
       >
         <CloseRounded {...SVG_ICON_PROPS} />
       </IconButton>

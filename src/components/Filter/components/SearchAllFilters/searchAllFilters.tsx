@@ -1,40 +1,66 @@
-import { ListProps as MListProps } from "@mui/material";
-import { forwardRef, JSX, useCallback, useRef, useState } from "react";
+import type {
+  AutocompleteCloseReason,
+  ListProps as MListProps,
+} from "@mui/material";
+import {
+  forwardRef,
+  JSX,
+  type SyntheticEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { isSelectCategoryView } from "../../../../common/categories/views/select/typeGuards";
 import { SELECTOR } from "../../../../common/selectors";
 import { TEST_IDS } from "../../../../tests/testIds";
+import { getModalContainer } from "../../common/focus";
 import {
   StyledPopper,
   StyledPopperDrawer,
 } from "../surfaces/popper/Popper/popper.styles";
 import { SURFACE_TYPE } from "../surfaces/types";
-import {
-  POPPER_DRAWER_SLOT_PROPS,
-  POPPER_MENU_SLOT_PROPS,
-} from "./common/constants";
+import { CLOSE_REASON, PLACEHOLDER_OPTIONS } from "./common/constants";
 import { OVERFLOW_STYLE } from "./common/entities";
-import { setElementsOverflowStyle } from "./common/utils";
+import {
+  applyMenuFilter,
+  getInput,
+  getSlotProps,
+  isFocusMovingIntoList,
+  setElementsOverflowStyle,
+} from "./common/utils";
 import { OutlinedInput } from "./components/OutlinedInput/outlinedInput";
 import { VariableSizeList } from "./components/VariableSizeList/VariableSizeList";
 import { AutocompleteContext } from "./context/context";
 import { useAutocomplete } from "./context/hook";
+import { useHighlight } from "./hooks/UseHighlight/hook";
+import { useListFocus } from "./hooks/UseListFocus/hook";
 import { StyledAutocomplete } from "./searchAllFilters.styles";
 import { SearchAllFiltersProps } from "./types";
 
 const Listbox = forwardRef<HTMLUListElement, MListProps>(
   function Listbox(props, ref): JSX.Element {
     props = Object.assign({}, props, {
+      "aria-multiselectable": true,
       children: undefined, // Content is controlled by VariableSizeList
     });
-    const { onFilter, searchTerm, selectCategoryViews, surfaceType } =
-      useAutocomplete();
+    const {
+      filteredItems,
+      highlightedIndex,
+      onFilter,
+      optionIdPrefix,
+      searchTerm,
+      surfaceType,
+    } = useAutocomplete();
     return (
       <VariableSizeList
         autocompleteListProps={props}
+        filteredItems={filteredItems}
+        highlightedIndex={highlightedIndex}
         onFilter={onFilter}
+        optionIdPrefix={optionIdPrefix}
         ref={ref}
         searchTerm={searchTerm}
-        selectCategoryViews={selectCategoryViews}
         surfaceType={surfaceType}
       />
     );
@@ -43,7 +69,9 @@ const Listbox = forwardRef<HTMLUListElement, MListProps>(
 
 /**
  * Search all filters: an autocomplete searching the values of all select categories, listing the matches in a virtualized list grouped by category.
- * Opening it in the popper menu stops the sidebar scrolling, so the input stays in view; the page still scrolls. Closing it clears the search term, restores the sidebar scrolling, and blurs the input. Clearing the search also closes it in the popper drawer.
+ * The list opens when the input takes focus. In the input, ArrowDown and ArrowUp move a highlight through the values, and Enter toggles the highlighted value. The terms sit in the tab order right after the input: Tab moves into the list, and on from its edges (see useListFocus).
+ * Within a MUI dialog the list renders in the dialog, so the dialog's focus trap leaves focus in the list.
+ * Opening it in the popper menu stops the sidebar scrolling, so the input stays in view; the page still scrolls. Closing it restores the sidebar scrolling and clears the highlight. Closing by moving focus away from the input and the list keeps the search term; closing with Escape clears it; closing any other way clears it and blurs the input. Clearing the search also closes it in the popper drawer.
  * The given Mui Autocomplete props override the defaults, including open, value, and the open, close and input change handlers.
  * @param props - Component props.
  * @param props.categoryViews - Category views; only select category views are searched.
@@ -60,9 +88,23 @@ export const SearchAllFilters = ({
   ...props /* Mui AutocompleteProps */
 }: SearchAllFiltersProps): JSX.Element => {
   const autocompleteRef = useRef<HTMLDivElement>(null);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const selectCategoryViews = categoryViews.filter(isSelectCategoryView);
+  // Filtered once per search, not on each highlight move.
+  const filteredItems = useMemo(
+    () =>
+      applyMenuFilter(categoryViews.filter(isSelectCategoryView), searchTerm),
+    [categoryViews, searchTerm],
+  );
+  const { highlightedIndex, onKeyDown, optionIdPrefix, resetHighlight } =
+    useHighlight({
+      autocompleteRef,
+      items: filteredItems,
+      onFilter,
+      open,
+      searchTerm,
+    });
 
   // Locks or restores the sidebar scroll; the page keeps scrolling, and the input stays in view.
   const handleBackgroundScroll = useCallback(
@@ -77,16 +119,30 @@ export const SearchAllFilters = ({
     [surfaceType],
   );
 
-  const onClose = useCallback((): void => {
-    setSearchTerm("");
-    setOpen(false);
-    handleBackgroundScroll(OVERFLOW_STYLE.NONE);
-    setTimeout(() => {
-      autocompleteRef.current?.querySelector("input")?.blur();
-    }, 100);
-  }, [handleBackgroundScroll]);
+  const onClose = useCallback(
+    (event?: SyntheticEvent, reason?: AutocompleteCloseReason): void => {
+      if (reason === CLOSE_REASON.BLUR && isFocusMovingIntoList(event)) return;
+      setOpen(false);
+      resetHighlight();
+      handleBackgroundScroll(OVERFLOW_STYLE.NONE);
+      if (reason === CLOSE_REASON.BLUR) return; // Focus has moved on; the search is kept for when it returns.
+      setSearchTerm("");
+      if (reason === CLOSE_REASON.ESCAPE) return; // Focus stays in the input.
+      setTimeout(() => {
+        getInput(autocompleteRef.current)?.blur();
+      }, 100);
+    },
+    [handleBackgroundScroll, resetHighlight],
+  );
+
+  const { onListBlur, onListKeyDown } = useListFocus({
+    autocompleteRef,
+    onClose,
+  });
 
   const onOpen = useCallback((): void => {
+    if (autocompleteRef.current)
+      setContainer(getModalContainer(autocompleteRef.current));
     setOpen(true);
     handleBackgroundScroll(OVERFLOW_STYLE.HIDDEN);
   }, [handleBackgroundScroll]);
@@ -99,11 +155,13 @@ export const SearchAllFilters = ({
   return (
     <AutocompleteContext.Provider
       value={{
+        filteredItems,
+        highlightedIndex,
         onClear,
         onFilter,
         open,
+        optionIdPrefix,
         searchTerm,
-        selectCategoryViews,
         surfaceType,
       }}
     >
@@ -113,17 +171,22 @@ export const SearchAllFilters = ({
         filterOptions={(options): string[] => options}
         freeSolo
         onClose={onClose}
-        onInputChange={(_, v = "") => setSearchTerm(v)}
+        onInputChange={(_, v = "") => {
+          setSearchTerm(v);
+          resetHighlight();
+        }}
+        onKeyDown={onKeyDown}
         onOpen={onOpen}
         open={open}
-        options={[""]} // Placeholder options, since item rendering is fully controlled by VariableSizeList
+        openOnFocus
+        options={PLACEHOLDER_OPTIONS} // Placeholder options, since item rendering is fully controlled by VariableSizeList
         ref={autocompleteRef}
         renderInput={OutlinedInput}
-        slotProps={
-          surfaceType === SURFACE_TYPE.POPPER_MENU
-            ? POPPER_MENU_SLOT_PROPS
-            : POPPER_DRAWER_SLOT_PROPS
-        }
+        slotProps={getSlotProps(surfaceType, {
+          container,
+          onBlur: onListBlur,
+          onKeyDown: onListKeyDown,
+        })}
         slots={
           surfaceType === SURFACE_TYPE.POPPER_MENU
             ? { listbox: Listbox, popper: StyledPopper }
