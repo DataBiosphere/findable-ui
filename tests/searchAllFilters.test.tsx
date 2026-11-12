@@ -15,6 +15,7 @@ import {
   GENUS_SPECIES,
 } from "../src/components/Filter/components/Filters/stories/constants";
 import { SearchAllFilters } from "../src/components/Filter/components/SearchAllFilters/searchAllFilters";
+import { SURFACE_TYPE } from "../src/components/Filter/components/surfaces/types";
 import { OnFilterFn } from "../src/hooks/useCategoryFilter";
 
 const CATEGORY_VIEWS = [BIOLOGICAL_SEX, GENUS_SPECIES];
@@ -319,31 +320,41 @@ describe("SearchAllFilters keyboard", () => {
   });
 
   it.each([
-    ["a dialog", Dialog, true],
-    ["a popover", PopoverSurface, false],
-  ])("keeps Tab in the list within %s", async (_, Surface, inSurface) => {
-    const user = userEvent.setup();
-    render(
-      <Surface>
-        <SearchAllFilters categoryViews={CATEGORY_VIEWS} onFilter={jest.fn()} />
-        <button>Next</button>
-      </Surface>,
-    );
-    const input = getInput();
+    ["a dialog", Dialog, SURFACE_TYPE.POPPER_MENU, true],
+    // The narrow-width Filters popover, which renders the search as a popper drawer.
+    ["a popover", PopoverSurface, SURFACE_TYPE.POPPER_DRAWER, false],
+  ])(
+    "keeps Tab in the list within %s",
+    async (_, Surface, surfaceType, inSurface) => {
+      const user = userEvent.setup();
+      render(
+        <Surface>
+          <SearchAllFilters
+            categoryViews={CATEGORY_VIEWS}
+            onFilter={jest.fn()}
+            surfaceType={surfaceType}
+          />
+          <button>Next</button>
+        </Surface>,
+      );
+      const input = getInput();
 
-    await user.type(input, "fem");
-    // Only a dialog's focus trap pulls focus back out of a list portaled to the body; jsdom doesn't run that trap, so where the list renders is checked directly.
-    const surfacePaper = input.closest(".MuiPaper-root");
-    expect(surfacePaper?.contains(screen.getByRole("listbox"))).toBe(inSurface);
-    await user.tab();
-    expect(document.activeElement).toBe(screen.getByRole("option"));
+      await user.type(input, "fem");
+      // Only a dialog's focus trap pulls focus back out of a list portaled to the body; jsdom doesn't run that trap, so where the list renders is checked directly.
+      const surfacePaper = input.closest(".MuiPaper-root");
+      expect(surfacePaper?.contains(screen.getByRole("listbox"))).toBe(
+        inSurface,
+      );
+      await user.tab();
+      expect(document.activeElement).toBe(screen.getByRole("option"));
 
-    await user.tab();
-    expect(document.activeElement).toBe(
-      screen.getByRole("button", { name: "Next" }),
-    );
-    expect(input).toHaveProperty("value", "fem");
-  });
+      await user.tab();
+      expect(document.activeElement).toBe(
+        screen.getByRole("button", { name: "Next" }),
+      );
+      expect(input).toHaveProperty("value", "fem");
+    },
+  );
 
   it("closes only the list on Escape from a term within a dialog", async () => {
     const user = userEvent.setup();
