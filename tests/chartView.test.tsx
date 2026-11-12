@@ -44,4 +44,13 @@ describe("ChartView", () => {
     const svgEls = document.querySelectorAll("svg");
     expect(svgEls.length).toBe(2);
   });
+
+  it("does not redraw the charts when rerendered with the same category filters", () => {
+    const { rerender } = render(<Default />);
+    const before = Array.from(document.querySelectorAll("svg"));
+    rerender(<Default />);
+    const after = Array.from(document.querySelectorAll("svg"));
+    expect(after).toHaveLength(2);
+    after.forEach((svg, i) => expect(svg).toBe(before[i]));
+  });
 });

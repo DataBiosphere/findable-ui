@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
-import { Fragment, JSX } from "react";
-import { getChartSortFn } from "../../../../../../../common/chart/sort/utils";
+import { Fragment, type JSX } from "react";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 import {
   Loading,
@@ -9,11 +8,10 @@ import {
 import { StyledGrid, StyledGridPaperSection } from "./chartView.styles";
 import { Chart } from "./components/Chart/chart";
 import { useChartView } from "./hooks/UseChartView/useChartView";
-import { ChartViewProps } from "./types";
+import type { ChartViewProps } from "./types";
 
 /**
  * Entity list chart view, with a loading overlay and a bar chart for each category view selected by useChartView, titled "<entity name> by <category label>".
- * Each chart's values are sorted by the category's configured chart sort.
  * @param props - Component props.
  * @param props.categoryFilters - Category filters.
  * @param props.entityName - Entity name, used in the chart titles.
@@ -39,17 +37,12 @@ export const ChartView = ({
         panelStyle={LOADING_PANEL_STYLE.INHERIT}
       />
       <StyledGrid data-testid={testId} ref={chartViewRef}>
-        {selectCategoryViews.map(({ chart, key, label, values }) => (
+        {selectCategoryViews.map(({ key, label, values }) => (
           <StyledGridPaperSection key={key}>
             <Typography variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}>
               {entityName} by {label}
             </Typography>
-            <Chart
-              selectCategoryValueViews={[...values].sort(
-                getChartSortFn(chart?.sortBy),
-              )}
-              width={width}
-            />
+            <Chart selectCategoryValueViews={values} width={width} />
           </StyledGridPaperSection>
         ))}
       </StyledGrid>
