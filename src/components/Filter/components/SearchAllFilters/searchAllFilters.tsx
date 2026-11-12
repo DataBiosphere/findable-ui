@@ -91,11 +91,16 @@ export const SearchAllFilters = ({
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  // Filtered once per search, not on each highlight move.
+  // Filtered only while the list is open, and once per search, not on each highlight move.
   const filteredItems = useMemo(
     () =>
-      applyMenuFilter(categoryViews.filter(isSelectCategoryView), searchTerm),
-    [categoryViews, searchTerm],
+      open
+        ? applyMenuFilter(
+            categoryViews.filter(isSelectCategoryView),
+            searchTerm,
+          )
+        : [],
+    [categoryViews, open, searchTerm],
   );
   const { highlightedIndex, onKeyDown, optionIdPrefix, resetHighlight } =
     useHighlight({
