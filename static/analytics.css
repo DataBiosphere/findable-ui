@@ -58,9 +58,19 @@
  * Fonts:
  *   This file does not bundle or import web fonts. The default font stack
  *   uses "Inter" with system fallbacks. For an exact visual match, load
- *   Inter and Roboto Mono (used by .fui-code) yourself:
+ *   Inter and Roboto Mono (used by .fui-code) yourself. This snippet loads
+ *   them without blocking first paint: text paints in the fallback font
+ *   first and switches to the web fonts once they load (display=swap).
  *
- *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap" />
+ *   <link rel="preconnect" href="https://fonts.googleapis.com" />
+ *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap" media="print" onload="this.media='all'" />
+ *   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Roboto+Mono&display=swap" /></noscript>
+ *
+ *   The onload attribute is inline script. If the page's Content Security
+ *   Policy blocks inline script, the fonts never apply; use a plain
+ *   <link rel="stylesheet"> with the same href instead, which delays first
+ *   paint until the fonts' stylesheet loads.
  *
  *   To use a different font, override --fui-font-family:
  *
@@ -141,14 +151,35 @@
  *   });
  *
  *   Chart.js draws text on the canvas, which doesn't re-render when a web
- *   font arrives. Set Chart.defaults.font.family to the Inter stack, and
- *   create the charts once Inter has loaded: chart.update() redraws the text
- *   but keeps the label widths it measured in the fallback font, so the axes
- *   stay sized for it. If Inter loads without blocking first paint, wait for
- *   its stylesheet (for example from the link's onload), then for
- *   document.fonts.load("400 12px Inter"). Called before the stylesheet has
- *   loaded, document.fonts.load resolves at once: the browser doesn't know
- *   the font yet.
+ *   font arrives, and chart.update() reuses the label widths it measured
+ *   for the same font family. With the Fonts snippet above, draw the charts
+ *   straight away with a font stack that leaves out Inter, then switch the
+ *   family to Inter once it has loaded: the new family makes update()
+ *   measure the labels again, so the axes fit Inter.
+ *
+ *   const FALLBACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+ *   Chart.defaults.font.family = FALLBACK;
+ *   // Create the charts.
+ *
+ *   const fonts = document.querySelector(
+ *     'link[href^="https://fonts.googleapis.com/css2"]',
+ *   );
+ *   new Promise((resolve) => {
+ *     if (fonts.sheet) return resolve();
+ *     fonts.addEventListener("load", resolve);
+ *     fonts.addEventListener("error", resolve);
+ *   })
+ *     .then(() => document.fonts.load("400 12px Inter"))
+ *     .then(() => {
+ *       Chart.defaults.font.family = `Inter, ${FALLBACK}`;
+ *       Object.values(Chart.instances).forEach((chart) => chart.update("none"));
+ *     });
+ *
+ *   Check fonts.sheet first: a script that runs after the stylesheet has
+ *   loaded never sees its load event. Wait for the stylesheet before
+ *   calling document.fonts.load: called earlier, it resolves at once,
+ *   because the browser doesn't know Inter yet. If the fonts are blocked,
+ *   the charts stay in the fallback font, like the page's text.
  *
  * Toggletips:
  *   A toggletip is a button that shows and hides help content. It looks
