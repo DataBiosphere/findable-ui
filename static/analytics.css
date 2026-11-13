@@ -69,8 +69,9 @@
  *
  *   The onload attribute is inline script. If the page's Content Security
  *   Policy blocks inline script, the fonts never apply; use a plain
- *   <link rel="stylesheet"> with the same href instead, which delays first
- *   paint until the fonts' stylesheet loads.
+ *   <link rel="stylesheet" media="all"> with the same href instead, which
+ *   delays first paint until the fonts' stylesheet loads. Keep media="all":
+ *   the Chart.js example below checks it to tell the fonts have loaded.
  *
  *   To use a different font, override --fui-font-family:
  *
