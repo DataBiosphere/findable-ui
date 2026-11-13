@@ -1,4 +1,4 @@
-import { Dispatch, JSX, SetStateAction } from "react";
+import { JSX } from "react";
 import { FileManifestFormatState } from "../../../../../../hooks/useFileManifest/useFileManifestFormat";
 import { FormFacet, ManifestDownloadFormat } from "../../../../common/entities";
 import { ExportButton } from "../../../ExportForm/components/ExportButton/exportButton";
@@ -17,16 +17,11 @@ export interface ExportToTerraFormProps {
   isLoading: boolean;
   manifestDownloadFormats: ManifestDownloadFormat[];
   onRequestManifest: OnRequestManifestFn;
-  setFileManifestFormat: Dispatch<
-    SetStateAction<ManifestDownloadFormat | undefined>
-  >;
 }
 
 /**
  * Export form for the export to Terra: the species and file type forms, a
- * manifest download format choice and a "Request Link" button. The
- * setFileManifestFormat prop is unused; the format is set through
- * fileManifestFormatState.
+ * manifest download format choice and a "Request Link" button.
  * @param props - Component props.
  * @param props.fileManifestFormatState - Selected manifest format and its setter.
  * @param props.formFacet - Species and file type facets for the form.
