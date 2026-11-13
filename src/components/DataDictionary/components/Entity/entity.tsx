@@ -40,7 +40,7 @@ export const Entity = <T extends RowData = Attribute>({
           id={classKey}
           variant={TYPOGRAPHY_PROPS.VARIANT.HEADING_SMALL}
         >
-          {cls.title} <AnchorLink anchorLink={classKey} />
+          {cls.title} <AnchorLink anchorLink={classKey} label={cls.title} />
         </StyledTypography>
         {cls.description && (
           <Typography
