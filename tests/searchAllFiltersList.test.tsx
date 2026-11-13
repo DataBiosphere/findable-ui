@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import type { ComponentType, CSSProperties, JSX } from "react";
 import type { ListChildComponentProps } from "react-window";
 import { SelectCategoryView } from "../src/common/entities";
+import { applyMenuFilter } from "../src/components/Filter/components/SearchAllFilters/common/utils";
 import { SURFACE_TYPE } from "../src/components/Filter/components/surfaces/types";
 import { TEST_IDS } from "../src/tests/testIds";
 
@@ -57,14 +58,19 @@ describe("SearchAllFilters VariableSizeList", () => {
     render(
       <VariableSizeList
         autocompleteListProps={{}}
+        filteredItems={applyMenuFilter(SELECT_CATEGORY_VIEWS, "")}
+        highlightedIndex={-1}
         onFilter={jest.fn()}
+        optionIdPrefix="search-all-filters-option"
         searchTerm=""
-        selectCategoryViews={SELECT_CATEGORY_VIEWS}
         surfaceType={SURFACE_TYPE.POPPER_MENU}
       />,
     );
     // The two categories are separated by a divider, which takes the same style.
-    expect(screen.getByRole("separator").style.height).toBe("");
+    // The divider is hidden from assistive tech, so the query includes hidden elements.
+    expect(screen.getByRole("separator", { hidden: true }).style.height).toBe(
+      "",
+    );
     const items = screen.getAllByTestId(TEST_IDS.FILTER_ITEM);
     expect(items).toHaveLength(2);
     for (const item of items) {

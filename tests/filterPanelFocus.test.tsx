@@ -295,12 +295,15 @@ describe("Filter panel focus", () => {
 
 describe("Search All Filters term", () => {
   it.each([true, false])(
-    "carries its selected state (%s) on its one tab stop",
+    "carries its selected state (%s) as an option that is a single tab stop",
     (selected) => {
       render(
         <SearchAllFiltersListItem
+          highlighted={false}
+          id="term"
           item={{
             categoryKey: "genusSpecies",
+            categoryLabel: "Genus Species",
             key: "genusSpecies:Homo sapiens",
             type: ITEM_TYPE.VALUE,
             value: {
@@ -317,7 +320,12 @@ describe("Search All Filters term", () => {
       );
 
       const term = screen.getByTestId(TEST_IDS.FILTER_ITEM);
-      expect(term.getAttribute("aria-pressed")).toBe(String(selected));
+      expect(term.getAttribute("role")).toBe("option");
+      expect(
+        screen.getByRole("option", { name: /^Homo sapiens ?, Genus Species/ }),
+      ).toBe(term);
+      expect(term.getAttribute("aria-selected")).toBe(String(selected));
+      expect(term.tabIndex).toBe(0);
       expect(within(term).getByRole("checkbox").tabIndex).toBe(-1);
     },
   );

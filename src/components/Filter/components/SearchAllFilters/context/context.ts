@@ -3,10 +3,12 @@ import { SURFACE_TYPE } from "../../surfaces/types";
 import { AutocompleteContextProps } from "./types";
 
 export const AutocompleteContext = createContext<AutocompleteContextProps>({
+  filteredItems: [],
+  highlightedIndex: -1,
   onClear: (): void => undefined,
   onFilter: (): void => undefined,
   open: false,
+  optionIdPrefix: "",
   searchTerm: "",
-  selectCategoryViews: [],
   surfaceType: SURFACE_TYPE.POPPER_MENU,
 });
