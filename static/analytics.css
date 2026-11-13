@@ -8,8 +8,12 @@
  *
  * GitHub Pages setup:
  *   1. Install the package: npm install @databiosphere/findable-ui
- *   2. Copy static/analytics.css into your GitHub Pages site
- *   3. Link it in your HTML:
+ *   2. Copy static/analytics.css and static/analytics.js into your GitHub
+ *      Pages site (analytics.js runs the tooltips and toggletips)
+ *   3. Link them in your HTML. If the page still has the tooltip or
+ *      toggletip scripts that earlier versions of these notes said to paste
+ *      in, remove them: with analytics.js as well, every click on a
+ *      toggletip opens and closes it at once, so it never shows.
  *
  *   <!doctype html>
  *   <html lang="en">
@@ -17,6 +21,7 @@
  *     <meta charset="UTF-8" />
  *     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  *     <link rel="stylesheet" href="analytics.css" />
+ *     <script defer src="analytics.js"></script>
  *   </head>
  *   <body class="fui-body">
  *     <header class="fui-header">
@@ -104,9 +109,9 @@
  *   Make the trigger a button with .fui-tooltip-trigger, which removes the
  *   button styling. Screen readers announce a button's description, and
  *   touch devices show the tooltip when it's tapped. Give an icon-only
- *   trigger an aria-label, and keep it the wrapper's first child: in browsers
- *   with CSS anchor positioning, the tooltip is placed against it and slides
- *   sideways rather than run off the screen:
+ *   trigger an aria-label, and keep it the wrapper's first child: the arrow
+ *   is drawn on it, and in browsers with CSS anchor positioning, the tooltip
+ *   is placed against it and slides sideways rather than run off the screen:
  *
  *   <span class="fui-tooltip-wrapper">
  *     <button
@@ -122,25 +127,8 @@
  *   </span>
  *
  *   Escape should close an open tooltip (WCAG 1.4.13), which CSS can't do.
- *   Add this script once per page. It keeps the tooltip closed until the
- *   pointer and focus have both left its trigger:
- *
- *   <script>
- *     document.addEventListener("keydown", (event) => {
- *       if (event.key !== "Escape") return;
- *       document
- *         .querySelectorAll(".fui-tooltip-wrapper:is(:hover, :focus-within)")
- *         .forEach((el) => el.classList.add("fui-tooltip-dismissed"));
- *     });
- *     ["focusout", "mouseout"].forEach((type) => {
- *       document.addEventListener(type, (event) => {
- *         const el = event.target.closest?.(".fui-tooltip-dismissed");
- *         if (!el || el.contains(event.relatedTarget)) return;
- *         if (el.matches(type === "focusout" ? ":hover" : ":focus-within")) return;
- *         el.classList.remove("fui-tooltip-dismissed");
- *       });
- *     });
- *   </script>
+ *   analytics.js does this, and keeps the tooltip closed until the pointer
+ *   and focus have both left its trigger.
  *
  *   Chart libraries draw their own tooltips (Chart.js draws on the canvas),
  *   so CSS can't style them. To match .fui-tooltip in Chart.js:
@@ -151,6 +139,16 @@
  *     cornerRadius: 4,
  *     padding: { x: 12, y: 8 },
  *   });
+ *
+ *   Chart.js draws text on the canvas, which doesn't re-render when a web
+ *   font arrives. Set Chart.defaults.font.family to the Inter stack, and
+ *   create the charts once Inter has loaded: chart.update() redraws the text
+ *   but keeps the label widths it measured in the fallback font, so the axes
+ *   stay sized for it. If Inter loads without blocking first paint, wait for
+ *   its stylesheet (for example from the link's onload), then for
+ *   document.fonts.load("400 12px Inter"). Called before the stylesheet has
+ *   loaded, document.fonts.load resolves at once: the browser doesn't know
+ *   the font yet.
  *
  * Toggletips:
  *   A toggletip is a button that shows and hides help content. It looks
@@ -177,49 +175,26 @@
  *     </span>
  *   </span>
  *
- *   Add this script once per page. It opens and closes the toggletip on
- *   click, and closes it on Escape (returning focus to the button), on a
- *   tap or click outside it, or when focus moves to another element on the
- *   page:
+ *   analytics.js opens and closes the toggletip on click, and closes it on
+ *   Escape (returning focus to the button if focus was inside the toggletip),
+ *   on a tap or click outside it, or when focus moves to another element on
+ *   the page.
  *
- *   <script>
- *     document.addEventListener("pointerdown", (event) => {
- *       document
- *         .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
- *         .forEach((trigger) => {
- *           if (!trigger.closest(".fui-toggletip").contains(event.target)) {
- *             trigger.setAttribute("aria-expanded", "false");
- *           }
- *         });
- *     });
- *     document.addEventListener("click", (event) => {
- *       const trigger = event.target.closest(".fui-toggletip-trigger");
- *       if (!trigger) return;
- *       const expanded = trigger.getAttribute("aria-expanded") === "true";
- *       trigger.setAttribute("aria-expanded", String(!expanded));
- *     });
- *     document.addEventListener("keydown", (event) => {
- *       if (event.key !== "Escape") return;
- *       document
- *         .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
- *         .forEach((trigger) => {
- *           const toggletip = trigger.closest(".fui-toggletip");
- *           if (toggletip.contains(document.activeElement)) trigger.focus();
- *           trigger.setAttribute("aria-expanded", "false");
- *         });
- *     });
- *     document.addEventListener("focusout", (event) => {
- *       const toggletip = event.target.closest(".fui-toggletip");
- *       // No relatedTarget: a press on the page (left to the pointerdown
- *       // handler, so a press on the content's text keeps it open) or focus
- *       // leaving the page.
- *       if (!toggletip || !event.relatedTarget) return;
- *       if (toggletip.contains(event.relatedTarget)) return;
- *       toggletip
- *         .querySelector(".fui-toggletip-trigger")
- *         .setAttribute("aria-expanded", "false");
- *     });
- *   </script>
+ * Narrow containers:
+ *   Where the browser doesn't support CSS anchor positioning, tooltip and
+ *   toggletip content is centred on its trigger and can run off screen from
+ *   a trigger in a narrow container, such as a stat card. Put
+ *   .fui-tooltip-boundary on the block element that holds the trigger, such
+ *   as the card's label: there, the content is centred on that element, no
+ *   wider than it, and placed above it, and the arrow stays on the trigger.
+ *   The content meets the arrow only when that element is one line of
+ *   centred text with no top padding, like a stat card's label. Browsers
+ *   with anchor positioning ignore the class.
+ *
+ *   <p class="fui-tooltip-boundary">
+ *     Engagement rate
+ *     <span class="fui-toggletip">...</span>
+ *   </p>
  */
 
 /* ---------- Custom Properties ---------- */
@@ -820,6 +795,12 @@
   padding: 0;
 }
 
+/* Holds the arrow */
+.fui-tooltip-wrapper > :first-child,
+.fui-toggletip > :first-child {
+  position: relative;
+}
+
 .fui-tooltip-trigger {
   cursor: help;
 }
@@ -842,6 +823,7 @@
   opacity: 0;
   padding: var(--fui-space-8) var(--fui-space-12);
   position: absolute;
+  text-align: start;
   transform: translateX(-50%);
   transition:
     opacity 150ms,
@@ -851,10 +833,12 @@
   z-index: 1500;
 }
 
-/* Arrow. It's drawn on the wrapper, centred over the trigger, so it still
-   points at the trigger when the content slides to stay on screen. */
-.fui-tooltip-wrapper::before,
-.fui-toggletip::before {
+/* Arrow. It's drawn on the trigger (the wrapper's first child), so it still
+   points at the trigger when the content slides to stay on screen or is
+   centred on a .fui-tooltip-boundary. It ignores the pointer, so a press on it
+   reaches the bridge below the content rather than the trigger. */
+.fui-tooltip-wrapper > :first-child::after,
+.fui-toggletip > :first-child::after {
   background-color: var(--fui-ink);
   bottom: calc(100% + 14px - 0.71em);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -863,6 +847,7 @@
   height: 0.71em;
   left: 50%;
   opacity: 0;
+  pointer-events: none;
   position: absolute;
   transform: translateX(-50%);
   transition:
@@ -873,8 +858,10 @@
   z-index: 1500;
 }
 
-/* Bridges the gap to the trigger, so the pointer can move onto the tooltip */
-.fui-tooltip::after {
+/* Bridges the gap to the trigger, so the pointer can move onto a tooltip, and
+   a press in the gap (or on the arrow) doesn't close a toggletip */
+.fui-tooltip::after,
+.fui-toggletip-content::after {
   content: "";
   height: 14px;
   left: 0;
@@ -883,25 +870,25 @@
   width: 100%;
 }
 
-.fui-tooltip-wrapper:hover::before,
+.fui-tooltip-wrapper:hover > :first-child::after,
 .fui-tooltip-wrapper:hover .fui-tooltip,
-.fui-tooltip-wrapper:focus-within::before,
+.fui-tooltip-wrapper:focus-within > :first-child::after,
 .fui-tooltip-wrapper:focus-within .fui-tooltip,
-.fui-toggletip:has(.fui-toggletip-trigger[aria-expanded="true"])::before,
+.fui-toggletip > [aria-expanded="true"]:first-child::after,
 .fui-toggletip-trigger[aria-expanded="true"] ~ .fui-toggletip-content {
   opacity: 1;
   visibility: visible;
 }
 
 /* No transition while closed, so the content (and its links) hides at once. */
-.fui-toggletip:not(:has(.fui-toggletip-trigger[aria-expanded="true"]))::before,
+.fui-toggletip > :first-child:not([aria-expanded="true"])::after,
 .fui-toggletip-trigger:not([aria-expanded="true"]) ~ .fui-toggletip-content {
   transition: none;
 }
 
-/* Set by the tooltip Escape script in the usage notes. No transition, so the
-   tooltip hides at once. */
-.fui-tooltip-wrapper.fui-tooltip-dismissed::before,
+/* Set by analytics.js when Escape is pressed. No transition, so the tooltip
+   hides at once. */
+.fui-tooltip-wrapper.fui-tooltip-dismissed > :first-child::after,
 .fui-tooltip-wrapper.fui-tooltip-dismissed .fui-tooltip {
   opacity: 0;
   transition: none;
@@ -911,7 +898,8 @@
 /* Keeps the content on screen. Where the browser supports anchor positioning,
    the content is placed against the trigger (the wrapper's first child) and,
    when centred content would overflow the viewport, lines up with the
-   trigger's left or right edge instead. Elsewhere it stays centred. */
+   trigger's left or right edge instead. Elsewhere it stays centred on the
+   trigger, or on a .fui-tooltip-boundary (below). */
 @supports (anchor-scope: all) and (position-try-fallbacks: flip-block) {
   .fui-tooltip-wrapper,
   .fui-toggletip {
@@ -932,6 +920,26 @@
     position-area: top;
     position-try-fallbacks: --fui-align-trigger-start, --fui-align-trigger-end;
     transform: none;
+  }
+}
+
+/* Keeps the content within a narrow container, such as a stat card, where the
+   browser doesn't support anchor positioning. The content is centred on the
+   .fui-tooltip-boundary element and no wider than it; the arrow stays on the
+   trigger. */
+@supports not ((anchor-scope: all) and (position-try-fallbacks: flip-block)) {
+  .fui-tooltip-boundary {
+    position: relative;
+  }
+
+  .fui-tooltip-boundary .fui-tooltip-wrapper,
+  .fui-tooltip-boundary .fui-toggletip {
+    position: static;
+  }
+
+  .fui-tooltip-boundary .fui-tooltip,
+  .fui-tooltip-boundary .fui-toggletip-content {
+    max-width: min(400px, 100%);
   }
 }
 

@@ -26,6 +26,7 @@
   "files": [
     "lib",
     "static/**/*.css",
+    "static/**/*.js",
     "types"
   ],
   "exports": {
