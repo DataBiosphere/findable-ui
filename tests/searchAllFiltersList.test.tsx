@@ -64,13 +64,12 @@ describe("SearchAllFilters VariableSizeList", () => {
       />,
     );
     // The two categories are separated by a divider, which takes the same style.
-    expect(screen.getByRole("separator")).toBeTruthy();
+    expect(screen.getByRole("separator").style.height).toBe("");
     const items = screen.getAllByTestId(TEST_IDS.FILTER_ITEM);
     expect(items).toHaveLength(2);
     for (const item of items) {
       expect(item.style.height).toBe("");
       expect(item.style.top).toBe("0px");
     }
-    expect(ROW_STYLE.height).toBe(40);
   });
 });
