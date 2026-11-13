@@ -187,14 +187,17 @@
  *       .catch(() => {}); // The font file failed: keep the fallback font.
  *   }
  *
- *   Only the snippet's onload sets media to "all", and it runs before any
- *   load listener, so media === "all" means the stylesheet is in use.
+ *   The snippet's onload sets media to "all", and runs before any load
+ *   listener, so media === "all" means the stylesheet is in use.
  *   document.fonts.check needs that test: before Inter's @font-face is
  *   known, it returns true. Check media before listening, too: a script
  *   that runs after the stylesheet has loaded never sees its load event.
  *   Called before the stylesheet has loaded, document.fonts.load resolves
  *   at once, because the browser doesn't know Inter yet. If the fonts are
  *   blocked, the charts keep the fallback font, like the page's text.
+ *
+ *   If you override --fui-font-family, drop the Fonts snippet and this
+ *   wait, and set Chart.defaults.font.family to your stack.
  *
  * Toggletips:
  *   A toggletip is a button that shows and hides help content. It looks
