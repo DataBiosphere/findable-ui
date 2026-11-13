@@ -1,4 +1,4 @@
-import { ElementType, JSX } from "react";
+import { ComponentType, ElementType, JSX } from "react";
 import { Filters } from "../../../../common/entities";
 import { useExploreState } from "../../../../hooks/useExploreState";
 import { useExportToTerraResponseURL } from "../../../../hooks/useExportToTerraResponseURL";
@@ -13,6 +13,7 @@ import {
   trackDatasetExportToTerraRequested,
   trackExportToTerraRequested,
 } from "../../common/tracking";
+import type { ExportToTerraFormProps } from "./components/ExportToTerraForm/exportToTerraForm";
 import { ExportToTerraNotStarted } from "./components/ExportToTerraNotStarted/exportToTerraNotStarted";
 import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerraReady";
 
@@ -20,7 +21,7 @@ import { ExportToTerraReady } from "./components/ExportToTerraReady/exportToTerr
  * Props for the ExportToTerra component.
  */
 export interface ExportToTerraProps {
-  ExportForm: ElementType;
+  ExportForm: ComponentType<ExportToTerraFormProps>;
   ExportToTerraStart: ElementType;
   ExportToTerraSuccess: ElementType;
   fileManifestState: FileManifestState;
@@ -39,7 +40,7 @@ export interface ExportToTerraProps {
  * URL configured, the form stays. Requesting the link tracks the export request
  * in analytics.
  * @param props - Component props.
- * @param props.ExportForm - Form component.
+ * @param props.ExportForm - Form component, rendered with ExportToTerraFormProps.
  * @param props.ExportToTerraStart - Content rendered above the form.
  * @param props.ExportToTerraSuccess - Content rendered above the link once it is ready.
  * @param props.fileManifestState - File manifest state.
