@@ -232,7 +232,7 @@ describe("SearchAllFilters keyboard", () => {
     expect(await screen.findAllByRole("option")).toHaveLength(4);
   });
 
-  it("moves Tab from the input through the terms and on to the next control, keeping the search", async () => {
+  it("moves Tab from the input through the terms and on to the next control, clearing the search", async () => {
     const user = userEvent.setup();
     renderSearchAllFilters();
     const input = getInput();
@@ -254,7 +254,7 @@ describe("SearchAllFilters keyboard", () => {
     expect(document.activeElement).toBe(
       screen.getByRole("button", { name: "Next" }),
     );
-    expect(input).toHaveProperty("value", "m");
+    expect(input).toHaveProperty("value", "");
     await waitFor(() =>
       expect(screen.queryAllByRole("option")).toHaveLength(0),
     );
@@ -346,7 +346,37 @@ describe("SearchAllFilters keyboard", () => {
     expect(document.activeElement).toBe(screen.getByRole("option"));
   });
 
-  it("moves Tab on to the next control when nothing matches, keeping the search", async () => {
+  it("moves Tab on to the next control when nothing is typed or highlighted", async () => {
+    const user = userEvent.setup();
+    renderSearchAllFilters();
+
+    await user.tab();
+    expect(await screen.findAllByRole("option")).toHaveLength(4);
+    await user.tab();
+
+    expect(document.activeElement).toBe(
+      screen.getByRole("button", { name: "Next" }),
+    );
+    await waitFor(() =>
+      expect(screen.queryAllByRole("option")).toHaveLength(0),
+    );
+  });
+
+  it("clears the search when a click moves focus away from the input", async () => {
+    const user = userEvent.setup();
+    renderSearchAllFilters();
+    const input = getInput();
+
+    await user.type(input, "fem");
+    await user.click(screen.getByRole("button", { name: "Next" }));
+
+    expect(input).toHaveProperty("value", "");
+    await waitFor(() =>
+      expect(screen.queryAllByRole("option")).toHaveLength(0),
+    );
+  });
+
+  it("moves Tab on to the next control when nothing matches, clearing the search", async () => {
     const user = userEvent.setup();
     renderSearchAllFilters();
     const input = getInput();
@@ -360,10 +390,10 @@ describe("SearchAllFilters keyboard", () => {
     expect(document.activeElement).toBe(
       screen.getByRole("button", { name: "Next" }),
     );
-    expect(input).toHaveProperty("value", "zzz");
+    expect(input).toHaveProperty("value", "");
   });
 
-  it("closes the list, keeping the search, when focus leaves a term", async () => {
+  it("closes the list, clearing the search, when focus leaves a term", async () => {
     const user = userEvent.setup();
     renderSearchAllFilters();
     const input = getInput();
@@ -372,7 +402,7 @@ describe("SearchAllFilters keyboard", () => {
     await user.tab();
     await user.click(screen.getByRole("button", { name: "Next" }));
 
-    expect(input).toHaveProperty("value", "fem");
+    expect(input).toHaveProperty("value", "");
     await waitFor(() =>
       expect(screen.queryAllByRole("option")).toHaveLength(0),
     );
@@ -411,7 +441,7 @@ describe("SearchAllFilters keyboard", () => {
       expect(document.activeElement).toBe(
         screen.getByRole("button", { name: "Next" }),
       );
-      expect(input).toHaveProperty("value", "fem");
+      expect(input).toHaveProperty("value", "");
     },
   );
 

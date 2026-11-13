@@ -71,7 +71,7 @@ const Listbox = forwardRef<HTMLUListElement, MListProps>(
  * Search all filters: an autocomplete searching the values of all select categories, listing the matches in a virtualized list grouped by category.
  * The list opens when the input takes focus. In the input, ArrowDown and ArrowUp move a highlight through the values, and Enter toggles the highlighted value. The terms sit in the tab order right after the input: Tab moves into the list, and on from its edges (see useListFocus).
  * Within a MUI dialog the list renders in the dialog, so the dialog's focus trap leaves focus in the list.
- * Opening it in the popper menu stops the sidebar scrolling, so the input stays in view; the page still scrolls. Closing it restores the sidebar scrolling and clears the highlight. Closing by moving focus away from the input and the list keeps the search term; closing with Escape clears it; closing any other way clears it and blurs the input. Clearing the search also closes it in the popper drawer.
+ * Opening it in the popper menu stops the sidebar scrolling, so the input stays in view; the page still scrolls. Closing it restores the sidebar scrolling, and clears the highlight and the search term. Closing by moving focus away from the input and the list, or with Escape, leaves focus where it is; closing any other way also blurs the input. Clearing the search also closes it in the popper drawer.
  * The given Mui Autocomplete props override the defaults, including open, value, and the open, close and input change handlers.
  * @param props - Component props.
  * @param props.categoryViews - Category views; only select category views are searched.
@@ -130,9 +130,10 @@ export const SearchAllFilters = ({
       setOpen(false);
       resetHighlight();
       handleBackgroundScroll(OVERFLOW_STYLE.NONE);
-      if (reason === CLOSE_REASON.BLUR) return; // Focus has moved on; the search is kept for when it returns.
       setSearchTerm("");
-      if (reason === CLOSE_REASON.ESCAPE) return; // Focus stays in the input.
+      // Focus has moved on, or stays in the input on Escape.
+      if (reason === CLOSE_REASON.BLUR || reason === CLOSE_REASON.ESCAPE)
+        return;
       setTimeout(() => {
         getInput(autocompleteRef.current)?.blur();
       }, 100);

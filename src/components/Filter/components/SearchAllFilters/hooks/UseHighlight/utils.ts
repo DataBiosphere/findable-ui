@@ -10,7 +10,11 @@ import {
   type Step,
 } from "../../common/entities";
 import { getInput, getListbox, toggleValue } from "../../common/utils";
-import type { AutocompleteKeyboardEvent, KeyDownParams } from "./types";
+import type {
+  AutocompleteKeyboardEvent,
+  KeyDownParams,
+  TabParams,
+} from "./types";
 
 /**
  * Returns the index of the value item with the given key.
@@ -66,7 +70,7 @@ export function getTermToFocus(
 }
 
 /**
- * Handles a key down in the search all filters input while the list is open, and not while an input method is composing text: ArrowDown and ArrowUp move the highlight through the values, Enter toggles the highlighted value, and Tab moves focus to the highlighted term, or the first term, clearing the highlight. With no terms, Tab leaves the search as usual. Mui's handling of these keys, and of PageDown and PageUp, is skipped: Mui only knows the autocomplete's placeholder option, and Enter on it would close the list.
+ * Handles a key down in the search all filters input while the list is open, and not while an input method is composing text: ArrowDown and ArrowUp move the highlight through the values, Enter toggles the highlighted value, and Tab moves focus to the highlighted term, or the first term, clearing the highlight. Tab leaves the search as usual when nothing is typed or highlighted, so an unfiltered list of every term doesn't hold it up, and when there are no terms. Mui's handling of ArrowDown, ArrowUp, PageDown and PageUp is skipped: Mui only knows the autocomplete's placeholder option. Mui does nothing on Enter, as it never highlights the placeholder and the input's text is the autocomplete's value.
  * @param event - Keyboard event.
  * @param params - Parameters.
  * @param params.highlightedIndex - Index of the highlighted item, or -1 when nothing is highlighted.
@@ -106,7 +110,6 @@ export function handleKeyDown(
       return;
     }
     case KEY.ENTER: {
-      event.defaultMuiPrevented = true;
       const item = items[highlightedIndex];
       if (item?.type !== ITEM_TYPE.VALUE) return;
       event.preventDefault();
@@ -117,15 +120,43 @@ export function handleKeyDown(
     case KEY.PAGE_UP:
       event.defaultMuiPrevented = true;
       return;
-    case KEY.TAB: {
-      if (event.shiftKey) return;
-      const term = getTermToFocus(event.target, highlightedOptionId);
-      if (!term) return;
-      event.preventDefault();
-      setHighlightedKey(null);
-      term.focus();
-    }
+    case KEY.TAB:
+      handleTab(event, event.target, {
+        highlightedIndex,
+        highlightedOptionId,
+        searchTerm,
+        setHighlightedKey,
+      });
   }
+}
+
+/**
+ * Handles Tab in the search input while the list is open: moves focus to the highlighted term, or the first term, clearing the highlight. Leaves Tab to the browser when nothing is typed or highlighted, so an unfiltered list of every term doesn't hold it up, when there are no terms, and for Shift+Tab.
+ * @param event - Keyboard event.
+ * @param input - Search input.
+ * @param params - Parameters.
+ * @param params.highlightedIndex - Index of the highlighted item, or -1 when nothing is highlighted.
+ * @param params.highlightedOptionId - Id of the highlighted item, or undefined when nothing is highlighted.
+ * @param params.searchTerm - Search term.
+ * @param params.setHighlightedKey - Function invoked with null to clear the highlight.
+ */
+function handleTab(
+  event: AutocompleteKeyboardEvent,
+  input: HTMLInputElement,
+  {
+    highlightedIndex,
+    highlightedOptionId,
+    searchTerm,
+    setHighlightedKey,
+  }: TabParams,
+): void {
+  if (event.shiftKey) return;
+  if (!searchTerm && highlightedIndex === -1) return;
+  const term = getTermToFocus(input, highlightedOptionId);
+  if (!term) return;
+  event.preventDefault();
+  setHighlightedKey(null);
+  term.focus();
 }
 
 /**

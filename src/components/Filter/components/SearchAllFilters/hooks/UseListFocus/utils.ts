@@ -31,7 +31,7 @@ function focusAdjacentTerm(
 }
 
 /**
- * Handles focus leaving a term in the list: closes the list, keeping the search, unless focus moves to another term or back to the search.
+ * Handles focus leaving a term in the list: closes the list, clearing the search, unless focus moves to another term or back to the search.
  * @param event - Blur event on the list's paper.
  * @param root - Autocomplete root element.
  * @param onClose - Function to close the list.
@@ -54,7 +54,7 @@ export function handleListBlur(
  * Handles a key down on a term in the list, as if the list sat right after the search input in the tab order.
  * ArrowDown and ArrowUp move to the next and previous term (see focusAdjacentTerm).
  * Escape closes the list and returns focus to the input, clearing the search as Escape in the input does.
- * Tab from the last term moves on to what follows the input, and Shift+Tab from the first term returns to the input. Neither closes the list itself: focus moving on closes it, keeping the search (see handleListBlur), and focus returning to the input leaves it open.
+ * Tab from the last term moves on to what follows the input, and Shift+Tab from the first term returns to the input. Neither closes the list itself: focus moving on closes it, clearing the search (see handleListBlur), and focus returning to the input leaves it open.
  * @param event - Key down event on the list's paper.
  * @param root - Autocomplete root element.
  * @param onClose - Function to close the list.

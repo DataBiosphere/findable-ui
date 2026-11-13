@@ -23,6 +23,17 @@ export interface KeyDownParams {
 }
 
 /**
+ * Parameters of the search input's Tab handler.
+ */
+export type TabParams = Pick<
+  KeyDownParams,
+  | "highlightedIndex"
+  | "highlightedOptionId"
+  | "searchTerm"
+  | "setHighlightedKey"
+>;
+
+/**
  * Return value of the useHighlight hook.
  */
 export interface UseHighlight {
