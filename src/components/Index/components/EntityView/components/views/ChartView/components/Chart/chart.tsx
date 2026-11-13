@@ -2,7 +2,6 @@ import { Fragment, JSX } from "react";
 import { BUTTON_PROPS } from "../../../../../../../../common/Button/constants";
 import { StyledBarX, StyledButton } from "./chart.styles";
 import { useBarCount } from "./hooks/UseBarCount/hook";
-import { isChartExpandable } from "./hooks/UseBarCount/utils";
 import { usePlotOptions } from "./hooks/UsePlotOptions/hook";
 import { ChartProps } from "./types";
 import { renderButtonText } from "./utils";
@@ -20,26 +19,26 @@ export const Chart = ({
   testId,
   width,
 }: ChartProps): JSX.Element => {
-  const { barCount, onToggleBarCount } = useBarCount(selectCategoryValueViews);
+  const { barCount, expandable, expanded, onToggleBarCount } = useBarCount(
+    selectCategoryValueViews,
+  );
   const { options } = usePlotOptions(selectCategoryValueViews, width, barCount);
   return (
     <Fragment>
       <StyledBarX options={options} testId={testId} />
-      {isChartExpandable(selectCategoryValueViews) && (
+      {expandable && (
         <StyledButton
           {...BUTTON_PROPS.PRIMARY_TEXT}
           onClick={(e) => {
-            // Scroll, only if we are closing the chart (i.e. barCount is undefined).
-            const shouldScroll = barCount === undefined;
             onToggleBarCount();
-            if (!shouldScroll) return;
-            // Scroll the chart into view.
+            // Scroll, only if we are closing the chart.
+            if (!expanded) return;
             e.currentTarget
               ?.closest("div")
               ?.scrollIntoView({ behavior: "smooth" });
           }}
         >
-          {renderButtonText(barCount, selectCategoryValueViews)}
+          {renderButtonText(expanded, selectCategoryValueViews)}
         </StyledButton>
       )}
     </Fragment>

@@ -1,20 +1,16 @@
 import { SelectCategoryValueView } from "../../../../../../../../../common/entities";
+import { MAX_BAR_COUNT } from "./hooks/UseBarCount/constants";
 
 /**
- * Renders the button text for the chart.
- * @param maxBarCount - Maximum number of bars to display.
+ * Renders the button text for an expandable chart.
+ * @param expanded - Whether the chart is expanded.
  * @param selectCategoryValueViews - Category value views.
- * @returns Button text.
+ * @returns "Show less" when expanded, otherwise the number of additional results the button shows.
  */
 export function renderButtonText(
-  maxBarCount: number | undefined,
+  expanded: boolean,
   selectCategoryValueViews: SelectCategoryValueView[],
 ): string {
-  if (!maxBarCount) return "Show less";
-
-  // Calculate the number of additional bars to show.
-  const totalBars = selectCategoryValueViews.length;
-  const count = totalBars - maxBarCount;
-
-  return `Show ${count} additional results`;
+  if (expanded) return "Show less";
+  return `Show ${selectCategoryValueViews.length - MAX_BAR_COUNT} additional results`;
 }

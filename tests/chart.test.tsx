@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import type { SelectCategoryValueView } from "../src/common/entities";
@@ -296,4 +297,57 @@ function sortByTransform(a: SVGElement, b: SVGElement): number {
  */
 function stripTrailingEllipsis(text?: string | null): string {
   return (text || "").replace(/…{1,3}$/, "");
+}
+
+describe("Chart show more button", () => {
+  const MANY = MAX_BAR_COUNT + 10;
+  const scrollIntoView = jest.fn();
+
+  beforeEach(() => {
+    scrollIntoView.mockClear();
+    Element.prototype.scrollIntoView = scrollIntoView;
+  });
+
+  it("renders no button when every value fits", () => {
+    render(<Default testId={CHART_TEST_ID} />);
+    expect(screen.queryByRole("button")).toBeNull();
+  });
+
+  it("expands to all bars, then collapses and scrolls the chart into view", () => {
+    render(
+      <Default
+        selectCategoryValueViews={buildValues(MANY)}
+        testId={CHART_TEST_ID}
+      />,
+    );
+    expect(getEls("x-bar", "path").length).toEqual(MAX_BAR_COUNT);
+
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: `Show ${MANY - MAX_BAR_COUNT} additional results`,
+      }),
+    );
+
+    expect(getEls("x-bar", "path").length).toEqual(MANY);
+    expect(scrollIntoView).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByRole("button", { name: "Show less" }));
+
+    expect(getEls("x-bar", "path").length).toEqual(MAX_BAR_COUNT);
+    expect(scrollIntoView).toHaveBeenCalledTimes(1);
+  });
+});
+
+/**
+ * Builds the given number of unselected category value views.
+ * @param count - Number of values.
+ * @returns Category value views.
+ */
+function buildValues(count: number): SelectCategoryValueView[] {
+  return Array.from({ length: count }, (_, i) => ({
+    count: i + 1,
+    key: `value-${i}`,
+    label: `Value ${i}`,
+    selected: false,
+  }));
 }
