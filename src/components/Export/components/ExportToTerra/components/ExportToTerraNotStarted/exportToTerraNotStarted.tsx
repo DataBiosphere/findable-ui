@@ -1,4 +1,4 @@
-import { ElementType, JSX } from "react";
+import { ComponentType, ElementType, JSX } from "react";
 import { FileManifestFormatState } from "../../../../../../hooks/useFileManifest/useFileManifestFormat";
 import { FileManifestState } from "../../../../../../providers/fileManifestState";
 import { PAPER_PANEL_STYLE } from "../../../../../common/Paper/paper";
@@ -7,12 +7,13 @@ import { Loading } from "../../../../../Loading/loading";
 import { FormFacet, ManifestDownloadFormat } from "../../../../common/entities";
 import { Section, SectionContent } from "../../../../export.styles";
 import { OnRequestManifestFn } from "../../../ExportForm/exportForm";
+import type { ExportToTerraFormProps } from "../ExportToTerraForm/exportToTerraForm";
 
 /**
  * Props for the ExportToTerraNotStarted component.
  */
 export interface ExportToTerraNotStartedProps {
-  ExportTerraForm: ElementType;
+  ExportTerraForm: ComponentType<ExportToTerraFormProps>;
   ExportToTerraStart: ElementType;
   fileManifestFormatState: FileManifestFormatState;
   fileManifestState: FileManifestState;
