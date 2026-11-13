@@ -1,5 +1,9 @@
 import { jest } from "@jest/globals";
-import { Dialog as MDialog, Popover } from "@mui/material";
+import {
+  listItemButtonClasses,
+  Dialog as MDialog,
+  Popover,
+} from "@mui/material";
 import {
   act,
   fireEvent,
@@ -9,6 +13,7 @@ import {
 } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { JSX, ReactNode } from "react";
+import { VariableSizeList as ReactWindowList } from "react-window";
 import { VIEW_KIND } from "../src/common/categories/views/types";
 import {
   BIOLOGICAL_SEX,
@@ -22,6 +27,7 @@ const CATEGORY_VIEWS = [BIOLOGICAL_SEX, GENUS_SPECIES];
 
 describe("SearchAllFilters keyboard", () => {
   afterEach(() => {
+    jest.restoreAllMocks();
     jest.useRealTimers();
   });
 
@@ -37,9 +43,16 @@ describe("SearchAllFilters keyboard", () => {
 
     await user.keyboard("{ArrowDown}");
     expect(getActiveDescendant()).toBe(options[0]);
+    // The focus style is the only visible sign of the highlight.
+    expect(
+      options[0].classList.contains(listItemButtonClasses.focusVisible),
+    ).toBe(true);
 
     await user.keyboard("{ArrowDown}{ArrowDown}");
     expect(getActiveDescendant()).toBe(options[2]);
+    expect(
+      options[0].classList.contains(listItemButtonClasses.focusVisible),
+    ).toBe(false);
 
     await user.keyboard("{ArrowUp}");
     expect(getActiveDescendant()).toBe(options[1]);
@@ -60,7 +73,7 @@ describe("SearchAllFilters keyboard", () => {
     expect(getActiveDescendant()).toBe(options[0]);
   });
 
-  it("names each term with its category, and hides the category headers from screen readers", async () => {
+  it("names each term with its category in a multiselectable listbox, and hides the category headers and dividers from screen readers", async () => {
     const user = userEvent.setup();
     renderSearchAllFilters();
 
@@ -70,8 +83,50 @@ describe("SearchAllFilters keyboard", () => {
       await screen.findByRole("option", { name: /^Female ?, Biological Sex/ }),
     ).toBeTruthy();
     expect(
+      screen.getByRole("listbox").getAttribute("aria-multiselectable"),
+    ).toBe("true");
+    expect(
       screen.getByText("Genus Species").closest("[aria-hidden='true']"),
     ).not.toBeNull();
+    expect(
+      screen
+        .getByRole("separator", { hidden: true })
+        .closest("[aria-hidden='true']"),
+    ).not.toBeNull();
+  });
+
+  it("scrolls the highlighted term into view", async () => {
+    const user = userEvent.setup();
+    const scrollToItem = jest.spyOn(ReactWindowList.prototype, "scrollToItem");
+    renderSearchAllFilters();
+
+    await user.click(getInput());
+    await screen.findAllByRole("option");
+    await user.keyboard("{ArrowDown}{ArrowDown}{ArrowDown}");
+
+    // Biological Sex, Male, Female, divider, Genus Species, Homo sapiens.
+    expect(scrollToItem).toHaveBeenLastCalledWith(5);
+  });
+
+  it("clears the highlight when the list closes", async () => {
+    const user = userEvent.setup();
+    const onFilter = jest.fn<OnFilterFn>();
+    renderSearchAllFilters(onFilter);
+    const input = getInput();
+
+    await user.click(input);
+    await screen.findAllByRole("option");
+    await user.keyboard("{ArrowDown}");
+    await user.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() =>
+      expect(screen.queryAllByRole("option")).toHaveLength(0),
+    );
+
+    await user.click(input);
+    await screen.findAllByRole("option");
+    expect(input.hasAttribute("aria-activedescendant")).toBe(false);
+    await user.keyboard("{Enter}");
+    expect(onFilter).not.toHaveBeenCalled();
   });
 
   it("points aria-activedescendant at nothing when the list opens with nothing highlighted", async () => {
@@ -152,15 +207,19 @@ describe("SearchAllFilters keyboard", () => {
 
   it("clears the highlight when the search changes", async () => {
     const user = userEvent.setup();
-    renderSearchAllFilters();
+    const onFilter = jest.fn<OnFilterFn>();
+    renderSearchAllFilters(onFilter);
     const input = getInput();
 
     await user.type(input, "m");
     await user.keyboard("{ArrowDown}");
     expect(input.getAttribute("aria-activedescendant")).toBeTruthy();
 
+    // "ma" still lists Male, the highlighted term, so Enter would apply it if the highlight survived.
     await user.type(input, "a");
     expect(input.hasAttribute("aria-activedescendant")).toBe(false);
+    await user.keyboard("{Enter}");
+    expect(onFilter).not.toHaveBeenCalled();
   });
 
   it("opens the list when the input takes focus", async () => {
@@ -340,7 +399,7 @@ describe("SearchAllFilters keyboard", () => {
       const input = getInput();
 
       await user.type(input, "fem");
-      // Only a dialog's focus trap pulls focus back out of a list portaled to the body; jsdom doesn't run that trap, so where the list renders is checked directly.
+      // jsdom doesn't run MUI's focus traps, so where the list renders is checked directly: inside a dialog, whose trap pulled focus out of filter panels portaled to the body (#1205); portaled to the body from the narrow-width popover, also a MUI modal, whose trap lets focus stay on a portaled React child.
       const surfacePaper = input.closest(".MuiPaper-root");
       expect(surfacePaper?.contains(screen.getByRole("listbox"))).toBe(
         inSurface,
@@ -400,15 +459,16 @@ describe("SearchAllFilters keyboard", () => {
     renderSearchAllFilters(onFilter);
     const input = getInput();
 
-    await user.click(input);
-    await screen.findAllByRole("option");
+    // With text in the input, Mui's own Enter handling would close the list and clear the search.
+    await user.type(input, "fem");
     await user.keyboard("{Enter}");
     act(() => {
       jest.runOnlyPendingTimers();
     });
 
     expect(onFilter).not.toHaveBeenCalled();
-    expect(screen.getAllByRole("option")).toHaveLength(4);
+    expect(input).toHaveProperty("value", "fem");
+    expect(screen.getAllByRole("option")).toHaveLength(1);
     expect(document.activeElement).toBe(input);
   });
 
