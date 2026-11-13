@@ -75,11 +75,12 @@ interface OuterElementContextValue {
  */
 function renderListItem(props: ListChildComponentProps): JSX.Element {
   const { data, index, style } = props;
-  delete style.height; // Remove height style to allow variable size list to set item height.
+  // Omit height so each row renders at its natural, measured height, without mutating react-window's cached style object.
+  const { height: _height, ...itemStyle } = style;
   const { filteredItems, onFilter, onUpdateItemSizeByItemKey, searchTerm } =
     data as VariableSizeListData;
   const item = filteredItems[index];
-  if (item.type === ITEM_TYPE.DIVIDER) return <Divider style={style} />;
+  if (item.type === ITEM_TYPE.DIVIDER) return <Divider style={itemStyle} />;
   else
     return (
       <VariableSizeListItem
@@ -87,7 +88,7 @@ function renderListItem(props: ListChildComponentProps): JSX.Element {
         onFilter={onFilter}
         onUpdateItemSizeByItemKey={onUpdateItemSizeByItemKey}
         searchTerm={searchTerm}
-        style={style}
+        style={itemStyle}
       />
     );
 }
