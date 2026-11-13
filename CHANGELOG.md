@@ -1,5 +1,28 @@
 # Changelog
 
+## [62.0.0](https://github.com/DataBiosphere/findable-ui/compare/v61.0.0...v62.0.0) (2026-11-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* `ExportToTerraFormProps` no longer has `setFileManifestFormat` and `ManifestDownloadEntityProps` no longer has `manifestDownloadFormat`. Callers that pass either prop must stop passing it.
+* Search All Filters internals changed. `POPPER_MENU_SLOT_PROPS` and `POPPER_DRAWER_SLOT_PROPS` are removed from its `common/constants`. `VariableSizeListProps` takes `filteredItems`, `highlightedIndex` and `optionIdPrefix` in place of `selectCategoryViews`. `VariableSizeListItem` requires `highlighted` and `id`. `AutocompleteContextProps` changed shape, and `ValueItem` requires `categoryLabel`. Its terms are `role="option"` with `aria-selected`, in place of buttons with `aria-pressed`.
+* `initBarCount` and `updateBarCount` are removed from `UseBarCount/utils`; use `getBarCount(expandable, expanded)` and `toggleExpanded`. `renderButtonText` in `Chart/utils` now takes whether the chart is expanded instead of the bar count.
+
+### Bug Fixes
+
+* count a range filter once in the filter count chip ([#1102](https://github.com/DataBiosphere/findable-ui/issues/1102)) ([#1221](https://github.com/DataBiosphere/findable-ui/issues/1221)) ([8263c73](https://github.com/DataBiosphere/findable-ui/commit/8263c73dbfdd80edee179ef22bf3f63c56f78f33))
+* derive a chart's bar count from its current values, not the first render's ([#1098](https://github.com/DataBiosphere/findable-ui/issues/1098)) ([#1224](https://github.com/DataBiosphere/findable-ui/issues/1224)) ([de2deb8](https://github.com/DataBiosphere/findable-ui/commit/de2deb84cbd3c7a514bcf24010f15ea51c99e6bd))
+* keep `analytics.css` tooltips working without `:has()` and ship `analytics.js` ([#1236](https://github.com/DataBiosphere/findable-ui/issues/1236)) ([#1237](https://github.com/DataBiosphere/findable-ui/issues/1237)) ([797eadd](https://github.com/DataBiosphere/findable-ui/commit/797eadd215427dffec3b354f00676a71c00880d8))
+* let keyboard users reach the Search All Filters results ([#1214](https://github.com/DataBiosphere/findable-ui/issues/1214)) ([#1232](https://github.com/DataBiosphere/findable-ui/issues/1232)) ([7c53bef](https://github.com/DataBiosphere/findable-ui/commit/7c53bef190bd2deb5e414dd1d804a9cfcd5ce613))
+* remove the unused `setFileManifestFormat` and `manifestDownloadFormat` Export props ([#1106](https://github.com/DataBiosphere/findable-ui/issues/1106)) ([#1238](https://github.com/DataBiosphere/findable-ui/issues/1238)) ([3fba03d](https://github.com/DataBiosphere/findable-ui/commit/3fba03d404990e810824d4a20ecabd9e4c614470))
+* stop the search all filters list mutating react-window's row style ([#1103](https://github.com/DataBiosphere/findable-ui/issues/1103)) ([#1229](https://github.com/DataBiosphere/findable-ui/issues/1229)) ([d508d54](https://github.com/DataBiosphere/findable-ui/commit/d508d54cff3cdbc639a99e5d03f4f9983e267c66))
+
+
+### Performance Improvements
+
+* make `usePlotOptions`'s memo reuse its result ([#1097](https://github.com/DataBiosphere/findable-ui/issues/1097)) ([#1222](https://github.com/DataBiosphere/findable-ui/issues/1222)) ([4d9db40](https://github.com/DataBiosphere/findable-ui/commit/4d9db405ad357de5467fdb26d679e83f3fde0ed5))
+
 ## [61.0.0](https://github.com/DataBiosphere/findable-ui/compare/v60.0.1...v61.0.0) (2026-11-11)
 
 
