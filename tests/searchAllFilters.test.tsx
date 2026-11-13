@@ -287,6 +287,26 @@ describe("SearchAllFilters keyboard", () => {
     expect(screen.getAllByRole("option")).toHaveLength(4);
   });
 
+  it("moves Shift+Tab from the input with text to the previous control", async () => {
+    const user = userEvent.setup();
+    render(
+      <>
+        <button>Previous</button>
+        <SearchAllFilters
+          categoryViews={CATEGORY_VIEWS}
+          onFilter={jest.fn<OnFilterFn>()}
+        />
+      </>,
+    );
+
+    await user.type(getInput(), "fem");
+    await user.tab({ shift: true });
+
+    expect(document.activeElement).toBe(
+      screen.getByRole("button", { name: "Previous" }),
+    );
+  });
+
   it("moves ArrowDown and ArrowUp through the terms, stopping at the last and returning from the first to the input", async () => {
     const user = userEvent.setup();
     renderSearchAllFilters();
@@ -480,6 +500,23 @@ describe("SearchAllFilters keyboard", () => {
 
     expect(input).toHaveProperty("value", "");
     expect(document.activeElement).toBe(input);
+  });
+
+  it("reopens the list with ArrowDown after Escape closes it", async () => {
+    const user = userEvent.setup();
+    renderSearchAllFilters();
+    const input = getInput();
+
+    await user.type(input, "fem");
+    await user.keyboard("{Escape}");
+    await waitFor(() =>
+      expect(screen.queryAllByRole("option")).toHaveLength(0),
+    );
+    expect(document.activeElement).toBe(input);
+
+    await user.keyboard("{ArrowDown}");
+
+    expect(await screen.findAllByRole("option")).toHaveLength(4);
   });
 
   it("does nothing on Enter with no term highlighted", async () => {

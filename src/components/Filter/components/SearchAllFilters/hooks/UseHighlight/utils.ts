@@ -112,7 +112,6 @@ export function handleKeyDown(
     case KEY.ENTER: {
       const item = items[highlightedIndex];
       if (item?.type !== ITEM_TYPE.VALUE) return;
-      event.preventDefault();
       toggleValue(item, onFilter, searchTerm);
       return;
     }
