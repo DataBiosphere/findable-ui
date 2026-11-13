@@ -3,9 +3,11 @@ import { flexRender, RowData } from "@tanstack/react-table";
 import { JSX, memo } from "react";
 import { TEST_IDS } from "../../../../../../tests/testIds";
 import {
+  getColumnCellPadding,
   getTableCellAlign,
-  getTableCellPadding,
+  getTableCellContentMaxWidth,
 } from "../../../TableCell/common/utils";
+import { ClampedContent } from "../../../TableCell/components/ClampedContent/clampedContent";
 import { handleToggleExpanded } from "../../../TableFeatures/RowExpanding/utils";
 import { StyledTableRow } from "../../tableRow.styles";
 import { VirtualizedTableRowProps } from "./types";
@@ -55,6 +57,16 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow<
       {cells.map((cell, i) => {
         if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
         if (cell.getIsPlaceholder()) return null; // Display of placeholder cells is currently not supported.
+        const content = flexRender(
+          cell.column.columnDef.cell,
+          cell.getContext(),
+        );
+        const contentMaxWidth = getTableCellContentMaxWidth(cell.column);
+        const clampedContent = (
+          <ClampedContent maxLines={cell.column.columnDef.meta?.maxLines}>
+            {content}
+          </ClampedContent>
+        );
         return (
           <TableCell
             data-testid={
@@ -62,9 +74,15 @@ export const VirtualizedTableRow = memo(function VirtualizedTableRow<
             }
             key={cell.id}
             align={getTableCellAlign(cell.column)}
-            padding={getTableCellPadding(cell.column.id)}
+            padding={getColumnCellPadding(cell.column)}
           >
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {contentMaxWidth ? (
+              <div style={{ maxWidth: contentMaxWidth, width: "max-content" }}>
+                {clampedContent}
+              </div>
+            ) : (
+              clampedContent
+            )}
           </TableCell>
         );
       })}

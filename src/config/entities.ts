@@ -245,6 +245,7 @@ export type GetTitleFunction<T> = (detail?: T) => string | undefined;
  * Grid track configuration.
  */
 export type GridTrackAuto = "auto"; // Dimension specifying the track's maximum of the largest max-content size of the items in that track.
+export type GridTrackFitContent = `fit-content(${number}px)`;
 export type GridTrackFlex = `${number}fr`; // Dimension specifying the track's flex factor; unit in "fr".
 export type GridTrackLength = `${number}px`; // Dimension specifying the track's (fixed) width; unit in "px".
 export type GridTrackMaxContent = "max-content"; // Dimension specifying the track's size by the largest maximal content of the grid items in that track.
@@ -265,6 +266,7 @@ export interface GridTrackMinMax {
  */
 export type GridTrackSize =
   | GridTrackAuto
+  | GridTrackFitContent
   | GridTrackLength
   | GridTrackFlex
   | GridTrackMaxContent

@@ -38,3 +38,5 @@ export const TABLE_CELL_PROPS: TableCellPropsOptions = {
   SIZE,
   VARIANT,
 };
+
+export const TABLE_CELL_PADDING_X = 16;
