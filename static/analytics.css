@@ -153,33 +153,47 @@
  *   Chart.js draws text on the canvas, which doesn't re-render when a web
  *   font arrives, and chart.update() reuses the label widths it measured
  *   for the same font family. With the Fonts snippet above, draw the charts
- *   straight away with a font stack that leaves out Inter, then switch the
- *   family to Inter once it has loaded: the new family makes update()
- *   measure the labels again, so the axes fit Inter.
+ *   straight away in a font stack that leaves out Inter, unless Inter has
+ *   already loaded, then switch to the page's font once Inter loads: the
+ *   new family makes update() measure the labels again, so the axes fit
+ *   Inter. Run this after Chart.js; if Chart.js loads with defer, run it in
+ *   a DOMContentLoaded listener:
  *
- *   const FALLBACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
- *   Chart.defaults.font.family = FALLBACK;
- *   // Create the charts.
- *
+ *   // --fui-font-family without Inter.
+ *   const FALLBACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
  *   const fonts = document.querySelector(
  *     'link[href^="https://fonts.googleapis.com/css2"]',
  *   );
- *   new Promise((resolve) => {
- *     if (fonts.sheet) return resolve();
- *     fonts.addEventListener("load", resolve);
- *     fonts.addEventListener("error", resolve);
- *   })
- *     .then(() => document.fonts.load("400 12px Inter"))
- *     .then(() => {
- *       Chart.defaults.font.family = `Inter, ${FALLBACK}`;
- *       Object.values(Chart.instances).forEach((chart) => chart.update("none"));
- *     });
+ *   const pageFont = () =>
+ *     getComputedStyle(document.documentElement)
+ *       .getPropertyValue("--fui-font-family")
+ *       .trim();
+ *   const interLoaded =
+ *     fonts.media === "all" && document.fonts.check("400 12px Inter");
+ *   Chart.defaults.font.family = interLoaded ? pageFont() : FALLBACK;
+ *   // Create the charts.
  *
- *   Check fonts.sheet first: a script that runs after the stylesheet has
- *   loaded never sees its load event. Wait for the stylesheet before
- *   calling document.fonts.load: called earlier, it resolves at once,
- *   because the browser doesn't know Inter yet. If the fonts are blocked,
- *   the charts stay in the fallback font, like the page's text.
+ *   if (!interLoaded) {
+ *     new Promise((resolve) => {
+ *       if (fonts.media === "all") return resolve();
+ *       fonts.addEventListener("load", resolve);
+ *     })
+ *       .then(() => document.fonts.load("400 12px Inter"))
+ *       .then(() => {
+ *         Chart.defaults.font.family = pageFont();
+ *         Object.values(Chart.instances).forEach((chart) => chart.update("none"));
+ *       })
+ *       .catch(() => {}); // The font file failed: keep the fallback font.
+ *   }
+ *
+ *   Only the snippet's onload sets media to "all", and it runs before any
+ *   load listener, so media === "all" means the stylesheet is in use.
+ *   document.fonts.check needs that test: before Inter's @font-face is
+ *   known, it returns true. Check media before listening, too: a script
+ *   that runs after the stylesheet has loaded never sees its load event.
+ *   Called before the stylesheet has loaded, document.fonts.load resolves
+ *   at once, because the browser doesn't know Inter yet. If the fonts are
+ *   blocked, the charts keep the fallback font, like the page's text.
  *
  * Toggletips:
  *   A toggletip is a button that shows and hides help content. It looks
