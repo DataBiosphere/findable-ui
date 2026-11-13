@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>findable-ui Analytics CSS Preview</title>
     <link rel="stylesheet" href="analytics.css" />
+    <script defer src="analytics.js"></script>
     <style>
       :root {
         --fui-primary: #28285b;
@@ -163,6 +164,67 @@
         </p>
       </section>
 
+      <!-- Stat Cards: narrow cards whose labels are tooltip boundaries -->
+      <h2 class="fui-heading-large">Stat Cards</h2>
+      <div class="fui-grid-12">
+        <div class="fui-card fui-grid-item-3">
+          <div class="fui-card-content" style="text-align: center">
+            <p class="fui-heading-xlarge">12,345</p>
+            <p class="fui-body-small-400 fui-tooltip-boundary">
+              <span class="fui-tooltip-wrapper">
+                <button
+                  aria-describedby="users-tooltip"
+                  class="fui-tooltip-trigger"
+                  type="button"
+                >
+                  Users
+                </button>
+                <span class="fui-tooltip" id="users-tooltip" role="tooltip">
+                  Unique visitors this month, counted once however many sessions
+                  they start and whichever pages they view.
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="fui-card fui-grid-item-3">
+          <div class="fui-card-content" style="text-align: center">
+            <p class="fui-heading-xlarge">45,678</p>
+            <p class="fui-body-small-400">Sessions</p>
+          </div>
+        </div>
+        <div class="fui-card fui-grid-item-3">
+          <div class="fui-card-content" style="text-align: center">
+            <p class="fui-heading-xlarge">3m 12s</p>
+            <p class="fui-body-small-400">Average session</p>
+          </div>
+        </div>
+        <div class="fui-card fui-grid-item-3">
+          <div class="fui-card-content" style="text-align: center">
+            <p class="fui-heading-xlarge">62%</p>
+            <p class="fui-body-small-400 fui-tooltip-boundary">
+              Engagement rate
+              <span class="fui-toggletip">
+                <button
+                  aria-controls="engagement-help"
+                  aria-expanded="false"
+                  aria-label="About engagement rate"
+                  class="fui-toggletip-trigger"
+                  type="button"
+                >
+                  &#9432;
+                </button>
+                <span class="fui-toggletip-content" id="engagement-help">
+                  Sessions where users actively engaged: they stayed at least
+                  ten seconds, viewed two or more pages, or converted.
+                  <a href="#">Learn more</a>
+                </span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- Cards Grid -->
       <h2 class="fui-heading-large">Chart Cards</h2>
       <div class="fui-grid-12">
@@ -287,60 +349,5 @@
         </div>
       </div>
     </main>
-    <script>
-      document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        document
-          .querySelectorAll(".fui-tooltip-wrapper:is(:hover, :focus-within)")
-          .forEach((el) => el.classList.add("fui-tooltip-dismissed"));
-      });
-      ["focusout", "mouseout"].forEach((type) => {
-        document.addEventListener(type, (event) => {
-          const el = event.target.closest?.(".fui-tooltip-dismissed");
-          if (!el || el.contains(event.relatedTarget)) return;
-          if (el.matches(type === "focusout" ? ":hover" : ":focus-within"))
-            return;
-          el.classList.remove("fui-tooltip-dismissed");
-        });
-      });
-    </script>
-    <script>
-      document.addEventListener("pointerdown", (event) => {
-        document
-          .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
-          .forEach((trigger) => {
-            if (!trigger.closest(".fui-toggletip").contains(event.target)) {
-              trigger.setAttribute("aria-expanded", "false");
-            }
-          });
-      });
-      document.addEventListener("click", (event) => {
-        const trigger = event.target.closest(".fui-toggletip-trigger");
-        if (!trigger) return;
-        const expanded = trigger.getAttribute("aria-expanded") === "true";
-        trigger.setAttribute("aria-expanded", String(!expanded));
-      });
-      document.addEventListener("keydown", (event) => {
-        if (event.key !== "Escape") return;
-        document
-          .querySelectorAll('.fui-toggletip-trigger[aria-expanded="true"]')
-          .forEach((trigger) => {
-            const toggletip = trigger.closest(".fui-toggletip");
-            if (toggletip.contains(document.activeElement)) trigger.focus();
-            trigger.setAttribute("aria-expanded", "false");
-          });
-      });
-      document.addEventListener("focusout", (event) => {
-        const toggletip = event.target.closest(".fui-toggletip");
-        // No relatedTarget: a press on the page (left to the pointerdown
-        // handler, so a press on the content's text keeps it open) or focus
-        // leaving the page.
-        if (!toggletip || !event.relatedTarget) return;
-        if (toggletip.contains(event.relatedTarget)) return;
-        toggletip
-          .querySelector(".fui-toggletip-trigger")
-          .setAttribute("aria-expanded", "false");
-      });
-    </script>
   </body>
 </html>
