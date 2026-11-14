@@ -10,6 +10,7 @@ export interface Attribute {
   classKey?: string; // Programmatic class name or key (e.g. cell, sample) the attribute belongs to.
   description: string;
   example?: string; // Free text example of attribute
+  examples?: string[]; // Examples of attribute, one per item; a dictionary uses this or `example`, not both
   multivalued: boolean; // True if attribute can have multiple values
   name: string; // Programmatic slot name or key (e.g. batch_condition, biosamples.anatomical_site)
   range: string; // Type of attribute value e.g. "string"
