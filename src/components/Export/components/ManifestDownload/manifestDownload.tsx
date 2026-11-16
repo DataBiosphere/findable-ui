@@ -1,7 +1,6 @@
 import { ElementType, JSX } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
-import { useExploreState } from "../../../../hooks/useExploreState";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
@@ -9,6 +8,7 @@ import {
   useRequestFileLocation,
 } from "../../../../hooks/useRequestFileLocation";
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
+import { useExploreOrigin } from "../../../../providers/exploreOrigin/hook";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
 import { trackFileManifestRequested } from "../../common/tracking";
@@ -58,9 +58,7 @@ export const ManifestDownload = ({
 }: ManifestDownloadProps): JSX.Element => {
   useFileManifest(filters, fileSummaryFacetName);
   useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
-  const {
-    exploreState: { tabValue: entityList },
-  } = useExploreState();
+  const entityList = useExploreOrigin();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
     formFacet,

@@ -1,7 +1,6 @@
 import { ElementType, JSX, useState } from "react";
 import { MANIFEST_DOWNLOAD_FORMAT } from "../../../../apis/azul/common/entities";
 import { Filters } from "../../../../common/entities";
-import { useExploreState } from "../../../../hooks/useExploreState";
 import { useFileManifest } from "../../../../hooks/useFileManifest/useFileManifest";
 import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useFileManifestFileCount";
 import {
@@ -9,6 +8,7 @@ import {
   useRequestFileLocation,
 } from "../../../../hooks/useRequestFileLocation";
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
+import { useExploreOrigin } from "../../../../providers/exploreOrigin/hook";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import {
   BULK_DOWNLOAD_EXECUTION_ENVIRONMENT,
@@ -63,9 +63,7 @@ export const DownloadCurlCommand = ({
   useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
   const [executionEnvironment, setExecutionEnvironment] =
     useState<ExecutionEnvironment>(BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH);
-  const {
-    exploreState: { tabValue: entityList },
-  } = useExploreState();
+  const entityList = useExploreOrigin();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
     formFacet,

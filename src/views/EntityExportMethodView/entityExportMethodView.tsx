@@ -7,7 +7,7 @@ import { BackPageView } from "../../components/Layout/components/BackPage/backPa
 import { ExportMethodConfig } from "../../config/entities";
 import { useEntityExportConfig } from "../../hooks/useEntityExportConfig";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
-import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams";
 import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
 /**
@@ -19,7 +19,7 @@ export const EntityExportMethodView = (
   props: EntityDetailViewProps,
 ): JSX.Element => {
   // Update the catalog param if necessary.
-  useUpdateURLCatalogParams();
+  useUpdateURLParams();
 
   // Grab the entity to be exported.
   const { response } = useFetchEntity(props);

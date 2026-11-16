@@ -3,73 +3,70 @@ import { renderHook } from "@testing-library/react";
 import type { SelectedFilter } from "../src/common/entities";
 
 const FILTER_STATE: SelectedFilter[] = [
-  { categoryKey: "species", value: ["dog"] },
+  { categoryKey: "fileFormat", value: ["bam"] },
 ];
 
-const FILTER_PARAM = JSON.stringify(FILTER_STATE);
-
-const push = jest.fn();
+const replace = jest.fn();
+const LOCATION = { search: "" };
 
 jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
-  useRouter: jest.fn(() => ({ basePath: "", push })),
+  useRouter: jest.fn(() => ({ basePath: "", replace })),
+}));
+jest.unstable_mockModule("../src/hooks/useLocation", () => ({
+  useLocation: jest.fn(() => ({
+    href: `http://localhost/export${LOCATION.search}`,
+    pathname: "/export",
+    search: new URLSearchParams(LOCATION.search),
+  })),
 }));
 
 const { useURLFilterParams } = await import("../src/hooks/useURLFilterParams");
 
-/**
- * Sets the browser URL.
- * @param url - Path and search string, e.g. "/projects?catalog=dcp2".
- */
-function setLocation(url: string): void {
-  window.history.replaceState(null, "", url);
-}
-
 beforeEach(() => {
-  push.mockClear();
+  replace.mockClear();
+  LOCATION.search = "";
 });
 
-describe("useURLFilterParams", () => {
-  it("pushes the catalog and the filters to the URL", () => {
-    setLocation("/projects");
+describe("useURLFilterParams updateFilterQueryString", () => {
+  it("writes the catalog, the explore origin and the filters when the URL lacks them", () => {
     const { result } = renderHook(useURLFilterParams);
 
-    result.current.updateFilterQueryString("dcp2", FILTER_STATE);
+    result.current.updateFilterQueryString("dcp2", "files", FILTER_STATE);
 
-    expect(push).toHaveBeenCalledWith(
+    expect(replace).toHaveBeenCalledWith(
       {
-        pathname: "/projects",
-        query: { catalog: "dcp2", filter: FILTER_PARAM },
+        pathname: "/export",
+        query: {
+          catalog: "dcp2",
+          filter: JSON.stringify(FILTER_STATE),
+          from: "files",
+        },
       },
       undefined,
       { shallow: true },
     );
   });
 
-  it("puts a missing catalog back when the URL already has the filters", () => {
-    setLocation(`/projects?filter=${encodeURIComponent(FILTER_PARAM)}`);
+  it("writes the explore origin when only it is missing", () => {
+    LOCATION.search = "?catalog=dcp2";
     const { result } = renderHook(useURLFilterParams);
 
-    result.current.updateFilterQueryString("dcp2", FILTER_STATE);
+    result.current.updateFilterQueryString("dcp2", "files", []);
 
-    expect(push).toHaveBeenCalledWith(
-      {
-        pathname: "/projects",
-        query: { catalog: "dcp2", filter: FILTER_PARAM },
-      },
+    expect(replace).toHaveBeenCalledWith(
+      { pathname: "/export", query: { catalog: "dcp2", from: "files" } },
       undefined,
       { shallow: true },
     );
   });
 
-  it("leaves the URL alone when it already has the catalog and the filters", () => {
-    setLocation(
-      `/projects?catalog=dcp2&filter=${encodeURIComponent(FILTER_PARAM)}`,
-    );
+  it("leaves a URL that already matches alone", () => {
+    LOCATION.search = "?catalog=dcp2&from=files";
     const { result } = renderHook(useURLFilterParams);
 
-    result.current.updateFilterQueryString("dcp2", FILTER_STATE);
+    result.current.updateFilterQueryString("dcp2", "files", []);
 
-    expect(push).not.toHaveBeenCalled();
+    expect(replace).not.toHaveBeenCalled();
   });
 });

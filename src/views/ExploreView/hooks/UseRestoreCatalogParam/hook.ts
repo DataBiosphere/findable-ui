@@ -10,7 +10,7 @@ import { EXPLORE_URL_PARAMS } from "../../../../providers/exploreState/constants
  * it, for example a link that carries filters but no catalog. The URL is replaced
  * shallowly with the state's query, which includes the selected catalog. The
  * explore view's URL is written by its state sync manager, so this goes through
- * `stateToUrl` rather than `useUpdateURLCatalogParams`, whose replace isn't
+ * `stateToUrl` rather than `useUpdateURLParams`, whose replace isn't
  * shallow and would race the sync manager's own replace.
  * @param catalog - Catalog selected by the URL, if any.
  * @param dispatch - Explore state dispatch.

@@ -1,0 +1,22 @@
+import type { ReactNode } from "react";
+
+/**
+ * Explore origin context value.
+ */
+export interface ExploreOriginContextProps {
+  /**
+   * Entity list type the user explored from, e.g. "files".
+   */
+  exploreOrigin: string;
+  /**
+   * Sets the explore origin; the explore view calls it with its entity list type.
+   */
+  setExploreOrigin: (entityListType: string) => void;
+}
+
+/**
+ * Explore origin provider props.
+ */
+export interface ExploreOriginProviderProps {
+  children: ReactNode;
+}
