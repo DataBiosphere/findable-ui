@@ -1,6 +1,5 @@
 import { Stack } from "@mui/material";
 import { JSX, useEffect, useMemo } from "react";
-import { AzulEntitiesStaticResponse } from "../../apis/azul/common/entities";
 import { track } from "../../common/analytics/analytics";
 import { EVENT_NAME, EVENT_PARAM } from "../../common/analytics/entities";
 import { CategoryView, VIEW_KIND } from "../../common/categories/views/types";
@@ -36,24 +35,19 @@ import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
 import { useRestoreCatalogParam } from "./hooks/UseRestoreCatalogParam/hook";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { useValidateFilterParam } from "./hooks/UseValidateFilterParam/hook";
+import type { ExploreViewProps } from "./types";
 import { buildStateSyncManagerContext } from "./utils";
-
-/**
- * Props for the ExploreView component.
- * Shares its name with the generic `ExploreViewProps` in ./types.ts, which `DataSelector` and the `CSFetchCSFilter`
- * strategy take. This Azul-based one is to be cleaned up, leaving that one (#1217).
- */
-export interface ExploreViewProps extends AzulEntitiesStaticResponse {
-  className?: string;
-}
 
 /**
  * Renders the explore page: the entity list, plus the filter sidebar when there are categories to filter by.
  * Fetches the entity list, keeps explore state in sync with the URL, and tracks the selected entity type.
+ * @typeParam T - Entity type, inferred from `data`.
  * @param props - Component props.
  * @returns The explore view.
  */
-export const ExploreView = (props: ExploreViewProps): JSX.Element => {
+export const ExploreView = <T = unknown,>(
+  props: ExploreViewProps<T>,
+): JSX.Element => {
   const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
@@ -80,7 +74,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   useStateSyncManager({
     actions: { clearMeta, stateToUrl, urlToState },
     dispatch: exploreDispatch,
-    state: buildStateSyncManagerContext(exploreState, props, catalog),
+    state: buildStateSyncManagerContext(exploreState, entityListType, catalog),
   });
   useRestoreCatalogParam(catalog, exploreDispatch);
 
@@ -153,7 +147,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
 
   return (
     <DrawerProvider>
-      <DataSelector data={data?.hits} entityListType={entityListType} />
+      <DataSelector<T> data={data} entityListType={entityListType} />
       {categoryViews && !!categoryViews.length && (
         <Sidebar label={ARIA_LABEL.SIDEBAR}>
           <ToggleButtonGroup />
