@@ -6,12 +6,12 @@ let hasWarnedMissingProvider = false;
 /**
  * Returns the catalog in a router query param value.
  * @param value - Router query value of the `catalog` param.
- * @returns The catalog, or undefined when the value is missing or repeated.
+ * @returns The catalog, or undefined when the value is missing, empty or repeated.
  */
 export function getCatalogParam(
   value: string | string[] | undefined,
 ): string | undefined {
-  return typeof value === "string" ? value : undefined;
+  return typeof value === "string" && value ? value : undefined;
 }
 
 /**

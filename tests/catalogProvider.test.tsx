@@ -113,6 +113,18 @@ describe("CatalogProvider", () => {
     expect(result.current).toEqual({ catalog: "dcp2", catalogParam: "dcp2" });
   });
 
+  it("returns the config default when the URL's catalog param is empty", () => {
+    setLocationSearch("?catalog=");
+    ROUTER.query = { catalog: "" };
+
+    const { result } = renderHook(useCatalogs, { wrapper: Wrapper });
+
+    expect(result.current).toEqual({
+      catalog: DEFAULT_CATALOG,
+      catalogParam: undefined,
+    });
+  });
+
   it("ignores a repeated catalog param", () => {
     setLocationSearch("?catalog=dcp2&catalog=dcp3");
     ROUTER.query = { catalog: ["dcp2", "dcp3"] };
