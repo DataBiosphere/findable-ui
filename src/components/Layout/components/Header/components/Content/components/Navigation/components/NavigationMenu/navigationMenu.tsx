@@ -6,7 +6,7 @@ import {
   Paper as MPaper,
   PopperProps as MPopperProps,
 } from "@mui/material";
-import { Fragment, JSX, ReactNode, useEffect } from "react";
+import { ElementType, Fragment, JSX, ReactNode, useEffect } from "react";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
@@ -15,6 +15,13 @@ import {
 } from "../NavigationMenuItems/navigationMenuItems";
 import { POPPER_PROPS } from "./common/constants";
 import { Button, StyledMenuItem, StyledPopper } from "./navigationMenu.styles";
+import {
+  focusFirstMenuItem,
+  getCloseMenuHandler,
+  getEnteredHandler,
+  getMenuListKeyDownHandler,
+  getTriggerProps,
+} from "./utils";
 
 /**
  * Props for the NavigationMenu component.
@@ -62,7 +69,13 @@ export const NavigationMenu = ({
     open,
     triggerProps,
   } = useMenu();
-  const MenuItem = isSubMenu ? StyledMenuItem : Fragment;
+  // A submenu's item takes the props that open it, which a Fragment can't.
+  const MenuItem: ElementType = isSubMenu ? StyledMenuItem : Fragment;
+  const { buttonProps, menuItemProps } = getTriggerProps(
+    isSubMenu,
+    triggerProps,
+    onOpen,
+  );
 
   useEffect(() => {
     return (): void => {
@@ -72,12 +85,11 @@ export const NavigationMenu = ({
   }, [isSubMenu, onDisableScrollLock, open]);
 
   return (
-    <MenuItem>
+    <MenuItem {...menuItemProps}>
       <Button
-        {...triggerProps}
+        {...buttonProps}
         endIcon={<ArrowDropDownRounded fontSize="small" />}
         isActive={open}
-        onClick={onOpen}
         variant={isSelected ? "activeNav" : "nav"}
       >
         <NavigationButtonLabel label={menuLabel} />
@@ -91,21 +103,29 @@ export const NavigationMenu = ({
         {({ TransitionProps }): JSX.Element => (
           <Grow
             {...TransitionProps}
-            onEntered={(): void => {
-              if (isSubMenu) return;
-              onEnableScrollLock();
-            }}
+            onEntered={getEnteredHandler(isSubMenu, onEnableScrollLock)}
+            onEntering={focusFirstMenuItem}
           >
             <MPaper variant="menu">
               <MClickAwayListener onClickAway={onClose}>
                 {/* The id sits on the list, which carries role="menu"; the
                     Popper root is a role="tooltip" wrapper. */}
-                <MMenuList component="div" id={menuId}>
+                <MMenuList
+                  component="div"
+                  id={menuId}
+                  onKeyDown={getMenuListKeyDownHandler(
+                    isSubMenu,
+                    anchorEl,
+                    onClose,
+                  )}
+                >
                   <NavigationMenuItems
-                    closeMenu={(): void => {
-                      onClose();
-                      closeAncestor?.();
-                    }}
+                    closeMenu={getCloseMenuHandler(
+                      isSubMenu,
+                      anchorEl,
+                      onClose,
+                      closeAncestor,
+                    )}
                     menuItems={menuItems}
                     pathname={pathname}
                   />

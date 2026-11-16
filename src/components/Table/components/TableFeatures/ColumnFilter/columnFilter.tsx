@@ -5,12 +5,10 @@ import { BUTTON_PROPS } from "../../../../../styles/common/mui/button";
 import { PAPER_PROPS } from "../../../../../styles/common/mui/paper";
 import { SVG_ICON_PROPS } from "../../../../../styles/common/mui/svgIcon";
 import { getPopupAriaProps, HAS_POPUP } from "../../../../../utils/ariaPopup";
+import { closeAndRestoreFocus } from "../../../../../utils/focus";
 import { DropDownIcon } from "../../../../common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { PopperProvider } from "../../../../common/Popper/provider/provider";
-import {
-  closeAndRestoreFocus,
-  getKeyDownHandler,
-} from "../../../../Filter/common/focus";
+import { getKeyDownHandler } from "../../../../Filter/common/focus";
 import { withHeaderPadding } from "../../../../Filter/common/popper";
 import { ClickAway } from "../../../../Filter/components/Filter/components/ClickAway/clickAway";
 import { MenuTransition } from "../../../../Filter/components/Filter/components/MenuTransition/menuTransition";

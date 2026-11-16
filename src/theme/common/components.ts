@@ -264,7 +264,7 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         textTransform: "capitalize",
         whiteSpace: "nowrap",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:hover": {
+        "&:hover, &.Mui-focusVisible": {
           backgroundColor: PALETTE.SMOKE_LIGHT,
         },
       },
@@ -280,7 +280,7 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         textTransform: "capitalize",
         whiteSpace: "nowrap",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:hover": {
+        "&:hover, &.Mui-focusVisible": {
           backgroundColor: PALETTE.SMOKE_LIGHT,
         },
       }),
@@ -296,7 +296,7 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         textTransform: "capitalize",
         whiteSpace: "nowrap",
         // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "&:hover": {
+        "&:hover, &.Mui-focusVisible": {
           backgroundColor: PALETTE.SMOKE_LIGHT,
         },
       },

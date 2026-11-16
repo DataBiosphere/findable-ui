@@ -1,5 +1,6 @@
 import { dialogClasses, type PopperProps } from "@mui/material";
 import type { KeyboardEvent, KeyboardEventHandler } from "react";
+import { closeAndRestoreFocus } from "../../../utils/focus";
 
 /**
  * Elements that can take focus from the keyboard, before excluding disabled, hidden, inert and negative tabindex ones.
@@ -17,19 +18,6 @@ const FOCUSABLE_SELECTOR = [
  * Paper of a MUI dialog, whose focus trap would otherwise pull focus back out of a panel portaled to the body. Only dialogs: findable-ui's own drawer and popover surfaces style every paper inside them, and the drawer surface's backdrop sits above anything rendered inside them, so panels there stay portaled to the body.
  */
 const DIALOG_PAPER_SELECTOR = `.${dialogClasses.paper}`;
-
-/**
- * Closes the panel and returns focus to its button, without scrolling the page.
- * @param onClose - Function to close the panel.
- * @param anchorEl - The panel's button.
- */
-export function closeAndRestoreFocus(
-  onClose: () => void,
-  anchorEl: PopperProps["anchorEl"],
-): void {
-  onClose();
-  if (anchorEl instanceof HTMLElement) anchorEl.focus({ preventScroll: true });
-}
 
 /**
  * Closes the panel on Escape or with the panel's own close control, returning focus to its button when focus was in the panel. Focus elsewhere is left where it is.
