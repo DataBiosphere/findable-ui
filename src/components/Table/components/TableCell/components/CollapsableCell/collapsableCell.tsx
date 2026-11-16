@@ -43,7 +43,7 @@ export const CollapsableCell = <T extends RowData>({
   position,
   row,
 }: CollapsableCellProps<T>): JSX.Element => {
-  const [pinnedCell, pinnedIndex] = getPinnedCellIndex(row);
+  const [pinnedCell] = getPinnedCellIndex(row);
   const isExpanded = row.getIsExpanded();
   // Generated per instance: every row renders one of these, so a shared id
   // would leave every toggle in the table pointing at the first row's contents.
@@ -72,27 +72,24 @@ export const CollapsableCell = <T extends RowData>({
       </PinnedCell>
       <Collapse id={contentsId} in={isExpanded}>
         <CollapsedContents>
-          {getRowVisibleCells(row).map((cell, i) => {
+          {getRowVisibleCells(row).map((cell) => {
             if (cell.getIsAggregated()) return null; // Display of aggregated cells is currently not supported.
             if (cell.getIsPlaceholder()) return null; // A sub-row's cell in the grouped column; the group's value already shows in the summary.
+            if (cell.id === pinnedCell.id) return null; // Shows in the summary. A sub-row's cells never match a grouped row's pinned cell.
             const header = cell.column.columnDef.meta?.header;
-            // The pinned cell shows in the summary. On a grouped row it is the grouped
-            // cell, so its index lands on the first sub-row's placeholder, skipped above.
             return (
-              i !== pinnedIndex && (
-                <Content key={cell.id}>
-                  {header && (
-                    <Typography
-                      color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
-                      component="div"
-                      variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
-                    >
-                      {header}
-                    </Typography>
-                  )}
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Content>
-              )
+              <Content key={cell.id}>
+                {header && (
+                  <Typography
+                    color={TYPOGRAPHY_PROPS.COLOR.INK_LIGHT}
+                    component="div"
+                    variant={TYPOGRAPHY_PROPS.VARIANT.BODY_400_2_LINES}
+                  >
+                    {header}
+                  </Typography>
+                )}
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Content>
             );
           })}
         </CollapsedContents>
