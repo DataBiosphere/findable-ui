@@ -1,16 +1,13 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { SelectedFilter } from "../common/entities";
-import { CatalogState, FeatureFlagState } from "../providers/exploreState";
+import { CATALOG_URL_PARAM } from "../providers/catalog/constants";
 import { useLocation } from "./useLocation";
 
 interface UseURLFilterParamsResult {
-  decodedCatalogParam: string | undefined;
-  decodedFeatureFlagParam: string | undefined;
   decodedFilterParam: string;
   updateFilterQueryString: (
-    catalogState: CatalogState,
-    featureFlagState: FeatureFlagState,
+    catalog: string | undefined,
     filterState: SelectedFilter[],
   ) => void;
 }
@@ -24,29 +21,24 @@ interface UseURLFilterParamsResult {
 export const useURLFilterParams = (): UseURLFilterParamsResult => {
   const { basePath, push } = useRouter();
   const { href, pathname, search } = useLocation() || {};
-  const featureFlagParam = search?.get("ff") ?? undefined;
   const filterParam = search?.get("filter") ?? "[]";
-  const catalogParam = search?.get("catalog") ?? undefined;
+  const catalogParam = search?.get(CATALOG_URL_PARAM) ?? undefined;
 
   const updateFilterQueryString = useCallback(
-    (
-      catalogState: CatalogState,
-      featureFlagState: FeatureFlagState,
-      filterState: SelectedFilter[],
-    ) => {
+    (catalog: string | undefined, filterState: SelectedFilter[]) => {
       if (
-        catalogParam !== catalogState ||
-        featureFlagParam !== featureFlagState ||
+        catalogParam !== catalog ||
         filterParam !== JSON.stringify(filterState)
       ) {
-        const featureFlag = featureFlagState ? { ff: featureFlagState } : {};
         const filter =
           filterState.length > 0 ? { filter: JSON.stringify(filterState) } : {};
-        const catalog = catalogState ? { catalog: catalogState } : {};
         push(
           {
             pathname: pathname?.replace(basePath, ""),
-            query: { ...catalog, ...featureFlag, ...filter },
+            query: {
+              ...(catalog ? { [CATALOG_URL_PARAM]: catalog } : {}),
+              ...filter,
+            },
           },
           undefined,
           {
@@ -56,12 +48,10 @@ export const useURLFilterParams = (): UseURLFilterParamsResult => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps -- push method isn't memoized and shouldn't be added as deps https://github.com/vercel/next.js/issues/18127
-    [catalogParam, featureFlagParam, filterParam, href],
+    [catalogParam, filterParam, href],
   );
 
   return {
-    decodedCatalogParam: catalogParam,
-    decodedFeatureFlagParam: featureFlagParam,
     decodedFilterParam: filterParam,
     updateFilterQueryString,
   };

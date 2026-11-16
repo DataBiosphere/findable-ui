@@ -22,6 +22,7 @@ import { useStateSyncManager } from "../../hooks/stateSyncManager/hook";
 import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
+import { useCatalogParam } from "../../providers/catalog/hook";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
@@ -32,6 +33,7 @@ import { ARIA_LABEL } from "./constants";
 import { DataSelector } from "./entityList/data/selector/dataSelector";
 import { ToggleButtonGroup } from "./entityList/filters/components/ToggleButtonGroup/toggleButtonGroup";
 import { StyledGrid, StyledStack } from "./entityList/filters/filters.styles";
+import { useRestoreCatalogParam } from "./hooks/UseRestoreCatalogParam/hook";
 import { useUpdateFilterSort } from "./hooks/UseUpdateFilterSort/hook";
 import { useValidateFilterParam } from "./hooks/UseValidateFilterParam/hook";
 import { buildStateSyncManagerContext } from "./utils";
@@ -55,6 +57,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
+  const catalog = useCatalogParam();
   const { trackingConfig } = config;
   const { label } = entityConfig;
   const { categoryGroups, categoryViews, loading } = exploreState;
@@ -77,8 +80,9 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   useStateSyncManager({
     actions: { clearMeta, stateToUrl, urlToState },
     dispatch: exploreDispatch,
-    state: buildStateSyncManagerContext(exploreState, props),
+    state: buildStateSyncManagerContext(exploreState, props, catalog),
   });
+  useRestoreCatalogParam(catalog, exploreDispatch);
 
   /**
    * Callback fired when selected state of a category value is toggled.

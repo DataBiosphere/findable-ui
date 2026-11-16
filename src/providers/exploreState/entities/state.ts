@@ -1,6 +1,7 @@
 import { ExploreState } from "../../exploreState";
+import { EntityState } from "../entities";
 import { buildQuery } from "./query/buildQuery";
-import { EntitiesContext, EntityState } from "./types";
+import { EntitiesContext } from "./types";
 
 /**
  * Builds the next entities context.
@@ -30,27 +31,11 @@ export function buildNextEntities(
       continue;
     }
 
-    // Clone the entity context.
-    const entityContext = { ...entity };
-
-    // Build the params object.
-    // All entities share the same catalog and feature flag state.
-    const params: EntityState = {
-      catalogState: state.catalogState,
-      featureFlagState: state.featureFlagState,
-      filterState: [],
+    // Entities sharing the key share the next filter state.
+    entities[entityPath] = {
+      ...entity,
+      query: buildQuery(entityPath, nextEntityState.filterState),
     };
-
-    // Update entity context with "shared" context (e.g. filterState).
-    if (entityKey === key) {
-      Object.assign(params, nextEntityState);
-    }
-
-    // At some point, we may need to update the entity context with additional properties that
-    // are not "shared" (e.g. column grouping).
-    // For now, this is not needed and so we update entities with the updated entity context and continue.
-    entityContext.query = buildQuery(entityPath, params);
-    entities[entityPath] = entityContext;
   }
 
   return entities;

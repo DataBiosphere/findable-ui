@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useCatalogParam } from "../providers/catalog/hook";
 import { useExploreState } from "./useExploreState";
 import { useURLFilterParams } from "./useURLFilterParams";
 
@@ -8,13 +9,14 @@ import { useURLFilterParams } from "./useURLFilterParams";
  */
 export const useUpdateURLSearchParams = (): void => {
   const { exploreState } = useExploreState();
+  const catalog = useCatalogParam();
   const { updateFilterQueryString } = useURLFilterParams();
-  const { catalogState, featureFlagState, filterState } = exploreState;
+  const { filterState } = exploreState;
 
   /**
    * Update the URL search params when the filter state changes.
    */
   useEffect(() => {
-    updateFilterQueryString(catalogState, featureFlagState, filterState);
-  }, [catalogState, featureFlagState, filterState, updateFilterQueryString]);
+    updateFilterQueryString(catalog, filterState);
+  }, [catalog, filterState, updateFilterQueryString]);
 };

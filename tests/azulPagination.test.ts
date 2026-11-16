@@ -47,7 +47,6 @@ function makeState(
   loading = false,
 ): ExploreState {
   return {
-    catalogState: "dcp1",
     entities: {
       files: { entityKey: "files", query: {} },
       projects: { entityKey: "projects", query: {} },

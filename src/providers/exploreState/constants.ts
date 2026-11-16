@@ -1,6 +1,7 @@
+import { CATALOG_URL_PARAM } from "../catalog/constants";
+
 export const EXPLORE_URL_PARAMS = {
-  CATALOG: "catalog",
-  FEATURE_FLAG: "ff",
+  CATALOG: CATALOG_URL_PARAM,
   FILTER: "filter",
 } as const;
 

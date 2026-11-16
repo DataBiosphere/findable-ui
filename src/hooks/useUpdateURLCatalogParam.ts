@@ -1,12 +1,13 @@
 import Router, { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useExploreState } from "./useExploreState";
+import { CATALOG_URL_PARAM } from "../providers/catalog/constants";
+import { useCatalogParam } from "../providers/catalog/hook";
 
 /**
- * Updates URL catalog params.
+ * Puts the selected catalog back into the URL when the URL lacks it.
  */
 export const useUpdateURLCatalogParams = (): void => {
-  const { exploreState } = useExploreState();
+  const catalog = useCatalogParam();
   // `pathname` is intentionally still read from useRouter() here so it stays as
   // the route pattern (e.g. `/[entityListType]/[entityId]`). The pattern is
   // required by the Router.replace({ pathname, query }) call below — Next.js
@@ -16,14 +17,13 @@ export const useUpdateURLCatalogParams = (): void => {
   // migration to usePathname()/router.replace() is tracked in #930 and #931
   // and will be done together with the Router.replace refactor.
   const { basePath, pathname, query } = useRouter();
-  const { catalogState } = exploreState;
 
   useEffect(() => {
-    if (!catalogState) return;
-    if ("catalog" in query && query.catalog === catalogState) return;
+    if (!catalog) return;
+    if (query[CATALOG_URL_PARAM] === catalog) return;
     Router.replace({
       pathname: pathname?.replace(basePath, ""),
-      query: { ...query, catalog: catalogState },
+      query: { ...query, [CATALOG_URL_PARAM]: catalog },
     });
-  }, [basePath, catalogState, pathname, query]);
+  }, [basePath, catalog, pathname, query]);
 };

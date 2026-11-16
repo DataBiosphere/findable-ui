@@ -33,6 +33,10 @@ jest.unstable_mockModule("../src/hooks/stateSyncManager/hook", () => ({
   useStateSyncManager: jest.fn(),
 }));
 jest.unstable_mockModule(
+  "../src/views/ExploreView/hooks/UseRestoreCatalogParam/hook",
+  () => ({ useRestoreCatalogParam: jest.fn() }),
+);
+jest.unstable_mockModule(
   "../src/views/ExploreView/hooks/UseValidateFilterParam/hook",
   () => ({ useValidateFilterParam: jest.fn() }),
 );
