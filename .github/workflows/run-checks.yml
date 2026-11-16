@@ -26,6 +26,9 @@ jobs:
       - name: Run linter
         run: npm run lint
 
+      - name: Lint CSS
+        run: npm run lint-css
+
       - name: Run tests
         run: npm run test
 

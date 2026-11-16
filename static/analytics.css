@@ -961,6 +961,7 @@
 
   .fui-tooltip-wrapper > :first-child,
   .fui-toggletip > :first-child {
+    /* stylelint-disable-next-line plugin/use-baseline -- Applies only where the anchor positioning this @supports block tests is supported; the block below covers other browsers. */
     anchor-name: --fui-trigger;
   }
 
@@ -969,7 +970,9 @@
     bottom: auto;
     left: auto;
     position: fixed;
+    /* stylelint-disable-next-line plugin/use-baseline -- Applies only where the anchor positioning this @supports block tests is supported; the block below covers other browsers. */
     position-anchor: --fui-trigger;
+    /* stylelint-disable-next-line plugin/use-baseline -- Applies only where the anchor positioning this @supports block tests is supported; the block below covers other browsers. */
     position-area: top;
     position-try-fallbacks: --fui-align-trigger-start, --fui-align-trigger-end;
     transform: none;
@@ -996,6 +999,7 @@
   }
 }
 
+/* stylelint-disable plugin/use-baseline -- Only the anchor positioning above uses these fallbacks; other browsers ignore the rules. */
 @position-try --fui-align-trigger-start {
   position-area: top span-right;
 }
@@ -1003,6 +1007,7 @@
 @position-try --fui-align-trigger-end {
   position-area: top span-left;
 }
+/* stylelint-enable plugin/use-baseline */
 
 /* Links belong in a toggletip. The .fui-tooltip selector keeps links legible
    on pages that still put them in a tooltip. */

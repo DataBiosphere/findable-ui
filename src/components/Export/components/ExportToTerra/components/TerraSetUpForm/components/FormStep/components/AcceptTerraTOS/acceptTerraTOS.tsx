@@ -42,6 +42,7 @@ export const AcceptTerraTOS = ({
 
   const onOpenTerra = (): void => {
     if (exportToTerraUrl) {
+      // eslint-disable-next-line baseline-js/use-baseline -- window.open is in every supported browser; Baseline files it under the "window" feature.
       window.open(
         exportToTerraUrl,
         ANCHOR_TARGET.BLANK,

@@ -8,6 +8,42 @@
   in the form `@databiosphere/findable-ui/lib/<path>`, where `<path>` is the path of the file within the `lib`
   folder.
 
+## Supported browsers
+
+findable-ui supports the browsers that
+[Baseline widely available](https://web.dev/baseline) covers: the versions of
+Chrome, Edge, Firefox and Safari, on desktop and mobile, that support every
+feature that has worked in all four for at least 30 months. findable-ui relies only on those features; a
+newer one is used only behind a check such as `@supports`, with a fallback.
+`package.json` declares this as `"browserslist": ["baseline widely available"]`.
+The browser versions move forward as time passes; run `npx browserslist` to
+print the current list.
+
+Apps that use findable-ui can keep Next.js's default targets (Chrome, Edge and
+Firefox 111, Safari 16.4). Those reach older browsers than Baseline widely
+available, so they cover every browser findable-ui supports, but they don't
+widen that support: findable-ui may use a feature those older browsers lack.
+To check an app's own code against the same target, add the two lint plugins
+below with `available: "widely"`. Declaring the same `browserslist` in the
+app's `package.json` would also make Next.js compile for those browsers instead
+of its defaults, dropping the older ones, so only do that to narrow the app's
+support on purpose.
+
+Two lint checks keep findable-ui's code within the target:
+
+- `npm run lint` checks the JavaScript and TypeScript in `src/` and
+  `static/*.js` for JavaScript features and browser APIs outside it
+  (`eslint-plugin-baseline-js`).
+- `npm run lint-css` checks the stylesheets in `static/`
+  (`stylelint-plugin-use-baseline`). A newer feature behind `@supports` passes
+  when the condition names it; otherwise its line needs a disable comment that
+  gives the reason.
+
+Both read Baseline's own data rather than the `browserslist` field, so each
+sets `available: "widely"` in its config too. Neither covers the Emotion
+styles in `*.styles.ts(x)`, or methods called on an instance such as
+`array.toSorted()`, so check those by hand.
+
 ## Migrating from Next.js 15 to 16
 
 This section is the checklist for upgrading a findable-ui consumer from Next 15 to Next 16. The detailed wiring is in [Consumer setup for Next.js 16](#consumer-setup-for-nextjs-16-pages-router-static-export) below; this section tells you everything that needs to change in a consumer repo.

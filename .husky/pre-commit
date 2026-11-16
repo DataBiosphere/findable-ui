@@ -20,6 +20,13 @@ npm run lint ||
     false; 
 )
 
+# Check the shipped stylesheets
+npm run lint-css ||
+(
+    echo '🤔  CSS Lint Check Failed. Make the required changes listed above, add changes and try to commit again.'
+    false;
+)
+
 # Run tests
 npm test ||
 (
