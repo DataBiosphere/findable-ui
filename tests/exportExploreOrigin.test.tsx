@@ -75,7 +75,7 @@ jest.unstable_mockModule(
 );
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
   useConfig: jest.fn(() => ({
-    entityConfig: { ui: { enableExportButton: true } },
+    entityConfig: { route: "projects", ui: { enableExportButton: true } },
   })),
 }));
 jest.unstable_mockModule("../src/hooks/useDownloadStatus", () => ({
@@ -83,12 +83,6 @@ jest.unstable_mockModule("../src/hooks/useDownloadStatus", () => ({
     disabled: false,
     isLoading: false,
     message: "",
-  })),
-}));
-jest.unstable_mockModule("../src/hooks/useExportConfig", () => ({
-  useExportConfig: jest.fn(() => ({
-    tabs: [{ mainColumn: [], sideColumn: undefined }],
-    top: [],
   })),
 }));
 
@@ -140,7 +134,7 @@ describe("export analytics", () => {
 });
 
 describe("ExportButton", () => {
-  it("links to the export page with the explore origin", () => {
+  it("links to the export page with the explore page's entity list type, not the provider's explore origin", () => {
     render(
       <ThemeProvider theme={createAppTheme()}>
         <ExportButton />
@@ -149,6 +143,6 @@ describe("ExportButton", () => {
 
     expect(
       screen.getByRole("link", { name: "Export" }).getAttribute("href"),
-    ).toBe(`/export?from=${EXPLORE_ORIGIN}`);
+    ).toBe("/export?from=projects");
   });
 });

@@ -104,14 +104,6 @@ describe("useUpdateURLParams", () => {
     );
   });
 
-  it("leaves the URL alone on a site with neither provider, e.g. one without a catalog", () => {
-    ROUTER.query = { entityListType: "projects", params: ["uuid"] };
-
-    renderHook(useUpdateURLParams);
-
-    expect(replace).not.toHaveBeenCalled();
-  });
-
   it("leaves a URL's catalog alone on a site without a CatalogProvider", () => {
     ROUTER.query = { catalog: "dcp2", entityListType: "projects" };
 

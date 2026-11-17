@@ -3,7 +3,6 @@ import Link from "next/link";
 import { JSX } from "react";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { useDownloadStatus } from "../../../../../../../hooks/useDownloadStatus";
-import { useExploreOrigin } from "../../../../../../../providers/exploreOrigin/hook";
 import { TEST_IDS } from "../../../../../../../tests/testIds";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { BaseComponentProps } from "../../../../../../types";
@@ -11,7 +10,7 @@ import { StyledBox } from "./exportButton.styles";
 import { getExportHref } from "./utils";
 
 /**
- * Export button linking to the export page, with the explore origin in the link's `from` param. It is disabled while the system is indexing, with a tooltip saying so, and while the system status is loading.
+ * Export button linking to the export page, with the explore page's entity list type in the link's `from` param. It is disabled while the system is indexing, with a tooltip saying so, and while the system status is loading.
  * @param props - Component props.
  * @param props.className - Class name applied to the button.
  * @returns The export button, or null when the export button is not enabled on the entity's UI config.
@@ -21,8 +20,7 @@ export const ExportButton = ({
 }: BaseComponentProps): JSX.Element | null => {
   const { disabled, isLoading, message } = useDownloadStatus();
   const { entityConfig } = useConfig();
-  const exploreOrigin = useExploreOrigin();
-  const { ui } = entityConfig;
+  const { route, ui } = entityConfig;
   const { enableExportButton } = ui || {};
 
   if (!enableExportButton) return null;
@@ -36,7 +34,7 @@ export const ExportButton = ({
           component={Link}
           data-testid={TEST_IDS.EXPORT_BUTTON}
           disabled={disabled || isLoading}
-          href={getExportHref(exploreOrigin)}
+          href={getExportHref(route)}
           id="button-cohort-export"
         >
           Export

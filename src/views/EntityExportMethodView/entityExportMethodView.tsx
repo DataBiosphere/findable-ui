@@ -18,7 +18,7 @@ import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView
 export const EntityExportMethodView = (
   props: EntityDetailViewProps,
 ): JSX.Element => {
-  // Update the catalog param if necessary.
+  // Put the catalog and explore origin back into the URL if necessary.
   useUpdateURLParams();
 
   // Grab the entity to be exported.

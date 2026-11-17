@@ -22,14 +22,13 @@ export function ExploreOriginProvider({
     config: { entities },
   } = useConfig();
   const { isReady, query } = useRouter();
-  // The browser URL's `from`, read once, so the first render already uses it, before the router is ready.
-  const [locationOriginParam] = useState(() =>
+  // Seeded from the browser URL's `from`, read once, so the first render already uses it, before the router is ready.
+  const [prevOriginParam, setPrevOriginParam] = useState(() =>
     getExploreOriginParam(getLocationExploreOriginParam(), entities),
   );
   const [exploreOrigin, setExploreOrigin] = useState(
-    locationOriginParam ?? entities[0].route,
+    prevOriginParam ?? entities[0].route,
   );
-  const [prevOriginParam, setPrevOriginParam] = useState(locationOriginParam);
   const originParam = getExploreOriginParam(query[FROM_URL_PARAM], entities);
 
   // Adjust-during-render: follow a change to the URL's `from`, in the same render as the URL. Only a change is
