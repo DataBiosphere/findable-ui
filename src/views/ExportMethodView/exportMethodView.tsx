@@ -3,15 +3,19 @@ import { JSX } from "react";
 import { ComponentCreator } from "../../components/ComponentCreator/ComponentCreator";
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
 import { ExportMethodConfig } from "../../config/entities";
+import { useExploreState } from "../../hooks/useExploreState";
 import { useExportConfig } from "../../hooks/useExportConfig";
-import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams/hook";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 
 /**
  * Renders the export page for the export method that matches the current pathname.
  * @returns The export method view.
  */
 export const ExportMethodView = (): JSX.Element => {
-  useUpdateURLSearchParams();
+  const {
+    exploreState: { filterState },
+  } = useExploreState();
+  useUpdateURLParams(filterState);
   const pathname = usePathname() ?? "";
   const { exportMethods, tabs } = useExportConfig();
   const { sideColumn } = tabs[0];

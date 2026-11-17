@@ -1,9 +1,10 @@
 import Router, { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FROM_URL_PARAM } from "../../common/constants";
-import { CATALOG_URL_PARAM } from "../../providers/catalog/constants";
+import { SelectedFilter } from "../../common/entities";
 import { useCatalogParam } from "../../providers/catalog/hook";
 import { useOptionalExploreOrigin } from "../../providers/exploreOrigin/hook";
+import { EXPLORE_URL_PARAMS } from "../../providers/exploreState/constants";
 
 /**
  * Returns the params whose value is set but differs from the URL's.
@@ -24,12 +25,15 @@ function getChangedParams(
 }
 
 /**
- * Puts the selected catalog and the explore origin back into the URL when the URL lacks them, in one replace. A param
- * whose provider isn't mounted is left alone.
+ * Puts the selected catalog, the explore origin and, when given, the filters into the URL when the URL lacks them or
+ * has a different value, in one replace. The URL's other params are kept. A param whose provider isn't mounted, or an
+ * empty filter state, is left alone.
+ * @param filterState - Filters to keep in the URL, e.g. on the export pages.
  */
-export const useUpdateURLParams = (): void => {
+export const useUpdateURLParams = (filterState?: SelectedFilter[]): void => {
   const catalog = useCatalogParam();
   const exploreOrigin = useOptionalExploreOrigin();
+  const filter = filterState?.length ? JSON.stringify(filterState) : undefined;
   // `pathname` is intentionally still read from useRouter() here so it stays as
   // the route pattern (e.g. `/[entityListType]/[entityId]`). The pattern is
   // required by the Router.replace({ pathname, query }) call below — Next.js
@@ -44,7 +48,8 @@ export const useUpdateURLParams = (): void => {
     // The router's query is incomplete until it is ready.
     if (!isReady) return;
     const changedParams = getChangedParams(query, {
-      [CATALOG_URL_PARAM]: catalog,
+      [EXPLORE_URL_PARAMS.CATALOG]: catalog,
+      [EXPLORE_URL_PARAMS.FILTER]: filter,
       [FROM_URL_PARAM]: exploreOrigin,
     });
     if (Object.keys(changedParams).length === 0) return;
@@ -57,5 +62,5 @@ export const useUpdateURLParams = (): void => {
       undefined,
       { shallow: true },
     );
-  }, [basePath, catalog, exploreOrigin, isReady, pathname, query]);
+  }, [basePath, catalog, exploreOrigin, filter, isReady, pathname, query]);
 };

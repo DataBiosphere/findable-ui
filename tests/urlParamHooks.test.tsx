@@ -9,7 +9,6 @@ const FILTER_STATE: SelectedFilter[] = [
 ];
 
 const replace = jest.fn();
-const updateFilterQueryString = jest.fn();
 
 const ROUTER = {
   basePath: "",
@@ -17,8 +16,6 @@ const ROUTER = {
   pathname: "/[entityListType]/[...params]",
   query: {} as NextRouter["query"],
 };
-
-const EXPLORE_STATE = { filterState: FILTER_STATE };
 
 jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
@@ -30,20 +27,12 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
     config: { entities: [{ route: "projects" }, { route: "files" }] },
   })),
 }));
-jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
-  useExploreState: jest.fn(() => ({ exploreState: EXPLORE_STATE })),
-}));
-jest.unstable_mockModule("../src/hooks/useURLFilterParams/hook", () => ({
-  useURLFilterParams: jest.fn(() => ({ updateFilterQueryString })),
-}));
 
 const { CatalogProvider } = await import("../src/providers/catalog/provider");
 const { ExploreOriginProvider } =
   await import("../src/providers/exploreOrigin/provider");
 const { useUpdateURLParams } =
   await import("../src/hooks/useUpdateURLParams/hook");
-const { useUpdateURLSearchParams } =
-  await import("../src/hooks/useUpdateURLSearchParams/hook");
 
 /**
  * Wraps a hook in a CatalogProvider only.
@@ -71,7 +60,6 @@ function Wrapper({ children }: { children: ReactNode }): JSX.Element {
 
 beforeEach(() => {
   replace.mockClear();
-  updateFilterQueryString.mockClear();
   ROUTER.isReady = true;
   ROUTER.query = {};
 });
@@ -150,26 +138,45 @@ describe("useUpdateURLParams", () => {
   });
 });
 
-describe("useUpdateURLSearchParams", () => {
-  it("writes the selected catalog, the explore origin and the filters to the URL", () => {
-    ROUTER.query = { catalog: "dcp2", from: "files" };
+describe("useUpdateURLParams with filters", () => {
+  it("puts the filters into the URL with the catalog and explore origin, keeping the URL's other params", () => {
+    ROUTER.query = { catalog: "dcp2", from: "files", other: "kept" };
 
-    renderHook(useUpdateURLSearchParams, { wrapper: Wrapper });
+    renderHook(() => useUpdateURLParams(FILTER_STATE), { wrapper: Wrapper });
 
-    expect(updateFilterQueryString).toHaveBeenLastCalledWith(
-      "dcp2",
-      "files",
-      FILTER_STATE,
+    expect(replace).toHaveBeenCalledTimes(1);
+    expect(replace).toHaveBeenCalledWith(
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          catalog: "dcp2",
+          filter: JSON.stringify(FILTER_STATE),
+          from: "files",
+          other: "kept",
+        },
+      },
+      undefined,
+      { shallow: true },
     );
   });
 
-  it("throws without an ExploreOriginProvider", () => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+  it("leaves a URL whose filters already match alone", () => {
+    ROUTER.query = {
+      catalog: "dcp2",
+      filter: JSON.stringify(FILTER_STATE),
+      from: "files",
+    };
 
-    expect(() =>
-      renderHook(useUpdateURLSearchParams, { wrapper: CatalogWrapper }),
-    ).toThrow("ExploreOriginProvider");
+    renderHook(() => useUpdateURLParams(FILTER_STATE), { wrapper: Wrapper });
 
-    jest.mocked(console.error).mockRestore();
+    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("leaves an empty filter state out of the URL", () => {
+    ROUTER.query = { from: "files" };
+
+    renderHook(() => useUpdateURLParams([]), { wrapper: Wrapper });
+
+    expect(replace).not.toHaveBeenCalled();
   });
 });

@@ -5,7 +5,7 @@ import { BackPageView } from "../../components/Layout/components/BackPage/backPa
 import { useExploreState } from "../../hooks/useExploreState";
 import { useExportConfig } from "../../hooks/useExportConfig";
 import { useFileManifest } from "../../hooks/useFileManifest/useFileManifest";
-import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams/hook";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 
 export type ExportViewProps = AzulEntityStaticResponse;
 
@@ -18,7 +18,7 @@ export const ExportView = (props: ExportViewProps): JSX.Element => {
   const {
     exploreState: { filterState },
   } = useExploreState();
-  useUpdateURLSearchParams();
+  useUpdateURLParams(filterState);
   useFileManifest(filterState, undefined);
   const { tabs, top } = useExportConfig();
   const currentTab = tabs[0];
