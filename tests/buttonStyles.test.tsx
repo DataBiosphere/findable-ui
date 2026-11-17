@@ -107,6 +107,11 @@ describe("MuiButton theme styles", () => {
       it(`should keep the ${toName(props)} styles`, () => {
         expect(renderStoryButtonStyles(props)).toMatchSnapshot();
       });
+      it(`should keep the ${toName(props)} disabled styles`, () => {
+        expect(
+          renderStoryButtonStyles({ ...props, disabled: true }),
+        ).toMatchSnapshot();
+      });
     }
     const small = { ...combination, size: BUTTON_PROPS.SIZE.SMALL };
     it(`should keep the ${toName(small)} styles`, () => {

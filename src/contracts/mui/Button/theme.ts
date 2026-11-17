@@ -211,6 +211,11 @@ export const MuiButton: Components<Theme>["MuiButton"] = {
       ],
     },
     root: {
+      // Keyboard focus ring, matching the Figma library: MUI removes the outline and the ripple is off.
+      "&.Mui-focusVisible": {
+        outline: `2px solid ${PALETTE.PRIMARY_MAIN}`,
+        outlineOffset: 2,
+      },
       font: FONT.BODY_500,
       gap: 4,
       letterSpacing: "normal",

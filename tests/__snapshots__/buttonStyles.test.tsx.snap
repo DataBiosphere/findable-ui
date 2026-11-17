@@ -68,6 +68,10 @@ exports[`MuiButton theme styles should keep the activeNav large styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -168,6 +172,10 @@ exports[`MuiButton theme styles should keep the activeNav medium styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -266,6 +274,10 @@ exports[`MuiButton theme styles should keep the activeNav small styles 1`] = `
       "color": "var(--palette-action-disabled)",
       "cursor": "default",
       "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -372,6 +384,10 @@ exports[`MuiButton theme styles should keep the backNav large styles 1`] = `
       "color": "var(--palette-action-disabled)",
       "cursor": "default",
       "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -482,6 +498,10 @@ exports[`MuiButton theme styles should keep the backNav medium styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -590,6 +610,10 @@ exports[`MuiButton theme styles should keep the backNav small styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -624,6 +648,125 @@ exports[`MuiButton theme styles should keep the backNav small styles 1`] = `
     },
     "&>*:nth-of-type(1)": {
       "font-size": "18px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-primary-main)",
+      "--variant-containedColor": "var(--palette-primary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-primary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-primary-main)",
+      "--variant-textColor": "var(--palette-primary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "var(--palette-primary-main)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-common-white)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "10px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "cursor": "default",
+      "opacity": "0.5",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-primary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-primary-main)",
+      "--variant-textBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media (hover: none) &:hover": {
+      "box-shadow": "var(--shadows-2)",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
     },
   },
 }
@@ -702,6 +845,8 @@ exports[`MuiButton theme styles should keep the contained primary large styles 1
     },
     "&.Mui-focusVisible": {
       "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -741,6 +886,122 @@ exports[`MuiButton theme styles should keep the contained primary large styles 1
     },
     "&>*:nth-of-type(1)": {
       "font-size": "22px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-primary-main)",
+      "--variant-containedColor": "var(--palette-primary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-primary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-primary-main)",
+      "--variant-textColor": "var(--palette-primary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "var(--palette-primary-main)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-common-white)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "8px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "cursor": "default",
+      "opacity": "0.5",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-primary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-primary-main)",
+      "--variant-textBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media (hover: none) &:hover": {
+      "box-shadow": "var(--shadows-2)",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
     },
   },
 }
@@ -816,6 +1077,8 @@ exports[`MuiButton theme styles should keep the contained primary medium styles 
     },
     "&.Mui-focusVisible": {
       "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -929,6 +1192,8 @@ exports[`MuiButton theme styles should keep the contained primary small styles 1
     },
     "&.Mui-focusVisible": {
       "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -967,6 +1232,131 @@ exports[`MuiButton theme styles should keep the contained primary small styles 1
     },
     "&>*:nth-of-type(1)": {
       "font-size": "18px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained secondary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-secondary-main)",
+      "--variant-containedColor": "var(--palette-secondary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-secondary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-secondary-main)",
+      "--variant-textColor": "var(--palette-secondary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "var(--palette-common-white)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-ink-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "10px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-action-disabledBackground)",
+      "box-shadow": "var(--shadows-0)",
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-secondary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-secondary-main)",
+      "--variant-textBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media (hover: none) &:hover": {
+      "box-shadow": "var(--shadows-2)",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
     },
   },
 }
@@ -1045,6 +1435,8 @@ exports[`MuiButton theme styles should keep the contained secondary large styles
     "&.Mui-focusVisible": {
       "background-color": "var(--palette-smoke-lightest)",
       "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -1090,6 +1482,128 @@ exports[`MuiButton theme styles should keep the contained secondary large styles
     },
     "&>*:nth-of-type(1)": {
       "font-size": "22px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained secondary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-secondary-main)",
+      "--variant-containedColor": "var(--palette-secondary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-secondary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-secondary-main)",
+      "--variant-textColor": "var(--palette-secondary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "var(--palette-common-white)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-ink-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "8px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-action-disabledBackground)",
+      "box-shadow": "var(--shadows-0)",
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-secondary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-secondary-main)",
+      "--variant-textBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media (hover: none) &:hover": {
+      "box-shadow": "var(--shadows-2)",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
     },
   },
 }
@@ -1165,6 +1679,8 @@ exports[`MuiButton theme styles should keep the contained secondary medium style
     "&.Mui-focusVisible": {
       "background-color": "var(--palette-smoke-lightest)",
       "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -1284,6 +1800,8 @@ exports[`MuiButton theme styles should keep the contained secondary small styles
     "&.Mui-focusVisible": {
       "background-color": "var(--palette-smoke-lightest)",
       "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -1401,6 +1919,10 @@ exports[`MuiButton theme styles should keep the nav large styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -1501,6 +2023,10 @@ exports[`MuiButton theme styles should keep the nav medium styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -1600,6 +2126,10 @@ exports[`MuiButton theme styles should keep the nav small styles 1`] = `
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -1629,6 +2159,123 @@ exports[`MuiButton theme styles should keep the nav small styles 1`] = `
     },
     "&>*:nth-of-type(1)": {
       "font-size": "18px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-secondary-main)",
+      "--variant-containedColor": "var(--palette-secondary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-secondary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-secondary-main)",
+      "--variant-textColor": "var(--palette-secondary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "transparent",
+      "border": "none",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 32%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-ink-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "10px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "border": "1px solid var(--palette-action-disabledBackground)",
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:disabled": {
+      "background-color": "transparent",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 32%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "transparent",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 64%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-secondary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-secondary-main)",
+      "--variant-textBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
     },
   },
 }
@@ -1703,6 +2350,10 @@ exports[`MuiButton theme styles should keep the outlined secondary large styles 
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -1742,6 +2393,120 @@ exports[`MuiButton theme styles should keep the outlined secondary large styles 
     },
     "&>*:nth-of-type(1)": {
       "font-size": "22px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-secondary-main)",
+      "--variant-containedColor": "var(--palette-secondary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-secondary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-secondary-main)",
+      "--variant-textColor": "var(--palette-secondary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "background-color": "transparent",
+      "border": "none",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 32%, transparent)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-ink-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "64px",
+      "outline": "0",
+      "padding": "8px 16px",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "&.Mui-disabled": {
+      "border": "1px solid var(--palette-action-disabledBackground)",
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:disabled": {
+      "background-color": "transparent",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 32%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "none",
+      "background-color": "transparent",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px color-mix(in srgb, var(--palette-ink-main) 64%, transparent)",
+      "text-decoration": "none",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-secondary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-secondary-main)",
+      "--variant-textBg": "rgba(var(--palette-secondary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
     },
   },
 }
@@ -1812,6 +2577,10 @@ exports[`MuiButton theme styles should keep the outlined secondary medium styles
       "color": "var(--palette-action-disabled)",
       "cursor": "default",
       "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -1922,6 +2691,10 @@ exports[`MuiButton theme styles should keep the outlined secondary small styles 
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -1960,6 +2733,118 @@ exports[`MuiButton theme styles should keep the outlined secondary small styles 
     },
     "&>*:nth-of-type(1)": {
       "font-size": "18px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-primary-main)",
+      "--variant-containedColor": "var(--palette-primary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-primary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-primary-main)",
+      "--variant-textColor": "var(--palette-primary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-item-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-align-self": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "align-self": "center",
+      "background-color": "var(--variant-textBg)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-primary-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "0",
+      "outline": "0",
+      "padding": "0",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-primary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-primary-main)",
+      "--variant-textBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "22px",
     },
   },
 }
@@ -2035,6 +2920,10 @@ exports[`MuiButton theme styles should keep the text primary large styles 1`] = 
       "cursor": "default",
       "pointer-events": "none",
     },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&.MuiButton-loading": {
       "color": "transparent",
     },
@@ -2068,6 +2957,115 @@ exports[`MuiButton theme styles should keep the text primary large styles 1`] = 
     },
     "&>*:nth-of-type(1)": {
       "font-size": "22px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
+    },
+  },
+  "root": {
+    "&": {
+      "--variant-containedBg": "var(--palette-primary-main)",
+      "--variant-containedColor": "var(--palette-primary-contrastText)",
+      "--variant-outlinedBorder": "rgba(var(--palette-primary-mainChannel) / 0.5)",
+      "--variant-outlinedColor": "var(--palette-primary-main)",
+      "--variant-textColor": "var(--palette-primary-main)",
+      "-moz-appearance": "none",
+      "-moz-user-select": "none",
+      "-ms-flex": "none",
+      "-ms-flex-align": "center",
+      "-ms-flex-item-align": "center",
+      "-ms-flex-pack": "center",
+      "-ms-user-select": "none",
+      "-webkit-align-items": "center",
+      "-webkit-align-self": "center",
+      "-webkit-appearance": "none",
+      "-webkit-box-align": "center",
+      "-webkit-box-pack": "center",
+      "-webkit-flex": "none",
+      "-webkit-justify-content": "center",
+      "-webkit-tap-highlight-color": "transparent",
+      "-webkit-text-decoration": "none",
+      "-webkit-transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "-webkit-user-select": "none",
+      "align-items": "center",
+      "align-self": "center",
+      "background-color": "var(--variant-textBg)",
+      "border": "0",
+      "border-radius": "var(--shape-borderRadius)",
+      "box-sizing": "border-box",
+      "color": "var(--palette-primary-main)",
+      "cursor": "pointer",
+      "display": "inline-flex",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "justify-content": "center",
+      "letter-spacing": "normal",
+      "margin": "0",
+      "min-width": "0",
+      "outline": "0",
+      "padding": "0",
+      "position": "relative",
+      "text-decoration": "none",
+      "text-transform": "capitalize",
+      "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+      "user-select": "none",
+      "vertical-align": "middle",
+    },
+    "&.Mui-disabled": {
+      "color": "var(--palette-action-disabled)",
+      "cursor": "default",
+      "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&.MuiButton-loading": {
+      "color": "transparent",
+    },
+    "&::-moz-focus-inner": {
+      "border-style": "none",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+    "@media (hover: hover) &:hover": {
+      "--variant-containedBg": "var(--palette-primary-dark)",
+      "--variant-outlinedBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+      "--variant-outlinedBorder": "var(--palette-primary-main)",
+      "--variant-textBg": "rgba(var(--palette-primary-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "@media print &": {
+      "-webkit-print-color-adjust": "exact",
+      "color-adjust": "exact",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "display": "inherit",
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+    "&>*:nth-of-type(1)": {
+      "font-size": "20px",
     },
   },
 }
@@ -2139,6 +3137,10 @@ exports[`MuiButton theme styles should keep the text primary medium styles 1`] =
       "color": "var(--palette-action-disabled)",
       "cursor": "default",
       "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
@@ -2243,6 +3245,10 @@ exports[`MuiButton theme styles should keep the text primary small styles 1`] = 
       "color": "var(--palette-action-disabled)",
       "cursor": "default",
       "pointer-events": "none",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&.MuiButton-loading": {
       "color": "transparent",
