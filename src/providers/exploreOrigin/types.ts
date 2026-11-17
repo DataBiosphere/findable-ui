@@ -18,5 +18,13 @@ export interface ExploreOriginContextProps {
  * Explore origin provider props.
  */
 export interface ExploreOriginProviderProps {
+  /**
+   * Entity list types the URL's `from` param may name, e.g. the configured entity routes.
+   */
+  allowedOrigins: string[];
   children: ReactNode;
+  /**
+   * Explore origin used when the URL has no allowed `from`, e.g. the page's entity list type or the site's default.
+   */
+  initialOrigin: string;
 }

@@ -1,19 +1,28 @@
 import { FROM_URL_PARAM } from "../../common/constants";
-import type { EntityConfig } from "../../config/entities";
+import type { SiteConfig } from "../../config/entities";
 import { isSSR } from "../../utils/ssr";
 
 /**
- * Returns the entity list type named by a `from` URL param value, when it names a configured entity.
+ * Returns the configured entity routes, for `ExploreOriginProvider`'s `allowedOrigins`.
+ * @param config - Site config.
+ * @returns The route of each configured entity.
+ */
+export function getAllowedOrigins(config: SiteConfig): string[] {
+  return config.entities.map(({ route }) => route);
+}
+
+/**
+ * Returns the entity list type named by a `from` URL param value, when it is an allowed origin.
  * @param value - Router query value of the `from` param.
- * @param entities - Configured entities.
- * @returns The entity list type, or undefined when the value is missing, repeated or names no configured entity.
+ * @param allowedOrigins - Entity list types the param may name.
+ * @returns The entity list type, or undefined when the value is missing, repeated or not allowed.
  */
 export function getExploreOriginParam(
   value: string | string[] | undefined,
-  entities: EntityConfig[],
+  allowedOrigins: string[],
 ): string | undefined {
   if (typeof value !== "string") return undefined;
-  return entities.some(({ route }) => route === value) ? value : undefined;
+  return allowedOrigins.includes(value) ? value : undefined;
 }
 
 /**

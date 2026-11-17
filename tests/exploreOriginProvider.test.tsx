@@ -2,6 +2,7 @@ import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 import type { NextRouter } from "next/router";
 import type { JSX, ReactNode } from "react";
+import type { SiteConfig } from "../src/config/entities";
 
 const ROUTER = {
   isReady: true,
@@ -12,22 +13,15 @@ jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
   useRouter: jest.fn(() => ROUTER),
 }));
-jest.unstable_mockModule("../src/hooks/useConfig", () => ({
-  useConfig: jest.fn(() => ({
-    config: {
-      entities: [
-        { route: "datasets" },
-        { route: "files" },
-        { route: "projects" },
-      ],
-    },
-  })),
-}));
+const ALLOWED_ORIGINS = ["datasets", "files", "projects"];
+const INITIAL_ORIGIN = "datasets";
 
 const { ExploreOriginProvider } =
   await import("../src/providers/exploreOrigin/provider");
 const { useExploreOrigin, useOptionalExploreOrigin } =
   await import("../src/providers/exploreOrigin/hook");
+const { getAllowedOrigins } =
+  await import("../src/providers/exploreOrigin/utils");
 const { useSetExploreOrigin } =
   await import("../src/providers/exploreOrigin/hooks/UseSetExploreOrigin/hook");
 
@@ -38,7 +32,14 @@ const { useSetExploreOrigin } =
  * @returns The wrapped children.
  */
 function Wrapper({ children }: { children: ReactNode }): JSX.Element {
-  return <ExploreOriginProvider>{children}</ExploreOriginProvider>;
+  return (
+    <ExploreOriginProvider
+      allowedOrigins={ALLOWED_ORIGINS}
+      initialOrigin={INITIAL_ORIGIN}
+    >
+      {children}
+    </ExploreOriginProvider>
+  );
 }
 
 /**
@@ -56,7 +57,7 @@ beforeEach(() => {
 });
 
 describe("ExploreOriginProvider", () => {
-  it("starts from the first configured entity when the URL has no from", () => {
+  it("starts from the initial origin when the URL has no from", () => {
     const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
@@ -70,7 +71,7 @@ describe("ExploreOriginProvider", () => {
     expect(result.current).toBe("files");
   });
 
-  it("ignores a from that names no configured entity", () => {
+  it("ignores a from that is not an allowed origin", () => {
     setLocationSearch("?from=not-an-entity");
     ROUTER.query = { from: "not-an-entity" };
 
@@ -159,6 +160,16 @@ describe("ExploreOriginProvider", () => {
     act(() => rerender({ entityListType: "projects" }));
 
     expect(result.current).toBe("projects");
+  });
+});
+
+describe("getAllowedOrigins", () => {
+  it("returns the configured entity routes", () => {
+    const config = {
+      entities: [{ route: "projects" }, { route: "files" }],
+    } as unknown as SiteConfig;
+
+    expect(getAllowedOrigins(config)).toEqual(["projects", "files"]);
   });
 });
 

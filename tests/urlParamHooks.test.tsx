@@ -22,11 +22,6 @@ jest.unstable_mockModule("next/router", () => ({
   default: { replace },
   useRouter: jest.fn(() => ROUTER),
 }));
-jest.unstable_mockModule("../src/hooks/useConfig", () => ({
-  useConfig: jest.fn(() => ({
-    config: { entities: [{ route: "projects" }, { route: "files" }] },
-  })),
-}));
 
 const { CatalogProvider } = await import("../src/providers/catalog/provider");
 const { ExploreOriginProvider } =
@@ -53,7 +48,12 @@ function CatalogWrapper({ children }: { children: ReactNode }): JSX.Element {
 function Wrapper({ children }: { children: ReactNode }): JSX.Element {
   return (
     <CatalogProvider>
-      <ExploreOriginProvider>{children}</ExploreOriginProvider>
+      <ExploreOriginProvider
+        allowedOrigins={["projects", "files"]}
+        initialOrigin="projects"
+      >
+        {children}
+      </ExploreOriginProvider>
     </CatalogProvider>
   );
 }
