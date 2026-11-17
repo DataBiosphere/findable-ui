@@ -2,6 +2,7 @@ import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import next from "eslint-config-next";
+import pluginBaselineJs from "eslint-plugin-baseline-js";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import sonarjs from "eslint-plugin-sonarjs";
 import path from "node:path";
@@ -101,6 +102,22 @@ const config = [
     ignores: ["**/*.styles.ts", "**/*.styles.tsx"],
     rules: {
       "@typescript-eslint/explicit-function-return-type": "error",
+    },
+  },
+  // Browser code stays within the supported browsers; see "Supported browsers"
+  // in the README.
+  {
+    files: ["src/**/*.{ts,tsx}", "static/**/*.js"],
+    plugins: { "baseline-js": pluginBaselineJs },
+    rules: {
+      "baseline-js/use-baseline": [
+        "error",
+        {
+          available: "widely",
+          includeJsBuiltins: { preset: "auto" },
+          includeWebApis: { preset: "auto" },
+        },
+      ],
     },
   },
   // jsx-a11y reasons about the JSX it can see, so a wrapper or styled() alias

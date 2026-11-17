@@ -32,6 +32,7 @@ export const ConnectTerraToNIHAccount = ({
   step,
 }: ConnectTerraToNIHAccountProps): JSX.Element | null => {
   const onGotoTutorial = (): void => {
+    // eslint-disable-next-line baseline-js/use-baseline -- window.open is in every supported browser; Baseline files it under the "window" feature.
     window.open(
       "https://support.terra.bio/hc/en-us/articles/32634034451099-RAS-Integration-for-AnVIL-Data-Launching-3-25-26",
       ANCHOR_TARGET.BLANK,

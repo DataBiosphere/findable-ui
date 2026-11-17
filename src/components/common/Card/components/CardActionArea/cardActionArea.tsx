@@ -36,6 +36,7 @@ export const CardActionArea = ({
       if (isClientSideNavigation(url)) {
         push(url);
       } else {
+        // eslint-disable-next-line baseline-js/use-baseline -- window.open is in every supported browser; Baseline files it under the "window" feature.
         window.open(
           url,
           ANCHOR_TARGET.BLANK,

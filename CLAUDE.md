@@ -27,6 +27,7 @@ npx tsc
 # Run all validation checks
 npm run check-format  # Prettier formatting check
 npm run lint          # ESLint with TypeScript and SonarJS plugins
+npm run lint-css      # Stylelint: the stylesheets in static/ against Baseline widely available
 npm run test          # Jest with React Testing Library
 npm run test-compile  # TypeScript compilation check (no emit)
 
@@ -197,6 +198,7 @@ describe("ComponentName", () => {
 
 - Prettier formatting (`npm run check-format`)
 - ESLint with no errors (`npm run lint`)
+- Stylelint with no errors (`npm run lint-css`)
 - All Jest tests passing (`npm test`)
 - TypeScript compilation (`npm run test-compile`)
 
@@ -211,6 +213,7 @@ describe("ComponentName", () => {
 5. **Don't commit lib/ directory** - It's build output and git-ignored
 6. **Don't skip return types** - Explicit return types required (except .styles files)
 7. **Maintain backward compatibility** - This is a library; breaking changes require major version bumps
+8. **Check browser support** - Check a new CSS or JavaScript feature against the `browserslist` target in `package.json` (Baseline widely available, see the README's "Supported browsers") before using it
 
 ## Special Notes
 

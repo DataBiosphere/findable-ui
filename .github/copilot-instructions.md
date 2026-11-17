@@ -82,6 +82,7 @@ function transformRoute(routes: string[]): string | undefined {
    ```bash
    npm run check-format
    npm run lint
+   npm run lint-css
    npm run test
    npm run test-compile
    ```
@@ -90,14 +91,16 @@ function transformRoute(routes: string[]): string | undefined {
 
 1. **Check formatting**: `npm run check-format` (Prettier)
 2. **Lint code**: `npm run lint` (ESLint with TypeScript, SonarJS, and other plugins)
-3. **Run tests**: `npm run test` (Jest with jsdom environment)
-4. **Type check**: `npm run test-compile` (TypeScript compiler without emit)
-5. **Compile library**: `npx tsc` (when making changes that need to be tested in consuming apps)
+3. **Lint CSS**: `npm run lint-css` (Stylelint: the stylesheets in `static/` against the supported browsers)
+4. **Run tests**: `npm run test` (Jest with jsdom environment)
+5. **Type check**: `npm run test-compile` (TypeScript compiler without emit)
+6. **Compile library**: `npx tsc` (when making changes that need to be tested in consuming apps)
 
 ### All PRs Must Pass
 
 - Prettier formatting check
 - ESLint with no errors
+- Stylelint with no errors
 - All Jest tests passing
 - TypeScript compilation without errors
 

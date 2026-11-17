@@ -5,6 +5,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "node scripts/check-no-eslint-suppressions.mjs && eslint .",
+    "lint-css": "stylelint \"static/**/*.css\"",
     "check-format": "prettier --check .",
     "storybook": "storybook dev -p 6006",
     "test-compile": "tsc -p tsconfig.test.json",
@@ -23,6 +24,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "sideEffects": false,
+  "browserslist": [
+    "baseline widely available"
+  ],
   "files": [
     "lib",
     "static/**/*.css",
@@ -98,6 +102,7 @@
     "eslint": "^9",
     "eslint-config-next": "^16",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-baseline-js": "^0.7.7",
     "eslint-plugin-jsdoc": "^63",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-perfectionist": "^4",
@@ -116,6 +121,8 @@
     "prettier": "^3.9.5",
     "prettier-plugin-organize-imports": "^4.3.0",
     "storybook": "^10.4.1",
+    "stylelint": "^17.16.0",
+    "stylelint-plugin-use-baseline": "^1.4.8",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3",
     "yet-another-react-lightbox": "^3.32.2"
