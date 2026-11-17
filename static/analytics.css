@@ -71,7 +71,8 @@
  *   Policy blocks inline script, the fonts never apply; use a plain
  *   <link rel="stylesheet" media="all"> with the same href instead, which
  *   delays first paint until the fonts' stylesheet loads. Keep media="all":
- *   the Chart.js section below checks it to tell the fonts have loaded.
+ *   the Chart.js section below checks it to tell whether the fonts have
+ *   loaded.
  *
  *   To use a different font, override --fui-font-family:
  *
@@ -154,12 +155,12 @@
  * Chart.js:
  *   Chart.js draws text on the canvas, which doesn't re-render when a web
  *   font arrives, and chart.update() reuses the label widths it measured
- *   for the same font family. With the Fonts snippet above, draw the charts
- *   straight away in a font stack that leaves out Inter, unless Inter has
- *   already loaded, then switch to the page's font once Inter loads: the
- *   new family makes update() measure the labels again, so the axes fit
- *   Inter. Run this after Chart.js; if Chart.js loads with defer, run it in
- *   a DOMContentLoaded listener:
+ *   for the same font family. With the Fonts snippet above, if Inter has
+ *   already loaded, draw the charts in the page's font. Otherwise draw them
+ *   straight away in a stack that leaves out Inter, and switch to the page's
+ *   font once Inter loads: the new family makes update() measure the labels
+ *   again, so the axes fit Inter. Run this after Chart.js; if Chart.js loads
+ *   with defer, run it in a DOMContentLoaded listener:
  *
  *   // --fui-font-family without Inter.
  *   const FALLBACK = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
