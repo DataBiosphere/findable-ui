@@ -20,7 +20,7 @@ import {
 
 const { DEFAULT } = composeStories(stories);
 
-// Not in the story: the nav variants, which are to become their own component.
+// Not in the story's ALL_COMBINATIONS: the nav variants, which are to become their own component. They render through DEFAULT with args.
 const NAV_VARIANTS: Pick<ButtonProps, "variant">[] = [
   { variant: "activeNav" },
   { variant: "backNav" },
@@ -99,8 +99,8 @@ function toName(props: ButtonProps): string {
 describe("MuiButton theme styles", () => {
   // Pins the CSS the theme produces for every variant, colour and size findable-ui
   // styles, so moving or restructuring MuiButton can't change how buttons look
-  // without the snapshot showing it. The story's combinations render through the
-  // story; the cases the story doesn't show render directly.
+  // without the snapshot showing it. Every case renders through the story, with
+  // its props as args.
   for (const combination of COMBINATIONS) {
     for (const size of SIZES) {
       const props = { ...combination, size };
@@ -115,7 +115,7 @@ describe("MuiButton theme styles", () => {
     }
     const small = { ...combination, size: BUTTON_PROPS.SIZE.SMALL };
     it(`should keep the ${toName(small)} styles`, () => {
-      expect(renderButtonStyles(small)).toMatchSnapshot();
+      expect(renderStoryButtonStyles(small)).toMatchSnapshot();
     });
   }
 
@@ -123,14 +123,15 @@ describe("MuiButton theme styles", () => {
     for (const size of Object.values(BUTTON_PROPS.SIZE)) {
       const props = { ...navVariant, size };
       it(`should keep the ${toName(props)} styles`, () => {
-        expect(renderButtonStyles(props)).toMatchSnapshot();
+        expect(renderStoryButtonStyles(props)).toMatchSnapshot();
       });
     }
   }
 });
 
 describe("MuiButton exported variants", () => {
-  // An app overrides one variant by spreading BUTTON_VARIANTS and appending its
+  // These render outside the story, because the story's decorator always applies
+  // the default theme. An app overrides one variant by spreading BUTTON_VARIANTS and appending its
   // own entry, because MUI's theme merge replaces the whole variants array.
   const overrideTheme = createAppTheme({
     components: {
