@@ -1,13 +1,14 @@
 import { Button, Tooltip } from "@mui/material";
 import Link from "next/link";
 import { JSX } from "react";
+import { FROM_URL_PARAM } from "../../../../../../../common/constants";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { useDownloadStatus } from "../../../../../../../hooks/useDownloadStatus";
+import { ROUTE } from "../../../../../../../routes/constants";
 import { TEST_IDS } from "../../../../../../../tests/testIds";
 import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { BaseComponentProps } from "../../../../../../types";
 import { StyledBox } from "./exportButton.styles";
-import { getExportHref } from "./utils";
 
 /**
  * Export button linking to the export page, with the explore page's entity list type in the link's `from` param. It is disabled while the system is indexing, with a tooltip saying so, and while the system status is loading.
@@ -34,7 +35,7 @@ export const ExportButton = ({
           component={Link}
           data-testid={TEST_IDS.EXPORT_BUTTON}
           disabled={disabled || isLoading}
-          href={getExportHref(route)}
+          href={`${ROUTE.EXPORT}?${new URLSearchParams({ [FROM_URL_PARAM]: route })}`}
           id="button-cohort-export"
         >
           Export

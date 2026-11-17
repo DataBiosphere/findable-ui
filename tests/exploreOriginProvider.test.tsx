@@ -26,8 +26,10 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
 
 const { ExploreOriginProvider } =
   await import("../src/providers/exploreOrigin/provider");
-const { useExploreOrigin, useOptionalExploreOrigin, useSetExploreOrigin } =
+const { useExploreOrigin, useOptionalExploreOrigin } =
   await import("../src/providers/exploreOrigin/hook");
+const { useSetExploreOrigin } =
+  await import("../src/providers/exploreOrigin/hooks/UseSetExploreOrigin/hook");
 
 /**
  * Wraps a hook in an ExploreOriginProvider.

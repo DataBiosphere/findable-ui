@@ -22,7 +22,7 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useCatalogParam } from "../../providers/catalog/hook";
-import { useSetExploreOrigin } from "../../providers/exploreOrigin/hook";
+import { useSetExploreOrigin } from "../../providers/exploreOrigin/hooks/UseSetExploreOrigin/hook";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
