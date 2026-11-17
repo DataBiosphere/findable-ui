@@ -1,4 +1,10 @@
-import { Button, ButtonProps, Theme, ThemeProvider } from "@mui/material";
+import {
+  Button,
+  ButtonProps,
+  createTheme,
+  Theme,
+  ThemeProvider,
+} from "@mui/material";
 import { composeStories } from "@storybook/react";
 import { render } from "@testing-library/react";
 import { BUTTON_PROPS } from "../src/contracts/mui/Button/constants";
@@ -13,6 +19,7 @@ import {
 } from "../src/contracts/mui/Button/theme";
 import { createAppTheme } from "../src/theme/theme";
 import {
+  diffStyles,
   getEmotionStyles,
   recordInsertedRules,
   ResolvedStyles,
@@ -28,6 +35,10 @@ const NAV_VARIANTS: Pick<ButtonProps, "variant">[] = [
 ];
 
 const OVERRIDE_COLOR = "rgb(1, 2, 3)";
+
+// MUI's own default theme, with findable-ui's CSS variable settings, to subtract
+// MUI's base styles from each snapshot.
+const MUI_THEME = createTheme({ cssVariables: { cssVarPrefix: "" } });
 
 const THEME = createAppTheme();
 
@@ -74,9 +85,11 @@ function renderButtonStyles(
 }
 
 /**
- * Renders the Button story's DEFAULT with both icons and the given args, and returns its resolved styles.
+ * Renders the Button story's DEFAULT with both icons and the given args, and returns
+ * only the styles findable-ui's theme changes: each declaration MUI's default theme
+ * also produces for the same props is dropped, so MUI's own updates don't show.
  * @param props - Button props passed as story args.
- * @returns Resolved styles for the root, startIcon and endIcon elements.
+ * @returns Theme-changed styles for the root, startIcon and endIcon elements.
  */
 function renderStoryButtonStyles(
   props: ButtonProps,
@@ -84,7 +97,13 @@ function renderStoryButtonStyles(
   const { container } = render(
     <DEFAULT endIcon={<svg />} startIcon={<svg />} {...props} />,
   );
-  return getButtonStyles(container);
+  const themed = getButtonStyles(container);
+  const base = renderButtonStyles(props, MUI_THEME);
+  return {
+    endIcon: diffStyles(themed.endIcon, base.endIcon),
+    root: diffStyles(themed.root, base.root),
+    startIcon: diffStyles(themed.startIcon, base.startIcon),
+  };
 }
 
 /**
@@ -97,9 +116,9 @@ function toName(props: ButtonProps): string {
 }
 
 describe("MuiButton theme styles", () => {
-  // Pins the CSS the theme produces for every variant, colour and size findable-ui
+  // Pins what findable-ui's theme changes for every variant, colour and size it
   // styles, so moving or restructuring MuiButton can't change how buttons look
-  // without the snapshot showing it. Every case renders through the story, with
+  // without the snapshot showing it. MUI's own base styles are left out. Every case renders through the story, with
   // its props as args.
   for (const combination of COMBINATIONS) {
     for (const size of SIZES) {

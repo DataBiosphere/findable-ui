@@ -48,16 +48,49 @@ function applyDeclarations(
 ): Record<string, string> {
   const applied = { ...styles };
   for (const [property, value] of declarations) {
-    const longhands = SHORTHAND_LONGHANDS[property] ?? [];
     for (const name of Object.keys(applied)) {
-      if (name.includes("radius")) continue;
-      if (longhands.some((longhand) => name.startsWith(longhand))) {
-        delete applied[name];
-      }
+      if (isLonghandOf(name, property)) delete applied[name];
     }
     applied[property] = value;
   }
   return applied;
+}
+
+/**
+ * Returns the declarations in `styles` that `base` doesn't have with the same value,
+ * plus the longhands of any changed shorthand, dropping selectors left empty. Comparing a themed element with the same element
+ * under MUI's default theme leaves only what the theme changes.
+ * @param styles - Resolved styles to keep declarations from.
+ * @param base - Resolved styles to compare against.
+ * @returns The declarations that differ from `base`, keyed by selector.
+ */
+export function diffStyles(
+  styles: ResolvedStyles,
+  base: ResolvedStyles,
+): ResolvedStyles {
+  const diff: ResolvedStyles = {};
+  for (const [key, declarations] of Object.entries(styles)) {
+    const changed = new Set(
+      Object.keys(declarations).filter(
+        (property) => base[key]?.[property] !== declarations[property],
+      ),
+    );
+    // A changed shorthand resets its longhands, so the longhands written after it
+    // matter even when they match the base value; keep them with it.
+    for (const property of [...changed]) {
+      for (const name of Object.keys(declarations)) {
+        if (isLonghandOf(name, property)) changed.add(name);
+      }
+    }
+    if (changed.size > 0) {
+      diff[key] = Object.fromEntries(
+        Object.entries(declarations).filter(([property]) =>
+          changed.has(property),
+        ),
+      );
+    }
+  }
+  return diff;
 }
 
 /**
@@ -80,6 +113,18 @@ export function getEmotionStyles(element: Element): ResolvedStyles {
     }
   }
   return sortStyles(resolved);
+}
+
+/**
+ * Says whether a property is one of the longhands a shorthand resets.
+ * @param name - Property that may be a longhand, e.g. "margin-left".
+ * @param shorthand - Property that may be a shorthand, e.g. "margin".
+ * @returns True when `shorthand` resets `name`.
+ */
+function isLonghandOf(name: string, shorthand: string): boolean {
+  const longhands = SHORTHAND_LONGHANDS[shorthand];
+  if (!longhands || name.includes("radius")) return false;
+  return longhands.some((longhand) => name.startsWith(longhand));
 }
 
 /**
