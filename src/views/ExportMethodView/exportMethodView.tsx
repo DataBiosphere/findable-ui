@@ -4,7 +4,7 @@ import { ComponentCreator } from "../../components/ComponentCreator/ComponentCre
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
 import { ExportMethodConfig } from "../../config/entities";
 import { useExportConfig } from "../../hooks/useExportConfig";
-import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams";
+import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams/hook";
 
 /**
  * Renders the export page for the export method that matches the current pathname.

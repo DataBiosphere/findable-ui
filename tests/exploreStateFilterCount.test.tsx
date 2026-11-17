@@ -69,7 +69,7 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
     defaultEntityListType: "files",
   })),
 }));
-jest.unstable_mockModule("../src/hooks/useURLFilterParams", () => ({
+jest.unstable_mockModule("../src/hooks/useURLFilterParams/hook", () => ({
   useURLFilterParams: jest.fn(() => ({ decodedFilterParam })),
 }));
 

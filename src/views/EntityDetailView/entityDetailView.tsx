@@ -10,7 +10,7 @@ import { useConfig } from "../../hooks/useConfig";
 import { useCurrentDetailTab } from "../../hooks/useCurrentDetailTab";
 import { useEntityHeadTitle } from "../../hooks/useEntityHeadTitle";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
-import { useUpdateURLParams } from "../../hooks/useUpdateURLParams";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 
 /**
  * Props for views that display a single entity: the entity list type and, when statically fetched, the entity data.

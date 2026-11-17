@@ -19,7 +19,7 @@ import {
   buildNextFilterState,
 } from "../hooks/useCategoryFilter";
 import { useConfig } from "../hooks/useConfig";
-import { useURLFilterParams } from "../hooks/useURLFilterParams";
+import { useURLFilterParams } from "../hooks/useURLFilterParams/hook";
 import { clearMetaAction } from "./exploreState/actions/clearMeta/action";
 import { ClearMetaAction } from "./exploreState/actions/clearMeta/types";
 import { resetColumnVisibilityAction } from "./exploreState/actions/resetVisibility/action";

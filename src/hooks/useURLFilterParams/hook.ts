@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useCallback } from "react";
-import { FROM_URL_PARAM } from "../common/constants";
-import { SelectedFilter } from "../common/entities";
-import { CATALOG_URL_PARAM } from "../providers/catalog/constants";
-import { useLocation } from "./useLocation";
+import { FROM_URL_PARAM } from "../../common/constants";
+import { SelectedFilter } from "../../common/entities";
+import { CATALOG_URL_PARAM } from "../../providers/catalog/constants";
+import { useLocation } from "../useLocation";
 
 interface UseURLFilterParamsResult {
   decodedFilterParam: string;

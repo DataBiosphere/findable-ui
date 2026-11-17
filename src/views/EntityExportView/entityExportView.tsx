@@ -3,7 +3,7 @@ import { ComponentCreator } from "../../components/ComponentCreator/ComponentCre
 import { BackPageView } from "../../components/Layout/components/BackPage/backPageView";
 import { useEntityExportConfig } from "../../hooks/useEntityExportConfig";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
-import { useUpdateURLParams } from "../../hooks/useUpdateURLParams";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
 /**

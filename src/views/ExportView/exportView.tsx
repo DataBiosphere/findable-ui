@@ -5,7 +5,7 @@ import { BackPageView } from "../../components/Layout/components/BackPage/backPa
 import { useExploreState } from "../../hooks/useExploreState";
 import { useExportConfig } from "../../hooks/useExportConfig";
 import { useFileManifest } from "../../hooks/useFileManifest/useFileManifest";
-import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams";
+import { useUpdateURLSearchParams } from "../../hooks/useUpdateURLSearchParams/hook";
 
 export type ExportViewProps = AzulEntityStaticResponse;
 

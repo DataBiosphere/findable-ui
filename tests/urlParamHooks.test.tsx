@@ -33,16 +33,17 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
   useExploreState: jest.fn(() => ({ exploreState: EXPLORE_STATE })),
 }));
-jest.unstable_mockModule("../src/hooks/useURLFilterParams", () => ({
+jest.unstable_mockModule("../src/hooks/useURLFilterParams/hook", () => ({
   useURLFilterParams: jest.fn(() => ({ updateFilterQueryString })),
 }));
 
 const { CatalogProvider } = await import("../src/providers/catalog/provider");
 const { ExploreOriginProvider } =
   await import("../src/providers/exploreOrigin/provider");
-const { useUpdateURLParams } = await import("../src/hooks/useUpdateURLParams");
+const { useUpdateURLParams } =
+  await import("../src/hooks/useUpdateURLParams/hook");
 const { useUpdateURLSearchParams } =
-  await import("../src/hooks/useUpdateURLSearchParams");
+  await import("../src/hooks/useUpdateURLSearchParams/hook");
 
 /**
  * Wraps a hook in a CatalogProvider only.

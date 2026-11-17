@@ -7,7 +7,7 @@ import { BackPageView } from "../../components/Layout/components/BackPage/backPa
 import { ExportMethodConfig } from "../../config/entities";
 import { useEntityExportConfig } from "../../hooks/useEntityExportConfig";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
-import { useUpdateURLParams } from "../../hooks/useUpdateURLParams";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView";
 
 /**

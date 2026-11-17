@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useCatalogParam } from "../providers/catalog/hook";
-import { useExploreOrigin } from "../providers/exploreOrigin/hook";
-import { useExploreState } from "./useExploreState";
-import { useURLFilterParams } from "./useURLFilterParams";
+import { useCatalogParam } from "../../providers/catalog/hook";
+import { useExploreOrigin } from "../../providers/exploreOrigin/hook";
+import { useExploreState } from "../useExploreState";
+import { useURLFilterParams } from "../useURLFilterParams/hook";
 
 /**
  * Updates URL search params when the filter state changes: the selected catalog, the explore origin, and the filters.

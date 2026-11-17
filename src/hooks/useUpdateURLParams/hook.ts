@@ -1,9 +1,9 @@
 import Router, { useRouter } from "next/router";
 import { useEffect } from "react";
-import { FROM_URL_PARAM } from "../common/constants";
-import { CATALOG_URL_PARAM } from "../providers/catalog/constants";
-import { useCatalogParam } from "../providers/catalog/hook";
-import { useOptionalExploreOrigin } from "../providers/exploreOrigin/hook";
+import { FROM_URL_PARAM } from "../../common/constants";
+import { CATALOG_URL_PARAM } from "../../providers/catalog/constants";
+import { useCatalogParam } from "../../providers/catalog/hook";
+import { useOptionalExploreOrigin } from "../../providers/exploreOrigin/hook";
 
 /**
  * Returns the params whose value is set but differs from the URL's.

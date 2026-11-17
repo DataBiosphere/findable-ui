@@ -21,7 +21,8 @@ jest.unstable_mockModule("../src/hooks/useLocation", () => ({
   })),
 }));
 
-const { useURLFilterParams } = await import("../src/hooks/useURLFilterParams");
+const { useURLFilterParams } =
+  await import("../src/hooks/useURLFilterParams/hook");
 
 beforeEach(() => {
   replace.mockClear();
