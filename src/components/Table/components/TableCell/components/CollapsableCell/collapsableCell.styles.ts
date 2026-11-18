@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { TableCell as MTableCell } from "@mui/material";
 import { FONT } from "../../../../../../styles/common/constants/font";
 import { PALETTE } from "../../../../../../styles/common/constants/palette";
+import { CLAMPED_CONTENT_CLASS_NAME } from "../ClampedContent/constants";
 
 interface Props {
   isExpanded: boolean;
@@ -23,6 +24,10 @@ export const TableCell = styled(MTableCell, {
     css`
       && {
         background-color: ${PALETTE.SMOKE_LIGHTEST};
+      }
+
+      .${CLAMPED_CONTENT_CLASS_NAME} {
+        -webkit-line-clamp: unset;
       }
     `};
 }
