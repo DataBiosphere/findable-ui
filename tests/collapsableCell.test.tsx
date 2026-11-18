@@ -41,11 +41,29 @@ const COLUMNS = [
 ];
 
 /**
+ * Expands the first rendered row and returns its collapsed contents.
+ * @returns The first row's collapsed contents element.
+ */
+function expandFirstRow(): HTMLElement {
+  const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
+  fireEvent.click(toggle);
+  return document.getElementById(
+    toggle.getAttribute("aria-controls") as string,
+  ) as HTMLElement;
+}
+
+/**
  * Renders a collapsable cell per group row of a table grouped by organism,
  * skipping sub-rows as the explore view's stacked layout does.
+ * @param props - Component props.
+ * @param props.hideGroupedColumn - Whether to hide the grouped organism column.
  * @returns Collapsable cells under test.
  */
-function GroupedTestCell(): JSX.Element {
+function GroupedTestCell({
+  hideGroupedColumn = false,
+}: {
+  hideGroupedColumn?: boolean;
+}): JSX.Element {
   const table = useReactTable<RowData>({
     autoResetPageIndex: false, // Grouping otherwise queues a page reset outside act().
     columns: COLUMNS,
@@ -53,7 +71,10 @@ function GroupedTestCell(): JSX.Element {
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getGroupedRowModel: getGroupedRowModel(),
-    initialState: { grouping: ["organism"] },
+    initialState: {
+      columnVisibility: { organism: !hideGroupedColumn },
+      grouping: ["organism"],
+    },
   });
   return (
     <table>
@@ -197,11 +218,7 @@ describe("CollapsableCell", () => {
   // The pinned cell shows in the summary, so the expanded contents leave it out.
   it("should leave the pinned cell out of an ungrouped row's contents", () => {
     render(<TestCell />);
-    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
-    fireEvent.click(toggle);
-    const contents = document.getElementById(
-      toggle.getAttribute("aria-controls") as string,
-    ) as HTMLElement;
+    const contents = expandFirstRow();
 
     expect(screen.getAllByText(ROWS[0].name)).toHaveLength(1);
     expect(within(contents).queryByText(ROWS[0].name)).toBeNull();
@@ -212,14 +229,21 @@ describe("CollapsableCell", () => {
   // grouped column is a placeholder and is left out, not only the first one's.
   it("should leave the grouped column out of every sub-row", () => {
     render(<GroupedTestCell />);
-    const toggle = screen.getByRole("button", { name: TOGGLE_NAME });
-    fireEvent.click(toggle);
-    const contents = document.getElementById(
-      toggle.getAttribute("aria-controls") as string,
-    ) as HTMLElement;
+    const contents = expandFirstRow();
 
     expect(screen.getAllByText("Homo sapiens")).toHaveLength(1);
     expect(within(contents).queryByText("Homo sapiens")).toBeNull();
+    for (const { name } of GROUPED_ROWS) {
+      expect(within(contents).getByText(name)).not.toBeNull();
+    }
+  });
+
+  // With the grouped column hidden, the group row's pinned cell is its own
+  // name cell, which no sub-row shares, so the first sub-row keeps its name.
+  it("should show every sub-row's pinned-column cell when the grouped column is hidden", () => {
+    render(<GroupedTestCell hideGroupedColumn />);
+    const contents = expandFirstRow();
+
     for (const { name } of GROUPED_ROWS) {
       expect(within(contents).getByText(name)).not.toBeNull();
     }
