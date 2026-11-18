@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { NavigationMenu } from "../src/components/Layout/components/Header/components/Content/components/Navigation/components/NavigationMenu/navigationMenu";
 import { createAppTheme } from "../src/theme/theme";
 
@@ -62,6 +62,10 @@ function renderNavigationMenu(): HTMLElement {
   );
   return screen.getByRole("button", { name: TRIGGER_NAME });
 }
+
+afterEach(() => {
+  document.body.style.removeProperty("overflow");
+});
 
 describe("NavigationMenu", () => {
   it("should declare that the trigger opens a menu", () => {
@@ -195,9 +199,11 @@ describe("NavigationMenu", () => {
   it("should close every menu on Tab in a submenu and return focus to the trigger", () => {
     const trigger = renderNavigationMenu();
     openSubMenu(trigger);
+    const subMenuItem = getMenuItem(SUBMENU_NAME);
 
     pressKey("Tab");
 
+    expect(subMenuItem.getAttribute("aria-expanded")).toBe("false");
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
     expect(document.activeElement).toBe(trigger);
   });
@@ -209,5 +215,31 @@ describe("NavigationMenu", () => {
     const subMenuButton = screen.getByRole("button", { name: SUBMENU_NAME });
     expect(subMenuButton.getAttribute("tabindex")).toBe("-1");
     expect(subMenuButton.hasAttribute("aria-haspopup")).toBe(false);
+  });
+
+  it("should lock page scroll once the menu has opened and unlock it on close", async () => {
+    const trigger = renderNavigationMenu();
+
+    fireEvent.click(trigger);
+
+    await waitFor(() => expect(document.body.style.overflow).toBe("hidden"));
+    pressKey("Escape");
+    expect(document.body.style.overflow).toBe("");
+  });
+
+  it("should keep page scroll locked when a submenu opens and closes", async () => {
+    const trigger = renderNavigationMenu();
+    fireEvent.click(trigger);
+    await waitFor(() => expect(document.body.style.overflow).toBe("hidden"));
+
+    pressKey("ArrowDown");
+    pressKey("ArrowDown");
+    pressKey("Enter");
+    pressKey("Escape");
+
+    expect(getMenuItem(SUBMENU_NAME).getAttribute("aria-expanded")).toBe(
+      "false",
+    );
+    expect(document.body.style.overflow).toBe("hidden");
   });
 });

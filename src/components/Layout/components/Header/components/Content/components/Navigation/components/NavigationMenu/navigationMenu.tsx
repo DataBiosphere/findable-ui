@@ -6,7 +6,7 @@ import {
   Paper as MPaper,
   PopperProps as MPopperProps,
 } from "@mui/material";
-import { ElementType, Fragment, JSX, ReactNode, useEffect } from "react";
+import { JSX, ReactNode, useEffect } from "react";
 import { useMenu } from "../../../../../../../../../common/Menu/hooks/useMenu";
 import { NavigationButtonLabel } from "../NavigationButtonLabel/navigationButtonLabel";
 import {
@@ -69,8 +69,6 @@ export const NavigationMenu = ({
     open,
     triggerProps,
   } = useMenu();
-  // A submenu's item takes the props that open it, which a Fragment can't.
-  const MenuItem: ElementType = isSubMenu ? StyledMenuItem : Fragment;
   const { buttonProps, menuItemProps } = getTriggerProps(
     isSubMenu,
     triggerProps,
@@ -84,8 +82,8 @@ export const NavigationMenu = ({
     };
   }, [isSubMenu, onDisableScrollLock, open]);
 
-  return (
-    <MenuItem {...menuItemProps}>
+  const menu = (
+    <>
       <Button
         {...buttonProps}
         endIcon={<ArrowDropDownRounded fontSize="small" />}
@@ -135,6 +133,10 @@ export const NavigationMenu = ({
           </Grow>
         )}
       </StyledPopper>
-    </MenuItem>
+    </>
   );
+
+  // A submenu opens from the menu item around its nav button, which takes the props that open it.
+  if (!isSubMenu) return menu;
+  return <StyledMenuItem {...menuItemProps}>{menu}</StyledMenuItem>;
 };

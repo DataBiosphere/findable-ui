@@ -9,9 +9,9 @@ export interface OpenProps extends PopupAriaProps {
 }
 
 /**
- * Props for the menu's nav button and, in a submenu, the menu item around it.
+ * Props for the menu's nav button and, in a submenu, the menu item around it. A top-level menu's button takes the open
+ * props; a submenu's item takes them and its button leaves the tab order.
  */
-export interface TriggerProps {
-  buttonProps: OpenProps | { tabIndex: number };
-  menuItemProps?: OpenProps;
-}
+export type TriggerProps =
+  | { buttonProps: OpenProps; menuItemProps?: undefined }
+  | { buttonProps: { tabIndex: -1 }; menuItemProps: OpenProps };
