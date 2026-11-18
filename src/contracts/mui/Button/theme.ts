@@ -7,7 +7,7 @@ import type { ButtonVariant } from "./types";
 
 const CONTAINED_PRIMARY_SHADOW = `0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_08}, inset 0 -1px 0 0 ${COLOR_MIXES.COMMON_BLACK_20}`;
 
-const CONTAINED_SECONDARY_SHADOW = `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`;
+const OUTLINED_SECONDARY_SHADOW = `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}, 0 1px 0 0 ${COLOR_MIXES.COMMON_BLACK_05}`;
 
 export const CONTAINED_PRIMARY: ButtonVariant = {
   props: {
@@ -38,51 +38,27 @@ export const CONTAINED_PRIMARY: ButtonVariant = {
   },
 };
 
-export const CONTAINED_SECONDARY: ButtonVariant = {
-  props: {
-    color: BUTTON_PROPS.COLOR.SECONDARY,
-    variant: BUTTON_PROPS.VARIANT.CONTAINED,
-  },
-  style: {
-    backgroundColor: PALETTE.COMMON_WHITE,
-    boxShadow: CONTAINED_SECONDARY_SHADOW,
-    color: PALETTE.INK_MAIN,
-    // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:hover, &:active, &.Mui-focusVisible": {
-      backgroundColor: PALETTE.SMOKE_LIGHTEST,
-      boxShadow: CONTAINED_SECONDARY_SHADOW,
-    },
-    // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:disabled": {
-      backgroundColor: PALETTE.COMMON_WHITE,
-      boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
-      color: PALETTE.INK_MAIN,
-      opacity: 0.5,
-    },
-  },
-};
-
 export const OUTLINED_SECONDARY: ButtonVariant = {
   props: {
     color: BUTTON_PROPS.COLOR.SECONDARY,
     variant: BUTTON_PROPS.VARIANT.OUTLINED,
   },
   style: {
-    backgroundColor: "transparent",
+    backgroundColor: PALETTE.COMMON_WHITE,
+    // The border is drawn by the inset box shadow, so MUI's outlined border is removed to keep the button's size.
     border: "none",
-    boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_32}`,
+    boxShadow: OUTLINED_SECONDARY_SHADOW,
     color: PALETTE.INK_MAIN,
     // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:hover": {
-      backgroundColor: "transparent",
-      border: "none",
-      boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_64}`,
+    "&:hover, &:active, &.Mui-focusVisible": {
+      backgroundColor: PALETTE.SMOKE_LIGHTEST,
+      boxShadow: OUTLINED_SECONDARY_SHADOW,
     },
     // eslint-disable-next-line sort-keys -- disabling key order for readability
     "&:disabled": {
-      backgroundColor: "transparent",
+      backgroundColor: PALETTE.COMMON_WHITE,
       border: "none",
-      boxShadow: `inset 0 0 0 1px ${COLOR_MIXES.INK_MAIN_32}`,
+      boxShadow: `inset 0 0 0 1px ${PALETTE.SMOKE_DARK}`,
       color: PALETTE.INK_MAIN,
       opacity: 0.5,
     },
@@ -181,7 +157,6 @@ export const NAV: ButtonVariant = {
  */
 export const BUTTON_VARIANTS: ButtonVariant[] = [
   CONTAINED_PRIMARY,
-  CONTAINED_SECONDARY,
   OUTLINED_SECONDARY,
   SIZE_LARGE,
   SIZE_MEDIUM,

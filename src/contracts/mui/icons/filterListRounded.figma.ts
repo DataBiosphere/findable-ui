@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/cc-components?node-id=21-9
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=21-9
 // source=@mui/icons-material/FilterListRounded
 // component=FilterListRounded
 import figma from "figma";

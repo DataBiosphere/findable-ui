@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/cc-components?node-id=8-61
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=8-61
 // source=@mui/icons-material/LoginRounded
 // component=LoginRounded
 import figma from "figma";

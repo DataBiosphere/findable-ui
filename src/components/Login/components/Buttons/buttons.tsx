@@ -31,7 +31,7 @@ export const Buttons = ({
       <StyledButton
         key={provider.id}
         className={className}
-        {...BUTTON_PROPS.SECONDARY_CONTAINED}
+        {...BUTTON_PROPS.SECONDARY_OUTLINED}
         {...props}
         // Component-controlled props are set after the spread so a consumer
         // cannot override the login wiring; `disabled`/`endIcon` are destructured

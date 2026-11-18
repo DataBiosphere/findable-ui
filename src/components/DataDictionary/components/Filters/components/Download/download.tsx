@@ -42,7 +42,7 @@ export const Download = ({ download }: DownloadProps): JSX.Element | null => {
 
   return (
     <Button
-      {...BUTTON_PROPS.SECONDARY_LARGE_CONTAINED}
+      {...BUTTON_PROPS.SECONDARY_LARGE_OUTLINED}
       download
       href={href}
       startIcon={<DownloadIcon />}

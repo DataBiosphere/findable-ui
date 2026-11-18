@@ -31,7 +31,7 @@ export const SidebarButton = ({
 }: SidebarButtonProps): JSX.Element => {
   return (
     <Button
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      {...BUTTON_PROPS.SECONDARY_OUTLINED}
       className={className}
       onClick={onClick}
       {...props}

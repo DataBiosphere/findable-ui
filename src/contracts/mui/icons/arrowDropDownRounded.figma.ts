@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/cc-components?node-id=8-52
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=8-52
 // source=@mui/icons-material/ArrowDropDownRounded
 // component=ArrowDropDownRounded
 import figma from "figma";

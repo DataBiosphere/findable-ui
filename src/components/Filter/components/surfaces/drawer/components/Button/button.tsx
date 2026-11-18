@@ -38,7 +38,7 @@ export const Button = ({
         id,
         open,
       })}
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      {...BUTTON_PROPS.SECONDARY_OUTLINED}
       className={className}
       onClick={onOpen}
       startIcon={

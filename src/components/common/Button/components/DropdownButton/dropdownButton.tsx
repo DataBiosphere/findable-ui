@@ -18,7 +18,7 @@ export const DropdownButton = ({
 }: DropdownButtonProps): JSX.Element => {
   return (
     <StyledButton
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      {...BUTTON_PROPS.SECONDARY_OUTLINED}
       endIcon={<ArrowDropDownRounded />}
       open={open}
       {...props}

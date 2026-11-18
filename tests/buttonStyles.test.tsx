@@ -183,10 +183,10 @@ describe("MuiButton exported variants", () => {
     });
   });
 
-  it("should leave contained secondary unchanged", () => {
+  it("should leave outlined secondary unchanged", () => {
     const props: ButtonProps = {
       color: BUTTON_PROPS.COLOR.SECONDARY,
-      variant: BUTTON_PROPS.VARIANT.CONTAINED,
+      variant: BUTTON_PROPS.VARIANT.OUTLINED,
     };
     expect(renderButtonStyles(props, overrideTheme)).toEqual(
       renderButtonStyles(props),

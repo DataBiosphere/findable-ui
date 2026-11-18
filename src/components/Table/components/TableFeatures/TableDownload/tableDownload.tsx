@@ -19,7 +19,7 @@ export const TableDownload = <T extends RowData>({
   if (!table.options.enableTableDownload) return null;
   return (
     <StyledButton
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      {...BUTTON_PROPS.SECONDARY_OUTLINED}
       className={className}
       onClick={() => table.downloadData()}
       startIcon={<DownloadIcon />}

@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/cc-components?node-id=21-19
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=21-19
 // source=src/components/common/CustomIcon/components/GoogleIcon/googleIcon.tsx
 // component=GoogleIcon
 import figma from "figma";

@@ -21,7 +21,7 @@ export interface ExportButtonProps {
  * exports require it and they are not logged in.
  * The button is always given the primary contained preset (color and variant),
  * including a Button passed in, so a passed-in button that spreads its props
- * after its own color and variant (e.g. ButtonOutline) renders primary contained.
+ * after its own color and variant renders primary contained.
  * @param props - Component props.
  * @param props.Button - Button component, given the primary contained preset; defaults to MUI Button.
  * @param props.children - Button label.

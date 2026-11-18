@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/cc-components?node-id=9-562
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=9-562
 // source=src/contracts/mui/Button/theme.ts
 // component=Button
 import figma from "figma";
