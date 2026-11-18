@@ -4,6 +4,9 @@ import type { ExploreState } from "../src/providers/exploreState";
 
 const CATALOG = "dcp2";
 const ENTITY_LIST_TYPE = "datasets";
+const OTHER_ENTITY_LIST_TYPE = "files";
+
+const DATASETS_QUERY = { entityListType: ENTITY_LIST_TYPE };
 
 const dataSelector = jest.fn<(props: unknown) => void>();
 const exploreDispatch = jest.fn();
@@ -14,7 +17,12 @@ const useStateSyncManager =
 const exploreState = {
   categoryGroups: undefined,
   categoryViews: [],
-  entities: { [ENTITY_LIST_TYPE]: { query: {} } },
+  entities: {
+    [ENTITY_LIST_TYPE]: { query: DATASETS_QUERY },
+    [OTHER_ENTITY_LIST_TYPE]: {
+      query: { entityListType: OTHER_ENTITY_LIST_TYPE },
+    },
+  },
   loading: false,
 } as unknown as ExploreState;
 
@@ -102,10 +110,11 @@ describe("ExploreView", () => {
     });
   });
 
-  it("syncs the URL with the selected catalog", () => {
+  it("syncs the URL with the query of the page's entity list type and the selected catalog", () => {
     render(<ExploreView entityListType={ENTITY_LIST_TYPE} />);
 
     expect(useStateSyncManager.mock.lastCall?.[0].state.query).toEqual({
+      ...DATASETS_QUERY,
       catalog: CATALOG,
     });
   });
