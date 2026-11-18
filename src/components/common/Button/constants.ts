@@ -1,7 +1,7 @@
-import { ButtonOwnProps } from "@mui/material";
+import type { ButtonOwnProps } from "@mui/material";
 import { BUTTON_PROPS as MUI_BUTTON_PROPS } from "../../../styles/common/mui/button";
 
-export const BUTTON_PROPS: Record<string, Partial<ButtonOwnProps>> = {
+export const BUTTON_PROPS = {
   PRIMARY_CONTAINED: {
     color: MUI_BUTTON_PROPS.COLOR.PRIMARY,
     variant: MUI_BUTTON_PROPS.VARIANT.CONTAINED,
@@ -34,4 +34,4 @@ export const BUTTON_PROPS: Record<string, Partial<ButtonOwnProps>> = {
     color: MUI_BUTTON_PROPS.COLOR.SECONDARY,
     variant: MUI_BUTTON_PROPS.VARIANT.OUTLINED,
   },
-};
+} as const satisfies Record<string, Partial<ButtonOwnProps>>;
