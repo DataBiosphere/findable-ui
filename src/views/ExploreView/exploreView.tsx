@@ -41,13 +41,10 @@ import { buildStateSyncManagerContext } from "./utils";
 /**
  * Renders the explore page: the entity list, plus the filter sidebar when there are categories to filter by.
  * Fetches the entity list, keeps explore state in sync with the URL, and tracks the selected entity type.
- * @typeParam T - Entity type, inferred from `data`.
  * @param props - Component props.
  * @returns The explore view.
  */
-export const ExploreView = <T = unknown,>(
-  props: ExploreViewProps<T>,
-): JSX.Element => {
+export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { mdDown } = useBreakpoint();
   const { config, entityConfig } = useConfig(); // Get app level config.
   const { exploreDispatch, exploreState } = useExploreState(); // Get the useReducer state and dispatch for "Explore".
@@ -147,7 +144,7 @@ export const ExploreView = <T = unknown,>(
 
   return (
     <DrawerProvider>
-      <DataSelector<T> data={data} entityListType={entityListType} />
+      <DataSelector data={data} entityListType={entityListType} />
       {categoryViews && !!categoryViews.length && (
         <Sidebar label={ARIA_LABEL.SIDEBAR}>
           <ToggleButtonGroup />
