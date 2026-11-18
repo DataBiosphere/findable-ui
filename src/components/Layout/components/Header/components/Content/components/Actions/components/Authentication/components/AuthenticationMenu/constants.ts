@@ -14,7 +14,6 @@ export const MENU_PROPS: Partial<MenuProps> = {
     horizontal: POPOVER_ORIGIN_HORIZONTAL.RIGHT,
     vertical: POPOVER_ORIGIN_VERTICAL.BOTTOM,
   },
-  autoFocus: false,
   slotProps: { paper: { variant: PAPER_PROPS.VARIANT.MENU } },
   transformOrigin: {
     horizontal: POPOVER_ORIGIN_HORIZONTAL.RIGHT,

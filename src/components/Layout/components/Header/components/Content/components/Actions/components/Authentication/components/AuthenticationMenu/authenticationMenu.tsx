@@ -54,7 +54,7 @@ export const AuthenticationMenu = ({
         open={open}
         slotProps={getSlotProps(MENU_PROPS.slotProps)}
       >
-        <UserSummary>
+        <UserSummary disabled>
           You are signed in as:
           <UserNames noWrap>{profile.name}</UserNames>
         </UserSummary>

@@ -10,6 +10,11 @@ import { PALETTE } from "../../../../../../../../../../../../styles/common/const
 
 export const AuthenticationMenu = styled(MMenu)`
   margin: 4px 0;
+
+  /* Keyboard focus looks like hover. */
+  .MuiMenuItem-root.Mui-focusVisible {
+    background-color: ${({ theme }) => theme.palette.action.hover};
+  }
 `;
 
 export const UserIcon = styled(MIconButton)`
@@ -18,14 +23,13 @@ export const UserIcon = styled(MIconButton)`
 
 export const UserSummary = styled(MenuItem)`
   display: block;
-  cursor: inherit;
   border-bottom: 1px solid ${PALETTE.SMOKE_MAIN};
   padding-bottom: ${({ theme }) => theme.spacing(4)};
   margin-bottom: ${({ theme }) => theme.spacing(2)};
 
-  &:hover,
-  &:focus {
-    background: inherit;
+  /* Disabled so focus and the arrow keys skip it; it still reads as plain text. */
+  &.Mui-disabled {
+    opacity: 1;
   }
 `;
 

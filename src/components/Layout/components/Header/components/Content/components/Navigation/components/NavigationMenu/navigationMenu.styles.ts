@@ -56,6 +56,11 @@ export const StyledPopper = styled(MPopper)`
           }
         }
 
+        /* Keyboard focus looks like hover; a selected item keeps its own background (below). */
+        &.Mui-focusVisible {
+          background-color: ${({ theme }) => theme.palette.action.hover};
+        }
+
         &.Mui-disabled {
           color: ${PALETTE.INK_LIGHT};
           opacity: 1;

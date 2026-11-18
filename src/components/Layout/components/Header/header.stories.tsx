@@ -61,6 +61,20 @@ export const HeaderStory: Story = {
               label: "Help",
               url,
             },
+            {
+              label: "Community",
+              menuItems: [
+                {
+                  label: "Forum",
+                  url,
+                },
+                {
+                  label: "Events",
+                  url,
+                },
+              ],
+              url: "",
+            },
           ],
           url: "",
         },
