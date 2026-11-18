@@ -30,6 +30,11 @@ export const rehypeSlug: Plugin = () => {
               type: "mdxJsxAttribute",
               value: id,
             },
+            {
+              name: "label",
+              type: "mdxJsxAttribute",
+              value: headingText,
+            },
           ],
           children: [],
           name: "AnchorLink",

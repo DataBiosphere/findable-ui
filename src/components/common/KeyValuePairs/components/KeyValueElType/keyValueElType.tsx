@@ -1,6 +1,7 @@
 import { Box, SxProps } from "@mui/material";
 import { JSX, ReactNode } from "react";
 import { KeyValue, KeyValueFn } from "../../keyValuePairs";
+import { getButtonProps } from "./utils";
 
 /**
  * Props for the KeyValueElType component.
@@ -14,12 +15,13 @@ export interface KeyValueElTypeProps {
 
 /**
  * Basic KeyValuePairs "key value" component.
- * Facilitates handling of onClick on the KeyValue element in KeyValuePairs component.
+ * With a keyValueFn, the element is a focusable button that invokes it on
+ * click, Enter or Space; without one, it is a plain element.
  * @param props - Component props.
  * @param props.boxSx - Styles applied to the box.
  * @param props.children - Key and value elements.
- * @param props.keyValue - Key value tuple, passed to the click handler.
- * @param props.keyValueFn - Function invoked with the key value tuple on click; the pointer cursor shows only when given.
+ * @param props.keyValue - Key value tuple, passed to keyValueFn.
+ * @param props.keyValueFn - Function invoked with the key value tuple on click, Enter or Space; the button role, focus and pointer cursor apply only when given.
  * @returns The key value element.
  */
 export const KeyValueElType = ({
@@ -31,8 +33,7 @@ export const KeyValueElType = ({
 }: KeyValueElTypeProps): JSX.Element => {
   return (
     <Box
-      onClick={(): void => keyValueFn && keyValueFn(keyValue)}
-      role="button"
+      {...getButtonProps(keyValue, keyValueFn)}
       sx={{ cursor: keyValueFn ? "pointer" : "default", ...boxSx }}
       {...props}
     >
