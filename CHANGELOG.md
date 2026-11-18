@@ -1,5 +1,51 @@
 # Changelog
 
+## [62.0.0](https://github.com/DataBiosphere/findable-ui/compare/v61.0.0...v62.0.0) (2026-11-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* `closeAndRestoreFocus` is no longer exported from `lib/components/Filter/common/focus`. Import it from `lib/utils/focus`.
+* `ExportToTerraFormProps` no longer has `setFileManifestFormat` and `ManifestDownloadEntityProps` no longer has `manifestDownloadFormat`. Callers that pass either prop must stop passing it.
+* Search All Filters internals changed. `POPPER_MENU_SLOT_PROPS` and `POPPER_DRAWER_SLOT_PROPS` are removed from its `common/constants`. `VariableSizeListProps` takes `filteredItems`, `highlightedIndex` and `optionIdPrefix` in place of `selectCategoryViews`. `VariableSizeListItem` requires `highlighted` and `id`. `AutocompleteContextProps` changed shape, and `ValueItem` requires `categoryLabel`. Its terms are `role="option"` with `aria-selected`, in place of buttons with `aria-pressed`.
+* `initBarCount` and `updateBarCount` are removed from `UseBarCount/utils`; use `getBarCount(expandable, expanded)` and `toggleExpanded`. `renderButtonText` in `Chart/utils` now takes whether the chart is expanded instead of the bar count.
+
+### Features
+
+* let a data dictionary attribute carry its examples as a list ([#1234](https://github.com/DataBiosphere/findable-ui/issues/1234)) ([#1235](https://github.com/DataBiosphere/findable-ui/issues/1235)) ([9911c77](https://github.com/DataBiosphere/findable-ui/commit/9911c77c445f7be04da2754b3bc8fe861f276208))
+
+
+### Bug Fixes
+
+* correct `KeyValueElType`'s button role and `AnchorLink`'s accessible name ([#1082](https://github.com/DataBiosphere/findable-ui/issues/1082)) ([#1241](https://github.com/DataBiosphere/findable-ui/issues/1241)) ([62a4a25](https://github.com/DataBiosphere/findable-ui/commit/62a4a250d88833b70e1b9c27a218a7d55f98eed2))
+* count a range filter once in the filter count chip ([#1102](https://github.com/DataBiosphere/findable-ui/issues/1102)) ([#1221](https://github.com/DataBiosphere/findable-ui/issues/1221)) ([8263c73](https://github.com/DataBiosphere/findable-ui/commit/8263c73dbfdd80edee179ef22bf3f63c56f78f33))
+* derive a chart's bar count from its current values, not the first render's ([#1098](https://github.com/DataBiosphere/findable-ui/issues/1098)) ([#1224](https://github.com/DataBiosphere/findable-ui/issues/1224)) ([de2deb8](https://github.com/DataBiosphere/findable-ui/commit/de2deb84cbd3c7a514bcf24010f15ea51c99e6bd))
+* keep `analytics.css` tooltips working without `:has()` and ship `analytics.js` ([#1236](https://github.com/DataBiosphere/findable-ui/issues/1236)) ([#1237](https://github.com/DataBiosphere/findable-ui/issues/1237)) ([797eadd](https://github.com/DataBiosphere/findable-ui/commit/797eadd215427dffec3b354f00676a71c00880d8))
+* let keyboard users reach the Search All Filters results ([#1214](https://github.com/DataBiosphere/findable-ui/issues/1214)) ([#1232](https://github.com/DataBiosphere/findable-ui/issues/1232)) ([7c53bef](https://github.com/DataBiosphere/findable-ui/commit/7c53bef190bd2deb5e414dd1d804a9cfcd5ce613))
+* move keyboard focus into the header's navigation and account menus when they open ([#1215](https://github.com/DataBiosphere/findable-ui/issues/1215)) ([#1248](https://github.com/DataBiosphere/findable-ui/issues/1248)) ([83c92b2](https://github.com/DataBiosphere/findable-ui/commit/83c92b2cb143e874a3ec1b277966bb998f0b0224))
+* remove the unused `setFileManifestFormat` and `manifestDownloadFormat` Export props ([#1106](https://github.com/DataBiosphere/findable-ui/issues/1106)) ([#1238](https://github.com/DataBiosphere/findable-ui/issues/1238)) ([3fba03d](https://github.com/DataBiosphere/findable-ui/commit/3fba03d404990e810824d4a20ecabd9e4c614470))
+* stop the search all filters list mutating react-window's row style ([#1103](https://github.com/DataBiosphere/findable-ui/issues/1103)) ([#1229](https://github.com/DataBiosphere/findable-ui/issues/1229)) ([d508d54](https://github.com/DataBiosphere/findable-ui/commit/d508d54cff3cdbc639a99e5d03f4f9983e267c66))
+
+
+### Chores
+
+* declare Baseline widely available as the supported browsers and lint against it ([#1239](https://github.com/DataBiosphere/findable-ui/issues/1239)) ([#1244](https://github.com/DataBiosphere/findable-ui/issues/1244)) ([c1f071c](https://github.com/DataBiosphere/findable-ui/commit/c1f071ca60a478450b7bf0334ce07303e88e5c3f))
+
+
+### Documentation
+
+* show non-blocking Google Fonts loading in the `analytics.css` usage notes ([#1213](https://github.com/DataBiosphere/findable-ui/issues/1213)) ([#1240](https://github.com/DataBiosphere/findable-ui/issues/1240)) ([3c18980](https://github.com/DataBiosphere/findable-ui/commit/3c189806b33e5b7203ed61114c5db35d447f1992))
+
+
+### Code Refactoring
+
+* skip `CollapsableCell`'s pinned cell by cell identity, not by index ([#1230](https://github.com/DataBiosphere/findable-ui/issues/1230)) ([#1245](https://github.com/DataBiosphere/findable-ui/issues/1245)) ([4d6f0c3](https://github.com/DataBiosphere/findable-ui/commit/4d6f0c30c3fce072fd0b008b429bf995f9b93306))
+
+
+### Performance Improvements
+
+* make `usePlotOptions`'s memo reuse its result ([#1097](https://github.com/DataBiosphere/findable-ui/issues/1097)) ([#1222](https://github.com/DataBiosphere/findable-ui/issues/1222)) ([4d9db40](https://github.com/DataBiosphere/findable-ui/commit/4d9db405ad357de5467fdb26d679e83f3fde0ed5))
+
 ## [61.0.0](https://github.com/DataBiosphere/findable-ui/compare/v60.0.1...v61.0.0) (2026-11-11)
 
 
