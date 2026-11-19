@@ -8,7 +8,7 @@ import {
   useRequestFileLocation,
 } from "../../../../hooks/useRequestFileLocation";
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
-import { useExploreOrigin } from "../../../../providers/exploreOrigin/hook";
+import { useExploreList } from "../../../../providers/exploreList/hook";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import {
   BULK_DOWNLOAD_EXECUTION_ENVIRONMENT,
@@ -63,7 +63,7 @@ export const DownloadCurlCommand = ({
   useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
   const [executionEnvironment, setExecutionEnvironment] =
     useState<ExecutionEnvironment>(BULK_DOWNLOAD_EXECUTION_ENVIRONMENT.BASH);
-  const entityList = useExploreOrigin();
+  const entityList = useExploreList();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
     formFacet,

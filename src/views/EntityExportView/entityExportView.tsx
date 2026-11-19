@@ -12,7 +12,7 @@ import type { EntityDetailViewProps } from "../EntityDetailView/entityDetailView
  * @returns The entity export view, or an empty span while the entity loads.
  */
 export const EntityExportView = (props: EntityDetailViewProps): JSX.Element => {
-  // Put the catalog and explore origin back into the URL if necessary.
+  // Put the catalog and explore list back into the URL if necessary.
   useUpdateURLParams();
 
   // Grab the entity to be exported.

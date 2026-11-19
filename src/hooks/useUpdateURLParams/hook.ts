@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { LIST_URL_PARAM } from "../../common/constants";
 import { SelectedFilter } from "../../common/entities";
 import { useCatalogParam } from "../../providers/catalog/hook";
-import { useOptionalExploreOrigin } from "../../providers/exploreOrigin/hook";
+import { useOptionalExploreList } from "../../providers/exploreList/hook";
 import { EXPLORE_URL_PARAMS } from "../../providers/exploreState/constants";
 
 /**
@@ -25,14 +25,14 @@ function getChangedParams(
 }
 
 /**
- * Puts the selected catalog, the explore origin and, when given, the filters into the URL when the URL lacks them or
+ * Puts the selected catalog, the explore list and, when given, the filters into the URL when the URL lacks them or
  * has a different value, in one replace. The URL's other params are kept. A param whose provider isn't mounted, or an
  * empty filter state, is left alone.
  * @param filterState - Filters to keep in the URL, e.g. on the export pages.
  */
 export const useUpdateURLParams = (filterState?: SelectedFilter[]): void => {
   const catalog = useCatalogParam();
-  const exploreOrigin = useOptionalExploreOrigin();
+  const exploreList = useOptionalExploreList();
   const filter = filterState?.length ? JSON.stringify(filterState) : undefined;
   // `pathname` is intentionally still read from useRouter() here so it stays as
   // the route pattern (e.g. `/[entityListType]/[entityId]`). The pattern is
@@ -50,7 +50,7 @@ export const useUpdateURLParams = (filterState?: SelectedFilter[]): void => {
     const changedParams = getChangedParams(query, {
       [EXPLORE_URL_PARAMS.CATALOG]: catalog,
       [EXPLORE_URL_PARAMS.FILTER]: filter,
-      [LIST_URL_PARAM]: exploreOrigin,
+      [LIST_URL_PARAM]: exploreList,
     });
     if (Object.keys(changedParams).length === 0) return;
     // Shallow: adding params must not re-run the page's data fetching.
@@ -62,5 +62,5 @@ export const useUpdateURLParams = (filterState?: SelectedFilter[]): void => {
       undefined,
       { shallow: true },
     );
-  }, [basePath, catalog, exploreOrigin, filter, isReady, pathname, query]);
+  }, [basePath, catalog, exploreList, filter, isReady, pathname, query]);
 };

@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import { ThemeProvider } from "@mui/material";
 import { render, screen } from "@testing-library/react";
 
-const EXPLORE_ORIGIN = "files";
+const EXPLORE_LIST = "files";
 
 const onRequestManifest: { current?: () => void } = {};
 const run = jest.fn();
@@ -22,8 +22,8 @@ function NotStarted(props: { onRequestManifest: () => void }): null {
   return null;
 }
 
-jest.unstable_mockModule("../src/providers/exploreOrigin/hook", () => ({
-  useExploreOrigin: jest.fn(() => EXPLORE_ORIGIN),
+jest.unstable_mockModule("../src/providers/exploreList/hook", () => ({
+  useExploreList: jest.fn(() => EXPLORE_LIST),
 }));
 jest.unstable_mockModule(
   "../src/hooks/useFileManifest/useFileManifestFileCount",
@@ -105,36 +105,36 @@ beforeEach(() => {
 });
 
 describe("export analytics", () => {
-  it("ManifestDownload tracks the explore origin when a manifest is requested", () => {
+  it("ManifestDownload tracks the explore list when a manifest is requested", () => {
     render(<ManifestDownload {...PROPS} />);
 
     onRequestManifest.current?.();
 
-    expect(trackFileManifestRequested).toHaveBeenCalledWith(EXPLORE_ORIGIN);
+    expect(trackFileManifestRequested).toHaveBeenCalledWith(EXPLORE_LIST);
   });
 
-  it("DownloadCurlCommand tracks the explore origin when a command is requested", () => {
+  it("DownloadCurlCommand tracks the explore list when a command is requested", () => {
     render(<DownloadCurlCommand {...PROPS} />);
 
     onRequestManifest.current?.();
 
     expect(trackBulkDownloadRequested).toHaveBeenCalledWith(
-      EXPLORE_ORIGIN,
+      EXPLORE_LIST,
       expect.anything(),
     );
   });
 
-  it("ExportToTerra tracks the explore origin when an export is requested", () => {
+  it("ExportToTerra tracks the explore list when an export is requested", () => {
     render(<ExportToTerra {...PROPS} />);
 
     onRequestManifest.current?.();
 
-    expect(trackExportToTerraRequested).toHaveBeenCalledWith(EXPLORE_ORIGIN);
+    expect(trackExportToTerraRequested).toHaveBeenCalledWith(EXPLORE_LIST);
   });
 });
 
 describe("ExportButton", () => {
-  it("links to the export page with the explore page's entity list type, not the provider's explore origin", () => {
+  it("links to the export page with the explore page's entity list type, not the provider's explore list", () => {
     render(
       <ThemeProvider theme={createAppTheme()}>
         <ExportButton />

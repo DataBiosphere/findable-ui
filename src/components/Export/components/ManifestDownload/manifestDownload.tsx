@@ -8,7 +8,7 @@ import {
   useRequestFileLocation,
 } from "../../../../hooks/useRequestFileLocation";
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
-import { useExploreOrigin } from "../../../../providers/exploreOrigin/hook";
+import { useExploreList } from "../../../../providers/exploreList/hook";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
 import { trackFileManifestRequested } from "../../common/tracking";
@@ -58,7 +58,7 @@ export const ManifestDownload = ({
 }: ManifestDownloadProps): JSX.Element => {
   useFileManifest(filters, fileSummaryFacetName);
   useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
-  const entityList = useExploreOrigin();
+  const entityList = useExploreList();
   const { requestMethod, requestUrl } = useRequestManifest(
     manifestDownloadFormat,
     formFacet,

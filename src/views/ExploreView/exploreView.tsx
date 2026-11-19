@@ -22,7 +22,7 @@ import { useBreakpoint } from "../../hooks/useBreakpoint";
 import { useConfig } from "../../hooks/useConfig";
 import { useExploreState } from "../../hooks/useExploreState";
 import { useCatalogParam } from "../../providers/catalog/hook";
-import { useSetExploreOrigin } from "../../providers/exploreOrigin/hooks/UseSetExploreOrigin/hook";
+import { useSetExploreList } from "../../providers/exploreList/hooks/UseSetExploreList/hook";
 import { ExploreActionKind } from "../../providers/exploreState";
 import { clearMeta } from "../../providers/exploreState/actions/clearMeta/dispatch";
 import { stateToUrl } from "../../providers/exploreState/actions/stateToUrl/dispatch";
@@ -55,7 +55,7 @@ export const ExploreView = (props: ExploreViewProps): JSX.Element => {
   const { categoryGroups, categoryViews, loading } = exploreState;
   useValidateFilterParam();
   const { data, entityListType } = props;
-  useSetExploreOrigin(entityListType);
+  useSetExploreList(entityListType);
   const categoryFilters = useMemo(
     () => buildCategoryFilters(categoryViews, categoryGroups),
     [categoryGroups, categoryViews],

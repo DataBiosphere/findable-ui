@@ -6,7 +6,7 @@ import { useFileManifestFileCount } from "../../../../hooks/useFileManifest/useF
 import { useFileManifestFormat } from "../../../../hooks/useFileManifest/useFileManifestFormat";
 import { useRequestFileLocation } from "../../../../hooks/useRequestFileLocation";
 import { useRequestManifest } from "../../../../hooks/useRequestManifest/useRequestManifest";
-import { useExploreOrigin } from "../../../../providers/exploreOrigin/hook";
+import { useExploreList } from "../../../../providers/exploreList/hook";
 import { FileManifestState } from "../../../../providers/fileManifestState";
 import { FormFacet, ManifestDownloadFormat } from "../../common/entities";
 import {
@@ -66,7 +66,7 @@ export const ExportToTerra = ({
   manifestDownloadFormats,
   speciesFacetName,
 }: ExportToTerraProps): JSX.Element => {
-  const entityList = useExploreOrigin();
+  const entityList = useExploreList();
   useFileManifest(filters, fileSummaryFacetName);
   useFileManifestFileCount(filters, speciesFacetName, fileSummaryFacetName);
   const fileManifestFormatState = useFileManifestFormat(manifestDownloadFormat);

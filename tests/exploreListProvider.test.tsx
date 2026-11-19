@@ -18,32 +18,32 @@ jest.unstable_mockModule("next/router", () => ({
 jest.unstable_mockModule("../src/utils/ssr", () => ({
   isSSR: jest.fn(() => isServerRender),
 }));
-const ALLOWED_ORIGINS = ["datasets", "files", "projects"];
-const INITIAL_ORIGIN = "datasets";
+const ALLOWED_LISTS = ["datasets", "files", "projects"];
+const INITIAL_LIST = "datasets";
 
-const { ExploreOriginProvider } =
-  await import("../src/providers/exploreOrigin/provider");
-const { useExploreOrigin, useOptionalExploreOrigin } =
-  await import("../src/providers/exploreOrigin/hook");
-const { getAllowedOrigins, getLocationExploreOriginParam } =
-  await import("../src/providers/exploreOrigin/utils");
-const { useSetExploreOrigin } =
-  await import("../src/providers/exploreOrigin/hooks/UseSetExploreOrigin/hook");
+const { ExploreListProvider } =
+  await import("../src/providers/exploreList/provider");
+const { useExploreList, useOptionalExploreList } =
+  await import("../src/providers/exploreList/hook");
+const { getAllowedLists, getLocationExploreListParam } =
+  await import("../src/providers/exploreList/utils");
+const { useSetExploreList } =
+  await import("../src/providers/exploreList/hooks/UseSetExploreList/hook");
 
 /**
- * Wraps a hook in an ExploreOriginProvider.
+ * Wraps a hook in an ExploreListProvider.
  * @param props - Wrapper props.
  * @param props.children - Children.
  * @returns The wrapped children.
  */
 function Wrapper({ children }: { children: ReactNode }): JSX.Element {
   return (
-    <ExploreOriginProvider
-      allowedOrigins={ALLOWED_ORIGINS}
-      initialOrigin={INITIAL_ORIGIN}
+    <ExploreListProvider
+      allowedLists={ALLOWED_LISTS}
+      initialList={INITIAL_LIST}
     >
       {children}
-    </ExploreOriginProvider>
+    </ExploreListProvider>
   );
 }
 
@@ -62,9 +62,9 @@ beforeEach(() => {
   setLocationSearch("");
 });
 
-describe("ExploreOriginProvider", () => {
-  it("starts from the initial origin when the URL has no list param", () => {
-    const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
+describe("ExploreListProvider", () => {
+  it("starts from the initial list when the URL has no list param", () => {
+    const { result } = renderHook(useExploreList, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
@@ -72,16 +72,16 @@ describe("ExploreOriginProvider", () => {
   it("starts from the browser URL's list param before the router has it", () => {
     setLocationSearch("?list=files");
 
-    const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
+    const { result } = renderHook(useExploreList, { wrapper: Wrapper });
 
     expect(result.current).toBe("files");
   });
 
-  it("ignores a list param that is not an allowed origin", () => {
+  it("ignores a list param that is not allowed", () => {
     setLocationSearch("?list=not-an-entity");
     ROUTER.query = { list: "not-an-entity" };
 
-    const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
+    const { result } = renderHook(useExploreList, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
@@ -90,14 +90,14 @@ describe("ExploreOriginProvider", () => {
     setLocationSearch("?list=files&list=projects");
     ROUTER.query = { list: ["files", "projects"] };
 
-    const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
+    const { result } = renderHook(useExploreList, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
 
   it("follows a change to a valid list param", () => {
     ROUTER.query = { list: "files" };
-    const { rerender, result } = renderHook(useExploreOrigin, {
+    const { rerender, result } = renderHook(useExploreList, {
       wrapper: Wrapper,
     });
     expect(result.current).toBe("files");
@@ -108,9 +108,9 @@ describe("ExploreOriginProvider", () => {
     expect(result.current).toBe("projects");
   });
 
-  it("keeps the explore origin when a later URL has no list param", () => {
+  it("keeps the explore list when a later URL has no list param", () => {
     ROUTER.query = { list: "files" };
-    const { rerender, result } = renderHook(useExploreOrigin, {
+    const { rerender, result } = renderHook(useExploreList, {
       wrapper: Wrapper,
     });
 
@@ -125,8 +125,8 @@ describe("ExploreOriginProvider", () => {
 
     const { result } = renderHook(
       () => {
-        useSetExploreOrigin("projects");
-        return useExploreOrigin();
+        useSetExploreList("projects");
+        return useExploreList();
       },
       { wrapper: Wrapper },
     );
@@ -139,8 +139,8 @@ describe("ExploreOriginProvider", () => {
     ROUTER.isReady = false;
     const { rerender, result } = renderHook(
       () => {
-        useSetExploreOrigin("projects");
-        return useExploreOrigin();
+        useSetExploreList("projects");
+        return useExploreList();
       },
       { wrapper: Wrapper },
     );
@@ -156,8 +156,8 @@ describe("ExploreOriginProvider", () => {
   it("follows the explore page when the user moves between explore pages", () => {
     const { rerender, result } = renderHook(
       ({ entityListType }) => {
-        useSetExploreOrigin(entityListType);
-        return useExploreOrigin();
+        useSetExploreList(entityListType);
+        return useExploreList();
       },
       { initialProps: { entityListType: "files" }, wrapper: Wrapper },
     );
@@ -169,41 +169,41 @@ describe("ExploreOriginProvider", () => {
   });
 });
 
-describe("getAllowedOrigins", () => {
+describe("getAllowedLists", () => {
   it("returns the configured entity routes", () => {
     const config = {
       entities: [{ route: "projects" }, { route: "files" }],
     } as unknown as SiteConfig;
 
-    expect(getAllowedOrigins(config)).toEqual(["projects", "files"]);
+    expect(getAllowedLists(config)).toEqual(["projects", "files"]);
   });
 });
 
-describe("getLocationExploreOriginParam", () => {
+describe("getLocationExploreListParam", () => {
   it("returns undefined during server rendering, without reading the browser URL", () => {
     isServerRender = true;
     setLocationSearch("?list=files");
 
-    expect(getLocationExploreOriginParam()).toBeUndefined();
+    expect(getLocationExploreListParam()).toBeUndefined();
   });
 });
 
-describe("explore origin hooks without ExploreOriginProvider", () => {
-  it("useExploreOrigin throws an error naming ExploreOriginProvider", () => {
+describe("explore list hooks without ExploreListProvider", () => {
+  it("useExploreList throws an error naming ExploreListProvider", () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
 
-    expect(() => renderHook(useExploreOrigin)).toThrow("ExploreOriginProvider");
+    expect(() => renderHook(useExploreList)).toThrow("ExploreListProvider");
 
     jest.mocked(console.error).mockRestore();
   });
 
-  it("useOptionalExploreOrigin returns undefined", () => {
-    const { result } = renderHook(useOptionalExploreOrigin);
+  it("useOptionalExploreList returns undefined", () => {
+    const { result } = renderHook(useOptionalExploreList);
 
     expect(result.current).toBeUndefined();
   });
 
-  it("useSetExploreOrigin does nothing", () => {
-    expect(() => renderHook(() => useSetExploreOrigin("files"))).not.toThrow();
+  it("useSetExploreList does nothing", () => {
+    expect(() => renderHook(() => useSetExploreList("files"))).not.toThrow();
   });
 });

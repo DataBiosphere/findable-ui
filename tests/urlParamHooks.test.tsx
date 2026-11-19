@@ -24,8 +24,8 @@ jest.unstable_mockModule("next/router", () => ({
 }));
 
 const { CatalogProvider } = await import("../src/providers/catalog/provider");
-const { ExploreOriginProvider } =
-  await import("../src/providers/exploreOrigin/provider");
+const { ExploreListProvider } =
+  await import("../src/providers/exploreList/provider");
 const { useUpdateURLParams } =
   await import("../src/hooks/useUpdateURLParams/hook");
 
@@ -40,7 +40,7 @@ function CatalogWrapper({ children }: { children: ReactNode }): JSX.Element {
 }
 
 /**
- * Wraps a hook in a CatalogProvider and an ExploreOriginProvider.
+ * Wraps a hook in a CatalogProvider and an ExploreListProvider.
  * @param props - Wrapper props.
  * @param props.children - Children.
  * @returns The wrapped children.
@@ -48,12 +48,12 @@ function CatalogWrapper({ children }: { children: ReactNode }): JSX.Element {
 function Wrapper({ children }: { children: ReactNode }): JSX.Element {
   return (
     <CatalogProvider>
-      <ExploreOriginProvider
-        allowedOrigins={["projects", "files"]}
-        initialOrigin="projects"
+      <ExploreListProvider
+        allowedLists={["projects", "files"]}
+        initialList="projects"
       >
         {children}
-      </ExploreOriginProvider>
+      </ExploreListProvider>
     </CatalogProvider>
   );
 }
@@ -65,7 +65,7 @@ beforeEach(() => {
 });
 
 describe("useUpdateURLParams", () => {
-  it("puts the selected catalog and the explore origin back into a URL that lacks them, in one replace", () => {
+  it("puts the selected catalog and the explore list back into a URL that lacks them, in one replace", () => {
     ROUTER.query = {
       catalog: "dcp2",
       entityListType: "projects",
@@ -101,7 +101,7 @@ describe("useUpdateURLParams", () => {
     expect(replace).not.toHaveBeenCalled();
   });
 
-  it("leaves the explore origin alone when no ExploreOriginProvider is mounted", () => {
+  it("leaves the explore list alone when no ExploreListProvider is mounted", () => {
     ROUTER.query = { entityListType: "projects" };
 
     renderHook(useUpdateURLParams, { wrapper: CatalogWrapper });
@@ -109,7 +109,7 @@ describe("useUpdateURLParams", () => {
     expect(replace).not.toHaveBeenCalled();
   });
 
-  it("puts back only the explore origin when no catalog is selected", () => {
+  it("puts back only the explore list when no catalog is selected", () => {
     ROUTER.query = { entityListType: "projects" };
 
     renderHook(useUpdateURLParams, { wrapper: Wrapper });
@@ -139,7 +139,7 @@ describe("useUpdateURLParams", () => {
 });
 
 describe("useUpdateURLParams with filters", () => {
-  it("puts the filters into the URL with the catalog and explore origin, keeping the URL's other params", () => {
+  it("puts the filters into the URL with the catalog and explore list, keeping the URL's other params", () => {
     ROUTER.query = { catalog: "dcp2", list: "files", other: "kept" };
 
     renderHook(() => useUpdateURLParams(FILTER_STATE), { wrapper: Wrapper });
