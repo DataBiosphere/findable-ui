@@ -75,7 +75,7 @@ jest.unstable_mockModule(
 );
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
   useConfig: jest.fn(() => ({
-    entityConfig: { route: "projects", ui: { enableExportButton: true } },
+    entityConfig: { route: "samples", ui: { enableExportButton: true } },
   })),
 }));
 jest.unstable_mockModule("../src/hooks/useDownloadStatus", () => ({
@@ -143,6 +143,6 @@ describe("ExportButton", () => {
 
     expect(
       screen.getByRole("link", { name: "Export" }).getAttribute("href"),
-    ).toBe("/export?from=projects");
+    ).toBe("/export?list=samples");
   });
 });

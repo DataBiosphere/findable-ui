@@ -11,6 +11,7 @@ const DATASETS_QUERY = { entityListType: ENTITY_LIST_TYPE };
 const dataSelector = jest.fn<(props: unknown) => void>();
 const exploreDispatch = jest.fn();
 const useRestoreCatalogParam = jest.fn();
+const useSetExploreOrigin = jest.fn();
 const useStateSyncManager =
   jest.fn<(props: { state: { query: unknown } }) => void>();
 
@@ -47,6 +48,10 @@ jest.unstable_mockModule("../src/hooks/stateSyncManager/hook", () => ({
 jest.unstable_mockModule("../src/providers/catalog/hook", () => ({
   useCatalogParam: jest.fn(() => CATALOG),
 }));
+jest.unstable_mockModule(
+  "../src/providers/exploreOrigin/hooks/UseSetExploreOrigin/hook",
+  () => ({ useSetExploreOrigin }),
+);
 jest.unstable_mockModule(
   "../src/views/ExploreView/hooks/UseRestoreCatalogParam/hook",
   () => ({ useRestoreCatalogParam }),
@@ -87,6 +92,7 @@ describe("ExploreView", () => {
   beforeEach(() => {
     dataSelector.mockClear();
     useRestoreCatalogParam.mockClear();
+    useSetExploreOrigin.mockClear();
     useStateSyncManager.mockClear();
   });
 
@@ -126,5 +132,11 @@ describe("ExploreView", () => {
       CATALOG,
       exploreDispatch,
     );
+  });
+
+  it("sets the explore origin to the page's entity list type", () => {
+    render(<ExploreView entityListType={ENTITY_LIST_TYPE} />);
+
+    expect(useSetExploreOrigin).toHaveBeenLastCalledWith(ENTITY_LIST_TYPE);
   });
 });
