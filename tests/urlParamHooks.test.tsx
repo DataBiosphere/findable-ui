@@ -69,7 +69,7 @@ describe("useUpdateURLParams", () => {
     ROUTER.query = {
       catalog: "dcp2",
       entityListType: "projects",
-      from: "files",
+      list: "files",
     };
     const { rerender } = renderHook(useUpdateURLParams, { wrapper: Wrapper });
     expect(replace).not.toHaveBeenCalled();
@@ -84,7 +84,7 @@ describe("useUpdateURLParams", () => {
         query: {
           catalog: "dcp2",
           entityListType: "projects",
-          from: "files",
+          list: "files",
           params: ["uuid"],
         },
       },
@@ -117,7 +117,7 @@ describe("useUpdateURLParams", () => {
     expect(replace).toHaveBeenCalledWith(
       {
         pathname: ROUTER.pathname,
-        query: { entityListType: "projects", from: "projects" },
+        query: { entityListType: "projects", list: "projects" },
       },
       undefined,
       { shallow: true },
@@ -140,7 +140,7 @@ describe("useUpdateURLParams", () => {
 
 describe("useUpdateURLParams with filters", () => {
   it("puts the filters into the URL with the catalog and explore origin, keeping the URL's other params", () => {
-    ROUTER.query = { catalog: "dcp2", from: "files", other: "kept" };
+    ROUTER.query = { catalog: "dcp2", list: "files", other: "kept" };
 
     renderHook(() => useUpdateURLParams(FILTER_STATE), { wrapper: Wrapper });
 
@@ -151,7 +151,7 @@ describe("useUpdateURLParams with filters", () => {
         query: {
           catalog: "dcp2",
           filter: JSON.stringify(FILTER_STATE),
-          from: "files",
+          list: "files",
           other: "kept",
         },
       },
@@ -164,7 +164,7 @@ describe("useUpdateURLParams with filters", () => {
     ROUTER.query = {
       catalog: "dcp2",
       filter: JSON.stringify(FILTER_STATE),
-      from: "files",
+      list: "files",
     };
 
     renderHook(() => useUpdateURLParams(FILTER_STATE), { wrapper: Wrapper });
@@ -173,7 +173,7 @@ describe("useUpdateURLParams with filters", () => {
   });
 
   it("leaves an empty filter state out of the URL", () => {
-    ROUTER.query = { from: "files" };
+    ROUTER.query = { list: "files" };
 
     renderHook(() => useUpdateURLParams([]), { wrapper: Wrapper });
 

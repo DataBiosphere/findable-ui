@@ -9,9 +9,14 @@ const ROUTER = {
   query: {} as NextRouter["query"],
 };
 
+let isServerRender = false;
+
 jest.unstable_mockModule("next/router", () => ({
   ...jest.requireActual<typeof import("next/router")>("next/router"),
   useRouter: jest.fn(() => ROUTER),
+}));
+jest.unstable_mockModule("../src/utils/ssr", () => ({
+  isSSR: jest.fn(() => isServerRender),
 }));
 const ALLOWED_ORIGINS = ["datasets", "files", "projects"];
 const INITIAL_ORIGIN = "datasets";
@@ -20,7 +25,7 @@ const { ExploreOriginProvider } =
   await import("../src/providers/exploreOrigin/provider");
 const { useExploreOrigin, useOptionalExploreOrigin } =
   await import("../src/providers/exploreOrigin/hook");
-const { getAllowedOrigins } =
+const { getAllowedOrigins, getLocationExploreOriginParam } =
   await import("../src/providers/exploreOrigin/utils");
 const { useSetExploreOrigin } =
   await import("../src/providers/exploreOrigin/hooks/UseSetExploreOrigin/hook");
@@ -44,66 +49,67 @@ function Wrapper({ children }: { children: ReactNode }): JSX.Element {
 
 /**
  * Sets the browser URL's search string.
- * @param search - Search string, e.g. "?from=files".
+ * @param search - Search string, e.g. "?list=files".
  */
 function setLocationSearch(search: string): void {
   window.history.replaceState(null, "", `/${search}`);
 }
 
 beforeEach(() => {
+  isServerRender = false;
   ROUTER.isReady = true;
   ROUTER.query = {};
   setLocationSearch("");
 });
 
 describe("ExploreOriginProvider", () => {
-  it("starts from the initial origin when the URL has no from", () => {
+  it("starts from the initial origin when the URL has no list param", () => {
     const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
 
-  it("starts from the browser URL's from before the router has it", () => {
-    setLocationSearch("?from=files");
+  it("starts from the browser URL's list param before the router has it", () => {
+    setLocationSearch("?list=files");
 
     const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
 
     expect(result.current).toBe("files");
   });
 
-  it("ignores a from that is not an allowed origin", () => {
-    setLocationSearch("?from=not-an-entity");
-    ROUTER.query = { from: "not-an-entity" };
+  it("ignores a list param that is not an allowed origin", () => {
+    setLocationSearch("?list=not-an-entity");
+    ROUTER.query = { list: "not-an-entity" };
 
     const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
 
-  it("ignores a repeated from", () => {
-    setLocationSearch("?from=files&from=projects");
-    ROUTER.query = { from: ["files", "projects"] };
+  it("ignores a repeated list param", () => {
+    setLocationSearch("?list=files&list=projects");
+    ROUTER.query = { list: ["files", "projects"] };
 
     const { result } = renderHook(useExploreOrigin, { wrapper: Wrapper });
 
     expect(result.current).toBe("datasets");
   });
 
-  it("follows a change to a valid from", () => {
-    ROUTER.query = { from: "files" };
+  it("follows a change to a valid list param", () => {
+    ROUTER.query = { list: "files" };
     const { rerender, result } = renderHook(useExploreOrigin, {
       wrapper: Wrapper,
     });
     expect(result.current).toBe("files");
 
-    ROUTER.query = { from: "projects" };
+    ROUTER.query = { list: "projects" };
     rerender();
 
     expect(result.current).toBe("projects");
   });
 
-  it("keeps the explore origin when a later URL has no from", () => {
-    ROUTER.query = { from: "files" };
+  it("keeps the explore origin when a later URL has no list param", () => {
+    ROUTER.query = { list: "files" };
     const { rerender, result } = renderHook(useExploreOrigin, {
       wrapper: Wrapper,
     });
@@ -114,8 +120,8 @@ describe("ExploreOriginProvider", () => {
     expect(result.current).toBe("files");
   });
 
-  it("takes the explore page's entity list type, over a from left in the URL", () => {
-    ROUTER.query = { from: "files" };
+  it("takes the explore page's entity list type, over a list param left in the URL", () => {
+    ROUTER.query = { list: "files" };
 
     const { result } = renderHook(
       () => {
@@ -128,8 +134,8 @@ describe("ExploreOriginProvider", () => {
     expect(result.current).toBe("projects");
   });
 
-  it("keeps the explore page's entity list type when the router becomes ready with a from left in the URL", () => {
-    setLocationSearch("?from=files");
+  it("keeps the explore page's entity list type when the router becomes ready with a list param left in the URL", () => {
+    setLocationSearch("?list=files");
     ROUTER.isReady = false;
     const { rerender, result } = renderHook(
       () => {
@@ -141,7 +147,7 @@ describe("ExploreOriginProvider", () => {
     expect(result.current).toBe("projects");
 
     ROUTER.isReady = true;
-    ROUTER.query = { from: "files" };
+    ROUTER.query = { list: "files" };
     rerender();
 
     expect(result.current).toBe("projects");
@@ -170,6 +176,15 @@ describe("getAllowedOrigins", () => {
     } as unknown as SiteConfig;
 
     expect(getAllowedOrigins(config)).toEqual(["projects", "files"]);
+  });
+});
+
+describe("getLocationExploreOriginParam", () => {
+  it("returns undefined during server rendering, without reading the browser URL", () => {
+    isServerRender = true;
+    setLocationSearch("?list=files");
+
+    expect(getLocationExploreOriginParam()).toBeUndefined();
   });
 });
 

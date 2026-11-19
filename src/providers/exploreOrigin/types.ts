@@ -19,12 +19,12 @@ export interface ExploreOriginContextProps {
  */
 export interface ExploreOriginProviderProps {
   /**
-   * Entity list types the URL's `from` param may name, e.g. the configured entity routes.
+   * Entity list types the URL's `list` param may name, e.g. the configured entity routes.
    */
   allowedOrigins: string[];
   children: ReactNode;
   /**
-   * Explore origin used when the URL has no allowed `from`, e.g. the page's entity list type or the site's default.
+   * Explore origin used when the URL has no allowed `list`, e.g. the page's entity list type or the site's default.
    */
   initialOrigin: string;
 }

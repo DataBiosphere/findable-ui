@@ -18,6 +18,6 @@ export const PARAMS_INDEX_TAB = 1; // Note "export" (i.e. not a tab) can possibl
 export const PARAMS_INDEX_EXPORT_METHOD = 2;
 
 /**
- * URL param naming the page a user came from, e.g. `?from=files` on the export page names the explore page.
+ * URL param naming the entity list the user explored, e.g. `?list=files` on the export page names the files list.
  */
-export const FROM_URL_PARAM = "from";
+export const LIST_URL_PARAM = "list";

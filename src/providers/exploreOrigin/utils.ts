@@ -1,4 +1,4 @@
-import { FROM_URL_PARAM } from "../../common/constants";
+import { LIST_URL_PARAM } from "../../common/constants";
 import type { SiteConfig } from "../../config/entities";
 import { isSSR } from "../../utils/ssr";
 
@@ -12,8 +12,8 @@ export function getAllowedOrigins(config: SiteConfig): string[] {
 }
 
 /**
- * Returns the entity list type named by a `from` URL param value, when it is an allowed origin.
- * @param value - Router query value of the `from` param.
+ * Returns the entity list type named by a `list` URL param value, when it is an allowed origin.
+ * @param value - Router query value of the `list` param.
  * @param allowedOrigins - Entity list types the param may name.
  * @returns The entity list type, or undefined when the value is missing, repeated or not allowed.
  */
@@ -26,14 +26,14 @@ export function getExploreOriginParam(
 }
 
 /**
- * Returns the `from` param in the browser's current URL, shaped like a Next.js router query value, so the first render
+ * Returns the `list` param in the browser's current URL, shaped like a Next.js router query value, so the first render
  * can read it before the router is ready.
  * @returns The value; an array when the param repeats; undefined during server rendering or when the URL has none.
  */
 export function getLocationExploreOriginParam(): string | string[] | undefined {
   if (isSSR()) return undefined;
   const values = new URLSearchParams(window.location.search).getAll(
-    FROM_URL_PARAM,
+    LIST_URL_PARAM,
   );
   if (values.length === 0) return undefined;
   return values.length === 1 ? values[0] : values;

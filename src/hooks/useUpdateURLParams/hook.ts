@@ -1,6 +1,6 @@
 import Router, { useRouter } from "next/router";
 import { useEffect } from "react";
-import { FROM_URL_PARAM } from "../../common/constants";
+import { LIST_URL_PARAM } from "../../common/constants";
 import { SelectedFilter } from "../../common/entities";
 import { useCatalogParam } from "../../providers/catalog/hook";
 import { useOptionalExploreOrigin } from "../../providers/exploreOrigin/hook";
@@ -50,7 +50,7 @@ export const useUpdateURLParams = (filterState?: SelectedFilter[]): void => {
     const changedParams = getChangedParams(query, {
       [EXPLORE_URL_PARAMS.CATALOG]: catalog,
       [EXPLORE_URL_PARAMS.FILTER]: filter,
-      [FROM_URL_PARAM]: exploreOrigin,
+      [LIST_URL_PARAM]: exploreOrigin,
     });
     if (Object.keys(changedParams).length === 0) return;
     // Shallow: adding params must not re-run the page's data fetching.
