@@ -72,7 +72,8 @@ describe("useUpdateURLCatalogParams", () => {
   });
 
   it("leaves the URL alone when no catalog is selected", () => {
-    ROUTER.query = { entityListType: "projects" };
+    // An empty param selects no catalog, but isn't missing, so only the no-catalog guard skips the replace.
+    ROUTER.query = { catalog: "", entityListType: "projects" };
 
     renderHook(useUpdateURLCatalogParams, { wrapper: Wrapper });
 

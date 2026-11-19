@@ -3,9 +3,14 @@ import { render } from "@testing-library/react";
 import type { AzulEntitiesResponse } from "../src/apis/azul/common/entities";
 import type { ExploreState } from "../src/providers/exploreState";
 
+const CATALOG = "dcp2";
 const ENTITY_LIST_TYPE = "datasets";
 
 const dataSelector = jest.fn<(props: unknown) => void>();
+const exploreDispatch = jest.fn();
+const useRestoreCatalogParam = jest.fn();
+const useStateSyncManager =
+  jest.fn<(props: { state: { query: unknown } }) => void>();
 
 const exploreState = {
   categoryGroups: undefined,
@@ -25,16 +30,19 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
 }));
 jest.unstable_mockModule("../src/hooks/useExploreState", () => ({
   useExploreState: jest.fn(() => ({
-    exploreDispatch: jest.fn(),
+    exploreDispatch,
     exploreState,
   })),
 }));
 jest.unstable_mockModule("../src/hooks/stateSyncManager/hook", () => ({
-  useStateSyncManager: jest.fn(),
+  useStateSyncManager,
+}));
+jest.unstable_mockModule("../src/providers/catalog/hook", () => ({
+  useCatalogParam: jest.fn(() => CATALOG),
 }));
 jest.unstable_mockModule(
   "../src/views/ExploreView/hooks/UseRestoreCatalogParam/hook",
-  () => ({ useRestoreCatalogParam: jest.fn() }),
+  () => ({ useRestoreCatalogParam }),
 );
 jest.unstable_mockModule(
   "../src/views/ExploreView/hooks/UseValidateFilterParam/hook",
@@ -71,6 +79,8 @@ const { ExploreView } = await import("../src/views/ExploreView/exploreView");
 describe("ExploreView", () => {
   beforeEach(() => {
     dataSelector.mockClear();
+    useRestoreCatalogParam.mockClear();
+    useStateSyncManager.mockClear();
   });
 
   it("passes the page's statically loaded entities and entity list type to the data selector", () => {
@@ -96,5 +106,22 @@ describe("ExploreView", () => {
       data: undefined,
       entityListType: ENTITY_LIST_TYPE,
     });
+  });
+
+  it("syncs the URL with the selected catalog", () => {
+    render(<ExploreView entityListType={ENTITY_LIST_TYPE} />);
+
+    expect(useStateSyncManager.mock.lastCall?.[0].state.query).toEqual({
+      catalog: CATALOG,
+    });
+  });
+
+  it("restores the selected catalog to the URL", () => {
+    render(<ExploreView entityListType={ENTITY_LIST_TYPE} />);
+
+    expect(useRestoreCatalogParam).toHaveBeenLastCalledWith(
+      CATALOG,
+      exploreDispatch,
+    );
   });
 });

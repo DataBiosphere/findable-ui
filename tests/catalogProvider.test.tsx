@@ -60,6 +60,20 @@ function useCatalogs(): {
 }
 
 /**
+ * Returns the missing-provider warning from a fresh copy of its module, so its once-per-page-load flag is unset.
+ * @returns The warning function.
+ */
+async function importFreshWarning(): Promise<() => void> {
+  let warning: (() => void) | undefined;
+  await jest.isolateModulesAsync(async () => {
+    ({ warnCatalogParamWithoutProvider: warning } =
+      await import("../src/providers/catalog/utils"));
+  });
+  if (!warning) throw new Error("The catalog utils failed to import");
+  return warning;
+}
+
+/**
  * Sets the browser URL's search string.
  * @param search - Search string, e.g. "?catalog=dcp2".
  */
@@ -164,25 +178,38 @@ describe("useCatalog without CatalogProvider", () => {
     expect(result.current.catalog).toBeUndefined();
   });
 
-  // The warning fires once per page load, so these two run in this order.
-  it("doesn't warn when the URL has no catalog", () => {
+  it("warns when the URL has a catalog", () => {
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+    setLocationSearch("?catalog=dcp2");
 
     renderHook(useCatalogs);
+
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0][0]).toContain("CatalogProvider");
+    warn.mockRestore();
+  });
+});
+
+describe("warnCatalogParamWithoutProvider", () => {
+  it("doesn't warn when the URL has no catalog", async () => {
+    const warnCatalogParamWithoutProvider = await importFreshWarning();
+    const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
+
+    warnCatalogParamWithoutProvider();
 
     expect(warn).not.toHaveBeenCalled();
     warn.mockRestore();
   });
 
-  it("warns once when the URL has a catalog", () => {
+  it("warns once when the URL has a catalog", async () => {
+    const warnCatalogParamWithoutProvider = await importFreshWarning();
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
     setLocationSearch("?catalog=dcp2");
 
-    renderHook(useCatalogs);
-    renderHook(useCatalogs);
+    warnCatalogParamWithoutProvider();
+    warnCatalogParamWithoutProvider();
 
     expect(warn).toHaveBeenCalledTimes(1);
-    expect(warn.mock.calls[0][0]).toContain("CatalogProvider");
     warn.mockRestore();
   });
 });
