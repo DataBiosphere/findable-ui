@@ -11,7 +11,7 @@ import { UrlToStatePayload } from "./types";
 import { decodeFilterParamValue } from "./utils";
 
 /**
- * Reducer function to handle the "URL >> state sync" action. The URL's catalog or filters differ from state (e.g. after back/forward navigation), so the current entity's table returns to its first page: a pagination link from the previous result set must not be requested. Selecting another entity resets the page itself.
+ * Reducer function to handle the "URL >> state sync" action. The URL's filters differ from state (e.g. after back/forward navigation), so the current entity's table returns to its first page: a pagination link from the previous result set must not be requested. Selecting another entity resets the page itself.
  * @param state - State.
  * @param payload - Payload.
  * @returns state.
