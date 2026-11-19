@@ -1,6 +1,6 @@
 import { ArrowDropDownRounded } from "@mui/icons-material";
 import { JSX } from "react";
-import { BUTTON_PROPS } from "../../constants";
+import { BUTTON_PRESETS } from "../../../../../contracts/mui/Button/presets";
 import { StyledButton } from "./dropdownButton.styles";
 import { DropdownButtonProps } from "./types";
 
@@ -18,7 +18,7 @@ export const DropdownButton = ({
 }: DropdownButtonProps): JSX.Element => {
   return (
     <StyledButton
-      {...BUTTON_PROPS.SECONDARY_OUTLINED}
+      {...BUTTON_PRESETS.SECONDARY_OUTLINED}
       endIcon={<ArrowDropDownRounded />}
       open={open}
       {...props}

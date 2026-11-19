@@ -1,9 +1,9 @@
 import { JSX, ReactNode, useEffect, useRef, useState } from "react";
+import { BUTTON_PRESETS } from "../../../contracts/mui/Button/presets";
 import {
   getBorderBoxSizeHeight,
   useResizeObserver,
 } from "../../../hooks/useResizeObserver";
-import { BUTTON_PROPS } from "../Button/constants";
 import { Button, Content } from "./ellipsisContent.styles";
 
 enum EllipsisMode {
@@ -70,7 +70,7 @@ export const EllipsisContent = ({
         <div>{children}</div>
       </Content>
       {isModeActivated(ellipsisMode) && (
-        <Button {...BUTTON_PROPS.PRIMARY_TEXT} onClick={onToggleMode}>
+        <Button {...BUTTON_PRESETS.PRIMARY_TEXT} onClick={onToggleMode}>
           {getModeText(ellipsisMode)}
         </Button>
       )}

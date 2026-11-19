@@ -1,8 +1,8 @@
-import { BUTTON_PROPS } from "../src/components/common/Button/constants";
+import { BUTTON_PRESETS } from "../src/contracts/mui/Button/presets";
 
-describe("BUTTON_PROPS", () => {
+describe("BUTTON_PRESETS", () => {
   it("should have only the current preset names", () => {
-    expect(Object.keys(BUTTON_PROPS).sort()).toEqual([
+    expect(Object.keys(BUTTON_PRESETS).sort()).toEqual([
       "PRIMARY_CONTAINED",
       "PRIMARY_LARGE_CONTAINED",
       "PRIMARY_MEDIUM_CONTAINED",
@@ -17,11 +17,11 @@ describe("BUTTON_PROPS", () => {
     // `npm run test-compile` fails if any of these names type-checks again.
     const removed = [
       // @ts-expect-error -- renamed SECONDARY_OUTLINED
-      BUTTON_PROPS.SECONDARY_CONTAINED,
+      BUTTON_PRESETS.SECONDARY_CONTAINED,
       // @ts-expect-error -- renamed SECONDARY_LARGE_OUTLINED
-      BUTTON_PROPS.SECONDARY_LARGE_CONTAINED,
+      BUTTON_PRESETS.SECONDARY_LARGE_CONTAINED,
       // @ts-expect-error -- renamed SECONDARY_MEDIUM_OUTLINED
-      BUTTON_PROPS.SECONDARY_MEDIUM_CONTAINED,
+      BUTTON_PRESETS.SECONDARY_MEDIUM_CONTAINED,
     ];
     expect(removed).toEqual([undefined, undefined, undefined]);
   });

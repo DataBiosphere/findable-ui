@@ -1,5 +1,5 @@
 import { Fragment, JSX } from "react";
-import { BUTTON_PROPS } from "../../../../../../../../common/Button/constants";
+import { BUTTON_PRESETS } from "../../../../../../../../../contracts/mui/Button/presets";
 import { StyledBarX, StyledButton } from "./chart.styles";
 import { useBarCount } from "./hooks/UseBarCount/hook";
 import { usePlotOptions } from "./hooks/UsePlotOptions/hook";
@@ -28,7 +28,7 @@ export const Chart = ({
       <StyledBarX options={options} testId={testId} />
       {expandable && (
         <StyledButton
-          {...BUTTON_PROPS.PRIMARY_TEXT}
+          {...BUTTON_PRESETS.PRIMARY_TEXT}
           onClick={(e) => {
             onToggleBarCount();
             // Scroll, only if we are closing the chart.

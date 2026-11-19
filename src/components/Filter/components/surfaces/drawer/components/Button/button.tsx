@@ -1,12 +1,12 @@
 import { FilterListRounded } from "@mui/icons-material";
 import { ButtonProps, Button as MButton } from "@mui/material";
 import { JSX } from "react";
+import { BUTTON_PRESETS } from "../../../../../../../contracts/mui/Button/presets";
 import { SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 import {
   getPopupAriaProps,
   HAS_POPUP,
 } from "../../../../../../../utils/ariaPopup";
-import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { useDrawer } from "../../../../../../common/Drawer/provider/hook";
 import { BaseComponentProps } from "../../../../../../types";
 import { FilterCountChip } from "../../../../FilterCountChip/filterCountChip";
@@ -38,7 +38,7 @@ export const Button = ({
         id,
         open,
       })}
-      {...BUTTON_PROPS.SECONDARY_OUTLINED}
+      {...BUTTON_PRESETS.SECONDARY_OUTLINED}
       className={className}
       onClick={onOpen}
       startIcon={

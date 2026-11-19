@@ -2,10 +2,10 @@ import { Button, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
 import { JSX } from "react";
 import { Filters } from "../../../../../../../../common/entities";
+import { BUTTON_PRESETS } from "../../../../../../../../contracts/mui/Button/presets";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestDownload } from "../../../../../../../../hooks/useFileManifest/useFileManifestDownload";
 import { useLoginGuard } from "../../../../../../../../providers/loginGuard/hook";
-import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
   ContentCopyIconSmall,
@@ -73,7 +73,7 @@ export const FileManifestDownload = ({
                     <Tooltip {...TOOLTIP_PROPS} title={message}>
                       <span>
                         <Button
-                          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+                          {...BUTTON_PRESETS.PRIMARY_CONTAINED}
                           disabled={disabled || isLoading}
                           onClick={(): void => {
                             requireLogin(() => {

@@ -1,6 +1,6 @@
 import { FilterListRounded } from "@mui/icons-material";
 import { JSX, ReactNode } from "react";
-import { BUTTON_PROPS } from "../../../../../common/Button/constants";
+import { BUTTON_PRESETS } from "../../../../../../contracts/mui/Button/presets";
 import { Badge, SidebarButton as Button } from "./sidebarButton.styles";
 
 /**
@@ -31,7 +31,7 @@ export const SidebarButton = ({
 }: SidebarButtonProps): JSX.Element => {
   return (
     <Button
-      {...BUTTON_PROPS.SECONDARY_OUTLINED}
+      {...BUTTON_PRESETS.SECONDARY_OUTLINED}
       className={className}
       onClick={onClick}
       {...props}
