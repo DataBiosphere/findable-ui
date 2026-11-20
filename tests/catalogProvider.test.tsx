@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import { renderHook } from "@testing-library/react";
 import type { NextRouter } from "next/router";
-import type { ComponentProps, JSX, ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 
 const DEFAULT_CATALOG = "default-catalog";
 
@@ -34,9 +34,6 @@ const { ROUTER_METHOD } =
   await import("../src/providers/exploreState/actions/stateToUrl/types");
 
 type ExploreState = import("../src/providers/exploreState").ExploreState;
-type ExploreViewProps = ComponentProps<
-  typeof import("../src/views/ExploreView/exploreView").ExploreView
->;
 
 /**
  * Wraps a hook in a CatalogProvider.
@@ -224,12 +221,11 @@ describe("buildStateSyncManagerContext", () => {
     },
     meta: null,
   } as unknown as ExploreState;
-  const PAGE_PROPS = { entityListType: "projects" } as ExploreViewProps;
 
   it("adds the selected catalog to the entity's query", () => {
     const { query } = buildStateSyncManagerContext(
       EXPLORE_STATE,
-      PAGE_PROPS,
+      "projects",
       "dcp2",
     );
 
@@ -239,7 +235,7 @@ describe("buildStateSyncManagerContext", () => {
   it("leaves the catalog out when none is selected", () => {
     const { query } = buildStateSyncManagerContext(
       EXPLORE_STATE,
-      PAGE_PROPS,
+      "projects",
       undefined,
     );
 
