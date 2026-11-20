@@ -46,6 +46,22 @@ describe("useURLFilterParams", () => {
     );
   });
 
+  it("puts a missing catalog back when the URL already has the filters", () => {
+    setLocation(`/projects?filter=${encodeURIComponent(FILTER_PARAM)}`);
+    const { result } = renderHook(useURLFilterParams);
+
+    result.current.updateFilterQueryString("dcp2", FILTER_STATE);
+
+    expect(push).toHaveBeenCalledWith(
+      {
+        pathname: "/projects",
+        query: { catalog: "dcp2", filter: FILTER_PARAM },
+      },
+      undefined,
+      { shallow: true },
+    );
+  });
+
   it("leaves the URL alone when it already has the catalog and the filters", () => {
     setLocation(
       `/projects?catalog=dcp2&filter=${encodeURIComponent(FILTER_PARAM)}`,
