@@ -28,12 +28,10 @@ export const DEFAULT_PAGINATION_STATE: PaginationState = {
 };
 
 export const INITIAL_STATE: ExploreState = {
-  catalogState: undefined,
   categoryViews: [],
   entities: {},
   entityPageState: {},
   entityStateByCategoryGroupConfigKey: new Map(),
-  featureFlagState: undefined,
   filterCount: 0,
   filterSort: FILTER_SORT.ALPHA,
   filterState: [],

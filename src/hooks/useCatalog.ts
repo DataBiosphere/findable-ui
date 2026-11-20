@@ -1,17 +1,22 @@
+import { useContext, useEffect } from "react";
+import { CatalogContext } from "../providers/catalog/context";
+import { warnCatalogParamWithoutProvider } from "../providers/catalog/utils";
 import { useConfig } from "./useConfig";
-import { useExploreState } from "./useExploreState";
 
 /**
- * Returns configured catalog value.
- * @returns catalog value.
+ * Returns the catalog to request with: the one selected by the `catalog` URL
+ * param, or the config's default catalog. Without a CatalogProvider, the URL
+ * param is ignored and the default is returned.
+ * @returns The catalog, or undefined when none is selected and the config has no default.
  */
 export const useCatalog = (): string | undefined => {
   const { config } = useConfig();
-  const {
-    exploreState: { catalogState },
-  } = useExploreState();
+  const context = useContext(CatalogContext);
+  useEffect(() => {
+    if (!context) warnCatalogParamWithoutProvider();
+  }, [context]);
   const { dataSource } = config;
   const { defaultParams } = dataSource || {};
   const { catalog } = defaultParams || {};
-  return catalogState || catalog;
+  return context?.catalog ?? catalog;
 };

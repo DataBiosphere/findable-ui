@@ -241,22 +241,16 @@ function initEntityPageState(config: SiteConfig): EntityPageStateMapper {
  * from each entity's config (tableOptions.initialState.columnFilters).
  * @param entityPageState - Entity page state.
  * @param entityStateByCategoryGroupConfigKey - Entity state by category group config key.
- * @param state - Partial explore state for building queries.
  * @returns Entities context.
  */
 function initEntities(
   entityPageState: EntityPageStateMapper,
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey,
-  state: Pick<ExploreState, "catalogState" | "featureFlagState">,
 ): EntitiesContext {
   return Object.keys(entityPageState).reduce((acc, entityPath) => {
     const entityKey = entityPageState[entityPath].categoryGroupConfigKey;
     const entityState = entityStateByCategoryGroupConfigKey.get(entityKey);
-    const query = buildQuery(entityPath, {
-      catalogState: state.catalogState,
-      featureFlagState: state.featureFlagState,
-      filterState: entityState?.filterState ?? [],
-    });
+    const query = buildQuery(entityPath, entityState?.filterState ?? []);
     return {
       ...acc,
       [entityPath]: {
@@ -348,16 +342,12 @@ function initSorting(entityConfig: EntityConfig): ColumnSort[] {
  * @param config - Site config.
  * @param entityListType - Entity list type.
  * @param decodedFilterParam - Decoded filter parameter.
- * @param decodedCatalogParam - Decoded catalog parameter.
- * @param decodedFeatureFlagParam - Decoded feature flag parameter.
  * @returns explore state reducer initial arguments.
  */
 export function initReducerArguments(
   config: SiteConfig,
   entityListType: string,
   decodedFilterParam: string,
-  decodedCatalogParam?: string,
-  decodedFeatureFlagParam?: string,
 ): ExploreState {
   const urlFilterState = initFilterState(decodedFilterParam);
   const hasUrlFilters = urlFilterState.length > 0;
@@ -387,20 +377,14 @@ export function initReducerArguments(
   const entities = initEntities(
     entityPageState,
     entityStateByCategoryGroupConfigKey,
-    {
-      catalogState: decodedCatalogParam,
-      featureFlagState: decodedFeatureFlagParam,
-    },
   );
 
   return {
     ...INITIAL_STATE,
-    catalogState: decodedCatalogParam,
     categoryGroups,
     entities,
     entityPageState,
     entityStateByCategoryGroupConfigKey,
-    featureFlagState: decodedFeatureFlagParam,
     filterCount: getFilterCount(filterState, categoryGroups),
     filterSort: getFilterSortType(config),
     filterState,

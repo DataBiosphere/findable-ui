@@ -6,29 +6,21 @@ import { EntitiesContext } from "../src/providers/exploreState/entities/types";
 /**
  * Creates a minimal ExploreState for testing buildNextEntities.
  * @param root0 - State options.
- * @param root0.catalogState - Catalog state.
  * @param root0.entities - Entities context.
  * @param root0.entityStateByCategoryGroupConfigKey - Entity state by category group config key.
- * @param root0.featureFlagState - Feature flag state.
  * @returns Minimal ExploreState.
  */
 function makeState({
-  catalogState,
   entities,
   entityStateByCategoryGroupConfigKey,
-  featureFlagState,
 }: {
-  catalogState?: string;
   entities: EntitiesContext;
   entityStateByCategoryGroupConfigKey?: Map<string, unknown>;
-  featureFlagState?: string;
 }): ExploreState {
   return {
-    catalogState,
     entities,
     entityStateByCategoryGroupConfigKey:
       entityStateByCategoryGroupConfigKey ?? new Map(),
-    featureFlagState,
   } as unknown as ExploreState;
 }
 

@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { NoSsr, Tooltip } from "@mui/material";
 import { JSX } from "react";
 import { useCatalog } from "../../../../../../hooks/useCatalog";
 import { BaseComponentProps } from "../../../../../types";
@@ -26,17 +26,20 @@ export const VersionInfo = ({
 }: BaseComponentProps & VersionInfoProps): JSX.Element | null => {
   const catalog = useCatalog();
   return (
-    <Tooltip
-      {...TOOLTIP_PROPS}
-      title={<Title versionInfo={{ catalog, ...versionInfo }} />}
-      {...tooltipProps}
-    >
-      <StyledChip
-        {...CHIP_PROPS}
-        className={className}
-        label={getLabel({ catalog, ...versionInfo })}
-        {...chipProps}
-      />
-    </Tooltip>
+    // NoSsr prevents a server/client hydration mismatch: the catalog can come from the URL, which the static HTML doesn't have.
+    <NoSsr>
+      <Tooltip
+        {...TOOLTIP_PROPS}
+        title={<Title versionInfo={{ catalog, ...versionInfo }} />}
+        {...tooltipProps}
+      >
+        <StyledChip
+          {...CHIP_PROPS}
+          className={className}
+          label={getLabel({ catalog, ...versionInfo })}
+          {...chipProps}
+        />
+      </Tooltip>
+    </NoSsr>
   );
 };

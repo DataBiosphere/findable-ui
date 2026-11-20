@@ -77,8 +77,6 @@ import {
   updateSelectColumnVisibility,
 } from "./exploreState/utils";
 
-export type CatalogState = string | undefined;
-
 /**
  * Explore context.
  */
@@ -91,13 +89,11 @@ export interface ExploreContext {
  * Explore state.
  */
 export type ExploreState = {
-  catalogState: CatalogState;
   categoryGroups?: CategoryGroup[];
   categoryViews: CategoryView[];
   entities: EntitiesContext;
   entityPageState: EntityPageStateMapper;
   entityStateByCategoryGroupConfigKey: EntityStateByCategoryGroupConfigKey;
-  featureFlagState: FeatureFlagState;
   filterCount: number;
   filterSort: FILTER_SORT;
   filterState: SelectedFilter[];
@@ -116,8 +112,6 @@ export interface ExploreStateContextProps {
   exploreDispatch: Dispatch<ExploreAction>;
   exploreState: ExploreState;
 }
-
-export type FeatureFlagState = string | undefined;
 
 /**
  * List items.
@@ -186,17 +180,10 @@ export function ExploreStateProvider({
   entityListType: string;
 }): JSX.Element {
   const { config, defaultEntityListType } = useConfig();
-  const { decodedCatalogParam, decodedFeatureFlagParam, decodedFilterParam } =
-    useURLFilterParams();
+  const { decodedFilterParam } = useURLFilterParams();
   const entityList = entityListType || defaultEntityListType;
   const [initializerArg] = useState(() =>
-    initReducerArguments(
-      config,
-      entityList,
-      decodedFilterParam,
-      decodedCatalogParam,
-      decodedFeatureFlagParam,
-    ),
+    initReducerArguments(config, entityList, decodedFilterParam),
   );
 
   const [exploreState, exploreDispatch] = useReducer(
