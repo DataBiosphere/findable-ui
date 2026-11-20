@@ -10,7 +10,7 @@ import { useConfig } from "../../hooks/useConfig";
 import { useCurrentDetailTab } from "../../hooks/useCurrentDetailTab";
 import { useEntityHeadTitle } from "../../hooks/useEntityHeadTitle";
 import { useFetchEntity } from "../../hooks/useFetchEntity";
-import { useUpdateURLCatalogParams } from "../../hooks/useUpdateURLCatalogParam";
+import { useUpdateURLParams } from "../../hooks/useUpdateURLParams/hook";
 
 /**
  * Props for views that display a single entity: the entity list type and, when statically fetched, the entity data.
@@ -43,7 +43,7 @@ function getTabs(entity: EntityConfig): Tab[] {
  * @returns The entity detail view, or an empty span while the entity loads.
  */
 export const EntityDetailView = (props: EntityDetailViewProps): JSX.Element => {
-  useUpdateURLCatalogParams();
+  useUpdateURLParams();
   const { currentTab, route: tabRoute } = useCurrentDetailTab();
   const { response } = useFetchEntity(props);
   const { push, query } = useRouter();

@@ -31,7 +31,7 @@ let config: SiteConfig;
 jest.unstable_mockModule("../src/hooks/useConfig", () => ({
   useConfig: jest.fn(() => ({ config, defaultEntityListType: "files" })),
 }));
-jest.unstable_mockModule("../src/hooks/useURLFilterParams", () => ({
+jest.unstable_mockModule("../src/hooks/useURLFilterParams/hook", () => ({
   useURLFilterParams: jest.fn(() => ({ decodedFilterParam: "[]" })),
 }));
 
