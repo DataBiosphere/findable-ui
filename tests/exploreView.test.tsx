@@ -1,10 +1,12 @@
 import { jest } from "@jest/globals";
 import { render } from "@testing-library/react";
-import type { AzulEntitiesResponse } from "../src/apis/azul/common/entities";
 import type { ExploreState } from "../src/providers/exploreState";
 
 const CATALOG = "dcp2";
 const ENTITY_LIST_TYPE = "datasets";
+const OTHER_ENTITY_LIST_TYPE = "files";
+
+const DATASETS_QUERY = { entityListType: ENTITY_LIST_TYPE };
 
 const dataSelector = jest.fn<(props: unknown) => void>();
 const exploreDispatch = jest.fn();
@@ -15,7 +17,12 @@ const useStateSyncManager =
 const exploreState = {
   categoryGroups: undefined,
   categoryViews: [],
-  entities: { [ENTITY_LIST_TYPE]: { query: {} } },
+  entities: {
+    [ENTITY_LIST_TYPE]: { query: DATASETS_QUERY },
+    [OTHER_ENTITY_LIST_TYPE]: {
+      query: { entityListType: OTHER_ENTITY_LIST_TYPE },
+    },
+  },
   loading: false,
 } as unknown as ExploreState;
 
@@ -84,17 +91,12 @@ describe("ExploreView", () => {
   });
 
   it("passes the page's statically loaded entities and entity list type to the data selector", () => {
-    const hits = [{ id: "dataset-1" }, { id: "dataset-2" }];
-    const data = {
-      hits,
-      pagination: { count: 2, pages: 1, size: 25, total: 2 },
-      termFacets: {},
-    } as unknown as AzulEntitiesResponse;
+    const data = [{ id: "dataset-1" }, { id: "dataset-2" }];
 
     render(<ExploreView data={data} entityListType={ENTITY_LIST_TYPE} />);
 
     expect(dataSelector).toHaveBeenLastCalledWith({
-      data: hits,
+      data,
       entityListType: ENTITY_LIST_TYPE,
     });
   });
@@ -108,10 +110,11 @@ describe("ExploreView", () => {
     });
   });
 
-  it("syncs the URL with the selected catalog", () => {
+  it("syncs the URL with the query of the page's entity list type and the selected catalog", () => {
     render(<ExploreView entityListType={ENTITY_LIST_TYPE} />);
 
     expect(useStateSyncManager.mock.lastCall?.[0].state.query).toEqual({
+      ...DATASETS_QUERY,
       catalog: CATALOG,
     });
   });
