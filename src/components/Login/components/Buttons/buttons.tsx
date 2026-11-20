@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { BUTTON_PROPS } from "../../../common/Button/constants";
+import { BUTTON_PRESETS } from "../../../../contracts/mui/Button/presets";
 import { LoadingIcon } from "../../../common/CustomIcon/components/LoadingIcon/loadingIcon";
 import { StyledButton } from "./buttons.styles";
 import { Props } from "./types";
@@ -31,7 +31,7 @@ export const Buttons = ({
       <StyledButton
         key={provider.id}
         className={className}
-        {...BUTTON_PROPS.SECONDARY_CONTAINED}
+        {...BUTTON_PRESETS.SECONDARY_OUTLINED}
         {...props}
         // Component-controlled props are set after the spread so a consumer
         // cannot override the login wiring; `disabled`/`endIcon` are destructured

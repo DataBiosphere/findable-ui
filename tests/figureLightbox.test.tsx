@@ -227,9 +227,12 @@ describe("LightboxFigure", () => {
         }) as HTMLButtonElement
       ).disabled,
     ).toBe(true);
+    // `outlined` `secondary` is the white button; `contained` `secondary` has no theme styles.
     expect(
-      within(dialog).getByRole("button", { name: "Fit to screen" }),
-    ).toBeTruthy();
+      within(dialog)
+        .getByRole("button", { name: "Fit to screen" })
+        .classList.contains("MuiButton-outlinedSecondary"),
+    ).toBe(true);
   });
 
   it("links View original and Download to the original file", async () => {

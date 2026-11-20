@@ -1,12 +1,12 @@
 import { Button as MButton, type ButtonProps } from "@mui/material";
 import Link from "next/link";
 import { ElementType, JSX } from "react";
+import { BUTTON_PRESETS } from "../../../../../contracts/mui/Button/presets";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
 } from "../../../../Links/common/entities";
 import { isClientSideNavigation } from "../../../../Links/common/utils";
-import { BUTTON_PROPS } from "../../constants";
 
 /**
  * A call to action, with its label, link target and url.
@@ -49,7 +49,9 @@ export const CallToActionButton = ({
   const { label, target, url } = callToAction;
   // The default MUI button takes the primary contained preset; a caller's button sets its own.
   const Button = ButtonElType ?? MButton;
-  const presetProps = ButtonElType ? undefined : BUTTON_PROPS.PRIMARY_CONTAINED;
+  const presetProps = ButtonElType
+    ? undefined
+    : BUTTON_PRESETS.PRIMARY_CONTAINED;
   const isInternal = isClientSideNavigation(url);
   return isInternal ? (
     <Button

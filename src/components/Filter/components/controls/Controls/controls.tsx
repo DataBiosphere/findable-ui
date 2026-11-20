@@ -1,8 +1,8 @@
 import { Button as MButton, Typography } from "@mui/material";
 import { JSX } from "react";
 import { CLEAR_ALL } from "../../../../../common/entities";
+import { BUTTON_PRESETS } from "../../../../../contracts/mui/Button/presets";
 import { TYPOGRAPHY_PROPS } from "../../../../../styles/common/mui/typography";
-import { BUTTON_PROPS } from "../../../../common/Button/constants";
 import { FilterSort } from "./components/FilterSort/filterSort";
 import { StyledGrid } from "./controls.styles";
 import { ControlsProps } from "./types";
@@ -30,7 +30,7 @@ export const Controls = ({
         Filters
       </Typography>
       <MButton
-        {...BUTTON_PROPS.PRIMARY_TEXT}
+        {...BUTTON_PRESETS.PRIMARY_TEXT}
         onClick={() => onFilter(CLEAR_ALL, undefined, false)}
       >
         Clear All

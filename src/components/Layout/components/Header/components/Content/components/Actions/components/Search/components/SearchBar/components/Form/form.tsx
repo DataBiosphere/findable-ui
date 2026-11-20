@@ -1,9 +1,9 @@
 import { CloseRounded } from "@mui/icons-material";
 import { Button, IconButton, Input } from "@mui/material";
 import { FormEvent, JSX, useRef } from "react";
+import { BUTTON_PRESETS } from "../../../../../../../../../../../../../../contracts/mui/Button/presets";
 import { ICON_BUTTON_PROPS } from "../../../../../../../../../../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../../../../../../../../../../styles/common/mui/svgIcon";
-import { BUTTON_PROPS } from "../../../../../../../../../../../../../common/Button/constants";
 import { SearchIcon } from "../../../../../../../../../../../../../common/CustomIcon/components/SearchIcon/searchIcon";
 import { ARIA_LABEL, INPUT_PROPS } from "./constants";
 import { StyledForm } from "./form.styles";
@@ -46,7 +46,7 @@ export default function Form({ onSubmit }: FormProps): JSX.Element {
         }
         inputRef={inputRef}
       />
-      <Button {...BUTTON_PROPS.PRIMARY_CONTAINED} type="submit">
+      <Button {...BUTTON_PRESETS.PRIMARY_CONTAINED} type="submit">
         Search
       </Button>
     </StyledForm>

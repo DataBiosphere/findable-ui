@@ -10,3 +10,6 @@ __pycache__/
 databiosphere-findable-ui*.tgz
 
 .claude/
+
+# Local secrets, e.g. FIGMA_ACCESS_TOKEN for `figma connect`.
+.env

@@ -25,7 +25,9 @@ export const Button = ({
       aria-expanded={isOpen}
       color={isOpen ? BUTTON_PROPS.COLOR.SECONDARY : BUTTON_PROPS.COLOR.PRIMARY}
       onClick={onChange}
-      variant={BUTTON_PROPS.VARIANT.CONTAINED}
+      variant={
+        isOpen ? BUTTON_PROPS.VARIANT.OUTLINED : BUTTON_PROPS.VARIANT.CONTAINED
+      }
     >
       {isOpen ? "Save & continue later" : "Continue"}
     </StyledButton>

@@ -2,9 +2,9 @@ import { Button, TableBody, TableCell, TableRow, Tooltip } from "@mui/material";
 import copy from "copy-to-clipboard";
 import { JSX } from "react";
 import { Filters } from "../../../../../../../../common/entities";
+import { BUTTON_PRESETS } from "../../../../../../../../contracts/mui/Button/presets";
 import { useDownloadStatus } from "../../../../../../../../hooks/useDownloadStatus";
 import { useFileManifestSpreadsheet } from "../../../../../../../../hooks/useFileManifest/useFileManifestSpreadsheet";
-import { BUTTON_PROPS } from "../../../../../../../common/Button/constants";
 import { ButtonGroup } from "../../../../../../../common/ButtonGroup/buttonGroup";
 import {
   ContentCopyIconSmall,
@@ -71,7 +71,7 @@ export const FileManifestSpreadsheet = ({
                     <Tooltip {...TOOLTIP_PROPS} title={message}>
                       <span>
                         <Button
-                          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+                          {...BUTTON_PRESETS.PRIMARY_CONTAINED}
                           disabled={disabled || isLoading}
                           onClick={() => requestManifest?.()}
                         >

@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
 import { JSX, ReactNode } from "react";
+import { BUTTON_PRESETS } from "../../../../../../../../../../contracts/mui/Button/presets";
 import { useConfig } from "../../../../../../../../../../hooks/useConfig";
 import { useTerraProfile } from "../../../../../../../../../../terra/hooks/useTerraProfile";
 import { LoginStatus } from "../../../../../../../../../../terra/types/common";
 import { TerraResponse } from "../../../../../../../../../../terra/types/terra-profile";
-import { BUTTON_PROPS } from "../../../../../../../../../common/Button/constants";
 import {
   ANCHOR_TARGET,
   REL_ATTRIBUTE,
@@ -54,7 +54,7 @@ export const AcceptTerraTOS = ({
   return (
     <FormStep
       action={
-        <Button {...BUTTON_PROPS.PRIMARY_CONTAINED} onClick={onOpenTerra}>
+        <Button {...BUTTON_PRESETS.PRIMARY_CONTAINED} onClick={onOpenTerra}>
           Go to Terra
         </Button>
       }

@@ -82,7 +82,7 @@ export const Controls = ({
               color={BUTTON_PROPS.COLOR.SECONDARY}
               onClick={onFit}
               size={BUTTON_PROPS.SIZE.SMALL}
-              variant={BUTTON_PROPS.VARIANT.CONTAINED}
+              variant={BUTTON_PROPS.VARIANT.OUTLINED}
             >
               {LABEL.FIT}
             </Button>

@@ -1,9 +1,9 @@
 import { Button as MButton, Tooltip } from "@mui/material";
 import { ElementType, JSX, ReactNode } from "react";
+import { BUTTON_PRESETS } from "../../../../../../contracts/mui/Button/presets";
 import { useDownloadStatus } from "../../../../../../hooks/useDownloadStatus";
 import { useFileManifestState } from "../../../../../../hooks/useFileManifestState";
 import { useLoginGuard } from "../../../../../../providers/loginGuard/hook";
-import { BUTTON_PROPS } from "../../../../../common/Button/constants";
 
 /**
  * Props for the ExportButton component.
@@ -21,7 +21,7 @@ export interface ExportButtonProps {
  * exports require it and they are not logged in.
  * The button is always given the primary contained preset (color and variant),
  * including a Button passed in, so a passed-in button that spreads its props
- * after its own color and variant (e.g. ButtonOutline) renders primary contained.
+ * after its own color and variant renders primary contained.
  * @param props - Component props.
  * @param props.Button - Button component, given the primary contained preset; defaults to MUI Button.
  * @param props.children - Button label.
@@ -45,7 +45,7 @@ export const ExportButton = ({
     <Tooltip arrow title={isLoading ? null : downloadStatus.message}>
       <span>
         <Button
-          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+          {...BUTTON_PRESETS.PRIMARY_CONTAINED}
           disabled={
             isLoading || downloadStatus.disabled || downloadStatus.isLoading
           }

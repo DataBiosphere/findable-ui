@@ -6,10 +6,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { JSX } from "react";
+import { BUTTON_PRESETS } from "../../../../../../contracts/mui/Button/presets";
 import { bpDown820 } from "../../../../../../styles/common/mixins/breakpoints";
 import { ICON_BUTTON_PROPS } from "../../../../../../styles/common/mui/iconButton";
 import { SVG_ICON_PROPS } from "../../../../../../styles/common/mui/svgIcon";
-import { BUTTON_PROPS } from "../../../../../common/Button/constants";
 import { DownloadIcon } from "../../../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import type { DownloadProps } from "./types";
 
@@ -42,7 +42,7 @@ export const Download = ({ download }: DownloadProps): JSX.Element | null => {
 
   return (
     <Button
-      {...BUTTON_PROPS.SECONDARY_LARGE_CONTAINED}
+      {...BUTTON_PRESETS.SECONDARY_LARGE_OUTLINED}
       download
       href={href}
       startIcon={<DownloadIcon />}

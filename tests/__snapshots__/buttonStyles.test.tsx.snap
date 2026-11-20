@@ -1,0 +1,1161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MuiButton theme styles should keep the activeNav large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-light)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the activeNav medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-light)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the activeNav small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-light)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the backNav large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "font-family": "Inter",
+      "font-size": "18px",
+      "font-weight": "500",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "line-height": "26px",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+    "@media (min-width:768px) &": {
+      "font-size": "20px",
+      "letter-spacing": "-0.2px",
+      "line-height": "28px",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the backNav medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "font-family": "Inter",
+      "font-size": "18px",
+      "font-weight": "500",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "line-height": "26px",
+      "min-width": "0",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+    "@media (min-width:768px) &": {
+      "font-size": "20px",
+      "letter-spacing": "-0.2px",
+      "line-height": "28px",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the backNav small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "font-family": "Inter",
+      "font-size": "18px",
+      "font-weight": "500",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "line-height": "26px",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+    "@media (min-width:768px) &": {
+      "font-size": "20px",
+      "letter-spacing": "-0.2px",
+      "line-height": "28px",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "opacity": "0.5",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "opacity": "0.5",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "opacity": "0.5",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "opacity": "0.5",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the contained primary small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-disabled": {
+      "background-color": "var(--palette-primary-main)",
+      "box-shadow": "none",
+      "color": "var(--palette-common-white)",
+      "opacity": "0.5",
+    },
+    "&.Mui-focusVisible": {
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-primary-dark)",
+      "box-shadow": "0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 8%, transparent),inset 0 -1px 0 0 color-mix(in srgb, var(--palette-common-black) 20%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the nav large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the nav medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the nav small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+      "white-space": "nowrap",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-light)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "8px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the outlined secondary small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "padding": "10px 16px",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:active": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+    "&:disabled": {
+      "background-color": "var(--palette-common-white)",
+      "border": "none",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark)",
+      "color": "var(--palette-ink-main)",
+      "opacity": "0.5",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-smoke-lightest)",
+      "box-shadow": "inset 0 0 0 1px var(--palette-smoke-dark),0 1px 0 0 color-mix(in srgb, var(--palette-common-black) 5%, transparent)",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary large disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-ms-flex-item-align": "center",
+      "-webkit-align-self": "center",
+      "-webkit-flex": "none",
+      "align-self": "center",
+      "color": "var(--palette-primary-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "0",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary large styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-ms-flex-item-align": "center",
+      "-webkit-align-self": "center",
+      "-webkit-flex": "none",
+      "align-self": "center",
+      "color": "var(--palette-primary-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "0",
+      "text-transform": "capitalize",
+    },
+    "& .MuiButton-icon .MuiSvgIcon-root": {
+      "font-size": "20px",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary medium disabled styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-ms-flex-item-align": "center",
+      "-webkit-align-self": "center",
+      "-webkit-flex": "none",
+      "align-self": "center",
+      "color": "var(--palette-primary-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "0",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary medium styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+      "margin-right": "-4px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-ms-flex-item-align": "center",
+      "-webkit-align-self": "center",
+      "-webkit-flex": "none",
+      "align-self": "center",
+      "color": "var(--palette-primary-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "0",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+      "margin-left": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiButton theme styles should keep the text primary small styles 1`] = `
+{
+  "endIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-ms-flex-item-align": "center",
+      "-webkit-align-self": "center",
+      "-webkit-flex": "none",
+      "align-self": "center",
+      "color": "var(--palette-primary-main)",
+      "flex": "none",
+      "font": "var(--font-body-500)",
+      "gap": "4px",
+      "letter-spacing": "normal",
+      "min-width": "0",
+      "padding": "0",
+      "text-transform": "capitalize",
+    },
+    "&.Mui-focusVisible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
+    "&:hover": {
+      "-webkit-text-decoration": "underline",
+      "background-color": "transparent",
+      "text-decoration": "underline",
+      "text-decoration-color": "currentColor",
+      "text-decoration-skip-ink": "none",
+      "text-underline-position": "from-font",
+    },
+  },
+  "startIcon": {
+    "&": {
+      "margin": "0",
+    },
+  },
+}
+`;

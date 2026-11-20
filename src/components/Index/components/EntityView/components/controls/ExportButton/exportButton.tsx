@@ -2,11 +2,11 @@ import { Button, Tooltip } from "@mui/material";
 import Link from "next/link";
 import { JSX } from "react";
 import { LIST_URL_PARAM } from "../../../../../../../common/constants";
+import { BUTTON_PRESETS } from "../../../../../../../contracts/mui/Button/presets";
 import { useConfig } from "../../../../../../../hooks/useConfig";
 import { useDownloadStatus } from "../../../../../../../hooks/useDownloadStatus";
 import { ROUTE } from "../../../../../../../routes/constants";
 import { TEST_IDS } from "../../../../../../../tests/testIds";
-import { BUTTON_PROPS } from "../../../../../../common/Button/constants";
 import { BaseComponentProps } from "../../../../../../types";
 import { StyledBox } from "./exportButton.styles";
 
@@ -30,7 +30,7 @@ export const ExportButton = ({
     <Tooltip arrow title={message}>
       <StyledBox>
         <Button
-          {...BUTTON_PROPS.PRIMARY_CONTAINED}
+          {...BUTTON_PRESETS.PRIMARY_CONTAINED}
           className={className}
           component={Link}
           data-testid={TEST_IDS.EXPORT_BUTTON}

@@ -1,6 +1,6 @@
 import { RowData } from "@tanstack/react-table";
 import { JSX } from "react";
-import { BUTTON_PROPS } from "../../../../common/Button/constants";
+import { BUTTON_PRESETS } from "../../../../../contracts/mui/Button/presets";
 import { DownloadIcon } from "../../../../common/CustomIcon/components/DownloadIcon/downloadIcon";
 import { StyledButton } from "./tableDownload.styles";
 import { TableDownloadProps } from "./types";
@@ -19,7 +19,7 @@ export const TableDownload = <T extends RowData>({
   if (!table.options.enableTableDownload) return null;
   return (
     <StyledButton
-      {...BUTTON_PROPS.SECONDARY_CONTAINED}
+      {...BUTTON_PRESETS.SECONDARY_OUTLINED}
       className={className}
       onClick={() => table.downloadData()}
       startIcon={<DownloadIcon />}
