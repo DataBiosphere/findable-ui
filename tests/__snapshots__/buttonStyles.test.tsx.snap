@@ -27,6 +27,7 @@ exports[`MuiButton theme styles should keep the activeNav large styles 1`] = `
       "font-size": "20px",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -67,6 +68,7 @@ exports[`MuiButton theme styles should keep the activeNav medium styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -106,6 +108,7 @@ exports[`MuiButton theme styles should keep the activeNav small styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -151,6 +154,7 @@ exports[`MuiButton theme styles should keep the backNav large styles 1`] = `
       "font-size": "20px",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -199,6 +203,7 @@ exports[`MuiButton theme styles should keep the backNav medium styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -246,6 +251,7 @@ exports[`MuiButton theme styles should keep the backNav small styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -551,6 +557,7 @@ exports[`MuiButton theme styles should keep the nav large styles 1`] = `
       "font-size": "20px",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -590,6 +597,7 @@ exports[`MuiButton theme styles should keep the nav medium styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },
@@ -628,6 +636,7 @@ exports[`MuiButton theme styles should keep the nav small styles 1`] = `
       "white-space": "nowrap",
     },
     "&.Mui-focusVisible": {
+      "background-color": "var(--palette-smoke-light)",
       "outline": "2px solid var(--palette-primary-main)",
       "outline-offset": "2px",
     },

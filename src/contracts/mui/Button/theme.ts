@@ -114,7 +114,7 @@ export const ACTIVE_NAV: ButtonVariant = {
     textTransform: "capitalize",
     whiteSpace: "nowrap",
     // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:hover": {
+    "&:hover, &.Mui-focusVisible": {
       backgroundColor: PALETTE.SMOKE_LIGHT,
     },
   },
@@ -129,7 +129,7 @@ export const BACK_NAV: ButtonVariant = {
     textTransform: "capitalize",
     whiteSpace: "nowrap",
     // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:hover": {
+    "&:hover, &.Mui-focusVisible": {
       backgroundColor: PALETTE.SMOKE_LIGHT,
     },
   }),
@@ -144,7 +144,7 @@ export const NAV: ButtonVariant = {
     textTransform: "capitalize",
     whiteSpace: "nowrap",
     // eslint-disable-next-line sort-keys -- disabling key order for readability
-    "&:hover": {
+    "&:hover, &.Mui-focusVisible": {
       backgroundColor: PALETTE.SMOKE_LIGHT,
     },
   },
