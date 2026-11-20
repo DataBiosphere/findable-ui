@@ -1,4 +1,5 @@
 import { BUTTON_PRESETS } from "../src/contracts/mui/Button/presets";
+import { BUTTON_VARIANTS } from "../src/contracts/mui/Button/theme";
 
 describe("BUTTON_PRESETS", () => {
   it("should have only the current preset names", () => {
@@ -12,6 +13,16 @@ describe("BUTTON_PRESETS", () => {
       "SECONDARY_OUTLINED",
     ]);
   });
+
+  it.each(Object.entries(BUTTON_PRESETS))(
+    "should give %s a color and variant the theme styles",
+    (_, { color, variant }) => {
+      const styled = BUTTON_VARIANTS.some(
+        ({ props }) => props.color === color && props.variant === variant,
+      );
+      expect(styled).toBe(true);
+    },
+  );
 
   it("should not compile references to the removed contained secondary presets", () => {
     // `npm run test-compile` fails if any of these names type-checks again.
