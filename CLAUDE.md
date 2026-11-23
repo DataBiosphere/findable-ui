@@ -29,8 +29,8 @@ npm run check-format  # Prettier formatting check
 npm run lint          # ESLint with TypeScript and SonarJS plugins
 npm run lint-css      # Stylelint: the stylesheets in static/ against Baseline widely available
 npm run test          # Jest with React Testing Library
-npm run test:coverage       # Jest with coverage; fails below the floors in jest.config.js
-npm run test:diff-coverage  # diff-cover: changed lines vs origin/${BASE:-main} need 80% coverage
+npm run test:coverage # Jest with coverage; fails below the floors in jest.config.js
+npm run test:diff-coverage # diff-cover: changed lines vs origin/${BASE:-main} need 80% coverage
 npm run test-compile  # TypeScript compilation check (no emit)
 
 # Development tools

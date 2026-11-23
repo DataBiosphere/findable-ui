@@ -13,4 +13,6 @@ databiosphere-findable-ui*.tgz
 
 # Local secrets, e.g. FIGMA_ACCESS_TOKEN for `figma connect`.
 .env
+
+# Jest coverage reports
 coverage/
