@@ -29,11 +29,17 @@ npm run check-format  # Prettier formatting check
 npm run lint          # ESLint with TypeScript and SonarJS plugins
 npm run lint-css      # Stylelint: the stylesheets in static/ against Baseline widely available
 npm run test          # Jest with React Testing Library
+npm run test:coverage       # Jest with coverage; fails below the floors in jest.config.js
+npm run test:diff-coverage  # diff-cover: changed lines vs origin/${BASE:-main} need 80% coverage
 npm run test-compile  # TypeScript compilation check (no emit)
 
 # Development tools
 npm run storybook     # Launch Storybook on port 6006
 ```
+
+`test:diff-coverage` reads `coverage/cobertura-coverage.xml` from a
+`test:coverage` run and needs [uv](https://docs.astral.sh/uv/): it runs the
+diff-cover pinned in `pyproject.toml` and `uv.lock`.
 
 ### Running Single Tests
 
@@ -199,7 +205,8 @@ describe("ComponentName", () => {
 - Prettier formatting (`npm run check-format`)
 - ESLint with no errors (`npm run lint`)
 - Stylelint with no errors (`npm run lint-css`)
-- All Jest tests passing (`npm test`)
+- All Jest tests passing, with coverage at or above the floors in `jest.config.js` (`npm run test:coverage`)
+- At least 80% coverage of the changed lines (`npm run test:diff-coverage`)
 - TypeScript compilation (`npm run test-compile`)
 
 **Husky hooks:** Pre-commit hooks configured in `.husky/`
