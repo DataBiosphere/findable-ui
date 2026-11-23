@@ -1,5 +1,26 @@
 # Changelog
 
+## [63.0.0](https://github.com/DataBiosphere/findable-ui/compare/v62.0.0...v63.0.0) (2026-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* `Button` with `variant="contained" color="secondary"` is no longer styled; use `variant="outlined" color="secondary"`, which is now the white bordered button. The presets `SECONDARY_CONTAINED`, `SECONDARY_LARGE_CONTAINED` and `SECONDARY_MEDIUM_CONTAINED` are renamed `SECONDARY_OUTLINED`, `SECONDARY_LARGE_OUTLINED` and `SECONDARY_MEDIUM_OUTLINED`. The presets move from `BUTTON_PROPS` in `components/common/Button/constants`, which is removed, to `BUTTON_PRESETS` in `contracts/mui/Button/presets`. The transparent `outlined` `secondary` style and `ButtonOutline` are removed; build a local styled button for dark backgrounds. A `<Button color="secondary" variant="outlined">`, which earlier release notes gave for the transparent outline button, now renders white with no compile error, so check each one.
+* sites that use findable-ui's export pages or the `ManifestDownload`, `DownloadCurlCommand` or `ExportToTerra` export components must mount `ExploreListProvider` in `_app`, above `ExploreStateProvider`, passing `allowedLists` (from `getAllowedLists(config)` in `providers/exploreList/utils`) and `initialList` (the page's `entityListType`, defaulted in `_app` to the site's default entity route). `useUpdateURLCatalogParams` and `useUpdateURLSearchParams` are replaced by `useUpdateURLParams` (`hooks/useUpdateURLParams/hook`), which takes an optional filter state. `useURLFilterParams` moved to `hooks/useURLFilterParams/hook` and no longer returns `updateFilterQueryString`.
+* `ExploreView`'s `data` is the explore page's entity array, not an Azul response: pass `data.hits`. The Azul-based `ExploreViewProps` in `views/ExploreView/exploreView` is removed; import `ExploreViewProps` from `views/ExploreView/types`. `buildStateSyncManagerContext` takes `(exploreState, entityListType)`.
+* sites that use the `catalog` URL param must mount `CatalogProvider` in `_app`, inside `ConfigProvider` and above `SystemStatusProvider`. `ExploreState.catalogState`, `ExploreState.featureFlagState`, the `CatalogState` and `FeatureFlagState` types, `EXPLORE_URL_PARAMS.FEATURE_FLAG`, `getQueryState` and the `EntityState` in `exploreState/entities/types` are removed. `useURLFilterParams` no longer returns `decodedCatalogParam` or `decodedFeatureFlagParam`, `updateFilterQueryString` takes `(catalog, filterState)`, and `initReducerArguments` and `buildQuery` take fewer arguments.
+
+### Features
+
+* carry the explored entity in the URL as `?list=` in an `ExploreListProvider` ([#1247](https://github.com/DataBiosphere/findable-ui/issues/1247)) ([#1250](https://github.com/DataBiosphere/findable-ui/issues/1250)) ([e1535ac](https://github.com/DataBiosphere/findable-ui/commit/e1535acb69651c4670b9b0ad83228f045186ec06))
+* connect findable-ui to the Findable-Contract Figma library with Code Connect ([#1252](https://github.com/DataBiosphere/findable-ui/issues/1252)) ([#1253](https://github.com/DataBiosphere/findable-ui/issues/1253)) ([c8f01d4](https://github.com/DataBiosphere/findable-ui/commit/c8f01d45ea0e587bfd8cff81b361f1fc0a80484b))
+* move the catalog into a `CatalogProvider` and remove `featureFlagState` ([#1211](https://github.com/DataBiosphere/findable-ui/issues/1211)) ([#1243](https://github.com/DataBiosphere/findable-ui/issues/1243)) ([a1fd0b5](https://github.com/DataBiosphere/findable-ui/commit/a1fd0b5bba21acfba1ba0c875c79a478ce875f48))
+
+
+### Code Refactoring
+
+* replace the Azul-shaped `ExploreViewProps` with the generic explore view props ([#1217](https://github.com/DataBiosphere/findable-ui/issues/1217)) ([#1246](https://github.com/DataBiosphere/findable-ui/issues/1246)) ([150763a](https://github.com/DataBiosphere/findable-ui/commit/150763a14148b664dbb04872aae647cadbecaf8a))
+
 ## [62.0.0](https://github.com/DataBiosphere/findable-ui/compare/v61.0.0...v62.0.0) (2026-11-18)
 
 
