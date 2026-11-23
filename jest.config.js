@@ -61,6 +61,7 @@ module.exports = {
     "!src/mocks/**",
     "!src/storybook/**",
     "!src/tests/utils.ts",
+    "!src/utils/tests.ts",
   ],
   // Jest manual mocks, and files that compile to no JavaScript: v8 coverage
   // reports an untested types-only file as uncovered lines (jestjs/jest#14422).
