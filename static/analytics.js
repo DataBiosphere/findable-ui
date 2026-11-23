@@ -46,11 +46,17 @@
     });
   });
 
-  document.addEventListener("pointerdown", (event) => {
-    document.querySelectorAll(OPEN_TOGGLETIP_TRIGGER).forEach((trigger) => {
-      if (!trigger.closest(TOGGLETIP).contains(event.target)) {
-        trigger.setAttribute(EXPANDED, "false");
-      }
+  // Closes an open toggletip on a press or focus landing outside it. Not
+  // focusout: some browsers, such as Safari, don't focus a clicked button, so
+  // focus can move on without ever having been inside the toggletip. A press
+  // on the content's text moves focus nowhere, so it keeps the toggletip open.
+  ["focusin", "pointerdown"].forEach((type) => {
+    document.addEventListener(type, (event) => {
+      document.querySelectorAll(OPEN_TOGGLETIP_TRIGGER).forEach((trigger) => {
+        if (!trigger.closest(TOGGLETIP).contains(event.target)) {
+          trigger.setAttribute(EXPANDED, "false");
+        }
+      });
     });
   });
 
@@ -59,14 +65,5 @@
     if (!trigger) return;
     const expanded = trigger.getAttribute(EXPANDED) === "true";
     trigger.setAttribute(EXPANDED, String(!expanded));
-  });
-
-  document.addEventListener("focusout", (event) => {
-    const toggletip = event.target.closest(TOGGLETIP);
-    // No relatedTarget: a press on the page (left to the pointerdown handler, so
-    // a press on the content's text keeps it open) or focus leaving the page.
-    if (!toggletip || !event.relatedTarget) return;
-    if (toggletip.contains(event.relatedTarget)) return;
-    toggletip.querySelector(TOGGLETIP_TRIGGER).setAttribute(EXPANDED, "false");
   });
 }

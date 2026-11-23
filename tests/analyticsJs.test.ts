@@ -88,28 +88,34 @@ describe("analytics.js", () => {
     });
 
     it("closes on Escape and leaves focus where it is when focus was outside it", () => {
-      fireEvent.click(toggletipTrigger);
+      // Focus first: focusing outside an open toggletip would close it.
       outside.focus();
+      fireEvent.click(toggletipTrigger);
+      expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("true");
       pressEscape();
       expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("false");
       expect(document.activeElement).toBe(outside);
     });
 
-    it("closes when focus moves to an element outside it", () => {
+    it("closes when focus moves from its button to an element outside it", () => {
+      toggletipTrigger.focus();
       fireEvent.click(toggletipTrigger);
-      fireEvent.focusOut(toggletipTrigger, { relatedTarget: outside });
+      outside.focus();
+      expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("false");
+    });
+
+    it("closes when focus lands outside it without ever having been inside it", () => {
+      // A click that leaves focus on <body>, as in Safari.
+      fireEvent.click(toggletipTrigger);
+      expect(document.activeElement).toBe(document.body);
+      outside.focus();
       expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("false");
     });
 
     it("stays open when focus moves within it", () => {
+      toggletipTrigger.focus();
       fireEvent.click(toggletipTrigger);
-      fireEvent.focusOut(toggletipTrigger, { relatedTarget: link });
-      expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("true");
-    });
-
-    it("stays open on a focusout with no relatedTarget", () => {
-      fireEvent.click(toggletipTrigger);
-      fireEvent.focusOut(toggletipTrigger, { relatedTarget: null });
+      link.focus();
       expect(toggletipTrigger.getAttribute("aria-expanded")).toBe("true");
     });
   });
