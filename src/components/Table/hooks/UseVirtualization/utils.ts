@@ -56,14 +56,6 @@ export function observeScrollMargin(
 }
 
 /**
- * Subscribes to nothing: whether the page scroll layout is supported doesn't change while the page is open.
- * @returns Unsubscribe, which does nothing.
- */
-export function subscribeToNothing(): () => void {
-  return (): void => undefined;
-}
-
-/**
  * Returns whether the browser supports the page scroll layout, where the page scrolls and the table's column head pins. The same query switches the layout's styles.
  * @returns True if the page scroll layout is supported.
  */

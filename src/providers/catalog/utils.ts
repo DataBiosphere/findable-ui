@@ -1,3 +1,4 @@
+import type { SiteConfig } from "../../config/entities";
 import { isSSR } from "../../utils/ssr";
 import { CATALOG_URL_PARAM } from "./constants";
 
@@ -12,6 +13,17 @@ export function getCatalogParam(
   value: string | string[] | undefined,
 ): string | undefined {
   return typeof value === "string" && value ? value : undefined;
+}
+
+/**
+ * Returns the config's default catalog, used when no catalog is selected by the URL.
+ * @param config - Site config.
+ * @returns The default catalog, or undefined when the config has none.
+ */
+export function getDefaultCatalog(config: SiteConfig): string | undefined {
+  const { dataSource } = config;
+  const { defaultParams } = dataSource || {};
+  return defaultParams?.catalog;
 }
 
 /**

@@ -2,6 +2,7 @@ import { jest } from "@jest/globals";
 import { renderHook } from "@testing-library/react";
 import type { NextRouter } from "next/router";
 import type { JSX, ReactNode } from "react";
+import { hydrate } from "./utils/hydrate";
 
 const DEFAULT_CATALOG = "default-catalog";
 
@@ -25,6 +26,10 @@ jest.unstable_mockModule("../src/hooks/useConfig", () => ({
 const { CatalogProvider } = await import("../src/providers/catalog/provider");
 const { useCatalogParam } = await import("../src/providers/catalog/hook");
 const { useCatalog } = await import("../src/hooks/useCatalog");
+const { useRenderedCatalog } =
+  await import("../src/providers/catalog/hooks/UseRenderedCatalog/hook");
+const { VersionInfo } =
+  await import("../src/components/Layout/components/Footer/components/VersionInfo/versionInfo");
 const { buildStateSyncManagerContext } =
   await import("../src/views/ExploreView/utils");
 const { useRestoreCatalogParam } =
@@ -76,6 +81,22 @@ async function importFreshWarning(): Promise<() => void> {
  */
 function setLocationSearch(search: string): void {
   window.history.replaceState(null, "", `/${search}`);
+}
+
+/**
+ * Renders the catalog from `useRenderedCatalog`, recording the value of every render.
+ * @param props - Component props.
+ * @param props.renders - Receives the catalog of each render.
+ * @returns The catalog.
+ */
+function RenderedCatalog({
+  renders,
+}: {
+  renders: (string | undefined)[];
+}): JSX.Element {
+  const catalog = useRenderedCatalog();
+  renders.push(catalog);
+  return <span>{catalog}</span>;
 }
 
 beforeEach(() => {
@@ -152,6 +173,40 @@ describe("CatalogProvider", () => {
       catalog: DEFAULT_CATALOG,
       catalogParam: undefined,
     });
+  });
+});
+
+describe("VersionInfo through hydration", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+    jest.restoreAllMocks();
+  });
+
+  it("renders the default catalog in the static HTML, then the URL's catalog, without a hydration mismatch", () => {
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+    const renders: (string | undefined)[] = [];
+
+    // The static HTML is built without the URL, so the catalog param is only set once it is rendered.
+    const { container, html } = hydrate(
+      <Wrapper>
+        <VersionInfo />
+        <RenderedCatalog renders={renders} />
+      </Wrapper>,
+      () => {
+        setLocationSearch("?catalog=dcp4");
+        // Keep only the client's renders.
+        renders.length = 0;
+      },
+    );
+
+    expect(html).toContain(`Unversioned-${DEFAULT_CATALOG}`);
+    expect(renders).toEqual([DEFAULT_CATALOG, "dcp4"]);
+    expect(container.querySelector(".MuiChip-label")?.textContent).toBe(
+      "Unversioned-dcp4",
+    );
+    expect(consoleError).not.toHaveBeenCalled();
   });
 });
 

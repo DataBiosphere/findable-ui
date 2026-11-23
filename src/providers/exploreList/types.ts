@@ -9,6 +9,10 @@ export interface ExploreListContextProps {
    */
   exploreList: string;
   /**
+   * Explore list the static HTML is built with: the provider's `initialList`.
+   */
+  initialList: string;
+  /**
    * Sets the explore list; the explore view calls it with its entity list type.
    */
   setExploreList: (entityListType: string) => void;

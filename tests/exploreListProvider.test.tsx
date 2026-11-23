@@ -3,6 +3,7 @@ import { act, renderHook } from "@testing-library/react";
 import type { NextRouter } from "next/router";
 import type { JSX, ReactNode } from "react";
 import type { SiteConfig } from "../src/config/entities";
+import { hydrate } from "./utils/hydrate";
 
 const ROUTER = {
   isReady: true,
@@ -29,6 +30,56 @@ const { getAllowedLists, getLocationExploreListParam } =
   await import("../src/providers/exploreList/utils");
 const { useSetExploreList } =
   await import("../src/providers/exploreList/hooks/UseSetExploreList/hook");
+const { useRenderedExploreList } =
+  await import("../src/providers/exploreList/hooks/UseRenderedExploreList/hook");
+
+/**
+ * Renders a link to the explore list returned by the given hook, recording the value of every render.
+ * @param props - Component props.
+ * @param props.renders - Receives the explore list of each render.
+ * @param props.useList - Hook returning the explore list to link to.
+ * @returns The link.
+ */
+function ExploreLink({
+  renders,
+  useList,
+}: {
+  renders: string[];
+  useList: () => string;
+}): JSX.Element {
+  const exploreList = useList();
+  renders.push(exploreList);
+  return <a href={`/${exploreList}`}>Explore</a>;
+}
+
+/**
+ * Renders the link to static HTML with no URL, as the static export does, then hydrates it on a page whose URL has the
+ * given search string, as a cold page load does.
+ * @param useList - Hook returning the explore list to link to.
+ * @param search - Browser URL search string on the client, e.g. "?list=files".
+ * @returns The static HTML, the hydrated link, and the explore list of each client render.
+ */
+function hydrateExploreLink(
+  useList: () => string,
+  search: string,
+): { html: string; link: HTMLAnchorElement; renders: string[] } {
+  const renders: string[] = [];
+  isServerRender = true;
+  const { container, html } = hydrate(
+    <Wrapper>
+      <ExploreLink renders={renders} useList={useList} />
+    </Wrapper>,
+    () => {
+      isServerRender = false;
+      setLocationSearch(search);
+      // Keep only the client's renders.
+      renders.length = 0;
+    },
+  );
+  const link = container.querySelector("a");
+  if (!link) throw new Error("The explore link failed to render");
+  return { html, link, renders };
+}
 
 /**
  * Wraps a hook in an ExploreListProvider.
@@ -169,6 +220,65 @@ describe("ExploreListProvider", () => {
   });
 });
 
+describe("useRenderedExploreList", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+    jest.restoreAllMocks();
+  });
+
+  it("hydrates a link to the static HTML's list, then links to the URL's list, without a hydration mismatch", () => {
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    const { html, link, renders } = hydrateExploreLink(
+      useRenderedExploreList,
+      "?list=files",
+    );
+
+    expect(html).toContain('href="/datasets"');
+    expect(renders).toEqual(["datasets", "files"]);
+    expect(link.getAttribute("href")).toBe("/files");
+    expect(consoleError).not.toHaveBeenCalled();
+  });
+
+  it("returns the URL's list in the first render of a component mounted after hydration", () => {
+    setLocationSearch("?list=files");
+    const renders: string[] = [];
+
+    renderHook(
+      () => {
+        const exploreList = useRenderedExploreList();
+        renders.push(exploreList);
+        return exploreList;
+      },
+      { wrapper: Wrapper },
+    );
+
+    expect(renders[0]).toBe("files");
+  });
+});
+
+// A control for the hydration test above: it shows that test detects a mismatch. It asserts React 19's handling of a
+// mismatched attribute (the server value stays, and the mismatch is logged), so a React update can change it.
+describe("useExploreList through hydration", () => {
+  afterEach(() => {
+    document.body.innerHTML = "";
+    jest.restoreAllMocks();
+  });
+
+  it("keeps the static HTML's href and reports a hydration mismatch, which useRenderedExploreList avoids", () => {
+    const consoleError = jest
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
+
+    const { link } = hydrateExploreLink(useExploreList, "?list=files");
+
+    expect(link.getAttribute("href")).toBe("/datasets");
+    expect(consoleError).toHaveBeenCalled();
+  });
+});
+
 describe("getAllowedLists", () => {
   it("returns the configured entity routes", () => {
     const config = {
@@ -193,6 +303,16 @@ describe("explore list hooks without ExploreListProvider", () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
 
     expect(() => renderHook(useExploreList)).toThrow("ExploreListProvider");
+
+    jest.mocked(console.error).mockRestore();
+  });
+
+  it("useRenderedExploreList throws an error naming ExploreListProvider", () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+
+    expect(() => renderHook(useRenderedExploreList)).toThrow(
+      "ExploreListProvider",
+    );
 
     jest.mocked(console.error).mockRestore();
   });
