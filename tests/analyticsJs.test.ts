@@ -1,6 +1,9 @@
 import { fireEvent } from "@testing-library/react";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+// The script adds listeners to the document that it never removes; an import
+// runs it once, where loading it per test would stack up click handlers that
+// cancel each other's toggle. Importing it, rather than evaluating its text,
+// lets coverage attribute its lines to static/analytics.js.
+import "../static/analytics.js";
 
 // Markup as in static/analytics-preview.html: a tooltip, a toggletip and a
 // button outside both.
@@ -45,15 +48,6 @@ describe("analytics.js", () => {
   let toggletipTrigger: HTMLElement;
   let tooltipTrigger: HTMLElement;
   let wrapper: HTMLElement;
-
-  beforeAll(() => {
-    // The script adds listeners to the document that it never removes, so it
-    // is loaded once; loading it per test would stack up click handlers that
-    // cancel each other's toggle.
-    window.eval(
-      readFileSync(resolve(process.cwd(), "static/analytics.js"), "utf8"),
-    );
-  });
 
   beforeEach(() => {
     document.body.innerHTML = MARKUP;

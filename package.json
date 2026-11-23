@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:coverage": "npm test -- --coverage",
+    "test:diff-coverage": "uv run --locked --isolated diff-cover coverage/cobertura-coverage.xml --compare-branch origin/${BASE:-main} --fail-under 80",
     "lint": "node scripts/check-no-eslint-suppressions.mjs && eslint .",
     "lint-css": "stylelint \"static/**/*.css\"",
     "check-format": "prettier --check .",

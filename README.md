@@ -237,6 +237,19 @@ With Next 16 and the current dep graph, this override is no longer doing useful 
 
 If your consumer carries this override, remove the block from `package.json` and run `npm install` to refresh the lockfile. Expect `npm warn deprecated` warnings for `glob@7.x` (the maintainer marks pre-v9 as deprecated) and `inflight@1.0.6` (re-introduced via Jest 29's transitive chain). Both are warnings, not build/CI failures.
 
+## Test coverage
+
+- `npm run test:coverage` runs the Jest tests with coverage, writes the report
+  to `coverage/`, and fails when the overall line or branch coverage is below
+  the floors in `jest.config.js`.
+- `npm run test:diff-coverage` then checks the lines the branch changes against
+  `origin/main` (set `BASE=<branch>` to compare with another branch), and fails
+  when under 80% of them are covered. CI runs both on every pull request.
+
+`test:diff-coverage` needs [uv](https://docs.astral.sh/uv/getting-started/installation/)
+(for example `brew install uv`). It runs the diff-cover version pinned in
+`pyproject.toml` and `uv.lock`.
+
 ## Developing findable-ui alongside a consuming app
 
 Use `scripts/link.sh` to build and install a local copy of findable-ui
