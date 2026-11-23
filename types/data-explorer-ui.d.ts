@@ -13,6 +13,7 @@ import { SIZE } from "@databiosphere/findable-ui/lib/styles/common/constants/siz
 import {
   Theme as MTheme,
   PaletteColorOptions,
+  TableCellProps,
   TypographyStyleOptions,
 } from "@mui/material";
 import type {} from "@mui/material/Alert";
@@ -261,6 +262,8 @@ declare module "@tanstack/react-table" {
     columnPinned?: boolean;
     components?: Components; // For `MarkdownRendererCell` component.
     header?: string;
+    maxLines?: number;
+    padding?: TableCellProps["padding"];
     width?: GridTrackSize;
   }
 
