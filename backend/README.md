@@ -4,7 +4,7 @@ This folder contains a minimal FastAPI backend that exposes a stubbed **query-to
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+
 - `pip`
 
 ## Set up a Python virtual environment
