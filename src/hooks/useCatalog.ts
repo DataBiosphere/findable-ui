@@ -1,6 +1,9 @@
 import { useContext, useEffect } from "react";
 import { CatalogContext } from "../providers/catalog/context";
-import { warnCatalogParamWithoutProvider } from "../providers/catalog/utils";
+import {
+  getDefaultCatalog,
+  warnCatalogParamWithoutProvider,
+} from "../providers/catalog/utils";
 import { useConfig } from "./useConfig";
 
 /**
@@ -15,8 +18,5 @@ export const useCatalog = (): string | undefined => {
   useEffect(() => {
     if (!context) warnCatalogParamWithoutProvider();
   }, [context]);
-  const { dataSource } = config;
-  const { defaultParams } = dataSource || {};
-  const { catalog } = defaultParams || {};
-  return context?.catalog ?? catalog;
+  return context?.catalog ?? getDefaultCatalog(config);
 };

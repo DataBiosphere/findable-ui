@@ -9,7 +9,8 @@ import { getExploreListParam, getLocationExploreListParam } from "./utils";
  * Holds the entity list type the user explored from, for pages outside the explore view. Mount it in `_app`, above the
  * explore state provider. The explore view sets it to its entity list type. Otherwise it starts from the URL's `list`
  * param, when it names an allowed list, else from `initialList`, and follows a change to an allowed `list`. A URL
- * without `list` keeps the current value.
+ * without `list` keeps the current value. The static HTML doesn't know the URL, so a component that renders the explore
+ * list reads it with `useRenderedExploreList`, which returns `initialList` until the page has hydrated.
  * @param props - Provider props.
  * @param props.allowedLists - Entity list types the URL's `list` may name, e.g. the configured entity routes.
  * @param props.children - Children.
@@ -37,7 +38,10 @@ export function ExploreListProvider({
     if (listParam) setExploreList(listParam);
   }
 
-  const value = useMemo(() => ({ exploreList, setExploreList }), [exploreList]);
+  const value = useMemo(
+    () => ({ exploreList, initialList, setExploreList }),
+    [exploreList, initialList],
+  );
 
   return (
     <ExploreListContext.Provider value={value}>

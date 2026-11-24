@@ -1,13 +1,13 @@
 import { RowData, Table } from "@tanstack/react-table";
 import { useVirtualizer, useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
+import { subscribeToNothing } from "../../../../hooks/useIsHydrated/utils";
 import { ROW_DIRECTION } from "../../common/entities";
 import { VIRTUALIZER_OPTIONS } from "./constants";
 import { UseVirtualizationProps } from "./types";
 import {
   getRowsForVirtualization,
   observeScrollMargin,
-  subscribeToNothing,
   supportsPageScroll,
 } from "./utils";
 

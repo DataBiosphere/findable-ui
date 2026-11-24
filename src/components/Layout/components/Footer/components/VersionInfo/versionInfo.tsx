@@ -1,6 +1,6 @@
-import { NoSsr, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import { JSX } from "react";
-import { useCatalog } from "../../../../../../hooks/useCatalog";
+import { useRenderedCatalog } from "../../../../../../providers/catalog/hooks/UseRenderedCatalog/hook";
 import { BaseComponentProps } from "../../../../../types";
 import { Title } from "./components/Tooltip/components/Title/title";
 import { CHIP_PROPS, TOOLTIP_PROPS, VERSION_INFO } from "./constants";
@@ -11,6 +11,8 @@ import { StyledChip } from "./versionInfo.styles";
 /**
  * Version info chip, labelled with the version, short git hash and catalog, with a tooltip listing the full version info.
  * The current catalog is added to the version info, unless the version info has its own catalog key (even if undefined).
+ * Until the page has hydrated, the current catalog is the config's default, as in the static HTML; then it is the catalog
+ * selected by the URL, if any.
  * @param props - Component props.
  * @param props.chipProps - Props passed to the chip, overriding the defaults.
  * @param props.className - Class name applied to the chip.
@@ -24,22 +26,19 @@ export const VersionInfo = ({
   tooltipProps,
   versionInfo = VERSION_INFO,
 }: BaseComponentProps & VersionInfoProps): JSX.Element | null => {
-  const catalog = useCatalog();
+  const catalog = useRenderedCatalog();
   return (
-    // NoSsr prevents a server/client hydration mismatch: the catalog can come from the URL, which the static HTML doesn't have.
-    <NoSsr>
-      <Tooltip
-        {...TOOLTIP_PROPS}
-        title={<Title versionInfo={{ catalog, ...versionInfo }} />}
-        {...tooltipProps}
-      >
-        <StyledChip
-          {...CHIP_PROPS}
-          className={className}
-          label={getLabel({ catalog, ...versionInfo })}
-          {...chipProps}
-        />
-      </Tooltip>
-    </NoSsr>
+    <Tooltip
+      {...TOOLTIP_PROPS}
+      title={<Title versionInfo={{ catalog, ...versionInfo }} />}
+      {...tooltipProps}
+    >
+      <StyledChip
+        {...CHIP_PROPS}
+        className={className}
+        label={getLabel({ catalog, ...versionInfo })}
+        {...chipProps}
+      />
+    </Tooltip>
   );
 };
