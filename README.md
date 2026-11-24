@@ -48,13 +48,13 @@ styles in `*.styles.ts(x)`, or methods called on an instance such as
 
 This section is the checklist for upgrading a findable-ui consumer from Next 15 to Next 16. The detailed wiring is in [Consumer setup for Next.js 16](#consumer-setup-for-nextjs-16-pages-router-static-export) below; this section tells you everything that needs to change in a consumer repo.
 
-> **Note on findable-ui's peer-dep range:** findable-ui's `next` peer dep is pinned to `^16` (not `^15.5.13 || ^16`). There is no v15 fallback — consumers must move to Next 16 to take the matching findable-ui release.
+> **Note on findable-ui's peer-dep range:** findable-ui's `next` peer dep is pinned to `^16.4.5` (not `^15.5.13 || ^16`). There is no v15 fallback — consumers must move to Next 16.4.5 or later to take the matching findable-ui release.
 
 ### 1. Bump dependencies
 
-- `next` → `^16`
-- `eslint-config-next` → `^16`
-- `@next/eslint-plugin-next` → `^16`
+- `next` → `^16.4.5`
+- `eslint-config-next` → `^16.4.5`
+- `@next/eslint-plugin-next` → `^16.4.5`
 - `next-mdx-remote` → `^6` (non-optional peer dep of findable-ui — must be bumped even if your consumer doesn't render MDX directly, or you'll get peer-dep warnings and findable-ui's MDX helpers will break)
 - `@databiosphere/findable-ui` → the release that ships the `^16` peer dep
 - Install MUI's Emotion helpers (new): `npm install @mui/material-nextjs @emotion/server`
