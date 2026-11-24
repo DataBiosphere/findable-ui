@@ -11,7 +11,7 @@ const ROUTER = {
   query: {} as NextRouter["query"],
 };
 
-const CONFIG: { dataSource?: { defaultParams?: { catalog?: string } } } = {
+const CONFIG: { dataSource: { defaultParams?: { catalog?: string } } } = {
   dataSource: { defaultParams: { catalog: DEFAULT_CATALOG } },
 };
 
@@ -223,7 +223,7 @@ describe("useCatalog without CatalogProvider", () => {
   });
 
   it("returns undefined when the config has no catalog", () => {
-    CONFIG.dataSource = undefined;
+    CONFIG.dataSource = {};
 
     const { result } = renderHook(useCatalogs);
 

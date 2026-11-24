@@ -21,9 +21,7 @@ export function getCatalogParam(
  * @returns The default catalog, or undefined when the config has none.
  */
 export function getDefaultCatalog(config: SiteConfig): string | undefined {
-  const { dataSource } = config;
-  const { defaultParams } = dataSource || {};
-  return defaultParams?.catalog;
+  return config.dataSource.defaultParams?.catalog;
 }
 
 /**
