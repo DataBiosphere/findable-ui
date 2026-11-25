@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { type ComponentProps, Fragment, type JSX } from "react";
-import { CHIP_PROPS } from "../../../../../../../styles/common/mui/chip";
+import { CHIP_PROPS } from "../../../../../../../contracts/mui/Chip/constants";
 import { TYPOGRAPHY_PROPS } from "../../../../../../../styles/common/mui/typography";
 import type { IdentityChipProps } from "../components/Chips/components/Chip/types";
 import { IdentityCell } from "../identityCell";

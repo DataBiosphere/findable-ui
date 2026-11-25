@@ -35,6 +35,11 @@ const VARIANT: Record<string, ChipProps["variant"]> = {
   STATUS: "status",
 };
 
+/**
+ * MUI `Chip`'s prop values, including findable-ui's `filterTag`, `ntag` and `status` variants.
+ * @deprecated Use `CHIP_PROPS` from `contracts/mui/Chip/constants`. Its `VARIANT` has no `FILTER_TAG`, `N_TAG` or
+ * `STATUS`: use `NTagChip` for `ntag` and `StatusChip` for `status`; `filterTag` has no replacement yet.
+ */
 export const CHIP_PROPS: ChipPropsOptions = {
   COLOR,
   SIZE,

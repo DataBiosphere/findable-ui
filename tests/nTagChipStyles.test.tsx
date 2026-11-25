@@ -5,7 +5,7 @@ import { render } from "@testing-library/react";
 import { createRef } from "react";
 import { NTagChip } from "../src/contracts/cc/NTagChip/nTagChip";
 import * as stories from "../src/contracts/cc/NTagChip/stories/nTagChip.stories";
-import { CHIP_PROPS } from "../src/styles/common/mui/chip";
+import { CHIP_PROPS } from "../src/contracts/mui/Chip/constants";
 import { createAppTheme } from "../src/theme/theme";
 import { renderChipStyles } from "./utils/chipStyles";
 import {

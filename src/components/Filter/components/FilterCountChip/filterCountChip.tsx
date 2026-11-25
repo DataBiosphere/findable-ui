@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { CHIP_PROPS } from "../../../../styles/common/mui/chip";
+import { CHIP_PROPS } from "../../../../contracts/mui/Chip/constants";
 import { StyledChip } from "./filterCountChip.styles";
 import { FilterCountChipProps } from "./types";
 

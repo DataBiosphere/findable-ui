@@ -95,7 +95,7 @@ module.exports = {
     "^sb-original/image-context$": "<rootDir>/tests/mocks/imageContext.ts",
   },
   preset: "ts-jest/presets/js-with-ts-esm",
-  setupFiles: ["<rootDir>/tests/setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.ts"],
   testEnvironment: "jest-environment-jsdom",
   transformIgnorePatterns: ["node_modules/(?!(react-idle-timer)/)"],
   // ESM modules (--experimental-vm-modules) aren't released between test files,
