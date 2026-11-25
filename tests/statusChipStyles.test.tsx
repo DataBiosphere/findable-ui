@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Chip, ThemeProvider } from "@mui/material";
+import { Chip, Theme, ThemeProvider } from "@mui/material";
 import { composeStories } from "@storybook/react";
 import { render } from "@testing-library/react";
 import type { ReactElement } from "react";
@@ -7,6 +7,7 @@ import { StatusBadge } from "../src/components/common/StatusBadge/statusBadge";
 import { STATUS_CHIP_PROPS } from "../src/contracts/cc/StatusChip/constants";
 import { StatusChip } from "../src/contracts/cc/StatusChip/statusChip";
 import * as stories from "../src/contracts/cc/StatusChip/stories/statusChip.stories";
+import { CHIP_PROPS } from "../src/styles/common/mui/chip";
 import { createAppTheme } from "../src/theme/theme";
 import {
   diffStyles,
@@ -93,7 +94,10 @@ describe("StatusChip styles", () => {
       expect(pickStatusRootStyles(chip.root)).toEqual(
         pickStatusRootStyles(badge.root),
       );
-      expect(chip.root["& .MuiChip-label"].font).toBe(badge.label["&"].font);
+      const label = chip.root["& .MuiChip-label"];
+      expect(label.font).toBe(badge.label["&"].font);
+      expect(label["padding-left"]).toBe(badge.label["&"]["padding-left"]);
+      expect(label["padding-right"]).toBe(badge.label["&"]["padding-right"]);
     });
   }
 
@@ -109,4 +113,51 @@ describe("StatusChip styles", () => {
     expect(root["&"]["background-color"]).toBe(OVERRIDE_COLOR);
     expect(root["&"].color).toBe(OVERRIDE_COLOR);
   });
+});
+
+describe("StatusChip size and variant", () => {
+  /**
+   * Renders a default StatusChip, with any extra props, under the given theme.
+   * @param theme - Theme to render with.
+   * @param extraProps - Props an untyped caller could still pass, such as size or variant.
+   * @returns Resolved styles for the root and label elements.
+   */
+  function renderDefaultStatusChipStyles(
+    theme: Theme,
+    extraProps: object = {},
+  ): Record<string, ResolvedStyles> {
+    return renderChipStyles(
+      <ThemeProvider theme={theme}>
+        <StatusChip
+          {...extraProps}
+          color={STATUS_CHIP_PROPS.COLOR.DEFAULT}
+          label={LABEL}
+        />
+      </ThemeProvider>,
+    );
+  }
+
+  // Every size and variant MUI has, so a change to either shows whichever one StatusChip would otherwise get.
+  for (const size of [CHIP_PROPS.SIZE.SMALL, CHIP_PROPS.SIZE.MEDIUM]) {
+    for (const variant of [
+      CHIP_PROPS.VARIANT.FILLED,
+      CHIP_PROPS.VARIANT.OUTLINED,
+    ]) {
+      it(`should keep its styles when ${size} ${variant} is passed in`, () => {
+        // The props type leaves size and variant out; an untyped caller could still pass them.
+        expect(renderDefaultStatusChipStyles(THEME, { size, variant })).toEqual(
+          renderDefaultStatusChipStyles(THEME),
+        );
+      });
+
+      it(`should keep its styles when the theme's MuiChip defaults are ${size} ${variant}`, () => {
+        const theme = createAppTheme({
+          components: { MuiChip: { defaultProps: { size, variant } } },
+        });
+        expect(renderDefaultStatusChipStyles(theme)).toEqual(
+          renderDefaultStatusChipStyles(THEME),
+        );
+      });
+    }
+  }
 });

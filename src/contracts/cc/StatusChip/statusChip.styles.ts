@@ -8,6 +8,7 @@ import type { StatusChipProps } from "./types";
 
 export const StyledChip = styled(Chip)<StatusChipProps>`
   box-shadow: 0 0 0 2px ${PALETTE.COMMON_WHITE};
+  height: 20px;
   max-width: fit-content;
   min-width: 0;
 
@@ -19,5 +20,7 @@ export const StyledChip = styled(Chip)<StatusChipProps>`
 
   .MuiChip-label {
     font: ${FONT.BODY_SMALL_500};
+    padding-left: 8px;
+    padding-right: 8px;
   }
 `;

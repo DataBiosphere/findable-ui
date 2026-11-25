@@ -5,8 +5,6 @@ exports[`StatusChip styles should keep the default styles 1`] = `
   "label": {
     "&": {
       "font": "var(--font-body-small-400)",
-      "padding-left": "8px",
-      "padding-right": "8px",
     },
   },
   "root": {
@@ -21,16 +19,12 @@ exports[`StatusChip styles should keep the default styles 1`] = `
     },
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
-      "font-size": "16px",
       "margin": "0 -2px 0 0",
-    },
-    "& .MuiChip-icon": {
-      "font-size": "18px",
-      "margin-left": "4px",
-      "margin-right": "-4px",
     },
     "& .MuiChip-label": {
       "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
     },
   },
 }
@@ -41,8 +35,6 @@ exports[`StatusChip styles should keep the error styles 1`] = `
   "label": {
     "&": {
       "font": "var(--font-body-small-400)",
-      "padding-left": "8px",
-      "padding-right": "8px",
     },
   },
   "root": {
@@ -57,16 +49,12 @@ exports[`StatusChip styles should keep the error styles 1`] = `
     },
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
-      "font-size": "16px",
       "margin": "0 -2px 0 0",
-    },
-    "& .MuiChip-icon": {
-      "font-size": "18px",
-      "margin-left": "4px",
-      "margin-right": "-4px",
     },
     "& .MuiChip-label": {
       "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
     },
   },
 }
@@ -77,8 +65,6 @@ exports[`StatusChip styles should keep the info styles 1`] = `
   "label": {
     "&": {
       "font": "var(--font-body-small-400)",
-      "padding-left": "8px",
-      "padding-right": "8px",
     },
   },
   "root": {
@@ -93,16 +79,12 @@ exports[`StatusChip styles should keep the info styles 1`] = `
     },
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
-      "font-size": "16px",
       "margin": "0 -2px 0 0",
-    },
-    "& .MuiChip-icon": {
-      "font-size": "18px",
-      "margin-left": "4px",
-      "margin-right": "-4px",
     },
     "& .MuiChip-label": {
       "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
     },
   },
 }
@@ -113,8 +95,6 @@ exports[`StatusChip styles should keep the success styles 1`] = `
   "label": {
     "&": {
       "font": "var(--font-body-small-400)",
-      "padding-left": "8px",
-      "padding-right": "8px",
     },
   },
   "root": {
@@ -129,16 +109,12 @@ exports[`StatusChip styles should keep the success styles 1`] = `
     },
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
-      "font-size": "16px",
       "margin": "0 -2px 0 0",
-    },
-    "& .MuiChip-icon": {
-      "font-size": "18px",
-      "margin-left": "4px",
-      "margin-right": "-4px",
     },
     "& .MuiChip-label": {
       "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
     },
   },
 }
@@ -149,8 +125,6 @@ exports[`StatusChip styles should keep the warning styles 1`] = `
   "label": {
     "&": {
       "font": "var(--font-body-small-400)",
-      "padding-left": "8px",
-      "padding-right": "8px",
     },
   },
   "root": {
@@ -165,16 +139,12 @@ exports[`StatusChip styles should keep the warning styles 1`] = `
     },
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
-      "font-size": "16px",
       "margin": "0 -2px 0 0",
-    },
-    "& .MuiChip-icon": {
-      "font-size": "18px",
-      "margin-left": "4px",
-      "margin-right": "-4px",
     },
     "& .MuiChip-label": {
       "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
     },
   },
 }
