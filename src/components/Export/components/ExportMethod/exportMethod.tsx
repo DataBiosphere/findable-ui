@@ -3,13 +3,13 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
-  Chip,
   Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 import { JSX, ReactNode } from "react";
+import { StatusChip } from "../../../../contracts/cc/StatusChip/statusChip";
 import { useDownloadStatus } from "../../../../hooks/useDownloadStatus";
 import { STACK_PROPS } from "../../../../styles/common/mui/stack";
 import { SVG_ICON_PROPS } from "../../../../styles/common/mui/svgIcon";
@@ -102,7 +102,7 @@ export const ExportMethod = ({
         </CardContent>
         <CardActions>
           {comingSoon ? (
-            <Chip {...CHIP_PROPS} />
+            <StatusChip {...CHIP_PROPS} />
           ) : (
             <ChevronRightRounded color={SVG_ICON_PROPS.COLOR.INK_LIGHT} />
           )}

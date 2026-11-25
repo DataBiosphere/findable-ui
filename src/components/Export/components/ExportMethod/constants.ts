@@ -1,8 +1,7 @@
-import { ChipProps } from "@mui/material";
-import { CHIP_PROPS as MUI_CHIP_PROPS } from "../../../../styles/common/mui/chip";
+import { STATUS_CHIP_PROPS } from "../../../../contracts/cc/StatusChip/constants";
+import type { StatusChipProps } from "../../../../contracts/cc/StatusChip/types";
 
-export const CHIP_PROPS: Partial<ChipProps> = {
-  color: MUI_CHIP_PROPS.COLOR.DEFAULT,
+export const CHIP_PROPS: StatusChipProps = {
+  color: STATUS_CHIP_PROPS.COLOR.DEFAULT,
   label: "Coming Soon",
-  variant: MUI_CHIP_PROPS.VARIANT.STATUS,
 };

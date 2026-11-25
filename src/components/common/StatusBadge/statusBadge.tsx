@@ -1,6 +1,10 @@
 import { Chip as MChip, ChipProps as MChipProps } from "@mui/material";
 import { JSX, forwardRef } from "react";
 
+/**
+ * Status badge colours.
+ * @deprecated Use `STATUS_CHIP_PROPS.COLOR` from `contracts/cc/StatusChip/constants` with `StatusChip`.
+ */
 export enum STATUS_BADGE_COLOR {
   DEFAULT = "default",
   ERROR = "error",
@@ -18,6 +22,8 @@ export enum STATUS_BADGE_COLOR {
  * @param props.label - Chip label.
  * @param ref - Ref forwarded to the chip element.
  * @returns The status badge.
+ * @deprecated Use `StatusChip` from `contracts/cc/StatusChip/statusChip`, which draws the same chip without the
+ * `status` variant.
  */
 export const StatusBadge = forwardRef<HTMLDivElement, MChipProps>(
   function StatusBadge(

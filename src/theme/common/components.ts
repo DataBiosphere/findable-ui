@@ -171,6 +171,7 @@ const MuiChip: Components["MuiChip"] = {
     label: {
       font: FONT.BODY_SMALL_400,
       variants: [
+        // Deprecated `status` variant; `StatusChip` sets this label font itself.
         {
           props: { variant: "status" },
           style: {
@@ -264,6 +265,8 @@ const MuiChip: Components["MuiChip"] = {
         minWidth: 0,
       },
     },
+    // Deprecated `status` variant, kept for `StatusBadge` and chips that set it until it is removed; `StatusChip`
+    // draws the same chip without it.
     {
       props: { variant: "status" },
       style: {
