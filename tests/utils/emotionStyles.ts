@@ -188,6 +188,23 @@ function parseRules(css: string, media: string | null, rules: CssRule[]): void {
 }
 
 /**
+ * Returns the given properties of one selector's resolved styles.
+ * @param styles - Resolved styles.
+ * @param selector - Selector to read, e.g. "&" or "& .MuiChip-label".
+ * @param properties - CSS properties to read.
+ * @returns The selector's value for each property.
+ */
+export function pickStyles(
+  styles: ResolvedStyles,
+  selector: string,
+  properties: string[],
+): Record<string, string> {
+  return Object.fromEntries(
+    properties.map((property) => [property, styles[selector][property]]),
+  );
+}
+
+/**
  * Records every rule Emotion inserts from now on. Emotion inserts rules with
  * `CSSStyleSheet.insertRule`, and jsdom drops values it can't parse, such as
  * `var()` in colour properties, so each raw rule string is parsed and kept instead.

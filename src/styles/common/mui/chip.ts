@@ -24,6 +24,9 @@ const SIZE: Record<string, ChipProps["size"]> = {
 const VARIANT: Record<string, ChipProps["variant"]> = {
   FILLED: "filled",
   FILTER_TAG: "filterTag",
+  /**
+   * @deprecated Use `NTagChip` from `contracts/cc/NTagChip/nTagChip`.
+   */
   N_TAG: "ntag",
   OUTLINED: "outlined",
   /**

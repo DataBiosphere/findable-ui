@@ -1,18 +1,17 @@
 import styled from "@emotion/styled";
 import { Chip, Theme, ThemeProvider } from "@mui/material";
 import { composeStories } from "@storybook/react";
-import { render } from "@testing-library/react";
-import type { ReactElement } from "react";
 import { StatusBadge } from "../src/components/common/StatusBadge/statusBadge";
 import { STATUS_CHIP_PROPS } from "../src/contracts/cc/StatusChip/constants";
 import { StatusChip } from "../src/contracts/cc/StatusChip/statusChip";
 import * as stories from "../src/contracts/cc/StatusChip/stories/statusChip.stories";
 import { CHIP_PROPS } from "../src/styles/common/mui/chip";
 import { createAppTheme } from "../src/theme/theme";
+import { renderChipStyles } from "./utils/chipStyles";
 import {
   diffStyles,
-  getEmotionStyles,
   MUI_THEME,
+  pickStyles,
   recordInsertedRules,
   ResolvedStyles,
 } from "./utils/emotionStyles";
@@ -29,6 +28,9 @@ const OverriddenStatusChip = styled(StatusChip)`
   color: ${OVERRIDE_COLOR};
 `;
 
+// Label declarations the deprecated `status` variant gets, which StatusChip must set to the same values.
+const STATUS_LABEL_PROPERTIES = ["font", "padding-left", "padding-right"];
+
 // Root declarations a status chip gets from the deprecated `status` variant and the theme's colour variants, which
 // StatusChip must set to the same values.
 const STATUS_ROOT_PROPERTIES = [
@@ -43,30 +45,6 @@ const STATUS_ROOT_PROPERTIES = [
 const THEME = createAppTheme();
 
 recordInsertedRules();
-
-/**
- * Returns the given properties of the root's own styles.
- * @param styles - Resolved root styles.
- * @returns The root's value for each property in `STATUS_ROOT_PROPERTIES`.
- */
-function pickStatusRootStyles(styles: ResolvedStyles): Record<string, string> {
-  return Object.fromEntries(
-    STATUS_ROOT_PROPERTIES.map((property) => [property, styles["&"][property]]),
-  );
-}
-
-/**
- * Renders a Chip and returns the resolved styles of its root and label.
- * @param ui - Element that renders one Chip.
- * @returns Resolved styles for the root and label elements.
- */
-function renderChipStyles(ui: ReactElement): Record<string, ResolvedStyles> {
-  const root = render(ui).container.querySelector(".MuiChip-root") as Element;
-  return {
-    label: getEmotionStyles(root.querySelector(".MuiChip-label") as Element),
-    root: getEmotionStyles(root),
-  };
-}
 
 describe("StatusChip styles", () => {
   for (const color of Object.values(STATUS_CHIP_PROPS.COLOR)) {
@@ -93,13 +71,12 @@ describe("StatusChip styles", () => {
           <StatusBadge color={color} label={LABEL} />
         </ThemeProvider>,
       );
-      expect(pickStatusRootStyles(chip.root)).toEqual(
-        pickStatusRootStyles(badge.root),
+      expect(pickStyles(chip.root, "&", STATUS_ROOT_PROPERTIES)).toEqual(
+        pickStyles(badge.root, "&", STATUS_ROOT_PROPERTIES),
       );
-      const label = chip.root["& .MuiChip-label"];
-      expect(label.font).toBe(badge.label["&"].font);
-      expect(label["padding-left"]).toBe(badge.label["&"]["padding-left"]);
-      expect(label["padding-right"]).toBe(badge.label["&"]["padding-right"]);
+      expect(
+        pickStyles(chip.root, "& .MuiChip-label", STATUS_LABEL_PROPERTIES),
+      ).toEqual(pickStyles(badge.label, "&", STATUS_LABEL_PROPERTIES));
     });
   }
 
