@@ -103,8 +103,9 @@ describe("StatusChip styles", () => {
     });
   }
 
-  it("should keep its colours without findable-ui's theme", () => {
-    // Under MUI's default theme, StatusChip's own styles are the only source of findable-ui's colours.
+  it("should set its colours itself, not from the theme's MuiChip colour variants", () => {
+    // MUI's default theme has none of findable-ui's MuiChip colour variants, so the same declarations there show they
+    // come from StatusChip's own styles. The values are palette CSS variables, which the theme's palette still sets.
     for (const color of Object.values(STATUS_CHIP_PROPS.COLOR)) {
       const chip = renderChipStyles(
         <ThemeProvider theme={MUI_THEME}>
