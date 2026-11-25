@@ -6,16 +6,20 @@ import type { RouteProps } from "./types";
  * `from`, the page the replace was issued for. Without it, a Back that lands while the replace is still pending lets
  * the replace write `toAs` over the history entry the user went back to.
  * @param from - URL of the page the replace was issued for, with the basePath.
- * @param toAs - Path, search and fragment the replace writes, with the basePath, as Next passes it to the listener.
+ * @param toAs - Path, search and fragment the replace writes, with the basePath.
  * @returns The listener.
  */
 function createBeforeHistoryChangeListener(
   from: URL,
   toAs: string,
 ): (as: string, routeProps: RouteProps) => void {
+  // Next adds or removes the path's trailing slash, per the app's `trailingSlash` setting, before it emits `as`.
+  const toAsWithoutTrailingSlash = removeTrailingSlash(toAs);
   return (as: string, { shallow }: RouteProps): void => {
     // Another navigation, such as the Back that left `from`.
-    if (!shallow || as !== toAs) return;
+    if (!shallow || removeTrailingSlash(as) !== toAsWithoutTrailingSlash) {
+      return;
+    }
     if (isBrowserAt(from)) return;
     // Next's pages router (next/dist/shared/lib/router/router.js, `change()`) emits `beforeHistoryChange` inside a
     // try whose catch returns false for an error with `cancelled` set, before it writes history.
@@ -74,6 +78,16 @@ function isBrowserAt(url: URL): boolean {
     window.location.pathname === url.pathname &&
     window.location.search === url.search
   );
+}
+
+/**
+ * Returns the URL with its path's trailing slash removed, keeping the root path.
+ * @param as - Path, search and fragment.
+ * @returns The path without its trailing slash, with the search and fragment.
+ */
+function removeTrailingSlash(as: string): string {
+  const url = new URL(as, window.location.origin);
+  return `${url.pathname.replace(/(.)\/$/, "$1")}${url.search}${url.hash}`;
 }
 
 /**

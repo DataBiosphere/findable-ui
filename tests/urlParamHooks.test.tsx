@@ -93,14 +93,17 @@ async function commitAll(): Promise<boolean[]> {
 }
 
 /**
- * Commits a replace the way Next's router does: emits `beforeHistoryChange`, then writes history unless a listener
- * threw a cancelled error, in which case the replace resolves false.
+ * Commits a replace the way Next's router does with its default `trailingSlash: false`: removes the path's trailing
+ * slash, emits `beforeHistoryChange`, then writes history unless a listener threw a cancelled error, in which case the
+ * replace resolves false.
  * @param as - URL passed to Router.replace as `as`, without the basePath.
  * @param shallow - Whether the replace is shallow.
  * @returns True if history was written.
  */
 function commitReplace(as: string, shallow: boolean): boolean {
-  const asWithBasePath = `${ROUTER.basePath}${as}`;
+  const url = new URL(as, window.location.origin);
+  const path = url.pathname.replace(/(.)\/$/, "$1");
+  const asWithBasePath = `${ROUTER.basePath}${path}${url.search}${url.hash}`;
   try {
     emitBeforeHistoryChange(asWithBasePath, shallow);
   } catch (error) {
@@ -208,7 +211,10 @@ describe("useUpdateURLParams", () => {
     renderHook(useUpdateURLParams, { wrapper: Wrapper });
 
     expect(replace).toHaveBeenCalledWith(
-      { pathname: ROUTER.pathname, query: expect.any(Object) },
+      {
+        pathname: ROUTER.pathname,
+        query: { entityListType: "projects", list: "projects" },
+      },
       "/projects?list=projects",
       { shallow: true },
     );
@@ -245,7 +251,15 @@ describe("useUpdateURLParams with filters", () => {
     ]);
     expect(replace).toHaveBeenCalledTimes(1);
     expect(replace).toHaveBeenCalledWith(
-      { pathname: ROUTER.pathname, query: expect.any(Object) },
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          catalog: "dcp2",
+          filter: JSON.stringify(FILTER_STATE),
+          list: "files",
+          other: "kept",
+        },
+      },
       `/export?${search}`,
       { shallow: true },
     );
@@ -301,12 +315,45 @@ describe("useUpdateURLParams when the browser leaves the page", () => {
     expect(getLocation()).toBe("/projects?filter=x");
   });
 
+  it("drops the replace when the user goes back from a URL with a trailing slash", async () => {
+    window.history.replaceState(null, "", "/projects?filter=x");
+    window.history.pushState({ entry: "detail" }, "", "/projects/uuid/");
+    ROUTER.asPath = "/projects/uuid/";
+    ROUTER.query = { entityListType: "projects", params: ["uuid"] };
+    const { unmount } = renderHook(useUpdateURLParams, { wrapper: Wrapper });
+    expect(replace).toHaveBeenCalledWith(
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          entityListType: "projects",
+          list: "projects",
+          params: ["uuid"],
+        },
+      },
+      "/projects/uuid/?list=projects",
+      { shallow: true },
+    );
+
+    await act(goBack);
+    unmount();
+
+    expect(await commitAll()).toEqual([false]);
+    expect(getLocation()).toBe("/projects?filter=x");
+  });
+
   it("drops the replace when the browser had already left before the hook ran", async () => {
     window.history.replaceState(null, "", "/projects?filter=x");
     renderDetailPage();
 
     expect(replace).toHaveBeenCalledWith(
-      { pathname: ROUTER.pathname, query: expect.any(Object) },
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          entityListType: "projects",
+          list: "projects",
+          params: ["uuid"],
+        },
+      },
       "/projects/uuid?list=projects",
       { shallow: true },
     );
@@ -362,7 +409,14 @@ describe("useUpdateURLParams URL shape", () => {
     renderHook(useUpdateURLParams, { wrapper: Wrapper });
 
     expect(replace).toHaveBeenCalledWith(
-      { pathname: ROUTER.pathname, query: expect.any(Object) },
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          entityListType: "projects",
+          list: "projects",
+          params: ["uuid"],
+        },
+      },
       "/projects/uuid?list=projects#section",
       { shallow: true },
     );
@@ -380,7 +434,14 @@ describe("useUpdateURLParams URL shape", () => {
     renderHook(useUpdateURLParams, { wrapper: Wrapper });
 
     expect(replace).toHaveBeenCalledWith(
-      { pathname: ROUTER.pathname, query: expect.any(Object) },
+      {
+        pathname: ROUTER.pathname,
+        query: {
+          entityListType: "projects",
+          list: "projects",
+          params: ["uuid"],
+        },
+      },
       "/projects/uuid?list=projects",
       { shallow: true },
     );
