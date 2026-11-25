@@ -29,8 +29,10 @@ const OverriddenStatusChip = styled(StatusChip)`
   color: ${OVERRIDE_COLOR};
 `;
 
-// Root declarations the deprecated `status` variant sets, which StatusChip must set to the same values.
+// Root declarations a status chip gets from the deprecated `status` variant and the theme's colour variants, which
+// StatusChip must set to the same values.
 const STATUS_ROOT_PROPERTIES = [
+  "background-color",
   "box-shadow",
   "color",
   "height",
@@ -100,6 +102,26 @@ describe("StatusChip styles", () => {
       expect(label["padding-right"]).toBe(badge.label["&"]["padding-right"]);
     });
   }
+
+  it("should keep its colours without findable-ui's theme", () => {
+    // Under MUI's default theme, StatusChip's own styles are the only source of findable-ui's colours.
+    for (const color of Object.values(STATUS_CHIP_PROPS.COLOR)) {
+      const chip = renderChipStyles(
+        <ThemeProvider theme={MUI_THEME}>
+          <StatusChip color={color} label={LABEL} />
+        </ThemeProvider>,
+      );
+      const themed = renderChipStyles(
+        <ThemeProvider theme={THEME}>
+          <StatusChip color={color} label={LABEL} />
+        </ThemeProvider>,
+      );
+      expect(chip.root["&"]["background-color"]).toBe(
+        themed.root["&"]["background-color"],
+      );
+      expect(chip.root["&"].color).toBe(themed.root["&"].color);
+    }
+  });
 
   it("should let a className override the colours", () => {
     const { root } = renderChipStyles(
