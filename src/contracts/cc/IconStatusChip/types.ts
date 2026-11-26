@@ -11,11 +11,13 @@ export type IconStatus =
   (typeof ICON_STATUS_CHIP_PROPS.STATUS)[keyof typeof ICON_STATUS_CHIP_PROPS.STATUS];
 
 /**
- * The icon and colour a status draws with.
+ * The icon, colour and name a status draws with. The name is read by screen readers before the label, so they hear the
+ * status even when the label doesn't say it.
  */
 export interface IconStatusDisplay {
   color: StatusChipColor;
   Icon: ComponentType<CustomSVGIconProps>;
+  name: string;
 }
 
 /**

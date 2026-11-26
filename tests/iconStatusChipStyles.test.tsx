@@ -27,7 +27,7 @@ const LABEL = "Label";
 
 const STATUS = ICON_STATUS_CHIP_PROPS.STATUS;
 
-// The status → colour and icon table, written out rather than read from the component's constants, so swapping two
+// The status → colour, icon and name table, written out rather than read from the component's constants, so swapping two
 // entries there fails these tests. The tracker's IconStatusBadge pairs them the same way.
 const EXPECTED: Record<
   IconStatus,
@@ -35,32 +35,38 @@ const EXPECTED: Record<
     Icon: ComponentType<CustomSVGIconProps>;
     color: StatusChipColor;
     colorClass: string;
+    name: string;
   }
 > = {
   [STATUS.BLOCKED]: {
     Icon: ErrorIcon,
     color: "error",
     colorClass: "MuiChip-colorError",
+    name: "Blocked",
   },
   [STATUS.DONE]: {
     Icon: SuccessIcon,
     color: "success",
     colorClass: "MuiChip-colorSuccess",
+    name: "Done",
   },
   [STATUS.IN_PROGRESS]: {
     Icon: InProgressIcon,
     color: "caution",
     colorClass: "MuiChip-colorCaution",
+    name: "In progress",
   },
   [STATUS.PARTIALLY_COMPLETE]: {
     Icon: PartiallyCompleteIcon,
     color: "warning",
     colorClass: "MuiChip-colorWarning",
+    name: "Partially complete",
   },
   [STATUS.REQUIRED]: {
     Icon: RequiredIcon,
     color: "default",
     colorClass: "MuiChip-colorDefault",
+    name: "Required",
   },
 };
 
@@ -106,7 +112,7 @@ function renderChipRoot(status: IconStatus): Element {
 
 describe("IconStatusChip status", () => {
   for (const status of Object.values(STATUS)) {
-    const { color, colorClass, Icon } = EXPECTED[status];
+    const { color, colorClass, Icon, name } = EXPECTED[status];
 
     it(`should draw ${status} in ${color} with its icon`, () => {
       const root = renderChipRoot(status);
@@ -114,6 +120,13 @@ describe("IconStatusChip status", () => {
       expect(root.classList.contains(colorClass)).toBe(true);
       expect(root.querySelector(".MuiChip-icon")?.innerHTML).toBe(
         icon.innerHTML,
+      );
+    });
+
+    it(`should read ${status} as "${name}" before the label`, () => {
+      const root = renderChipRoot(status);
+      expect(root.querySelector(".MuiChip-label")?.textContent).toBe(
+        `${name}: ${LABEL}`,
       );
     });
 
@@ -132,6 +145,27 @@ describe("IconStatusChip status", () => {
       expect(chip.label).toEqual(statusChip.label);
     });
   }
+
+  it("should hide the status's name on screen", () => {
+    const name = renderChipRoot(STATUS.DONE).querySelector(
+      ".MuiChip-label > span",
+    ) as Element;
+    expect(
+      pickStyles(getEmotionStyles(name), "&", [
+        "clip",
+        "height",
+        "overflow",
+        "position",
+        "width",
+      ]),
+    ).toEqual({
+      clip: "rect(0 0 0 0)",
+      height: "1px",
+      overflow: "hidden",
+      position: "absolute",
+      width: "1px",
+    });
+  });
 
   it("should keep the status off the DOM", () => {
     expect(renderChipRoot(STATUS.DONE).hasAttribute("status")).toBe(false);

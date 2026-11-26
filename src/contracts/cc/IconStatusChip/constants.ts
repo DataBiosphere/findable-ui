@@ -23,21 +23,32 @@ export const ICON_STATUS_CHIP_PROPS = {
 } as const;
 
 /**
- * The icon and colour each status draws with.
+ * The icon, colour and accessible name each status draws with.
  */
 export const STATUS_DISPLAY: Record<IconStatus, IconStatusDisplay> = {
-  [STATUS.BLOCKED]: { Icon: ErrorIcon, color: STATUS_CHIP_PROPS.COLOR.ERROR },
-  [STATUS.DONE]: { Icon: SuccessIcon, color: STATUS_CHIP_PROPS.COLOR.SUCCESS },
+  [STATUS.BLOCKED]: {
+    Icon: ErrorIcon,
+    color: STATUS_CHIP_PROPS.COLOR.ERROR,
+    name: "Blocked",
+  },
+  [STATUS.DONE]: {
+    Icon: SuccessIcon,
+    color: STATUS_CHIP_PROPS.COLOR.SUCCESS,
+    name: "Done",
+  },
   [STATUS.IN_PROGRESS]: {
     Icon: InProgressIcon,
     color: STATUS_CHIP_PROPS.COLOR.CAUTION,
+    name: "In progress",
   },
   [STATUS.PARTIALLY_COMPLETE]: {
     Icon: PartiallyCompleteIcon,
     color: STATUS_CHIP_PROPS.COLOR.WARNING,
+    name: "Partially complete",
   },
   [STATUS.REQUIRED]: {
     Icon: RequiredIcon,
     color: STATUS_CHIP_PROPS.COLOR.DEFAULT,
+    name: "Required",
   },
 };
