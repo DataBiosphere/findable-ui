@@ -1,6 +1,7 @@
 import type { ChipProps } from "@mui/material";
 
 /**
- * MUI `Chip` props without `color`, `size` or `variant`, which `NTagChip` fixes.
+ * The MUI `Chip` props an N tag chip takes: `className`, `label` and `ref`. A count tag is a label, not a control, so
+ * it takes no `onClick`, `onDelete`, `icon` or `avatar`, and `NTagChip` fixes its colour, size and variant.
  */
-export type NTagChipProps = Omit<ChipProps, "color" | "size" | "variant">;
+export type NTagChipProps = Pick<ChipProps, "className" | "label" | "ref">;
