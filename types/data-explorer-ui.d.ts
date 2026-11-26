@@ -66,6 +66,7 @@ declare module "@mui/material/Checkbox" {
 
 declare module "@mui/material/Chip" {
   interface ChipPropsColorOverrides {
+    caution: true;
     default: true;
     info: true;
     warning: true;
@@ -151,6 +152,7 @@ declare module "@mui/material/styles" {
 
   interface Palette {
     alert: PaletteColor;
+    caution: PaletteColor;
     ink: PaletteColor;
     smoke: PaletteColor;
   }
@@ -161,6 +163,7 @@ declare module "@mui/material/styles" {
 
   interface PaletteOptions {
     alert?: PaletteColorOptions;
+    caution?: PaletteColorOptions;
     ink?: PaletteColorOptions;
     smoke?: PaletteColorOptions;
   }

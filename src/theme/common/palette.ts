@@ -16,6 +16,13 @@ const BACKGROUND = {
   DEFAULT: "#F6F6F7",
 };
 
+const CAUTION = {
+  CONTRAST_TEXT: "#956F00",
+  DARK: "#684E00",
+  LIGHT: "#FFEB78",
+  MAIN: "#956F00",
+};
+
 const INFO = {
   CONTRAST_TEXT: "#00729C",
   LIGHT: "#97D6EA",
@@ -76,6 +83,13 @@ const background: Pick<TypeBackground, "default"> = {
   default: BACKGROUND.DEFAULT,
 };
 
+const caution: PaletteColorOptions = {
+  contrastText: CAUTION.CONTRAST_TEXT,
+  dark: CAUTION.DARK,
+  light: CAUTION.LIGHT,
+  main: CAUTION.MAIN,
+};
+
 const common: CommonColors = {
   black: BLACK.DEFAULT,
   white: WHITE.DEFAULT,
@@ -126,6 +140,7 @@ const warning: PaletteColorOptions = {
 export const palette: PaletteOptions = {
   alert,
   background,
+  caution,
   common,
   info,
   ink,

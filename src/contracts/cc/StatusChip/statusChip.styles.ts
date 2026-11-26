@@ -8,6 +8,10 @@ import type { StatusChipColor, StatusChipProps } from "./types";
 // Each colour's background and text, set here rather than taken from the theme's MuiChip colour variants, so a change
 // to the theme, or an app replacing those variants, can't change a status chip.
 const COLORS: Record<StatusChipColor, { background: string; text: string }> = {
+  [STATUS_CHIP_PROPS.COLOR.CAUTION]: {
+    background: PALETTE.CAUTION_LIGHT,
+    text: PALETTE.CAUTION_MAIN,
+  },
   [STATUS_CHIP_PROPS.COLOR.DEFAULT]: {
     background: PALETTE.SMOKE_MAIN,
     text: PALETTE.INK_LIGHT,

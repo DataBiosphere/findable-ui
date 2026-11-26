@@ -8,6 +8,7 @@ const instance = figma.selectedInstance;
 // Values equal to findable-ui's defaults (default colour, small size from the theme, MUI's filled) map to "" and are
 // left out of the snippet.
 const color = instance.getEnum("color", {
+  caution: "CHIP_PROPS.COLOR.CAUTION",
   default: "",
   error: "CHIP_PROPS.COLOR.ERROR",
   info: "CHIP_PROPS.COLOR.INFO",

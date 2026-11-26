@@ -5,6 +5,7 @@ import { CHIP_PROPS } from "../constants";
  * The colours findable-ui styles, matching the Findable-Contract Figma library's `mui/Chip`.
  */
 export const COLORS: ChipProps["color"][] = [
+  CHIP_PROPS.COLOR.CAUTION,
   CHIP_PROPS.COLOR.DEFAULT,
   CHIP_PROPS.COLOR.ERROR,
   CHIP_PROPS.COLOR.INFO,
