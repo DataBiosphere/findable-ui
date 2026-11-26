@@ -6,6 +6,13 @@ describe("CHIP_PRESETS", () => {
     expect(Object.keys(CHIP_PRESETS).sort()).toEqual(["DEFAULT_OUTLINED"]);
   });
 
+  it("should make DEFAULT_OUTLINED a default outlined chip", () => {
+    expect(CHIP_PRESETS.DEFAULT_OUTLINED).toEqual({
+      color: "default",
+      variant: "outlined",
+    });
+  });
+
   it.each(Object.entries(CHIP_PRESETS))(
     "should give %s a color the theme styles, without conflicting with that entry",
     (_, preset) => {
