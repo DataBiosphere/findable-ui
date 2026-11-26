@@ -361,6 +361,17 @@ describe("useUpdateURLParams when the browser leaves the page", () => {
     expect(getLocation()).toBe("/projects?filter=x");
   });
 
+  it("drops the replace when the user goes back to the same page with a different search", async () => {
+    window.history.replaceState(null, "", "/projects/uuid?catalog=old");
+    window.history.pushState({ entry: "detail" }, "", "/projects/uuid");
+    renderDetailPage();
+
+    await act(goBack);
+
+    expect(await commitAll()).toEqual([false]);
+    expect(getLocation()).toBe("/projects/uuid?catalog=old");
+  });
+
   it("lets a non-shallow navigation to the replace's URL through", () => {
     window.history.replaceState(null, "", "/projects?filter=x");
     renderDetailPage();
