@@ -8,12 +8,13 @@ export type StatusChipColor =
   (typeof STATUS_CHIP_PROPS.COLOR)[keyof typeof STATUS_CHIP_PROPS.COLOR];
 
 /**
- * MUI `Chip` props without `size` or `variant`, which `StatusChip` fixes, with a required `color` from
- * `STATUS_CHIP_PROPS.COLOR`.
+ * The MUI `Chip` props a status chip takes: `className`, `label` and `ref`, with a required `color` from
+ * `STATUS_CHIP_PROPS.COLOR`. A status is a label, not a control, so it takes no `onClick`, `onDelete`, `icon` or
+ * `avatar`, and `StatusChip` fixes its size and variant.
  */
-export interface StatusChipProps extends Omit<
+export interface StatusChipProps extends Pick<
   ChipProps,
-  "color" | "size" | "variant"
+  "className" | "label" | "ref"
 > {
   color: StatusChipColor;
 }
