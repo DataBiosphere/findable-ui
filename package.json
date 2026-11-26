@@ -83,7 +83,7 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.2.0",
+    "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^20.2.0",
     "@emotion/jest": "^11.14.2",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
