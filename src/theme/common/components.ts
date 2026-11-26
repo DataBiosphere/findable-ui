@@ -254,6 +254,8 @@ const MuiChip: Components["MuiChip"] = {
         },
       },
     },
+    // Deprecated `ntag` variant, kept for chips that set it until it is removed; `NTagChip` draws the same chip
+    // without it.
     {
       props: { variant: "ntag" },
       style: {

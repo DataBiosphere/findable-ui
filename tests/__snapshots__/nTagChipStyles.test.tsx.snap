@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NTagChip styles should keep its styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-main)",
+      "font": "var(--font-body-small-400)",
+      "height": "24px",
+      "justify-self": "flex-start",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-400)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;

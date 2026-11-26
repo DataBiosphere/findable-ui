@@ -1,9 +1,6 @@
-import {
-  Chip as MChip,
-  ChipProps as MChipProps,
-  Typography,
-} from "@mui/material";
-import { JSX, forwardRef } from "react";
+import { Typography } from "@mui/material";
+import type { JSX } from "react";
+import { NTagChip } from "../../../../../../contracts/cc/NTagChip/nTagChip";
 import { TYPOGRAPHY_PROPS } from "../../../../../../styles/common/mui/typography";
 import { TypographyProps } from "../../../../../common/Typography/common/entities";
 import { NTag } from "./components/NTag/nTag";
@@ -32,14 +29,6 @@ function stringifyMetadataValues(metadataValues: MetadataValue[]): string {
 }
 
 /**
- * Renders tag for NTag component.
- * Tooltip children require forward ref.
- */
-const Tag = forwardRef<HTMLDivElement, MChipProps>(function Tag(props, ref) {
-  return <MChip ref={ref} {...props} />;
-});
-
-/**
  * NTag cell, rendering a single value as text, or more than one value as an "N label" tag with a tooltip listing the values.
  * @param props - Component props.
  * @param props.label - Label following the value count in the tag, e.g. "species".
@@ -58,7 +47,7 @@ export const NTagCell = ({
     <>
       {showNTag ? (
         <NTag
-          Tag={<Tag label={`${metadataCount} ${label}`} variant="ntag" />}
+          Tag={<NTagChip label={`${metadataCount} ${label}`} />}
           TooltipTitle={
             <Typography
               display="block"
