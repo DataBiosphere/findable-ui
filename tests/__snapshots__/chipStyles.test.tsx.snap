@@ -1,0 +1,2059 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MuiChip theme styles should keep the filled default medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled default medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled default medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled default small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled default small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled default small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled error small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled info small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-info-light)",
+      "color": "var(--palette-info-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "color": "var(--palette-common-white)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "color": "var(--palette-common-white)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled primary small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "color": "var(--palette-common-white)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled success small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled warning small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-warning-light)",
+      "color": "var(--palette-warning-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filterTag primary medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "cursor": "pointer",
+      "font": "var(--font-body-small-500)",
+      "gap": "2px",
+      "height": "24px",
+      "justify-self": "flex-start",
+      "padding": "0 8px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "padding": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filterTag primary no size styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "cursor": "pointer",
+      "font": "var(--font-body-small-500)",
+      "gap": "2px",
+      "height": "24px",
+      "justify-self": "flex-start",
+      "padding": "0 8px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "font-size": "16px",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-icon": {
+      "font-size": "18px",
+      "margin-left": "4px",
+      "margin-right": "-4px",
+    },
+    "& .MuiChip-label": {
+      "padding": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filterTag primary small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "cursor": "pointer",
+      "font": "var(--font-body-small-500)",
+      "gap": "2px",
+      "justify-self": "flex-start",
+      "padding": "0 8px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "padding": "0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the ntag default medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-main)",
+      "font": "var(--font-body-small-400)",
+      "height": "24px",
+      "justify-self": "flex-start",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the ntag default no size styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-main)",
+      "font": "var(--font-body-small-400)",
+      "height": "24px",
+      "justify-self": "flex-start",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "font-size": "16px",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-icon": {
+      "font-size": "18px",
+      "margin-left": "4px",
+      "margin-right": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the ntag default small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-main)",
+      "font": "var(--font-body-small-400)",
+      "justify-self": "flex-start",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined default small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined error small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-alert-light)",
+      "color": "var(--palette-alert-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-info-light)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-info-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined info small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-info-light)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined primary small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-success-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined success small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-warning-light)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-warning-light)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined warning small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-warning-light)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status default medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-light)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status default no size styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-light)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "font-size": "16px",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-icon": {
+      "font-size": "18px",
+      "margin-left": "4px",
+      "margin-right": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status default small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-light)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status success medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status success no size styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "font-size": "16px",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-icon": {
+      "font-size": "18px",
+      "margin-left": "4px",
+      "margin-right": "-4px",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the status success small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-500)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the styles of a chip with no size 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "color": "var(--palette-ink-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "font-size": "16px",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-icon": {
+      "font-size": "18px",
+      "margin-left": "4px",
+      "margin-right": "-4px",
+    },
+  },
+}
+`;

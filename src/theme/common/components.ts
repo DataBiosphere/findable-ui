@@ -1,13 +1,13 @@
 import { Components, Theme, ThemeOptions } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { MuiButton } from "../../contracts/mui/Button/theme";
+import { MuiChip } from "../../contracts/mui/Chip/theme";
 import { APP } from "../../styles/common/constants/app";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";
 import { SHADOWS } from "../../styles/common/constants/shadows";
 import { bpUpLg, bpUpSm, bpUpXs } from "../../styles/common/mixins/breakpoints";
-import { CHIP_PROPS } from "../../styles/common/mui/chip";
 import { OUTLINED_INPUT_PROPS } from "../../styles/common/mui/outlinedInput";
 import { TOGGLE_BUTTON_PROPS } from "../../styles/common/mui/toggleButton";
 import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
@@ -154,134 +154,6 @@ const MuiCheckbox: Components["MuiCheckbox"] = {
       },
       style: {
         fontSize: "18px",
-      },
-    },
-  ],
-};
-
-const MuiChip: Components["MuiChip"] = {
-  defaultProps: {
-    size: "small",
-  },
-  styleOverrides: {
-    deleteIcon: {
-      color: "inherit",
-      margin: "0 -2px 0 0",
-    },
-    label: {
-      font: FONT.BODY_SMALL_400,
-      variants: [
-        // Deprecated `status` variant; `StatusChip` sets this label font itself.
-        {
-          props: { variant: "status" },
-          style: {
-            font: FONT.BODY_SMALL_500,
-          },
-        },
-      ],
-    },
-  },
-  variants: [
-    {
-      props: { size: CHIP_PROPS.SIZE.SMALL },
-      style: {
-        height: 20,
-      },
-    },
-    {
-      props: { size: CHIP_PROPS.SIZE.MEDIUM },
-      style: {
-        height: 24,
-      },
-    },
-    {
-      props: { color: "default" },
-      style: {
-        backgroundColor: PALETTE.SMOKE_MAIN,
-        color: PALETTE.INK_MAIN,
-      },
-    },
-    {
-      props: { color: "error" },
-      style: {
-        backgroundColor: PALETTE.ALERT_LIGHT,
-        color: PALETTE.ALERT_MAIN,
-      },
-    },
-    {
-      props: { color: "info" },
-      style: {
-        backgroundColor: PALETTE.INFO_LIGHT,
-        color: PALETTE.INFO_MAIN,
-      },
-    },
-    {
-      props: {
-        color: CHIP_PROPS.COLOR.PRIMARY,
-        variant: CHIP_PROPS.VARIANT.FILLED,
-      },
-      style: {
-        backgroundColor: PALETTE.PRIMARY_MAIN,
-        color: PALETTE.COMMON_WHITE,
-      },
-    },
-    {
-      props: { color: "success" },
-      style: {
-        backgroundColor: PALETTE.SUCCESS_LIGHT,
-        color: PALETTE.SUCCESS_MAIN,
-      },
-    },
-    {
-      props: { color: "warning" },
-      style: {
-        backgroundColor: PALETTE.WARNING_LIGHT,
-        color: PALETTE.WARNING_MAIN,
-      },
-    },
-    {
-      props: { variant: "filterTag" },
-      style: {
-        cursor: "pointer", // "pointer" cursor required to restore "clickable" ui
-        font: FONT.BODY_SMALL_500,
-        gap: 2,
-        height: 24,
-        justifySelf: FLEX_START,
-        padding: "0 8px",
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiChip-label": {
-          padding: 0,
-        },
-      },
-    },
-    // Deprecated `ntag` variant, kept for chips that set it until it is removed; `NTagChip` draws the same chip
-    // without it.
-    {
-      props: { variant: "ntag" },
-      style: {
-        backgroundColor: PALETTE.SMOKE_MAIN,
-        boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
-        font: FONT.BODY_SMALL_400,
-        height: 24,
-        justifySelf: FLEX_START,
-        minWidth: 0,
-      },
-    },
-    // Deprecated `status` variant, kept for `StatusBadge` and chips that set it until it is removed; `StatusChip`
-    // draws the same chip without it.
-    {
-      props: { variant: "status" },
-      style: {
-        boxShadow: `0 0 0 2px ${PALETTE.COMMON_WHITE}`,
-        height: 20,
-        maxWidth: "fit-content",
-        minWidth: 0,
-      },
-    },
-    {
-      props: { color: "default", variant: "status" },
-      style: {
-        color: PALETTE.INK_LIGHT,
       },
     },
   ],

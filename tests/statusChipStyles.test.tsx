@@ -5,7 +5,7 @@ import { StatusBadge } from "../src/components/common/StatusBadge/statusBadge";
 import { STATUS_CHIP_PROPS } from "../src/contracts/cc/StatusChip/constants";
 import { StatusChip } from "../src/contracts/cc/StatusChip/statusChip";
 import * as stories from "../src/contracts/cc/StatusChip/stories/statusChip.stories";
-import { CHIP_PROPS } from "../src/styles/common/mui/chip";
+import { CHIP_PROPS } from "../src/contracts/mui/Chip/constants";
 import { createAppTheme } from "../src/theme/theme";
 import { renderChipStyles } from "./utils/chipStyles";
 import {

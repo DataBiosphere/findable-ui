@@ -1,6 +1,6 @@
 import { ChipProps } from "@mui/material";
 import { JSX } from "react";
-import { CHIP_PROPS } from "../../../../../styles/common/mui/chip";
+import { CHIP_PROPS } from "../../../../../contracts/mui/Chip/constants";
 import { BaseComponentProps } from "../../../../types";
 import { StyledChip } from "./beta.styles";
 

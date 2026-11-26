@@ -1,5 +1,5 @@
 import { ChipProps, SvgIconProps } from "@mui/material";
-import { CHIP_PROPS as MUI_CHIP_PROPS } from "../../../../../../../styles/common/mui/chip";
+import { CHIP_PROPS as MUI_CHIP_PROPS } from "../../../../../../../contracts/mui/Chip/constants";
 import { SVG_ICON_PROPS as MUI_SVG_ICON_PROPS } from "../../../../../../../styles/common/mui/svgIcon";
 
 export const CHIP_PROPS: ChipProps = {
