@@ -26,6 +26,9 @@ const VARIANT: Record<string, ChipProps["variant"]> = {
   FILTER_TAG: "filterTag",
   N_TAG: "ntag",
   OUTLINED: "outlined",
+  /**
+   * @deprecated Use `StatusChip` from `contracts/cc/StatusChip/statusChip`.
+   */
   STATUS: "status",
 };
 

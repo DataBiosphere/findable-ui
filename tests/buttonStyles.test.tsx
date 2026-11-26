@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonProps,
-  createTheme,
-  Theme,
-  ThemeProvider,
-} from "@mui/material";
+import { Button, ButtonProps, Theme, ThemeProvider } from "@mui/material";
 import { composeStories } from "@storybook/react";
 import { render } from "@testing-library/react";
 import { BUTTON_PROPS } from "../src/contracts/mui/Button/constants";
@@ -21,6 +15,7 @@ import { createAppTheme } from "../src/theme/theme";
 import {
   diffStyles,
   getEmotionStyles,
+  MUI_THEME,
   recordInsertedRules,
   ResolvedStyles,
 } from "./utils/emotionStyles";
@@ -35,10 +30,6 @@ const NAV_VARIANTS: Pick<ButtonProps, "variant">[] = [
 ];
 
 const OVERRIDE_COLOR = "rgb(1, 2, 3)";
-
-// MUI's own default theme, with findable-ui's CSS variable settings, to subtract
-// MUI's base styles from each snapshot.
-const MUI_THEME = createTheme({ cssVariables: { cssVarPrefix: "" } });
 
 const THEME = createAppTheme();
 

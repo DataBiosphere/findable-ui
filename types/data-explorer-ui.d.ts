@@ -74,6 +74,9 @@ declare module "@mui/material/Chip" {
   interface ChipPropsVariantOverrides {
     filterTag: true;
     ntag: true;
+    /**
+     * @deprecated Use `StatusChip` from `contracts/cc/StatusChip/statusChip`.
+     */
     status: true;
   }
 }

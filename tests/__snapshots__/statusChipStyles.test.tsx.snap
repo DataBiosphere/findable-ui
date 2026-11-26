@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusChip styles should keep the default styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-smoke-main)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-ink-light)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;
+
+exports[`StatusChip styles should keep the error styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-alert-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-alert-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;
+
+exports[`StatusChip styles should keep the info styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-info-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-info-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;
+
+exports[`StatusChip styles should keep the success styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-success-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-success-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;
+
+exports[`StatusChip styles should keep the warning styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-warning-light)",
+      "box-shadow": "0 0 0 2px var(--palette-common-white)",
+      "color": "var(--palette-warning-main)",
+      "font-family": "Inter",
+      "height": "20px",
+      "max-width": "fit-content",
+      "min-width": "0",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-label": {
+      "font": "var(--font-body-small-500)",
+      "padding-left": "8px",
+      "padding-right": "8px",
+    },
+  },
+}
+`;

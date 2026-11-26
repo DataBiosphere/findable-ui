@@ -1,3 +1,5 @@
+import { createTheme } from "@mui/material";
+
 /**
  * One CSS rule as Emotion wrote it: its selector, the media query it sits in, if any, and its declarations in source order.
  */
@@ -27,6 +29,12 @@ const SHORTHAND_LONGHANDS: Record<string, string[]> = {
  * Rules passed to `CSSStyleSheet.insertRule`, parsed from the raw strings before jsdom parses them.
  */
 const INSERTED_RULES: CssRule[] = [];
+
+/**
+ * MUI's own default theme, with findable-ui's CSS variable settings. Diffing a component's styles against the same
+ * component under this theme leaves only what findable-ui's theme and styles change.
+ */
+export const MUI_THEME = createTheme({ cssVariables: { cssVarPrefix: "" } });
 
 /**
  * Resolved styles keyed by selector, with the element's Emotion class replaced by `&`
