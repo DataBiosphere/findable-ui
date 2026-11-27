@@ -179,6 +179,12 @@ export const MuiChip: Components<Theme>["MuiChip"] = {
       ],
     },
     root: {
+      // Keyboard focus ring, as on mui/Button. MUI sets no outline on a chip, so one made focusable, by a `tabIndex` or
+      // by being clickable, would otherwise show no focus.
+      "&:focus-visible": {
+        outline: `2px solid ${PALETTE.PRIMARY_MAIN}`,
+        outlineOffset: 2,
+      },
       variants: CHIP_VARIANTS,
     },
   },

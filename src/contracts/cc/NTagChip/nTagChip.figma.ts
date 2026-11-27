@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=95-9
+// url=https://www.figma.com/design/xZwI610J55BigYvLkOOGV5/Findable-Contract?node-id=125-39
 // source=src/contracts/cc/NTagChip/nTagChip.tsx
 // component=NTagChip
 import figma from "figma";
@@ -6,6 +6,7 @@ import figma from "figma";
 const instance = figma.selectedInstance;
 
 const label = instance.getString("label");
+// `state` is left out: focused only shows the focus ring a tag given a `tabIndex` draws on keyboard focus.
 
 const template = {
   example: figma.code`<NTagChip label="${label}" />`,

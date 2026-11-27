@@ -16,6 +16,7 @@ import { renderChipStyles } from "./utils/chipStyles";
 import {
   diffStyles,
   MUI_THEME,
+  pickStyles,
   recordInsertedRules,
   type ResolvedStyles,
 } from "./utils/emotionStyles";
@@ -117,6 +118,16 @@ describe("MuiChip theme styles", () => {
 
   it("should keep the styles of a chip with no size", () => {
     expect(renderStoryChipStyles({ size: undefined })).toMatchSnapshot();
+  });
+
+  it("should draw a primary focus ring on keyboard focus, as mui/Button does", () => {
+    const { root } = renderThemedChipStyles({}, THEME);
+    expect(
+      pickStyles(root, "&:focus-visible", ["outline", "outline-offset"]),
+    ).toEqual({
+      outline: `2px solid ${PALETTE.PRIMARY_MAIN}`,
+      "outline-offset": "2px",
+    });
   });
 
   for (const customVariant of CUSTOM_VARIANTS) {

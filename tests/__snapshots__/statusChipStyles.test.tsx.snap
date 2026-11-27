@@ -62,6 +62,10 @@ exports[`StatusChip styles should keep the default styles 1`] = `
       "padding-left": "8px",
       "padding-right": "8px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -91,6 +95,10 @@ exports[`StatusChip styles should keep the error styles 1`] = `
       "font": "var(--font-body-small-500)",
       "padding-left": "8px",
       "padding-right": "8px",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -122,6 +130,10 @@ exports[`StatusChip styles should keep the info styles 1`] = `
       "padding-left": "8px",
       "padding-right": "8px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -152,6 +164,10 @@ exports[`StatusChip styles should keep the success styles 1`] = `
       "padding-left": "8px",
       "padding-right": "8px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -181,6 +197,10 @@ exports[`StatusChip styles should keep the warning styles 1`] = `
       "font": "var(--font-body-small-500)",
       "padding-left": "8px",
       "padding-right": "8px",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }

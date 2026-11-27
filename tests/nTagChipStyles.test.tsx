@@ -84,6 +84,20 @@ describe("NTagChip styles", () => {
     ).toEqual(pickStyles(nTag.label, "&", NTAG_LABEL_PROPERTIES));
   });
 
+  it("should keep the theme's focus ring", () => {
+    const { root } = renderChipStyles(
+      <ThemeProvider theme={THEME}>
+        <NTagChip label={LABEL} />
+      </ThemeProvider>,
+    );
+    expect(
+      pickStyles(root, "&:focus-visible", ["outline", "outline-offset"]),
+    ).toEqual({
+      outline: "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    });
+  });
+
   it("should let a className override the colours", () => {
     const { root } = renderChipStyles(
       <ThemeProvider theme={THEME}>

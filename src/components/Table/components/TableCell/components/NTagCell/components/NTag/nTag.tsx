@@ -12,6 +12,7 @@ export interface NTagProps {
 
 /**
  * NTag, rendering the tag with a tooltip of the given title.
+ * The tooltip describes the tag (`aria-describedby`) rather than naming it, so the tag keeps its own text as its name.
  * @param props - Component props.
  * @param props.className - Class name applied to the tooltip.
  * @param props.Tag - Tag element; must be able to hold a ref.
@@ -25,7 +26,12 @@ export const NTag = ({
   ...props /* Spread props to allow for Mui Tooltip specific prop overrides. */
 }: NTagProps): JSX.Element => {
   return (
-    <Tooltip className={className} title={TooltipTitle} {...props}>
+    <Tooltip
+      className={className}
+      describeChild
+      title={TooltipTitle}
+      {...props}
+    >
       {Tag}
     </Tooltip>
   );
