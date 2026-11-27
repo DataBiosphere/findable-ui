@@ -2,8 +2,13 @@ import { matchers } from "@emotion/jest";
 import { jest } from "@jest/globals";
 import { composeStories } from "@storybook/react";
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { waitFor } from "storybook/test";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import * as stories from "../src/components/DataDictionary/components/Filters/stories/filters.stories";
 import { MUI_CLASSES } from "../src/tests/mui/constants";
 import {
@@ -74,14 +79,18 @@ describe("DataDictionaryColumnFilters", () => {
     fireEvent.click(buttonEl);
     // Wait for the panel to open.
     await waitFor(() => expect(getRole("dialog")).toBeInTheDocument());
-    // Select all options.
-    const optionEls = within(getRole("dialog")).getAllByRole("button");
-    optionEls.forEach(async (el) => {
+    // The dialog's buttons are the options and "Clear All".
+    const clearEl = getButton("Clear All");
+    const optionEls = within(getRole("dialog"))
+      .getAllByRole("button")
+      .filter((el) => el !== clearEl);
+    expect(optionEls).toHaveLength(3);
+    // Select each option, waiting for it to be selected before the next.
+    for (const el of optionEls) {
       fireEvent.click(el);
       await waitFor(() => expect(el).toHaveClass(MUI_CLASSES.SELECTED));
-    });
+    }
     // Select "Clear All" button.
-    const clearEl = getButton("Clear All");
     fireEvent.click(clearEl);
     // Wait for options to be deselected.
     await waitFor(() =>

@@ -1,5 +1,213 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MuiChip theme styles should keep the filled caution medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "var(--palette-caution-dark)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled caution medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "var(--palette-caution-dark)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled caution medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled caution small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "var(--palette-caution-dark)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled caution small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "var(--palette-caution-dark)",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the filled caution small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-caution-light)",
+      "color": "var(--palette-caution-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-contrastText)",
+    },
+  },
+}
+`;
+
 exports[`MuiChip theme styles should keep the filled default medium removable disabled styles 1`] = `
 {
   "label": {
@@ -1023,6 +1231,244 @@ exports[`MuiChip theme styles should keep the ntag default small styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution medium removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution medium removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution medium styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "font-family": "Inter",
+      "height": "24px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution small removable disabled styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution small removable styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "none",
+      "-webkit-flex": "none",
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "flex": "none",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background": "var(--palette-caution-dark)",
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:hover": {
+      "background-color": "var(--palette-caution-dark)",
+    },
+  },
+}
+`;
+
+exports[`MuiChip theme styles should keep the outlined caution small styles 1`] = `
+{
+  "label": {
+    "&": {
+      "font": "var(--font-body-small-400)",
+    },
+  },
+  "root": {
+    "&": {
+      "background-color": "var(--palette-caution-light)",
+      "border": "1px solid rgba(var(--palette-caution-mainChannel) / 0.7)",
+      "color": "var(--palette-caution-main)",
+      "font-family": "Inter",
+      "height": "20px",
+    },
+    "& .MuiChip-deleteIcon": {
+      "color": "inherit",
+      "margin": "0 -2px 0 0",
+    },
+    "& .MuiChip-deleteIcon:active": {
+      "color": "var(--palette-caution-main)",
+    },
+    "& .MuiChip-deleteIcon:hover": {
+      "color": "var(--palette-caution-main)",
+    },
+    "&.Mui-focusVisible": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-focusOpacity)))",
+    },
+    "&.MuiChip-clickable:hover": {
+      "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
   },
 }

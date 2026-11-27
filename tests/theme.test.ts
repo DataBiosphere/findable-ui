@@ -59,6 +59,13 @@ const DEFAULT_PALETTE_BACKGROUND = {
   default: "#F6F6F7",
 };
 
+const DEFAULT_PALETTE_CAUTION = {
+  contrastText: "#956F00",
+  dark: "#684E00",
+  light: "#FFEB78",
+  main: "#956F00",
+};
+
 const DEFAULT_PALETTE_INFO = {
   contrastText: "#00729C",
   light: "#97D6EA",
@@ -293,6 +300,11 @@ describe("Theme Configuration", () => {
       expect(theme.palette.background.default).toEqual(
         DEFAULT_PALETTE_BACKGROUND.default,
       );
+    });
+
+    it("should apply default caution colors", () => {
+      expect("caution" in theme.palette).toBe(true);
+      validatePaletteColor(theme.palette.caution, DEFAULT_PALETTE_CAUTION);
     });
 
     it("should apply default info colors", () => {
