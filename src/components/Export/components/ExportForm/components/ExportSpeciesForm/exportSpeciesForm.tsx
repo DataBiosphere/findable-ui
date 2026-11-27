@@ -6,9 +6,9 @@ import {
   FormLabel,
 } from "@mui/material";
 import { JSX } from "react";
+import { ErrorIcon } from "../../../../../../contracts/cc/icons/ErrorIcon/errorIcon";
 import { OnFilterFn } from "../../../../../../hooks/useCategoryFilter";
 import { CheckedIcon } from "../../../../../common/CustomIcon/components/CheckedIcon/checkedIcon";
-import { ErrorIcon } from "../../../../../common/CustomIcon/components/ErrorIcon/errorIcon";
 import { UncheckedErrorIcon } from "../../../../../common/CustomIcon/components/UncheckedErrorIcon/uncheckedErrorIcon";
 import { UncheckedIcon } from "../../../../../common/CustomIcon/components/UncheckedIcon/uncheckedIcon";
 import { FormFileFacet } from "../../../../common/entities";

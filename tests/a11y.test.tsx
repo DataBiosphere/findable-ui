@@ -28,10 +28,11 @@ const { composeStories } = await import("@storybook/react");
 const SRC_DIR = fileURLToPath(new URL("../src", import.meta.url));
 
 // The detail and back page stories render whole pages, which axe takes several
-// seconds over in jsdom, past Jest's 5s default under a full parallel run. A
-// timed-out run keeps going and fails every later story with "Axe is already
-// running".
-const STORY_TIMEOUT_MS = 30000;
+// seconds over in jsdom, past Jest's 5s default under a full parallel run. The
+// mui/Chip ALL_COMBINATIONS story's 84 chips took over 30s in CI's
+// install-without-lock job. A timed-out run keeps going and fails every later
+// story with "Axe is already running".
+const STORY_TIMEOUT_MS = 60000;
 
 /**
  * Waits for stories whose content loads after the first render, keyed by story

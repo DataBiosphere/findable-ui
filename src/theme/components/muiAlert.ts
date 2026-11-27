@@ -1,8 +1,8 @@
 import { Components } from "@mui/material";
-import { ErrorIcon } from "../../components/common/CustomIcon/components/ErrorIcon/errorIcon";
 import { InfoIcon } from "../../components/common/CustomIcon/components/InfoIcon/infoIcon";
-import { SuccessIcon } from "../../components/common/CustomIcon/components/SuccessIcon/successIcon";
 import { WarningIcon } from "../../components/common/CustomIcon/components/WarningIcon/warningIcon";
+import { ErrorIcon } from "../../contracts/cc/icons/ErrorIcon/errorIcon";
+import { SuccessIcon } from "../../contracts/cc/icons/SuccessIcon/successIcon";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { FONT } from "../../styles/common/constants/font";
 import { PALETTE } from "../../styles/common/constants/palette";

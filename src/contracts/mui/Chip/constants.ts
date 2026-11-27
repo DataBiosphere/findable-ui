@@ -1,6 +1,7 @@
 import type { ChipProps } from "@mui/material";
 
 const COLOR = {
+  CAUTION: "caution",
   DEFAULT: "default",
   ERROR: "error",
   INFO: "info",

@@ -20,6 +20,14 @@ export const SIZE_MEDIUM: ChipVariant = {
   },
 };
 
+export const COLOR_CAUTION: ChipVariant = {
+  props: { color: CHIP_PROPS.COLOR.CAUTION },
+  style: {
+    backgroundColor: PALETTE.CAUTION_LIGHT,
+    color: PALETTE.CAUTION_MAIN,
+  },
+};
+
 export const COLOR_DEFAULT: ChipVariant = {
   props: { color: CHIP_PROPS.COLOR.DEFAULT },
   style: {
@@ -142,6 +150,7 @@ export const CHIP_VARIANTS: ChipVariant[] = [
   FILLED_PRIMARY,
   COLOR_SUCCESS,
   COLOR_WARNING,
+  COLOR_CAUTION,
   FILTER_TAG,
   N_TAG,
   STATUS,

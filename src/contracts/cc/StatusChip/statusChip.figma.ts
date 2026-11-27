@@ -7,6 +7,7 @@ const instance = figma.selectedInstance;
 
 // `color` is required in code, so every value, `default` included, is written out.
 const color = instance.getEnum("color", {
+  caution: "STATUS_CHIP_PROPS.COLOR.CAUTION",
   default: "STATUS_CHIP_PROPS.COLOR.DEFAULT",
   error: "STATUS_CHIP_PROPS.COLOR.ERROR",
   info: "STATUS_CHIP_PROPS.COLOR.INFO",
