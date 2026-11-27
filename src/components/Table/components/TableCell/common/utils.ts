@@ -1,6 +1,6 @@
 import { TableCellProps } from "@mui/material";
 import { Column, CoreCell, CoreHeader, RowData } from "@tanstack/react-table";
-import { TABLE_CELL_PROPS } from "../../../../../styles/common/mui/tableCell";
+import { TABLE_CELL_PROPS } from "../../../../../contracts/mui/TableCell/constants";
 import { COLUMN_IDENTIFIER } from "../../../common/columnIdentifier";
 
 /**

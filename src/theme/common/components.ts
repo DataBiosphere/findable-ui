@@ -2,6 +2,8 @@ import { Components, Theme, ThemeOptions } from "@mui/material";
 import { DropDownIcon } from "../../components/common/Form/components/Select/components/DropDownIcon/dropDownIcon";
 import { MuiButton } from "../../contracts/mui/Button/theme";
 import { MuiChip } from "../../contracts/mui/Chip/theme";
+import { MuiTableCell } from "../../contracts/mui/TableCell/theme";
+import { MuiTableSortLabel } from "../../contracts/mui/TableSortLabel/theme";
 import { APP } from "../../styles/common/constants/app";
 import { COLOR_MIXES } from "../../styles/common/constants/colorMixes";
 import { FONT } from "../../styles/common/constants/font";
@@ -14,7 +16,6 @@ import { TYPOGRAPHY_PROPS } from "../../styles/common/mui/typography";
 import { MuiAlert } from "../components/muiAlert";
 import { MuiAlertTitle } from "../components/muiAlertTitle";
 import { MuiButtonGroup } from "../components/muiButtonGroup";
-import { MuiTableCell } from "../components/muiTableCell";
 
 // Constants
 const FLEX_START = "flex-start";
@@ -844,31 +845,6 @@ const MuiTab: Components["MuiTab"] = {
       // eslint-disable-next-line sort-keys -- disabling key order for readability
       "& > .MuiTab-iconWrapper": {
         marginRight: 0,
-      },
-    },
-  },
-};
-
-const MuiTableSortLabel: Components["MuiTableSortLabel"] = {
-  styleOverrides: {
-    icon: {
-      fontSize: 20,
-      margin: 0,
-      transition: "none",
-    },
-    root: {
-      flex: 1,
-      // eslint-disable-next-line sort-keys -- disabling key order for readability
-      "&.Mui-active": {
-        color: "inherit",
-        // eslint-disable-next-line sort-keys -- disabling key order for readability
-        "& .MuiTableSortLabel-icon": {
-          color: "inherit",
-        },
-      },
-      "&:hover": {
-        color: "inherit",
-        opacity: 0.6,
       },
     },
   },

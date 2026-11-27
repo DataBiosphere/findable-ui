@@ -1,5 +1,5 @@
 import { ColumnDef, RowData } from "@tanstack/react-table";
-import { TABLE_CELL_PROPS } from "../../../styles/common/mui/tableCell";
+import { TABLE_CELL_PROPS } from "../../../contracts/mui/TableCell/constants";
 import { RowPositionCell } from "../components/TableCell/components/RowPositionCell/rowPositionCell";
 import { RowSelectionCell } from "../components/TableCell/components/RowSelectionCell/rowSelectionCell";
 import { HeadSelectionCell } from "../components/TableHead/components/HeadSelectionCell/headSelectionCell";
