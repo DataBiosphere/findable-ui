@@ -112,7 +112,7 @@
     "eslint-plugin-perfectionist": "^4",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "^7",
-    "eslint-plugin-sonarjs": "^1",
+    "eslint-plugin-sonarjs": "^4",
     "eslint-plugin-sort-destructure-keys": "^3",
     "eslint-plugin-storybook": "^10.6.8",
     "husky": "^8.0.3",
