@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MuiTableCell theme styles should keep the body medium checkbox styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+    "padding": "10px 16px",
+    "padding-right": "0",
+    "width": "unset",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the body medium none styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the body medium normal styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+    "padding": "10px 16px",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the body small checkbox styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+    "padding": "8px 16px",
+    "padding-right": "0",
+    "width": "unset",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the body small none styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the body small normal styles 1`] = `
+{
+  "&": {
+    "font": "var(--font-body-400)",
+    "min-height": "56px",
+    "padding": "8px 16px",
+  },
+  "& mark": {
+    "background-color": "var(--palette-warning-light)",
+    "color": "inherit",
+    "padding": "2px 0",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head medium checkbox styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+    "padding": "10px 16px",
+    "padding-right": "0",
+    "width": "unset",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head medium none styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head medium normal styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+    "padding": "10px 16px",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head small checkbox styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+    "padding": "8px 16px",
+    "padding-right": "0",
+    "width": "unset",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head small none styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;
+
+exports[`MuiTableCell theme styles should keep the head small normal styles 1`] = `
+{
+  "&": {
+    "background-color": "var(--palette-smoke-lightest)",
+    "font": "var(--font-body-small-500)",
+    "min-height": "56px",
+    "padding": "8px 16px",
+  },
+  "& stickyHeader": {
+    "box-shadow": "0 1px 0 var(--palette-smoke-main)",
+  },
+}
+`;

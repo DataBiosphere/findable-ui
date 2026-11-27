@@ -32,6 +32,9 @@ const VARIANT: Record<string, TableCellProps["variant"]> = {
   HEAD: "head",
 };
 
+/**
+ * @deprecated Use `TABLE_CELL_PROPS` from `contracts/mui/TableCell/constants`.
+ */
 export const TABLE_CELL_PROPS: TableCellPropsOptions = {
   ALIGN,
   PADDING,

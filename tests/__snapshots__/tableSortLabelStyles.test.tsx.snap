@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MuiTableSortLabel theme styles should keep the active asc styles 1`] = `
+{
+  "icon": {
+    "&": {
+      "-webkit-transition": "none",
+      "font-size": "20px",
+      "margin": "0",
+      "transition": "none",
+    },
+    "&.MuiSelect-icon": {
+      "color": "var(--palette-ink-main)",
+      "right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "1",
+      "-webkit-flex": "1",
+      "flex": "1",
+      "font-family": "var(--app-fontFamily)",
+    },
+    "&.Mui-active": {
+      "color": "inherit",
+    },
+    "&.Mui-active .MuiTableSortLabel-icon": {
+      "color": "inherit",
+    },
+    "&:hover": {
+      "color": "inherit",
+      "opacity": "0.6",
+    },
+  },
+}
+`;
+
+exports[`MuiTableSortLabel theme styles should keep the active desc styles 1`] = `
+{
+  "icon": {
+    "&": {
+      "-webkit-transition": "none",
+      "font-size": "20px",
+      "margin": "0",
+      "transition": "none",
+    },
+    "&.MuiSelect-icon": {
+      "color": "var(--palette-ink-main)",
+      "right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "1",
+      "-webkit-flex": "1",
+      "flex": "1",
+      "font-family": "var(--app-fontFamily)",
+    },
+    "&.Mui-active": {
+      "color": "inherit",
+    },
+    "&.Mui-active .MuiTableSortLabel-icon": {
+      "color": "inherit",
+    },
+    "&:hover": {
+      "color": "inherit",
+      "opacity": "0.6",
+    },
+  },
+}
+`;
+
+exports[`MuiTableSortLabel theme styles should keep the disabled styles 1`] = `
+{
+  "icon": {
+    "&": {
+      "-webkit-transition": "none",
+      "font-size": "20px",
+      "margin": "0",
+      "transition": "none",
+    },
+    "&.MuiSelect-icon": {
+      "color": "var(--palette-ink-main)",
+      "right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "1",
+      "-webkit-flex": "1",
+      "flex": "1",
+      "font-family": "var(--app-fontFamily)",
+    },
+    "&.Mui-active": {
+      "color": "inherit",
+    },
+    "&.Mui-active .MuiTableSortLabel-icon": {
+      "color": "inherit",
+    },
+    "&:hover": {
+      "color": "inherit",
+      "opacity": "0.6",
+    },
+  },
+}
+`;
+
+exports[`MuiTableSortLabel theme styles should keep the inactive asc styles 1`] = `
+{
+  "icon": {
+    "&": {
+      "-webkit-transition": "none",
+      "font-size": "20px",
+      "margin": "0",
+      "transition": "none",
+    },
+    "&.MuiSelect-icon": {
+      "color": "var(--palette-ink-main)",
+      "right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "1",
+      "-webkit-flex": "1",
+      "flex": "1",
+      "font-family": "var(--app-fontFamily)",
+    },
+    "&.Mui-active": {
+      "color": "inherit",
+    },
+    "&.Mui-active .MuiTableSortLabel-icon": {
+      "color": "inherit",
+    },
+    "&:hover": {
+      "color": "inherit",
+      "opacity": "0.6",
+    },
+  },
+}
+`;
+
+exports[`MuiTableSortLabel theme styles should keep the inactive desc styles 1`] = `
+{
+  "icon": {
+    "&": {
+      "-webkit-transition": "none",
+      "font-size": "20px",
+      "margin": "0",
+      "transition": "none",
+    },
+    "&.MuiSelect-icon": {
+      "color": "var(--palette-ink-main)",
+      "right": "8px",
+    },
+  },
+  "root": {
+    "&": {
+      "-ms-flex": "1",
+      "-webkit-flex": "1",
+      "flex": "1",
+      "font-family": "var(--app-fontFamily)",
+    },
+    "&.Mui-active": {
+      "color": "inherit",
+    },
+    "&.Mui-active .MuiTableSortLabel-icon": {
+      "color": "inherit",
+    },
+    "&:hover": {
+      "color": "inherit",
+      "opacity": "0.6",
+    },
+  },
+}
+`;
