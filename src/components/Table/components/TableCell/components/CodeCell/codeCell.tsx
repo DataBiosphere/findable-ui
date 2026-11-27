@@ -1,25 +1,21 @@
-import { CellContext, RowData } from "@tanstack/react-table";
 import { JSX, ReactNode } from "react";
 import { CHIP_PROPS } from "../../../../../../contracts/mui/Chip/constants";
-import { BaseComponentProps } from "../../../../../types";
+import type { BaseComponentProps, CellValueProps } from "../../../../../types";
 import { StyledChip } from "./codeCell.styles";
 
 /**
  * Code cell, rendering the cell value as the label of a small chip.
- * @param props - Component props, the TanStack cell context plus a class name.
+ * @param props - Component props, the cell value getter plus a class name; a TanStack cell context satisfies them.
  * @param props.className - Class name applied to the chip.
  * @param props.getValue - Function returning the cell value, the chip label.
- * @returns The chip, or null when the cell value is falsy.
+ * @returns The chip, or null when the cell value is null or undefined.
  */
-export const CodeCell = <
-  T extends RowData,
-  TValue extends ReactNode = ReactNode,
->({
+export const CodeCell = <TValue extends ReactNode = ReactNode>({
   className,
   getValue,
-}: BaseComponentProps & CellContext<T, TValue>): JSX.Element | null => {
+}: BaseComponentProps & CellValueProps<TValue>): JSX.Element | null => {
   const value = getValue();
-  if (!value) return null;
+  if (value === undefined || value === null) return null;
   return (
     <StyledChip
       className={className}

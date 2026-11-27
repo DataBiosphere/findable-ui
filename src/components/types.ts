@@ -8,6 +8,13 @@ export interface BaseComponentProps {
 }
 
 /**
+ * Props for a cell that reads only its value. The getter is not generic, so a view builder's plain function satisfies it, and so does a full TanStack cell context.
+ */
+export interface CellValueProps<TValue> {
+  getValue: () => TValue;
+}
+
+/**
  * Children prop shared by components.
  */
 export interface ChildrenProps {
