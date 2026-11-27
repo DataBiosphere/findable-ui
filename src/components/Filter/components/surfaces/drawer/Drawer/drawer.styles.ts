@@ -19,7 +19,7 @@ export const StyledDrawer = styled(Drawer, {
   &.MuiDrawer-root {
     .MuiPaper-root {
       background-color: ${PALETTE.SMOKE_LIGHT};
-      max-height: 100vh;
+      max-height: 100dvh;
       padding: 16px 0;
       width: 312px;
     }

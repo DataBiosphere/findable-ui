@@ -19,7 +19,7 @@ export const StyledPopper = styled(MPopper)`
     border-color: ${PALETTE.SMOKE_MAIN};
     margin: 4px 0;
     max-height: calc(
-      100vh - ${HEADER_HEIGHT_VAR} - 40px
+      100dvh - ${HEADER_HEIGHT_VAR} - 40px
     ); /* below the header, with room above the window edge */
     max-width: 324px;
     min-width: 204px;

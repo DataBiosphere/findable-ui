@@ -50,7 +50,7 @@ export const StyledPopper = styled(Popper)`
       /* Fits the window below the header, less the panel's edge gaps and border, so its end is never cut off. */
       max-height: min(
         ${MAX_LIST_HEIGHT_PX}px,
-        calc(100vh - ${HEADER_HEIGHT_VAR} - 24px)
+        calc(100dvh - ${HEADER_HEIGHT_VAR} - 24px)
       );
       overflow-wrap: break-word;
       overflow-y: auto;
