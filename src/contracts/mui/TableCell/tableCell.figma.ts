@@ -18,12 +18,14 @@ const variant = instance.getEnum("variant", {
   body: "",
   head: "TABLE_CELL_PROPS.VARIANT.HEAD",
 });
-// The children slot holds a mui/TableSortLabel or the default text layer. getSlot() returns the slot's raw layers, not
-// the nested snippet or the text, so the content is read from the layers instead.
-const sortLabel = instance.findConnectedInstance("mui-table-sort-label");
+// The children slot holds text by default, or library components such as mui/TableSortLabel, cc/NTagChip or
+// cc/StatusChip. Each connected component directly in the slot is rendered from its own template, in layer order;
+// nested ones, such as a sort label's icon, come from that component's template. With none, the slot's text is used.
+const slot = instance.getSlot("children");
+const connected = slot ? slot.connectedInstances : [];
 let children;
-if (sortLabel && sortLabel.type === "INSTANCE") {
-  children = sortLabel.executeTemplate().example;
+if (connected.length > 0) {
+  children = connected.map((child) => child.executeTemplate().example);
 } else {
   const text = instance.findText("text");
   children = text.type === "TEXT" ? text.textContent : "";
