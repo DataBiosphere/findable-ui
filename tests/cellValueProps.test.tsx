@@ -86,13 +86,8 @@ describe("CodeCell", () => {
     expect(screen.getByText(ROW.code)).toBeInTheDocument();
   });
 
-  it("renders a zero value", () => {
-    render(<CodeCell getValue={(): ReactNode => 0} />);
-    expect(screen.getByText("0")).toBeInTheDocument();
-  });
-
-  it.each([null, undefined])(
-    "renders nothing when the value is %s",
+  it.each([0, "", false, null, undefined])(
+    "renders nothing when the value is %p",
     (value) => {
       const { container } = render(
         <CodeCell getValue={(): ReactNode => value} />,

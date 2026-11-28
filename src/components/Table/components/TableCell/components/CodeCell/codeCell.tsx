@@ -8,14 +8,14 @@ import { StyledChip } from "./codeCell.styles";
  * @param props - Component props, the cell value getter plus a class name; a TanStack cell context satisfies them.
  * @param props.className - Class name applied to the chip.
  * @param props.getValue - Function returning the cell value, the chip label.
- * @returns The chip, or null when the cell value is null or undefined.
+ * @returns The chip, or null when the cell value is falsy.
  */
 export const CodeCell = <TValue extends ReactNode = ReactNode>({
   className,
   getValue,
 }: BaseComponentProps & CellValueProps<TValue>): JSX.Element | null => {
   const value = getValue();
-  if (value === undefined || value === null) return null;
+  if (!value) return null;
   return (
     <StyledChip
       className={className}
