@@ -26,6 +26,10 @@ exports[`NTagChip styles should keep its styles 1`] = `
       "padding-left": "8px",
       "padding-right": "8px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;

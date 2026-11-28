@@ -31,6 +31,10 @@ exports[`MuiChip theme styles should keep the filled caution medium removable di
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -69,6 +73,10 @@ exports[`MuiChip theme styles should keep the filled caution medium removable st
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -99,6 +107,10 @@ exports[`MuiChip theme styles should keep the filled caution medium styles 1`] =
     },
     "& .MuiChip-deleteIcon:hover": {
       "color": "var(--palette-caution-contrastText)",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -134,6 +146,10 @@ exports[`MuiChip theme styles should keep the filled caution small removable dis
     "&.Mui-focusVisible": {
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
@@ -173,6 +189,10 @@ exports[`MuiChip theme styles should keep the filled caution small removable sty
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -204,6 +224,10 @@ exports[`MuiChip theme styles should keep the filled caution small styles 1`] = 
     "& .MuiChip-deleteIcon:hover": {
       "color": "var(--palette-caution-contrastText)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -228,6 +252,10 @@ exports[`MuiChip theme styles should keep the filled default medium removable di
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -254,6 +282,10 @@ exports[`MuiChip theme styles should keep the filled default medium removable st
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -275,6 +307,10 @@ exports[`MuiChip theme styles should keep the filled default medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -301,6 +337,10 @@ exports[`MuiChip theme styles should keep the filled default small removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -326,6 +366,10 @@ exports[`MuiChip theme styles should keep the filled default small removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -347,6 +391,10 @@ exports[`MuiChip theme styles should keep the filled default small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -373,6 +421,10 @@ exports[`MuiChip theme styles should keep the filled error medium removable disa
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -398,6 +450,10 @@ exports[`MuiChip theme styles should keep the filled error medium removable styl
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -419,6 +475,10 @@ exports[`MuiChip theme styles should keep the filled error medium styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -445,6 +505,10 @@ exports[`MuiChip theme styles should keep the filled error small removable disab
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -470,6 +534,10 @@ exports[`MuiChip theme styles should keep the filled error small removable style
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -491,6 +559,10 @@ exports[`MuiChip theme styles should keep the filled error small styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -517,6 +589,10 @@ exports[`MuiChip theme styles should keep the filled info medium removable disab
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -542,6 +618,10 @@ exports[`MuiChip theme styles should keep the filled info medium removable style
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -563,6 +643,10 @@ exports[`MuiChip theme styles should keep the filled info medium styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -589,6 +673,10 @@ exports[`MuiChip theme styles should keep the filled info small removable disabl
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -614,6 +702,10 @@ exports[`MuiChip theme styles should keep the filled info small removable styles
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -635,6 +727,10 @@ exports[`MuiChip theme styles should keep the filled info small styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -660,6 +756,10 @@ exports[`MuiChip theme styles should keep the filled primary medium removable di
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -684,6 +784,10 @@ exports[`MuiChip theme styles should keep the filled primary medium removable st
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -704,6 +808,10 @@ exports[`MuiChip theme styles should keep the filled primary medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -729,6 +837,10 @@ exports[`MuiChip theme styles should keep the filled primary small removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -753,6 +865,10 @@ exports[`MuiChip theme styles should keep the filled primary small removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -773,6 +889,10 @@ exports[`MuiChip theme styles should keep the filled primary small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -799,6 +919,10 @@ exports[`MuiChip theme styles should keep the filled success medium removable di
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -824,6 +948,10 @@ exports[`MuiChip theme styles should keep the filled success medium removable st
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -845,6 +973,10 @@ exports[`MuiChip theme styles should keep the filled success medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -871,6 +1003,10 @@ exports[`MuiChip theme styles should keep the filled success small removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -896,6 +1032,10 @@ exports[`MuiChip theme styles should keep the filled success small removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -917,6 +1057,10 @@ exports[`MuiChip theme styles should keep the filled success small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -943,6 +1087,10 @@ exports[`MuiChip theme styles should keep the filled warning medium removable di
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -968,6 +1116,10 @@ exports[`MuiChip theme styles should keep the filled warning medium removable st
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -989,6 +1141,10 @@ exports[`MuiChip theme styles should keep the filled warning medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1015,6 +1171,10 @@ exports[`MuiChip theme styles should keep the filled warning small removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1040,6 +1200,10 @@ exports[`MuiChip theme styles should keep the filled warning small removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1061,6 +1225,10 @@ exports[`MuiChip theme styles should keep the filled warning small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1088,6 +1256,10 @@ exports[`MuiChip theme styles should keep the filterTag primary medium styles 1`
     },
     "& .MuiChip-label": {
       "padding": "0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1124,6 +1296,10 @@ exports[`MuiChip theme styles should keep the filterTag primary no size styles 1
     "& .MuiChip-label": {
       "padding": "0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1150,6 +1326,10 @@ exports[`MuiChip theme styles should keep the filterTag primary small styles 1`]
     "& .MuiChip-label": {
       "padding": "0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1174,6 +1354,10 @@ exports[`MuiChip theme styles should keep the ntag default medium styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1208,6 +1392,10 @@ exports[`MuiChip theme styles should keep the ntag default no size styles 1`] = 
       "margin-left": "4px",
       "margin-right": "-4px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1231,6 +1419,10 @@ exports[`MuiChip theme styles should keep the ntag default small styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1270,6 +1462,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium removable 
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
@@ -1313,6 +1509,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium removable 
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -1350,6 +1550,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium styles 1`]
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1389,6 +1593,10 @@ exports[`MuiChip theme styles should keep the outlined caution small removable d
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
@@ -1432,6 +1640,10 @@ exports[`MuiChip theme styles should keep the outlined caution small removable s
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -1470,6 +1682,10 @@ exports[`MuiChip theme styles should keep the outlined caution small styles 1`] 
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1494,6 +1710,10 @@ exports[`MuiChip theme styles should keep the outlined default medium removable 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1520,6 +1740,10 @@ exports[`MuiChip theme styles should keep the outlined default medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1541,6 +1765,10 @@ exports[`MuiChip theme styles should keep the outlined default medium styles 1`]
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1567,6 +1795,10 @@ exports[`MuiChip theme styles should keep the outlined default small removable d
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1592,6 +1824,10 @@ exports[`MuiChip theme styles should keep the outlined default small removable s
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1613,6 +1849,10 @@ exports[`MuiChip theme styles should keep the outlined default small styles 1`] 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1639,6 +1879,10 @@ exports[`MuiChip theme styles should keep the outlined error medium removable di
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1664,6 +1908,10 @@ exports[`MuiChip theme styles should keep the outlined error medium removable st
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1685,6 +1933,10 @@ exports[`MuiChip theme styles should keep the outlined error medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1711,6 +1963,10 @@ exports[`MuiChip theme styles should keep the outlined error small removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1736,6 +1992,10 @@ exports[`MuiChip theme styles should keep the outlined error small removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1757,6 +2017,10 @@ exports[`MuiChip theme styles should keep the outlined error small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1782,6 +2046,10 @@ exports[`MuiChip theme styles should keep the outlined info medium removable dis
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1806,6 +2074,10 @@ exports[`MuiChip theme styles should keep the outlined info medium removable sty
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1826,6 +2098,10 @@ exports[`MuiChip theme styles should keep the outlined info medium styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1851,6 +2127,10 @@ exports[`MuiChip theme styles should keep the outlined info small removable disa
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1875,6 +2155,10 @@ exports[`MuiChip theme styles should keep the outlined info small removable styl
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1895,6 +2179,10 @@ exports[`MuiChip theme styles should keep the outlined info small styles 1`] = `
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1919,6 +2207,10 @@ exports[`MuiChip theme styles should keep the outlined primary medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1942,6 +2234,10 @@ exports[`MuiChip theme styles should keep the outlined primary medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -1961,6 +2257,10 @@ exports[`MuiChip theme styles should keep the outlined primary medium styles 1`]
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1985,6 +2285,10 @@ exports[`MuiChip theme styles should keep the outlined primary small removable d
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2008,6 +2312,10 @@ exports[`MuiChip theme styles should keep the outlined primary small removable s
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2027,6 +2335,10 @@ exports[`MuiChip theme styles should keep the outlined primary small styles 1`] 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2052,6 +2364,10 @@ exports[`MuiChip theme styles should keep the outlined success medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2076,6 +2392,10 @@ exports[`MuiChip theme styles should keep the outlined success medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2096,6 +2416,10 @@ exports[`MuiChip theme styles should keep the outlined success medium styles 1`]
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2121,6 +2445,10 @@ exports[`MuiChip theme styles should keep the outlined success small removable d
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2145,6 +2473,10 @@ exports[`MuiChip theme styles should keep the outlined success small removable s
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2165,6 +2497,10 @@ exports[`MuiChip theme styles should keep the outlined success small styles 1`] 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2190,6 +2526,10 @@ exports[`MuiChip theme styles should keep the outlined warning medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2214,6 +2554,10 @@ exports[`MuiChip theme styles should keep the outlined warning medium removable 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2234,6 +2578,10 @@ exports[`MuiChip theme styles should keep the outlined warning medium styles 1`]
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2259,6 +2607,10 @@ exports[`MuiChip theme styles should keep the outlined warning small removable d
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2283,6 +2635,10 @@ exports[`MuiChip theme styles should keep the outlined warning small removable s
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2303,6 +2659,10 @@ exports[`MuiChip theme styles should keep the outlined warning small styles 1`] 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2328,6 +2688,10 @@ exports[`MuiChip theme styles should keep the status default medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2362,6 +2726,10 @@ exports[`MuiChip theme styles should keep the status default no size styles 1`] 
       "margin-left": "4px",
       "margin-right": "-4px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2387,6 +2755,10 @@ exports[`MuiChip theme styles should keep the status default small styles 1`] = 
       "color": "inherit",
       "margin": "0 -2px 0 0",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2411,6 +2783,10 @@ exports[`MuiChip theme styles should keep the status success medium styles 1`] =
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2445,6 +2821,10 @@ exports[`MuiChip theme styles should keep the status success no size styles 1`] 
       "margin-left": "4px",
       "margin-right": "-4px",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
   },
 }
 `;
@@ -2469,6 +2849,10 @@ exports[`MuiChip theme styles should keep the status success small styles 1`] = 
     "& .MuiChip-deleteIcon": {
       "color": "inherit",
       "margin": "0 -2px 0 0",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -2499,6 +2883,10 @@ exports[`MuiChip theme styles should keep the styles of a chip with no size 1`] 
       "font-size": "18px",
       "margin-left": "4px",
       "margin-right": "-4px",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }

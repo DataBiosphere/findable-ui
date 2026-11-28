@@ -30,6 +30,7 @@ function stringifyMetadataValues(metadataValues: MetadataValue[]): string {
 
 /**
  * NTag cell, rendering a single value as text, or more than one value as an "N label" tag with a tooltip listing the values.
+ * The tag is a tab stop, so keyboard users can open the tooltip by focusing it; it has no role and no handlers, and the values are its accessible description.
  * @param props - Component props.
  * @param props.label - Label following the value count in the tag, e.g. "species".
  * @param props.TypographyProps - Mui Typography props applied to each value's text, overriding the inherited variant; not applied to the tag.
@@ -47,7 +48,7 @@ export const NTagCell = ({
     <>
       {showNTag ? (
         <NTag
-          Tag={<NTagChip label={`${metadataCount} ${label}`} />}
+          Tag={<NTagChip label={`${metadataCount} ${label}`} tabIndex={0} />}
           TooltipTitle={
             <Typography
               display="block"
