@@ -23,7 +23,7 @@ const TABLE_HEAD_HEIGHT = 57; /* fallback until measured: a one-line column head
 const TABLE_HEAD_TOP_VAR = `var(${TABLE_HEAD_TOP})`;
 const ENTITY_LAYOUT_BOTTOM = `calc(${HEADER_HEIGHT_VAR} + var(${PROPERTY.ENTITY_LAYOUT_HEIGHT}, ${ENTITY_LAYOUT_HEIGHT}px))`;
 const LOADING_OVERLAY_VIEW_TIMELINE = "--loading-overlay-view";
-const LOADING_PANEL_MAX_HEIGHT = `calc(100vh - ${TABLE_HEAD_TOP_VAR})`; /* the window below where the column head pins */
+const LOADING_PANEL_MAX_HEIGHT = `calc(100dvh - ${TABLE_HEAD_TOP_VAR})`; /* the window below where the column head pins */
 
 /* Added to the loading panel's max height: takes off the part of the overlay
    still below the window, until the overlay's top reaches the pin line. */
@@ -111,7 +111,7 @@ export const StyledGridEntityView = styled(Grid)`
 
     /* Below md the footer is too tall to keep on screen: fill the window below the header and let the footer follow. */
     ${bpDownMd} {
-      height: calc(100vh - ${HEADER_HEIGHT_VAR});
+      height: calc(100svh - ${HEADER_HEIGHT_VAR});
     }
   }
 `;

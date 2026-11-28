@@ -20,7 +20,7 @@ export const Layout = styled("div")`
   margin-bottom: calc(
     -1 * ${FOOTER_HEIGHT_VAR}
   ); /* with the matching padding, keeps the outline pinned whole while the footer scrolls into view */
-  max-height: calc(100vh - ${TITLE_BOTTOM});
+  max-height: calc(100dvh - ${TITLE_BOTTOM});
   overflow: hidden;
   padding-bottom: ${FOOTER_HEIGHT_VAR};
   padding-top: ${PT}px;

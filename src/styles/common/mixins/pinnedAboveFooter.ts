@@ -19,15 +19,15 @@ import { pinned } from "./pinned";
 export function pinnedAboveFooter(top: string): SerializedStyles {
   const shrink = keyframes`
     from {
-      max-height: calc(100vh - ${top});
+      max-height: calc(100dvh - ${top});
     }
 
     to {
-      max-height: calc(100vh - ${top} - ${FOOTER_HEIGHT_VAR});
+      max-height: calc(100dvh - ${top} - ${FOOTER_HEIGHT_VAR});
     }
   `;
   return css`
-    max-height: calc(100vh - ${top});
+    max-height: calc(100dvh - ${top});
     ${pinned(top)};
 
     @supports ${SUPPORTS_SCROLL_DRIVEN_ANIMATIONS} {
