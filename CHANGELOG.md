@@ -1,5 +1,60 @@
 # Changelog
 
+## [64.0.0](https://github.com/DataBiosphere/findable-ui/compare/v63.0.0...v64.0.0) (2026-11-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* `LinkCell`, `ChipCell`, `CodeCell` and the DataDictionary `BasicCell` drop their leading row type parameter, so an explicit `LinkCell<Row, Value>` becomes `LinkCell<Value>`, and `ComponentProps<typeof Cell>` no longer includes `cell`, `column`, `row`, `table` or `renderValue`.
+* findable-ui's chip variants move from `MuiChip.variants` to `MuiChip.styleOverrides.root.variants`. An app that sets its own `styleOverrides.root.variants` replaces findable-ui's list, so it must spread `CHIP_VARIANTS` from `contracts/mui/Chip/theme` first.
+* the `next` peer dependency is now `^16.4.5` (was `^16`) and the optional `next-auth` peer dependency is now `^4.24.15` (was `^4.24.13`).
+
+### Features
+
+* add `IconStatusChip` and a `caution` chip colour, with status icons in `cc/icons` ([#1297](https://github.com/DataBiosphere/findable-ui/issues/1297)) ([#1327](https://github.com/DataBiosphere/findable-ui/issues/1327)) ([ea339a7](https://github.com/DataBiosphere/findable-ui/commit/ea339a75307b226548138b040e1d52e30e443961))
+* add `mui/Chip` to the Findable-Contract library and connect it to MUI `Chip` ([#1274](https://github.com/DataBiosphere/findable-ui/issues/1274)) ([#1287](https://github.com/DataBiosphere/findable-ui/issues/1287)) ([f587c05](https://github.com/DataBiosphere/findable-ui/commit/f587c05e4c6f6aeb34848f17945184402ab464d0))
+* add `NTagChip` and connect it to the Findable-Contract `cc/NTagChip` ([#1280](https://github.com/DataBiosphere/findable-ui/issues/1280)) ([#1282](https://github.com/DataBiosphere/findable-ui/issues/1282)) ([0c257fb](https://github.com/DataBiosphere/findable-ui/commit/0c257fb04ec91256f5c59c62d95dc912c6932509))
+* add `StatusChip` and connect it to the Findable-Contract `cc/StatusChip` ([#1273](https://github.com/DataBiosphere/findable-ui/issues/1273)) ([#1279](https://github.com/DataBiosphere/findable-ui/issues/1279)) ([491c191](https://github.com/DataBiosphere/findable-ui/commit/491c191aeab6f72c6e8b1ec027609f50e37dff90))
+* render the explore list and catalog without a hydration mismatch ([#1262](https://github.com/DataBiosphere/findable-ui/issues/1262)) ([#1265](https://github.com/DataBiosphere/findable-ui/issues/1265)) ([ef9fa25](https://github.com/DataBiosphere/findable-ui/commit/ef9fa25565a19342d05f060fee45f43d5e73dff3))
+
+
+### Bug Fixes
+
+* close an `analytics.js` toggletip when focus moves elsewhere after a click in Safari ([#1242](https://github.com/DataBiosphere/findable-ui/issues/1242)) ([#1269](https://github.com/DataBiosphere/findable-ui/issues/1269)) ([9195367](https://github.com/DataBiosphere/findable-ui/commit/919536782e7383c3e39e42b7b714762607a2c4ed))
+* stop `useUpdateURLParams`'s late replace overwriting history, and keep the URL fragment ([#1271](https://github.com/DataBiosphere/findable-ui/issues/1271)) ([#1277](https://github.com/DataBiosphere/findable-ui/issues/1277)) ([39f6ea4](https://github.com/DataBiosphere/findable-ui/commit/39f6ea44352a82dc8afaa5b7310a998eaabe9aeb))
+* type `LinkCell` and other value-only cells by `getValue` so view builders need no cast ([#1117](https://github.com/DataBiosphere/findable-ui/issues/1117)) ([#1328](https://github.com/DataBiosphere/findable-ui/issues/1328)) ([5184c80](https://github.com/DataBiosphere/findable-ui/commit/5184c80814e865ba45f43f6d8bba163f00001c75))
+* update the development dependencies that Dependabot reports advisories against ([#1268](https://github.com/DataBiosphere/findable-ui/issues/1268)) ([#1270](https://github.com/DataBiosphere/findable-ui/issues/1270)) ([0cbeb1a](https://github.com/DataBiosphere/findable-ui/commit/0cbeb1af6b6e968ba9a6db6e523dff7bca3a4b2d))
+
+
+### Chores
+
+* **deps-dev:** bump @eslint-community/eslint-plugin-eslint-comments ([65ac039](https://github.com/DataBiosphere/findable-ui/commit/65ac039930d904ebdf53c843a2d812fbcf0a99f7))
+* **deps-dev:** bump @eslint-community/eslint-plugin-eslint-comments from 4.7.1 to 4.8.1 ([#1314](https://github.com/DataBiosphere/findable-ui/issues/1314)) ([65ac039](https://github.com/DataBiosphere/findable-ui/commit/65ac039930d904ebdf53c843a2d812fbcf0a99f7))
+* **deps-dev:** bump @eslint/eslintrc from 3.3.5 to 3.3.7 ([#1300](https://github.com/DataBiosphere/findable-ui/issues/1300)) ([b6cdbea](https://github.com/DataBiosphere/findable-ui/commit/b6cdbea30d21d6e57a94f168a8f70b12229bc78b))
+* **deps-dev:** bump @observablehq/plot from 0.6.17 to 0.6.19 ([#1302](https://github.com/DataBiosphere/findable-ui/issues/1302)) ([26019c8](https://github.com/DataBiosphere/findable-ui/commit/26019c829c1d3cc31b3b39b5f47b7a354b030943))
+* **deps-dev:** bump @testing-library/react from 16.3.1 to 16.3.3 ([#1315](https://github.com/DataBiosphere/findable-ui/issues/1315)) ([211ca1a](https://github.com/DataBiosphere/findable-ui/commit/211ca1acfed407ae9b8495227def6ada976ab04d))
+* **deps-dev:** bump @types/react-dom from 19.2.3 to 19.3.0 ([#1306](https://github.com/DataBiosphere/findable-ui/issues/1306)) ([de6c04f](https://github.com/DataBiosphere/findable-ui/commit/de6c04ffcb495c98f34d148bbdc72f927bd59ee6))
+* **deps-dev:** bump axe-core from 4.11.0 to 4.14.1 ([#1318](https://github.com/DataBiosphere/findable-ui/issues/1318)) ([692b8f3](https://github.com/DataBiosphere/findable-ui/commit/692b8f33a909fa561d0ba09d5393e07aeea550fb))
+* **deps-dev:** bump diff-cover from 11.0.1 to 11.0.4 ([#1299](https://github.com/DataBiosphere/findable-ui/issues/1299)) ([0999983](https://github.com/DataBiosphere/findable-ui/commit/09999839e8b9379ff0aa9557ac99517d3264e715))
+* **deps-dev:** bump eslint-plugin-prettier from 5.5.4 to 5.5.7 ([#1320](https://github.com/DataBiosphere/findable-ui/issues/1320)) ([9a9de52](https://github.com/DataBiosphere/findable-ui/commit/9a9de520e2bd84ca2b47bcb81aa548863655e774))
+* **deps-dev:** bump prettier from 3.9.5 to 3.10.1 ([#1311](https://github.com/DataBiosphere/findable-ui/issues/1311)) ([478a882](https://github.com/DataBiosphere/findable-ui/commit/478a8821a84cf61411c2294c2abd9467c8687b20))
+* **deps-dev:** bump yet-another-react-lightbox from 3.32.2 to 3.33.1 ([#1308](https://github.com/DataBiosphere/findable-ui/issues/1308)) ([f1324bc](https://github.com/DataBiosphere/findable-ui/commit/f1324bc63ea9762d72cd3a2fec9976f96c43799e))
+* **deps:** bump the github-actions group across 1 directory with 3 updates ([#1286](https://github.com/DataBiosphere/findable-ui/issues/1286)) ([77cb4aa](https://github.com/DataBiosphere/findable-ui/commit/77cb4aab90e574d11e3a16fd7936f14e093a7a65))
+* remove the unused `backend/` FastAPI stub ([#1272](https://github.com/DataBiosphere/findable-ui/issues/1272)) ([#1276](https://github.com/DataBiosphere/findable-ui/issues/1276)) ([92e8808](https://github.com/DataBiosphere/findable-ui/commit/92e8808c90e93aa4c5dc891c9a0107a1c033ee0b))
+
+
+### Tests
+
+* fix the flaky `dataDictionaryColumnFilters` test's unawaited `waitFor`s ([#1283](https://github.com/DataBiosphere/findable-ui/issues/1283)) ([#1329](https://github.com/DataBiosphere/findable-ui/issues/1329)) ([707a2cc](https://github.com/DataBiosphere/findable-ui/commit/707a2ccc5392cc86095ff3f61cc1544f405a4174))
+
+
+### Continuous Integration
+
+* analyze pull requests from forks with a CodeQL workflow ([#1278](https://github.com/DataBiosphere/findable-ui/issues/1278)) ([#1284](https://github.com/DataBiosphere/findable-ui/issues/1284)) ([1069a32](https://github.com/DataBiosphere/findable-ui/commit/1069a322b6f21ddee9ea61a3de59151e81049462))
+* limit the `run-checks.yml` token to read access ([#1288](https://github.com/DataBiosphere/findable-ui/issues/1288)) ([#1289](https://github.com/DataBiosphere/findable-ui/issues/1289)) ([a22cc1b](https://github.com/DataBiosphere/findable-ui/commit/a22cc1bde76b15fa8c989f24f3c39ee3ff52b303))
+* measure Jest coverage with floors and gate changed lines with diff-cover ([#1263](https://github.com/DataBiosphere/findable-ui/issues/1263)) ([2ab327d](https://github.com/DataBiosphere/findable-ui/commit/2ab327dedd5ea8489b3c5fdba6f88bbe3d8e8ec9))
+* open monthly Dependabot updates for npm and uv, one per pull request ([#1294](https://github.com/DataBiosphere/findable-ui/issues/1294)) ([#1295](https://github.com/DataBiosphere/findable-ui/issues/1295)) ([09e86da](https://github.com/DataBiosphere/findable-ui/commit/09e86daba8a16e0a9e7d5d4bb8ccf1cd422c9a36))
+
 ## [63.0.0](https://github.com/DataBiosphere/findable-ui/compare/v62.0.0...v63.0.0) (2026-11-23)
 
 
