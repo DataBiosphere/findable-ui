@@ -31,6 +31,10 @@ exports[`MuiChip theme styles should keep the filled caution medium removable di
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -69,6 +73,10 @@ exports[`MuiChip theme styles should keep the filled caution medium removable st
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -99,6 +107,10 @@ exports[`MuiChip theme styles should keep the filled caution medium styles 1`] =
     },
     "& .MuiChip-deleteIcon:hover": {
       "color": "var(--palette-caution-contrastText)",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -134,6 +146,10 @@ exports[`MuiChip theme styles should keep the filled caution small removable dis
     "&.Mui-focusVisible": {
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
@@ -173,6 +189,10 @@ exports[`MuiChip theme styles should keep the filled caution small removable sty
       "background": "var(--palette-caution-dark)",
       "background-color": "var(--palette-caution-dark)",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -203,6 +223,10 @@ exports[`MuiChip theme styles should keep the filled caution small styles 1`] = 
     },
     "& .MuiChip-deleteIcon:hover": {
       "color": "var(--palette-caution-contrastText)",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1439,6 +1463,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium removable 
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -1481,6 +1509,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium removable 
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -1518,6 +1550,10 @@ exports[`MuiChip theme styles should keep the outlined caution medium styles 1`]
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
@@ -1557,6 +1593,10 @@ exports[`MuiChip theme styles should keep the outlined caution small removable d
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
@@ -1600,6 +1640,10 @@ exports[`MuiChip theme styles should keep the outlined caution small removable s
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
     },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
+    },
     "&:hover": {
       "background-color": "var(--palette-caution-dark)",
     },
@@ -1637,6 +1681,10 @@ exports[`MuiChip theme styles should keep the outlined caution small styles 1`] 
     },
     "&.MuiChip-clickable:hover": {
       "background-color": "rgba(var(--palette-caution-mainChannel) / calc(var(--palette-action-hoverOpacity)))",
+    },
+    "&:focus-visible": {
+      "outline": "2px solid var(--palette-primary-main)",
+      "outline-offset": "2px",
     },
   },
 }
